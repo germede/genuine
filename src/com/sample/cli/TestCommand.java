@@ -1,7 +1,7 @@
 package com.sample.cli;
 
 import org.fwf.cli.Command;
-import org.fwf.cnf.Configuration;
+import org.fwf.net.Server;
 
 public class TestCommand implements Command {
 
@@ -14,10 +14,6 @@ public class TestCommand implements Command {
     }
 
     public void execute(String[] args) {
-        for (String arg : args) {
-            System.out.println(arg);
-        }
-        System.out.println(Configuration.get("basePackage"));
-        
+        Server.start();
     }
 }
