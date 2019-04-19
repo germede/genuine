@@ -3,7 +3,7 @@ package org.fwf;
 import org.fwf.cli.Command;
 import org.fwf.cli.HelpCommand;
 import org.fwf.log.Log;
-import org.fwf.obj.ClassRegister;
+import org.fwf.obj.Register;
 
 import java.util.Set;
 
@@ -19,7 +19,7 @@ public class Console {
     }
 
     public static void executeCommand(String[] args) {
-        Set<Command> commands = ClassRegister.getInstance().getCommandInstances();
+        Set<Command> commands = Register.getInstance().getCommandInstances();
         boolean commandNotFound = true;
         for (Command command : commands) {
             if (command.getName().equals(args[0])) {

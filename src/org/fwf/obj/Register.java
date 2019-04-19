@@ -9,14 +9,14 @@ import org.reflections.Reflections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClassRegister {
+public class Register {
 
     // singleton
-    private static ClassRegister instance;
+    private static Register instance;
 
-    public static ClassRegister getInstance() {
+    public static Register getInstance() {
         if (instance == null) {
-            instance = new ClassRegister();
+            instance = new Register();
         }
         return instance;
     }
@@ -44,7 +44,7 @@ public class ClassRegister {
         Set<Class<? extends Command>> result = new HashSet<>(reflections.getSubTypesOf(Command.class));
 
         // custom commands
-        Reflections customReflections = new Reflections(Configuration.get(Configuration.BASE_PACKAGE));
+        Reflections customReflections = new Reflections(Configuration.get(Configuration.APP_PACKAGE));
         result.addAll(customReflections.getSubTypesOf(Command.class));
 
         return result;
@@ -68,7 +68,7 @@ public class ClassRegister {
     }
 
     public Set<Class<? extends Controller>> getControllerClasses() {
-        Reflections reflections = new Reflections(Configuration.get(Configuration.BASE_PACKAGE));
+        Reflections reflections = new Reflections(Configuration.get(Configuration.APP_PACKAGE));
         return reflections.getSubTypesOf(Controller.class);
     }
 
