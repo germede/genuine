@@ -13,11 +13,15 @@ public class Console {
         if (args.length == 0) {
             new HelpCommand().execute(args);
         } else {
-            Set<Command> commands = ClassRegister.getInstance().getCommandInstances();
-            for (Command command : commands) {
-                if (command.getName().equals(args[0])) {
-                    command.execute(args);
-                }
+            executeCommand(args);
+        }
+    }
+
+    public static void executeCommand(String[] args) {
+        Set<Command> commands = ClassRegister.getInstance().getCommandInstances();
+        for (Command command : commands) {
+            if (command.getName().equals(args[0])) {
+                command.execute(args);
             }
         }
     }
