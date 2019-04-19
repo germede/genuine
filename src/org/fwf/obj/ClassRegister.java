@@ -42,7 +42,7 @@ public class ClassRegister {
     }
 
     public Set<Class<? extends Command>> getCommandClasses() {
-        Reflections reflections = new Reflections("org.frameworkflow");
+        Reflections reflections = new Reflections("org.fwf.cli");
         return reflections.getSubTypesOf(Command.class);
     }
 
