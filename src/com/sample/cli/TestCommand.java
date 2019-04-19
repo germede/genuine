@@ -1,5 +1,6 @@
-package org.fwf.cli;
+package com.sample.cli;
 
+import org.fwf.cli.Command;
 import org.fwf.cnf.Configuration;
 
 public class TestCommand implements Command {
@@ -16,6 +17,7 @@ public class TestCommand implements Command {
         for (String arg : args) {
             System.out.println(arg);
         }
-        Configuration.readConfiguration();
+        System.out.println(Configuration.get("basePackage"));
+        
     }
 }

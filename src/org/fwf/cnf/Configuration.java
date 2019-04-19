@@ -9,23 +9,21 @@ import java.util.Properties;
 
 public class Configuration {
 
-    public static void readConfiguration() {
+    private static Properties properties;
 
+    static {
         try (InputStream input = new FileInputStream("cnf/configuration.properties")) {
-
-            Properties prop = new Properties();
-
-            // load a properties file
-            prop.load(input);
-
-            // get the property value and print it out
-            System.out.println(prop.getProperty("db.url"));
-            System.out.println(prop.getProperty("db.user"));
-            System.out.println(prop.getProperty("db.password"));
-
+            properties = new Properties();
+            properties.load(input);
         } catch (IOException e) {
-            Log.e(e.getMessage(),e);
+            Log.e(e.getMessage(), e);
         }
-
     }
+
+    public static String get(String key) {
+        return properties.getProperty(key);
+    }
+
+    public static final String BASE_PACKAGE = "basePackage";
+
 }
