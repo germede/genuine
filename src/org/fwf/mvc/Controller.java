@@ -1,4 +1,4 @@
 package org.fwf.mvc;
 
-public interface Controller {
+public abstract class Controller {
 }

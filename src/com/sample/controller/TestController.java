@@ -5,7 +5,7 @@ import org.fwf.net.BaseRoute;
 import org.fwf.net.Route;
 
 @BaseRoute("/test")
-public class TestController implements Controller {
+public class TestController extends Controller {
 
     @Route("/action")
     public void action() {
