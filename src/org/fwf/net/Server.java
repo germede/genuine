@@ -20,17 +20,18 @@ public class Server {
             setServerContexts(server);
             server.setExecutor(null);
             server.start();
-            Logger.log(Severity.INFO, "Server successfully started. Listening to http://localhost:" + port);
+            Logger.log(Severity.INFO, "Server successfully started and listening to http://localhost:" + port);
         } catch (IOException e) {
+            if (server != null) {
+                server.stop(0);
+            }
             Logger.log(Severity.ERROR, e.getMessage(), e);
         }
     }
-
 
     private static void setServerContexts(com.sun.net.httpserver.HttpServer server) {
         for (Map.Entry<String, HttpHandler> entry : Routing.getRouteHandlerMap().entrySet()) {
             server.createContext(entry.getKey(), entry.getValue());
         }
     }
-
 }

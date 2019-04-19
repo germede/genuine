@@ -25,14 +25,15 @@ public class Logger {
     }
 
     public static void log(Severity severity, String message, Exception exception) {
-        message = message.concat(message + stackTraceToString(exception.getStackTrace()));
+        message = message.concat(stackTraceToString(exception.getStackTrace()));
         log(severity, message);
     }
 
     private static String stackTraceToString(StackTraceElement[] stackTraceElements) {
         StringBuilder res = new StringBuilder();
+        res.append("\n").append("Stacktrace:");
         for (StackTraceElement stackTraceElement : stackTraceElements) {
-            res.append(stackTraceElement.toString());
+            res.append("\n    ").append(stackTraceElement.toString());
         }
         return res.toString();
     }
