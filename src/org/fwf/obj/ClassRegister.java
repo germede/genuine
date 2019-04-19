@@ -36,9 +36,25 @@ public class ClassRegister {
         return controllerInstances;
     }
 
-    private Set<Class<? extends Controller>> getControllerClasses() {
+    public Set<Class<? extends Controller>> getControllerClasses() {
         Reflections reflections = new Reflections("com.sample");
         return reflections.getSubTypesOf(Controller.class);
+    }
+
+    private Set<Command> commandInstances;
+
+    public Set<Command> getCommandInstances() {
+        if (commandInstances == null) {
+            commandInstances = new HashSet<>();
+            for (Class commandClass : getCommandClasses()){
+                try {
+                    commandInstances.add((Command) commandClass.newInstance());
+                } catch (InstantiationException | IllegalAccessException e) {
+                    Logger.log(Severity.ERROR, e.getMessage(), e);
+                }
+            }
+        }
+        return commandInstances;
     }
 
     public Set<Class<? extends Command>> getCommandClasses() {

@@ -1,16 +1,18 @@
 package org.fwf.cli;
 
-public class ServerRunCommand implements Command {
+import org.fwf.net.Server;
+
+public class ServerStartCommand implements Command {
 
     public String getName() {
         return "server:run";
     }
 
     public String getDescription() {
-        return "Runs server";
+        return "Starts embedded HTTP server";
     }
 
     public void execute() {
-        System.out.println("say hello");
+        Server.start();
     }
 }
