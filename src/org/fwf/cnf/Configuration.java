@@ -10,7 +10,6 @@ import java.util.Properties;
 public class Configuration {
 
     private static Properties properties;
-
     static {
         try (InputStream input = new FileInputStream("cnf/configuration.properties")) {
             properties = new Properties();
@@ -18,10 +17,6 @@ public class Configuration {
         } catch (IOException e) {
             Log.e(e.getMessage(), e);
         }
-    }
-
-    public static String get(String key) {
-        return properties.getProperty(key);
     }
 
     public static final String APP_PACKAGE = "app.package";
@@ -32,10 +27,15 @@ public class Configuration {
     public static final String DB_NAME = "db.name";
     public static final String DB_USERNAME = "db.username";
     public static final String DB_PASSWORD = "db.password";
+    public static final String DB_URLPARAMS = "db.urlparams";
     public static final String LOG_INFO = "log.info";
     public static final String LOG_DEBUG = "log.debug";
     public static final String LOG_WARNING = "log.warning";
     public static final String LOG_ERROR = "log.error";
     public static final String LOG_FILE = "log.error";
+
+    public static String get(String key) {
+        return properties.getProperty(key);
+    }
 
 }
