@@ -1,9 +1,11 @@
 package org.fwf.net;
 
 import com.sun.net.httpserver.HttpHandler;
+import org.fwf.ann.BaseRoute;
+import org.fwf.ann.Route;
 import org.fwf.log.Log;
 import org.fwf.mvc.Controller;
-import org.fwf.obj.ClassRegister;
+import org.fwf.obj.Register;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,7 +26,7 @@ class Routing {
     }
 
     private static void fillRouteHandlerMap() {
-        Set<Controller> controllerInstances = ClassRegister.getInstance().getControllerInstances();
+        Set<Controller> controllerInstances = Register.getInstance().getControllerInstances();
         for (Controller controller : controllerInstances) {
 
             Class<? extends Controller> controllerClass = controller.getClass();

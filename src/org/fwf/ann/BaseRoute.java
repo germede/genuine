@@ -1,4 +1,4 @@
-package org.fwf.net;
+package org.fwf.ann;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
