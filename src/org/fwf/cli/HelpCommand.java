@@ -1,7 +1,6 @@
 package org.fwf.cli;
 
-import org.fwf.log.Logger;
-import org.fwf.log.Severity;
+import org.fwf.log.Log;
 import org.fwf.obj.ClassRegister;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class HelpCommand implements Command {
                 String format = ANSI_YELLOW + "%20s " + ANSI_WHITE + "- %s\n";
                 System.out.format(format, command.getName(), command.getDescription());
             } catch (InstantiationException | IllegalAccessException e) {
-                Logger.log(Severity.ERROR, e.getMessage(), e);
+                Log.e(e.getMessage(), e);
             }
         }
     }

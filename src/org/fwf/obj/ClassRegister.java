@@ -1,8 +1,7 @@
 package org.fwf.obj;
 
 import org.fwf.cli.Command;
-import org.fwf.log.Logger;
-import org.fwf.log.Severity;
+import org.fwf.log.Log;
 import org.fwf.mvc.Controller;
 import org.reflections.Reflections;
 
@@ -29,7 +28,7 @@ public class ClassRegister {
                 try {
                     controllerInstances.add((Controller) controllerClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.log(Severity.ERROR, e.getMessage(), e);
+                    Log.e(e.getMessage(), e);
                 }
             }
         }
@@ -50,7 +49,7 @@ public class ClassRegister {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.log(Severity.ERROR, e.getMessage(), e);
+                    Log.e(e.getMessage(), e);
                 }
             }
         }

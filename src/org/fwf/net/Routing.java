@@ -1,8 +1,7 @@
 package org.fwf.net;
 
 import com.sun.net.httpserver.HttpHandler;
-import org.fwf.log.Logger;
-import org.fwf.log.Severity;
+import org.fwf.log.Log;
 import org.fwf.mvc.Controller;
 import org.fwf.obj.ClassRegister;
 
@@ -33,7 +32,7 @@ class Routing {
 
             // check if base route is valid
             if (baseRouteValue == null) {
-                Logger.log(Severity.WARNING, "Invalid route for controller " +
+                Log.w("Invalid route for controller " +
                         controllerClass.getCanonicalName());
                 continue;
             }
@@ -45,14 +44,14 @@ class Routing {
 
                 // check if route is valid
                 if (route == null) {
-                    Logger.log(Severity.WARNING, "Invalid route for controller action " +
+                    Log.w("Invalid route for controller action " +
                             controllerClass.getCanonicalName() + "->" + action.getName());
                     continue;
                 }
 
                 // check if route is already registered
                 if (routeHandlerMap.containsKey(route)) {
-                    Logger.log(Severity.WARNING, "Cannot register action " +
+                    Log.w("Cannot register action " +
                             controllerClass.getCanonicalName() + "->" + action.getName() +
                             "() because route '" + route + "' is already registered");
                     continue;
@@ -86,7 +85,7 @@ class Routing {
         try {
             declaredMethod.invoke(controller);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            Logger.log(Severity.ERROR, e.getMessage(), e);
+            Log.e(e.getMessage(), e);
         }
     }
 }

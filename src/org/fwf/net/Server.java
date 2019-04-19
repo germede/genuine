@@ -2,8 +2,7 @@ package org.fwf.net;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import org.fwf.log.Logger;
-import org.fwf.log.Severity;
+import org.fwf.log.Log;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -20,12 +19,12 @@ public class Server {
             setServerContexts(server);
             server.setExecutor(null);
             server.start();
-            Logger.log(Severity.INFO, "Server successfully started and listening to http://localhost:" + port);
+            Log.i("Server successfully started and listening to http://localhost:" + port);
         } catch (IOException e) {
             if (server != null) {
                 server.stop(0);
             }
-            Logger.log(Severity.ERROR, e.getMessage(), e);
+            Log.e(e.getMessage(), e);
         }
     }
 
