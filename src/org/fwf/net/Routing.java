@@ -45,7 +45,7 @@ class Routing {
 
                 // check if route is valid
                 if (route == null) {
-                    Logger.log(Severity.WARNING, "Invalid route for controller action" +
+                    Logger.log(Severity.WARNING, "Invalid route for controller action " +
                             controllerClass.getCanonicalName() + "->" + action.getName());
                     continue;
                 }
@@ -54,7 +54,7 @@ class Routing {
                 if (routeHandlerMap.containsKey(route)) {
                     Logger.log(Severity.WARNING, "Cannot register action " +
                             controllerClass.getCanonicalName() + "->" + action.getName() +
-                            " .Route '" + route + "' is already registered");
+                            "() because route '" + route + "' is already registered");
                     continue;
                 }
 

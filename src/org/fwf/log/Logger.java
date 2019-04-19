@@ -1,5 +1,7 @@
 package org.fwf.log;
 
+import org.fwf.cli.CliColor;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -36,19 +38,31 @@ public class Logger {
     }
 
     private static void logDebug(String message) {
-        System.out.println(getCurrentTime() + " [ERROR] " + message);
+        System.out.println(
+                CliColor.ANSI_PURPLE + getCurrentTime() +
+                CliColor.ANSI_GREEN + " [DEBUG] " +
+                CliColor.ANSI_WHITE + message);
     }
 
     private static void logInfo(String message) {
-        System.out.println(getCurrentTime() + " [INFO] " + message);
+        System.out.println(
+                CliColor.ANSI_PURPLE + getCurrentTime() +
+                CliColor.ANSI_BLUE + " [INFO] " +
+                CliColor.ANSI_WHITE + message);
     }
 
     private static void logWarning(String message) {
-        System.out.println(getCurrentTime() + " [WARNING] " + message);
+        System.out.println(
+                CliColor.ANSI_PURPLE + getCurrentTime() +
+                CliColor.ANSI_YELLOW + " [WARNING] " +
+                CliColor.ANSI_WHITE + message);
     }
 
     private static void logError(String message) {
-        System.out.println(getCurrentTime() + " [ERROR] " + message);
+        System.out.println(
+                CliColor.ANSI_PURPLE + getCurrentTime() +
+                CliColor.ANSI_RED + " [ERROR] " +
+                CliColor.ANSI_WHITE + message);
     }
 
     private static String getCurrentTime() {
