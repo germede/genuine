@@ -1,6 +1,6 @@
 package org.fwf.cli;
 
-public class ServerRun implements Command {
+public class ServerRunCommand implements Command {
 
     public String getName() {
         return "server:run";

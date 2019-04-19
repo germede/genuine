@@ -1,6 +1,6 @@
 package org.fwf.cli;
 
-public class Version implements Command {
+public class VersionCommand implements Command {
 
     public String getName() {
         return "version";
