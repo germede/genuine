@@ -1,5 +1,7 @@
 package org.fwf.cli;
 
+import org.fwf.cnf.Configuration;
+
 public class TestCommand implements Command {
 
     public String getName() {
@@ -14,5 +16,6 @@ public class TestCommand implements Command {
         for (String arg : args) {
             System.out.println(arg);
         }
+        Configuration.readConfiguration();
     }
 }
