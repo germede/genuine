@@ -1,7 +1,7 @@
 package org.fwf.cli;
 
 import org.fwf.log.Log;
-import org.fwf.obj.ClassRegister;
+import org.fwf.obj.Register;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,7 +21,7 @@ public class HelpCommand implements Command {
     }
 
     public void execute(String[] args) {
-        Set<Class<? extends Command>> commandClasses = ClassRegister.getInstance().getCommandClasses();
+        Set<Class<? extends Command>> commandClasses = Register.getInstance().getCommandClasses();
 
         // sort commands alphabetically
         List<Class<? extends Command>> sortedCommandClasses = new ArrayList<>(commandClasses);
