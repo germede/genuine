@@ -11,12 +11,12 @@ public class Console {
     public static void main(String[] args) {
 
         if (args.length == 0) {
-            new HelpCommand().execute();
+            new HelpCommand().execute(args);
         } else {
             Set<Command> commands = ClassRegister.getInstance().getCommandInstances();
             for (Command command : commands) {
                 if (command.getName().equals(args[0])) {
-                    command.execute();
+                    command.execute(args);
                 }
             }
         }

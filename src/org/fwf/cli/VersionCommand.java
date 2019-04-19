@@ -10,7 +10,7 @@ public class VersionCommand implements Command {
         return "Prints used frameworkflow version";
     }
 
-    public void execute() {
+    public void execute(String[] args) {
         System.out.println("1.0-dev");
     }
 }

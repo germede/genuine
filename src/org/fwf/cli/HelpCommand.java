@@ -21,7 +21,7 @@ public class HelpCommand implements Command {
         return "Prints all available commands";
     }
 
-    public void execute() {
+    public void execute(String[] args) {
         Set<Class<? extends Command>> commandClasses = ClassRegister.getInstance().getCommandClasses();
 
         // sort commands alphabetically

@@ -12,7 +12,7 @@ public class ServerStartCommand implements Command {
         return "Starts embedded HTTP server";
     }
 
-    public void execute() {
+    public void execute(String[] args) {
         Server.start();
     }
 }
