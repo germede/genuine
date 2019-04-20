@@ -7,6 +7,8 @@ import org.fwf.ann.Route;
 import org.fwf.dto.CrudRepository;
 import org.fwf.mvc.Controller;
 
+import java.util.List;
+
 @BaseRoute("/test")
 public class TestController extends Controller {
 
@@ -22,8 +24,10 @@ public class TestController extends Controller {
                 .setSurname("Mueller");
 
 
-//        List<Person> people = personRepository.findAll(Person.class);
-        personRepository.update(person);
-        int i = 0;
+        List<Person> people = personRepository.findAll(Person.class);
+        people.get(10).setName("Gerhard");
+        people.get(10).setSurname("1234");
+        people.get(10).setId(1234);
+        personRepository.update(people.get(10));
     }
 }

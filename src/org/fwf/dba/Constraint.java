@@ -24,7 +24,7 @@ public class Constraint {
     }
 
     public String toString() {
-        return "(".concat(sql.toString()).concat(")");
+        return sql.toString();
     }
 
     public Constraint isEqualTo(Object secondOperand) {

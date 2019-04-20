@@ -1,4 +1,4 @@
-package com.sample.cli;
+package com.sample.command;
 
 import org.fwf.cli.Command;
 import org.fwf.net.Server;

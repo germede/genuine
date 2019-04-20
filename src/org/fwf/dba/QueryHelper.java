@@ -4,6 +4,7 @@ import org.fwf.ann.Column;
 import org.fwf.ann.Table;
 import org.fwf.exc.MethodIsAbsentOrInaccessibleException;
 import org.fwf.exc.ModelHasNoMappedTableException;
+import org.fwf.exc.ModelHasNoPrimaryKeyException;
 import org.fwf.mvc.Model;
 
 import java.lang.reflect.Field;
@@ -33,10 +34,24 @@ public class QueryHelper {
 
     public static String retrieveTable(Class modelClass) throws ModelHasNoMappedTableException {
         if (modelClass.isAnnotationPresent(Table.class)) {
-            return ((Table)modelClass.getAnnotation(Table.class)).value();
+            return ((Table) modelClass.getAnnotation(Table.class)).value();
         } else {
             throw new ModelHasNoMappedTableException(modelClass.getCanonicalName());
         }
+    }
+
+    public static String retrievePrimaryKeyColumnName(Class modelClass) throws ModelHasNoPrimaryKeyException {
+        Field[] declaredFields = modelClass.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            if (declaredField.isAnnotationPresent(Column.class) && declaredField.getAnnotation(Column.class).pk()) {
+                return declaredField.getName();
+            }
+        }
+        throw new ModelHasNoPrimaryKeyException(modelClass.getCanonicalName());
+    }
+
+    public static Object retrievePrimaryKey(Model model) throws InvocationTargetException, IllegalAccessException, MethodIsAbsentOrInaccessibleException, ModelHasNoPrimaryKeyException {
+        return retrieveGetterMethod(model.getClass(), retrievePrimaryKeyColumnName(model.getClass())).invoke(model);
     }
 
     public static Method retrieveGetterMethod(Class modelClass, String fieldName) throws MethodIsAbsentOrInaccessibleException {
@@ -60,6 +75,5 @@ public class QueryHelper {
         }
         throw new MethodIsAbsentOrInaccessibleException(modelClass.getCanonicalName(), setterName);
     }
-
 
 }

@@ -1,7 +1,5 @@
 package org.fwf.dba;
 
-import org.fwf.log.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,9 +74,7 @@ public class Query {
     }
 
     public QueryResult execute() {
-        String query = toString();
-        Logger.d(query);
-        return Database.execute(query, parameters);
+        return Database.execute(toString(), parameters);
     }
 
     public static class ColumnsValuesPairs {

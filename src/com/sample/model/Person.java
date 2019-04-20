@@ -1,14 +1,27 @@
 package com.sample.model;
 
-import org.fwf.mvc.Model;
 import org.fwf.ann.Column;
 import org.fwf.ann.Table;
+import org.fwf.mvc.Model;
 
 @Table("person")
 public class Person extends Model<Person> {
 
+    @Column(pk = true)
+    private int id;
     @Column
     private String name;
+    @Column
+    private String surname;
+
+    public int getId() {
+        return id;
+    }
+
+    public Person setId(int id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;
@@ -18,10 +31,6 @@ public class Person extends Model<Person> {
         this.name = name;
         return this;
     }
-
-    @Column
-    private String surname;
-
 
     public String getSurname() {
         return surname;

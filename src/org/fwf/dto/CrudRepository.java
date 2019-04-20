@@ -3,6 +3,7 @@ package org.fwf.dto;
 import org.fwf.dba.*;
 import org.fwf.exc.MethodIsAbsentOrInaccessibleException;
 import org.fwf.exc.ModelHasNoMappedTableException;
+import org.fwf.exc.ModelHasNoPrimaryKeyException;
 import org.fwf.log.Logger;
 import org.fwf.mvc.Model;
 
@@ -13,10 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CrudRepository<T extends Model<T>> implements Repository<T> {
-
-    public CrudRepository() {
-
-    }
 
     public int create(T model) {
         try {
@@ -37,7 +34,7 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
     }
 
     public List<T> findAll(Class<T> modelClass) {
-        List<T> result = new ArrayList<>();
+        List<T> models = new ArrayList<>();
         try {
             String table = QueryHelper.retrieveTable(modelClass);
             QueryResult queryResult =
@@ -47,17 +44,18 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
                             .execute();
 
             for (Map<String, Object> objectMap : queryResult.resultList) {
-                T record = modelClass.newInstance();
+                T model = modelClass.newInstance();
                 for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                     Method setter = QueryHelper.retrieveSetterMethod(modelClass, entry.getKey());
-                    setter.invoke(record, entry.getValue());
+                    setter.invoke(model, entry.getValue());
                 }
-                result.add(record);
+                model.setSavedPrimaryKey(QueryHelper.retrievePrimaryKey(model));
+                models.add(model);
             }
-        } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
+        } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException e) {
             Logger.e(e.getMessage(), e);
         }
-        return result;
+        return models;
     }
 
     public int update(T model) {
@@ -69,18 +67,14 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
                             .update(table)
                             .set(columnsValuesPairs.columns, columnsValuesPairs.values)
                             .where(
-                                    new Constraint("id").isEqualTo(model.getId())
-                                            .and(new Constraint("1").isEqualTo("1")
-                                                    .or(new Constraint("true").isEqualTo("true"))
-                                            )
-                                            .and(new Constraint("2").isEqualTo(2))
-                            )
+                                    new Constraint(QueryHelper.retrievePrimaryKeyColumnName(model.getClass()))
+                                            .isEqualTo(model.getSavedPrimaryKey()))
                             .orderBy(columnsValuesPairs.columns)
                             .execute();
-
+            model.setSavedPrimaryKey(QueryHelper.retrievePrimaryKey(model));
 
             return queryResult.resultSize;
-        } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
+        } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException e) {
             Logger.e(e.getMessage(), e);
         }
         return 0;
