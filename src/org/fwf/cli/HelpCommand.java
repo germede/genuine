@@ -1,8 +1,7 @@
 package org.fwf.cli;
 
 import org.fwf.obj.Register;
-
-import static org.fwf.cli.CliColor.*;
+import org.fwf.Console;
 
 public class HelpCommand implements Command {
 
@@ -17,9 +16,9 @@ public class HelpCommand implements Command {
     public void execute(String[] args) {
 
         // print commands using colors
-        System.out.println("\n" + ANSI_GREEN + "Available commands:\n");
+        System.out.println("\n" + Console.ANSI_GREEN + "Available commands:\n");
         for (Command command : Register.getInstance().getCommandInstances()) {
-            String format = ANSI_YELLOW + "%20s " + ANSI_WHITE + "- %s\n";
+            String format = Console.ANSI_YELLOW + "%20s " + Console.ANSI_WHITE + "- %s\n";
             System.out.format(format, command.getName(), command.getDescription());
         }
     }

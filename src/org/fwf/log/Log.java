@@ -1,6 +1,6 @@
 package org.fwf.log;
 
-import org.fwf.cli.CliColor;
+import org.fwf.Console;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,27 +8,27 @@ import java.time.format.DateTimeFormatter;
 public class Log {
 
     public static void i(String message) {
-        System.out.println(CliColor.ANSI_PURPLE + getCurrentTime() +
-                CliColor.ANSI_BLUE + " [INFO] " +
-                CliColor.ANSI_WHITE + message);
+        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
+                Console.ANSI_BLUE + " [INFO] " +
+                Console.ANSI_WHITE + message);
     }
 
     public static void d(String message) {
-        System.out.println(CliColor.ANSI_PURPLE + getCurrentTime() +
-                CliColor.ANSI_GREEN + " [DEBUG] " +
-                CliColor.ANSI_WHITE + message);
+        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
+                Console.ANSI_GREEN + " [DEBUG] " +
+                Console.ANSI_WHITE + message);
     }
 
     public static void w(String message) {
-        System.out.println(CliColor.ANSI_PURPLE + getCurrentTime() +
-                CliColor.ANSI_YELLOW + " [WARNING] " +
-                CliColor.ANSI_WHITE + message);
+        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
+                Console.ANSI_YELLOW + " [WARNING] " +
+                Console.ANSI_WHITE + message);
     }
 
     public static void e(String message) {
-        System.out.println(CliColor.ANSI_PURPLE + getCurrentTime() +
-                CliColor.ANSI_RED + " [ERROR] " +
-                CliColor.ANSI_WHITE + message);
+        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
+                Console.ANSI_RED + " [ERROR] " +
+                Console.ANSI_WHITE + message);
     }
 
     public static void e(String message, Exception exception) {
