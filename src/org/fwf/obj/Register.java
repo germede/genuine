@@ -30,7 +30,7 @@ public class Register {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.e(e.getMessage(), e);
+                    Logger.e(e, e.getMessage());
                 }
             }
         }
@@ -65,7 +65,7 @@ public class Register {
                     Injector.injectFields(controller);
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.e(e.getMessage(), e);
+                    Logger.e(e, e.getMessage());
                 }
             }
         }

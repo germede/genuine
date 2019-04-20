@@ -33,21 +33,22 @@ class Router {
                     controllerClass.getAnnotation(BaseRoute.class).value() :
                     "";
 
-            List<Method> actions = filterMethodsWithRoute(controllerClass.getDeclaredMethods());
-            for (Method action : actions) {
+            List<Method> methodsWithRoute = filterMethodsWithRoute(controllerClass.getDeclaredMethods());
+            for (Method methodWithRout : methodsWithRoute) {
 
-                String route = baseRouteValue + action.getAnnotation(Route.class).path();
+                String route = baseRouteValue + methodWithRout.getAnnotation(Route.class).path();
 
                 // check if route is already registered
                 if (routeHandlerMap.containsKey(route)) {
-                    Logger.w("Cannot register action " +
-                            controllerClass.getCanonicalName() + "->" + action.getName() +
-                            "() because route '" + route + "' is already registered");
+                    Logger.w("Cannot register controller method %s->%s because route '%s' is already registered",
+                            controllerClass.getCanonicalName(),
+                            methodWithRout.getName(),
+                            route);
                     continue;
                 }
 
                 routeHandlerMap.put(route, httpExchange -> {
-                    invokeControllerAction(controller, action, httpExchange);
+                    invokeControllerMethod(controller, methodWithRout, httpExchange);
                     httpExchange.close();
                 });
             }
@@ -64,18 +65,21 @@ class Router {
         return result;
     }
 
-    private static void invokeControllerAction(Controller controller, Method declaredMethod, HttpExchange httpExchange) {
+    private static void invokeControllerMethod(Controller controller, Method declaredMethod, HttpExchange httpExchange) {
         try {
             if (httpExchange.getRequestMethod().equals(declaredMethod.getAnnotation(Route.class).method())) {
                 declaredMethod.invoke(controller);
             } else {
-                Logger.w("HTTP Method mismatch in action" + controller.getClass().getCanonicalName() + "->" + (declaredMethod.getName() +
-                        " (declared: " + declaredMethod.getAnnotation(Route.class).method() +
-                        ", got: " + httpExchange.getRequestMethod() + ")"));
+                Logger.w("HTTP Method mismatch in controller method %s->%s (declared: %s) , got: %s)",
+                        controller.getClass().getCanonicalName(),
+                        declaredMethod.getName(),
+                        declaredMethod.getAnnotation(Route.class).method(),
+                        httpExchange.getRequestMethod());
             }
         } catch (IllegalAccessException | InvocationTargetException e) {
-            Logger.e("Error executing " +
-                    controller.getClass().getCanonicalName() + "->" + (declaredMethod.getName()), e);
+            Logger.e("Error executing controller method %s->%s",
+                    controller.getClass().getCanonicalName(),
+                    (declaredMethod.getName()));
         }
     }
 }

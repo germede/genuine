@@ -15,7 +15,7 @@ public class Configuration {
             properties = new Properties();
             properties.load(input);
         } catch (IOException e) {
-            Logger.e(e.getMessage(), e);
+            Logger.e(e, e.getMessage());
         }
     }
 
