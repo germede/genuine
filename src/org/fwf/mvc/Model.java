@@ -1,14 +1,18 @@
 package org.fwf.mvc;
 
-public abstract class Model<T extends Model<T>> {
+public abstract class Model<T extends Model<T>> implements Cloneable {
 
-    private Object savedPrimaryKey;
+    private Model<T> original;
 
-    public Object getSavedPrimaryKey() {
-        return savedPrimaryKey;
+    public Model<T> getOriginal() {
+        return original;
     }
 
-    public void setSavedPrimaryKey(Object savedPrimaryKey) {
-        this.savedPrimaryKey = savedPrimaryKey;
+    public void setOriginal(Model<T> original) {
+        this.original = original;
+    }
+
+    public T clone() throws CloneNotSupportedException {
+        return (T) super.clone();
     }
 }

@@ -1,7 +1,8 @@
-package org.fwf.dba;
+package org.fwf.dto;
 
 import org.fwf.ann.Column;
 import org.fwf.ann.Table;
+import org.fwf.dba.Query;
 import org.fwf.exc.MethodIsAbsentOrInaccessibleException;
 import org.fwf.exc.ModelHasNoMappedTableException;
 import org.fwf.exc.ModelHasNoPrimaryKeyException;
@@ -12,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-public class QueryHelper {
+public class RepositoryHelper {
 
 
     public static Query.ColumnsValuesPairs retrieveColumnsValuesPair(Model model)
@@ -24,8 +25,28 @@ public class QueryHelper {
         for (Field field : declaredFields) {
             if (field.isAnnotationPresent(Column.class)) {
                 Method getter = retrieveGetterMethod(model.getClass(), field.getName());
-                result.columns.add(field.getName());
-                result.values.add(String.valueOf(getter.invoke(model)));
+                result.add(field.getName(), getter.invoke(model));
+            }
+        }
+
+        return result;
+    }
+
+    public static Query.ColumnsValuesPairs retrieveColumnsValuesPairBasedOnDifferences(Model model)
+            throws MethodIsAbsentOrInaccessibleException, IllegalAccessException, InvocationTargetException {
+
+        Model original = model.getOriginal();
+        Query.ColumnsValuesPairs result = new Query.ColumnsValuesPairs();
+
+        Field[] declaredFields = model.getClass().getDeclaredFields();
+        for (Field field : declaredFields) {
+            if (field.isAnnotationPresent(Column.class)) {
+                Method getter = retrieveGetterMethod(model.getClass(), field.getName());
+                Object value = getter.invoke(model);
+                Object originalValue = getter.invoke(original);
+                if (!value.equals(originalValue)) {
+                    result.add(field.getName(), value);
+                }
             }
         }
 

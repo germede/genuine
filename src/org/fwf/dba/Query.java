@@ -78,7 +78,20 @@ public class Query {
     }
 
     public static class ColumnsValuesPairs {
-        public List<String> columns = new ArrayList<>();
-        public List<Object> values = new ArrayList<>();
+        private List<String> columns = new ArrayList<>();
+        private List<Object> values = new ArrayList<>();
+
+        public void add(String column, Object value) {
+            columns.add(column);
+            values.add(value);
+        }
+
+        public List<String> getColumns() {
+            return columns;
+        }
+
+        public List<Object> getValues() {
+            return values;
+        }
     }
 }
