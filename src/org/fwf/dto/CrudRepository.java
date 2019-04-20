@@ -6,7 +6,7 @@ import org.fwf.dba.QueryResult;
 import org.fwf.exc.MethodIsAbsentOrInaccessibleException;
 import org.fwf.exc.ModelHasNoMappedTableException;
 import org.fwf.exc.ModelHasNoPrimaryKeyException;
-import org.fwf.exc.ModelMustBeCreatedBeforeBeingUpdatedException;
+import org.fwf.exc.ModelMustBeCreatedBeforeBeingModifiedException;
 import org.fwf.log.Logger;
 import org.fwf.mvc.Model;
 
@@ -66,7 +66,7 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
     public int update(T model) {
         try {
             if (model.getOriginal() == null) {
-                throw new ModelMustBeCreatedBeforeBeingUpdatedException(model.getClass().getCanonicalName());
+                throw new ModelMustBeCreatedBeforeBeingModifiedException(model.getClass().getCanonicalName());
             }
             String table = RepositoryHelper.retrieveTable(model.getClass());
             Query.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPairBasedOnDifferences(model);
@@ -83,7 +83,29 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
 
             model.setOriginal(model.clone());
             return queryResult.resultSize;
-        } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException | ModelMustBeCreatedBeforeBeingUpdatedException | CloneNotSupportedException e) {
+        } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException | ModelMustBeCreatedBeforeBeingModifiedException | CloneNotSupportedException e) {
+            Logger.e(e.getMessage(), e);
+        }
+        return 0;
+    }
+
+    public int delete(T model) {
+        try {
+            if (model.getOriginal() == null) {
+                throw new ModelMustBeCreatedBeforeBeingModifiedException(model.getClass().getCanonicalName());
+            }
+            String table = RepositoryHelper.retrieveTable(model.getClass());
+            QueryResult queryResult =
+                    new Query()
+                            .delete()
+                            .from(table)
+                            .where(
+                                    new Constraint(RepositoryHelper.retrievePrimaryKeyColumnName(model.getClass()))
+                                            .isEqualTo(RepositoryHelper.retrievePrimaryKey(model.getOriginal()))
+                            )
+                            .execute();
+            return queryResult.resultSize;
+        } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException | ModelMustBeCreatedBeforeBeingModifiedException e) {
             Logger.e(e.getMessage(), e);
         }
         return 0;

@@ -38,6 +38,10 @@ public class Query {
         return append("UPDATE ").append(table);
     }
 
+    public Query delete() {
+        return append("DELETE");
+    }
+
     public Query into(String table, List<String> columns) {
         return append(" INTO ").append(table).append(" (").append(String.join(",", columns)).append(")");
     }
@@ -74,7 +78,8 @@ public class Query {
     }
 
     public QueryResult execute() {
-        return Database.execute(toString(), parameters);
+        String query = toString();
+        return Database.execute(query, parameters);
     }
 
     public static class ColumnsValuesPairs {
