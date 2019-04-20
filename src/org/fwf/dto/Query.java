@@ -1,18 +1,28 @@
-package org.fwf.orm;
+package org.fwf.dto;
 
 import java.util.List;
 
 public class Query {
 
     private StringBuilder sql;
-    private List parameters;
+    private List<Object> parameters;
 
     public Query() {
         sql = new StringBuilder();
     }
 
-    public Query select(String select) {
-        sql.append("SELECT ").append(select);
+    public Query select() {
+        sql.append("SELECT * ");
+        return this;
+    }
+
+    public Query select(List<String> columns) {
+        sql.append("SELECT ").append(String.join(",", columns)).append(" ");
+        return this;
+    }
+
+    public Query from(String table) {
+        sql.append("FROM ").append(table).append(" ");
         return this;
     }
 
@@ -32,17 +42,12 @@ public class Query {
         for (int i = 0; i < values.size() - 1; i++){
             placeholders = placeholders.concat(",?");
         }
-        sql.append("VALUES (").append(placeholders).append(")");
+        sql.append("VALUES (").append(placeholders).append(") ");
         return this;
     }
 
-    public Query execute() {
-        if (sql.toString().startsWith("SELECT")) {
-//            Database.executeSelect(sql, )
-        } else {
-            Database.execute(sql.toString(),parameters);
-        }
-        return this;
+    public QueryResult execute() {
+        return Database.execute(sql.toString(),parameters);
     }
 
 }
