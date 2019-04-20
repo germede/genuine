@@ -31,7 +31,7 @@ class Database {
                     result.resultSize = statement.executeUpdate();
                 }
             } catch (SQLException e) {
-                Logger.e(e, e.getMessage());
+                Logger.e(e);
             }
         }
         return result;
@@ -68,7 +68,7 @@ class Database {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Logger.e(e, e.getMessage());
+            Logger.e(e);
         }
         return null;
     }

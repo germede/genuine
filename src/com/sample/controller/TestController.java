@@ -13,7 +13,7 @@ public class TestController extends Controller {
     @Inject
     public RepositoryImpl<Person> personRepository;
 
-    @Route(path = "/action", method = "POST")
+    @Route(path = "/action", method = "GET")
     public void action() {
 
 //        Person person = new Person()
@@ -22,8 +22,10 @@ public class TestController extends Controller {
 //                .setSurname("Mueller");
 
 
-        Person person = personRepository.find(Person.class, 19);
-        person.setSurname("testttt");
-        personRepository.update(person);
+//        Person person = personRepository.find(Person.class, 19);
+//        person.setSurname("testttt");
+//        personRepository.update(person);
+
+        redirect("http://www.google.com/");
     }
 }

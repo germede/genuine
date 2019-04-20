@@ -23,7 +23,7 @@ public class Server {
             if (server != null) {
                 server.stop(0);
             }
-            Logger.e(e, e.getMessage());
+            Logger.e(e);
         }
     }
 

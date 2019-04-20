@@ -65,21 +65,32 @@ class Router {
         return result;
     }
 
-    private static void invokeControllerMethod(Controller controller, Method declaredMethod, HttpExchange httpExchange) {
+    private static void invokeControllerMethod(Controller controller, Method method, HttpExchange httpExchange) {
         try {
-            if (httpExchange.getRequestMethod().equals(declaredMethod.getAnnotation(Route.class).method())) {
-                declaredMethod.invoke(controller);
+            if (httpExchange.getRequestMethod().equals(method.getAnnotation(Route.class).method())) {
+
+//                Parameter[] methodParameters = method.getParameters();
+//                for (Parameter parameter : methodParameters) {
+//                    if (parameter.getType().equals(httpExchange.getRequest))
+//                }
+//
+//                if (method.getParameters())
+
+                controller.setHttpExchange(httpExchange);
+                method.invoke(controller);
+
             } else {
                 Logger.w("HTTP Method mismatch in controller method %s->%s (declared: %s) , got: %s)",
                         controller.getClass().getCanonicalName(),
-                        declaredMethod.getName(),
-                        declaredMethod.getAnnotation(Route.class).method(),
+                        method.getName(),
+                        method.getAnnotation(Route.class).method(),
                         httpExchange.getRequestMethod());
             }
         } catch (IllegalAccessException | InvocationTargetException e) {
-            Logger.e("Error executing controller method %s->%s",
+            Logger.e(e,
+                    "Error executing controller method %s->%s",
                     controller.getClass().getCanonicalName(),
-                    (declaredMethod.getName()));
+                    (method.getName()));
         }
     }
 }

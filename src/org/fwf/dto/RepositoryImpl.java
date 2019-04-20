@@ -41,7 +41,7 @@ public class RepositoryImpl<T extends Model<T>> implements Repository<T> {
                 models.add(model);
             }
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | CloneNotSupportedException e) {
-            Logger.e(e, e.getMessage());
+            Logger.e(e);
         }
         return models;
     }
@@ -69,7 +69,7 @@ public class RepositoryImpl<T extends Model<T>> implements Repository<T> {
                 model.saveOriginal();
             }
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | CloneNotSupportedException e) {
-            Logger.e(e, e.getMessage());
+            Logger.e(e);
         } catch (ModelHasNoPrimaryKeyException e) {
             e.printStackTrace();
         }
@@ -90,7 +90,7 @@ public class RepositoryImpl<T extends Model<T>> implements Repository<T> {
             model.saveOriginal();
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | CloneNotSupportedException e) {
-            Logger.e(e, e.getMessage());
+            Logger.e(e);
         }
         return 0;
     }
@@ -117,7 +117,7 @@ public class RepositoryImpl<T extends Model<T>> implements Repository<T> {
             model.saveOriginal();
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException | ModelMustBeCreatedBeforeBeingModifiedException | CloneNotSupportedException e) {
-            Logger.e(e, e.getMessage());
+            Logger.e(e);
         }
         return 0;
     }
@@ -140,7 +140,7 @@ public class RepositoryImpl<T extends Model<T>> implements Repository<T> {
                             .execute();
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException | ModelMustBeCreatedBeforeBeingModifiedException e) {
-            Logger.e(e, e.getMessage());
+            Logger.e(e);
         }
         return 0;
     }
