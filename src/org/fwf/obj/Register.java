@@ -43,7 +43,7 @@ public class Register {
         Set<Class<? extends Command>> result = new HashSet<>(reflections.getSubTypesOf(Command.class));
 
         // custom commands
-        Reflections customReflections = new Reflections(Configuration.get(Configuration.APP_PACKAGE));
+        Reflections customReflections = new Reflections(Configuration.get(Configuration.APP_PACKAGE).concat(".command"));
         result.addAll(customReflections.getSubTypesOf(Command.class));
 
         // sort commands alphabetically
