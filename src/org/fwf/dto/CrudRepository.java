@@ -3,7 +3,7 @@ package org.fwf.dto;
 import org.fwf.dba.*;
 import org.fwf.exc.MethodIsAbsentOrInaccessibleException;
 import org.fwf.exc.ModelHasNoMappedTableException;
-import org.fwf.log.Log;
+import org.fwf.log.Logger;
 import org.fwf.mvc.Model;
 
 import java.lang.reflect.InvocationTargetException;
@@ -31,7 +31,7 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
 
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Log.e(e.getMessage(), e);
+            Logger.e(e.getMessage(), e);
         }
         return 0;
     }
@@ -55,7 +55,7 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
                 result.add(record);
             }
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Log.e(e.getMessage(), e);
+            Logger.e(e.getMessage(), e);
         }
         return result;
     }
@@ -81,7 +81,7 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
 
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Log.e(e.getMessage(), e);
+            Logger.e(e.getMessage(), e);
         }
         return 0;
     }

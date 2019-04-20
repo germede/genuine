@@ -2,7 +2,7 @@ package org.fwf;
 
 import org.fwf.cli.Command;
 import org.fwf.cli.HelpCommand;
-import org.fwf.log.Log;
+import org.fwf.log.Logger;
 import org.fwf.obj.Register;
 
 import java.util.Set;
@@ -36,7 +36,7 @@ public class Console {
             }
         }
         if (commandNotFound) {
-            Log.e("No command '" + args[0] + "' found");
+            Logger.e("No command '" + args[0] + "' found");
         }
     }
 }

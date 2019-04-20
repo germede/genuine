@@ -5,7 +5,7 @@ import org.fwf.Console;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Log {
+public class Logger {
 
     public static void i(String message) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +

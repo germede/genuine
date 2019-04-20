@@ -3,7 +3,7 @@ package org.fwf.net;
 import com.sun.net.httpserver.HttpHandler;
 import org.fwf.ann.BaseRoute;
 import org.fwf.ann.Route;
-import org.fwf.log.Log;
+import org.fwf.log.Logger;
 import org.fwf.mvc.Controller;
 import org.fwf.obj.Register;
 
@@ -39,7 +39,7 @@ class Router {
 
                 // check if route is already registered
                 if (routeHandlerMap.containsKey(route)) {
-                    Log.w("Cannot register action " +
+                    Logger.w("Cannot register action " +
                             controllerClass.getCanonicalName() + "->" + action.getName() +
                             "() because route '" + route + "' is already registered");
                     continue;
@@ -67,7 +67,7 @@ class Router {
         try {
             declaredMethod.invoke(controller);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            Log.e(e.getMessage(), e);
+            Logger.e(e.getMessage(), e);
         }
     }
 }

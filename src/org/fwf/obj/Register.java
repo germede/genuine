@@ -2,7 +2,7 @@ package org.fwf.obj;
 
 import org.fwf.cli.Command;
 import org.fwf.cnf.Configuration;
-import org.fwf.log.Log;
+import org.fwf.log.Logger;
 import org.fwf.mvc.Controller;
 import org.reflections.Reflections;
 
@@ -30,7 +30,7 @@ public class Register {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.e(e.getMessage(), e);
+                    Logger.e(e.getMessage(), e);
                 }
             }
         }
@@ -65,7 +65,7 @@ public class Register {
                     Injector.injectFields(controller);
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.e(e.getMessage(), e);
+                    Logger.e(e.getMessage(), e);
                 }
             }
         }

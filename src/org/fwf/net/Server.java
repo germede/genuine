@@ -2,7 +2,7 @@ package org.fwf.net;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import org.fwf.log.Log;
+import org.fwf.log.Logger;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -19,12 +19,12 @@ public class Server {
             setServerContexts(server);
             server.setExecutor(null);
             server.start();
-            Log.i("Server successfully started and listening to http://localhost:" + port);
+            Logger.i("Server successfully started and listening to http://localhost:" + port);
         } catch (IOException e) {
             if (server != null) {
                 server.stop(0);
             }
-            Log.e(e.getMessage(), e);
+            Logger.e(e.getMessage(), e);
         }
     }
 

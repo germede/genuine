@@ -1,7 +1,7 @@
 package org.fwf.dba;
 
 import org.fwf.cnf.Configuration;
-import org.fwf.log.Log;
+import org.fwf.log.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ class Database {
                     result.resultSize = statement.executeUpdate();
                 }
             } catch (SQLException e) {
-                Log.e(e.getMessage(), e);
+                Logger.e(e.getMessage(), e);
             }
         }
         return result;
@@ -67,7 +67,7 @@ class Database {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Log.e(e.getMessage(), e);
+            Logger.e(e.getMessage(), e);
         }
         return null;
     }

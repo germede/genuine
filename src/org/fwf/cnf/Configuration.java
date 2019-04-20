@@ -1,6 +1,6 @@
 package org.fwf.cnf;
 
-import org.fwf.log.Log;
+import org.fwf.log.Logger;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class Configuration {
             properties = new Properties();
             properties.load(input);
         } catch (IOException e) {
-            Log.e(e.getMessage(), e);
+            Logger.e(e.getMessage(), e);
         }
     }
 
