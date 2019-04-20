@@ -35,7 +35,7 @@ class Router {
             List<Method> actions = filterMethodsWithRoute(controllerClass.getDeclaredMethods());
             for (Method action : actions) {
 
-                String route = baseRouteValue + action.getAnnotation(Route.class).value();;
+                String route = baseRouteValue + action.getAnnotation(Route.class).value();
 
                 // check if route is already registered
                 if (routeHandlerMap.containsKey(route)) {
@@ -67,7 +67,7 @@ class Router {
         try {
             declaredMethod.invoke(controller);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            Logger.e(e.getMessage(), e);
+            Logger.e("Error executing " + controller.getClass().getCanonicalName().concat("->").concat(declaredMethod.getName()), e);
         }
     }
 }

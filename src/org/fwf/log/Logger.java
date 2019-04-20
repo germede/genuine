@@ -32,6 +32,9 @@ public class Logger {
     }
 
     public static void e(String message, Exception exception) {
+        if (message == null) {
+            message = "Exception " + exception.getClass().getName();
+        }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
         e(message);
     }
