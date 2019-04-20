@@ -1,5 +1,6 @@
 package org.fwf.net;
 
+import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.fwf.ann.BaseRoute;
 import org.fwf.ann.Route;
@@ -35,7 +36,7 @@ class Router {
             List<Method> actions = filterMethodsWithRoute(controllerClass.getDeclaredMethods());
             for (Method action : actions) {
 
-                String route = baseRouteValue + action.getAnnotation(Route.class).value();
+                String route = baseRouteValue + action.getAnnotation(Route.class).path();
 
                 // check if route is already registered
                 if (routeHandlerMap.containsKey(route)) {
@@ -46,7 +47,7 @@ class Router {
                 }
 
                 routeHandlerMap.put(route, httpExchange -> {
-                    invokeControllerAction(controller, action);
+                    invokeControllerAction(controller, action, httpExchange);
                     httpExchange.close();
                 });
             }
@@ -63,11 +64,18 @@ class Router {
         return result;
     }
 
-    private static void invokeControllerAction(Controller controller, Method declaredMethod) {
+    private static void invokeControllerAction(Controller controller, Method declaredMethod, HttpExchange httpExchange) {
         try {
-            declaredMethod.invoke(controller);
+            if (httpExchange.getRequestMethod().equals(declaredMethod.getAnnotation(Route.class).method())) {
+                declaredMethod.invoke(controller);
+            } else {
+                Logger.w("HTTP Method mismatch in action" + controller.getClass().getCanonicalName() + "->" + (declaredMethod.getName() +
+                        " (declared: " + declaredMethod.getAnnotation(Route.class).method() +
+                        ", got: " + httpExchange.getRequestMethod() + ")"));
+            }
         } catch (IllegalAccessException | InvocationTargetException e) {
-            Logger.e("Error executing " + controller.getClass().getCanonicalName().concat("->").concat(declaredMethod.getName()), e);
+            Logger.e("Error executing " +
+                    controller.getClass().getCanonicalName() + "->" + (declaredMethod.getName()), e);
         }
     }
 }

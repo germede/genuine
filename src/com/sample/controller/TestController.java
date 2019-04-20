@@ -13,7 +13,7 @@ public class TestController extends Controller {
     @Inject
     public RepositoryImpl<Person> personRepository;
 
-    @Route("/action")
+    @Route(path = "/action", method = "POST")
     public void action() {
 
 //        Person person = new Person()

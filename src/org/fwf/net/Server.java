@@ -1,7 +1,6 @@
 package org.fwf.net;
 
 import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
 import org.fwf.log.Logger;
 
 import java.io.IOException;
@@ -10,12 +9,12 @@ import java.util.Map;
 
 public class Server {
 
-    private static HttpServer server;
+    private static com.sun.net.httpserver.HttpServer server;
     private static int port = 8000;
 
     public static void start() {
         try {
-            server = HttpServer.create(new InetSocketAddress(port), 0);
+            server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(port), 0);
             setServerContexts(server);
             server.setExecutor(null);
             server.start();
