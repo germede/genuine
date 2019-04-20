@@ -1,4 +1,4 @@
-package org.fwf.dto;
+package org.fwf.dba;
 
 import org.fwf.ann.Column;
 import org.fwf.ann.Table;
@@ -10,16 +10,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
 
 public class QueryHelper {
 
 
-    public static ColumnValueListsPair generateColumnValueListPair(Model model)
+    public static Query.ColumnsValuesPairs retrieveColumnsValuesPair(Model model)
             throws MethodIsAbsentOrInaccessibleException, IllegalAccessException, InvocationTargetException {
 
-        ColumnValueListsPair result = new ColumnValueListsPair();
+        Query.ColumnsValuesPairs result = new Query.ColumnsValuesPairs();
 
         Field[] declaredFields = model.getClass().getDeclaredFields();
         for (Field field : declaredFields) {
@@ -63,14 +61,5 @@ public class QueryHelper {
         throw new MethodIsAbsentOrInaccessibleException(modelClass.getCanonicalName(), setterName);
     }
 
-    public static class ColumnValueListsPair {
 
-        public List<String> columns;
-        public List<Object> values;
-
-        ColumnValueListsPair() {
-            this.columns = new ArrayList<>();
-            this.values = new ArrayList<>();
-        }
-    }
 }

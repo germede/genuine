@@ -1,5 +1,6 @@
 package org.fwf.dto;
 
+import org.fwf.dba.*;
 import org.fwf.exc.MethodIsAbsentOrInaccessibleException;
 import org.fwf.exc.ModelHasNoMappedTableException;
 import org.fwf.log.Log;
@@ -17,21 +18,22 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
 
     }
 
-    public boolean create(T model) {
+    public int create(T model) {
         try {
             String table = QueryHelper.retrieveTable(model.getClass());
-            QueryHelper.ColumnValueListsPair columnValueListsPair = QueryHelper.generateColumnValueListPair(model);
-            new Query()
-                    .insert()
-                    .into(table, columnValueListsPair.columns)
-                    .values(columnValueListsPair.values)
-                    .execute();
+            Query.ColumnsValuesPairs columnsValuesPairs = QueryHelper.retrieveColumnsValuesPair(model);
+            QueryResult queryResult =
+                    new Query()
+                            .insert()
+                            .into(table, columnsValuesPairs.columns)
+                            .values(columnsValuesPairs.values)
+                            .execute();
 
-            return true;
+            return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
             Log.e(e.getMessage(), e);
         }
-        return false;
+        return 0;
     }
 
     public List<T> findAll(Class<T> modelClass) {
@@ -44,7 +46,7 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
                             .from(table)
                             .execute();
 
-            for (Map<String, Object> objectMap : queryResult.resultMap) {
+            for (Map<String, Object> objectMap : queryResult.resultList) {
                 T record = modelClass.newInstance();
                 for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                     Method setter = QueryHelper.retrieveSetterMethod(modelClass, entry.getKey());
@@ -56,6 +58,32 @@ public class CrudRepository<T extends Model<T>> implements Repository<T> {
             Log.e(e.getMessage(), e);
         }
         return result;
+    }
+
+    public int update(T model) {
+        try {
+            String table = QueryHelper.retrieveTable(model.getClass());
+            Query.ColumnsValuesPairs columnsValuesPairs = QueryHelper.retrieveColumnsValuesPair(model);
+            QueryResult queryResult =
+                    new Query()
+                            .update(table)
+                            .set(columnsValuesPairs.columns, columnsValuesPairs.values)
+                            .where(
+                                    new Constraint("id").isEqualTo(model.getId())
+                                            .and(new Constraint("1").isEqualTo("1")
+                                                    .or(new Constraint("true").isEqualTo("true"))
+                                            )
+                                            .and(new Constraint("2").isEqualTo(2))
+                            )
+                            .orderBy(columnsValuesPairs.columns)
+                            .execute();
+
+
+            return queryResult.resultSize;
+        } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
+            Log.e(e.getMessage(), e);
+        }
+        return 0;
     }
 
 }

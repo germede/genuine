@@ -7,8 +7,6 @@ import org.fwf.ann.Route;
 import org.fwf.dto.CrudRepository;
 import org.fwf.mvc.Controller;
 
-import java.util.List;
-
 @BaseRoute("/test")
 public class TestController extends Controller {
 
@@ -19,11 +17,13 @@ public class TestController extends Controller {
     public void action() {
 
         Person person = new Person()
-                .setName("Thomas");
+                .setId(12)
+                .setName("Thomas")
+                .setSurname("Mueller");
 
-        // TODO inject repository singleton for each controller
 
-        List<Person> people = personRepository.findAll(Person.class);
+//        List<Person> people = personRepository.findAll(Person.class);
+        personRepository.update(person);
         int i = 0;
     }
 }

@@ -1,14 +1,13 @@
-package org.fwf.dto;
+package org.fwf.dba;
 
 import org.fwf.cnf.Configuration;
 import org.fwf.log.Log;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class Database {
 
@@ -16,24 +15,42 @@ class Database {
         Connection connection = getConnection();
         QueryResult result = new QueryResult();
         if (connection != null) {
-            try (PreparedStatement ps = connection.prepareStatement(query)) {
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
                 if (parameters == null) {
                     parameters = new ArrayList<>();
                 }
                 int i = 0;
                 for (Object parameter : parameters) {
-                    ps.setObject(++i, parameter);
+                    statement.setObject(++i, parameter);
                 }
                 if (query.startsWith("SELECT")) {
-                    result.setQueryResult(ps.executeQuery());
+                    result.resultList = resultSetToResultList(statement.executeQuery());
+                    result.resultSize = result.resultList.size();
                 } else {
-                    result.code = ps.executeUpdate();
+                    result.resultSize = statement.executeUpdate();
                 }
             } catch (SQLException e) {
                 Log.e(e.getMessage(), e);
             }
         }
         return result;
+    }
+
+    private static List<Map<String, Object>> resultSetToResultList(ResultSet resultSet) throws SQLException {
+
+        List<Map<String, Object>> resultMap = new ArrayList<>();
+        ResultSetMetaData meta = resultSet.getMetaData();
+        int numColumns = meta.getColumnCount();
+        while (resultSet.next()) {
+            Map<String, Object> row = new HashMap<>();
+            for (int i = 1; i <= numColumns; ++i) {
+                String name = meta.getColumnName(i);
+                Object value = resultSet.getObject(i);
+                row.put(name, value);
+            }
+            resultMap.add(row);
+        }
+        return resultMap;
     }
 
     private static Connection getConnection() {

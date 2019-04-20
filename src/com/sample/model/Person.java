@@ -8,18 +8,7 @@ import org.fwf.ann.Table;
 public class Person extends Model<Person> {
 
     @Column
-    private int id;
-    @Column
     private String name;
-
-    public int getId() {
-        return id;
-    }
-
-    public Person setId(int id) {
-        this.id = id;
-        return this;
-    }
 
     public String getName() {
         return name;
@@ -27,6 +16,19 @@ public class Person extends Model<Person> {
 
     public Person setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    @Column
+    private String surname;
+
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public Person setSurname(String surname) {
+        this.surname = surname;
         return this;
     }
 }
