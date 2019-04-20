@@ -6,8 +6,7 @@ import org.fwf.log.Log;
 import org.fwf.mvc.Controller;
 import org.reflections.Reflections;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Register {
 
@@ -38,7 +37,7 @@ public class Register {
         return commandInstances;
     }
 
-    public Set<Class<? extends Command>> getCommandClasses() {
+    private List<Class<? extends Command>> getCommandClasses() {
         // fwf commands
         Reflections reflections = new Reflections("org.fwf.cli");
         Set<Class<? extends Command>> result = new HashSet<>(reflections.getSubTypesOf(Command.class));
@@ -47,7 +46,11 @@ public class Register {
         Reflections customReflections = new Reflections(Configuration.get(Configuration.APP_PACKAGE));
         result.addAll(customReflections.getSubTypesOf(Command.class));
 
-        return result;
+        // sort commands alphabetically
+        List<Class<? extends Command>> sortedCommandClasses = new ArrayList<>(result);
+        sortedCommandClasses.sort(Comparator.comparing(Class::getName));
+
+        return sortedCommandClasses;
     }
 
     // controllers
@@ -58,7 +61,9 @@ public class Register {
             controllerInstances = new HashSet<>();
             for (Class controllerClass : getControllerClasses()){
                 try {
-                    controllerInstances.add((Controller) controllerClass.newInstance());
+                    Controller controller = (Controller) controllerClass.newInstance();
+
+                    controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
                     Log.e(e.getMessage(), e);
                 }
@@ -67,7 +72,7 @@ public class Register {
         return controllerInstances;
     }
 
-    public Set<Class<? extends Controller>> getControllerClasses() {
+    private Set<Class<? extends Controller>> getControllerClasses() {
         Reflections reflections = new Reflections(Configuration.get(Configuration.APP_PACKAGE));
         return reflections.getSubTypesOf(Controller.class);
     }
