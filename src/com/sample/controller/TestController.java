@@ -4,7 +4,7 @@ import com.sample.model.Person;
 import org.fwf.ann.BaseRoute;
 import org.fwf.ann.Inject;
 import org.fwf.ann.Route;
-import org.fwf.dto.Repository;
+import org.fwf.dto.CrudRepository;
 import org.fwf.mvc.Controller;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 public class TestController extends Controller {
 
     @Inject
-    public Repository<Person> personRepository;
+    public CrudRepository<Person> personRepository;
 
     @Route("/action")
     public void action() {
