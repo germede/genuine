@@ -8,11 +8,7 @@ public abstract class Model<T extends Model<T>> implements Cloneable {
         return original;
     }
 
-    public void setOriginal(Model<T> original) {
-        this.original = original;
-    }
-
-    public T clone() throws CloneNotSupportedException {
-        return (T) super.clone();
+    public void saveOriginal() throws CloneNotSupportedException {
+        this.original = (T)super.clone();
     }
 }

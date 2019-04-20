@@ -4,9 +4,14 @@ import org.fwf.mvc.Model;
 
 import java.util.List;
 
-public interface Repository<T extends Model<T>>{
+public interface Repository<T extends Model<T>> {
+    List<T> list(Class<T> modelClass);
+
+    T find(Class<T> personClass, Object pk);
+
     int create(T model);
-    List<T> findAll(Class<T> modelClass);
+
     int update(T model);
 
+    int delete(T model);
 }
