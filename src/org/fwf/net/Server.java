@@ -29,7 +29,7 @@ public class Server {
     }
 
     private static void setServerContexts(com.sun.net.httpserver.HttpServer server) {
-        for (Map.Entry<String, HttpHandler> entry : Routing.getRouteHandlerMap().entrySet()) {
+        for (Map.Entry<String, HttpHandler> entry : Router.getRouteHandlerMap().entrySet()) {
             server.createContext(entry.getKey(), entry.getValue());
         }
     }

@@ -9,11 +9,9 @@ import org.fwf.obj.Register;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-class Routing {
+class Router {
 
     private static HashMap<String, HttpHandler> routeHandlerMap;
 
@@ -30,26 +28,14 @@ class Routing {
         for (Controller controller : controllerInstances) {
 
             Class<? extends Controller> controllerClass = controller.getClass();
-            String baseRouteValue = retrieveControllerBaseRoute(controllerClass);
+            String baseRouteValue = controllerClass.isAnnotationPresent(BaseRoute.class) ?
+                    controllerClass.getAnnotation(BaseRoute.class).value() :
+                    "";
 
-            // check if base route is valid
-            if (baseRouteValue == null) {
-                Log.w("Invalid route for controller " +
-                        controllerClass.getCanonicalName());
-                continue;
-            }
-
-            Method[] actions = controllerClass.getDeclaredMethods();
+            List<Method> actions = filterMethodsWithRoute(controllerClass.getDeclaredMethods());
             for (Method action : actions) {
 
-                String route = retrieveControllerMethodRoute(baseRouteValue, action);
-
-                // check if route is valid
-                if (route == null) {
-                    Log.w("Invalid route for controller action " +
-                            controllerClass.getCanonicalName() + "->" + action.getName());
-                    continue;
-                }
+                String route = baseRouteValue + action.getAnnotation(Route.class).value();;
 
                 // check if route is already registered
                 if (routeHandlerMap.containsKey(route)) {
@@ -67,20 +53,14 @@ class Routing {
         }
     }
 
-    private static String retrieveControllerBaseRoute(Class<? extends Controller> controllerClass) {
-        if (controllerClass.isAnnotationPresent(BaseRoute.class)) {
-            return controllerClass.getAnnotation(BaseRoute.class).value();
-        } else {
-            return null;
+    private static List<Method> filterMethodsWithRoute(Method[] declaredMethods) {
+        List<Method> result = new ArrayList<>();
+        for (Method declaredMethod : declaredMethods) {
+            if (declaredMethod.isAnnotationPresent(Route.class)) {
+                result.add(declaredMethod);
+            }
         }
-    }
-
-    private static String retrieveControllerMethodRoute(String baseRouteValue, Method declaredMethod) {
-        if (declaredMethod.isAnnotationPresent(Route.class)) {
-            return baseRouteValue + declaredMethod.getAnnotation(Route.class).value();
-        } else {
-            return null;
-        }
+        return result;
     }
 
     private static void invokeControllerAction(Controller controller, Method declaredMethod) {
