@@ -62,7 +62,7 @@ public class Register {
             for (Class controllerClass : getControllerClasses()){
                 try {
                     Controller controller = (Controller) controllerClass.newInstance();
-
+                    Injector.injectFields(controller);
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
                     Log.e(e.getMessage(), e);
