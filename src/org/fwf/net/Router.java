@@ -86,9 +86,11 @@ class Router {
                         method.getAnnotation(Route.class).method(),
                         httpExchange.getRequestMethod());
             }
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            Logger.e(e,
-                    "Error executing controller method %s->%s",
+        } catch (IllegalAccessException e) {
+            Logger.e(e);
+        } catch (InvocationTargetException e) {
+            Logger.e((Exception) e.getTargetException(),
+                    e.getMessage(),
                     controller.getClass().getCanonicalName(),
                     (method.getName()));
         }
