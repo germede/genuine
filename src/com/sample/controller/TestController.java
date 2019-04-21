@@ -1,19 +1,18 @@
 package com.sample.controller;
 
 import com.sample.model.Person;
-import org.fwf.ann.BaseRoute;
+import com.sample.view.TestView;
 import org.fwf.ann.Inject;
 import org.fwf.ann.Route;
-import org.fwf.dto.RepositoryImpl;
+import org.fwf.dto.Repository;
 import org.fwf.mvc.Controller;
 
-@BaseRoute("/test")
 public class TestController extends Controller {
 
     @Inject
-    public RepositoryImpl<Person> personRepository;
+    public Repository<Person> personRepository;
 
-    @Route(path = "/action", method = "GET")
+    @Route
     public void action() {
 
 //        Person person = new Person()
@@ -26,6 +25,6 @@ public class TestController extends Controller {
 //        person.setSurname("testttt");
 //        personRepository.update(person);
 
-        redirect("http://www.google.com/");
+        render(new TestView("test"),200);
     }
 }

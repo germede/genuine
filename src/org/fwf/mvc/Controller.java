@@ -14,10 +14,10 @@ public abstract class Controller {
         this.httpExchange = httpExchange;
     }
 
-    protected void ok() {
+    protected void render(View view, int responseCode) {
+        String response = view.render();
         try {
-            String response = "OK";
-            httpExchange.sendResponseHeaders(200, response.getBytes().length);
+            httpExchange.sendResponseHeaders(responseCode, response.getBytes().length);
             OutputStream os = httpExchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
