@@ -1,4 +1,4 @@
-package org.fwf.dto;
+package org.fwf.dao;
 
 import org.fwf.ann.Column;
 import org.fwf.ann.Table;
@@ -32,10 +32,9 @@ public class RepositoryHelper {
         return result;
     }
 
-    public static Query.ColumnsValuesPairs retrieveColumnsValuesPairBasedOnDifferences(Model model)
+    public static Query.ColumnsValuesPairs retrieveColumnsValuesPairBasedOnDifferences(Model model, Model original)
             throws MethodIsAbsentOrInaccessibleException, IllegalAccessException, InvocationTargetException {
 
-        Model original = model.getOriginal();
         Query.ColumnsValuesPairs result = new Query.ColumnsValuesPairs();
 
         Field[] declaredFields = model.getClass().getDeclaredFields();
@@ -53,7 +52,7 @@ public class RepositoryHelper {
         return result;
     }
 
-    public static String retrieveTable(Class modelClass) throws ModelHasNoMappedTableException {
+    static String retrieveTable(Class modelClass) throws ModelHasNoMappedTableException {
         if (modelClass.isAnnotationPresent(Table.class)) {
             return ((Table) modelClass.getAnnotation(Table.class)).value();
         } else {
@@ -61,7 +60,7 @@ public class RepositoryHelper {
         }
     }
 
-    public static String retrievePrimaryKeyColumnName(Class modelClass) throws ModelHasNoPrimaryKeyException {
+    static String retrievePrimaryKeyColumnName(Class modelClass) throws ModelHasNoPrimaryKeyException {
         Field[] declaredFields = modelClass.getDeclaredFields();
         for (Field declaredField : declaredFields) {
             if (declaredField.isAnnotationPresent(Column.class) && declaredField.getAnnotation(Column.class).pk()) {
@@ -71,11 +70,11 @@ public class RepositoryHelper {
         throw new ModelHasNoPrimaryKeyException(modelClass.getCanonicalName());
     }
 
-    public static Object retrievePrimaryKey(Model model) throws InvocationTargetException, IllegalAccessException, MethodIsAbsentOrInaccessibleException, ModelHasNoPrimaryKeyException {
+    static Object retrievePrimaryKey(Model model) throws InvocationTargetException, IllegalAccessException, MethodIsAbsentOrInaccessibleException, ModelHasNoPrimaryKeyException {
         return retrieveGetterMethod(model.getClass(), retrievePrimaryKeyColumnName(model.getClass())).invoke(model);
     }
 
-    public static Method retrieveGetterMethod(Class modelClass, String fieldName) throws MethodIsAbsentOrInaccessibleException {
+    private static Method retrieveGetterMethod(Class modelClass, String fieldName) throws MethodIsAbsentOrInaccessibleException {
         String getterName = "get" + Character.toString(fieldName.charAt(0)).toUpperCase() + fieldName.substring(1);
         Method[] declaredMethods = modelClass.getDeclaredMethods();
         for (Method declaredMethod : declaredMethods) {
@@ -86,7 +85,7 @@ public class RepositoryHelper {
         throw new MethodIsAbsentOrInaccessibleException(modelClass.getCanonicalName(), getterName);
     }
 
-    public static Method retrieveSetterMethod(Class modelClass, String fieldName) throws MethodIsAbsentOrInaccessibleException {
+    static Method retrieveSetterMethod(Class modelClass, String fieldName) throws MethodIsAbsentOrInaccessibleException {
         String setterName = "set" + Character.toString(fieldName.charAt(0)).toUpperCase() + fieldName.substring(1);
         Method[] declaredMethods = modelClass.getDeclaredMethods();
         for (Method declaredMethod : declaredMethods) {
