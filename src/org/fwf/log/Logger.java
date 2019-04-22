@@ -32,14 +32,23 @@ public class Logger {
     }
 
     public static void e(Exception exception) {
-        String message = "Exception " + exception.getClass().getName();
+        String message;
+        if (exception.getMessage() == null) {
+            message = "Exception " + exception.getClass().getName();
+        } else {
+            message = exception.getMessage();
+        }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
         e(message);
     }
 
     public static void e(Exception exception, String message, Object... parameters) {
         if (message == null) {
-            message = "Exception " + exception.getClass().getName();
+            if (exception.getMessage() == null) {
+                message = "Exception " + exception.getClass().getName();
+            } else {
+                message = exception.getMessage();
+            }
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
         e(message, parameters);
