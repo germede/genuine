@@ -8,6 +8,8 @@ import org.fwf.log.Logger;
 import org.fwf.mvc.Controller;
 import org.fwf.obj.Register;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -34,21 +36,28 @@ class Router {
                     "";
 
             List<Method> methodsWithRoute = filterMethodsWithRoute(controllerClass.getDeclaredMethods());
-            for (Method methodWithRout : methodsWithRoute) {
+            for (Method methodWithRoute : methodsWithRoute) {
 
-                String route = baseRouteValue + methodWithRout.getAnnotation(Route.class).path();
+                String route = baseRouteValue + methodWithRoute.getAnnotation(Route.class).path();
 
-                // check if route is already registered
                 if (routeHandlerMap.containsKey(route)) {
                     Logger.w("Cannot register controller method %s->%s because route '%s' is already registered",
                             controllerClass.getCanonicalName(),
-                            methodWithRout.getName(),
+                            methodWithRoute.getName(),
+                            route);
+                    continue;
+                }
+
+                if (methodWithRoute.getReturnType() != HttpResponse.class) {
+                    Logger.w("Controller method %s->%s MUST return an object of type " + HttpResponse.class.getCanonicalName(),
+                            controllerClass.getCanonicalName(),
+                            methodWithRoute.getName(),
                             route);
                     continue;
                 }
 
                 routeHandlerMap.put(route, httpExchange -> {
-                    invokeControllerMethod(controller, methodWithRout, httpExchange);
+                    invokeControllerMethod(controller, methodWithRoute, httpExchange);
                     httpExchange.close();
                 });
             }
@@ -76,9 +85,7 @@ class Router {
 //
 //                if (method.getParameters())
 
-                controller.setHttpExchange(httpExchange);
-                method.invoke(controller);
-
+                response(httpExchange, (HttpResponse) method.invoke(controller));
             } else {
                 Logger.w("HTTP Method mismatch in controller method %s->%s (declared: %s) , got: %s)",
                         controller.getClass().getCanonicalName(),
@@ -95,4 +102,21 @@ class Router {
                     (method.getName()));
         }
     }
+
+    private static void response(HttpExchange httpExchange, HttpResponse httpResponse) {
+        try {
+            if (httpResponse.httpStatusCode >= 300 && httpResponse.httpStatusCode < 400) {
+                httpExchange.getResponseHeaders().add("Location", httpResponse.response);
+                httpExchange.sendResponseHeaders(301, 0);
+            } else {
+                httpExchange.sendResponseHeaders(httpResponse.httpStatusCode, httpResponse.response.getBytes().length);
+                OutputStream os = httpExchange.getResponseBody();
+                os.write(httpResponse.response.getBytes());
+                os.close();
+            }
+        } catch (IOException e) {
+            Logger.e(e);
+        }
+    }
+
 }
