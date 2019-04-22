@@ -5,7 +5,7 @@ import org.fwf.ann.Table;
 import org.fwf.mvc.Model;
 
 @Table("person")
-public class Person extends Model<Person> {
+public class Person implements Model {
 
     @Column(pk = true)
     private int id;
