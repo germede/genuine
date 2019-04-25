@@ -26,7 +26,7 @@ public class Logger {
     }
 
     public static void e(String messageWithPlaceholders, Object... parameters) {
-        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
+        System.err.println(Console.ANSI_PURPLE + getCurrentTime() +
                 Console.ANSI_RED + " [ERROR] " +
                 Console.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
     }

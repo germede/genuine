@@ -18,9 +18,8 @@ public class Console {
     public static final String ANSI_WHITE  = "\u001B[37m";
 
     public static void main(String[] args) {
-
         if (args.length == 0) {
-            new HelpCommand().execute(args);
+            new HelpCommand().execute(null);
         } else {
             executeCommand(args);
         }

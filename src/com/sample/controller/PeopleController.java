@@ -10,12 +10,12 @@ import org.fwf.net.HttpResponse;
 
 import java.util.List;
 
-public class TestController implements Controller {
+public class PeopleController implements Controller {
 
     private Repository<Person> personRepository = new RepositoryImpl<>(Person.class);
 
-    @Route
-    public HttpResponse action() {
+    @Route(path = "/")
+    public HttpResponse list() {
 
 //        Person person = new Person()
 //                .setId(12)
@@ -28,6 +28,17 @@ public class TestController implements Controller {
 //        person.setSurname("testttt");
 //        personRepository.update(person);
 
-        return new HttpResponse(200, new PeopleView(people).render());
+        return render(new PeopleView(people));
+    }
+
+    @Route(path = "/redirect")
+    public HttpResponse testRedirect() {
+        return redirect("http://www.google.com/");
+    }
+
+    @Route(path = "/response")
+    public HttpResponse testResponse() {
+        return response("this is a raw response with custom response code").
+                setStatusCode(201);
     }
 }

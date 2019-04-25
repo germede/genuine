@@ -22,9 +22,9 @@ public class BodyView implements View {
         return new HtmlView()
                 .open(HtmlTag.body)
                 .open(HtmlTag.div,
-                        new HtmlAttribute("class","test"),
-                        new HtmlAttribute("data-binding","test"),
-                        new HtmlAttribute("test","test")
+                        new HtmlAttribute("class","testRedirect"),
+                        new HtmlAttribute("data-binding","testRedirect"),
+                        new HtmlAttribute("testRedirect","testRedirect")
                 )
                 .includeIf(2==2, new DummyView())
                 .forEach(people,
@@ -34,6 +34,7 @@ public class BodyView implements View {
                                 htmlView.append(person.getName());
                             }
                         })
+//                .img()
                 .close(HtmlTag.div)
                 .close(HtmlTag.body)
                 .render();

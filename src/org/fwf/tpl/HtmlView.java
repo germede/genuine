@@ -1,6 +1,7 @@
 package org.fwf.tpl;
 
 import org.fwf.mvc.View;
+import org.fwf.net.Server;
 
 import java.util.function.Consumer;
 
@@ -10,11 +11,6 @@ public class HtmlView implements View {
 
     public HtmlView() {
         html = new StringBuilder();
-    }
-
-    public HtmlView append(String toAppend) {
-        html.append(toAppend);
-        return this;
     }
 
     public HtmlView open(String tag, HtmlAttribute... attributes) {
@@ -29,6 +25,18 @@ public class HtmlView implements View {
         return append("</").append(tag).append(">");
     }
 
+    public HtmlView append(String toAppend) {
+        html.append(toAppend);
+        return this;
+    }
+
+    public HtmlView appendIf(boolean condition, String toAppend) {
+        if (condition) {
+            return append(toAppend);
+        }
+        return this;
+    }
+
     public HtmlView include(View view) {
         return append(view.render());
     }
@@ -40,21 +48,31 @@ public class HtmlView implements View {
         return this;
     }
 
-    public HtmlView includeIf(boolean condition, String raw) {
-        if (condition) {
-            return append(raw);
-        }
-        return this;
+    public HtmlView includeCss(String path) {
+        return open(HtmlTag.link,
+                new HtmlAttribute("rel", "stylesheet"),
+                new HtmlAttribute("type", "text/css"),
+                new HtmlAttribute("href", Server.getBaseAddress().concat("/res/").concat(path))
+        );
+    }
+
+    public HtmlView includeJs(String path) {
+        return open(HtmlTag.script,
+                new HtmlAttribute("src", Server.getBaseAddress().concat("/res/").concat(path))
+        ).close(HtmlTag.script);
     }
 
     public HtmlView forEach(Iterable<?> objects, ForEach<?> forEachLambda) {
-        objects.forEach((Consumer<? super Object>) object -> forEachLambda.execute(object,this));
+        objects.forEach((Consumer<? super Object>) object -> forEachLambda.execute(object, this));
         return this;
     }
 
     public HtmlView title(String title) {
-        open(HtmlTag.title).append(title).close(HtmlTag.title);
-        return this;
+        return open(HtmlTag.title).append(title).close(HtmlTag.title);
+    }
+
+    public HtmlView meta(HtmlAttribute... attributes) {
+        return open(HtmlTag.meta, attributes);
     }
 
     @Override

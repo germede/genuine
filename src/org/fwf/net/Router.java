@@ -8,8 +8,6 @@ import org.fwf.log.Logger;
 import org.fwf.mvc.Controller;
 import org.fwf.obj.Register;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -30,16 +28,19 @@ class Router {
         Set<Controller> controllerInstances = Register.getInstance().getControllerInstances();
         for (Controller controller : controllerInstances) {
 
+            // retrieve controller base route
             Class<? extends Controller> controllerClass = controller.getClass();
             String baseRouteValue = controllerClass.isAnnotationPresent(BaseRoute.class) ?
                     controllerClass.getAnnotation(BaseRoute.class).value() :
                     "";
 
+            // retrieve controller methods with route
             List<Method> methodsWithRoute = filterMethodsWithRoute(controllerClass.getDeclaredMethods());
             for (Method methodWithRoute : methodsWithRoute) {
 
                 String route = baseRouteValue + methodWithRoute.getAnnotation(Route.class).path();
 
+                // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
                     Logger.w("Cannot register controller method %s->%s because route '%s' is already registered",
                             controllerClass.getCanonicalName(),
@@ -48,6 +49,7 @@ class Router {
                     continue;
                 }
 
+                // controller methdo must return HttpResponse
                 if (methodWithRoute.getReturnType() != HttpResponse.class) {
                     Logger.w("Controller method %s->%s MUST return an object of type " + HttpResponse.class.getCanonicalName(),
                             controllerClass.getCanonicalName(),
@@ -57,10 +59,16 @@ class Router {
                 }
 
                 routeHandlerMap.put(route, httpExchange -> {
+                    Logger.d(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                     invokeControllerMethod(controller, methodWithRoute, httpExchange);
-                    httpExchange.close();
                 });
             }
+
+            // static resource manager
+            routeHandlerMap.put("/res/", new ResourceHandler());
+
+            // favicon route
+            routeHandlerMap.put("/favicon.ico", new ResourceHandler());
         }
     }
 
@@ -85,38 +93,33 @@ class Router {
 //
 //                if (method.getParameters())
 
-                response(httpExchange, (HttpResponse) method.invoke(controller));
+                Server.respond(httpExchange, (HttpResponse) method.invoke(controller));
             } else {
+
+                // client request method mismatch
                 Logger.w("HTTP Method mismatch in controller method %s->%s (declared: %s) , got: %s)",
                         controller.getClass().getCanonicalName(),
                         method.getName(),
                         method.getAnnotation(Route.class).method(),
                         httpExchange.getRequestMethod());
+                Server.respond(httpExchange, new HttpResponse(HttpStatusCode.BadRequest));
             }
+
+            // exception due to inaccessible controller method
         } catch (IllegalAccessException e) {
             Logger.e(e);
+            Server.respond(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
+
+            // exception within controller method invocation
         } catch (InvocationTargetException e) {
             Logger.e((Exception) e.getTargetException(),
                     e.getMessage(),
                     controller.getClass().getCanonicalName(),
                     (method.getName()));
+            Server.respond(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
         }
     }
 
-    private static void response(HttpExchange httpExchange, HttpResponse httpResponse) {
-        try {
-            if (httpResponse.httpStatusCode >= 300 && httpResponse.httpStatusCode < 400) {
-                httpExchange.getResponseHeaders().add("Location", httpResponse.response);
-                httpExchange.sendResponseHeaders(301, 0);
-            } else {
-                httpExchange.sendResponseHeaders(httpResponse.httpStatusCode, httpResponse.response.getBytes().length);
-                OutputStream os = httpExchange.getResponseBody();
-                os.write(httpResponse.response.getBytes());
-                os.close();
-            }
-        } catch (IOException e) {
-            Logger.e(e);
-        }
-    }
+
 
 }
