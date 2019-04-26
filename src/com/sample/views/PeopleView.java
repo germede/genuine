@@ -1,9 +1,9 @@
 package com.sample.views;
 
 import com.sample.models.Person;
-import org.fluentness.mvc.View;
-import org.fluentness.tpl.HtmlTag;
-import org.fluentness.tpl.HtmlView;
+import org.fluentness.view.View;
+import org.fluentness.view.HtmlTag;
+import org.fluentness.view.HtmlView;
 
 import java.util.List;
 

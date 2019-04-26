@@ -2,11 +2,11 @@ package com.sample.controllers;
 
 import com.sample.models.Person;
 import com.sample.views.PeopleView;
-import org.fluentness.ann.Route;
-import org.fluentness.dao.Repository;
-import org.fluentness.dao.RepositoryImpl;
-import org.fluentness.mvc.Controller;
-import org.fluentness.net.HttpResponse;
+import org.fluentness.routing.Route;
+import org.fluentness.repository.Repository;
+import org.fluentness.repository.RepositoryImpl;
+import org.fluentness.controller.Controller;
+import org.fluentness.routing.HttpResponse;
 
 import java.util.List;
 
@@ -40,6 +40,6 @@ public class PeopleController implements Controller {
     public HttpResponse testResponse() {
         return response("this is a raw response with custom response code")
                 .setStatusCode(201)
-                .setHeader("asdf","asdf");
+                .setHeader("asdf", "asdf");
     }
 }

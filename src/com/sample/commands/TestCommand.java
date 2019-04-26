@@ -1,7 +1,7 @@
 package com.sample.commands;
 
-import org.fluentness.cli.Command;
-import org.fluentness.net.Server;
+import org.fluentness.command.Command;
+import org.fluentness.routing.Server;
 
 public class TestCommand implements Command {
 

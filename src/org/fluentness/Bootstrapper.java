@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.cli.Console;
+import org.fluentness.command.Console;
 
 public class Bootstrapper {
 
