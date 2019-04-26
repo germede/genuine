@@ -1,6 +1,6 @@
 package org.fluentworkflow.log;
 
-import org.fluentworkflow.Fwf;
+import org.fluentworkflow.cli.Console;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,27 +8,27 @@ import java.time.format.DateTimeFormatter;
 public class Logger {
 
     public static void i(String messageWithPlaceholders, Object... parameters) {
-        System.out.println(Fwf.ANSI_PURPLE + getCurrentTime() +
-                Fwf.ANSI_BLUE + " [INFO] " +
-                Fwf.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
+                Console.ANSI_BLUE + " [INFO] " +
+                Console.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
     }
 
     public static void d(String messageWithPlaceholders, Object... parameters) {
-        System.out.println(Fwf.ANSI_PURPLE + getCurrentTime() +
-                Fwf.ANSI_GREEN + " [DEBUG] " +
-                Fwf.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
+                Console.ANSI_GREEN + " [DEBUG] " +
+                Console.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
     }
 
     public static void w(String messageWithPlaceholders, Object... parameters) {
-        System.out.println(Fwf.ANSI_PURPLE + getCurrentTime() +
-                Fwf.ANSI_YELLOW + " [WARNING] " +
-                Fwf.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
+                Console.ANSI_YELLOW + " [WARNING] " +
+                Console.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
     }
 
     public static void e(String messageWithPlaceholders, Object... parameters) {
-        System.err.println(Fwf.ANSI_PURPLE + getCurrentTime() +
-                Fwf.ANSI_RED + " [ERROR] " +
-                Fwf.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+        System.err.println(Console.ANSI_PURPLE + getCurrentTime() +
+                Console.ANSI_RED + " [ERROR] " +
+                Console.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
     }
 
     public static void e(Exception exception) {

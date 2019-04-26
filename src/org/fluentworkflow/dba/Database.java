@@ -1,6 +1,6 @@
 package org.fluentworkflow.dba;
 
-import org.fluentworkflow.cnf.Configuration;
+import org.fluentworkflow.Configuration;
 import org.fluentworkflow.log.Logger;
 
 import java.sql.*;

@@ -3,7 +3,7 @@ package org.fluentworkflow.net;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import org.fluentworkflow.cnf.Configuration;
+import org.fluentworkflow.Configuration;
 import org.fluentworkflow.log.Logger;
 
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class Server {
         }
     }
 
-    public static void respond(HttpExchange httpExchange, HttpResponse httpResponse) {
+    static void respond(HttpExchange httpExchange, HttpResponse httpResponse) {
         try {
             for (Map.Entry<String, String> header: httpResponse.getHeaders().entrySet()){
                 httpExchange.getResponseHeaders().set(header.getKey(), header.getValue());
