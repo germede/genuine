@@ -71,22 +71,18 @@ public abstract class MarkupView<T extends MarkupView<?>> implements View {
     // view interface methods
     @Override
     public String render() {
-        return translate();
-    }
-    @Override
-    public String translate() {
-        String result = document.toString();
+        // translate
         Translations translations = ClassRegister.getTranslations().get(language);
-        if (translations != null && result.contains("###")) {
+        if (translations != null) {
             Matcher matcher = Pattern.compile("###(\\w+)###").matcher(document);
             while (matcher.find()) {
                 String key = matcher.group(1);
                 if (translations.contains(key)) {
-                    result = result.replace(matcher.group(0), translations.get(key));
+                    document.replace(matcher.start(),matcher.end(),translations.get(key));
                 }
             }
         }
-        return result;
+        return document.toString();
     }
 
     // lambdas
