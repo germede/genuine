@@ -1,8 +1,8 @@
 package com.sample.models;
 
-import org.fluencyframework.ann.Column;
-import org.fluencyframework.ann.Table;
-import org.fluencyframework.mvc.Model;
+import org.fluentness.ann.Column;
+import org.fluentness.ann.Table;
+import org.fluentness.mvc.Model;
 
 @Table("person")
 public class Person implements Model {

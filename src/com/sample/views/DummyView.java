@@ -1,6 +1,6 @@
 package com.sample.views;
 
-import org.fluencyframework.mvc.View;
+import org.fluentness.mvc.View;
 
 public class DummyView implements View {
     @Override

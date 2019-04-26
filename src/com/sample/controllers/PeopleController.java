@@ -2,11 +2,11 @@ package com.sample.controllers;
 
 import com.sample.models.Person;
 import com.sample.views.PeopleView;
-import org.fluencyframework.ann.Route;
-import org.fluencyframework.dao.Repository;
-import org.fluencyframework.dao.RepositoryImpl;
-import org.fluencyframework.mvc.Controller;
-import org.fluencyframework.net.HttpResponse;
+import org.fluentness.ann.Route;
+import org.fluentness.dao.Repository;
+import org.fluentness.dao.RepositoryImpl;
+import org.fluentness.mvc.Controller;
+import org.fluentness.net.HttpResponse;
 
 import java.util.List;
 

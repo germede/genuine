@@ -1,7 +1,7 @@
 package com.sample;
 
-import org.fluencyframework.Bootstrapper;
-import org.fluencyframework.Configuration;
+import org.fluentness.Bootstrapper;
+import org.fluentness.Configuration;
 
 public class Dev {
 

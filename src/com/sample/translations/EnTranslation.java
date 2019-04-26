@@ -1,7 +1,7 @@
 package com.sample.translations;
 
-import org.fluencyframework.lan.Translation;
-import org.fluencyframework.lan.Translations;
+import org.fluentness.lan.Translation;
+import org.fluentness.lan.Translations;
 
 public class EnTranslation implements Translation {
 

@@ -1,10 +1,10 @@
 package com.sample.views;
 
 import com.sample.models.Person;
-import org.fluencyframework.mvc.View;
-import org.fluencyframework.tpl.HtmlAttribute;
-import org.fluencyframework.tpl.HtmlTag;
-import org.fluencyframework.tpl.HtmlView;
+import org.fluentness.mvc.View;
+import org.fluentness.tpl.HtmlAttribute;
+import org.fluentness.tpl.HtmlTag;
+import org.fluentness.tpl.HtmlView;
 
 import java.util.List;
 

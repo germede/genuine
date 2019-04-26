@@ -1,7 +1,7 @@
 package com.sample.commands;
 
-import org.fluencyframework.cli.Command;
-import org.fluencyframework.net.Server;
+import org.fluentness.cli.Command;
+import org.fluentness.net.Server;
 
 public class TestCommand implements Command {
 
