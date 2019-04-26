@@ -1,6 +1,6 @@
 package org.fluentness.view;
 
-import org.fluentness.routing.Server;
+import org.fluentness.Configuration;
 
 public class HtmlView extends MarkupView<HtmlView> {
 
@@ -8,13 +8,21 @@ public class HtmlView extends MarkupView<HtmlView> {
         return open(HtmlTag.link)
                 .set("rel", "stylesheet")
                 .set("type", "text/css")
-                .set("href", Server.getBaseAddress().concat("/res/").concat(path));
+                .set("href", Configuration.get(Configuration.APP_URL).concat("/res/").concat(path));
     }
 
     public HtmlView includeJs(String path) {
         return open(HtmlTag.script)
-                .set("src", Server.getBaseAddress().concat("/res/").concat(path))
+                .set("src", Configuration.get(Configuration.APP_URL).concat("/res/").concat(path))
                 .close(HtmlTag.script);
+    }
+
+    public HtmlView title(String title) {
+        return open(HtmlTag.title).append(title).close(HtmlTag.title);
+    }
+
+    public HtmlView meta() {
+        return open(HtmlTag.meta);
     }
 
     @Override

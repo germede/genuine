@@ -11,9 +11,9 @@ public class HeadView implements View {
 
         return new HtmlView()
                 .open(HtmlTag.head)
-                .open(HtmlTag.title).append("the best site").close(HtmlTag.title)
-                .open(HtmlTag.meta).set("name", "lang").set("content", "es")
-                .open(HtmlTag.meta).set("charset", "utf-8")
+                .title("the best site")
+                .meta().set("name", "lang").set("content", "es")
+                .meta().set("charset", "utf-8")
                 .includeJs("js/scripts.js")
                 .includeCss("css/styles.css")
                 .close(HtmlTag.head)

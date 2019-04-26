@@ -37,6 +37,10 @@ public abstract class MarkupView<T extends MarkupView<?>> implements View {
         return (T) append("</").append(tag).append(">");
     }
 
+    public T comment(String comment) {
+        return (T) append("<!--").append(comment).append("-->");
+    }
+
     public T append(String toAppend) {
         document.append(toAppend);
         return self();

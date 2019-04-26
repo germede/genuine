@@ -12,17 +12,9 @@ import java.util.*;
 
 class Router {
 
-    private static HashMap<String, HttpHandler> routeHandlerMap;
-
     static Map<String, HttpHandler> getRouteHandlerMap() {
-        if (routeHandlerMap == null) {
-            routeHandlerMap = new HashMap<>();
-            fillRouteHandlerMap();
-        }
-        return routeHandlerMap;
-    }
+        Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
-    private static void fillRouteHandlerMap() {
         Set<Controller> controllerInstances = ClassRegister.getControllerInstances();
         for (Controller controller : controllerInstances) {
 
@@ -33,7 +25,13 @@ class Router {
                     "";
 
             // retrieve controller methods with route
-            List<Method> methodsWithRoute = filterMethodsWithRoute(controllerClass.getDeclaredMethods());
+            List<Method> methodsWithRoute = new ArrayList<>();
+            for (Method declaredMethod : controllerClass.getDeclaredMethods()) {
+                if (declaredMethod.isAnnotationPresent(Route.class)) {
+                    methodsWithRoute.add(declaredMethod);
+                }
+            }
+
             for (Method methodWithRoute : methodsWithRoute) {
 
                 String route = baseRouteValue + methodWithRoute.getAnnotation(Route.class).path();
@@ -68,17 +66,10 @@ class Router {
             // favicon route
             routeHandlerMap.put("/favicon.ico", new ResourceHandler());
         }
+
+        return routeHandlerMap;
     }
 
-    private static List<Method> filterMethodsWithRoute(Method[] declaredMethods) {
-        List<Method> result = new ArrayList<>();
-        for (Method declaredMethod : declaredMethods) {
-            if (declaredMethod.isAnnotationPresent(Route.class)) {
-                result.add(declaredMethod);
-            }
-        }
-        return result;
-    }
 
     private static void invokeControllerMethod(Controller controller, Method method, HttpExchange httpExchange) {
         try {
@@ -117,7 +108,4 @@ class Router {
             Server.respond(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
         }
     }
-
-
-
 }

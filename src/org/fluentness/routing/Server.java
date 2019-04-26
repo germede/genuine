@@ -21,38 +21,25 @@ public class Server {
     public static void start() {
         try {
             server = HttpServer.create(new InetSocketAddress(port), 0);
-            setServerContexts(server);
+            Router.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
-            Logger.i("Server successfully started and listening to " + getBaseAddress());
+            Logger.i("Server successfully started and listening to http://localhost:" + port);
         } catch (IOException e) {
-            if (server != null) {
-                server.stop(0);
-            }
+            stop();
             Logger.e(e);
         }
     }
 
-    public static String getBaseAddress() {
-        try {
-            return "http://" + InetAddress.getLocalHost().getHostAddress() + ":" + port;
-        } catch (UnknownHostException e) {
-            Logger.e(e);
-        }
-        return server.getAddress().toString();
-    }
-
-    private static void setServerContexts(com.sun.net.httpserver.HttpServer server) {
-        for (Map.Entry<String, HttpHandler> entry : Router.getRouteHandlerMap().entrySet()) {
-            server.createContext(entry.getKey(), entry.getValue());
+    public static void stop() {
+        if (server != null) {
+            server.stop(0);
         }
     }
 
-    static void respond(HttpExchange httpExchange, HttpResponse httpResponse) {
+    public static void respond(HttpExchange httpExchange, HttpResponse httpResponse) {
         try {
-            for (Map.Entry<String, String> header: httpResponse.getHeaders().entrySet()){
-                httpExchange.getResponseHeaders().set(header.getKey(), header.getValue());
-            }
+            httpResponse.getHeaders().forEach((key, value) -> httpExchange.getResponseHeaders().set(key, value));
             httpExchange.sendResponseHeaders(httpResponse.getStatusCode(), httpResponse.getBody().getBytes().length);
 
             if (httpResponse.getBody().length() > 0) {

@@ -6,6 +6,7 @@ import java.util.Map;
 public class Configuration {
 
     public static final String APP_PACKAGE = "APP_PACKAGE";
+    public static final String APP_URL = "APP_URL";
     public static final String APP_PORT = "APP_PORT";
     public static final String APP_DEFAULT_LANGUAGE = "APP_DEFAULT_LANGUAGE";
     public static final String DB_DRIVER = "DB_DRIVER";
