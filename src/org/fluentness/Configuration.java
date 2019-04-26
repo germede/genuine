@@ -5,28 +5,27 @@ import java.util.Map;
 
 public class Configuration {
 
-    public static final Property APP_PACKAGE = new Property( "");
-    public static final Property APP_PORT = new Property("8000");
-    public static final Property APP_DEFAULT_LANGUAGE = new Property( "");
-    public static final Property DB_DRIVER = new Property( "");
-    public static final Property DB_HOSTNAME = new Property( "");
-    public static final Property DB_PORT = new Property( "");
-    public static final Property DB_NAME = new Property( "");
-    public static final Property DB_USERNAME = new Property( "");
-    public static final Property DB_PASSWORD = new Property( "");
-    public static final Property DB_URL_PARAMS = new Property( "");
-    public static final Property LOG_INFO = new Property( "");
-    public static final Property LOG_DEBUG = new Property( "");
-    public static final Property LOG_WARNING = new Property( "");
-    public static final Property LOG_ERROR = new Property( "");
-    public static final Property LOG_FILE = new Property( "");
+    public static final String APP_PACKAGE = "APP_PACKAGE";
+    public static final String APP_PORT = "APP_PORT";
+    public static final String APP_DEFAULT_LANGUAGE = "APP_DEFAULT_LANGUAGE";
+    public static final String DB_DRIVER = "DB_DRIVER";
+    public static final String DB_HOSTNAME = "DB_HOSTNAME";
+    public static final String DB_PORT = "DB_PORT";
+    public static final String DB_NAME = "DB_NAME";
+    public static final String DB_USERNAME = "DB_USERNAME";
+    public static final String DB_PASSWORD = "DB_PASSWORD";
+    public static final String DB_URL_PARAMS = "DB_URL_PARAMS";
+    public static final String LOG_INFO = "LOG_INFO";
+    public static final String LOG_DEBUG = "LOG_DEBUG";
+    public static final String LOG_WARNING = "LOG_WARNING";
+    public static final String LOG_ERROR = "LOG_ERROR";
+    public static final String LOG_FILE = "LOG_FILE";
 
 
+    private Map<String, Object> configuration = new HashMap<>();
 
-    private Map<Property, Object> configuration = new HashMap<>();
-
-    public Configuration set(Property property, Object value) {
-        configuration.put(property, value);
+    public Configuration set(String key, Object value) {
+        configuration.put(key, value);
         return this;
     }
 
@@ -36,21 +35,9 @@ public class Configuration {
         instance = configuration;
     }
 
-    public static String get(Property property) {
-        return String.valueOf(instance.configuration.get(property));
+    public static String get(String key) {
+        return String.valueOf(instance.configuration.get(key));
     }
 
 
-    static class Property {
-
-        private final String defaultValue;
-
-        Property(String defaultValue) {
-            this.defaultValue = defaultValue;
-        }
-
-        public String getDefaultValue() {
-            return defaultValue;
-        }
-    }
 }
