@@ -1,4 +1,4 @@
-package org.fluentworkflow.loc;
+package org.fluentworkflow.lan;
 
 import java.util.HashMap;
 import java.util.Map;

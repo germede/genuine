@@ -1,7 +1,7 @@
 package org.fluentworkflow.tpl;
 
 import org.fluentworkflow.Configuration;
-import org.fluentworkflow.loc.Translations;
+import org.fluentworkflow.lan.Translations;
 import org.fluentworkflow.mvc.View;
 import org.fluentworkflow.net.Server;
 import org.fluentworkflow.oop.Register;

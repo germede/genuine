@@ -1,7 +1,7 @@
 package com.sample.translations;
 
-import org.fluentworkflow.loc.Translation;
-import org.fluentworkflow.loc.Translations;
+import org.fluentworkflow.lan.Translation;
+import org.fluentworkflow.lan.Translations;
 
 public class EnTranslation implements Translation {
 

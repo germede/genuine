@@ -2,8 +2,8 @@ package org.fluentworkflow.oop;
 
 import org.fluentworkflow.cli.Command;
 import org.fluentworkflow.Configuration;
-import org.fluentworkflow.loc.Translation;
-import org.fluentworkflow.loc.Translations;
+import org.fluentworkflow.lan.Translation;
+import org.fluentworkflow.lan.Translations;
 import org.fluentworkflow.log.Logger;
 import org.fluentworkflow.mvc.Controller;
 import org.reflections.Reflections;
