@@ -55,7 +55,6 @@ public class Register {
             for (Class controllerClass : getControllerClasses()){
                 try {
                     Controller controller = (Controller) controllerClass.newInstance();
-                    Injector.injectFields(controller);
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
                     Logger.e(e);
@@ -79,11 +78,8 @@ public class Register {
             translations = new HashMap<>();
             for (Class translationClass : getTranslationClasses()){
                 try {
-                    Translation translation = (Translation) translationClass.newInstance();
-                    Injector.injectFields(translationClass);
                     Translation translationInstance = (Translation) translationClass.newInstance();
-                    String language = translationClass.getSimpleName().replace("Translation","").toLowerCase();
-                    translations.put(language, translationInstance.getTranslations());
+                    translations.put(translationInstance.getLanguage(), translationInstance.getTranslations());
                 } catch (InstantiationException | IllegalAccessException e) {
                     Logger.e(e);
                 }
