@@ -73,6 +73,22 @@ public class HtmlView implements View {
         ).close(HtmlTag.script);
     }
 
+    public HtmlView when(boolean condition, Then then) {
+        if (condition) {
+            then.then(this);
+        }
+        return this;
+    }
+
+    public HtmlView when(boolean condition, Then then, Otherwise otherwise) {
+        if (condition) {
+            then.then(this);
+        } else {
+            otherwise.otherwise(this);
+        }
+        return this;
+    }
+
     public HtmlView forEach(Iterable<?> objects, ForEach<?> forEachLambda) {
         objects.forEach((Consumer<? super Object>) object -> forEachLambda.execute(object, this));
         return this;
@@ -114,4 +130,13 @@ public class HtmlView implements View {
         }
     }
 
+    @FunctionalInterface
+    public interface Then {
+        void then(HtmlView then);
+    }
+
+    @FunctionalInterface
+    public interface Otherwise {
+        void otherwise(HtmlView otherwise);
+    }
 }

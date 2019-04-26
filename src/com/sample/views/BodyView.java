@@ -36,6 +36,11 @@ public class BodyView implements View {
                         })
 //                .img()
                 .close(HtmlTag.div)
+                .when(2 != 2,
+                        then -> then.append("asdf"),
+                        otherwise -> otherwise.append("fdsa")
+                )
+
                 .open(HtmlTag.p)
                 .append("test ###welcome_message### test ###test### ###test######test_message###")
                 .close(HtmlTag.p)
