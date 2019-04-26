@@ -1,13 +1,11 @@
-package org.fluentworkflow;
+package org.fluentworkflow.cli;
 
-import org.fluentworkflow.cli.Command;
-import org.fluentworkflow.cli.HelpCommand;
 import org.fluentworkflow.log.Logger;
 import org.fluentworkflow.obj.Register;
 
 import java.util.Set;
 
-public class Bootstrapper {
+public class Console {
     public static final String ANSI_BLACK  = "\u001B[30m";
     public static final String ANSI_RED    = "\u001B[31m";
     public static final String ANSI_GREEN  = "\u001B[32m";
@@ -16,14 +14,6 @@ public class Bootstrapper {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN   = "\u001B[36m";
     public static final String ANSI_WHITE  = "\u001B[37m";
-
-    public static void main(String[] args) {
-        if (args.length == 0) {
-            new HelpCommand().execute(null);
-        } else {
-            executeCommand(args);
-        }
-    }
 
     public static void executeCommand(String[] args) {
         Set<Command> commands = Register.getInstance().getCommandInstances();

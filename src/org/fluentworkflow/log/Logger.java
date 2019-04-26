@@ -1,6 +1,6 @@
 package org.fluentworkflow.log;
 
-import org.fluentworkflow.Bootstrapper;
+import org.fluentworkflow.Fwf;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,27 +8,27 @@ import java.time.format.DateTimeFormatter;
 public class Logger {
 
     public static void i(String messageWithPlaceholders, Object... parameters) {
-        System.out.println(Bootstrapper.ANSI_PURPLE + getCurrentTime() +
-                Bootstrapper.ANSI_BLUE + " [INFO] " +
-                Bootstrapper.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+        System.out.println(Fwf.ANSI_PURPLE + getCurrentTime() +
+                Fwf.ANSI_BLUE + " [INFO] " +
+                Fwf.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
     }
 
     public static void d(String messageWithPlaceholders, Object... parameters) {
-        System.out.println(Bootstrapper.ANSI_PURPLE + getCurrentTime() +
-                Bootstrapper.ANSI_GREEN + " [DEBUG] " +
-                Bootstrapper.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+        System.out.println(Fwf.ANSI_PURPLE + getCurrentTime() +
+                Fwf.ANSI_GREEN + " [DEBUG] " +
+                Fwf.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
     }
 
     public static void w(String messageWithPlaceholders, Object... parameters) {
-        System.out.println(Bootstrapper.ANSI_PURPLE + getCurrentTime() +
-                Bootstrapper.ANSI_YELLOW + " [WARNING] " +
-                Bootstrapper.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+        System.out.println(Fwf.ANSI_PURPLE + getCurrentTime() +
+                Fwf.ANSI_YELLOW + " [WARNING] " +
+                Fwf.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
     }
 
     public static void e(String messageWithPlaceholders, Object... parameters) {
-        System.err.println(Bootstrapper.ANSI_PURPLE + getCurrentTime() +
-                Bootstrapper.ANSI_RED + " [ERROR] " +
-                Bootstrapper.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+        System.err.println(Fwf.ANSI_PURPLE + getCurrentTime() +
+                Fwf.ANSI_RED + " [ERROR] " +
+                Fwf.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
     }
 
     public static void e(Exception exception) {
