@@ -1,6 +1,6 @@
 package com.sample;
 
-import org.fluentworkflow.Fwf;
+import org.fluentworkflow.Bootstrapper;
 import org.fluentworkflow.Configuration;
 
 public class Dev {
@@ -19,6 +19,6 @@ public class Dev {
         .set(Configuration.DB_PASSWORD, "party")
         .set(Configuration.DB_URL_PARAMS, "?serverTimezone=UTC");
 
-        Fwf.initialize(args, configuration);
+        Bootstrapper.initialize(args, configuration);
     }
 }
