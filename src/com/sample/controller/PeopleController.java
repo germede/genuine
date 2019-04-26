@@ -2,11 +2,11 @@ package com.sample.controller;
 
 import com.sample.model.Person;
 import com.sample.view.PeopleView;
-import org.fwf.ann.Route;
-import org.fwf.dao.Repository;
-import org.fwf.dao.RepositoryImpl;
-import org.fwf.mvc.Controller;
-import org.fwf.net.HttpResponse;
+import org.fluentworkflow.ann.Route;
+import org.fluentworkflow.dao.Repository;
+import org.fluentworkflow.dao.RepositoryImpl;
+import org.fluentworkflow.mvc.Controller;
+import org.fluentworkflow.net.HttpResponse;
 
 import java.util.List;
 

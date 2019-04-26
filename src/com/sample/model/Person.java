@@ -1,8 +1,8 @@
 package com.sample.model;
 
-import org.fwf.ann.Column;
-import org.fwf.ann.Table;
-import org.fwf.mvc.Model;
+import org.fluentworkflow.ann.Column;
+import org.fluentworkflow.ann.Table;
+import org.fluentworkflow.mvc.Model;
 
 @Table("person")
 public class Person implements Model {

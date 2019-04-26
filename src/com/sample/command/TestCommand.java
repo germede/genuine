@@ -1,7 +1,7 @@
 package com.sample.command;
 
-import org.fwf.cli.Command;
-import org.fwf.net.Server;
+import org.fluentworkflow.cli.Command;
+import org.fluentworkflow.net.Server;
 
 public class TestCommand implements Command {
 

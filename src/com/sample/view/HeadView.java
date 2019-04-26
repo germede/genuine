@@ -1,9 +1,9 @@
 package com.sample.view;
 
-import org.fwf.mvc.View;
-import org.fwf.tpl.HtmlAttribute;
-import org.fwf.tpl.HtmlTag;
-import org.fwf.tpl.HtmlView;
+import org.fluentworkflow.mvc.View;
+import org.fluentworkflow.tpl.HtmlAttribute;
+import org.fluentworkflow.tpl.HtmlTag;
+import org.fluentworkflow.tpl.HtmlView;
 
 public class HeadView implements View {
 
