@@ -1,4 +1,4 @@
-package com.sample.model;
+package com.sample.models;
 
 import org.fluentworkflow.ann.Column;
 import org.fluentworkflow.ann.Table;

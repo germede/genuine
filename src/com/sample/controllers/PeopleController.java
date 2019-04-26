@@ -1,7 +1,7 @@
-package com.sample.controller;
+package com.sample.controllers;
 
-import com.sample.model.Person;
-import com.sample.view.PeopleView;
+import com.sample.models.Person;
+import com.sample.views.PeopleView;
 import org.fluentworkflow.ann.Route;
 import org.fluentworkflow.dao.Repository;
 import org.fluentworkflow.dao.RepositoryImpl;
@@ -24,9 +24,9 @@ public class PeopleController implements Controller {
 
         List<Person> people = personRepository.list();
 
-//        Person person = personRepository.find(Person.class, 19);
-//        person.setSurname("testttt");
-//        personRepository.update(person);
+        Person person = personRepository.find(19);
+        person.setSurname("testttt");
+        personRepository.update(person);
 
         return render(new PeopleView(people));
     }
@@ -38,7 +38,8 @@ public class PeopleController implements Controller {
 
     @Route(path = "/response")
     public HttpResponse testResponse() {
-        return response("this is a raw response with custom response code").
-                setStatusCode(201);
+        return response("this is a raw response with custom response code")
+                .setStatusCode(201)
+                .setHeader("asdf","asdf");
     }
 }

@@ -1,6 +1,6 @@
-package com.sample.view;
+package com.sample.views;
 
-import com.sample.model.Person;
+import com.sample.models.Person;
 import org.fluentworkflow.mvc.View;
 import org.fluentworkflow.tpl.HtmlAttribute;
 import org.fluentworkflow.tpl.HtmlTag;
@@ -36,6 +36,9 @@ public class BodyView implements View {
                         })
 //                .img()
                 .close(HtmlTag.div)
+                .open(HtmlTag.p)
+                .append("test ###welcome_message### test ###test### ###test######test_message###")
+                .close(HtmlTag.p)
                 .close(HtmlTag.body)
                 .render();
     }

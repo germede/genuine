@@ -1,4 +1,4 @@
-package org.fluentworkflow.obj;
+package org.fluentworkflow.oop;
 
 import org.fluentworkflow.ann.Inject;
 

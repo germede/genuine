@@ -1,16 +1,27 @@
 package org.fluentworkflow.tpl;
 
+import org.fluentworkflow.Configuration;
+import org.fluentworkflow.loc.Translations;
 import org.fluentworkflow.mvc.View;
 import org.fluentworkflow.net.Server;
+import org.fluentworkflow.oop.Register;
 
 import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HtmlView implements View {
 
     private StringBuilder html;
+    private String language = Configuration.get(Configuration.APP_DEFAULT_LANGUAGE);
 
     public HtmlView() {
         html = new StringBuilder();
+    }
+
+    public HtmlView setLanguage(String language) {
+        this.language = language;
+        return this;
     }
 
     public HtmlView open(String tag, HtmlAttribute... attributes) {
@@ -77,7 +88,21 @@ public class HtmlView implements View {
 
     @Override
     public String render() {
-        return html.toString();
+        String result = html.toString();
+
+        Translations translations = Register.getTranslations().get(language);
+        if (translations != null && result.contains("###")) {
+            Matcher matcher = Pattern.compile("###(\\w+)###").matcher(html);
+            int lastMatchPos = 0;
+            while (matcher.find()) {
+                String key = matcher.group(1);
+                if (translations.contains(key)) {
+                    result = result.replace(matcher.group(0), translations.get(key));
+                }
+            }
+        }
+
+        return result;
     }
 
     @FunctionalInterface

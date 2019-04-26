@@ -60,6 +60,9 @@ public class Query {
     }
 
     public Query set(List<String> columns, List<Object> values) {
+        if (columns.isEmpty() || values.isEmpty()) {
+            return this;
+        }
         parameters.addAll(values);
         String toAppend = columns.get(0) + " = ?";
         for (int i = 1; i < values.size(); i++) {
@@ -74,6 +77,9 @@ public class Query {
     }
 
     public Query orderBy(List<String> columns) {
+        if (columns.isEmpty()) {
+            return this;
+        }
         return append(" ORDER BY ").append(String.join(", ", columns));
     }
 

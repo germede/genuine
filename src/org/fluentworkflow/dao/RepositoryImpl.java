@@ -103,7 +103,12 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
     public int update(T model) {
         try {
             String table = RepositoryHelper.retrieveTable(model.getClass());
-            Query.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPairBasedOnDifferences(model,find(RepositoryHelper.retrievePrimaryKey(model)));
+            T original = find(RepositoryHelper.retrievePrimaryKey(model));
+            Query.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPairBasedOnDifferences(model,original);
+            if (columnsValuesPairs.getColumns().isEmpty() || columnsValuesPairs.getValues().isEmpty()) {
+                // nothing to update
+                return 0;
+            }
             QueryResult queryResult =
                     new Query()
                             .update(table)

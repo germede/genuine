@@ -1,4 +1,4 @@
-package com.sample.command;
+package com.sample.commands;
 
 import org.fluentworkflow.cli.Command;
 import org.fluentworkflow.net.Server;

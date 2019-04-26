@@ -1,7 +1,7 @@
 package org.fluentworkflow.cli;
 
 import org.fluentworkflow.log.Logger;
-import org.fluentworkflow.obj.Register;
+import org.fluentworkflow.oop.Register;
 
 import java.util.Set;
 
@@ -16,7 +16,7 @@ public class Console {
     public static final String ANSI_WHITE  = "\u001B[37m";
 
     public static void executeCommand(String[] args) {
-        Set<Command> commands = Register.getInstance().getCommandInstances();
+        Set<Command> commands = Register.getCommandInstances();
         boolean commandNotFound = true;
         for (Command command : commands) {
             if (command.getName().equals(args[0])) {

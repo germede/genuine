@@ -1,6 +1,6 @@
-package com.sample.view;
+package com.sample.views;
 
-import com.sample.model.Person;
+import com.sample.models.Person;
 import org.fluentworkflow.mvc.View;
 import org.fluentworkflow.tpl.HtmlTag;
 import org.fluentworkflow.tpl.HtmlView;

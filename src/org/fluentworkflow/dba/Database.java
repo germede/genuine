@@ -23,7 +23,7 @@ class Database {
                 for (Object parameter : parameters) {
                     statement.setObject(++i, parameter);
                 }
-                Logger.d(statement.toString());
+                Logger.d(statement.toString().replaceAll(".+:", "SQL"));
                 if (query.startsWith("SELECT")) {
                     result.resultList = resultSetToResultList(statement.executeQuery());
                     result.resultSize = result.resultList.size();
@@ -61,7 +61,7 @@ class Database {
                 Configuration.get(Configuration.DB_HOSTNAME) + ":" +
                 Configuration.get(Configuration.DB_PORT) + "/" +
                 Configuration.get(Configuration.DB_NAME) +
-                Configuration.get(Configuration.DB_URLPARAMS);
+                Configuration.get(Configuration.DB_URL_PARAMS);
         String username = Configuration.get(Configuration.DB_USERNAME);
         String password = Configuration.get(Configuration.DB_PASSWORD);
 

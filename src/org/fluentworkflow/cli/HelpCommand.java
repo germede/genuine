@@ -1,6 +1,6 @@
 package org.fluentworkflow.cli;
 
-import org.fluentworkflow.obj.Register;
+import org.fluentworkflow.oop.Register;
 
 public class HelpCommand implements Command {
 
@@ -19,7 +19,7 @@ public class HelpCommand implements Command {
 
         // print commands using colors
         System.out.println("\n" + Console.ANSI_GREEN + "Available commands:\n");
-        for (Command command : Register.getInstance().getCommandInstances()) {
+        for (Command command : Register.getCommandInstances()) {
             String format = Console.ANSI_YELLOW + "%20s " + Console.ANSI_WHITE + "- %s\n";
             System.out.format(format, command.getName(), command.getDescription());
         }

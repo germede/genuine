@@ -6,7 +6,7 @@ import org.fluentworkflow.ann.BaseRoute;
 import org.fluentworkflow.ann.Route;
 import org.fluentworkflow.log.Logger;
 import org.fluentworkflow.mvc.Controller;
-import org.fluentworkflow.obj.Register;
+import org.fluentworkflow.oop.Register;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,7 +25,7 @@ class Router {
     }
 
     private static void fillRouteHandlerMap() {
-        Set<Controller> controllerInstances = Register.getInstance().getControllerInstances();
+        Set<Controller> controllerInstances = Register.getControllerInstances();
         for (Controller controller : controllerInstances) {
 
             // retrieve controller base route

@@ -1,4 +1,4 @@
-package com.sample.view;
+package com.sample.views;
 
 import org.fluentworkflow.mvc.View;
 
