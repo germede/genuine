@@ -1,7 +1,7 @@
 package com.sample;
 
-import org.fluentworkflow.Bootstrapper;
-import org.fluentworkflow.Configuration;
+import org.fluencyframework.Bootstrapper;
+import org.fluencyframework.Configuration;
 
 public class Dev {
 

@@ -1,9 +1,9 @@
 package com.sample.views;
 
 import com.sample.models.Person;
-import org.fluentworkflow.mvc.View;
-import org.fluentworkflow.tpl.HtmlTag;
-import org.fluentworkflow.tpl.HtmlView;
+import org.fluencyframework.mvc.View;
+import org.fluencyframework.tpl.HtmlTag;
+import org.fluencyframework.tpl.HtmlView;
 
 import java.util.List;
 

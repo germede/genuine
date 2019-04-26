@@ -1,7 +1,7 @@
 package com.sample.translations;
 
-import org.fluentworkflow.lan.Translation;
-import org.fluentworkflow.lan.Translations;
+import org.fluencyframework.lan.Translation;
+import org.fluencyframework.lan.Translations;
 
 public class EsTranslation implements Translation {
 

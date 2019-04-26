@@ -1,7 +1,7 @@
 package com.sample.commands;
 
-import org.fluentworkflow.cli.Command;
-import org.fluentworkflow.net.Server;
+import org.fluencyframework.cli.Command;
+import org.fluencyframework.net.Server;
 
 public class TestCommand implements Command {
 

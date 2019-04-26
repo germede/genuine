@@ -1,6 +1,6 @@
 package com.sample.views;
 
-import org.fluentworkflow.mvc.View;
+import org.fluencyframework.mvc.View;
 
 public class DummyView implements View {
     @Override
