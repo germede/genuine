@@ -1,6 +1,6 @@
 package org.fluentness.view;
 
-public class HtmlTag {
+public class Tag {
     public static final String doctype = "<!DOCTYPE>";
     public static final String a = "a";
     public static final String abbr = "abbr";

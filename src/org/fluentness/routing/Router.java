@@ -8,6 +8,7 @@ import org.fluentness.common.ClassRegister;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.*;
 
 class Router {
@@ -45,9 +46,9 @@ class Router {
                     continue;
                 }
 
-                // controller methdo must return HttpResponse
+                // controller method must return HttpResponse
                 if (methodWithRoute.getReturnType() != HttpResponse.class) {
-                    Logger.w("Controller method %s->%s MUST return an object of type " + HttpResponse.class.getCanonicalName(),
+                    Logger.w("Controller method %s->%s with defined route must return an object of type " + HttpResponse.class.getCanonicalName(),
                             controllerClass.getCanonicalName(),
                             methodWithRoute.getName(),
                             route);
@@ -75,18 +76,23 @@ class Router {
         try {
             if (httpExchange.getRequestMethod().equals(method.getAnnotation(Route.class).method())) {
 
-//                Parameter[] methodParameters = method.getParameters();
-//                for (Parameter parameter : methodParameters) {
-//                    if (parameter.getType().equals(httpExchange.getRequest))
-//                }
-//
-//                if (method.getParameters())
+                Map<String, String> getParameters = extractGetParameters(httpExchange.getRequestURI().getQuery());
+                Parameter[] methodParameters = method.getParameters();
+                String[] result = new String[methodParameters.length];
+                for (int i = 0; i < methodParameters.length; i++) {
+                    Parameter parameter = methodParameters[i];
+                    if (parameter.isAnnotationPresent(QueryParameter.class)) {
+                        result[i] = getParameters.get(parameter.getAnnotation(QueryParameter.class).value());
+                    }
+                }
 
-                Server.respond(httpExchange, (HttpResponse) method.invoke(controller));
+                HttpResponse response = (HttpResponse) method.invoke(controller, (Object[]) result);
+                Server.respond(httpExchange, response);
+
             } else {
 
                 // client request method mismatch
-                Logger.w("HTTP Method mismatch in controller method %s->%s (declared: %s) , got: %s)",
+                Logger.w("HTTP Method mismatch in controller method %s->%s (declared: %s , got: %s)",
                         controller.getClass().getCanonicalName(),
                         method.getName(),
                         method.getAnnotation(Route.class).method(),
@@ -108,4 +114,21 @@ class Router {
             Server.respond(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
         }
     }
+
+    private static Map<String, String> extractGetParameters(String query) {
+        Map<String, String> result = new HashMap<>();
+        if (query == null || query.isEmpty()) {
+            return result;
+        }
+        for (String param : query.split("&")) {
+            String[] entry = param.split("=");
+            if (entry.length > 1) {
+                result.put(entry[0], entry[1]);
+            } else {
+                result.put(entry[0], "");
+            }
+        }
+        return result;
+    }
+
 }

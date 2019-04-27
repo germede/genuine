@@ -2,7 +2,7 @@ package com.sample.views;
 
 import com.sample.models.Person;
 import org.fluentness.view.View;
-import org.fluentness.view.HtmlTag;
+import org.fluentness.view.Tag;
 import org.fluentness.view.HtmlView;
 
 import java.util.List;
@@ -19,10 +19,10 @@ public class PeopleView implements View {
     public String render() {
 
         return new HtmlView()
-                .open(HtmlTag.html)
+                .open(Tag.html)
                 .include(new HeadView())
                 .include(new BodyView(people))
-                .close(HtmlTag.html)
+                .close(Tag.html)
                 .render();
     }
 }

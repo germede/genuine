@@ -1,7 +1,7 @@
 package com.sample.views;
 
 import org.fluentness.view.View;
-import org.fluentness.view.HtmlTag;
+import org.fluentness.view.Tag;
 import org.fluentness.view.HtmlView;
 
 public class HeadView implements View {
@@ -10,13 +10,13 @@ public class HeadView implements View {
     public String render() {
 
         return new HtmlView()
-                .open(HtmlTag.head)
+                .open(Tag.head)
                 .title("the best site")
                 .meta().set("name", "lang").set("content", "es")
                 .meta().set("charset", "utf-8")
                 .includeJs("js/scripts.js")
                 .includeCss("css/styles.css")
-                .close(HtmlTag.head)
+                .close(Tag.head)
                 .render();
     }
 }

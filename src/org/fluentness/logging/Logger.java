@@ -7,28 +7,28 @@ import java.time.format.DateTimeFormatter;
 
 public class Logger {
 
-    public static void i(String messageWithPlaceholders, Object... parameters) {
+    public static void i(String message, Object... parameters) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
                 Console.ANSI_BLUE + " [INFO] " +
-                Console.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+                Console.ANSI_WHITE + String.format(message, parameters));
     }
 
-    public static void d(String messageWithPlaceholders, Object... parameters) {
+    public static void d(String message, Object... parameters) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
                 Console.ANSI_GREEN + " [DEBUG] " +
-                Console.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+                Console.ANSI_WHITE + String.format(message, parameters));
     }
 
-    public static void w(String messageWithPlaceholders, Object... parameters) {
+    public static void w(String message, Object... parameters) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
                 Console.ANSI_YELLOW + " [WARNING] " +
-                Console.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+                Console.ANSI_WHITE + String.format(message, parameters));
     }
 
-    public static void e(String messageWithPlaceholders, Object... parameters) {
+    public static void e(String message, Object... parameters) {
         System.err.println(Console.ANSI_PURPLE + getCurrentTime() +
                 Console.ANSI_RED + " [ERROR] " +
-                Console.ANSI_WHITE + String.format(messageWithPlaceholders, parameters));
+                Console.ANSI_WHITE + String.format(message, parameters));
     }
 
     public static void e(Exception exception) {

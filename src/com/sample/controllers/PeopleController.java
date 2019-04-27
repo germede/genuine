@@ -2,6 +2,9 @@ package com.sample.controllers;
 
 import com.sample.models.Person;
 import com.sample.views.PeopleView;
+import org.fluentness.logging.Logger;
+import org.fluentness.routing.QueryParameter;
+import org.fluentness.routing.HttpMethod;
 import org.fluentness.routing.Route;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.RepositoryImpl;
@@ -15,24 +18,31 @@ public class PeopleController implements Controller {
     private Repository<Person> personRepository = new RepositoryImpl<>(Person.class);
 
     @Route(path = "/")
-    public HttpResponse list() {
+    public HttpResponse list(@QueryParameter("name") String name, @QueryParameter("surname") String surname) {
 
-//        Person person = new Person()
-//                .setId(12)
-//                .setName("Thomas")
-//                .setSurname("Mueller");
+
+        Person person = new Person()
+                .setName(name)
+                .setSurname(surname);
+
+
+        personRepository.create(person);
 
         List<Person> people = personRepository.list();
 
-        Person person = personRepository.find(19);
-        person.setSurname("testttt");
-        personRepository.update(person);
+
+//        person = personRepository.find(19);
+//        person.setSurname("testttt");
+//        personRepository.update(person);
 
         return render(new PeopleView(people));
     }
 
-    @Route(path = "/redirect")
+    @Route(path = "/redirect", method = HttpMethod.POST)
     public HttpResponse testRedirect() {
+
+        Logger.d("");
+
         return redirect("http://www.google.com/");
     }
 
