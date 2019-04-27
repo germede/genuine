@@ -1,9 +1,8 @@
-package org.fluentness.common;
+package org.fluentness;
 
 import org.fluentness.command.Command;
-import org.fluentness.Configuration;
-import org.fluentness.translation.Translation;
-import org.fluentness.translation.Translations;
+import org.fluentness.localization.Localization;
+import org.fluentness.localization.Translations;
 import org.fluentness.logging.Logger;
 import org.fluentness.controller.Controller;
 import org.reflections.Reflections;
@@ -36,7 +35,7 @@ public class ClassRegister {
         Set<Class<? extends Command>> result = new HashSet<>(reflections.getSubTypesOf(Command.class));
 
         // custom commands
-        Reflections customReflections = new Reflections(Configuration.get(Configuration.APP_PACKAGE).concat(".commands"));
+        Reflections customReflections = new Reflections(Configuration.getString(Configuration.APP_PACKAGE).concat(".command"));
         result.addAll(customReflections.getSubTypesOf(Command.class));
 
         // sort commands alphabetically
@@ -65,7 +64,7 @@ public class ClassRegister {
     }
 
     private static Set<Class<? extends Controller>> getControllerClasses() {
-        Reflections reflections = new Reflections(Configuration.get(Configuration.APP_PACKAGE).concat(".controllers"));
+        Reflections reflections = new Reflections(Configuration.getString(Configuration.APP_PACKAGE).concat(".controller"));
         return reflections.getSubTypesOf(Controller.class);
     }
 
@@ -78,7 +77,7 @@ public class ClassRegister {
             translations = new HashMap<>();
             for (Class translationClass : getTranslationClasses()){
                 try {
-                    Translation translationInstance = (Translation) translationClass.newInstance();
+                    Localization translationInstance = (Localization) translationClass.newInstance();
                     translations.put(translationInstance.getLanguage(), translationInstance.getTranslations());
                 } catch (InstantiationException | IllegalAccessException e) {
                     Logger.error(ClassRegister.class, e);
@@ -88,9 +87,9 @@ public class ClassRegister {
         return translations;
     }
 
-    private static Set<Class<? extends Translation>> getTranslationClasses() {
-        Reflections reflections = new Reflections(Configuration.get(Configuration.APP_PACKAGE).concat(".translations"));
-        return reflections.getSubTypesOf(Translation.class);
+    private static Set<Class<? extends Localization>> getTranslationClasses() {
+        Reflections reflections = new Reflections(Configuration.getString(Configuration.APP_PACKAGE).concat(".localization"));
+        return reflections.getSubTypesOf(Localization.class);
     }
 
 
