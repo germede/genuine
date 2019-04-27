@@ -1,15 +1,15 @@
-package com.sample.controllers;
+package com.sample.controller;
 
-import com.sample.models.Person;
-import com.sample.views.PeopleView;
-import org.fluentness.logging.Logger;
-import org.fluentness.routing.QueryParameter;
-import org.fluentness.routing.HttpMethod;
-import org.fluentness.routing.Route;
+import com.sample.model.Person;
+import com.sample.view.PeopleView;
+import org.fluentness.controller.Controller;
+import org.fluentness.controller.QueryParameter;
+import org.fluentness.controller.Route;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.RepositoryImpl;
-import org.fluentness.controller.Controller;
+import org.fluentness.routing.HttpMethod;
 import org.fluentness.routing.HttpResponse;
+import org.fluentness.view.View;
 
 import java.util.List;
 
@@ -18,24 +18,31 @@ public class PeopleController implements Controller {
     private Repository<Person> personRepository = new RepositoryImpl<>(Person.class);
 
     @Route(path = "/")
-    public HttpResponse list(@QueryParameter("name") String name, @QueryParameter("surname") String surname) {
+    public HttpResponse list(
+            @QueryParameter("name") String name,
+            @QueryParameter("surname") String surname) {
 
 
         Person person = new Person()
                 .setName(name)
-                .setSurname(surname);
+                .setName("asdf")
+                .setSurname(surname)
+                .setSurname("asdf");
 
 
-        personRepository.create(person);
+        person.create();
 
         List<Person> people = personRepository.list();
 
 
 //        person = personRepository.find(19);
-//        person.setSurname("testttt");
-//        personRepository.update(person);
+//        person.setSurname("testtttaa");
+//        person.update();
 
-        return render(new PeopleView(people));
+        View view = new PeopleView()
+                .set("people", people)
+                .set("testBoolean", true);
+        return render(view);
     }
 
     @Route(path = "/redirect", method = HttpMethod.POST)

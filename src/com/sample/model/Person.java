@@ -1,8 +1,8 @@
-package com.sample.models;
+package com.sample.model;
 
 import org.fluentness.model.Column;
-import org.fluentness.model.Table;
 import org.fluentness.model.Model;
+import org.fluentness.model.Table;
 
 @Table("person")
 public class Person implements Model {
@@ -39,5 +39,10 @@ public class Person implements Model {
     public Person setSurname(String surname) {
         this.surname = surname;
         return this;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
