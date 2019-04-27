@@ -1,18 +1,18 @@
-package org.fluentness.view;
+package org.fluentness.templating;
 
 import org.fluentness.Configuration;
-import org.fluentness.common.ClassRegister;
-import org.fluentness.translation.Translations;
+import org.fluentness.ClassRegister;
+import org.fluentness.localization.Translations;
+import org.fluentness.view.View;
 
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class MarkupView<T extends MarkupView<?>> implements View {
+public abstract class MarkupTemplate<T extends MarkupTemplate<?>> implements Template {
 
-    protected abstract T self();
+    private String language = Configuration.getString(Configuration.APP_DEFAULT_LANGUAGE);
 
-    private String language = Configuration.get(Configuration.APP_DEFAULT_LANGUAGE);
     public T setLanguage(String language) {
         this.language = language;
         return self();
@@ -20,7 +20,7 @@ public abstract class MarkupView<T extends MarkupView<?>> implements View {
 
     private StringBuilder document;
 
-    public MarkupView() {
+    public MarkupTemplate() {
         document = new StringBuilder();
     }
 
@@ -47,7 +47,7 @@ public abstract class MarkupView<T extends MarkupView<?>> implements View {
     }
 
     public T include(View view) {
-        return append(view.render());
+        return append(view.renderTemplate());
     }
 
     public T when(boolean condition, Then then) {
@@ -69,12 +69,13 @@ public abstract class MarkupView<T extends MarkupView<?>> implements View {
     @SuppressWarnings("unchecked")
     public T forEach(Iterable<?> objects, ForEach<?> forEach) {
         objects.forEach((Consumer<? super Object>) object -> forEach.execute(object, this));
-        return (T) this;
+        return self();
     }
 
-    // view interface methods
+    // render
     @Override
     public String render() {
+
         // translate
         Translations translations = ClassRegister.getTranslations().get(language);
         if (translations != null) {
@@ -93,21 +94,25 @@ public abstract class MarkupView<T extends MarkupView<?>> implements View {
     @FunctionalInterface
     public interface Then {
 
-        void then(MarkupView then);
-    }
+        void then(MarkupTemplate then);
 
+    }
     @FunctionalInterface
     public interface Otherwise {
 
-        void otherwise(MarkupView otherwise);
-    }
+        void otherwise(MarkupTemplate otherwise);
 
+    }
     @FunctionalInterface
     public interface ForEach<S> {
-        void forEach(S object, MarkupView htmlView);
 
-        default void execute(Object object, MarkupView htmlView) {
-            forEach((S) object, htmlView);
+        void forEach(S object, MarkupTemplate template);
+        default void execute(Object object, MarkupTemplate template) {
+            forEach((S) object, template);
         }
+
     }
+
+    // necessary for fluent setter
+    protected abstract T self();
 }

@@ -1,6 +1,6 @@
-package org.fluentness.view;
+package org.fluentness.templating;
 
-public class Tag {
+public class HtmlTag {
     public static final String doctype = "<!DOCTYPE>";
     public static final String a = "a";
     public static final String abbr = "abbr";
