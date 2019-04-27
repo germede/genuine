@@ -9,25 +9,25 @@ public class Logger {
 
     public static void info(Class calling, String message, Object... parameters) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_BLUE + " [INFO] " + calling.getName() +
+                Console.ANSI_BLUE + " [INFO] " + calling.getSimpleName() + ": " +
                 Console.ANSI_WHITE + String.format(message, parameters));
     }
 
     public static void debug(Class calling, String message, Object... parameters) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_GREEN + " [DEBUG] " + calling.getName() +
+                Console.ANSI_GREEN + " [DEBUG] " + calling.getSimpleName() + ": " +
                 Console.ANSI_WHITE + String.format(message, parameters));
     }
 
     public static void warning(Class calling, String message, Object... parameters) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_YELLOW + " [WARNING] " + calling.getName() +
+                Console.ANSI_YELLOW + " [WARNING] " + calling.getSimpleName() + ": " +
                 Console.ANSI_WHITE + String.format(message, parameters));
     }
 
     public static void error(Class calling, String message, Object... parameters) {
         System.err.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_RED + " [ERROR] " + calling.getName() +
+                Console.ANSI_RED + " [ERROR] " + calling.getSimpleName() + ": " +
                 Console.ANSI_WHITE + String.format(message, parameters));
     }
 
