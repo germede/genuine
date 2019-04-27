@@ -41,7 +41,7 @@ public class PeopleController implements Controller {
     @Route(path = "/redirect", method = HttpMethod.POST)
     public HttpResponse testRedirect() {
 
-        Logger.d("");
+        Logger.debug("");
 
         return redirect("http://www.google.com/");
     }

@@ -26,7 +26,7 @@ public class Console {
                 }
             }
             if (commandNotFound) {
-                Logger.e("No command '" + args[0] + "' found");
+                Logger.error("No command '" + args[0] + "' found");
             }
         } else {
             new HelpCommand().execute(args);

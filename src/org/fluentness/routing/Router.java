@@ -39,7 +39,7 @@ class Router {
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    Logger.w("Cannot register controller method %s->%s because route '%s' is already registered",
+                    Logger.warning("Cannot register controller method %s->%s because route '%s' is already registered",
                             controllerClass.getCanonicalName(),
                             methodWithRoute.getName(),
                             route);
@@ -48,7 +48,7 @@ class Router {
 
                 // controller method must return HttpResponse
                 if (methodWithRoute.getReturnType() != HttpResponse.class) {
-                    Logger.w("Controller method %s->%s with defined route must return an object of type " + HttpResponse.class.getCanonicalName(),
+                    Logger.warning("Controller method %s->%s with defined route must return an object of type " + HttpResponse.class.getCanonicalName(),
                             controllerClass.getCanonicalName(),
                             methodWithRoute.getName(),
                             route);
@@ -56,7 +56,7 @@ class Router {
                 }
 
                 routeHandlerMap.put(route, httpExchange -> {
-                    Logger.d(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                    Logger.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                     invokeControllerMethod(controller, methodWithRoute, httpExchange);
                 });
             }
@@ -92,7 +92,7 @@ class Router {
             } else {
 
                 // client request method mismatch
-                Logger.w("HTTP Method mismatch in controller method %s->%s (declared: %s , got: %s)",
+                Logger.warning("HTTP Method mismatch in controller method %s->%s (declared: %s , got: %s)",
                         controller.getClass().getCanonicalName(),
                         method.getName(),
                         method.getAnnotation(Route.class).method(),
@@ -102,12 +102,12 @@ class Router {
 
             // exception due to inaccessible controller method
         } catch (IllegalAccessException e) {
-            Logger.e(e);
+            Logger.error(e);
             Server.respond(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
 
             // exception within controller method invocation
         } catch (InvocationTargetException e) {
-            Logger.e((Exception) e.getTargetException(),
+            Logger.error((Exception) e.getTargetException(),
                     e.getMessage(),
                     controller.getClass().getCanonicalName(),
                     (method.getName()));

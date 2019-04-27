@@ -54,7 +54,7 @@ public class Tag {
     public static final String header = "header";
     public static final String hr = "hr";
     public static final String html = "html";
-    public static final String i = "i";
+    public static final String i = "info";
     public static final String iframe = "iframe";
     public static final String img = "img";
     public static final String input = "input";

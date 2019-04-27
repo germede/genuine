@@ -23,7 +23,7 @@ class Database {
                 for (Object parameter : parameters) {
                     statement.setObject(++i, parameter);
                 }
-                Logger.d(statement.toString().replaceAll(".+:", "SQL"));
+                Logger.debug(statement.toString().replaceAll(".+:", "SQL"));
                 if (query.startsWith("SELECT")) {
                     result.resultList = resultSetToResultList(statement.executeQuery());
                     result.resultSize = result.resultList.size();
@@ -31,7 +31,7 @@ class Database {
                     result.resultSize = statement.executeUpdate();
                 }
             } catch (SQLException e) {
-                Logger.e(e);
+                Logger.error(e);
             }
         }
         return result;
@@ -68,7 +68,7 @@ class Database {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Logger.e(e);
+            Logger.error(e);
         }
         return null;
     }

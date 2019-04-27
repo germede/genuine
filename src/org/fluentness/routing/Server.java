@@ -1,17 +1,13 @@
 package org.fluentness.routing;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import org.fluentness.Configuration;
 import org.fluentness.logging.Logger;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
-import java.util.Map;
 
 public class Server {
 
@@ -24,10 +20,10 @@ public class Server {
             Router.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
-            Logger.i("Server successfully started and listening to http://localhost:" + port);
+            Logger.info("Server successfully started and listening to http://localhost:" + port);
         } catch (IOException e) {
             stop();
-            Logger.e(e);
+            Logger.error(e);
         }
     }
 
@@ -50,7 +46,7 @@ public class Server {
 
             httpExchange.close();
         } catch (IOException e) {
-            Logger.e(e);
+            Logger.error(e);
         }
     }
 }
