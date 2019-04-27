@@ -19,8 +19,7 @@ public class ResourceHandler implements HttpHandler {
             path = "/res/icon/favicon.ico";
         }
         try {
-            path = path.substring(1);
-            path = path.replaceAll("//", "/");
+            path = path.substring(1).replaceAll("//", "/");
 
             boolean exists = Files.exists(Paths.get(path));
             if (exists) {

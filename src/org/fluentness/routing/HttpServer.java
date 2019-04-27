@@ -11,7 +11,7 @@ import java.net.InetSocketAddress;
 public class HttpServer {
 
     private static com.sun.net.httpserver.HttpServer server;
-    private static int port = Integer.parseInt(Configuration.get(Configuration.APP_PORT));
+    private static int port = Configuration.getInt(Configuration.APP_PORT);
 
     public static void start() {
         try {

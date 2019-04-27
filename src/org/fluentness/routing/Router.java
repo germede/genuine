@@ -2,9 +2,12 @@ package org.fluentness.routing;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.fluentness.controller.BaseRoute;
+import org.fluentness.controller.QueryParameter;
+import org.fluentness.controller.Route;
 import org.fluentness.logging.Logger;
 import org.fluentness.controller.Controller;
-import org.fluentness.common.ClassRegister;
+import org.fluentness.ClassRegister;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -55,7 +58,7 @@ class Router {
                     continue;
                 }
 
-                routeHandlerMap.put(route, httpExchange -> {
+                routeHandlerMap.put(route.replaceAll("//", "/"), httpExchange -> {
                     Logger.debug(Router.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                     invokeControllerMethod(controller, methodWithRoute, httpExchange);
                 });
