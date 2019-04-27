@@ -39,24 +39,24 @@ class Router {
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    Logger.warning("Cannot register controller method %s->%s because route '%s' is already registered",
+                    Logger.warning(Router.class,
+                            "Cannot register controller method %s->%s because route '%s' is already registered",
                             controllerClass.getCanonicalName(),
-                            methodWithRoute.getName(),
-                            route);
+                            methodWithRoute.getName(), route);
                     continue;
                 }
 
                 // controller method must return HttpResponse
                 if (methodWithRoute.getReturnType() != HttpResponse.class) {
-                    Logger.warning("Controller method %s->%s with defined route must return an object of type " + HttpResponse.class.getCanonicalName(),
+                    Logger.warning(Router.class,
+                            "Controller method %s->%s with defined route must return an object of type " + HttpResponse.class.getCanonicalName(),
                             controllerClass.getCanonicalName(),
-                            methodWithRoute.getName(),
-                            route);
+                            methodWithRoute.getName(), route);
                     continue;
                 }
 
                 routeHandlerMap.put(route, httpExchange -> {
-                    Logger.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                    Logger.debug(Router.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                     invokeControllerMethod(controller, methodWithRoute, httpExchange);
                 });
             }
@@ -87,31 +87,31 @@ class Router {
                 }
 
                 HttpResponse response = (HttpResponse) method.invoke(controller, (Object[]) result);
-                Server.respond(httpExchange, response);
+                HttpServer.respond(httpExchange, response);
 
             } else {
 
                 // client request method mismatch
-                Logger.warning("HTTP Method mismatch in controller method %s->%s (declared: %s , got: %s)",
+                Logger.warning(Router.class,
+                        "HTTP Method mismatch in controller method %s->%s (declared: %s , got: %s)",
                         controller.getClass().getCanonicalName(),
                         method.getName(),
-                        method.getAnnotation(Route.class).method(),
-                        httpExchange.getRequestMethod());
-                Server.respond(httpExchange, new HttpResponse(HttpStatusCode.BadRequest));
+                        method.getAnnotation(Route.class).method(), httpExchange.getRequestMethod());
+                HttpServer.respond(httpExchange, new HttpResponse(HttpStatusCode.BadRequest));
             }
 
             // exception due to inaccessible controller method
         } catch (IllegalAccessException e) {
-            Logger.error(e);
-            Server.respond(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
+            Logger.error(Router.class, e);
+            HttpServer.respond(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
 
             // exception within controller method invocation
         } catch (InvocationTargetException e) {
-            Logger.error((Exception) e.getTargetException(),
+            Logger.error(Router.class,
+                    (Exception) e.getTargetException(),
                     e.getMessage(),
-                    controller.getClass().getCanonicalName(),
-                    (method.getName()));
-            Server.respond(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
+                    controller.getClass().getCanonicalName(), (method.getName()));
+            HttpServer.respond(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
         }
     }
 

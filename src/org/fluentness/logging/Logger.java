@@ -7,31 +7,31 @@ import java.time.format.DateTimeFormatter;
 
 public class Logger {
 
-    public static void info(String message, Object... parameters) {
+    public static void info(Class calling, String message, Object... parameters) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_BLUE + " [INFO] " +
+                Console.ANSI_BLUE + " [INFO] " + calling.getName() +
                 Console.ANSI_WHITE + String.format(message, parameters));
     }
 
-    public static void debug(String message, Object... parameters) {
+    public static void debug(Class calling, String message, Object... parameters) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_GREEN + " [DEBUG] " +
+                Console.ANSI_GREEN + " [DEBUG] " + calling.getName() +
                 Console.ANSI_WHITE + String.format(message, parameters));
     }
 
-    public static void warning(String message, Object... parameters) {
+    public static void warning(Class calling, String message, Object... parameters) {
         System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_YELLOW + " [WARNING] " +
+                Console.ANSI_YELLOW + " [WARNING] " + calling.getName() +
                 Console.ANSI_WHITE + String.format(message, parameters));
     }
 
-    public static void error(String message, Object... parameters) {
+    public static void error(Class calling, String message, Object... parameters) {
         System.err.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_RED + " [ERROR] " +
+                Console.ANSI_RED + " [ERROR] " + calling.getName() +
                 Console.ANSI_WHITE + String.format(message, parameters));
     }
 
-    public static void error(Exception exception) {
+    public static void error(Class calling, Exception exception) {
         String message;
         if (exception.getMessage() == null) {
             message = "Exception " + exception.getClass().getName();
@@ -39,10 +39,10 @@ public class Logger {
             message = exception.getMessage();
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        error(message);
+        error(calling, message);
     }
 
-    public static void error(Exception exception, String message, Object... parameters) {
+    public static void error(Class calling, Exception exception, String message, Object... parameters) {
         if (message == null) {
             if (exception.getMessage() == null) {
                 message = "Exception " + exception.getClass().getName();
@@ -51,7 +51,7 @@ public class Logger {
             }
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        error(message, parameters);
+        error(calling, message, parameters);
     }
 
     private static String stackTraceToString(StackTraceElement[] stackTraceElements) {

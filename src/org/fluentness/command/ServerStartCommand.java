@@ -1,6 +1,6 @@
 package org.fluentness.command;
 
-import org.fluentness.routing.Server;
+import org.fluentness.routing.HttpServer;
 
 public class ServerStartCommand implements Command {
 
@@ -16,6 +16,6 @@ public class ServerStartCommand implements Command {
 
     @Override
     public void execute(String[] args) {
-        Server.start();
+        HttpServer.start();
     }
 }

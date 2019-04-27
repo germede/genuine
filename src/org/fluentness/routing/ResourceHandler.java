@@ -12,7 +12,7 @@ public class ResourceHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {
-        Logger.debug(exchange.getRequestMethod() + " " + exchange.getRequestURI());
+        Logger.debug(this.getClass(), exchange.getRequestMethod() + " " + exchange.getRequestURI());
 
         String path = exchange.getRequestURI().getPath();
         if (path.equals("/favicon.ico")) {
@@ -40,14 +40,14 @@ public class ResourceHandler implements HttpHandler {
                     response.setHeader("Content-Type", "image/svg+xml");
                 }
 
-                Server.respond(exchange, response);
+                HttpServer.respond(exchange, response);
             } else {
-                Logger.warning("File " + path + " doesn't exists");
-                Server.respond(exchange, new HttpResponse(HttpStatusCode.NotFound));
+                Logger.warning(this.getClass(), "File " + path + " doesn't exists");
+                HttpServer.respond(exchange, new HttpResponse(HttpStatusCode.NotFound));
             }
         } catch (IOException e) {
-            Logger.error(e);
-            Server.respond(exchange, new HttpResponse(HttpStatusCode.InternalServerError));
+            Logger.error(this.getClass(), e);
+            HttpServer.respond(exchange, new HttpResponse(HttpStatusCode.InternalServerError));
         }
     }
 }

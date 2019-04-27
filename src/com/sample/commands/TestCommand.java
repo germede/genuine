@@ -1,7 +1,7 @@
 package com.sample.commands;
 
 import org.fluentness.command.Command;
-import org.fluentness.routing.Server;
+import org.fluentness.routing.HttpServer;
 
 public class TestCommand implements Command {
 
@@ -14,6 +14,6 @@ public class TestCommand implements Command {
     }
 
     public void execute(String[] args) {
-        Server.start();
+        HttpServer.start();
     }
 }

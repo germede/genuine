@@ -22,7 +22,7 @@ public class ClassRegister {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(e);
+                    Logger.error(ClassRegister.class, e);
                 }
             }
             commandInstances.sort(Comparator.comparing(Command::getName));
@@ -57,7 +57,7 @@ public class ClassRegister {
                     Controller controller = (Controller) controllerClass.newInstance();
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(e);
+                    Logger.error(ClassRegister.class, e);
                 }
             }
         }
@@ -81,7 +81,7 @@ public class ClassRegister {
                     Translation translationInstance = (Translation) translationClass.newInstance();
                     translations.put(translationInstance.getLanguage(), translationInstance.getTranslations());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(e);
+                    Logger.error(ClassRegister.class, e);
                 }
             }
         }
