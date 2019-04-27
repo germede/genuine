@@ -1,6 +1,6 @@
-package org.fluentness.translation;
+package org.fluentness.localization;
 
-public interface Translation {
+public interface Localization {
     Translations getTranslations();
 
     default String getLanguage() {

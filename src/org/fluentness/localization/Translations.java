@@ -1,4 +1,4 @@
-package org.fluentness.translation;
+package org.fluentness.localization;
 
 import java.util.HashMap;
 import java.util.Map;

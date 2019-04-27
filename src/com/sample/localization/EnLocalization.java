@@ -1,9 +1,9 @@
-package com.sample.translations;
+package com.sample.localization;
 
-import org.fluentness.translation.Translation;
-import org.fluentness.translation.Translations;
+import org.fluentness.localization.Localization;
+import org.fluentness.localization.Translations;
 
-public class EnTranslation implements Translation {
+public class EnLocalization implements Localization {
 
     public Translations getTranslations() {
         return new Translations()
