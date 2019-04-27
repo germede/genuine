@@ -144,4 +144,16 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         return 0;
     }
 
+    // Static methods
+    public static int create(Model model, Class modelClass) {
+        return new RepositoryImpl<>(modelClass).create(model);
+    }
+
+    public static int update(Model model, Class modelClass) {
+        return new RepositoryImpl<>(modelClass).update(model);
+    }
+
+    public static int delete(Model model, Class modelClass) {
+        return new RepositoryImpl<>(modelClass).delete(model);
+    }
 }
