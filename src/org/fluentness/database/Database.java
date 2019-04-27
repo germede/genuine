@@ -23,7 +23,7 @@ class Database {
                 for (Object parameter : parameters) {
                     statement.setObject(++i, parameter);
                 }
-                Logger.debug(Database.class, statement.toString());
+                Logger.debug(Database.class, statement.toString().replaceAll(".+: ",""));
                 if (query.startsWith("SELECT")) {
                     result.resultList = resultSetToResultList(statement.executeQuery());
                     result.resultSize = result.resultList.size();
@@ -57,13 +57,13 @@ class Database {
     private static Connection getConnection() {
 
         String url = "jdbc:" +
-                Configuration.get(Configuration.DB_DRIVER) + "://" +
-                Configuration.get(Configuration.DB_HOSTNAME) + ":" +
-                Configuration.get(Configuration.DB_PORT) + "/" +
-                Configuration.get(Configuration.DB_NAME) +
-                Configuration.get(Configuration.DB_URL_PARAMS);
-        String username = Configuration.get(Configuration.DB_USERNAME);
-        String password = Configuration.get(Configuration.DB_PASSWORD);
+                Configuration.getString(Configuration.DB_DRIVER) + "://" +
+                Configuration.getString(Configuration.DB_HOSTNAME) + ":" +
+                Configuration.getInt(Configuration.DB_PORT) + "/" +
+                Configuration.getString(Configuration.DB_NAME) +
+                Configuration.getString(Configuration.DB_URL_PARAMS);
+        String username = Configuration.getString(Configuration.DB_USERNAME);
+        String password = Configuration.getString(Configuration.DB_PASSWORD);
 
         try {
             return DriverManager.getConnection(url, username, password);

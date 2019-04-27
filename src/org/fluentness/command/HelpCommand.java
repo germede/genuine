@@ -1,6 +1,6 @@
 package org.fluentness.command;
 
-import org.fluentness.common.ClassRegister;
+import org.fluentness.ClassRegister;
 
 public class HelpCommand implements Command {
 

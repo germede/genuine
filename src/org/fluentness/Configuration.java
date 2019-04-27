@@ -16,6 +16,7 @@ public class Configuration {
     public static final String DB_USERNAME = "DB_USERNAME";
     public static final String DB_PASSWORD = "DB_PASSWORD";
     public static final String DB_URL_PARAMS = "DB_URL_PARAMS";
+    public static final String CACHE_ENABLE = "CACHE_ENABLE";
     public static final String LOG_INFO = "LOG_INFO";
     public static final String LOG_DEBUG = "LOG_DEBUG";
     public static final String LOG_WARNING = "LOG_WARNING";
@@ -36,9 +37,15 @@ public class Configuration {
         instance = configuration;
     }
 
-    public static String get(String key) {
+    public static String getString(String key) {
         return String.valueOf(instance.configuration.get(key));
     }
 
+    public static int getInt(String key) {
+        return (int) instance.configuration.get(key);
+    }
 
+    public static boolean getBoolean(String key) {
+        return (boolean) instance.configuration.get(key);
+    }
 }

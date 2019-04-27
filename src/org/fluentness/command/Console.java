@@ -1,7 +1,7 @@
 package org.fluentness.command;
 
 import org.fluentness.logging.Logger;
-import org.fluentness.common.ClassRegister;
+import org.fluentness.ClassRegister;
 
 import java.util.List;
 
