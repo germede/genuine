@@ -11,9 +11,9 @@ import java.util.Map;
 
 class Database {
 
-    static QueryResult execute(String query, List<Object> parameters) {
+    static SqlQueryResult execute(String query, List<Object> parameters) {
         Connection connection = getConnection();
-        QueryResult result = new QueryResult();
+        SqlQueryResult result = new SqlQueryResult();
         if (connection != null) {
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 if (parameters == null) {

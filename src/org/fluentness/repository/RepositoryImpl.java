@@ -1,8 +1,8 @@
 package org.fluentness.repository;
 
 import org.fluentness.database.Constraint;
-import org.fluentness.database.Query;
-import org.fluentness.database.QueryResult;
+import org.fluentness.database.SqlQuery;
+import org.fluentness.database.SqlQueryResult;
 import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
 
@@ -29,8 +29,8 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         List<T> models = new ArrayList<>();
         try {
             String table = RepositoryHelper.retrieveTable(modelClass);
-            QueryResult queryResult =
-                    new Query()
+            SqlQueryResult queryResult =
+                    new SqlQuery()
                             .select()
                             .from(table)
                             .execute();
@@ -54,8 +54,8 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         T model = null;
         try {
             String table = RepositoryHelper.retrieveTable(modelClass);
-            QueryResult queryResult =
-                    new Query()
+            SqlQueryResult queryResult =
+                    new SqlQuery()
                             .select()
                             .from(table)
                             .where(
@@ -82,9 +82,9 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
     public int create(T model) {
         try {
             String table = RepositoryHelper.retrieveTable(model.getClass());
-            Query.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPair(model);
-            QueryResult queryResult =
-                    new Query()
+            SqlQuery.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPair(model);
+            SqlQueryResult queryResult =
+                    new SqlQuery()
                             .insert()
                             .into(table, columnsValuesPairs.getColumns())
                             .values(columnsValuesPairs.getValues())
@@ -101,13 +101,13 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         try {
             String table = RepositoryHelper.retrieveTable(model.getClass());
             T original = find(RepositoryHelper.retrievePrimaryKey(model));
-            Query.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPairBasedOnDifferences(model,original);
+            SqlQuery.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPairBasedOnDifferences(model,original);
             if (columnsValuesPairs.getColumns().isEmpty() || columnsValuesPairs.getValues().isEmpty()) {
                 // nothing to update
                 return 0;
             }
-            QueryResult queryResult =
-                    new Query()
+            SqlQueryResult queryResult =
+                    new SqlQuery()
                             .update(table)
                             .set(columnsValuesPairs.getColumns(), columnsValuesPairs.getValues())
                             .where(
@@ -128,8 +128,8 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
     public int delete(T model) {
         try {
             String table = RepositoryHelper.retrieveTable(model.getClass());
-            QueryResult queryResult =
-                    new Query()
+            SqlQueryResult queryResult =
+                    new SqlQuery()
                             .delete()
                             .from(table)
                             .where(
