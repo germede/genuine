@@ -17,7 +17,7 @@ public class ClassRegister {
     public static List<Command> getCommandInstances() {
         if (commandInstances == null) {
             commandInstances = new ArrayList<>();
-            for (Class commandClass : getCommandClasses()){
+            for (Class commandClass : getCommandClasses()) {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
@@ -51,7 +51,7 @@ public class ClassRegister {
     public static Set<Controller> getControllerInstances() {
         if (controllerInstances == null) {
             controllerInstances = new HashSet<>();
-            for (Class controllerClass : getControllerClasses()){
+            for (Class controllerClass : getControllerClasses()) {
                 try {
                     Controller controller = (Controller) controllerClass.newInstance();
                     controllerInstances.add(controller);
@@ -75,7 +75,7 @@ public class ClassRegister {
     public static Map<String, Translations> getTranslations() {
         if (translations == null) {
             translations = new HashMap<>();
-            for (Class translationClass : getTranslationClasses()){
+            for (Class translationClass : getTranslationClasses()) {
                 try {
                     Localization translationInstance = (Localization) translationClass.newInstance();
                     translations.put(translationInstance.getLanguage(), translationInstance.getTranslations());
@@ -91,7 +91,6 @@ public class ClassRegister {
         Reflections reflections = new Reflections(Configuration.getString(Configuration.APP_PACKAGE).concat(".localization"));
         return reflections.getSubTypesOf(Localization.class);
     }
-
 
 
 }

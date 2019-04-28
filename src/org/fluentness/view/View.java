@@ -2,20 +2,20 @@ package org.fluentness.view;
 
 import org.fluentness.Configuration;
 import org.fluentness.logging.Logger;
-import org.fluentness.templating.Template;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public interface View {
 
-    Template getTemplate();
+    Serializable render();
 
-    default String renderTemplate() {
+    default String renderWithCache() {
 
         // check if cache is enabled and if view is cacheable
         if (Configuration.getBoolean(Configuration.CACHE_ENABLE) &&
@@ -29,7 +29,7 @@ public interface View {
 
                 if (file.createNewFile()) {
                     // missed! -> create new cache record
-                    String content = getTemplate().render();
+                    String content = render().toString();
                     FileWriter writer = new FileWriter(file);
                     writer.write(content);
                     writer.close();
@@ -45,7 +45,7 @@ public interface View {
                 Logger.error(getClass(), e, "Error caching view %s", getClass().getName());
             }
         }
-        return getTemplate().render();
+        return render().toString();
     }
 
     default View set(String attribute, Object value) {

@@ -1,13 +1,16 @@
 package com.sample.view;
 
 import com.sample.model.Person;
-import org.fluentness.templating.HtmlTemplate;
-import org.fluentness.templating.HtmlTag;
-import org.fluentness.templating.Template;
-import org.fluentness.view.View;
 import org.fluentness.view.Attribute;
+import org.fluentness.view.View;
 
+import java.io.Serializable;
 import java.util.List;
+
+import static org.fluentness.templating.HtmlAttribute.classs;
+import static org.fluentness.templating.HtmlAttribute.id;
+import static org.fluentness.templating.HtmlElement.body;
+import static org.fluentness.templating.HtmlElement.h1;
 
 public class PeopleView implements View {
 
@@ -15,12 +18,11 @@ public class PeopleView implements View {
     public List<Person> people;
 
     @Override
-    public Template getTemplate() {
-
-        return new HtmlTemplate()
-                .open(HtmlTag.html)
-                .include(new HeadView())
-                .include(new BodyView().set("people",people))
-                .close(HtmlTag.html);
+    public Serializable render() {
+        return body(
+                h1(classs("test"), id("test"),
+                        "Hello, World!"
+                )
+        );
     }
 }

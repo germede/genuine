@@ -72,4 +72,8 @@ class Database {
         }
         return null;
     }
+
+    private Database () {
+
+    }
 }

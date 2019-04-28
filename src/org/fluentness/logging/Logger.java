@@ -1,6 +1,6 @@
 package org.fluentness.logging;
 
-import org.fluentness.command.Console;
+import org.fluentness.command.CliColor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,27 +8,27 @@ import java.time.format.DateTimeFormatter;
 public class Logger {
 
     public static void info(Class calling, String message, Object... parameters) {
-        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_BLUE + " [INFO] " + calling.getSimpleName() + ": " +
-                Console.ANSI_WHITE + String.format(message, parameters));
+        System.out.println(CliColor.ANSI_PURPLE + getCurrentTime() +
+                CliColor.ANSI_BLUE + " [INFO] " + calling.getSimpleName() + ": " +
+                CliColor.ANSI_WHITE + String.format(message, parameters));
     }
 
     public static void debug(Class calling, String message, Object... parameters) {
-        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_GREEN + " [DEBUG] " + calling.getSimpleName() + ": " +
-                Console.ANSI_WHITE + String.format(message, parameters));
+        System.out.println(CliColor.ANSI_PURPLE + getCurrentTime() +
+                CliColor.ANSI_GREEN + " [DEBUG] " + calling.getSimpleName() + ": " +
+                CliColor.ANSI_WHITE + String.format(message, parameters));
     }
 
     public static void warning(Class calling, String message, Object... parameters) {
-        System.out.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_YELLOW + " [WARNING] " + calling.getSimpleName() + ": " +
-                Console.ANSI_WHITE + String.format(message, parameters));
+        System.out.println(CliColor.ANSI_PURPLE + getCurrentTime() +
+                CliColor.ANSI_YELLOW + " [WARNING] " + calling.getSimpleName() + ": " +
+                CliColor.ANSI_WHITE + String.format(message, parameters));
     }
 
     public static void error(Class calling, String message, Object... parameters) {
-        System.err.println(Console.ANSI_PURPLE + getCurrentTime() +
-                Console.ANSI_RED + " [ERROR] " + calling.getSimpleName() + ": " +
-                Console.ANSI_WHITE + String.format(message, parameters));
+        System.err.println(CliColor.ANSI_PURPLE + getCurrentTime() +
+                CliColor.ANSI_RED + " [ERROR] " + calling.getSimpleName() + ": " +
+                CliColor.ANSI_WHITE + String.format(message, parameters));
     }
 
     public static void error(Class calling, Exception exception) {
@@ -65,5 +65,9 @@ public class Logger {
 
     private static String getCurrentTime() {
         return DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
+    }
+
+    private Logger () {
+
     }
 }
