@@ -1,65 +1,57 @@
 package org.fluentness.templating;
 
-import java.io.Serializable;
-
-public class DomElement implements Serializable {
+public class DomElement implements CharSequence {
 
     private StringBuilder html;
 
-    public DomElement(String tag, Serializable[] renderables, boolean isContainer) {
+    public DomElement(String tag, CharSequence[] renderables, boolean isContainer) {
         this.html = new StringBuilder();
 
-        open(tag);
-        appendAttributes(renderables);
-        appendInner(renderables);
-        if (isContainer) {
-            close(tag);
-        }
-    }
-
-    private void open(String tag) {
+        // open
         html.append("<").append(tag).append(">");
-    }
 
-    private void appendAttributes(Serializable[] renderables) {
-        for (Serializable renderable : renderables) {
-            if (renderable instanceof DomAttribute) {
-                html.replace(html.length() - 1, html.length(), " " + renderable.toString() + ">");
+        // append attributes
+        for (CharSequence renderable : renderables) {
+            if (renderable instanceof String && ((String) renderable).startsWith("###")) {
+                String[] keyValue = renderable.toString().replace("###", "").split("=");
+                String attribute = keyValue.length > 1 ?
+                        " " + keyValue[0] + "=\"" + keyValue[1] + "\">" :
+                        " " + keyValue[0];
+                html.replace(html.length() - 1, html.length(), attribute);
             }
         }
-    }
 
-    private void appendInner(Serializable[] renderables) {
-        for (Serializable renderable : renderables) {
-            if (!(renderable instanceof DomAttribute)) {
+        // append inner
+        for (CharSequence renderable : renderables) {
+            if (!(renderable instanceof String) || !((String) renderable).startsWith("###")) {
                 html.append(renderable.toString());
             }
         }
+
+        // close
+        if (isContainer) {
+            html.append("</").append(tag).append(">");
+        }
     }
 
-    private void close(String tag) {
-        html.append("</").append(tag).append(">");
+
+    @Override
+    public int length() {
+        return html.length();
+    }
+
+    @Override
+    public char charAt(int i) {
+        return html.charAt(i);
+    }
+
+    @Override
+    public CharSequence subSequence(int i, int i1) {
+        return html.subSequence(i,i1);
     }
 
     @Override
     public String toString() {
         return html.toString();
     }
-
-//    @Override
-//    public String render() {
-//
-//         translate
-//        Translations translations = ClassRegister.getTranslations().get(language);
-//        if (translations != null) {
-//            Matcher matcher = Pattern.compile("###(\\w+)###").matcher(document);
-//            while (matcher.find()) {
-//                String key = matcher.group(1);
-//                if (translations.contains(key)) {
-//                    document.replace(matcher.start(),matcher.end(),translations.get(key));
-//                }
-//            }
-//        }
-//        return document.toString();
-//    }
 }

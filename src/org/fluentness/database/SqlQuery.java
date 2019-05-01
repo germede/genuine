@@ -71,7 +71,7 @@ public class SqlQuery {
         return append(" SET ").append(toAppend);
     }
 
-    public SqlQuery where(Constraint constraint) {
+    public SqlQuery where(SqlConstraint constraint) {
         parameters.addAll(constraint.getParameters());
         return append(" WHERE ").append(constraint.toString());
     }
@@ -83,7 +83,7 @@ public class SqlQuery {
         return append(" ORDER BY ").append(String.join(", ", columns));
     }
 
-    public SqlQueryResult execute() {
+    public SqlResult execute() {
         String query = toString();
         return Database.execute(query, parameters);
     }

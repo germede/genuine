@@ -1,8 +1,8 @@
 package org.fluentness.repository;
 
-import org.fluentness.database.Constraint;
+import org.fluentness.database.SqlConstraint;
 import org.fluentness.database.SqlQuery;
-import org.fluentness.database.SqlQueryResult;
+import org.fluentness.database.SqlResult;
 import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
 
@@ -29,7 +29,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         List<T> models = new ArrayList<>();
         try {
             String table = RepositoryHelper.retrieveTable(modelClass);
-            SqlQueryResult queryResult =
+            SqlResult queryResult =
                     new SqlQuery()
                             .select()
                             .from(table)
@@ -54,12 +54,12 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         T model = null;
         try {
             String table = RepositoryHelper.retrieveTable(modelClass);
-            SqlQueryResult queryResult =
+            SqlResult queryResult =
                     new SqlQuery()
                             .select()
                             .from(table)
                             .where(
-                                    new Constraint(RepositoryHelper.retrievePrimaryKeyColumnName(modelClass)).isEqualTo(primaryKey)
+                                    new SqlConstraint(RepositoryHelper.retrievePrimaryKeyColumnName(modelClass)).isEqualTo(primaryKey)
                             )
                             .execute();
 
@@ -83,7 +83,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         try {
             String table = RepositoryHelper.retrieveTable(model.getClass());
             SqlQuery.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPair(model);
-            SqlQueryResult queryResult =
+            SqlResult queryResult =
                     new SqlQuery()
                             .insert()
                             .into(table, columnsValuesPairs.getColumns())
@@ -106,12 +106,12 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                 // nothing to update
                 return 0;
             }
-            SqlQueryResult queryResult =
+            SqlResult queryResult =
                     new SqlQuery()
                             .update(table)
                             .set(columnsValuesPairs.getColumns(), columnsValuesPairs.getValues())
                             .where(
-                                    new Constraint(RepositoryHelper.retrievePrimaryKeyColumnName(model.getClass()))
+                                    new SqlConstraint(RepositoryHelper.retrievePrimaryKeyColumnName(model.getClass()))
                                             .isEqualTo(RepositoryHelper.retrievePrimaryKey(model))
                             )
                             .orderBy(columnsValuesPairs.getColumns())
@@ -128,12 +128,12 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
     public int delete(T model) {
         try {
             String table = RepositoryHelper.retrieveTable(model.getClass());
-            SqlQueryResult queryResult =
+            SqlResult queryResult =
                     new SqlQuery()
                             .delete()
                             .from(table)
                             .where(
-                                    new Constraint(RepositoryHelper.retrievePrimaryKeyColumnName(model.getClass()))
+                                    new SqlConstraint(RepositoryHelper.retrievePrimaryKeyColumnName(model.getClass()))
                                             .isEqualTo(RepositoryHelper.retrievePrimaryKey(model))
                             )
                             .execute();
@@ -147,6 +147,10 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
     // Static methods
     public static int create(Model model, Class modelClass) {
         return new RepositoryImpl<>(modelClass).create(model);
+    }
+
+    public static Model find(Object primaryKey, Class modelClass) {
+        return new RepositoryImpl<>(modelClass).find(primaryKey);
     }
 
     public static int update(Model model, Class modelClass) {

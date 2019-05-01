@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
-import org.fluentness.routing.HttpResponse;
-import org.fluentness.routing.HttpStatusCode;
+import org.fluentness.server.HttpResponse;
+import org.fluentness.server.HttpStatusCode;
 import org.fluentness.view.View;
 
 public interface Controller {

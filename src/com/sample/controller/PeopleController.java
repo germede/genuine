@@ -2,13 +2,12 @@ package com.sample.controller;
 
 import com.sample.model.Person;
 import com.sample.view.PeopleView;
-import org.fluentness.controller.Controller;
 import org.fluentness.controller.QueryParameter;
 import org.fluentness.controller.Route;
+import org.fluentness.controller.Controller;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.RepositoryImpl;
-import org.fluentness.routing.HttpMethod;
-import org.fluentness.routing.HttpResponse;
+import org.fluentness.server.HttpResponse;
 import org.fluentness.view.View;
 
 import java.util.List;
@@ -21,6 +20,7 @@ public class PeopleController implements Controller {
     public HttpResponse list(
             @QueryParameter("name") String name,
             @QueryParameter("surname") String surname) {
+
 
 
         Person person = new Person()
@@ -45,12 +45,12 @@ public class PeopleController implements Controller {
         return render(view);
     }
 
-    @Route(path = "/redirect", method = HttpMethod.POST)
-    public HttpResponse testRedirect() {
-
-
-        return redirect("http://www.google.com/");
-    }
+//    @Route(path = "/redirect", method = HttpMethod.POST)
+//    public Response testRedirect(Request request) {
+//
+//
+//        return redirect("http://www.google.com/");
+//    }
 
     @Route(path = "/response")
     public HttpResponse testResponse() {

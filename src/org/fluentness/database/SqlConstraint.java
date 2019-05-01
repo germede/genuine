@@ -3,12 +3,12 @@ package org.fluentness.database;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Constraint {
+public class SqlConstraint {
 
     private StringBuilder sql;
     private List<Object> parameters;
 
-    public Constraint(String firstOperand) {
+    public SqlConstraint(String firstOperand) {
         this.sql = new StringBuilder();
         this.parameters = new ArrayList<>();
         append(firstOperand);
@@ -18,7 +18,7 @@ public class Constraint {
         return parameters;
     }
 
-    private Constraint append(String toAppend) {
+    private SqlConstraint append(String toAppend) {
         sql.append(toAppend);
         return this;
     }
@@ -27,17 +27,17 @@ public class Constraint {
         return sql.toString();
     }
 
-    public Constraint isEqualTo(Object secondOperand) {
+    public SqlConstraint isEqualTo(Object secondOperand) {
         parameters.add(secondOperand);
         return append(" = ?");
     }
 
-    public Constraint and(Constraint constraint) {
+    public SqlConstraint and(SqlConstraint constraint) {
         parameters.addAll(constraint.getParameters());
         return append(" AND (").append(constraint.toString()).append(")");
     }
 
-    public Constraint or(Constraint constraint) {
+    public SqlConstraint or(SqlConstraint constraint) {
         parameters.addAll(constraint.getParameters());
         return append(" OR (").append(constraint.toString()).append(")");
     }

@@ -1,485 +1,480 @@
 package org.fluentness.templating;
 
-import java.io.Serializable;
-
-public class HtmlElement {
-    private HtmlElement() {
-
-    }
+public interface HtmlElement {
 
     // empty
 
-    public static Serializable area(Serializable... renderables) {
-        return new DomElement("area", renderables, false);
+    default CharSequence area(CharSequence... with) {
+        return new DomElement("area", with, false);
     }
 
-    public static Serializable base(Serializable... renderables) {
-        return new DomElement("base", renderables, false);
+    default CharSequence base(CharSequence... with) {
+        return new DomElement("base", with, false);
     }
 
-    public static Serializable br(Serializable... renderables) {
-        return new DomElement("br", renderables, false);
+    default CharSequence br(CharSequence... with) {
+        return new DomElement("br", with, false);
     }
 
-    public static Serializable col(Serializable... renderables) {
-        return new DomElement("col", renderables, false);
+    default CharSequence col(CharSequence... with) {
+        return new DomElement("col", with, false);
     }
 
-    public static Serializable embed(Serializable... renderables) {
-        return new DomElement("embed", renderables, false);
+    default CharSequence embed(CharSequence... with) {
+        return new DomElement("embed", with, false);
     }
 
-    public static Serializable hr(Serializable... renderables) {
-        return new DomElement("hr", renderables, false);
+    default CharSequence hr(CharSequence... with) {
+        return new DomElement("hr", with, false);
     }
 
-    public static Serializable img(Serializable... renderables) {
-        return new DomElement("img", renderables, false);
+    default CharSequence img(CharSequence... with) {
+        return new DomElement("img", with, false);
     }
 
-    public static Serializable input(Serializable... renderables) {
-        return new DomElement("input", renderables, false);
+    default CharSequence input(CharSequence... with) {
+        return new DomElement("input", with, false);
     }
 
-    public static Serializable link(Serializable... renderables) {
-        return new DomElement("link", renderables, false);
+    default CharSequence link(CharSequence... with) {
+        return new DomElement("link", with, false);
     }
 
-    public static Serializable meta(Serializable... renderables) {
-        return new DomElement("meta", renderables, false);
+    default CharSequence meta(CharSequence... with) {
+        return new DomElement("meta", with, false);
     }
 
-    public static Serializable param(Serializable... renderables) {
-        return new DomElement("param", renderables, false);
+    default CharSequence param(CharSequence... with) {
+        return new DomElement("param", with, false);
     }
 
-    public static Serializable source(Serializable... renderables) {
-        return new DomElement("source", renderables, false);
+    default CharSequence source(CharSequence... with) {
+        return new DomElement("source", with, false);
     }
 
-    public static Serializable track(Serializable... renderables) {
-        return new DomElement("track", renderables, false);
+    default CharSequence track(CharSequence... with) {
+        return new DomElement("track", with, false);
     }
 
-    public static Serializable wbr(Serializable... renderables) {
-        return new DomElement("wbr", renderables, false);
+    default CharSequence wbr(CharSequence... with) {
+        return new DomElement("wbr", with, false);
     }
 
     // container
 
-    public static Serializable doctype(Serializable... renderables) {
-        return new DomElement("doctype", renderables, true);
+    default CharSequence doctype(CharSequence... with) {
+        return new DomElement("doctype", with, true);
     }
 
-    public static Serializable a(Serializable... renderables) {
-        return new DomElement("a", renderables, true);
+    default CharSequence a(CharSequence... with) {
+        return new DomElement("a", with, true);
     }
 
-    public static Serializable abbr(Serializable... renderables) {
-        return new DomElement("abbr", renderables, true);
+    default CharSequence abbr(CharSequence... with) {
+        return new DomElement("abbr", with, true);
     }
 
-    public static Serializable acronym(Serializable... renderables) {
-        return new DomElement("acronym", renderables, true);
+    default CharSequence acronym(CharSequence... with) {
+        return new DomElement("acronym", with, true);
     }
 
-    public static Serializable address(Serializable... renderables) {
-        return new DomElement("address", renderables, true);
+    default CharSequence address(CharSequence... with) {
+        return new DomElement("address", with, true);
     }
 
-    public static Serializable applet(Serializable... renderables) {
-        return new DomElement("applet", renderables, true);
+    default CharSequence applet(CharSequence... with) {
+        return new DomElement("applet", with, true);
     }
 
-    public static Serializable article(Serializable... renderables) {
-        return new DomElement("article", renderables, true);
+    default CharSequence article(CharSequence... with) {
+        return new DomElement("article", with, true);
     }
 
-    public static Serializable aside(Serializable... renderables) {
-        return new DomElement("aside", renderables, true);
+    default CharSequence aside(CharSequence... with) {
+        return new DomElement("aside", with, true);
     }
 
-    public static Serializable audio(Serializable... renderables) {
-        return new DomElement("audio", renderables, true);
+    default CharSequence audio(CharSequence... with) {
+        return new DomElement("audio", with, true);
     }
 
-    public static Serializable b(Serializable... renderables) {
-        return new DomElement("b", renderables, true);
+    default CharSequence b(CharSequence... with) {
+        return new DomElement("b", with, true);
     }
 
-    public static Serializable basefont(Serializable... renderables) {
-        return new DomElement("basefont", renderables, true);
+    default CharSequence basefont(CharSequence... with) {
+        return new DomElement("basefont", with, true);
     }
 
-    public static Serializable bdi(Serializable... renderables) {
-        return new DomElement("bdi", renderables, true);
+    default CharSequence bdi(CharSequence... with) {
+        return new DomElement("bdi", with, true);
     }
 
-    public static Serializable bdo(Serializable... renderables) {
-        return new DomElement("bdo", renderables, true);
+    default CharSequence bdo(CharSequence... with) {
+        return new DomElement("bdo", with, true);
     }
 
-    public static Serializable big(Serializable... renderables) {
-        return new DomElement("big", renderables, true);
+    default CharSequence big(CharSequence... with) {
+        return new DomElement("big", with, true);
     }
 
-    public static Serializable blockquote(Serializable... renderables) {
-        return new DomElement("blockquote", renderables, true);
+    default CharSequence blockquote(CharSequence... with) {
+        return new DomElement("blockquote", with, true);
     }
 
-    public static Serializable body(Serializable... renderables) {
-        return new DomElement("body", renderables, true);
+    default CharSequence body(CharSequence... with) {
+        return new DomElement("body", with, true);
     }
 
-    public static Serializable button(Serializable... renderables) {
-        return new DomElement("button", renderables, true);
+    default CharSequence button(CharSequence... with) {
+        return new DomElement("button", with, true);
     }
 
-    public static Serializable canvas(Serializable... renderables) {
-        return new DomElement("canvas", renderables, true);
+    default CharSequence canvas(CharSequence... with) {
+        return new DomElement("canvas", with, true);
     }
 
-    public static Serializable caption(Serializable... renderables) {
-        return new DomElement("caption", renderables, true);
+    default CharSequence caption(CharSequence... with) {
+        return new DomElement("caption", with, true);
     }
 
-    public static Serializable center(Serializable... renderables) {
-        return new DomElement("center", renderables, true);
+    default CharSequence center(CharSequence... with) {
+        return new DomElement("center", with, true);
     }
 
-    public static Serializable cite(Serializable... renderables) {
-        return new DomElement("cite", renderables, true);
+    default CharSequence cite(CharSequence... with) {
+        return new DomElement("cite", with, true);
     }
 
-    public static Serializable code(Serializable... renderables) {
-        return new DomElement("code", renderables, true);
+    default CharSequence code(CharSequence... with) {
+        return new DomElement("code", with, true);
     }
 
-    public static Serializable colgroup(Serializable... renderables) {
-        return new DomElement("colgroup", renderables, true);
+    default CharSequence colgroup(CharSequence... with) {
+        return new DomElement("colgroup", with, true);
     }
 
-    public static Serializable data(Serializable... renderables) {
-        return new DomElement("data", renderables, true);
+    default CharSequence data(CharSequence... with) {
+        return new DomElement("data", with, true);
     }
 
-    public static Serializable datalist(Serializable... renderables) {
-        return new DomElement("datalist", renderables, true);
+    default CharSequence datalist(CharSequence... with) {
+        return new DomElement("datalist", with, true);
     }
 
-    public static Serializable dd(Serializable... renderables) {
-        return new DomElement("dd", renderables, true);
+    default CharSequence dd(CharSequence... with) {
+        return new DomElement("dd", with, true);
     }
 
-    public static Serializable del(Serializable... renderables) {
-        return new DomElement("del", renderables, true);
+    default CharSequence del(CharSequence... with) {
+        return new DomElement("del", with, true);
     }
 
-    public static Serializable details(Serializable... renderables) {
-        return new DomElement("details", renderables, true);
+    default CharSequence details(CharSequence... with) {
+        return new DomElement("details", with, true);
     }
 
-    public static Serializable dfn(Serializable... renderables) {
-        return new DomElement("dfn", renderables, true);
+    default CharSequence dfn(CharSequence... with) {
+        return new DomElement("dfn", with, true);
     }
 
-    public static Serializable dialog(Serializable... renderables) {
-        return new DomElement("dialog", renderables, true);
+    default CharSequence dialog(CharSequence... with) {
+        return new DomElement("dialog", with, true);
     }
 
-    public static Serializable dir(Serializable... renderables) {
-        return new DomElement("dir", renderables, true);
+    default CharSequence dir(CharSequence... with) {
+        return new DomElement("dir", with, true);
     }
 
-    public static Serializable div(Serializable... renderables) {
-        return new DomElement("div", renderables, true);
+    default CharSequence div(CharSequence... with) {
+        return new DomElement("div", with, true);
     }
 
-    public static Serializable dl(Serializable... renderables) {
-        return new DomElement("dl", renderables, true);
+    default CharSequence dl(CharSequence... with) {
+        return new DomElement("dl", with, true);
     }
 
-    public static Serializable dt(Serializable... renderables) {
-        return new DomElement("dt", renderables, true);
+    default CharSequence dt(CharSequence... with) {
+        return new DomElement("dt", with, true);
     }
 
-    public static Serializable em(Serializable... renderables) {
-        return new DomElement("em", renderables, true);
+    default CharSequence em(CharSequence... with) {
+        return new DomElement("em", with, true);
     }
 
-    public static Serializable fieldset(Serializable... renderables) {
-        return new DomElement("fieldset", renderables, true);
+    default CharSequence fieldset(CharSequence... with) {
+        return new DomElement("fieldset", with, true);
     }
 
-    public static Serializable figcaption(Serializable... renderables) {
-        return new DomElement("figcaption", renderables, true);
+    default CharSequence figcaption(CharSequence... with) {
+        return new DomElement("figcaption", with, true);
     }
 
-    public static Serializable figure(Serializable... renderables) {
-        return new DomElement("figure", renderables, true);
+    default CharSequence figure(CharSequence... with) {
+        return new DomElement("figure", with, true);
     }
 
-    public static Serializable font(Serializable... renderables) {
-        return new DomElement("font", renderables, true);
+    default CharSequence font(CharSequence... with) {
+        return new DomElement("font", with, true);
     }
 
-    public static Serializable footer(Serializable... renderables) {
-        return new DomElement("footer", renderables, true);
+    default CharSequence footer(CharSequence... with) {
+        return new DomElement("footer", with, true);
     }
 
-    public static Serializable form(Serializable... renderables) {
-        return new DomElement("form", renderables, true);
+    default CharSequence form(CharSequence... with) {
+        return new DomElement("form", with, true);
     }
 
-    public static Serializable frame(Serializable... renderables) {
-        return new DomElement("frame", renderables, true);
+    default CharSequence frame(CharSequence... with) {
+        return new DomElement("frame", with, true);
     }
 
-    public static Serializable frameset(Serializable... renderables) {
-        return new DomElement("frameset", renderables, true);
+    default CharSequence frameset(CharSequence... with) {
+        return new DomElement("frameset", with, true);
     }
 
-    public static Serializable h1(Serializable... renderables) {
-        return new DomElement("h1", renderables, true);
+    default CharSequence h1(CharSequence... with) {
+        return new DomElement("h1", with, true);
     }
 
-    public static Serializable head(Serializable... renderables) {
-        return new DomElement("head", renderables, true);
+    default CharSequence head(CharSequence... with) {
+        return new DomElement("head", with, true);
     }
 
-    public static Serializable header(Serializable... renderables) {
-        return new DomElement("header", renderables, true);
+    default CharSequence header(CharSequence... with) {
+        return new DomElement("header", with, true);
     }
 
-    public static Serializable html(Serializable... renderables) {
-        return new DomElement("html", renderables, true);
+    default CharSequence html(CharSequence... with) {
+        return new DomElement("html", with, true);
     }
 
-    public static Serializable i(Serializable... renderables) {
-        return new DomElement("i", renderables, true);
+    default CharSequence i(CharSequence... with) {
+        return new DomElement("i", with, true);
     }
 
-    public static Serializable iframe(Serializable... renderables) {
-        return new DomElement("iframe", renderables, true);
+    default CharSequence iframe(CharSequence... with) {
+        return new DomElement("iframe", with, true);
     }
 
-    public static Serializable ins(Serializable... renderables) {
-        return new DomElement("ins", renderables, true);
+    default CharSequence ins(CharSequence... with) {
+        return new DomElement("ins", with, true);
     }
 
-    public static Serializable kbd(Serializable... renderables) {
-        return new DomElement("kbd", renderables, true);
+    default CharSequence kbd(CharSequence... with) {
+        return new DomElement("kbd", with, true);
     }
 
-    public static Serializable label(Serializable... renderables) {
-        return new DomElement("label", renderables, true);
+    default CharSequence label(CharSequence... with) {
+        return new DomElement("label", with, true);
     }
 
-    public static Serializable legend(Serializable... renderables) {
-        return new DomElement("legend", renderables, true);
+    default CharSequence legend(CharSequence... with) {
+        return new DomElement("legend", with, true);
     }
 
-    public static Serializable li(Serializable... renderables) {
-        return new DomElement("li", renderables, true);
+    default CharSequence li(CharSequence... with) {
+        return new DomElement("li", with, true);
     }
 
-    public static Serializable main(Serializable... renderables) {
-        return new DomElement("main", renderables, true);
+    default CharSequence main(CharSequence... with) {
+        return new DomElement("main", with, true);
     }
 
-    public static Serializable map(Serializable... renderables) {
-        return new DomElement("map", renderables, true);
+    default CharSequence map(CharSequence... with) {
+        return new DomElement("map", with, true);
     }
 
-    public static Serializable mark(Serializable... renderables) {
-        return new DomElement("mark", renderables, true);
+    default CharSequence mark(CharSequence... with) {
+        return new DomElement("mark", with, true);
     }
 
-    public static Serializable meter(Serializable... renderables) {
-        return new DomElement("meter", renderables, true);
+    default CharSequence meter(CharSequence... with) {
+        return new DomElement("meter", with, true);
     }
 
-    public static Serializable nav(Serializable... renderables) {
-        return new DomElement("nav", renderables, true);
+    default CharSequence nav(CharSequence... with) {
+        return new DomElement("nav", with, true);
     }
 
-    public static Serializable noframes(Serializable... renderables) {
-        return new DomElement("noframes", renderables, true);
+    default CharSequence noframes(CharSequence... with) {
+        return new DomElement("noframes", with, true);
     }
 
-    public static Serializable noscript(Serializable... renderables) {
-        return new DomElement("noscript", renderables, true);
+    default CharSequence noscript(CharSequence... with) {
+        return new DomElement("noscript", with, true);
     }
 
-    public static Serializable object(Serializable... renderables) {
-        return new DomElement("object", renderables, true);
+    default CharSequence object(CharSequence... with) {
+        return new DomElement("object", with, true);
     }
 
-    public static Serializable ol(Serializable... renderables) {
-        return new DomElement("ol", renderables, true);
+    default CharSequence ol(CharSequence... with) {
+        return new DomElement("ol", with, true);
     }
 
-    public static Serializable optgroup(Serializable... renderables) {
-        return new DomElement("optgroup", renderables, true);
+    default CharSequence optgroup(CharSequence... with) {
+        return new DomElement("optgroup", with, true);
     }
 
-    public static Serializable option(Serializable... renderables) {
-        return new DomElement("option", renderables, true);
+    default CharSequence option(CharSequence... with) {
+        return new DomElement("option", with, true);
     }
 
-    public static Serializable output(Serializable... renderables) {
-        return new DomElement("output", renderables, true);
+    default CharSequence output(CharSequence... with) {
+        return new DomElement("output", with, true);
     }
 
-    public static Serializable p(Serializable... renderables) {
-        return new DomElement("p", renderables, true);
+    default CharSequence p(CharSequence... with) {
+        return new DomElement("p", with, true);
     }
 
-    public static Serializable picture(Serializable... renderables) {
-        return new DomElement("picture", renderables, true);
+    default CharSequence picture(CharSequence... with) {
+        return new DomElement("picture", with, true);
     }
 
-    public static Serializable pre(Serializable... renderables) {
-        return new DomElement("pre", renderables, true);
+    default CharSequence pre(CharSequence... with) {
+        return new DomElement("pre", with, true);
     }
 
-    public static Serializable progress(Serializable... renderables) {
-        return new DomElement("progress", renderables, true);
+    default CharSequence progress(CharSequence... with) {
+        return new DomElement("progress", with, true);
     }
 
-    public static Serializable q(Serializable... renderables) {
-        return new DomElement("q", renderables, true);
+    default CharSequence q(CharSequence... with) {
+        return new DomElement("q", with, true);
     }
 
-    public static Serializable rp(Serializable... renderables) {
-        return new DomElement("rp", renderables, true);
+    default CharSequence rp(CharSequence... with) {
+        return new DomElement("rp", with, true);
     }
 
-    public static Serializable rt(Serializable... renderables) {
-        return new DomElement("rt", renderables, true);
+    default CharSequence rt(CharSequence... with) {
+        return new DomElement("rt", with, true);
     }
 
-    public static Serializable ruby(Serializable... renderables) {
-        return new DomElement("ruby", renderables, true);
+    default CharSequence ruby(CharSequence... with) {
+        return new DomElement("ruby", with, true);
     }
 
-    public static Serializable s(Serializable... renderables) {
-        return new DomElement("s", renderables, true);
+    default CharSequence s(CharSequence... with) {
+        return new DomElement("s", with, true);
     }
 
-    public static Serializable samp(Serializable... renderables) {
-        return new DomElement("samp", renderables, true);
+    default CharSequence samp(CharSequence... with) {
+        return new DomElement("samp", with, true);
     }
 
-    public static Serializable script(Serializable... renderables) {
-        return new DomElement("script", renderables, true);
+    default CharSequence script(CharSequence... with) {
+        return new DomElement("script", with, true);
     }
 
-    public static Serializable section(Serializable... renderables) {
-        return new DomElement("section", renderables, true);
+    default CharSequence section(CharSequence... with) {
+        return new DomElement("section", with, true);
     }
 
-    public static Serializable select(Serializable... renderables) {
-        return new DomElement("select", renderables, true);
+    default CharSequence select(CharSequence... with) {
+        return new DomElement("select", with, true);
     }
 
-    public static Serializable small(Serializable... renderables) {
-        return new DomElement("small", renderables, true);
+    default CharSequence small(CharSequence... with) {
+        return new DomElement("small", with, true);
     }
 
-    public static Serializable span(Serializable... renderables) {
-        return new DomElement("span", renderables, true);
+    default CharSequence span(CharSequence... with) {
+        return new DomElement("span", with, true);
     }
 
-    public static Serializable strike(Serializable... renderables) {
-        return new DomElement("strike", renderables, true);
+    default CharSequence strike(CharSequence... with) {
+        return new DomElement("strike", with, true);
     }
 
-    public static Serializable strong(Serializable... renderables) {
-        return new DomElement("strong", renderables, true);
+    default CharSequence strong(CharSequence... with) {
+        return new DomElement("strong", with, true);
     }
 
-    public static Serializable style(Serializable... renderables) {
-        return new DomElement("style", renderables, true);
+    default CharSequence style(CharSequence... with) {
+        return new DomElement("style", with, true);
     }
 
-    public static Serializable sub(Serializable... renderables) {
-        return new DomElement("sub", renderables, true);
+    default CharSequence sub(CharSequence... with) {
+        return new DomElement("sub", with, true);
     }
 
-    public static Serializable summary(Serializable... renderables) {
-        return new DomElement("summary", renderables, true);
+    default CharSequence summary(CharSequence... with) {
+        return new DomElement("summary", with, true);
     }
 
-    public static Serializable sup(Serializable... renderables) {
-        return new DomElement("sup", renderables, true);
+    default CharSequence sup(CharSequence... with) {
+        return new DomElement("sup", with, true);
     }
 
-    public static Serializable svg(Serializable... renderables) {
-        return new DomElement("svg", renderables, true);
+    default CharSequence svg(CharSequence... with) {
+        return new DomElement("svg", with, true);
     }
 
-    public static Serializable table(Serializable... renderables) {
-        return new DomElement("table", renderables, true);
+    default CharSequence table(CharSequence... with) {
+        return new DomElement("table", with, true);
     }
 
-    public static Serializable tbody(Serializable... renderables) {
-        return new DomElement("tbody", renderables, true);
+    default CharSequence tbody(CharSequence... with) {
+        return new DomElement("tbody", with, true);
     }
 
-    public static Serializable td(Serializable... renderables) {
-        return new DomElement("td", renderables, true);
+    default CharSequence td(CharSequence... with) {
+        return new DomElement("td", with, true);
     }
 
-    public static Serializable template(Serializable... renderables) {
-        return new DomElement("template", renderables, true);
+    default CharSequence template(CharSequence... with) {
+        return new DomElement("template", with, true);
     }
 
-    public static Serializable textarea(Serializable... renderables) {
-        return new DomElement("textarea", renderables, true);
+    default CharSequence textarea(CharSequence... with) {
+        return new DomElement("textarea", with, true);
     }
 
-    public static Serializable tfoot(Serializable... renderables) {
-        return new DomElement("tfoot", renderables, true);
+    default CharSequence tfoot(CharSequence... with) {
+        return new DomElement("tfoot", with, true);
     }
 
-    public static Serializable th(Serializable... renderables) {
-        return new DomElement("th", renderables, true);
+    default CharSequence th(CharSequence... with) {
+        return new DomElement("th", with, true);
     }
 
-    public static Serializable thead(Serializable... renderables) {
-        return new DomElement("thead", renderables, true);
+    default CharSequence thead(CharSequence... with) {
+        return new DomElement("thead", with, true);
     }
 
-    public static Serializable time(Serializable... renderables) {
-        return new DomElement("time", renderables, true);
+    default CharSequence time(CharSequence... with) {
+        return new DomElement("time", with, true);
     }
 
-    public static Serializable title(Serializable... renderables) {
-        return new DomElement("title", renderables, true);
+    default CharSequence title(CharSequence... with) {
+        return new DomElement("title", with, true);
     }
 
-    public static Serializable tr(Serializable... renderables) {
-        return new DomElement("tr", renderables, true);
+    default CharSequence tr(CharSequence... with) {
+        return new DomElement("tr", with, true);
     }
 
-    public static Serializable tt(Serializable... renderables) {
-        return new DomElement("tt", renderables, true);
+    default CharSequence tt(CharSequence... with) {
+        return new DomElement("tt", with, true);
     }
 
-    public static Serializable u(Serializable... renderables) {
-        return new DomElement("u", renderables, true);
+    default CharSequence u(CharSequence... with) {
+        return new DomElement("u", with, true);
     }
 
-    public static Serializable ul(Serializable... renderables) {
-        return new DomElement("ul", renderables, true);
+    default CharSequence ul(CharSequence... with) {
+        return new DomElement("ul", with, true);
     }
 
-    public static Serializable var(Serializable... renderables) {
-        return new DomElement("var", renderables, true);
+    default CharSequence var(CharSequence... with) {
+        return new DomElement("var", with, true);
     }
 
-    public static Serializable video(Serializable... renderables) {
-        return new DomElement("video", renderables, true);
+    default CharSequence video(CharSequence... with) {
+        return new DomElement("video", with, true);
     }
     }

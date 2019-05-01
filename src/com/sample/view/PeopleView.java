@@ -4,25 +4,22 @@ import com.sample.model.Person;
 import org.fluentness.view.Attribute;
 import org.fluentness.view.View;
 
-import java.io.Serializable;
 import java.util.List;
 
-import static org.fluentness.templating.HtmlAttribute.classs;
-import static org.fluentness.templating.HtmlAttribute.id;
-import static org.fluentness.templating.HtmlElement.body;
-import static org.fluentness.templating.HtmlElement.h1;
-
-public class PeopleView implements View {
+public class PeopleView implements View.Html {
 
     @Attribute
     public List<Person> people;
 
     @Override
-    public Serializable render() {
-        return body(
-                h1(classs("test"), id("test"),
-                        "Hello, World!"
-                )
+    public CharSequence render() {
+
+        return h1(CLASS + "test", ID + "1234", DATA + "asdf",
+                textarea(ID+"THE BEST TEST AREA",
+                        h1("test")
+                ),
+                input()
         );
+
     }
 }

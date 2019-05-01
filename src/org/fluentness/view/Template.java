@@ -1,6 +1,6 @@
-package org.fluentness.controller;
+package org.fluentness.view;
 
-import org.fluentness.server.HttpMethod;
+import org.fluentness.view.View;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,8 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Route {
-    String path();
-    String method() default HttpMethod.GET;
+@Target(ElementType.TYPE)
+public @interface Template {
+    Class<? extends View> value();
 }

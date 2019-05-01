@@ -2,18 +2,19 @@ package org.fluentness.view;
 
 import org.fluentness.Configuration;
 import org.fluentness.logging.Logger;
+import org.fluentness.templating.HtmlAttribute;
+import org.fluentness.templating.HtmlElement;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public interface View {
 
-    Serializable render();
+    CharSequence render();
 
     default String renderWithCache() {
 
@@ -60,5 +61,29 @@ public interface View {
             Logger.error(this.getClass(), e);
         }
         return this;
+    }
+
+    default String localize(String key) {
+
+//        Translations translations = ClassRegister.getTranslations().get(language);
+//        if (translations != null) {
+//            Matcher matcher = Pattern.compile("###(\\w+)###").matcher(document);
+//            while (matcher.find()) {
+//                String key = matcher.group(1);
+//                if (translations.contains(key)) {
+//                    document.replace(matcher.start(),matcher.end(),translations.get(key));
+//                }
+//            }
+//        }
+//        return document.toString();
+        return "";
+    }
+
+    interface Html extends View, HtmlElement, HtmlAttribute {
+
+    }
+
+    interface Xml extends View {
+
     }
 }

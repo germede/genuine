@@ -1,6 +1,9 @@
-package org.fluentness.routing;
+package org.fluentness.server;
 
 public class HttpStatusCode {
+
+    private HttpStatusCode() {
+    }
 
     public static final int Continue = 100;
     public static final int SwitchingProtocols = 101;

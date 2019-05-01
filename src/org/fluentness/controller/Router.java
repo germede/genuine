@@ -1,22 +1,24 @@
-package org.fluentness.routing;
+package org.fluentness.controller;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.controller.BaseRoute;
-import org.fluentness.controller.QueryParameter;
-import org.fluentness.controller.Route;
 import org.fluentness.logging.Logger;
-import org.fluentness.controller.Controller;
 import org.fluentness.ClassRegister;
+import org.fluentness.server.HttpResponse;
+import org.fluentness.server.HttpServer;
+import org.fluentness.server.HttpStatusCode;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
 
-class Router {
+public class Router {
 
-    static Map<String, HttpHandler> getRouteHandlerMap() {
+    private Router() {
+    }
+
+    public static Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
         Set<Controller> controllerInstances = ClassRegister.getControllerInstances();
@@ -79,17 +81,22 @@ class Router {
         try {
             if (httpExchange.getRequestMethod().equals(method.getAnnotation(Route.class).method())) {
 
-                Map<String, String> getParameters = extractGetParameters(httpExchange.getRequestURI().getQuery());
+                // prepare controller method parameters
+                Map<String, String> queryParameters = extractQueryParameters(httpExchange.getRequestURI().getQuery());
                 Parameter[] methodParameters = method.getParameters();
-                String[] result = new String[methodParameters.length];
+                Object[] parameters = new Object[methodParameters.length];
                 for (int i = 0; i < methodParameters.length; i++) {
                     Parameter parameter = methodParameters[i];
+                    // is query parameter
                     if (parameter.isAnnotationPresent(QueryParameter.class)) {
-                        result[i] = getParameters.get(parameter.getAnnotation(QueryParameter.class).value());
+                        parameters[i] = queryParameters.get(parameter.getAnnotation(QueryParameter.class).value());
+                    // is httpExchange
+                    } else if (parameter.getType().equals(HttpExchange.class)) {
+                        parameters[i] = httpExchange;
                     }
                 }
 
-                HttpResponse response = (HttpResponse) method.invoke(controller, (Object[]) result);
+                HttpResponse response = (HttpResponse) method.invoke(controller, (Object[]) parameters);
                 HttpServer.respond(httpExchange, response);
 
             } else {
@@ -118,7 +125,7 @@ class Router {
         }
     }
 
-    private static Map<String, String> extractGetParameters(String query) {
+    private static Map<String, String> extractQueryParameters(String query) {
         Map<String, String> result = new HashMap<>();
         if (query == null || query.isEmpty()) {
             return result;

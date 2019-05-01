@@ -1,6 +1,6 @@
 package org.fluentness.command;
 
-import org.fluentness.routing.HttpServer;
+import org.fluentness.server.HttpServer;
 
 public class ServerStartCommand implements Command {
 

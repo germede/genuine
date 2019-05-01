@@ -1,7 +1,7 @@
 package com.sample.command;
 
 import org.fluentness.command.Command;
-import org.fluentness.routing.HttpServer;
+import org.fluentness.server.HttpServer;
 
 public class TestCommand implements Command {
 

@@ -1,6 +1,9 @@
-package org.fluentness.routing;
+package org.fluentness.server;
 
 public class HttpMethod {
+
+    private HttpMethod() {
+    }
 
     public static final String GET = "GET";
     public static final String HEAD = "HEAD";

@@ -1,8 +1,9 @@
-package org.fluentness.routing;
+package org.fluentness.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import org.fluentness.Configuration;
 import org.fluentness.logging.Logger;
+import org.fluentness.controller.Router;
 
 import java.io.IOException;
 import java.io.OutputStream;
