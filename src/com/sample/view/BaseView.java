@@ -1,28 +1,29 @@
 package com.sample.view;
 
-import com.sample.model.Person;
-import org.fluentness.view.Attribute;
-import org.fluentness.view.Template;
+import org.fluentness.view.Placeholder;
 import org.fluentness.view.View;
 
-import java.util.List;
+public class BaseView implements View.Html {
 
-@Template(DummyView.class)
-public class BodyView implements View.Html {
-
-    @Attribute
-    public List<Person> people;
+    @Placeholder
+    public View placeholder;
 
     @Override
     public CharSequence render() {
-        return
+        return html(
+                head(
+                        title("the best site"),
+                        meta(NAME + "lang", CONTENT + "es"),
+                        meta(CHARSET + "utf-8")
+                ),
                 body(
-                        when(2 == 2, h1("test"))
+                        when(2 == 2, h1("test")),
+                        placeholder.render()
 
+                )
+        );
 
-                );
-
-//                .when(2 == 2, then -> then.include(new DummyView()))
+        //                .when(2 == 2, then -> then.include(new DummyView()))
 //                .open(HtmlElement.ul)
 //                .forEach(people,
 //                        (Person person, Markup htmlView) -> htmlView

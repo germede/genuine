@@ -1,4 +1,4 @@
-package org.fluentness.templating;
+package org.fluentness.rendering;
 
 public interface HtmlAttribute {
 

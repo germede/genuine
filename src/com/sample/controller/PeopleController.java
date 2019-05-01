@@ -2,6 +2,7 @@ package com.sample.controller;
 
 import com.sample.model.Person;
 import com.sample.view.PeopleView;
+import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.QueryParameter;
 import org.fluentness.controller.Route;
 import org.fluentness.controller.Controller;
@@ -12,6 +13,7 @@ import org.fluentness.view.View;
 
 import java.util.List;
 
+@BaseRoute()
 public class PeopleController implements Controller {
 
     private Repository<Person> personRepository = new RepositoryImpl<>(Person.class);
@@ -40,8 +42,8 @@ public class PeopleController implements Controller {
 //        person.update();
 
         View view = new PeopleView()
-                .set("people", people)
-                .set("testBoolean", true);
+                .setAttribute("people", people)
+                .setAttribute("testBoolean", true);
         return render(view);
     }
 
