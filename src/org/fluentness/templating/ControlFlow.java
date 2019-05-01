@@ -1,6 +1,6 @@
 package org.fluentness.templating;
 
-public class ControlFlowFunctions {
+public interface ControlFlow {
 //    @Override
 //    public String render() {
 //
@@ -36,13 +36,15 @@ public class ControlFlowFunctions {
 //    new Html()
 //        .ol()
 //
-//
-//    public Serializable iff(boolean condition, Then then) {
-//        if (condition) {
-//            then.then(this);
-//        }
-//        return self();
-//    }
+
+    default CharSequence when(boolean condition, CharSequence... then) {
+        if (condition) {
+            return new DomContent(then);
+        }
+        return "";
+    }
+
+
 //
 //    public T when(boolean condition, Then then, Otherwise otherwise) {
 //        if (condition) {
@@ -59,12 +61,9 @@ public class ControlFlowFunctions {
 //    }
 //
 //    // lambdas
-//    @FunctionalInterface
-//    public interface Then {
-//
-//        void then(ControlFlowFunctions then);
-//
-//    }
+
+
+
 //    @FunctionalInterface
 //    public interface Otherwise {
 //

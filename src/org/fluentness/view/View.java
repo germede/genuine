@@ -2,6 +2,7 @@ package org.fluentness.view;
 
 import org.fluentness.Configuration;
 import org.fluentness.logging.Logger;
+import org.fluentness.templating.ControlFlow;
 import org.fluentness.templating.HtmlAttribute;
 import org.fluentness.templating.HtmlElement;
 
@@ -79,7 +80,7 @@ public interface View {
         return "";
     }
 
-    interface Html extends View, HtmlElement, HtmlAttribute {
+    interface Html extends View, HtmlElement, HtmlAttribute, ControlFlow {
 
     }
 

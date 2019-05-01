@@ -15,7 +15,12 @@ public class BodyView implements View.Html {
 
     @Override
     public CharSequence render() {
-        return body();
+        return
+                body(
+                        when(2 == 2, h1("test"))
+
+
+                );
 
 //                .when(2 == 2, then -> then.include(new DummyView()))
 //                .open(HtmlElement.ul)
