@@ -1,8 +1,8 @@
 package org.fluentness.repository;
 
-import org.fluentness.database.SqlConstraint;
-import org.fluentness.database.SqlQuery;
-import org.fluentness.database.SqlResult;
+import org.fluentness.sql.Constraint;
+import org.fluentness.sql.Query;
+import org.fluentness.sql.Result;
 import org.fluentness.logging.Log;
 import org.fluentness.model.Model;
 
@@ -29,8 +29,8 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         List<T> models = new ArrayList<>();
         try {
             String table = RepositoryHelper.retrieveTable(modelClass);
-            SqlResult queryResult =
-                    new SqlQuery()
+            Result queryResult =
+                    new Query()
                             .select()
                             .from(table)
                             .execute();
@@ -54,12 +54,12 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         T model = null;
         try {
             String table = RepositoryHelper.retrieveTable(modelClass);
-            SqlResult queryResult =
-                    new SqlQuery()
+            Result queryResult =
+                    new Query()
                             .select()
                             .from(table)
                             .where(
-                                    new SqlConstraint(RepositoryHelper.retrievePrimaryKeyColumnName(modelClass)).isEqualTo(primaryKey)
+                                    new Constraint(RepositoryHelper.retrievePrimaryKeyColumnName(modelClass)).isEqualTo(primaryKey)
                             )
                             .execute();
 
@@ -82,9 +82,9 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
     public int create(T model) {
         try {
             String table = RepositoryHelper.retrieveTable(model.getClass());
-            SqlQuery.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPair(model);
-            SqlResult queryResult =
-                    new SqlQuery()
+            Query.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPair(model);
+            Result queryResult =
+                    new Query()
                             .insert()
                             .into(table, columnsValuesPairs.getColumns())
                             .values(columnsValuesPairs.getValues())
@@ -101,17 +101,17 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
         try {
             String table = RepositoryHelper.retrieveTable(model.getClass());
             T original = find(RepositoryHelper.retrievePrimaryKey(model));
-            SqlQuery.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPairBasedOnDifferences(model,original);
+            Query.ColumnsValuesPairs columnsValuesPairs = RepositoryHelper.retrieveColumnsValuesPairBasedOnDifferences(model,original);
             if (columnsValuesPairs.getColumns().isEmpty() || columnsValuesPairs.getValues().isEmpty()) {
                 // nothing to update
                 return 0;
             }
-            SqlResult queryResult =
-                    new SqlQuery()
+            Result queryResult =
+                    new Query()
                             .update(table)
                             .set(columnsValuesPairs.getColumns(), columnsValuesPairs.getValues())
                             .where(
-                                    new SqlConstraint(RepositoryHelper.retrievePrimaryKeyColumnName(model.getClass()))
+                                    new Constraint(RepositoryHelper.retrievePrimaryKeyColumnName(model.getClass()))
                                             .isEqualTo(RepositoryHelper.retrievePrimaryKey(model))
                             )
                             .orderBy(columnsValuesPairs.getColumns())
@@ -128,12 +128,12 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
     public int delete(T model) {
         try {
             String table = RepositoryHelper.retrieveTable(model.getClass());
-            SqlResult queryResult =
-                    new SqlQuery()
+            Result queryResult =
+                    new Query()
                             .delete()
                             .from(table)
                             .where(
-                                    new SqlConstraint(RepositoryHelper.retrievePrimaryKeyColumnName(model.getClass()))
+                                    new Constraint(RepositoryHelper.retrievePrimaryKeyColumnName(model.getClass()))
                                             .isEqualTo(RepositoryHelper.retrievePrimaryKey(model))
                             )
                             .execute();

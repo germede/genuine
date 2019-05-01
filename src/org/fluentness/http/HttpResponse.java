@@ -1,4 +1,4 @@
-package org.fluentness.server;
+package org.fluentness.http;
 
 
 import java.util.HashMap;
@@ -13,7 +13,7 @@ public class HttpResponse {
         this.statusCode = statusCode;
     }
 
-    int getStatusCode() {
+    public int getStatusCode() {
         return statusCode;
     }
 
@@ -22,7 +22,7 @@ public class HttpResponse {
         return this;
     }
 
-    Map<String, String> getHeaders() {
+    public Map<String, String> getHeaders() {
         return headers;
     }
 
@@ -31,7 +31,7 @@ public class HttpResponse {
         return this;
     }
 
-    String getBody() {
+    public String getBody() {
         return body;
     }
 

@@ -19,10 +19,7 @@ public class ViewLocalizator implements Localizator{
         if (translations != null) {
             Matcher matcher = Pattern.compile("LLL:(\\w+)#").matcher(result);
             while (matcher.find()) {
-                String key = matcher.group(1);
-                if (translations.contains(key)) {
-                    result.replace(matcher.start(), matcher.end(), translations.get(key));
-                }
+                result.replace(matcher.start(), matcher.end(), translations.get(matcher.group(1)));
             }
         }
         return result.toString();

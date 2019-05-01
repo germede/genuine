@@ -1,6 +1,6 @@
 package org.fluentness.repository;
 
-import org.fluentness.database.SqlQuery;
+import org.fluentness.sql.Query;
 import org.fluentness.model.Column;
 import org.fluentness.model.Model;
 import org.fluentness.model.Table;
@@ -13,10 +13,10 @@ import java.lang.reflect.Modifier;
 class RepositoryHelper {
 
 
-    static SqlQuery.ColumnsValuesPairs retrieveColumnsValuesPair(Model model)
+    static Query.ColumnsValuesPairs retrieveColumnsValuesPair(Model model)
             throws MethodIsAbsentOrInaccessibleException, IllegalAccessException, InvocationTargetException {
 
-        SqlQuery.ColumnsValuesPairs result = new SqlQuery.ColumnsValuesPairs();
+        Query.ColumnsValuesPairs result = new Query.ColumnsValuesPairs();
 
         Field[] declaredFields = model.getClass().getDeclaredFields();
         for (Field field : declaredFields) {
@@ -29,10 +29,10 @@ class RepositoryHelper {
         return result;
     }
 
-    static SqlQuery.ColumnsValuesPairs retrieveColumnsValuesPairBasedOnDifferences(Model model, Model original)
+    static Query.ColumnsValuesPairs retrieveColumnsValuesPairBasedOnDifferences(Model model, Model original)
             throws MethodIsAbsentOrInaccessibleException, IllegalAccessException, InvocationTargetException {
 
-        SqlQuery.ColumnsValuesPairs result = new SqlQuery.ColumnsValuesPairs();
+        Query.ColumnsValuesPairs result = new Query.ColumnsValuesPairs();
 
         Field[] declaredFields = model.getClass().getDeclaredFields();
         for (Field field : declaredFields) {

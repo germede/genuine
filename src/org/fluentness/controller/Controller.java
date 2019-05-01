@@ -1,8 +1,8 @@
 package org.fluentness.controller;
 
 import org.fluentness.FnConf;
-import org.fluentness.server.HttpResponse;
-import org.fluentness.server.HttpStatusCode;
+import org.fluentness.http.HttpResponse;
+import org.fluentness.http.HttpStatusCode;
 import org.fluentness.view.View;
 
 public interface Controller {

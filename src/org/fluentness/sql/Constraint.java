@@ -1,14 +1,14 @@
-package org.fluentness.database;
+package org.fluentness.sql;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqlConstraint {
+public class Constraint {
 
     private StringBuilder sql;
     private List<Object> parameters;
 
-    public SqlConstraint(String firstOperand) {
+    public Constraint(String firstOperand) {
         this.sql = new StringBuilder();
         this.parameters = new ArrayList<>();
         append(firstOperand);
@@ -18,7 +18,7 @@ public class SqlConstraint {
         return parameters;
     }
 
-    private SqlConstraint append(String toAppend) {
+    private Constraint append(String toAppend) {
         sql.append(toAppend);
         return this;
     }
@@ -27,17 +27,17 @@ public class SqlConstraint {
         return sql.toString();
     }
 
-    public SqlConstraint isEqualTo(Object secondOperand) {
+    public Constraint isEqualTo(Object secondOperand) {
         parameters.add(secondOperand);
         return append(" = ?");
     }
 
-    public SqlConstraint and(SqlConstraint constraint) {
+    public Constraint and(Constraint constraint) {
         parameters.addAll(constraint.getParameters());
         return append(" AND (").append(constraint.toString()).append(")");
     }
 
-    public SqlConstraint or(SqlConstraint constraint) {
+    public Constraint or(Constraint constraint) {
         parameters.addAll(constraint.getParameters());
         return append(" OR (").append(constraint.toString()).append(")");
     }

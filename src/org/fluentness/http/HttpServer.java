@@ -1,9 +1,8 @@
-package org.fluentness.server;
+package org.fluentness.http;
 
 import com.sun.net.httpserver.HttpExchange;
 import org.fluentness.FnConf;
 import org.fluentness.logging.Log;
-import org.fluentness.controller.Router;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -17,7 +16,7 @@ public class HttpServer {
     public static void start() {
         try {
             server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(port), 0);
-            Router.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
+            HttpRouter.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
             Log.info(HttpServer.class, "Server successfully started and listening to http://localhost:" + port);
@@ -33,7 +32,7 @@ public class HttpServer {
         }
     }
 
-    public static void respond(HttpExchange httpExchange, HttpResponse httpResponse) {
+    public static void serve(HttpExchange httpExchange, HttpResponse httpResponse) {
         try {
             httpResponse.getHeaders().forEach((key, value) -> httpExchange.getResponseHeaders().set(key, value));
             httpExchange.sendResponseHeaders(httpResponse.getStatusCode(), httpResponse.getBody().getBytes().length);

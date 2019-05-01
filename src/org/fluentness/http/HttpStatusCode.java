@@ -1,4 +1,4 @@
-package org.fluentness.server;
+package org.fluentness.http;
 
 public class HttpStatusCode {
 

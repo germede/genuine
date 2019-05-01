@@ -1,17 +1,14 @@
-package org.fluentness.controller;
+package org.fluentness.http;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.fluentness.logging.Log;
-import org.fluentness.server.HttpResponse;
-import org.fluentness.server.HttpServer;
-import org.fluentness.server.HttpStatusCode;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ResourceHandler implements HttpHandler {
+public class HttpResourceHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {
@@ -42,14 +39,14 @@ public class ResourceHandler implements HttpHandler {
                     response.setHeader("Content-Type", "image/svg+xml");
                 }
 
-                HttpServer.respond(exchange, response);
+                HttpServer.serve(exchange, response);
             } else {
                 Log.warning(this.getClass(), "File " + path + " doesn't exists");
-                HttpServer.respond(exchange, new HttpResponse(HttpStatusCode.NotFound));
+                HttpServer.serve(exchange, new HttpResponse(HttpStatusCode.NotFound));
             }
         } catch (IOException e) {
             Log.error(this.getClass(), e);
-            HttpServer.respond(exchange, new HttpResponse(HttpStatusCode.InternalServerError));
+            HttpServer.serve(exchange, new HttpResponse(HttpStatusCode.InternalServerError));
         }
     }
 }

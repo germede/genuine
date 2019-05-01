@@ -1,4 +1,4 @@
-package org.fluentness.database;
+package org.fluentness.sql;
 
 import org.fluentness.FnConf;
 import org.fluentness.logging.Log;
@@ -11,9 +11,9 @@ import java.util.Map;
 
 class Database {
 
-    static SqlResult execute(String query, List<Object> parameters) {
+    static Result execute(String query, List<Object> parameters) {
         Connection connection = getConnection();
-        SqlResult result = new SqlResult();
+        Result result = new Result();
         if (connection != null) {
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 if (parameters == null) {

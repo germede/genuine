@@ -18,7 +18,8 @@ public class PeopleView implements View.Html {
 
         return h1(CLASS + "test", ID + "1234", DATA + "asdf",
                 textarea(ID + "THE BEST TEST AREA",
-                        h1("test")
+                        h1("test"),
+                        2==2 ? h1("yea") : h1("no")
                 ),
                 translate("welcome_message"),
                 input()

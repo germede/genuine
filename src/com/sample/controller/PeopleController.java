@@ -4,35 +4,34 @@ import com.sample.model.Person;
 import com.sample.view.PeopleView;
 import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.QueryParameter;
 import org.fluentness.controller.Route;
+import org.fluentness.http.HttpRequest;
+import org.fluentness.logging.Log;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.RepositoryImpl;
-import org.fluentness.server.HttpResponse;
+import org.fluentness.http.HttpResponse;
 import org.fluentness.view.View;
 
 import java.util.List;
 
-@BaseRoute()
+@BaseRoute("/test")
 public class PeopleController implements Controller {
 
     private Repository<Person> personRepository = new RepositoryImpl<>(Person.class);
 
-    @Route(path = "/")
-    public HttpResponse list(
-            @QueryParameter("name") String name,
-            @QueryParameter("surname") String surname) {
+    @Route(path = "/list")
+    public HttpResponse list(HttpRequest request) {
 
+        Log.info(this.getClass(), request.getMethod());
+        Log.info(this.getClass(), request.getGetParameter("test"));
+        Log.info(this.getClass(), request.getPostParameter("test"));
 
-
-        Person person = new Person()
-                .setName(name)
-                .setName("asdf")
-                .setSurname(surname)
-                .setSurname("asdf");
-
-
-        person.create();
+//        Person person = new Person()
+//                .setName(name)
+//                .setSurname(surname);
+//
+//
+//        person.create();
 
         List<Person> people = personRepository.list();
 

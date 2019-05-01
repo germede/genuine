@@ -18,7 +18,7 @@ public interface Localization {
         }
 
         public String get(String key) {
-            return translations.get(key);
+            return translations.getOrDefault(key,"");
         }
 
         public boolean contains(String key) {

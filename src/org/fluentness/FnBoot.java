@@ -10,8 +10,12 @@ import java.util.List;
 public class FnBoot {
 
     public static void initialize(String[] args, FnConf configuration) {
-        FnConf.set(configuration);
-        executeCommand(args);
+        try {
+            FnConf.set(configuration);
+            executeCommand(args);
+        } catch (Exception e) {
+            Log.error(FnBoot.class, e);
+        }
     }
 
     private static void executeCommand(String[] args) {
