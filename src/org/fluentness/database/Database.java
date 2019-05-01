@@ -1,7 +1,7 @@
 package org.fluentness.database;
 
-import org.fluentness.Configuration;
-import org.fluentness.logging.Logger;
+import org.fluentness.FnConf;
+import org.fluentness.logging.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ class Database {
                 for (Object parameter : parameters) {
                     statement.setObject(++i, parameter);
                 }
-                Logger.debug(Database.class, statement.toString().replaceAll(".+: ",""));
+                Log.debug(Database.class, statement.toString().replaceAll(".+: ",""));
                 if (query.startsWith("SELECT")) {
                     result.resultList = resultSetToResultList(statement.executeQuery());
                     result.resultSize = result.resultList.size();
@@ -31,7 +31,7 @@ class Database {
                     result.resultSize = statement.executeUpdate();
                 }
             } catch (SQLException e) {
-                Logger.error(Database.class, e);
+                Log.error(Database.class, e);
             }
         }
         return result;
@@ -57,18 +57,18 @@ class Database {
     private static Connection getConnection() {
 
         String url = "jdbc:" +
-                Configuration.getString(Configuration.DB_DRIVER) + "://" +
-                Configuration.getString(Configuration.DB_HOSTNAME) + ":" +
-                Configuration.getInt(Configuration.DB_PORT) + "/" +
-                Configuration.getString(Configuration.DB_NAME) +
-                Configuration.getString(Configuration.DB_URL_PARAMS);
-        String username = Configuration.getString(Configuration.DB_USERNAME);
-        String password = Configuration.getString(Configuration.DB_PASSWORD);
+                FnConf.getString(FnConf.DB_DRIVER) + "://" +
+                FnConf.getString(FnConf.DB_HOSTNAME) + ":" +
+                FnConf.getInt(FnConf.DB_PORT) + "/" +
+                FnConf.getString(FnConf.DB_NAME) +
+                FnConf.getString(FnConf.DB_URL_PARAMS);
+        String username = FnConf.getString(FnConf.DB_USERNAME);
+        String password = FnConf.getString(FnConf.DB_PASSWORD);
 
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Logger.error(Database.class, e);
+            Log.error(Database.class, e);
         }
         return null;
     }

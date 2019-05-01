@@ -3,9 +3,9 @@ package com.sample.controller;
 import com.sample.model.Person;
 import com.sample.view.PeopleView;
 import org.fluentness.controller.BaseRoute;
+import org.fluentness.controller.Controller;
 import org.fluentness.controller.QueryParameter;
 import org.fluentness.controller.Route;
-import org.fluentness.controller.Controller;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.RepositoryImpl;
 import org.fluentness.server.HttpResponse;
@@ -44,6 +44,7 @@ public class PeopleController implements Controller {
         View view = new PeopleView()
                 .setAttribute("people", people)
                 .setAttribute("testBoolean", true);
+
         return render(view);
     }
 

@@ -20,6 +20,7 @@ public class PeopleView implements View.Html {
                 textarea(ID + "THE BEST TEST AREA",
                         h1("test")
                 ),
+                translate("welcome_message"),
                 input()
         );
 

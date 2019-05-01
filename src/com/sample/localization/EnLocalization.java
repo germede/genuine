@@ -1,12 +1,15 @@
 package com.sample.localization;
 
-import org.fluentness.localization.Language;
 import org.fluentness.localization.Localization;
-import org.fluentness.localization.Translations;
 
-@Language("EN")
 public class EnLocalization implements Localization {
 
+    @Override
+    public String getLanguage() {
+        return "EN";
+    }
+
+    @Override
     public Translations getTranslations() {
         return new Translations()
                 .add("welcome_message", "Welcome to the site")

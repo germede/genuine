@@ -3,7 +3,7 @@ package org.fluentness;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Configuration {
+public class FnConf {
 
     public static final String APP_PACKAGE = "APP_PACKAGE";
     public static final String APP_URL = "APP_URL";
@@ -26,14 +26,14 @@ public class Configuration {
 
     private Map<String, Object> configuration = new HashMap<>();
 
-    public Configuration set(String key, Object value) {
+    public FnConf set(String key, Object value) {
         configuration.put(key, value);
         return this;
     }
 
-    private static Configuration instance;
+    private static FnConf instance;
 
-    static void set(Configuration configuration) {
+    static void set(FnConf configuration) {
         instance = configuration;
     }
 

@@ -1,9 +1,9 @@
-package org.fluentness;
+package org.fluentness.singleton;
 
+import org.fluentness.FnConf;
 import org.fluentness.command.Command;
 import org.fluentness.localization.Localization;
-import org.fluentness.localization.Translations;
-import org.fluentness.logging.Logger;
+import org.fluentness.logging.Log;
 import org.fluentness.controller.Controller;
 import org.reflections.Reflections;
 
@@ -21,7 +21,7 @@ public class ClassRegister {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(ClassRegister.class, e);
+                    Log.error(ClassRegister.class, e);
                 }
             }
             commandInstances.sort(Comparator.comparing(Command::getName));
@@ -35,7 +35,7 @@ public class ClassRegister {
         Set<Class<? extends Command>> result = new HashSet<>(reflections.getSubTypesOf(Command.class));
 
         // custom commands
-        Reflections customReflections = new Reflections(Configuration.getString(Configuration.APP_PACKAGE).concat(".command"));
+        Reflections customReflections = new Reflections(FnConf.getString(FnConf.APP_PACKAGE).concat(".command"));
         result.addAll(customReflections.getSubTypesOf(Command.class));
 
         // sort commands alphabetically
@@ -56,7 +56,7 @@ public class ClassRegister {
                     Controller controller = (Controller) controllerClass.newInstance();
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(ClassRegister.class, e);
+                    Log.error(ClassRegister.class, e);
                 }
             }
         }
@@ -64,23 +64,23 @@ public class ClassRegister {
     }
 
     private static Set<Class<? extends Controller>> getControllerClasses() {
-        Reflections reflections = new Reflections(Configuration.getString(Configuration.APP_PACKAGE).concat(".controller"));
+        Reflections reflections = new Reflections(FnConf.getString(FnConf.APP_PACKAGE).concat(".controller"));
         return reflections.getSubTypesOf(Controller.class);
     }
 
 
     // translations
-    private static Map<String, Translations> translations;
+    private static Map<String, Localization.Translations> translations;
 
-    public static Map<String, Translations> getTranslations() {
+    public static Map<String, Localization.Translations> getTranslations() {
         if (translations == null) {
             translations = new HashMap<>();
             for (Class translationClass : getTranslationClasses()) {
                 try {
                     Localization translationInstance = (Localization) translationClass.newInstance();
-                    translations.put(translationInstance.getLanguage(), translationInstance.getTranslations());
+                    translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(ClassRegister.class, e);
+                    Log.error(ClassRegister.class, e);
                 }
             }
         }
@@ -88,7 +88,7 @@ public class ClassRegister {
     }
 
     private static Set<Class<? extends Localization>> getTranslationClasses() {
-        Reflections reflections = new Reflections(Configuration.getString(Configuration.APP_PACKAGE).concat(".localization"));
+        Reflections reflections = new Reflections(FnConf.getString(FnConf.APP_PACKAGE).concat(".localization"));
         return reflections.getSubTypesOf(Localization.class);
     }
 

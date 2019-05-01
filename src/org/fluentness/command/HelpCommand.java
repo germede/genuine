@@ -1,6 +1,8 @@
 package org.fluentness.command;
 
-import org.fluentness.ClassRegister;
+import org.fluentness.singleton.ClassRegister;
+import org.fluentness.logging.Log;
+
 
 public class HelpCommand implements Command {
 
@@ -18,9 +20,9 @@ public class HelpCommand implements Command {
     public void execute(String[] args) {
 
         // print commands using colors
-        System.out.println("\n" + CliColor.ANSI_GREEN + "Available commands:\n");
+        System.out.println("\n" + Log.ANSI_GREEN + "Available commands:\n");
         for (Command command : ClassRegister.getCommandInstances()) {
-            String format = CliColor.ANSI_YELLOW + "%20s " + CliColor.ANSI_WHITE + "- %s\n";
+            String format = Log.ANSI_YELLOW + "%20s " + Log.ANSI_WHITE + "- %s\n";
             System.out.format(format, command.getName(), command.getDescription());
         }
     }
