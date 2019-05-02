@@ -6,7 +6,7 @@ import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.logging.Log;
-import org.fluentness.singleton.ClassRegister;
+import org.fluentness.FnInst;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -20,7 +20,7 @@ public class HttpRouter {
     public static Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
-        Set<Controller> controllerInstances = ClassRegister.getControllerInstances();
+        Set<Controller> controllerInstances = FnInst.getControllerInstances();
         for (Controller controller : controllerInstances) {
 
             // retrieve controller base route

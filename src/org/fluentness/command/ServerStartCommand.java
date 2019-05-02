@@ -6,7 +6,7 @@ public class ServerStartCommand implements Command {
 
     @Override
     public String getName() {
-        return "server:run";
+        return "server:start";
     }
 
     @Override

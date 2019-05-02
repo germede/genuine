@@ -3,7 +3,6 @@ package org.fluentness;
 import org.fluentness.command.Command;
 import org.fluentness.command.HelpCommand;
 import org.fluentness.logging.Log;
-import org.fluentness.singleton.ClassRegister;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class FnBoot {
 
     private static void executeCommand(String[] args) {
         if (args.length > 0) {
-            List<Command> commands = ClassRegister.getCommandInstances();
+            List<Command> commands = FnInst.getCommandInstances();
             boolean commandNotFound = true;
             for (Command command : commands) {
                 if (command.getName().equals(args[0])) {

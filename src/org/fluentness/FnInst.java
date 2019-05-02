@@ -1,6 +1,5 @@
-package org.fluentness.singleton;
+package org.fluentness;
 
-import org.fluentness.FnConf;
 import org.fluentness.command.Command;
 import org.fluentness.localization.Localization;
 import org.fluentness.logging.Log;
@@ -9,7 +8,7 @@ import org.reflections.Reflections;
 
 import java.util.*;
 
-public class ClassRegister {
+public class FnInst {
 
     // commands
     private static List<Command> commandInstances;
@@ -21,7 +20,7 @@ public class ClassRegister {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.error(ClassRegister.class, e);
+                    Log.error(FnInst.class, e);
                 }
             }
             commandInstances.sort(Comparator.comparing(Command::getName));
@@ -31,7 +30,7 @@ public class ClassRegister {
 
     private static List<Class<? extends Command>> getCommandClasses() {
         // fwf commands
-        Reflections reflections = new Reflections("org.fluentness.cli");
+        Reflections reflections = new Reflections("org.fluentness.command");
         Set<Class<? extends Command>> result = new HashSet<>(reflections.getSubTypesOf(Command.class));
 
         // custom commands
@@ -56,7 +55,7 @@ public class ClassRegister {
                     Controller controller = (Controller) controllerClass.newInstance();
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.error(ClassRegister.class, e);
+                    Log.error(FnInst.class, e);
                 }
             }
         }
@@ -80,7 +79,7 @@ public class ClassRegister {
                     Localization translationInstance = (Localization) translationClass.newInstance();
                     translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.error(ClassRegister.class, e);
+                    Log.error(FnInst.class, e);
                 }
             }
         }
