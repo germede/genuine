@@ -16,11 +16,11 @@ public class ViewLocalizator implements Localizator{
     public String localize(String string) {
         StringBuilder result = new StringBuilder(string);
         Localization.Translations translations = FnInst.getTranslations().get(language);
-        if (translations != null) {
-            Matcher matcher = Pattern.compile("LLL:(\\w+)#").matcher(result);
-            while (matcher.find()) {
-                result.replace(matcher.start(), matcher.end(), translations.get(matcher.group(1)));
-            }
+        assert translations != null;
+
+        Matcher matcher = Pattern.compile("LLL:(\\w+)#").matcher(result);
+        while (matcher.find()) {
+            result.replace(matcher.start(), matcher.end(), translations.get(matcher.group(1)));
         }
         return result.toString();
     }
