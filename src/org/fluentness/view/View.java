@@ -42,7 +42,7 @@ public interface View {
                 return template;
             }
         } catch (InstantiationException | IllegalAccessException e) {
-            Log.error(this.getClass(), e);
+            Log.severe(this.getClass(), e);
         }
         return this;
     }
@@ -57,7 +57,7 @@ public interface View {
                 }
             }
         } catch (IllegalAccessException e) {
-            Log.error(this.getClass(), e);
+            Log.severe(this.getClass(), e);
         }
     }
 
@@ -70,7 +70,7 @@ public interface View {
                 }
             }
         } catch (IllegalAccessException e) {
-            Log.error(this.getClass(), e);
+            Log.severe(this.getClass(), e);
         }
         return this;
     }

@@ -1,28 +1,30 @@
 package com.sample;
 
-import org.fluentness.FnBoot;
-import org.fluentness.FnConf;
-
-import static org.fluentness.FnConf.*;
+import org.fluentness.Fluentness;
+import org.fluentness.common.Configuration;
 
 public class Dev {
 
     public static void main(String[] args) {
 
-        FnConf configuration = new FnConf()
-                .set(APP_PACKAGE, "com.sample")
-                .set(APP_URL, "http://localhost:8000")
-                .set(APP_PORT, 8000)
-                .set(APP_DEFAULT_LANGUAGE, "en")
-                .set(DB_DRIVER, "mysql")
-                .set(DB_HOSTNAME, "localhost")
-                .set(DB_PORT, 3306)
-                .set(DB_NAME, "party")
-                .set(DB_USERNAME, "party")
-                .set(DB_PASSWORD, "party")
-                .set(DB_URL_PARAMS, "?serverTimezone=UTC")
-                .set(CACHE_ENABLE, true);
-
-        FnBoot.initialize(args, configuration);
+        Fluentness.initialize(args, new Configuration()
+                .set(Configuration.APP_PACKAGE, "com.sample")
+                .set(Configuration.APP_PROTOCOL, "https")
+                .set(Configuration.APP_HOSTNAME, "localhost")
+                .set(Configuration.APP_PORT, 8000)
+                .set(Configuration.APP_KEYSTORE, "res/keystore.jks")
+                .set(Configuration.APP_LANGUAGE, "en")
+                .set(Configuration.DB_DRIVER, "mysql")
+                .set(Configuration.DB_HOSTNAME, "localhost")
+                .set(Configuration.DB_PORT, 3306)
+                .set(Configuration.DB_NAME, "party")
+                .set(Configuration.DB_USERNAME, "party")
+                .set(Configuration.DB_PASSWORD, "party")
+                .set(Configuration.DB_PARAMS, "?serverTimezone=UTC")
+                .set(Configuration.CACHE_ENABLE, true)
+                .set(Configuration.LOG_LEVEL, "ALL")
+                .set(Configuration.LOG_CONSOLE, true)
+                .set(Configuration.LOG_FILE, true)
+        );
     }
 }

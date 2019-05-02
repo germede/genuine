@@ -25,7 +25,6 @@ public class ViewCacher implements Cacher {
         if (isCacheEnabled()) {
             try {
                 new File(getCacheDirectory()).mkdirs();
-
                 String path = getCacheDirectory() + getCacheIdentifier();
                 File file = new File(path);
 
@@ -35,16 +34,16 @@ public class ViewCacher implements Cacher {
                     FileWriter writer = new FileWriter(file);
                     writer.write(content);
                     writer.close();
-                    Log.debug(ViewCacher.class, "Create cache record %s", path);
+                    Log.info(ViewCacher.class, "Create cache record %s", path);
                     return content;
                 } else {
                     // cached! -> retrieve cache record
-                    Log.debug(ViewCacher.class, "Retrieve cache record %s", path);
+                    Log.info(ViewCacher.class, "Retrieve cache record %s", path);
                     return new String(Files.readAllBytes(Paths.get(path)));
                 }
 
             } catch (IOException e) {
-                Log.error(ViewCacher.class, e, "Error caching %s", view.getClass().getName());
+                Log.severe(ViewCacher.class, e, "Error caching %s", view.getClass().getName());
             }
         }
         return view.render().toString();

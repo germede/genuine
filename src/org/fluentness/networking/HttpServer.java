@@ -1,28 +1,52 @@
 package org.fluentness.networking;
 
 import com.sun.net.httpserver.HttpExchange;
-import org.fluentness.FnConf;
+import com.sun.net.httpserver.HttpsConfigurator;
+import com.sun.net.httpserver.HttpsServer;
+import org.fluentness.common.Configuration;
 import org.fluentness.logging.Log;
 
+import javax.net.ssl.SSLContext;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.net.ProtocolException;
 
-public class HttpServer {
+public class HttpServer extends HttpsConfigurator {
 
     private static com.sun.net.httpserver.HttpServer server;
-    private static int port = FnConf.getInt(FnConf.APP_PORT);
+    private static String protocol = Configuration.getString(Configuration.APP_PROTOCOL);
+    private static String hostname = Configuration.getString(Configuration.APP_HOSTNAME);
+    private static int port = Configuration.getInt(Configuration.APP_PORT);
+
+    private HttpServer() {
+        super(null);
+    }
+
+    public HttpServer(SSLContext sslContext) {
+        super(sslContext);
+    }
 
     public static void start() {
         try {
-            server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(port), 0);
+            if (protocol.equals("http")) {
+                server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(hostname, port), 0);
+            } else if (protocol.equals("https")) {
+                server = com.sun.net.httpserver.HttpsServer.create(new InetSocketAddress(hostname, port), 0);
+                ((HttpsServer) server).setHttpsConfigurator(new HttpSecure());
+            } else {
+                throw new ProtocolException();
+            }
+
             HttpRouter.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
-            Log.info(HttpServer.class, "Server successfully started and listening to http://localhost:" + port);
-        } catch (IOException e) {
+            Log.fine(HttpServer.class, "Server successfully started and listening to %s",
+                    protocol + "://" + server.getAddress().getAddress() + ":" + port
+            );
+        } catch (Exception e) {
             stop();
-            Log.error(HttpServer.class, e);
+            Log.severe(HttpServer.class, e);
         }
     }
 
@@ -45,7 +69,7 @@ public class HttpServer {
 
             httpExchange.close();
         } catch (IOException e) {
-            Log.error(HttpServer.class, e);
+            Log.severe(HttpServer.class, e);
         }
     }
 }

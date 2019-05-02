@@ -1,6 +1,6 @@
 package org.fluentness.database;
 
-import org.fluentness.FnConf;
+import org.fluentness.common.Configuration;
 import org.fluentness.logging.Log;
 
 import java.sql.*;
@@ -23,7 +23,7 @@ class Database {
                 for (Object parameter : parameters) {
                     statement.setObject(++i, parameter);
                 }
-                Log.debug(Database.class, statement.toString().replaceAll(".+: ",""));
+                Log.info(Database.class, statement.toString().replaceAll(".+: ",""));
                 if (query.startsWith("SELECT")) {
                     result.resultList = resultSetToResultList(statement.executeQuery());
                     result.resultSize = result.resultList.size();
@@ -31,7 +31,7 @@ class Database {
                     result.resultSize = statement.executeUpdate();
                 }
             } catch (SQLException e) {
-                Log.error(Database.class, e);
+                Log.severe(Database.class, e);
             }
         }
         return result;
@@ -57,18 +57,18 @@ class Database {
     private static Connection getConnection() {
 
         String url = "jdbc:" +
-                FnConf.getString(FnConf.DB_DRIVER) + "://" +
-                FnConf.getString(FnConf.DB_HOSTNAME) + ":" +
-                FnConf.getInt(FnConf.DB_PORT) + "/" +
-                FnConf.getString(FnConf.DB_NAME) +
-                FnConf.getString(FnConf.DB_URL_PARAMS);
-        String username = FnConf.getString(FnConf.DB_USERNAME);
-        String password = FnConf.getString(FnConf.DB_PASSWORD);
+                Configuration.getString(Configuration.DB_DRIVER) + "://" +
+                Configuration.getString(Configuration.DB_HOSTNAME) + ":" +
+                Configuration.getInt(Configuration.DB_PORT) + "/" +
+                Configuration.getString(Configuration.DB_NAME) +
+                Configuration.getString(Configuration.DB_PARAMS);
+        String username = Configuration.getString(Configuration.DB_USERNAME);
+        String password = Configuration.getString(Configuration.DB_PASSWORD);
 
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Log.error(Database.class, e);
+            Log.severe(Database.class, e);
         }
         return null;
     }

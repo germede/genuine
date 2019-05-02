@@ -1,10 +1,10 @@
 package org.fluentness.command;
 
-import org.fluentness.FnInst;
-import org.fluentness.logging.Log;
+import org.fluentness.common.ClassRegister;
+import org.fluentness.common.AnsiColors;
 
 
-public class HelpCommand implements Command {
+public class HelpCommand implements Command, AnsiColors {
 
     @Override
     public String getName() {
@@ -20,9 +20,9 @@ public class HelpCommand implements Command {
     public void execute(String[] args) {
 
         // print commands using colors
-        System.out.println("\n" + Log.ANSI_GREEN + "Available commands:\n");
-        for (Command command : FnInst.getCommandInstances()) {
-            String format = Log.ANSI_YELLOW + "%20s " + Log.ANSI_WHITE + "- %s\n";
+        System.out.println("\n" + ANSI_GREEN + "Available commands:\n");
+        for (Command command : ClassRegister.getCommandInstances()) {
+            String format = ANSI_YELLOW + "%20s " + ANSI_WHITE + "- %s\n";
             System.out.format(format, command.getName(), command.getDescription());
         }
     }

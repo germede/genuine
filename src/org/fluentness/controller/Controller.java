@@ -1,6 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.FnConf;
+import org.fluentness.common.Configuration;
 import org.fluentness.networking.HttpResponse;
 import org.fluentness.networking.HttpStatusCode;
 import org.fluentness.view.View;
@@ -12,7 +12,7 @@ public interface Controller {
     }
 
     default HttpResponse render(View view) {
-        return new HttpResponse(HttpStatusCode.Ok).setBody(view.renderWithCacheAndTemplateAndLocalization(FnConf.getString(FnConf.APP_DEFAULT_LANGUAGE)));
+        return new HttpResponse(HttpStatusCode.Ok).setBody(view.renderWithCacheAndTemplateAndLocalization(Configuration.getString(Configuration.APP_LANGUAGE)));
     }
 
     default HttpResponse response(String body) {

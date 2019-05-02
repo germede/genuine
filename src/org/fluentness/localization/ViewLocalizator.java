@@ -1,6 +1,6 @@
 package org.fluentness.localization;
 
-import org.fluentness.FnInst;
+import org.fluentness.common.ClassRegister;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +15,7 @@ public class ViewLocalizator implements Localizator{
 
     public String localize(String string) {
         StringBuilder result = new StringBuilder(string);
-        Localization.Translations translations = FnInst.getTranslations().get(language);
+        Localization.Translations translations = ClassRegister.getTranslations().get(language);
         assert translations != null;
 
         Matcher matcher = Pattern.compile("LLL:(\\w+)#").matcher(result);

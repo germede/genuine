@@ -17,7 +17,7 @@ public interface ControlFlow {
 //        }
 //        return document.toString();
 //    }
-//    private String language = Configuration.getString(Configuration.APP_DEFAULT_LANGUAGE);
+//    private String language = Configuration.getString(Configuration.APP_LANGUAGE);
 //
 //    public T setLanguage(String language) {
 //        this.language = language;

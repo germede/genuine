@@ -2,11 +2,11 @@ package org.fluentness.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.fluentness.common.ClassRegister;
 import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.logging.Log;
-import org.fluentness.FnInst;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -20,7 +20,7 @@ public class HttpRouter {
     public static Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
-        Set<Controller> controllerInstances = FnInst.getControllerInstances();
+        Set<Controller> controllerInstances = ClassRegister.getControllerInstances();
         for (Controller controller : controllerInstances) {
 
             // retrieve controller base route
@@ -36,6 +36,12 @@ public class HttpRouter {
                     methodsWithRoute.add(declaredMethod);
                 }
             }
+
+            // default route
+            routeHandlerMap.put("/", httpExchange -> {
+                Log.info(HttpRouter.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                HttpServer.serve(httpExchange,new HttpResponse(404));
+            });
 
             for (Method methodWithRoute : methodsWithRoute) {
 
@@ -60,7 +66,7 @@ public class HttpRouter {
                 }
 
                 routeHandlerMap.put(route.replaceAll("//", "/"), httpExchange -> {
-                    Log.debug(HttpRouter.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                    Log.info(HttpRouter.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                     invokeControllerMethod(controller, methodWithRoute, httpExchange);
                 });
             }
@@ -97,18 +103,18 @@ public class HttpRouter {
 
             // exception due to inaccessible controller method
         } catch (IllegalAccessException e) {
-            Log.error(HttpRouter.class, e);
+            Log.severe(HttpRouter.class, e);
             HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
 
             // exception within controller method invocation
         } catch (InvocationTargetException e) {
-            Log.error(HttpRouter.class,
+            Log.severe(HttpRouter.class,
                     (Exception) e.getTargetException(),
                     e.getMessage(),
                     controller.getClass().getCanonicalName(), (method.getName()));
             HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
         } catch (Exception e) {
-            Log.error(HttpRouter.class, e);
+            Log.severe(HttpRouter.class, e);
         }
     }
 }

@@ -1,5 +1,6 @@
-package org.fluentness;
+package org.fluentness.common;
 
+import org.fluentness.Fluentness;
 import org.fluentness.command.Command;
 import org.fluentness.controller.Controller;
 import org.fluentness.localization.Localization;
@@ -9,7 +10,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-public class FnInst {
+public class ClassRegister {
 
     private static final String CONTROLLER = "controller";
     private static final String LOCALIZATION = "localization";
@@ -25,7 +26,7 @@ public class FnInst {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.error(FnInst.class, e);
+                    Log.severe(ClassRegister.class, e);
                 }
             }
             commandInstances.sort(Comparator.comparing(Command::getName));
@@ -44,7 +45,7 @@ public class FnInst {
                     Controller controller = (Controller) controllerClass.newInstance();
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.error(FnInst.class, e);
+                    Log.severe(ClassRegister.class, e);
                 }
             }
         }
@@ -62,7 +63,7 @@ public class FnInst {
                     Localization translationInstance = (Localization) translationClass.newInstance();
                     translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.error(FnInst.class, e);
+                    Log.severe(ClassRegister.class, e);
                 }
             }
         }
@@ -77,12 +78,12 @@ public class FnInst {
     }
 
     private static List<Class<?>> getInternalClasses(String packageName, Class<?> parent) {
-        packageName = FnInst.class.getPackage().getName().concat(".").concat(packageName);
+        packageName = Fluentness.class.getPackage().getName().concat(".").concat(packageName);
         return getClasses(packageName, parent);
     }
 
     private static List<Class<?>> getExternalClasses(String packageName, Class<?> parent) {
-        packageName = FnConf.getString(FnConf.APP_PACKAGE).concat(".").concat(packageName);
+        packageName = Configuration.getString(Configuration.APP_PACKAGE).concat(".").concat(packageName);
         return getClasses(packageName, parent);
     }
 
@@ -106,7 +107,7 @@ public class FnInst {
                 }
             }
         } catch (ClassNotFoundException e) {
-            Log.error(FnInst.class, e);
+            Log.severe(ClassRegister.class, e);
         }
         return result;
     }

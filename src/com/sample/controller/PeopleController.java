@@ -22,9 +22,9 @@ public class PeopleController implements Controller {
     @Route(path = "/list")
     public HttpResponse list(HttpRequest request) {
 
-        Log.info(this.getClass(), request.getMethod());
-        Log.info(this.getClass(), request.getGetParameter("test"));
-        Log.info(this.getClass(), request.getPostParameter("test"));
+        Log.fine(this.getClass(), request.getMethod());
+        Log.fine(this.getClass(), request.getGetParameter("test"));
+        Log.fine(this.getClass(), request.getPostParameter("test"));
 
 //        Person person = new Person()
 //                .setName(name)
