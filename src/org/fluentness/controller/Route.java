@@ -1,6 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.http.HttpMethod;
+import org.fluentness.networking.HttpMethod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

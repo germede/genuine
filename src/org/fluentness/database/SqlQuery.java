@@ -1,19 +1,19 @@
-package org.fluentness.sql;
+package org.fluentness.database;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Query {
+public class SqlQuery {
 
     private StringBuilder sql;
     private List<Object> parameters;
 
-    public Query() {
+    public SqlQuery() {
         sql = new StringBuilder();
         parameters = new ArrayList<>();
     }
 
-    private Query append(String toAppend) {
+    private SqlQuery append(String toAppend) {
         sql.append(toAppend);
         return this;
     }
@@ -22,31 +22,31 @@ public class Query {
         return sql.toString();
     }
 
-    public Query insert() {
+    public SqlQuery insert() {
         return append("INSERT");
     }
 
-    public Query select() {
+    public SqlQuery select() {
         return append("SELECT *");
     }
 
-    public Query select(List<String> columns) {
+    public SqlQuery select(List<String> columns) {
         return append("SELECT ").append(String.join(", ", columns));
     }
 
-    public Query update(String table) {
+    public SqlQuery update(String table) {
         return append("UPDATE ").append(table);
     }
 
-    public Query delete() {
+    public SqlQuery delete() {
         return append("DELETE");
     }
 
-    public Query into(String table, List<String> columns) {
+    public SqlQuery into(String table, List<String> columns) {
         return append(" INTO ").append(table).append(" (").append(String.join(",", columns)).append(")");
     }
 
-    public Query values(List<Object> values) {
+    public SqlQuery values(List<Object> values) {
         parameters.addAll(values);
         String placeholders = "?";
         for (int i = 1; i < values.size(); i++) {
@@ -55,11 +55,11 @@ public class Query {
         return append(" VALUES (").append(placeholders).append(")");
     }
 
-    public Query from(String table) {
+    public SqlQuery from(String table) {
         return append(" FROM ").append(table);
     }
 
-    public Query set(List<String> columns, List<Object> values) {
+    public SqlQuery set(List<String> columns, List<Object> values) {
         if (columns.isEmpty() || values.isEmpty()) {
             return this;
         }
@@ -71,19 +71,19 @@ public class Query {
         return append(" SET ").append(toAppend);
     }
 
-    public Query where(Constraint constraint) {
+    public SqlQuery where(SqlConstraint constraint) {
         parameters.addAll(constraint.getParameters());
         return append(" WHERE ").append(constraint.toString());
     }
 
-    public Query orderBy(List<String> columns) {
+    public SqlQuery orderBy(List<String> columns) {
         if (columns.isEmpty()) {
             return this;
         }
         return append(" ORDER BY ").append(String.join(", ", columns));
     }
 
-    public Result execute() {
+    public SqlResult execute() {
         String query = toString();
         return Database.execute(query, parameters);
     }

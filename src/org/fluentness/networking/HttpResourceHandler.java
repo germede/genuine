@@ -1,4 +1,4 @@
-package org.fluentness.http;
+package org.fluentness.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;

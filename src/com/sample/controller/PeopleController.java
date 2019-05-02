@@ -5,11 +5,11 @@ import com.sample.view.PeopleView;
 import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
-import org.fluentness.http.HttpRequest;
+import org.fluentness.networking.HttpRequest;
 import org.fluentness.logging.Log;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.RepositoryImpl;
-import org.fluentness.http.HttpResponse;
+import org.fluentness.networking.HttpResponse;
 import org.fluentness.view.View;
 
 import java.util.List;

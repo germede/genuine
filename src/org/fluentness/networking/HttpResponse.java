@@ -1,4 +1,4 @@
-package org.fluentness.http;
+package org.fluentness.networking;
 
 
 import java.util.HashMap;
