@@ -13,9 +13,9 @@ public class BaseView implements HtmlView {
     public String render() {
         return html(
                 head(
-                        title("the best site")
-//                        meta(attrs(NAME + "lang", CONTENT + "es")),
-//                        meta(attrs(CHARSET + "utf-8"))
+                        title("the best site"),
+                        meta(attrs(NAME -> "lang", CONTENT -> "es")),
+                        meta(attrs(CHARSET -> "utf-8"))
                 ),
                 body(
 //                        when(2 == 2, h1("test")),

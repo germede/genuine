@@ -4,20 +4,18 @@ import org.fluentness.view.HtmlView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface Form extends HtmlView {
 
     String getMethod();
 
-
-
     Fields getFields();
 
     @Override
     default String render() {
-        return form(
-
-
+        return form(attrs(METHOD -> getMethod()),
+            getFields().fields.stream().collect(Collectors.joining())
         ).render();
     }
 
@@ -29,10 +27,5 @@ public interface Form extends HtmlView {
             fields.add(field);
             return this;
         }
-
-        public List<Field> get(String name) {
-            return fields;
-        }
-
     }
 }
