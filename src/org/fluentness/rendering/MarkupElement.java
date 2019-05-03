@@ -1,5 +1,8 @@
 package org.fluentness.rendering;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class MarkupElement implements Renderable {
 
     private String tag;
@@ -18,30 +21,18 @@ public class MarkupElement implements Renderable {
         StringBuilder html = new StringBuilder();
 
         // open
-        html.append("<").append(tag).append(">");
+        html.append("<").append(tag);
+        Arrays.stream(renderables)
+                .filter(renderable -> renderable instanceof Attributes)
+                .forEach(renderable->html.append(((Attributes) renderable).render()));
+        html.append(">");
 
-        // append attributes
+        // inner
         for (CharSequence renderable : renderables) {
-            if (renderable instanceof String && ((String) renderable).startsWith("###")) {
-                String[] keyValue = renderable.toString().replace("###", "").split("=");
-                String attribute = keyValue.length > 1 ?
-                        " " + keyValue[0] + "=\"" + keyValue[1] + "\">" :
-                        " " + keyValue[0];
-                html.replace(html.length() - 1, html.length(), attribute);
-            }
-        }
-
-        // append inner
-        for (CharSequence renderable : renderables) {
-            if ((renderable instanceof String) && !((String) renderable).startsWith("###")) {
+            if ((renderable instanceof String)) {
                 html.append(renderable);
-            }
-        }
-
-        // append renderables
-        for (CharSequence renderable : renderables) {
-            if (renderable instanceof Renderable) {
-                html.append(((Renderable)renderable).render());
+            } else if (renderable instanceof Renderable && !(renderable instanceof Attributes)) {
+                html.append(((Renderable) renderable).render());
             }
         }
 
@@ -51,5 +42,19 @@ public class MarkupElement implements Renderable {
         }
 
         return html.toString();
+    }
+
+    static class Attributes implements Renderable {
+
+        private final MarkupAttribute[] attributes;
+
+        Attributes(MarkupAttribute[] attributes) {
+            this.attributes = attributes;
+        }
+
+        @Override
+        public String render() {
+            return " " + Arrays.stream(attributes).collect(Collectors.joining(" "));
+        }
     }
 }

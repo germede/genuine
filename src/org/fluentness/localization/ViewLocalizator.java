@@ -2,9 +2,6 @@ package org.fluentness.localization;
 
 import org.fluentness.common.ClassRegister;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class ViewLocalizator implements Localizator{
 
     private String language;
@@ -18,10 +15,10 @@ public class ViewLocalizator implements Localizator{
         Localization.Translations translations = ClassRegister.getTranslations().get(language);
         assert translations != null;
 
-        Matcher matcher = Pattern.compile("LLL:(\\w+)#").matcher(result);
-        while (matcher.find()) {
-            result.replace(matcher.start(), matcher.end(), translations.get(matcher.group(1)));
-        }
+//        Matcher matcher = Pattern.compile("LLL:(\\w+)#").matcher(result);
+//        while (matcher.find()) {
+//            result.replace(matcher.start(), matcher.end(), translations.get(matcher.group(1)));
+//        }
         return result.toString();
     }
 }

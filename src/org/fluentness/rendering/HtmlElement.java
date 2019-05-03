@@ -4,477 +4,477 @@ public interface HtmlElement {
 
     // empty
 
-    default Renderable area(CharSequence... with) {
-        return new MarkupElement("area", with, false);
+    default Renderable area(CharSequence... content) {
+        return new MarkupElement("area", content, false);
     }
 
-    default Renderable base(CharSequence... with) {
-        return new MarkupElement("base", with, false);
+    default Renderable base(CharSequence... content) {
+        return new MarkupElement("base", content, false);
     }
 
-    default Renderable br(CharSequence... with) {
-        return new MarkupElement("br", with, false);
+    default Renderable br(CharSequence... content) {
+        return new MarkupElement("br", content, false);
     }
 
-    default Renderable col(CharSequence... with) {
-        return new MarkupElement("col", with, false);
+    default Renderable col(CharSequence... content) {
+        return new MarkupElement("col", content, false);
     }
 
-    default Renderable embed(CharSequence... with) {
-        return new MarkupElement("embed", with, false);
+    default Renderable embed(CharSequence... content) {
+        return new MarkupElement("embed", content, false);
     }
 
-    default Renderable hr(CharSequence... with) {
-        return new MarkupElement("hr", with, false);
+    default Renderable hr(CharSequence... content) {
+        return new MarkupElement("hr", content, false);
     }
 
-    default Renderable img(CharSequence... with) {
-        return new MarkupElement("img", with, false);
+    default Renderable img(CharSequence... content) {
+        return new MarkupElement("img", content, false);
     }
 
-    default Renderable input(CharSequence... with) {
-        return new MarkupElement("input", with, false);
+    default Renderable input(CharSequence... content) {
+        return new MarkupElement("input", content, false);
     }
 
-    default Renderable link(CharSequence... with) {
-        return new MarkupElement("link", with, false);
+    default Renderable link(CharSequence... content) {
+        return new MarkupElement("link", content, false);
     }
 
-    default Renderable meta(CharSequence... with) {
-        return new MarkupElement("meta", with, false);
+    default Renderable meta(CharSequence... content) {
+        return new MarkupElement("meta", content, false);
     }
 
-    default Renderable param(CharSequence... with) {
-        return new MarkupElement("param", with, false);
+    default Renderable param(CharSequence... content) {
+        return new MarkupElement("param", content, false);
     }
 
-    default Renderable source(CharSequence... with) {
-        return new MarkupElement("source", with, false);
+    default Renderable source(CharSequence... content) {
+        return new MarkupElement("source", content, false);
     }
 
-    default Renderable track(CharSequence... with) {
-        return new MarkupElement("track", with, false);
+    default Renderable track(CharSequence... content) {
+        return new MarkupElement("track", content, false);
     }
 
-    default Renderable wbr(CharSequence... with) {
-        return new MarkupElement("wbr", with, false);
+    default Renderable wbr(CharSequence... content) {
+        return new MarkupElement("wbr", content, false);
     }
 
     // container
 
-    default Renderable doctype(CharSequence... with) {
-        return new MarkupElement("doctype", with, true);
+    default Renderable doctype(CharSequence... content) {
+        return new MarkupElement("doctype", content, true);
     }
 
-    default Renderable a(CharSequence... with) {
-        return new MarkupElement("a", with, true);
+    default Renderable a(CharSequence... content) {
+        return new MarkupElement("a", content, true);
     }
 
-    default Renderable abbr(CharSequence... with) {
-        return new MarkupElement("abbr", with, true);
+    default Renderable abbr(CharSequence... content) {
+        return new MarkupElement("abbr", content, true);
     }
 
-    default Renderable acronym(CharSequence... with) {
-        return new MarkupElement("acronym", with, true);
+    default Renderable acronym(CharSequence... content) {
+        return new MarkupElement("acronym", content, true);
     }
 
-    default Renderable address(CharSequence... with) {
-        return new MarkupElement("address", with, true);
+    default Renderable address(CharSequence... content) {
+        return new MarkupElement("address", content, true);
     }
 
-    default Renderable applet(CharSequence... with) {
-        return new MarkupElement("applet", with, true);
+    default Renderable applet(CharSequence... content) {
+        return new MarkupElement("applet", content, true);
     }
 
-    default Renderable article(CharSequence... with) {
-        return new MarkupElement("article", with, true);
+    default Renderable article(CharSequence... content) {
+        return new MarkupElement("article", content, true);
     }
 
-    default Renderable aside(CharSequence... with) {
-        return new MarkupElement("aside", with, true);
+    default Renderable aside(CharSequence... content) {
+        return new MarkupElement("aside", content, true);
     }
 
-    default Renderable audio(CharSequence... with) {
-        return new MarkupElement("audio", with, true);
+    default Renderable audio(CharSequence... content) {
+        return new MarkupElement("audio", content, true);
     }
 
-    default Renderable b(CharSequence... with) {
-        return new MarkupElement("b", with, true);
+    default Renderable b(CharSequence... content) {
+        return new MarkupElement("b", content, true);
     }
 
-    default Renderable basefont(CharSequence... with) {
-        return new MarkupElement("basefont", with, true);
+    default Renderable basefont(CharSequence... content) {
+        return new MarkupElement("basefont", content, true);
     }
 
-    default Renderable bdi(CharSequence... with) {
-        return new MarkupElement("bdi", with, true);
+    default Renderable bdi(CharSequence... content) {
+        return new MarkupElement("bdi", content, true);
     }
 
-    default Renderable bdo(CharSequence... with) {
-        return new MarkupElement("bdo", with, true);
+    default Renderable bdo(CharSequence... content) {
+        return new MarkupElement("bdo", content, true);
     }
 
-    default Renderable big(CharSequence... with) {
-        return new MarkupElement("big", with, true);
+    default Renderable big(CharSequence... content) {
+        return new MarkupElement("big", content, true);
     }
 
-    default Renderable blockquote(CharSequence... with) {
-        return new MarkupElement("blockquote", with, true);
+    default Renderable blockquote(CharSequence... content) {
+        return new MarkupElement("blockquote", content, true);
     }
 
-    default Renderable body(CharSequence... with) {
-        return new MarkupElement("body", with, true);
+    default Renderable body(CharSequence... content) {
+        return new MarkupElement("body", content, true);
     }
 
-    default Renderable button(CharSequence... with) {
-        return new MarkupElement("button", with, true);
+    default Renderable button(CharSequence... content) {
+        return new MarkupElement("button", content, true);
     }
 
-    default Renderable canvas(CharSequence... with) {
-        return new MarkupElement("canvas", with, true);
+    default Renderable canvas(CharSequence... content) {
+        return new MarkupElement("canvas", content, true);
     }
 
-    default Renderable caption(CharSequence... with) {
-        return new MarkupElement("caption", with, true);
+    default Renderable caption(CharSequence... content) {
+        return new MarkupElement("caption", content, true);
     }
 
-    default Renderable center(CharSequence... with) {
-        return new MarkupElement("center", with, true);
+    default Renderable center(CharSequence... content) {
+        return new MarkupElement("center", content, true);
     }
 
-    default Renderable cite(CharSequence... with) {
-        return new MarkupElement("cite", with, true);
+    default Renderable cite(CharSequence... content) {
+        return new MarkupElement("cite", content, true);
     }
 
-    default Renderable code(CharSequence... with) {
-        return new MarkupElement("code", with, true);
+    default Renderable code(CharSequence... content) {
+        return new MarkupElement("code", content, true);
     }
 
-    default Renderable colgroup(CharSequence... with) {
-        return new MarkupElement("colgroup", with, true);
+    default Renderable colgroup(CharSequence... content) {
+        return new MarkupElement("colgroup", content, true);
     }
 
-    default Renderable data(CharSequence... with) {
-        return new MarkupElement("data", with, true);
+    default Renderable data(CharSequence... content) {
+        return new MarkupElement("data", content, true);
     }
 
-    default Renderable datalist(CharSequence... with) {
-        return new MarkupElement("datalist", with, true);
+    default Renderable datalist(CharSequence... content) {
+        return new MarkupElement("datalist", content, true);
     }
 
-    default Renderable dd(CharSequence... with) {
-        return new MarkupElement("dd", with, true);
+    default Renderable dd(CharSequence... content) {
+        return new MarkupElement("dd", content, true);
     }
 
-    default Renderable del(CharSequence... with) {
-        return new MarkupElement("del", with, true);
+    default Renderable del(CharSequence... content) {
+        return new MarkupElement("del", content, true);
     }
 
-    default Renderable details(CharSequence... with) {
-        return new MarkupElement("details", with, true);
+    default Renderable details(CharSequence... content) {
+        return new MarkupElement("details", content, true);
     }
 
-    default Renderable dfn(CharSequence... with) {
-        return new MarkupElement("dfn", with, true);
+    default Renderable dfn(CharSequence... content) {
+        return new MarkupElement("dfn", content, true);
     }
 
-    default Renderable dialog(CharSequence... with) {
-        return new MarkupElement("dialog", with, true);
+    default Renderable dialog(CharSequence... content) {
+        return new MarkupElement("dialog", content, true);
     }
 
-    default Renderable dir(CharSequence... with) {
-        return new MarkupElement("dir", with, true);
+    default Renderable dir(CharSequence... content) {
+        return new MarkupElement("dir", content, true);
     }
 
-    default Renderable div(CharSequence... with) {
-        return new MarkupElement("div", with, true);
+    default Renderable div(CharSequence... content) {
+        return new MarkupElement("div", content, true);
     }
 
-    default Renderable dl(CharSequence... with) {
-        return new MarkupElement("dl", with, true);
+    default Renderable dl(CharSequence... content) {
+        return new MarkupElement("dl", content, true);
     }
 
-    default Renderable dt(CharSequence... with) {
-        return new MarkupElement("dt", with, true);
+    default Renderable dt(CharSequence... content) {
+        return new MarkupElement("dt", content, true);
     }
 
-    default Renderable em(CharSequence... with) {
-        return new MarkupElement("em", with, true);
+    default Renderable em(CharSequence... content) {
+        return new MarkupElement("em", content, true);
     }
 
-    default Renderable fieldset(CharSequence... with) {
-        return new MarkupElement("fieldset", with, true);
+    default Renderable fieldset(CharSequence... content) {
+        return new MarkupElement("fieldset", content, true);
     }
 
-    default Renderable figcaption(CharSequence... with) {
-        return new MarkupElement("figcaption", with, true);
+    default Renderable figcaption(CharSequence... content) {
+        return new MarkupElement("figcaption", content, true);
     }
 
-    default Renderable figure(CharSequence... with) {
-        return new MarkupElement("figure", with, true);
+    default Renderable figure(CharSequence... content) {
+        return new MarkupElement("figure", content, true);
     }
 
-    default Renderable font(CharSequence... with) {
-        return new MarkupElement("font", with, true);
+    default Renderable font(CharSequence... content) {
+        return new MarkupElement("font", content, true);
     }
 
-    default Renderable footer(CharSequence... with) {
-        return new MarkupElement("footer", with, true);
+    default Renderable footer(CharSequence... content) {
+        return new MarkupElement("footer", content, true);
     }
 
-    default Renderable form(CharSequence... with) {
-        return new MarkupElement("form", with, true);
+    default Renderable form(CharSequence... content) {
+        return new MarkupElement("form", content, true);
     }
 
-    default Renderable frame(CharSequence... with) {
-        return new MarkupElement("frame", with, true);
+    default Renderable frame(CharSequence... content) {
+        return new MarkupElement("frame", content, true);
     }
 
-    default Renderable frameset(CharSequence... with) {
-        return new MarkupElement("frameset", with, true);
+    default Renderable frameset(CharSequence... content) {
+        return new MarkupElement("frameset", content, true);
     }
 
-    default Renderable h1(CharSequence... with) {
-        return new MarkupElement("h1", with, true);
+    default Renderable h1(CharSequence... content) {
+        return new MarkupElement("h1", content, true);
     }
 
-    default Renderable head(CharSequence... with) {
-        return new MarkupElement("head", with, true);
+    default Renderable head(CharSequence... content) {
+        return new MarkupElement("head", content, true);
     }
 
-    default Renderable header(CharSequence... with) {
-        return new MarkupElement("header", with, true);
+    default Renderable header(CharSequence... content) {
+        return new MarkupElement("header", content, true);
     }
 
-    default Renderable html(CharSequence... with) {
-        return new MarkupElement("html", with, true);
+    default Renderable html(CharSequence... content) {
+        return new MarkupElement("html", content, true);
     }
 
-    default Renderable i(CharSequence... with) {
-        return new MarkupElement("i", with, true);
+    default Renderable i(CharSequence... content) {
+        return new MarkupElement("i", content, true);
     }
 
-    default Renderable iframe(CharSequence... with) {
-        return new MarkupElement("iframe", with, true);
+    default Renderable iframe(CharSequence... content) {
+        return new MarkupElement("iframe", content, true);
     }
 
-    default Renderable ins(CharSequence... with) {
-        return new MarkupElement("ins", with, true);
+    default Renderable ins(CharSequence... content) {
+        return new MarkupElement("ins", content, true);
     }
 
-    default Renderable kbd(CharSequence... with) {
-        return new MarkupElement("kbd", with, true);
+    default Renderable kbd(CharSequence... content) {
+        return new MarkupElement("kbd", content, true);
     }
 
-    default Renderable label(CharSequence... with) {
-        return new MarkupElement("label", with, true);
+    default Renderable label(CharSequence... content) {
+        return new MarkupElement("label", content, true);
     }
 
-    default Renderable legend(CharSequence... with) {
-        return new MarkupElement("legend", with, true);
+    default Renderable legend(CharSequence... content) {
+        return new MarkupElement("legend", content, true);
     }
 
-    default Renderable li(CharSequence... with) {
-        return new MarkupElement("li", with, true);
+    default Renderable li(CharSequence... content) {
+        return new MarkupElement("li", content, true);
     }
 
-    default Renderable main(CharSequence... with) {
-        return new MarkupElement("main", with, true);
+    default Renderable main(CharSequence... content) {
+        return new MarkupElement("main", content, true);
     }
 
-    default Renderable map(CharSequence... with) {
-        return new MarkupElement("map", with, true);
+    default Renderable map(CharSequence... content) {
+        return new MarkupElement("map", content, true);
     }
 
-    default Renderable mark(CharSequence... with) {
-        return new MarkupElement("mark", with, true);
+    default Renderable mark(CharSequence... content) {
+        return new MarkupElement("mark", content, true);
     }
 
-    default Renderable meter(CharSequence... with) {
-        return new MarkupElement("meter", with, true);
+    default Renderable meter(CharSequence... content) {
+        return new MarkupElement("meter", content, true);
     }
 
-    default Renderable nav(CharSequence... with) {
-        return new MarkupElement("nav", with, true);
+    default Renderable nav(CharSequence... content) {
+        return new MarkupElement("nav", content, true);
     }
 
-    default Renderable noframes(CharSequence... with) {
-        return new MarkupElement("noframes", with, true);
+    default Renderable noframes(CharSequence... content) {
+        return new MarkupElement("noframes", content, true);
     }
 
-    default Renderable noscript(CharSequence... with) {
-        return new MarkupElement("noscript", with, true);
+    default Renderable noscript(CharSequence... content) {
+        return new MarkupElement("noscript", content, true);
     }
 
-    default Renderable object(CharSequence... with) {
-        return new MarkupElement("object", with, true);
+    default Renderable object(CharSequence... content) {
+        return new MarkupElement("object", content, true);
     }
 
-    default Renderable ol(CharSequence... with) {
-        return new MarkupElement("ol", with, true);
+    default Renderable ol(CharSequence... content) {
+        return new MarkupElement("ol", content, true);
     }
 
-    default Renderable optgroup(CharSequence... with) {
-        return new MarkupElement("optgroup", with, true);
+    default Renderable optgroup(CharSequence... content) {
+        return new MarkupElement("optgroup", content, true);
     }
 
-    default Renderable option(CharSequence... with) {
-        return new MarkupElement("option", with, true);
+    default Renderable option(CharSequence... content) {
+        return new MarkupElement("option", content, true);
     }
 
-    default Renderable output(CharSequence... with) {
-        return new MarkupElement("output", with, true);
+    default Renderable output(CharSequence... content) {
+        return new MarkupElement("output", content, true);
     }
 
-    default Renderable p(CharSequence... with) {
-        return new MarkupElement("p", with, true);
+    default Renderable p(CharSequence... content) {
+        return new MarkupElement("p", content, true);
     }
 
-    default Renderable picture(CharSequence... with) {
-        return new MarkupElement("picture", with, true);
+    default Renderable picture(CharSequence... content) {
+        return new MarkupElement("picture", content, true);
     }
 
-    default Renderable pre(CharSequence... with) {
-        return new MarkupElement("pre", with, true);
+    default Renderable pre(CharSequence... content) {
+        return new MarkupElement("pre", content, true);
     }
 
-    default Renderable progress(CharSequence... with) {
-        return new MarkupElement("progress", with, true);
+    default Renderable progress(CharSequence... content) {
+        return new MarkupElement("progress", content, true);
     }
 
-    default Renderable q(CharSequence... with) {
-        return new MarkupElement("q", with, true);
+    default Renderable q(CharSequence... content) {
+        return new MarkupElement("q", content, true);
     }
 
-    default Renderable rp(CharSequence... with) {
-        return new MarkupElement("rp", with, true);
+    default Renderable rp(CharSequence... content) {
+        return new MarkupElement("rp", content, true);
     }
 
-    default Renderable rt(CharSequence... with) {
-        return new MarkupElement("rt", with, true);
+    default Renderable rt(CharSequence... content) {
+        return new MarkupElement("rt", content, true);
     }
 
-    default Renderable ruby(CharSequence... with) {
-        return new MarkupElement("ruby", with, true);
+    default Renderable ruby(CharSequence... content) {
+        return new MarkupElement("ruby", content, true);
     }
 
-    default Renderable s(CharSequence... with) {
-        return new MarkupElement("s", with, true);
+    default Renderable s(CharSequence... content) {
+        return new MarkupElement("s", content, true);
     }
 
-    default Renderable samp(CharSequence... with) {
-        return new MarkupElement("samp", with, true);
+    default Renderable samp(CharSequence... content) {
+        return new MarkupElement("samp", content, true);
     }
 
-    default Renderable script(CharSequence... with) {
-        return new MarkupElement("script", with, true);
+    default Renderable script(CharSequence... content) {
+        return new MarkupElement("script", content, true);
     }
 
-    default Renderable section(CharSequence... with) {
-        return new MarkupElement("section", with, true);
+    default Renderable section(CharSequence... content) {
+        return new MarkupElement("section", content, true);
     }
 
-    default Renderable select(CharSequence... with) {
-        return new MarkupElement("select", with, true);
+    default Renderable select(CharSequence... content) {
+        return new MarkupElement("select", content, true);
     }
 
-    default Renderable small(CharSequence... with) {
-        return new MarkupElement("small", with, true);
+    default Renderable small(CharSequence... content) {
+        return new MarkupElement("small", content, true);
     }
 
-    default Renderable span(CharSequence... with) {
-        return new MarkupElement("span", with, true);
+    default Renderable span(CharSequence... content) {
+        return new MarkupElement("span", content, true);
     }
 
-    default Renderable strike(CharSequence... with) {
-        return new MarkupElement("strike", with, true);
+    default Renderable strike(CharSequence... content) {
+        return new MarkupElement("strike", content, true);
     }
 
-    default Renderable strong(CharSequence... with) {
-        return new MarkupElement("strong", with, true);
+    default Renderable strong(CharSequence... content) {
+        return new MarkupElement("strong", content, true);
     }
 
-    default Renderable style(CharSequence... with) {
-        return new MarkupElement("style", with, true);
+    default Renderable style(CharSequence... content) {
+        return new MarkupElement("style", content, true);
     }
 
-    default Renderable sub(CharSequence... with) {
-        return new MarkupElement("sub", with, true);
+    default Renderable sub(CharSequence... content) {
+        return new MarkupElement("sub", content, true);
     }
 
-    default Renderable summary(CharSequence... with) {
-        return new MarkupElement("summary", with, true);
+    default Renderable summary(CharSequence... content) {
+        return new MarkupElement("summary", content, true);
     }
 
-    default Renderable sup(CharSequence... with) {
-        return new MarkupElement("sup", with, true);
+    default Renderable sup(CharSequence... content) {
+        return new MarkupElement("sup", content, true);
     }
 
-    default Renderable svg(CharSequence... with) {
-        return new MarkupElement("svg", with, true);
+    default Renderable svg(CharSequence... content) {
+        return new MarkupElement("svg", content, true);
     }
 
-    default Renderable table(CharSequence... with) {
-        return new MarkupElement("table", with, true);
+    default Renderable table(CharSequence... content) {
+        return new MarkupElement("table", content, true);
     }
 
-    default Renderable tbody(CharSequence... with) {
-        return new MarkupElement("tbody", with, true);
+    default Renderable tbody(CharSequence... content) {
+        return new MarkupElement("tbody", content, true);
     }
 
-    default Renderable td(CharSequence... with) {
-        return new MarkupElement("td", with, true);
+    default Renderable td(CharSequence... content) {
+        return new MarkupElement("td", content, true);
     }
 
-    default Renderable template(CharSequence... with) {
-        return new MarkupElement("template", with, true);
+    default Renderable template(CharSequence... content) {
+        return new MarkupElement("template", content, true);
     }
 
-    default Renderable textarea(CharSequence... with) {
-        return new MarkupElement("textarea", with, true);
+    default Renderable textarea(CharSequence... content) {
+        return new MarkupElement("textarea", content, true);
     }
 
-    default Renderable tfoot(CharSequence... with) {
-        return new MarkupElement("tfoot", with, true);
+    default Renderable tfoot(CharSequence... content) {
+        return new MarkupElement("tfoot", content, true);
     }
 
-    default Renderable th(CharSequence... with) {
-        return new MarkupElement("th", with, true);
+    default Renderable th(CharSequence... content) {
+        return new MarkupElement("th", content, true);
     }
 
-    default Renderable thead(CharSequence... with) {
-        return new MarkupElement("thead", with, true);
+    default Renderable thead(CharSequence... content) {
+        return new MarkupElement("thead", content, true);
     }
 
-    default Renderable time(CharSequence... with) {
-        return new MarkupElement("time", with, true);
+    default Renderable time(CharSequence... content) {
+        return new MarkupElement("time", content, true);
     }
 
-    default Renderable title(CharSequence... with) {
-        return new MarkupElement("title", with, true);
+    default Renderable title(CharSequence... content) {
+        return new MarkupElement("title", content, true);
     }
 
-    default Renderable tr(CharSequence... with) {
-        return new MarkupElement("tr", with, true);
+    default Renderable tr(CharSequence... content) {
+        return new MarkupElement("tr", content, true);
     }
 
-    default Renderable tt(CharSequence... with) {
-        return new MarkupElement("tt", with, true);
+    default Renderable tt(CharSequence... content) {
+        return new MarkupElement("tt", content, true);
     }
 
-    default Renderable u(CharSequence... with) {
-        return new MarkupElement("u", with, true);
+    default Renderable u(CharSequence... content) {
+        return new MarkupElement("u", content, true);
     }
 
-    default Renderable ul(CharSequence... with) {
-        return new MarkupElement("ul", with, true);
+    default Renderable ul(CharSequence... content) {
+        return new MarkupElement("ul", content, true);
     }
 
-    default Renderable var(CharSequence... with) {
-        return new MarkupElement("var", with, true);
+    default Renderable var(CharSequence... content) {
+        return new MarkupElement("var", content, true);
     }
 
-    default Renderable video(CharSequence... with) {
-        return new MarkupElement("video", with, true);
+    default Renderable video(CharSequence... content) {
+        return new MarkupElement("video", content, true);
     }
     }

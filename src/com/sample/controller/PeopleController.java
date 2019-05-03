@@ -26,7 +26,7 @@ public class PeopleController implements Controller {
         Log.fine(this.getClass(), request.getPostParameter("test"));
 
 //        Person person = new Person()
-//                .setName(name)
+//                .setName(key)
 //                .setSurname(surname);
 //
 //

@@ -105,7 +105,8 @@ public class HttpRouter {
             Log.severe(HttpRouter.class,
                     (Exception) e.getTargetException(),
                     e.getMessage(),
-                    controller.getClass().getCanonicalName(), (method.getName()));
+                    controller.getClass().getCanonicalName(),
+                    (method.getName()));
             HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
         } catch (Exception e) {
             Log.severe(HttpRouter.class, e);

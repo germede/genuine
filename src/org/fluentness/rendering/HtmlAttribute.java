@@ -68,7 +68,7 @@ public interface HtmlAttribute {
     String METHOD = "###method=";
     String MIN = "###min=";
     String MULTIPLE = "###multiple=";
-    String NAME = "###name=";
+    String NAME = "###key=";
     String NOVALIDATE = "###novalidate=";
     String OPEN = "###open=";
     String OPTIMUM = "###optimum=";
@@ -113,4 +113,7 @@ public interface HtmlAttribute {
     String WIDTH = "###width=";
     String WRAP = "###wrap=";
 
+    default CharSequence attrs(MarkupAttribute... attributes) {
+        return new MarkupElement.Attributes(attributes);
+    }
 }

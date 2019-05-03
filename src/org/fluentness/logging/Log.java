@@ -55,23 +55,23 @@ public class Log {
 
     }
 
-    public static void fine(Class calling, String message, Object... parameters) {
-        logger.fine(String.format(calling.getSimpleName() + ": " + message, parameters));
+    public static void fine(Class callingClass, String message, Object... parameters) {
+        logger.fine(String.format(callingClass.getSimpleName() + ": " + message, parameters));
     }
 
-    public static void info(Class calling, String message, Object... parameters) {
-        logger.info(String.format(calling.getSimpleName() + ": " + message, parameters));
+    public static void info(Class callingClass, String message, Object... parameters) {
+        logger.info(String.format(callingClass.getSimpleName() + ": " + message, parameters));
     }
 
-    public static void warning(Class calling, String message, Object... parameters) {
-        logger.warning(String.format(calling.getSimpleName() + ": " + message, parameters));
+    public static void warning(Class callingClass, String message, Object... parameters) {
+        logger.warning(String.format(callingClass.getSimpleName() + ": " + message, parameters));
     }
 
-    public static void severe(Class calling, String message, Object... parameters) {
-        logger.severe(String.format(calling.getSimpleName() + ": " + message, parameters));
+    public static void severe(Class callingClass, String message, Object... parameters) {
+        logger.severe(String.format(callingClass.getSimpleName() + ": " + message, parameters));
     }
 
-    public static void severe(Class calling, Exception exception) {
+    public static void severe(Class callingClass, Exception exception) {
         String message;
         if (exception.getMessage() == null) {
             message = "Exception " + exception.getClass().getName();
@@ -79,10 +79,10 @@ public class Log {
             message = exception.getMessage();
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        severe(calling, message);
+        severe(callingClass, message);
     }
 
-    public static void severe(Class calling, Exception exception, String message, Object... parameters) {
+    public static void severe(Class callingClass, Exception exception, String message, Object... parameters) {
         if (message == null) {
             if (exception.getMessage() == null) {
                 message = "Exception " + exception.getClass().getName();
@@ -91,7 +91,7 @@ public class Log {
             }
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        severe(calling, message, parameters);
+        severe(callingClass, message, parameters);
     }
 
     private static String stackTraceToString(StackTraceElement[] stackTraceElements) {

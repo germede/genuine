@@ -1,21 +1,24 @@
 package org.fluentness.form;
 
-import org.fluentness.rendering.Renderable;
+import org.fluentness.view.HtmlView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Form extends Renderable {
+public interface Form extends HtmlView {
 
     String getMethod();
+
+
 
     Fields getFields();
 
     @Override
     default String render() {
-        StringBuilder result = new StringBuilder();
-        getFields().fields.forEach(field -> result.append(field.render()));
-        return result.toString();
+        return form(
+
+
+        ).render();
     }
 
     class Fields {

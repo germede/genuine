@@ -1,10 +1,9 @@
 package org.fluentness.view;
 
 import org.fluentness.caching.ViewCacher;
-import org.fluentness.localization.Localizable;
 import org.fluentness.localization.ViewLocalizator;
 import org.fluentness.logging.Log;
-import org.fluentness.rendering.*;
+import org.fluentness.rendering.Renderable;
 
 import java.lang.reflect.Field;
 
@@ -56,12 +55,4 @@ public interface View extends Renderable {
         }
     }
 
-    // view types
-    interface Html extends View, HtmlElement, HtmlAttribute, HtmlHelpers, ControlFlowFunctions, Localizable {
-
-    }
-
-    interface Xml extends View {
-
-    }
 }

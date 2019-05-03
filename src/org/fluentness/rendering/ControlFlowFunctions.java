@@ -37,12 +37,12 @@ public interface ControlFlowFunctions {
 //        .ol()
 //
 
-    default Renderable when(boolean condition, Renderable... then) {
-        if (condition) {
-            return new MarkupContent(then);
-        }
-        return new MarkupInner("");
-    }
+//    default Renderable when(boolean condition, Renderable... then) {
+//        if (condition) {
+//            return new MarkupElements(then);
+//        }
+//        return new MarkupInner("");
+//    }
 
 
 //
