@@ -4,7 +4,7 @@
 out/
 tmp/
 *.iws
-*.iml
+.iml
 *.ipr
 
 # Java
