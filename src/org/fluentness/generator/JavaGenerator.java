@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +17,7 @@ public class JavaGenerator implements Generator {
 
     private String packageName;
     private List<Class> imports = new ArrayList<>();
+    private List<String> annotations = new ArrayList<>();
     private List<Integer> modifiers = new ArrayList<>();
     private String className;
     private String parent;
@@ -32,6 +34,16 @@ public class JavaGenerator implements Generator {
 
     public JavaGenerator addImports(Class... imports) {
         Collections.addAll(this.imports, imports);
+        return this;
+    }
+
+    public JavaGenerator addAnnotation(Class<? extends Annotation> annotationClass, String parameters) {
+        this.imports.add(annotationClass);
+        String annotation = annotationClass.getSimpleName();
+        if (!parameters.isEmpty()) {
+            annotation = annotation + "(" + parameters + ")";
+        }
+        this.annotations.add(annotation);
         return this;
     }
 
@@ -68,6 +80,11 @@ public class JavaGenerator implements Generator {
         if (!imports.isEmpty()) {
             imports.forEach((importsItem -> result.append("import ").append(importsItem.getCanonicalName()).append(";\n")));
             result.append("\n");
+        }
+
+        // annotations
+        if (!annotations.isEmpty()) {
+            annotations.forEach((annotation -> result.append("@").append(annotation).append("\n")));
         }
 
         // modifiers
