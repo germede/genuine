@@ -5,7 +5,7 @@ import com.sample.model.Person;
 import com.sample.view.PeopleView;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
-import org.fluentness.logging.Log;
+import org.fluentness.logging.Logger;
 import org.fluentness.networking.HttpRequest;
 import org.fluentness.networking.HttpResponse;
 import org.fluentness.repository.Repository;
@@ -21,9 +21,9 @@ public class PeopleController implements Controller {
     @Route(path = "/")
     public HttpResponse list(HttpRequest request) {
 
-        Log.fine(this.getClass(), request.getMethod());
-        Log.fine(this.getClass(), request.getGetParameter("test"));
-        Log.fine(this.getClass(), request.getPostParameter("test"));
+        Logger.fine(this.getClass(), request.getMethod());
+        Logger.fine(this.getClass(), request.getGetParameter("test"));
+        Logger.fine(this.getClass(), request.getPostParameter("test"));
 
 //        Person person = new Person()
 //                .setName(key)

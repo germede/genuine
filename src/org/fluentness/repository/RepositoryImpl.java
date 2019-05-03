@@ -3,7 +3,7 @@ package org.fluentness.repository;
 import org.fluentness.database.SqlConstraint;
 import org.fluentness.database.SqlQuery;
 import org.fluentness.database.SqlResult;
-import org.fluentness.logging.Log;
+import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
 
 import java.lang.reflect.InvocationTargetException;
@@ -44,7 +44,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                 models.add(model);
             }
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Log.severe(this.getClass(), e);
+            Logger.severe(this.getClass(), e);
         }
         return models;
     }
@@ -71,7 +71,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                 }
             }
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Log.severe(this.getClass(), e);
+            Logger.severe(this.getClass(), e);
         } catch (ModelHasNoPrimaryKeyException e) {
             e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                             .execute();
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Log.severe(this.getClass(), e);
+            Logger.severe(this.getClass(), e);
         }
         return 0;
     }
@@ -119,7 +119,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
 
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException e) {
-            Log.severe(this.getClass(), e);
+            Logger.severe(this.getClass(), e);
         }
         return 0;
     }
@@ -139,7 +139,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                             .execute();
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException e) {
-            Log.severe(this.getClass(), e);
+            Logger.severe(this.getClass(), e);
         }
         return 0;
     }

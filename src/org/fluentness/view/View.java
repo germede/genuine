@@ -2,7 +2,7 @@ package org.fluentness.view;
 
 import org.fluentness.caching.ViewCacher;
 import org.fluentness.localization.ViewLocalizator;
-import org.fluentness.logging.Log;
+import org.fluentness.logging.Logger;
 import org.fluentness.rendering.Renderable;
 
 import java.lang.reflect.Field;
@@ -36,7 +36,7 @@ public interface View extends Renderable {
                 return template;
             }
         } catch (InstantiationException | IllegalAccessException e) {
-            Log.severe(this.getClass(), e);
+            Logger.severe(this.getClass(), e);
         }
         return this;
     }
@@ -51,7 +51,7 @@ public interface View extends Renderable {
                 }
             }
         } catch (IllegalAccessException e) {
-            Log.severe(this.getClass(), e);
+            Logger.severe(this.getClass(), e);
         }
     }
 

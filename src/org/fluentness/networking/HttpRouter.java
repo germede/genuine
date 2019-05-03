@@ -6,7 +6,7 @@ import org.fluentness.common.ClassRegister;
 import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
-import org.fluentness.logging.Log;
+import org.fluentness.logging.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -43,7 +43,7 @@ public class HttpRouter {
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    Log.warning(HttpRouter.class,
+                    Logger.warning(HttpRouter.class,
                             "Cannot register controller method %s->%s because route '%s' is already registered",
                             controllerClass.getCanonicalName(),
                             methodWithRoute.getName(), route);
@@ -52,7 +52,7 @@ public class HttpRouter {
 
                 // controller method must return HttpResponse
                 if (methodWithRoute.getReturnType() != HttpResponse.class) {
-                    Log.warning(HttpRouter.class,
+                    Logger.warning(HttpRouter.class,
                             "Controller method %s->%s with defined route must return an object of type " + HttpResponse.class.getCanonicalName(),
                             controllerClass.getCanonicalName(),
                             methodWithRoute.getName(), route);
@@ -60,7 +60,7 @@ public class HttpRouter {
                 }
 
                 routeHandlerMap.put(route.replaceAll("//", "/"), httpExchange -> {
-                    Log.info(HttpRouter.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                    Logger.info(HttpRouter.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                     invokeControllerMethod(controller, methodWithRoute, httpExchange);
                 });
             }
@@ -87,7 +87,7 @@ public class HttpRouter {
             } else {
 
                 // client request method mismatch
-                Log.warning(HttpRouter.class,
+                Logger.warning(HttpRouter.class,
                         "HTTP Method mismatch in controller method %s->%s (declared: %s , got: %s)",
                         controller.getClass().getCanonicalName(),
                         method.getName(),
@@ -97,19 +97,19 @@ public class HttpRouter {
 
             // exception due to inaccessible controller method
         } catch (IllegalAccessException e) {
-            Log.severe(HttpRouter.class, e);
+            Logger.severe(HttpRouter.class, e);
             HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
 
             // exception within controller method invocation
         } catch (InvocationTargetException e) {
-            Log.severe(HttpRouter.class,
+            Logger.severe(HttpRouter.class,
                     (Exception) e.getTargetException(),
                     e.getMessage(),
                     controller.getClass().getCanonicalName(),
                     (method.getName()));
             HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
         } catch (Exception e) {
-            Log.severe(HttpRouter.class, e);
+            Logger.severe(HttpRouter.class, e);
         }
     }
 }

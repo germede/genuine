@@ -1,6 +1,6 @@
 package org.fluentness.caching;
 
-import org.fluentness.logging.Log;
+import org.fluentness.logging.Logger;
 import org.fluentness.view.View;
 
 import java.io.File;
@@ -34,16 +34,16 @@ public class ViewCacher implements Cacher {
                     FileWriter writer = new FileWriter(file);
                     writer.write(content);
                     writer.close();
-                    Log.info(ViewCacher.class, "Create cache record %s", path);
+                    Logger.info(ViewCacher.class, "Create cache record %s", path);
                     return content;
                 } else {
                     // cached! -> retrieve cache record
-                    Log.info(ViewCacher.class, "Retrieve cache record %s", path);
+                    Logger.info(ViewCacher.class, "Retrieve cache record %s", path);
                     return new String(Files.readAllBytes(Paths.get(path)));
                 }
 
             } catch (IOException e) {
-                Log.severe(ViewCacher.class, e, "Error caching %s", view.getClass().getName());
+                Logger.severe(ViewCacher.class, e, "Error caching %s", view.getClass().getName());
             }
         }
         return view.render().toString();

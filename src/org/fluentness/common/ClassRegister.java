@@ -4,7 +4,7 @@ import org.fluentness.Fluentness;
 import org.fluentness.command.Command;
 import org.fluentness.controller.Controller;
 import org.fluentness.localization.Localization;
-import org.fluentness.logging.Log;
+import org.fluentness.logging.Logger;
 
 import java.io.File;
 import java.net.URL;
@@ -26,7 +26,7 @@ public class ClassRegister {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.severe(ClassRegister.class, e);
+                    Logger.severe(ClassRegister.class, e);
                 }
             }
             commandInstances.sort(Comparator.comparing(Command::getName));
@@ -45,7 +45,7 @@ public class ClassRegister {
                     Controller controller = (Controller) controllerClass.newInstance();
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.severe(ClassRegister.class, e);
+                    Logger.severe(ClassRegister.class, e);
                 }
             }
         }
@@ -63,7 +63,7 @@ public class ClassRegister {
                     Localization translationInstance = (Localization) translationClass.newInstance();
                     translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Log.severe(ClassRegister.class, e);
+                    Logger.severe(ClassRegister.class, e);
                 }
             }
         }
@@ -107,7 +107,7 @@ public class ClassRegister {
                 }
             }
         } catch (ClassNotFoundException e) {
-            Log.severe(ClassRegister.class, e);
+            Logger.severe(ClassRegister.class, e);
         }
         return result;
     }

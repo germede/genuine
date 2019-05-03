@@ -4,7 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpsConfigurator;
 import com.sun.net.httpserver.HttpsServer;
 import org.fluentness.common.Configuration;
-import org.fluentness.logging.Log;
+import org.fluentness.logging.Logger;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
@@ -41,12 +41,12 @@ public class HttpServer extends HttpsConfigurator {
             HttpRouter.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
-            Log.fine(HttpServer.class, "Server successfully started and listening to %s",
+            Logger.fine(HttpServer.class, "Server successfully started and listening to %s",
                     protocol + "://" + server.getAddress().getAddress() + ":" + port
             );
         } catch (Exception e) {
             stop();
-            Log.severe(HttpServer.class, e);
+            Logger.severe(HttpServer.class, e);
         }
     }
 
@@ -69,7 +69,7 @@ public class HttpServer extends HttpsConfigurator {
 
             httpExchange.close();
         } catch (IOException e) {
-            Log.severe(HttpServer.class, e);
+            Logger.severe(HttpServer.class, e);
         }
     }
 }

@@ -9,18 +9,17 @@ import java.util.Date;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class Log {
+public class Logger {
 
-    private static Logger logger;
+    private static java.util.logging.Logger logger;
     private static final String LOG_FILE_PATH = "tmp/log/";
 
     static {
         String logLevel = Configuration.getString(Configuration.LOG_LEVEL);
 
         // create logger
-        logger = Logger.getLogger(Log.class.getName());
+        logger = java.util.logging.Logger.getLogger(Logger.class.getName());
         logger.setUseParentHandlers(false);
         logger.setLevel(Level.parse(logLevel));
 
@@ -51,7 +50,7 @@ public class Log {
         }
     }
 
-    private Log() {
+    private Logger() {
 
     }
 

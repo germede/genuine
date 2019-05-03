@@ -4,7 +4,7 @@ import org.fluentness.command.Command;
 import org.fluentness.command.HelpCommand;
 import org.fluentness.common.ClassRegister;
 import org.fluentness.common.Configuration;
-import org.fluentness.logging.Log;
+import org.fluentness.logging.Logger;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class Fluentness {
             Configuration.set(configuration);
             executeCommand(args);
         } catch (Exception e) {
-            Log.severe(Fluentness.class, e);
+            Logger.severe(Fluentness.class, e);
         }
     }
 
@@ -30,7 +30,7 @@ public class Fluentness {
                 }
             }
             if (commandNotFound) {
-                Log.severe(Fluentness.class, "No command '" + args[0] + "' found");
+                Logger.severe(Fluentness.class, "No command '" + args[0] + "' found");
             }
         } else {
             new HelpCommand().execute(args);

@@ -1,7 +1,7 @@
 package org.fluentness.database;
 
 import org.fluentness.common.Configuration;
-import org.fluentness.logging.Log;
+import org.fluentness.logging.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ class Database {
                 for (Object parameter : parameters) {
                     statement.setObject(++i, parameter);
                 }
-                Log.info(Database.class, statement.toString().replaceAll(".+: ",""));
+                Logger.info(Database.class, statement.toString().replaceAll(".+: ",""));
                 if (query.startsWith("SELECT")) {
                     result.resultList = resultSetToResultList(statement.executeQuery());
                     result.resultSize = result.resultList.size();
@@ -31,7 +31,7 @@ class Database {
                     result.resultSize = statement.executeUpdate();
                 }
             } catch (SQLException e) {
-                Log.severe(Database.class, e);
+                Logger.severe(Database.class, e);
             }
         }
         return result;
@@ -68,7 +68,7 @@ class Database {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Log.severe(Database.class, e);
+            Logger.severe(Database.class, e);
         }
         return null;
     }
