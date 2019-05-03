@@ -4,14 +4,11 @@ import org.fluentness.caching.ViewCacher;
 import org.fluentness.localization.Localizable;
 import org.fluentness.localization.ViewLocalizator;
 import org.fluentness.logging.Log;
-import org.fluentness.rendering.ControlFlow;
-import org.fluentness.rendering.HtmlAttribute;
-import org.fluentness.rendering.HtmlElement;
-import org.fluentness.rendering.HtmlHelpers;
+import org.fluentness.rendering.*;
 
 import java.lang.reflect.Field;
 
-public interface View {
+public interface View extends Renderable {
 
     // rendering
     default String renderWithCacheAndTemplateAndLocalization(String language) {
@@ -23,15 +20,13 @@ public interface View {
         }
 
         // with template
-        String result = getTemplate().render().toString();
+        String result = getTemplate().render();
 
         // with localization
         result = new ViewLocalizator(language).localize(result);
 
         return result;
     }
-
-    CharSequence render();
 
     // render parent view if present, otherwise return itself
     default View getTemplate() {
@@ -61,22 +56,8 @@ public interface View {
         }
     }
 
-    default View setAttribute(String attribute, Object value) {
-        try {
-            Field[] fields = this.getClass().getDeclaredFields();
-            for (Field field : fields) {
-                if (field.getName().equals(attribute) && field.isAnnotationPresent(Attribute.class)) {
-                    field.set(this, value);
-                }
-            }
-        } catch (IllegalAccessException e) {
-            Log.severe(this.getClass(), e);
-        }
-        return this;
-    }
-
     // view types
-    interface Html extends View, HtmlElement, HtmlAttribute, HtmlHelpers, ControlFlow, Localizable {
+    interface Html extends View, HtmlElement, HtmlAttribute, HtmlHelpers, ControlFlowFunctions, Localizable {
 
     }
 

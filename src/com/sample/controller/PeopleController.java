@@ -1,25 +1,24 @@
 package com.sample.controller;
 
+import com.sample.form.PersonForm;
 import com.sample.model.Person;
 import com.sample.view.PeopleView;
-import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
-import org.fluentness.networking.HttpRequest;
 import org.fluentness.logging.Log;
+import org.fluentness.networking.HttpRequest;
+import org.fluentness.networking.HttpResponse;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.RepositoryImpl;
-import org.fluentness.networking.HttpResponse;
 import org.fluentness.view.View;
 
 import java.util.List;
 
-@BaseRoute("/test")
 public class PeopleController implements Controller {
 
     private Repository<Person> personRepository = new RepositoryImpl<>(Person.class);
 
-    @Route(path = "/list")
+    @Route(path = "/")
     public HttpResponse list(HttpRequest request) {
 
         Log.fine(this.getClass(), request.getMethod());
@@ -40,9 +39,7 @@ public class PeopleController implements Controller {
 //        person.setSurname("testtttaa");
 //        person.update();
 
-        View view = new PeopleView()
-                .setAttribute("people", people)
-                .setAttribute("testBoolean", true);
+        View view = new PeopleView(people, new PersonForm());
 
         return render(view);
     }

@@ -9,7 +9,7 @@ public class BaseView implements View.Html {
     public View placeholder;
 
     @Override
-    public CharSequence render() {
+    public String render() {
         return html(
                 head(
                         title("the best site"),
@@ -21,7 +21,7 @@ public class BaseView implements View.Html {
                         placeholder.render()
 
                 )
-        );
+        ).render();
 
         //                .when(2 == 2, then -> then.include(new DummyView()))
 //                .open(HtmlElement.ul)

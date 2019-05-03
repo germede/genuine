@@ -5,7 +5,7 @@ import org.fluentness.view.View;
 public class DummyView implements View {
 
     @Override
-    public CharSequence render() {
+    public String render() {
         return "";
     }
 }

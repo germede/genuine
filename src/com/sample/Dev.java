@@ -9,7 +9,7 @@ public class Dev {
 
         Fluentness.initialize(args, new Configuration()
                 .set(Configuration.APP_PACKAGE, "com.sample")
-                .set(Configuration.APP_PROTOCOL, "https")
+                .set(Configuration.APP_PROTOCOL, "http")
                 .set(Configuration.APP_HOSTNAME, "localhost")
                 .set(Configuration.APP_PORT, 8000)
                 .set(Configuration.APP_KEYSTORE, "res/keystore.jks")
