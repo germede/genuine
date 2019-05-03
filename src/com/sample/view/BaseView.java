@@ -18,7 +18,7 @@ public class BaseView implements View.Html {
                 ),
                 body(
                         when(2 == 2, h1("test")),
-                        placeholder.render()
+                        placeholder
 
                 )
         ).render();
