@@ -37,12 +37,6 @@ public class HttpRouter {
                 }
             }
 
-            // default route
-            routeHandlerMap.put("/", httpExchange -> {
-                Log.info(HttpRouter.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
-                HttpServer.serve(httpExchange,new HttpResponse(404));
-            });
-
             for (Method methodWithRoute : methodsWithRoute) {
 
                 String route = baseRouteValue + methodWithRoute.getAnnotation(Route.class).path();
