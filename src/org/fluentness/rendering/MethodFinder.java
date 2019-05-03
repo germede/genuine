@@ -7,7 +7,7 @@ import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.Objects;
 
-public interface MethodFinder extends Serializable {
+interface MethodFinder extends Serializable {
     default SerializedLambda serialized() {
         try {
             Method replaceMethod = getClass().getDeclaredMethod("writeReplace");

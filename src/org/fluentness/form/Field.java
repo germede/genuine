@@ -1,12 +1,9 @@
 package org.fluentness.form;
 
 
-import org.fluentness.rendering.MarkupElement;
-import org.fluentness.rendering.Renderable;
+import org.fluentness.view.HtmlView;
 
-import static org.fluentness.rendering.HtmlAttribute.TYPE;
-
-public abstract class Field implements Renderable {
+public abstract class Field implements HtmlView {
 
     private boolean isRequired = false;
     private String type;
@@ -31,11 +28,8 @@ public abstract class Field implements Renderable {
 
     @Override
     public String render() {
-        return new MarkupElement("input",
-                new CharSequence[]{
-                        TYPE + type
-                },
-                false
+        return input(attrs(TYPE -> type, REQUIRED -> String.valueOf(isRequired))
+
         ).render();
     }
 }

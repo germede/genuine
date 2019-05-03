@@ -238,6 +238,26 @@ public interface HtmlElement {
         return new MarkupElement("h1", content, true);
     }
 
+    default Renderable h2(CharSequence... content) {
+        return new MarkupElement("h2", content, true);
+    }
+
+    default Renderable h3(CharSequence... content) {
+        return new MarkupElement("h3", content, true);
+    }
+
+    default Renderable h4(CharSequence... content) {
+        return new MarkupElement("h4", content, true);
+    }
+
+    default Renderable h5(CharSequence... content) {
+        return new MarkupElement("h5", content, true);
+    }
+
+    default Renderable h6(CharSequence... content) {
+        return new MarkupElement("h6", content, true);
+    }
+
     default Renderable head(CharSequence... content) {
         return new MarkupElement("head", content, true);
     }
