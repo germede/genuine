@@ -1,11 +1,21 @@
 package org.fluentness.rendering;
 
-public class DomElement implements CharSequence {
+public class MarkupElement implements Renderable {
 
-    private StringBuilder html;
+    private String tag;
+    private CharSequence[] renderables;
+    private boolean isContainer;
 
-    public DomElement(String tag, CharSequence[] renderables, boolean isContainer) {
-        this.html = new StringBuilder();
+    public MarkupElement(String tag, CharSequence[] renderables, boolean isContainer) {
+        this.tag = tag;
+        this.renderables = renderables;
+        this.isContainer = isContainer;
+    }
+
+
+    @Override
+    public String render() {
+        StringBuilder html = new StringBuilder();
 
         // open
         html.append("<").append(tag).append(">");
@@ -23,8 +33,15 @@ public class DomElement implements CharSequence {
 
         // append inner
         for (CharSequence renderable : renderables) {
-            if (!(renderable instanceof String) || !((String) renderable).startsWith("###")) {
-                html.append(renderable.toString());
+            if ((renderable instanceof String) && !((String) renderable).startsWith("###")) {
+                html.append(renderable);
+            }
+        }
+
+        // append renderables
+        for (CharSequence renderable : renderables) {
+            if (renderable instanceof Renderable) {
+                html.append(((Renderable)renderable).render());
             }
         }
 
@@ -32,26 +49,7 @@ public class DomElement implements CharSequence {
         if (isContainer) {
             html.append("</").append(tag).append(">");
         }
-    }
 
-
-    @Override
-    public int length() {
-        return html.length();
-    }
-
-    @Override
-    public char charAt(int i) {
-        return html.charAt(i);
-    }
-
-    @Override
-    public CharSequence subSequence(int i, int i1) {
-        return html.subSequence(i,i1);
-    }
-
-    @Override
-    public String toString() {
         return html.toString();
     }
 }

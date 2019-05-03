@@ -1,6 +1,6 @@
 package org.fluentness.rendering;
 
-public interface ControlFlow {
+public interface ControlFlowFunctions {
 //    @Override
 //    public String render() {
 //
@@ -37,11 +37,11 @@ public interface ControlFlow {
 //        .ol()
 //
 
-    default CharSequence when(boolean condition, CharSequence... then) {
+    default Renderable when(boolean condition, Renderable... then) {
         if (condition) {
-            return new DomContent(then);
+            return new MarkupContent(then);
         }
-        return "";
+        return new MarkupInner("");
     }
 
 
