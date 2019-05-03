@@ -3,15 +3,17 @@ package org.fluentness.generator;
 import org.fluentness.logging.Logger;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class JavaGenerator implements Generator {
 
-    private String path;
     private String packageName;
     private List<Class> imports = new ArrayList<>();
     private List<Integer> modifiers = new ArrayList<>();
@@ -19,9 +21,7 @@ public class JavaGenerator implements Generator {
     private String parent;
     private List<String> interfaces = new ArrayList<>();
 
-
-    public JavaGenerator(String path, String className) {
-        this.path = path;
+    public JavaGenerator(String className) {
         this.className = className;
     }
 
@@ -74,7 +74,7 @@ public class JavaGenerator implements Generator {
         modifiers.forEach((modifier) -> result.append(Modifier.toString(modifier)).append(" "));
 
         // class
-        result.append("class ");
+        result.append("class ").append(className).append(" ");
 
         // parent
         if (parent != null) {
@@ -92,11 +92,18 @@ public class JavaGenerator implements Generator {
         // close
         result.append("}");
 
-
+        // write file
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path + "/" + className + ".java"));
+            String path = "src/" + packageName.replaceAll("\\.", "/");
+            new File(path).mkdirs();
+            String filePath = path + "/" + className + ".java";
+            if (new File(filePath).exists()) {
+                throw new IOException("File " + filePath + " already exists");
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             writer.write(result.toString());
             writer.close();
+            Logger.fine(this.getClass(), "Successfully generated " + filePath);
             return true;
         } catch (IOException e) {
             Logger.severe(this.getClass(), e);

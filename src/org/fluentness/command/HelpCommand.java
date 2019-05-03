@@ -1,10 +1,11 @@
 package org.fluentness.command;
 
 import org.fluentness.common.ClassRegister;
-import org.fluentness.common.AnsiColors;
+
+import java.util.*;
 
 
-public class HelpCommand implements Command, AnsiColors {
+public class HelpCommand implements Command {
 
     @Override
     public String getName() {
@@ -17,13 +18,39 @@ public class HelpCommand implements Command, AnsiColors {
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(Parameters parameters) {
+        System.out.println("\n" +
+                "   .-._.---'.                                             \n"  +
+                "  (_) /    /                    /                         \n" +
+                "     /--. / )  (   .-..  .-.---/---.  .-.   .-.  .    .   \n"  +
+                "    /    / (    )./.-'_)/   ) /     )/   )./.-'_/ \\  / \\  \n" +
+                " .-/   _/_.-`--':(__.''/   ( /     '/   ( (__.'/ ._)/ ._) \n"  +
+                "(_/                         `-           `-   /    /      \n");
 
-        // print commands using colors
-        System.out.println("\n" + ANSI_GREEN + "Available commands:\n");
+        System.out.println(ANSI_RESET +"Available commands:\n");
+
+        // categorize commands
+        Map<String, List<Command>> categorizedCommands = new HashMap<>();
+        categorizedCommands.put("", new ArrayList<>());
         for (Command command : ClassRegister.getCommandInstances()) {
-            String format = ANSI_YELLOW + "%20s " + ANSI_WHITE + "- %s\n";
-            System.out.format(format, command.getName(), command.getDescription());
+            String[] splittedCommand = command.getName().split(":");
+            if (splittedCommand.length == 2) {
+                if (!categorizedCommands.containsKey(splittedCommand[0])) {
+                    categorizedCommands.put(splittedCommand[0], new ArrayList<>());
+                }
+                categorizedCommands.get(splittedCommand[0]).add(command);
+            } else {
+                categorizedCommands.get("").add(command);
+            }
+        }
+
+        // prints categories and commands
+        for (Map.Entry<String, List<Command>> category : categorizedCommands.entrySet()) {
+            if (!category.getKey().isEmpty()) {
+                System.out.println(ANSI_GREEN + "- " + category.getKey() + ":" + ANSI_RESET);
+            }
+            category.getValue().stream().forEach(command -> System.out.println(command.getUsage()));
+            System.out.println();
         }
     }
 }

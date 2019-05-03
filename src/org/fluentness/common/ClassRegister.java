@@ -12,7 +12,7 @@ import java.util.*;
 
 public class ClassRegister {
 
-    private static final String CONTROLLER = "controller";
+    public static final String CONTROLLER = "controller";
     private static final String LOCALIZATION = "localization";
     private static final String COMMAND = "command";
 

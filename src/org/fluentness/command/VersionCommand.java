@@ -9,11 +9,12 @@ public class VersionCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Prints used frameworkflow version";
+        return "Prints current version";
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(Parameters parameters) {
         System.out.println("1.0-dev");
     }
+
 }

@@ -2,20 +2,20 @@ package org.fluentness.command;
 
 import org.fluentness.networking.HttpServer;
 
-public class ServerStartCommand implements Command {
+public class ServerStopCommand implements Command {
 
     @Override
     public String getName() {
-        return "server:start";
+        return "server:stops";
     }
 
     @Override
     public String getDescription() {
-        return "Starts embedded HTTP server";
+        return "Stops embedded HTTP server";
     }
 
     @Override
     public void execute(Parameters parameters) {
-        HttpServer.start();
+        HttpServer.stop();
     }
 }

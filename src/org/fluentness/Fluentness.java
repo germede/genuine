@@ -6,8 +6,6 @@ import org.fluentness.common.ClassRegister;
 import org.fluentness.common.Configuration;
 import org.fluentness.logging.Logger;
 
-import java.util.List;
-
 public class Fluentness {
 
     public static void initialize(String[] args, Configuration configuration) {
@@ -21,19 +19,29 @@ public class Fluentness {
 
     private static void executeCommand(String[] args) {
         if (args.length > 0) {
-            List<Command> commands = ClassRegister.getCommandInstances();
-            boolean commandNotFound = true;
-            for (Command command : commands) {
-                if (command.getName().equals(args[0])) {
-                    commandNotFound = false;
-                    command.execute(args);
+            if (ClassRegister.getCommandInstances().stream().anyMatch(cmd -> cmd.getName().equals(args[0]))) {
+                Command command = ClassRegister.getCommandInstances().stream().filter(cmd -> cmd.getName().equals(args[0])).findFirst().get();
+
+                Command.Parameters parameters = command.getParameters();
+                if ((parameters == null || parameters.size() == args.length - 1) &&
+                        (parameters != null || args.length != 1)) {
+
+                    for (int i = 1; i < args.length; i++) {
+                        parameters.set(i - 1, args[i]);
+                    }
+                    command.execute(parameters);
+
+                } else {
+                    // Wrong arguments
+                    Logger.severe(Fluentness.class, "Wrong use of command %s, expected %s arguments", args[0], parameters.size());
                 }
-            }
-            if (commandNotFound) {
-                Logger.severe(Fluentness.class, "No command '" + args[0] + "' found");
+            } else {
+                // No command found
+                Logger.severe(Fluentness.class, "No command %s found", args[0]);
             }
         } else {
-            new HelpCommand().execute(args);
+            // No command
+            new HelpCommand().execute(null);
         }
     }
 }
