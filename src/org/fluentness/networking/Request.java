@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class HttpRequest {
+public class Request {
 
     private String method;
     private Map<String, String> getParameters;
     private Map<String, String> postParameters;
 
-    public HttpRequest(HttpExchange httpExchange) {
+    public Request(HttpExchange httpExchange) {
         this.method = httpExchange.getRequestMethod();
         parseGetParameters(httpExchange);
         parsePostParameters(httpExchange);

@@ -4,12 +4,12 @@ package org.fluentness.networking;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HttpResponse {
+public class Response {
     private int statusCode;
     private Map<String, String> headers = new HashMap<>();
     private String body = "";
 
-    public HttpResponse(int statusCode) {
+    public Response(int statusCode) {
         this.statusCode = statusCode;
     }
 
@@ -17,7 +17,7 @@ public class HttpResponse {
         return statusCode;
     }
 
-    public HttpResponse setStatusCode(int statusCode) {
+    public Response setStatusCode(int statusCode) {
         this.statusCode = statusCode;
         return this;
     }
@@ -26,7 +26,7 @@ public class HttpResponse {
         return headers;
     }
 
-    public HttpResponse setHeader(String key, String value) {
+    public Response setHeader(String key, String value) {
         this.headers.put(key, value);
         return this;
     }
@@ -35,7 +35,7 @@ public class HttpResponse {
         return body;
     }
 
-    public HttpResponse setBody(String body) {
+    public Response setBody(String body) {
         this.body = body;
         return this;
     }

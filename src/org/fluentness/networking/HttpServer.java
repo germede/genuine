@@ -57,7 +57,7 @@ public class HttpServer extends HttpsConfigurator {
         }
     }
 
-    public static void serve(HttpExchange httpExchange, HttpResponse httpResponse) {
+    public static void serve(HttpExchange httpExchange, Response httpResponse) {
         try {
             httpResponse.getHeaders().forEach((key, value) -> httpExchange.getResponseHeaders().set(key, value));
             httpExchange.sendResponseHeaders(httpResponse.getStatusCode(), httpResponse.getBody().getBytes().length);

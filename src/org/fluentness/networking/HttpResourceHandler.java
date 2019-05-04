@@ -23,7 +23,7 @@ public class HttpResourceHandler implements HttpHandler {
 
             boolean exists = Files.exists(Paths.get(path));
             if (exists) {
-                HttpResponse response = new HttpResponse(HttpStatusCode.Ok);
+                Response response = new Response(HttpStatusCode.Ok);
 
                 response.setBody(new String(Files.readAllBytes(Paths.get(path))));
 
@@ -42,11 +42,11 @@ public class HttpResourceHandler implements HttpHandler {
                 HttpServer.serve(exchange, response);
             } else {
                 Logger.warning(this.getClass(), "File " + path + " doesn't exists");
-                HttpServer.serve(exchange, new HttpResponse(HttpStatusCode.NotFound));
+                HttpServer.serve(exchange, new Response(HttpStatusCode.NotFound));
             }
         } catch (IOException e) {
             Logger.error(this.getClass(), e);
-            HttpServer.serve(exchange, new HttpResponse(HttpStatusCode.InternalServerError));
+            HttpServer.serve(exchange, new Response(HttpStatusCode.InternalServerError));
         }
     }
 }

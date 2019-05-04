@@ -3,7 +3,6 @@ package org.fluentness.networking;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.fluentness.common.ClassRegister;
-import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.logging.Logger;
@@ -25,8 +24,8 @@ public class HttpRouter {
 
             // retrieve controller base route
             Class<? extends Controller> controllerClass = controller.getClass();
-            String baseRouteValue = controllerClass.isAnnotationPresent(BaseRoute.class) ?
-                    controllerClass.getAnnotation(BaseRoute.class).value() :
+            String baseRouteValue = controllerClass.isAnnotationPresent(Route.class) ?
+                    controllerClass.getAnnotation(Route.class).value() :
                     "";
 
             // retrieve controller methods with route
@@ -39,7 +38,7 @@ public class HttpRouter {
 
             for (Method methodWithRoute : methodsWithRoute) {
 
-                String route = baseRouteValue + methodWithRoute.getAnnotation(Route.class).path();
+                String route = baseRouteValue + methodWithRoute.getAnnotation(Route.class).value();
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
@@ -51,9 +50,9 @@ public class HttpRouter {
                 }
 
                 // controller method must return HttpResponse
-                if (methodWithRoute.getReturnType() != HttpResponse.class) {
+                if (methodWithRoute.getReturnType() != Response.class) {
                     Logger.warning(HttpRouter.class,
-                            "Controller method %s->%s with defined route must return an object of type " + HttpResponse.class.getCanonicalName(),
+                            "Controller method %s->%s with defined route must return an object of type " + Response.class.getCanonicalName(),
                             controllerClass.getCanonicalName(),
                             methodWithRoute.getName(), route);
                     continue;
@@ -78,27 +77,27 @@ public class HttpRouter {
 
     private static void invokeControllerMethod(Controller controller, Method method, HttpExchange httpExchange) {
         try {
-            if (httpExchange.getRequestMethod().equals(method.getAnnotation(Route.class).method())) {
+//            if (httpExchange.getRequestMethod().equals(method.getAnnotation(Route.class).method())) {
 
                 // invoke controller method and serve
-                HttpResponse response = (HttpResponse) method.invoke(controller, new HttpRequest(httpExchange));
+                Response response = (Response) method.invoke(controller, new Request(httpExchange));
                 HttpServer.serve(httpExchange, response);
 
-            } else {
-
-                // client request method mismatch
-                Logger.warning(HttpRouter.class,
-                        "HTTP Method mismatch in controller method %s->%s (declared: %s , got: %s)",
-                        controller.getClass().getCanonicalName(),
-                        method.getName(),
-                        method.getAnnotation(Route.class).method(), httpExchange.getRequestMethod());
-                HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.BadRequest));
-            }
+//            } else {
+//
+//                 client request method mismatch
+//                Logger.warning(HttpRouter.class,
+//                        "HTTP Method mismatch in controller method %s->%s (declared: %s , got: %s)",
+//                        controller.getClass().getCanonicalName(),
+//                        method.getName(),
+//                        method.getAnnotation(Route.class).value(), httpExchange.getRequestMethod());
+//                HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.BadRequest));
+//            }
 
             // exception due to inaccessible controller method
         } catch (IllegalAccessException e) {
             Logger.error(HttpRouter.class, e);
-            HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
+            HttpServer.serve(httpExchange, new Response(HttpStatusCode.InternalServerError));
 
             // exception within controller method invocation
         } catch (InvocationTargetException e) {
@@ -107,7 +106,7 @@ public class HttpRouter {
                     e.getMessage(),
                     controller.getClass().getCanonicalName(),
                     (method.getName()));
-            HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.InternalServerError));
+            HttpServer.serve(httpExchange, new Response(HttpStatusCode.InternalServerError));
         } catch (Exception e) {
             Logger.error(HttpRouter.class, e);
         }
