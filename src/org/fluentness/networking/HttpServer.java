@@ -53,8 +53,8 @@ public class HttpServer extends HttpsConfigurator {
     public static void stop() {
         if (server != null) {
             server.stop(0);
+            Logger.fine(HttpServer.class, "Server successfully stopped");
         }
-        Logger.fine(HttpServer.class, "Server successfully stopped");
     }
 
     public static void serve(HttpExchange httpExchange, HttpResponse httpResponse) {

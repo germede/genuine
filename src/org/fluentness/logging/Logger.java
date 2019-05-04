@@ -35,11 +35,16 @@ public class Logger {
         if (Configuration.getBoolean(Configuration.LOG_FILE)) {
             try {
                 String logFilePath = LOG_FILE_PATH +
-                        new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date(System.currentTimeMillis())) + ".txt";
+                        new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
                 File file = new File(logFilePath);
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-                FileHandler fileHandler = new FileHandler(logFilePath);
+                FileHandler fileHandler;
+                if (file.exists()) {
+                    fileHandler = new FileHandler(logFilePath,true);
+                } else {
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
+                    fileHandler = new FileHandler(logFilePath);
+                }
                 fileHandler.setFormatter(new FileFormatter());
                 fileHandler.setLevel(Level.parse(logLevel));
                 logger.addHandler(fileHandler);
