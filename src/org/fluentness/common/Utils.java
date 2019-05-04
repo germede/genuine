@@ -16,7 +16,7 @@ public class Utils {
         }
         if (file.exists()) {
             if (!file.delete()) {
-                Logger.warning(Utils.class, "Cannot delete %s", file.getPath());
+                Logger.warn(Utils.class, "Cannot delete %s", file.getPath());
             } else {
                 Logger.info(Utils.class, "Deleted file %s", file.getPath());
             }

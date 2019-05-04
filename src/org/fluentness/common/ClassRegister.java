@@ -7,14 +7,19 @@ import org.fluentness.localization.Localization;
 import org.fluentness.logging.Logger;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class ClassRegister {
 
     public static final String CONTROLLER = "controller";
-    private static final String LOCALIZATION = "localization";
-    private static final String COMMAND = "command";
+    public static final String LOCALIZATION = "localization";
+    public static final String COMMAND = "command";
 
     // commands
     private static List<Command> commandInstances;
@@ -26,7 +31,7 @@ public class ClassRegister {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.severe(ClassRegister.class, e);
+                    Logger.fail(ClassRegister.class, e);
                 }
             }
             commandInstances.sort(Comparator.comparing(Command::getName));
@@ -45,7 +50,7 @@ public class ClassRegister {
                     Controller controller = (Controller) controllerClass.newInstance();
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.severe(ClassRegister.class, e);
+                    Logger.fail(ClassRegister.class, e);
                 }
             }
         }
@@ -63,7 +68,7 @@ public class ClassRegister {
                     Localization translationInstance = (Localization) translationClass.newInstance();
                     translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.severe(ClassRegister.class, e);
+                    Logger.fail(ClassRegister.class, e);
                 }
             }
         }
@@ -93,21 +98,39 @@ public class ClassRegister {
             String path = packageName.replace(".", "/");
             URL root = Thread.currentThread().getContextClassLoader().getResource(path);
 
-            // filter .class files
-            assert root != null;
-            File[] files = new File(root.getFile()).listFiles((dir, name) -> name.endsWith(".class"));
-
-            // find classes implementing parent
-            assert files != null;
-            for (File file : files) {
-                String className = file.getName().replaceAll(".class$", "");
-                Class<?> clazz = Class.forName(packageName + "." + className);
-                if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
-                    result.add(clazz);
+            // filter .class files in project directory
+            if (root != null) {
+                File[] files = new File(root.getFile()).listFiles((dir, name) -> name.endsWith(".class"));
+                if (files != null) {
+                    for (File file : files) {
+                        String className = file.getName().replaceAll(".class$", "");
+                        Class<?> clazz = Class.forName(packageName + "." + className);
+                        // find classes implementing parent
+                        if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
+                            result.add(clazz);
+                        }
+                    }
                 }
             }
-        } catch (ClassNotFoundException e) {
-            Logger.severe(ClassRegister.class, e);
+
+            // filter .class files in jar file
+            String jarPath = new File(Fluentness.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+            if (jarPath.endsWith(".jar")) {
+                ZipInputStream zip = new ZipInputStream(new FileInputStream(jarPath));
+                for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
+                    if (!entry.isDirectory() && entry.getName().endsWith(".class") && entry.getName().startsWith(path)) {
+                        String className = entry.getName().replace('/', '.').replaceAll(".class$", "");
+                        Class<?> clazz = Class.forName(className);
+                        // find classes implementing parent
+                        if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
+                            result.add(clazz);
+                        }
+                    }
+                }
+            }
+
+        } catch (ClassNotFoundException | IOException | URISyntaxException e) {
+            Logger.fail(ClassRegister.class, e);
         }
         return result;
     }
