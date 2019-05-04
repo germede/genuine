@@ -1,4 +1,4 @@
-package org.fluentness.caching;
+package org.fluentness.cacher;
 
 import org.fluentness.logging.Logger;
 import org.fluentness.view.View;

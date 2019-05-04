@@ -1,6 +1,6 @@
 package org.fluentness.view;
 
-import org.fluentness.caching.ViewCacher;
+import org.fluentness.cacher.ViewCacher;
 import org.fluentness.localization.ViewLocalizator;
 import org.fluentness.logging.Logger;
 import org.fluentness.rendering.Renderable;

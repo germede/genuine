@@ -1,4 +1,4 @@
-package org.fluentness.caching;
+package org.fluentness.cacher;
 
 import org.fluentness.common.Configuration;
 
