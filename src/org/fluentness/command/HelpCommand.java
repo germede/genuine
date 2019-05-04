@@ -20,14 +20,14 @@ public class HelpCommand implements Command {
     @Override
     public void execute(Parameters parameters) {
         System.out.println("\n" +
-                "   .-._.---'.                                             \n"  +
+                "   .-._.---'.                                             \n" +
                 "  (_) /    /                    /                         \n" +
-                "     /--. / )  (   .-..  .-.---/---.  .-.   .-.  .    .   \n"  +
+                "     /--. / )  (   .-..  .-.---/---.  .-.   .-.  .    .   \n" +
                 "    /    / (    )./.-'_)/   ) /     )/   )./.-'_/ \\  / \\  \n" +
-                " .-/   _/_.-`--':(__.''/   ( /     '/   ( (__.'/ ._)/ ._) \n"  +
+                " .-/   _/_.-`--':(__.''/   ( /     '/   ( (__.'/ ._)/ ._) \n" +
                 "(_/                         `-           `-   /    /      \n");
 
-        System.out.println(ANSI_RESET +"Available commands:\n");
+        System.out.println(ANSI_RESET + "Available commands:\n");
 
         // categorize commands
         Map<String, List<Command>> categorizedCommands = new HashMap<>();

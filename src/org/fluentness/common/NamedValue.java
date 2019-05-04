@@ -1,9 +1,11 @@
-package org.fluentness.rendering;
+package org.fluentness.common;
+
+import org.fluentness.rendering.Renderable;
 
 import java.util.function.Function;
 
-public interface MarkupAttribute<T> extends MethodFinder, Function<String, T>, Renderable {
-    default String key() {
+public interface NamedValue<T> extends MethodFinder, Function<String, T>, Renderable {
+    default String name() {
         checkParametersEnabled();
         return parameter(0).getName();
     }
@@ -17,10 +19,10 @@ public interface MarkupAttribute<T> extends MethodFinder, Function<String, T>, R
     }
 
     default T value() {
-        return apply(key());
+        return apply(name());
     }
 
     default String render() {
-        return key() + "=\"" + value() + "\"";
+        return name() + "=\"" + value() + "\"";
     }
 }

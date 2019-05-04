@@ -13,7 +13,7 @@ public class PersonForm implements Form {
     public Fields getFields() {
         return new Fields()
                 .add(
-                        new TextField("key").setRequired(true)
+                        new TextField("name").setRequired(true)
 
                 );
     }

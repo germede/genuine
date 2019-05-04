@@ -1,5 +1,7 @@
 package org.fluentness.rendering;
 
+import org.fluentness.common.NamedValue;
+
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -46,9 +48,9 @@ public class MarkupElement implements Renderable {
 
     static class Attributes implements Renderable {
 
-        private final MarkupAttribute[] attributes;
+        private final NamedValue[] attributes;
 
-        Attributes(MarkupAttribute[] attributes) {
+        Attributes(NamedValue[] attributes) {
             this.attributes = attributes;
         }
 

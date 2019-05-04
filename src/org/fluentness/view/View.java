@@ -41,6 +41,20 @@ public interface View extends Renderable {
         return this;
     }
 
+    default View setAttribute(String attribute, Object value) {
+        try {
+            Field[] fields = this.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                if (field.getName().equals(attribute) && field.isAnnotationPresent(Attribute.class)) {
+                    field.set(this, value);
+                }
+            }
+        } catch (IllegalAccessException e) {
+            Logger.error(this.getClass(), e);
+        }
+        return this;
+    }
+
     default void setPlaceholder(View view) {
         try {
             Field[] fields = this.getClass().getDeclaredFields();

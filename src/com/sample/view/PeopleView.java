@@ -1,8 +1,8 @@
 package com.sample.view;
 
-import com.sample.form.PersonForm;
 import com.sample.model.Person;
 import org.fluentness.form.Form;
+import org.fluentness.view.Attribute;
 import org.fluentness.view.HtmlView;
 import org.fluentness.view.Template;
 
@@ -11,15 +11,11 @@ import java.util.List;
 @Template(BaseView.class)
 public class PeopleView implements HtmlView {
 
+    @Attribute
     public List<Person> people;
 
+    @Attribute
     public Form personForm;
-
-    public PeopleView(List<Person> people, PersonForm personForm) {
-
-        this.people = people;
-        this.personForm = personForm;
-    }
 
     @Override
     public String render() {

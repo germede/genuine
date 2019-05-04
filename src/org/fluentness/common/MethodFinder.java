@@ -1,4 +1,4 @@
-package org.fluentness.rendering;
+package org.fluentness.common;
 
 import java.io.Serializable;
 import java.lang.invoke.SerializedLambda;
