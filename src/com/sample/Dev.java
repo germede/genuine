@@ -22,7 +22,7 @@ public class Dev {
                 .set(Configuration.DB_PASSWORD, "party")
                 .set(Configuration.DB_PARAMS, "?serverTimezone=UTC")
                 .set(Configuration.CACHE_ENABLE, false)
-                .set(Configuration.LOG_LEVEL, "ALL")
+                .set(Configuration.LOG_LEVEL, "DEBUG")
                 .set(Configuration.LOG_CONSOLE, true)
                 .set(Configuration.LOG_FILE, true)
         );

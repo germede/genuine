@@ -34,16 +34,16 @@ public class ViewCacher implements Cacher {
                     FileWriter writer = new FileWriter(file);
                     writer.write(content);
                     writer.close();
-                    Logger.info(ViewCacher.class, "Create cache record %s", path);
+                    Logger.debug(ViewCacher.class, "Create cache record %s", path);
                     return content;
                 } else {
                     // cached! -> retrieve cache record
-                    Logger.info(ViewCacher.class, "Retrieve cache record %s", path);
+                    Logger.debug(ViewCacher.class, "Retrieve cache record %s", path);
                     return new String(Files.readAllBytes(Paths.get(path)));
                 }
 
             } catch (IOException e) {
-                Logger.fail(ViewCacher.class, e, "Error caching %s", view.getClass().getName());
+                Logger.error(ViewCacher.class, e, "Error caching %s", view.getClass().getName());
             }
         }
         return view.render().toString();

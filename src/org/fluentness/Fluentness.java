@@ -13,7 +13,7 @@ public class Fluentness {
             Configuration.set(configuration);
             executeCommand(args);
         } catch (Exception e) {
-            Logger.fail(Fluentness.class, e);
+            Logger.error(Fluentness.class, e);
         }
     }
 
@@ -33,11 +33,11 @@ public class Fluentness {
 
                 } else {
                     // Wrong arguments
-                    Logger.fail(Fluentness.class, "Wrong use of command %s, expected %s arguments", args[0], parameters.size());
+                    Logger.error(Fluentness.class, "Wrong use of command %s, expected %s arguments", args[0], parameters.size());
                 }
             } else {
                 // No command found
-                Logger.fail(Fluentness.class, "No command %s found", args[0]);
+                Logger.error(Fluentness.class, "No command %s found", args[0]);
             }
         } else {
             // No command

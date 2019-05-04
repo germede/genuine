@@ -21,9 +21,9 @@ public class PeopleController implements Controller {
     @Route(path = "/")
     public HttpResponse list(HttpRequest request) {
 
-        Logger.fine(this.getClass(), request.getMethod());
-        Logger.fine(this.getClass(), request.getGetParameter("test"));
-        Logger.fine(this.getClass(), request.getPostParameter("test"));
+        Logger.debug(this.getClass(), request.getMethod());
+        Logger.debug(this.getClass(), request.getGetParameter("test"));
+        Logger.debug(this.getClass(), request.getPostParameter("test"));
 
 //        Person person = new Person()
 //                .setName(key)

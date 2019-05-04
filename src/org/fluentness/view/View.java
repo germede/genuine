@@ -36,7 +36,7 @@ public interface View extends Renderable {
                 return template;
             }
         } catch (InstantiationException | IllegalAccessException e) {
-            Logger.fail(this.getClass(), e);
+            Logger.error(this.getClass(), e);
         }
         return this;
     }
@@ -51,7 +51,7 @@ public interface View extends Renderable {
                 }
             }
         } catch (IllegalAccessException e) {
-            Logger.fail(this.getClass(), e);
+            Logger.error(this.getClass(), e);
         }
     }
 

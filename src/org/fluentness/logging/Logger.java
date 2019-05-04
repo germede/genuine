@@ -16,7 +16,7 @@ public class Logger {
     private static final String LOG_FILE_PATH = "tmp/log/";
 
     static {
-        String logLevel = Configuration.getString(Configuration.LOG_LEVEL);
+        String logLevel = toJavaLogLevel(Configuration.getString(Configuration.LOG_LEVEL));
 
         // create logger
         logger = java.util.logging.Logger.getLogger(Logger.class.getName());
@@ -58,7 +58,7 @@ public class Logger {
 
     }
 
-    public static void fine(Class callingClass, String message, Object... parameters) {
+    public static void debug(Class callingClass, String message, Object... parameters) {
         logger.fine(String.format(callingClass.getSimpleName() + " - " + message, parameters));
     }
 
@@ -66,15 +66,15 @@ public class Logger {
         logger.info(String.format(callingClass.getSimpleName() + " - " + message, parameters));
     }
 
-    public static void warn(Class callingClass, String message, Object... parameters) {
+    public static void warning(Class callingClass, String message, Object... parameters) {
         logger.warning(String.format(callingClass.getSimpleName() + " - " + message, parameters));
     }
 
-    public static void fail(Class callingClass, String message, Object... parameters) {
+    public static void error(Class callingClass, String message, Object... parameters) {
         logger.severe(String.format(callingClass.getSimpleName() + " - " + message, parameters));
     }
 
-    public static void fail(Class callingClass, Exception exception) {
+    public static void error(Class callingClass, Exception exception) {
         String message;
         if (exception.getMessage() == null) {
             message = exception.getClass().getSimpleName() + ":";
@@ -82,12 +82,12 @@ public class Logger {
             message = exception.getClass().getSimpleName() + " " + exception.getMessage() + ":";
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        fail(callingClass, message);
+        error(callingClass, message);
     }
 
-    public static void fail(Class callingClass, Exception exception, String message, Object... parameters) {
+    public static void error(Class callingClass, Exception exception, String message, Object... parameters) {
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        fail(callingClass, message, parameters);
+        error(callingClass, message, parameters);
     }
 
     private static String stackTraceToString(StackTraceElement[] stackTraceElements) {
@@ -99,15 +99,19 @@ public class Logger {
         return res.toString();
     }
 
-    static String normalizeLoggerLevel(String level) {
-        switch (level) {
-            case "SEVERE":
-                level = "FAIL";
-                break;
-            case "WARNING":
-                level = "WARN";
-                break;
+    static String toNormalLogLevel(String javaLevel) {
+        switch (javaLevel) {
+            case "FINE": return "DEBUG";
+            case "SEVERE": return "ERROR";
         }
-        return level;
+        return javaLevel;
+    }
+
+    static String toJavaLogLevel(String normalLevel) {
+        switch (normalLevel) {
+            case "DEBUG": return "FINE";
+            case "ERROR": return "SEVERE";
+        }
+        return normalLevel;
     }
 }

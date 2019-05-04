@@ -31,7 +31,7 @@ public class ClassRegister {
                 try {
                     commandInstances.add((Command) commandClass.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.fail(ClassRegister.class, e);
+                    Logger.error(ClassRegister.class, e);
                 }
             }
             commandInstances.sort(Comparator.comparing(Command::getName));
@@ -50,7 +50,7 @@ public class ClassRegister {
                     Controller controller = (Controller) controllerClass.newInstance();
                     controllerInstances.add(controller);
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.fail(ClassRegister.class, e);
+                    Logger.error(ClassRegister.class, e);
                 }
             }
         }
@@ -68,7 +68,7 @@ public class ClassRegister {
                     Localization translationInstance = (Localization) translationClass.newInstance();
                     translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
                 } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.fail(ClassRegister.class, e);
+                    Logger.error(ClassRegister.class, e);
                 }
             }
         }
@@ -130,7 +130,7 @@ public class ClassRegister {
             }
 
         } catch (ClassNotFoundException | IOException | URISyntaxException e) {
-            Logger.fail(ClassRegister.class, e);
+            Logger.error(ClassRegister.class, e);
         }
         return result;
     }
