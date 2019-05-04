@@ -1,5 +1,6 @@
 package org.fluentness.networking;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.BufferedReader;
@@ -11,13 +12,22 @@ import java.util.stream.Collectors;
 public class Request {
 
     private String method;
+    private Headers headers;
+    private String urlParameter;
     private Map<String, String> getParameters;
     private Map<String, String> postParameters;
 
-    public Request(HttpExchange httpExchange) {
+    public Request(HttpExchange httpExchange, String declaredRoute) {
         this.method = httpExchange.getRequestMethod();
+        this.headers = httpExchange.getRequestHeaders();
+        parseUrlParameter(httpExchange, declaredRoute);
         parseGetParameters(httpExchange);
         parsePostParameters(httpExchange);
+    }
+
+    private void parseUrlParameter(HttpExchange httpExchange, String declaredRoute) {
+        String path = httpExchange.getRequestURI().getPath();
+        urlParameter = path.replace(declaredRoute.replaceAll("\\{.+",""),"");
     }
 
     private void parseGetParameters(HttpExchange httpExchange) {
@@ -50,8 +60,16 @@ public class Request {
         return parameters;
     }
 
+    public Headers getHeaders() {
+        return headers;
+    }
+
     public String getMethod() {
         return method;
+    }
+
+    public String getUrlParameter() {
+        return urlParameter;
     }
 
     public String getGetParameter(String name) {

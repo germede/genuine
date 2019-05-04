@@ -40,6 +40,15 @@ public class HttpRouter {
 
                 String route = baseRouteValue + methodWithRoute.getAnnotation(Route.class).value();
 
+                // dynamic routes in the middle path are not allowed
+                if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
+                    Logger.warning(HttpRouter.class,
+                            "Controller method %s->%s dynamic url parameter must stay at the end of the path",
+                            controllerClass.getCanonicalName(),
+                            methodWithRoute.getName());
+                    continue;
+                }
+
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
                     Logger.warning(HttpRouter.class,
@@ -52,16 +61,18 @@ public class HttpRouter {
                 // controller method must return HttpResponse
                 if (methodWithRoute.getReturnType() != Response.class) {
                     Logger.warning(HttpRouter.class,
-                            "Controller method %s->%s with defined route must return an object of type " + Response.class.getCanonicalName(),
+                            "Controller method %s->%s must return an object of type %s",
                             controllerClass.getCanonicalName(),
-                            methodWithRoute.getName(), route);
+                            methodWithRoute.getName(),
+                            Response.class.getCanonicalName());
                     continue;
                 }
 
-                routeHandlerMap.put(route.replace("//", "/"), httpExchange -> {
-                    Logger.debug(HttpRouter.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
-                    invokeControllerMethod(controller, methodWithRoute, httpExchange);
-                });
+                routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
+                        httpExchange -> {
+                            Logger.debug(HttpRouter.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                            invokeControllerMethod(controller, methodWithRoute, httpExchange);
+                        });
             }
 
             // static resource manager
@@ -79,9 +90,11 @@ public class HttpRouter {
         try {
 //            if (httpExchange.getRequestMethod().equals(method.getAnnotation(Route.class).method())) {
 
-                // invoke controller method and serve
-                Response response = (Response) method.invoke(controller, new Request(httpExchange));
-                HttpServer.serve(httpExchange, response);
+            // invoke controller method and serve
+            String declaredControllerRoute = controller.getClass().isAnnotationPresent(Route.class) ? controller.getClass().getAnnotation(Route.class).value() : "";
+            String declaredRoute = declaredControllerRoute + method.getAnnotation(Route.class).value();
+            Response response = (Response) method.invoke(controller, new Request(httpExchange, declaredRoute));
+            HttpServer.serve(httpExchange, response);
 
 //            } else {
 //

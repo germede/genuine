@@ -15,10 +15,11 @@ public class PeopleController implements Controller {
 
     private Repository<Person> personRepository = new RepositoryImpl<>(Person.class);
 
-    @Route("/")
+    @Route("/list/{id}")
     public Response list(Request request) {
 
         Logger.debug(this.getClass(), request.getMethod());
+        Logger.debug(this.getClass(), request.getUrlParameter());
         Logger.debug(this.getClass(), request.getGetParameter("test"));
         Logger.debug(this.getClass(), request.getPostParameter("test"));
 
