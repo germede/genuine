@@ -13,7 +13,6 @@ public class ViewLocalizator implements Localizator{
     public String localize(String string) {
         StringBuilder result = new StringBuilder(string);
         Localization.Translations translations = ClassRegister.getTranslations().get(language);
-        assert translations != null;
 
 //        Matcher matcher = Pattern.compile("LLL:(\\w+)#").matcher(result);
 //        while (matcher.find()) {

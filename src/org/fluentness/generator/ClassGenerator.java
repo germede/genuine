@@ -9,11 +9,10 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class JavaGenerator implements Generator {
+public class ClassGenerator implements Generator {
 
     private String packageName;
     private List<Class> imports = new ArrayList<>();
@@ -22,23 +21,33 @@ public class JavaGenerator implements Generator {
     private String className;
     private String parent;
     private List<String> interfaces = new ArrayList<>();
+    private List<String> fields = new ArrayList<>();
+    private StringBuilder result;
 
-    public JavaGenerator(String className) {
+    public ClassGenerator(String className) {
         this.className = className;
     }
 
-    public JavaGenerator setPackage(String packageName) {
+    public ClassGenerator setPackage(String packageName) {
         this.packageName = packageName;
         return this;
     }
 
-    public JavaGenerator addImports(Class... imports) {
-        Collections.addAll(this.imports, imports);
+    public ClassGenerator setParent(Class parentClass) {
+        this.imports.add(parentClass);
+        this.parent = parentClass.getSimpleName();
         return this;
     }
 
-    public JavaGenerator addAnnotation(Class<? extends Annotation> annotationClass, String parameters) {
-        this.imports.add(annotationClass);
+    public ClassGenerator addImport(Class importClass) {
+        if (this.imports.stream().noneMatch(importItem->importItem.getCanonicalName().equals(importClass.getCanonicalName()))) {
+            this.imports.add(importClass);
+        }
+        return this;
+    }
+
+    public ClassGenerator addAnnotation(Class<? extends Annotation> annotationClass, String parameters) {
+        addImport(annotationClass);
         String annotation = annotationClass.getSimpleName();
         if (!parameters.isEmpty()) {
             annotation = annotation + "(" + parameters + ")";
@@ -47,29 +56,28 @@ public class JavaGenerator implements Generator {
         return this;
     }
 
-    public JavaGenerator addModifiers(Integer... modifiers) {
-        Collections.addAll(this.modifiers, modifiers);
+    public ClassGenerator addModifier(Integer modifier) {
+        this.modifiers.add(modifier);
         this.modifiers.sort(Integer::compareTo);
         return this;
     }
 
-    public JavaGenerator setParent(Class parentClass) {
-        this.imports.add(parentClass);
-        this.parent = parentClass.getSimpleName();
+    public ClassGenerator addInterface(Class interfaceClass) {
+        addImport(interfaceClass);
+        this.interfaces.add(interfaceClass.getSimpleName());
         return this;
     }
 
-    public JavaGenerator addInterfaces(Class... interfaceClasses) {
-        for (Class interfaceClass : interfaceClasses) {
-            this.imports.add(interfaceClass);
-            this.interfaces.add(interfaceClass.getSimpleName());
-        }
+    public ClassGenerator addField(FieldGenerator fieldGenerator) {
+        addImport(fieldGenerator.clazz);
+        fieldGenerator.annotationClasses.stream().forEach(this::addImport);
+        this.fields.add(fieldGenerator.generate().toString());
         return this;
     }
 
     @Override
-    public boolean generate() {
-        StringBuilder result = new StringBuilder();
+    public ClassGenerator generate() {
+        result = new StringBuilder();
 
         // package
         if (packageName != null) {
@@ -104,14 +112,23 @@ public class JavaGenerator implements Generator {
         }
 
         // open
-        result.append("{\n");
+        result.append("{\n\n");
+
+        // fields
+        result.append(fields.stream().collect(Collectors.joining("\n"))).append("\n");
+
+
 
         // close
         result.append("}");
 
-        // write file
+        return this;
+    }
+
+    public String writeToFile() {
+
         try {
-            String path = "src/" + packageName.replaceAll("\\.", "/");
+            String path = "src/" + packageName.replace(".", "/");
             new File(path).mkdirs();
             String filePath = path + "/" + className + ".java";
             if (new File(filePath).exists()) {
@@ -121,10 +138,11 @@ public class JavaGenerator implements Generator {
             writer.write(result.toString());
             writer.close();
             Logger.fine(this.getClass(), "Successfully generated " + filePath);
-            return true;
         } catch (IOException e) {
-            Logger.severe(this.getClass(), e);
+            Logger.fail(this.getClass(), e);
         }
-        return false;
+        return result.toString();
     }
+
+
 }

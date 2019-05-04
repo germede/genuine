@@ -43,7 +43,7 @@ public class ViewCacher implements Cacher {
                 }
 
             } catch (IOException e) {
-                Logger.severe(ViewCacher.class, e, "Error caching %s", view.getClass().getName());
+                Logger.fail(ViewCacher.class, e, "Error caching %s", view.getClass().getName());
             }
         }
         return view.render().toString();

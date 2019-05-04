@@ -1,10 +1,13 @@
 package org.fluentness.command;
 
+import org.fluentness.Fluentness;
 import org.fluentness.common.ClassRegister;
 import org.fluentness.common.Configuration;
 import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.Controller;
-import org.fluentness.generator.JavaGenerator;
+import org.fluentness.generator.ClassGenerator;
+import org.fluentness.generator.FieldGenerator;
+import org.fluentness.view.Template;
 
 import java.lang.reflect.Modifier;
 
@@ -28,12 +31,27 @@ public class GenerateControllerCommand implements Command {
 
     @Override
     public void execute(Parameters parameters) {
-        new JavaGenerator(parameters.get("name") + "Controller")
+        new ClassGenerator(parameters.get("name") + "Controller")
                 .setPackage(Configuration.getString(Configuration.APP_PACKAGE) + "." + ClassRegister.CONTROLLER)
-                .addModifiers(Modifier.PUBLIC)
+                .addModifier(Modifier.PUBLIC)
                 .addAnnotation(BaseRoute.class, "\"" + parameters.get("name").toLowerCase() + "\"")
-                .addInterfaces(Controller.class)
+                .addInterface(Controller.class)
+                .addField(
+                        new FieldGenerator(ServerStartCommand.class, "serverStartCommand")
+                                .addAnnotation(Template.class, "test")
+                                .addModifier(Modifier.STATIC)
+                                .addModifier(Modifier.PRIVATE)
+                                .setDefaultValue("new ServerStartCommand()")
+                )
+                .addField(
+                        new FieldGenerator(Fluentness.class, "fluentness")
+                                .addAnnotation(Template.class, "")
+                                .addAnnotation(Template.class, "")
+                                .addModifier(Modifier.PUBLIC)
+                                .setDefaultValue("3")
+                )
                 .generate()
+                .writeToFile()
         ;
     }
 }

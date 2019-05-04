@@ -20,7 +20,7 @@ interface MethodFinder extends Serializable {
 
     default Class<?> getContainingClass() {
         try {
-            String className = serialized().getImplClass().replaceAll("/", ".");
+            String className = serialized().getImplClass().replace("/", ".");
             return Class.forName(className);
         } catch (Exception e) {
             throw new RuntimeException(e);
