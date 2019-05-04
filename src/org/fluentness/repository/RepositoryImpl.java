@@ -44,7 +44,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                 models.add(model);
             }
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Logger.severe(this.getClass(), e);
+            Logger.fail(this.getClass(), e);
         }
         return models;
     }
@@ -71,7 +71,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                 }
             }
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Logger.severe(this.getClass(), e);
+            Logger.fail(this.getClass(), e);
         } catch (ModelHasNoPrimaryKeyException e) {
             e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                             .execute();
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Logger.severe(this.getClass(), e);
+            Logger.fail(this.getClass(), e);
         }
         return 0;
     }
@@ -119,7 +119,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
 
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException e) {
-            Logger.severe(this.getClass(), e);
+            Logger.fail(this.getClass(), e);
         }
         return 0;
     }
@@ -139,7 +139,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                             .execute();
             return queryResult.resultSize;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException e) {
-            Logger.severe(this.getClass(), e);
+            Logger.fail(this.getClass(), e);
         }
         return 0;
     }

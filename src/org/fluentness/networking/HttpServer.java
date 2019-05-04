@@ -46,7 +46,7 @@ public class HttpServer extends HttpsConfigurator {
             );
         } catch (Exception e) {
             stop();
-            Logger.severe(HttpServer.class, e);
+            Logger.fail(HttpServer.class, e);
         }
     }
 
@@ -54,6 +54,7 @@ public class HttpServer extends HttpsConfigurator {
         if (server != null) {
             server.stop(0);
         }
+        Logger.fine(HttpServer.class, "Server successfully stopped");
     }
 
     public static void serve(HttpExchange httpExchange, HttpResponse httpResponse) {
@@ -69,7 +70,7 @@ public class HttpServer extends HttpsConfigurator {
 
             httpExchange.close();
         } catch (IOException e) {
-            Logger.severe(HttpServer.class, e);
+            Logger.fail(HttpServer.class, e);
         }
     }
 }

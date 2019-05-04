@@ -35,8 +35,7 @@ public class Logger {
         if (Configuration.getBoolean(Configuration.LOG_FILE)) {
             try {
                 String logFilePath = LOG_FILE_PATH +
-                        new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date(System.currentTimeMillis())) +
-                        ".txt";
+                        new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date(System.currentTimeMillis())) + ".txt";
                 File file = new File(logFilePath);
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -55,42 +54,35 @@ public class Logger {
     }
 
     public static void fine(Class callingClass, String message, Object... parameters) {
-        logger.fine(String.format(callingClass.getSimpleName() + ": " + message, parameters));
+        logger.fine(String.format(callingClass.getSimpleName() + " - " + message, parameters));
     }
 
     public static void info(Class callingClass, String message, Object... parameters) {
-        logger.info(String.format(callingClass.getSimpleName() + ": " + message, parameters));
+        logger.info(String.format(callingClass.getSimpleName() + " - " + message, parameters));
     }
 
-    public static void warning(Class callingClass, String message, Object... parameters) {
-        logger.warning(String.format(callingClass.getSimpleName() + ": " + message, parameters));
+    public static void warn(Class callingClass, String message, Object... parameters) {
+        logger.warning(String.format(callingClass.getSimpleName() + " - " + message, parameters));
     }
 
-    public static void severe(Class callingClass, String message, Object... parameters) {
-        logger.severe(String.format(callingClass.getSimpleName() + ": " + message, parameters));
+    public static void fail(Class callingClass, String message, Object... parameters) {
+        logger.severe(String.format(callingClass.getSimpleName() + " - " + message, parameters));
     }
 
-    public static void severe(Class callingClass, Exception exception) {
+    public static void fail(Class callingClass, Exception exception) {
         String message;
         if (exception.getMessage() == null) {
-            message = "Exception " + exception.getClass().getName();
+            message = exception.getClass().getSimpleName() + ":";
         } else {
-            message = exception.getMessage();
+            message = exception.getClass().getSimpleName() + " " + exception.getMessage() + ":";
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        severe(callingClass, message);
+        fail(callingClass, message);
     }
 
-    public static void severe(Class callingClass, Exception exception, String message, Object... parameters) {
-        if (message == null) {
-            if (exception.getMessage() == null) {
-                message = "Exception " + exception.getClass().getName();
-            } else {
-                message = exception.getMessage();
-            }
-        }
+    public static void fail(Class callingClass, Exception exception, String message, Object... parameters) {
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        severe(callingClass, message, parameters);
+        fail(callingClass, message, parameters);
     }
 
     private static String stackTraceToString(StackTraceElement[] stackTraceElements) {
@@ -100,5 +92,17 @@ public class Logger {
             res.append("\n    ").append(stackTraceElement.toString());
         }
         return res.toString();
+    }
+
+    static String normalizeLoggerLevel(String level) {
+        switch (level) {
+            case "SEVERE":
+                level = "FAIL";
+                break;
+            case "WARNING":
+                level = "WARN";
+                break;
+        }
+        return level;
     }
 }

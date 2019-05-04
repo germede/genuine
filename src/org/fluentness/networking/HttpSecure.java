@@ -30,7 +30,7 @@ public class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
             SSLParameters defaultSSLParameters = c.getDefaultSSLParameters();
             params.setSSLParameters(defaultSSLParameters);
         } catch (Exception e) {
-            Logger.severe(HttpServer.class, e);
+            Logger.fail(HttpServer.class, e);
         }
     }
 
@@ -54,15 +54,21 @@ public class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
 
             // setup the HTTPS context and parameters
             sslContext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+
+            return sslContext;
         } catch (KeyStoreException |
                 CertificateException |
                 UnrecoverableKeyException |
                 IOException |
                 NoSuchAlgorithmException |
                 KeyManagementException e) {
-            Logger.severe(HttpServer.class, e);
+            Logger.fail(HttpServer.class, e);
         }
-        assert sslContext != null;
-        return sslContext;
+        try {
+            return SSLContext.getInstance("TLS");
+        } catch (NoSuchAlgorithmException e) {
+            Logger.fail(HttpServer.class, e);
+        }
+        return null;
     }
 }

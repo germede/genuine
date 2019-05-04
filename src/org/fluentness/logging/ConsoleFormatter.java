@@ -8,6 +8,8 @@ import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+import static java.util.logging.Level.SEVERE;
+
 public class ConsoleFormatter extends Formatter implements AnsiColors {
 
     @Override
@@ -19,18 +21,18 @@ public class ConsoleFormatter extends Formatter implements AnsiColors {
             builder.append(ANSI_BLUE);
         } else if (record.getLevel().intValue() == Level.WARNING.intValue()) {
             builder.append(ANSI_YELLOW);
-        } else if (record.getLevel().intValue() == Level.SEVERE.intValue()) {
+        } else if (record.getLevel().intValue() == SEVERE.intValue()) {
             builder.append(ANSI_RED);
         }
         builder.append("[");
         builder.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(record.getMillis())));
         builder.append("] [");
-        builder.append(record.getLevel().getName());
+        builder.append(Logger.normalizeLoggerLevel(record.getLevel().getName()));
         builder.append("]");
-        builder.append(ANSI_WHITE);
+        builder.append(ANSI_RESET);
+        builder.append(ANSI_RESET);
         builder.append(" - ");
         builder.append(record.getMessage());
-        builder.append(ANSI_RESET);
         builder.append("\n");
         return builder.toString();
     }

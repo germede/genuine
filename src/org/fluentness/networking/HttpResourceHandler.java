@@ -19,7 +19,7 @@ public class HttpResourceHandler implements HttpHandler {
             path = "/res/icon/favicon.ico";
         }
         try {
-            path = path.substring(1).replaceAll("//", "/");
+            path = path.substring(1).replace("//", "/");
 
             boolean exists = Files.exists(Paths.get(path));
             if (exists) {
@@ -41,11 +41,11 @@ public class HttpResourceHandler implements HttpHandler {
 
                 HttpServer.serve(exchange, response);
             } else {
-                Logger.warning(this.getClass(), "File " + path + " doesn't exists");
+                Logger.warn(this.getClass(), "File " + path + " doesn't exists");
                 HttpServer.serve(exchange, new HttpResponse(HttpStatusCode.NotFound));
             }
         } catch (IOException e) {
-            Logger.severe(this.getClass(), e);
+            Logger.fail(this.getClass(), e);
             HttpServer.serve(exchange, new HttpResponse(HttpStatusCode.InternalServerError));
         }
     }

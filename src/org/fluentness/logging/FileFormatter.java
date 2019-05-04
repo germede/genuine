@@ -13,7 +13,7 @@ public class FileFormatter extends Formatter {
         builder.append("[");
         builder.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(record.getMillis())));
         builder.append("] [");
-        builder.append(record.getLevel().getName());
+        builder.append(Logger.normalizeLoggerLevel(record.getLevel().getName()));
         builder.append("]");
         builder.append(" - ");
         builder.append(record.getMessage());
