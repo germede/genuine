@@ -3,24 +3,28 @@ package org.fluentness.generator;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class FieldGenerator implements Generator {
+public class MethodGenerator implements Generator {
 
     List<Class> annotationClasses = new ArrayList<>();
     private List<String> annotations = new ArrayList<>();
+    Class returnClass;
     private List<Integer> modifiers = new ArrayList<>();
-    Class clazz;
     private String name;
-    private String defaultValue;
+    List<Class> parameterClasses = new ArrayList<>();
+    List<String> parameters = new ArrayList<>();
+    private String[] implementationLines;
     private StringBuilder result;
 
-    public FieldGenerator(Class clazz, String name) {
-        this.clazz = clazz;
+    public MethodGenerator(Class returnClass, String name) {
+        this.returnClass = returnClass;
         this.name = name;
     }
 
-    public FieldGenerator addAnnotation(Class<? extends Annotation> annotationClass, String parameters) {
+    public MethodGenerator addAnnotation(Class<? extends Annotation> annotationClass, String parameters) {
         String annotation = annotationClass.getSimpleName();
         if (!parameters.isEmpty()) {
             annotation = annotation + "(" + parameters + ")";
@@ -30,19 +34,25 @@ public class FieldGenerator implements Generator {
         return this;
     }
 
-    public FieldGenerator addModifier(Integer modifier) {
+    public MethodGenerator addModifier(Integer modifier) {
         this.modifiers.add(modifier);
         this.modifiers.sort(Integer::compareTo);
         return this;
     }
 
-    public FieldGenerator setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
+    public MethodGenerator addParameter(Class clazz, String name) {
+        this.parameterClasses.add(clazz);
+        this.parameters.add(clazz.getSimpleName() + " " + name);
+        return this;
+    }
+
+    public MethodGenerator setImplementationLines(String... implementationLines) {
+        this.implementationLines = implementationLines;
         return this;
     }
 
     @Override
-    public FieldGenerator generate() {
+    public MethodGenerator generate() {
         result = new StringBuilder();
 
         // annotations
@@ -54,17 +64,22 @@ public class FieldGenerator implements Generator {
         // modifiers
         modifiers.forEach((modifier) -> result.append(Modifier.toString(modifier)).append(" "));
 
-        // class name
-        result.append(clazz.getSimpleName()).append(" ");
+        // method name
+        result.append(returnClass.getSimpleName()).append(" ");
 
         // field name
         result.append(name).append(" ");
 
-        // default value
-        if (defaultValue != null) {
-            result.append("= ").append(defaultValue);
-        }
-        result.append(";");
+        // parameters and open
+        result.append("(");
+        result.append(parameters.stream().collect(Collectors.joining(", ")));
+        result.append(") {\n");
+
+        // implementations
+        Arrays.stream(implementationLines).forEach(implementationLine -> result.append("        ").append(implementationLine).append("\n"));
+
+        // close
+        result.append("    }\n");
 
         return this;
     }

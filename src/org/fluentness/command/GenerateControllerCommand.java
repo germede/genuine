@@ -1,13 +1,15 @@
 package org.fluentness.command;
 
-import org.fluentness.Fluentness;
 import org.fluentness.common.ClassRegister;
 import org.fluentness.common.Configuration;
-import org.fluentness.controller.BaseRoute;
 import org.fluentness.controller.Controller;
+import org.fluentness.controller.Route;
 import org.fluentness.generator.ClassGenerator;
 import org.fluentness.generator.FieldGenerator;
-import org.fluentness.view.Template;
+import org.fluentness.generator.MethodGenerator;
+import org.fluentness.networking.Request;
+import org.fluentness.networking.Response;
+import org.fluentness.repository.Repository;
 
 import java.lang.reflect.Modifier;
 
@@ -31,24 +33,73 @@ public class GenerateControllerCommand implements Command {
 
     @Override
     public void execute(Parameters parameters) {
-        new ClassGenerator(parameters.get("name") + "Controller")
+        String name = parameters.get("name");
+
+        new ClassGenerator(name + "Controller")
                 .setPackage(Configuration.getString(Configuration.APP_PACKAGE) + "." + ClassRegister.CONTROLLER)
                 .addModifier(Modifier.PUBLIC)
-                .addAnnotation(BaseRoute.class, "\"" + parameters.get("name").toLowerCase() + "\"")
+                .addAnnotation(Route.class, "\"/" + name.toLowerCase() + "\"")
                 .addInterface(Controller.class)
                 .addField(
-                        new FieldGenerator(ServerStartCommand.class, "serverStartCommand")
-                                .addAnnotation(Template.class, "test")
-                                .addModifier(Modifier.STATIC)
+                        new FieldGenerator(Repository.class, "repository")
                                 .addModifier(Modifier.PRIVATE)
                                 .setDefaultValue("new ServerStartCommand()")
+                                .generate()
                 )
-                .addField(
-                        new FieldGenerator(Fluentness.class, "fluentness")
-                                .addAnnotation(Template.class, "")
-                                .addAnnotation(Template.class, "")
+                .addMethod(
+                        new MethodGenerator(Response.class, "list")
+                                .addAnnotation(Route.class, "\"/list\"")
                                 .addModifier(Modifier.PUBLIC)
-                                .setDefaultValue("3")
+                                .addParameter(Request.class, "request")
+                                .setImplementationLines(
+                                        "// todo implement list " + name,
+                                        "return redirect(\"/\");"
+                                )
+                                .generate()
+                )
+                .addMethod(
+                        new MethodGenerator(Response.class, "find")
+                                .addAnnotation(Route.class, "\"/find\"")
+                                .addModifier(Modifier.PUBLIC)
+                                .addParameter(Request.class, "request")
+                                .setImplementationLines(
+                                        "// todo implement list " + name,
+                                        "return redirect(\"/\");"
+                                )
+                                .generate()
+                )
+                .addMethod(
+                        new MethodGenerator(Response.class, "create")
+                                .addAnnotation(Route.class, "\"/create\"")
+                                .addModifier(Modifier.PUBLIC)
+                                .addParameter(Request.class, "request")
+                                .setImplementationLines(
+                                        "// todo implement create " + name,
+                                        "return redirect(\"/\");"
+                                )
+                                .generate()
+                )
+                .addMethod(
+                        new MethodGenerator(Response.class, "update")
+                                .addAnnotation(Route.class, "\"/update\"")
+                                .addModifier(Modifier.PUBLIC)
+                                .addParameter(Request.class, "request")
+                                .setImplementationLines(
+                                        "// todo implement update " + name,
+                                        "return redirect(\"/\");"
+                                )
+                                .generate()
+                )
+                .addMethod(
+                        new MethodGenerator(Response.class, "delete")
+                                .addAnnotation(Route.class, "\"/delete\"")
+                                .addModifier(Modifier.PUBLIC)
+                                .addParameter(Request.class, "request")
+                                .setImplementationLines(
+                                        "// todo implement delete " + name,
+                                        "return redirect(\"/\");"
+                                )
+                                .generate()
                 )
                 .generate()
                 .writeToFile()

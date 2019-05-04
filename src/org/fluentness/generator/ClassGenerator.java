@@ -22,6 +22,7 @@ public class ClassGenerator implements Generator {
     private String parent;
     private List<String> interfaces = new ArrayList<>();
     private List<String> fields = new ArrayList<>();
+    private List<String> methods = new ArrayList<>();
     private StringBuilder result;
 
     public ClassGenerator(String className) {
@@ -71,7 +72,15 @@ public class ClassGenerator implements Generator {
     public ClassGenerator addField(FieldGenerator fieldGenerator) {
         addImport(fieldGenerator.clazz);
         fieldGenerator.annotationClasses.stream().forEach(this::addImport);
-        this.fields.add(fieldGenerator.generate().toString());
+        this.fields.add(fieldGenerator.toString());
+        return this;
+    }
+
+    public ClassGenerator addMethod(MethodGenerator methodGenerator) {
+        addImport(methodGenerator.returnClass);
+        methodGenerator.annotationClasses.stream().forEach(this::addImport);
+        methodGenerator.parameterClasses.stream().forEach(this::addImport);
+        this.methods.add(methodGenerator.toString());
         return this;
     }
 
@@ -115,9 +124,13 @@ public class ClassGenerator implements Generator {
         result.append("{\n\n");
 
         // fields
-        result.append(fields.stream().collect(Collectors.joining("\n"))).append("\n");
+        result.append(fields.stream().collect(Collectors.joining("\n")));
+        if (!fields.isEmpty()) {
+            result.append("\n\n");
+        }
 
-
+        // methods
+        result.append(methods.stream().collect(Collectors.joining("\n")));
 
         // close
         result.append("}");
