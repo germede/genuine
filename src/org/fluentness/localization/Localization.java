@@ -1,5 +1,8 @@
 package org.fluentness.localization;
 
+import org.fluentness.common.NamedValue;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,17 +15,16 @@ public interface Localization {
 
         private Map<String, String> translations = new HashMap<>();
 
-        public Translations add(String key, String translation) {
-            translations.put(key, translation);
-            return this;
+        public Translations(NamedValue<String>... translations) {
+            Arrays.stream(translations).forEach(translation -> this.translations.put(translation.name(), translation.value()));
         }
 
-        public String get(String key) {
-            return translations.getOrDefault(key,"");
+        public String get(String name) {
+            return translations.getOrDefault(name, "");
         }
 
-        public boolean contains(String key) {
-            return translations.containsKey(key);
+        public boolean contains(String name) {
+            return translations.containsKey(name);
         }
     }
 }

@@ -11,10 +11,10 @@ public class EsLocalization implements Localization {
 
     @Override
     public Translations getTranslations() {
-        return new Translations()
-                .add("welcome_message", "Bienvenido al sitio")
-                .add("test_message", "Esto es un test");
-
+        return new Translations(
+                welcome_message -> "Bienvenido al sitio",
+                test_message -> "Esto es un test"
+        );
     }
 
 }

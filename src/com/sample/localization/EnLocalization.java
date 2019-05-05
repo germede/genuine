@@ -11,10 +11,10 @@ public class EnLocalization implements Localization {
 
     @Override
     public Translations getTranslations() {
-        return new Translations()
-                .add("welcome_message", "Welcome to the site")
-                .add("test_message", "This is a test message");
-
+        return new Translations(
+                welcome_message -> "Welcome to the site",
+                test_message -> "This is a test message"
+        );
     }
 
 }
