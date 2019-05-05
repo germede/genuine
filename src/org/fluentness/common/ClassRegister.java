@@ -88,7 +88,7 @@ public class ClassRegister {
     }
 
     private static List<Class<?>> getExternalClasses(String packageName, Class<?> parent) {
-        packageName = Configuration.getString(Configuration.APP_PACKAGE).concat(".").concat(packageName);
+        packageName = Fluentness.Configuration.getString(Fluentness.Configuration.APP_PACKAGE).concat(".").concat(packageName);
         return getClasses(packageName, parent);
     }
 

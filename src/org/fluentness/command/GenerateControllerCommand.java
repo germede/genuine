@@ -1,7 +1,7 @@
 package org.fluentness.command;
 
+import org.fluentness.Fluentness;
 import org.fluentness.common.ClassRegister;
-import org.fluentness.common.Configuration;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.generator.ClassGenerator;
@@ -36,7 +36,7 @@ public class GenerateControllerCommand implements Command {
         String name = parameters.get("name");
 
         new ClassGenerator(name + "Controller")
-                .setPackage(Configuration.getString(Configuration.APP_PACKAGE) + "." + ClassRegister.CONTROLLER)
+                .setPackage(Fluentness.Configuration.getString(Fluentness.Configuration.APP_PACKAGE) + "." + ClassRegister.CONTROLLER)
                 .addModifier(Modifier.PUBLIC)
                 .addAnnotation(Route.class, "\"/" + name.toLowerCase() + "\"")
                 .addInterface(Controller.class)
@@ -59,7 +59,7 @@ public class GenerateControllerCommand implements Command {
                 )
                 .addMethod(
                         new MethodGenerator(Response.class, "find")
-                                .addAnnotation(Route.class, "\"/find\"")
+                                .addAnnotation(Route.class, "\"/find/{id}\"")
                                 .addModifier(Modifier.PUBLIC)
                                 .addParameter(Request.class, "request")
                                 .setImplementationLines(
@@ -81,7 +81,7 @@ public class GenerateControllerCommand implements Command {
                 )
                 .addMethod(
                         new MethodGenerator(Response.class, "update")
-                                .addAnnotation(Route.class, "\"/update\"")
+                                .addAnnotation(Route.class, "\"/update/{id}\"")
                                 .addModifier(Modifier.PUBLIC)
                                 .addParameter(Request.class, "request")
                                 .setImplementationLines(

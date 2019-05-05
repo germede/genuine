@@ -3,7 +3,7 @@ package org.fluentness.networking;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpsConfigurator;
 import com.sun.net.httpserver.HttpsServer;
-import org.fluentness.common.Configuration;
+import org.fluentness.Fluentness;
 import org.fluentness.logging.Logger;
 
 import javax.net.ssl.SSLContext;
@@ -15,9 +15,9 @@ import java.net.ProtocolException;
 public class HttpServer extends HttpsConfigurator {
 
     private static com.sun.net.httpserver.HttpServer server;
-    private static String protocol = Configuration.getString(Configuration.APP_PROTOCOL);
-    private static String hostname = Configuration.getString(Configuration.APP_HOSTNAME);
-    private static int port = Configuration.getInt(Configuration.APP_PORT);
+    private static String protocol = Fluentness.Configuration.getString(Fluentness.Configuration.APP_PROTOCOL);
+    private static String hostname = Fluentness.Configuration.getString(Fluentness.Configuration.APP_HOSTNAME);
+    private static int port = Fluentness.Configuration.getInt(Fluentness.Configuration.APP_PORT);
 
     private HttpServer() {
         super(null);

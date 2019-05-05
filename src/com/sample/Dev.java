@@ -1,30 +1,29 @@
 package com.sample;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.Configuration;
 
 public class Dev {
 
     public static void main(String[] args) {
 
-        Fluentness.initialize(args, new Configuration()
-                .set(Configuration.APP_PACKAGE, "com.sample")
-                .set(Configuration.APP_PROTOCOL, "http")
-                .set(Configuration.APP_HOSTNAME, "localhost")
-                .set(Configuration.APP_PORT, 8000)
-                .set(Configuration.APP_KEYSTORE, "res/keystore.jks")
-                .set(Configuration.APP_LANGUAGE, "en")
-                .set(Configuration.DB_DRIVER, "mysql")
-                .set(Configuration.DB_HOSTNAME, "localhost")
-                .set(Configuration.DB_PORT, 3306)
-                .set(Configuration.DB_NAME, "party")
-                .set(Configuration.DB_USERNAME, "party")
-                .set(Configuration.DB_PASSWORD, "party")
-                .set(Configuration.DB_PARAMS, "?serverTimezone=UTC")
-                .set(Configuration.CACHE_ENABLE, false)
-                .set(Configuration.LOG_LEVEL, "DEBUG")
-                .set(Configuration.LOG_CONSOLE, true)
-                .set(Configuration.LOG_FILE, true)
+        Fluentness.initialize(args,
+                APP_PACKAGE -> "com.sample",
+                APP_PROTOCOL -> "http",
+                APP_HOSTNAME -> "localhost",
+                APP_PORT -> 8000,
+                APP_KEYSTORE -> "res/keystore.jks",
+                APP_LANGUAGE -> "en",
+                DB_DRIVER -> "mysql",
+                DB_HOSTNAME -> "localhost",
+                DB_PORT -> 3306,
+                DB_NAME -> "party",
+                DB_USERNAME -> "party",
+                DB_PASSWORD -> "party",
+                DB_PARAMS -> "?serverTimezone=UTC",
+                CACHE_ENABLE -> false,
+                LOG_LEVEL -> "DEBUG",
+                LOG_CONSOLE -> true,
+                LOG_FILE -> true
         );
     }
 }

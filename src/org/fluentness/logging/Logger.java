@@ -1,6 +1,6 @@
 package org.fluentness.logging;
 
-import org.fluentness.common.Configuration;
+import org.fluentness.Fluentness;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class Logger {
     private static final String LOG_FILE_PATH = "tmp/log/";
 
     static {
-        String logLevel = toJavaLogLevel(Configuration.getString(Configuration.LOG_LEVEL));
+        String logLevel = toJavaLogLevel(Fluentness.Configuration.getString(Fluentness.Configuration.LOG_LEVEL));
 
         // create logger
         logger = java.util.logging.Logger.getLogger(Logger.class.getName());
@@ -24,7 +24,7 @@ public class Logger {
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (Configuration.getBoolean(Configuration.LOG_CONSOLE)) {
+        if (Fluentness.Configuration.getBoolean(Fluentness.Configuration.LOG_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -32,7 +32,7 @@ public class Logger {
         }
 
         // file logging
-        if (Configuration.getBoolean(Configuration.LOG_FILE)) {
+        if (Fluentness.Configuration.getBoolean(Fluentness.Configuration.LOG_FILE)) {
             try {
                 String logFilePath = LOG_FILE_PATH +
                         new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
