@@ -1,16 +1,16 @@
 package org.fluentness.view;
 
 import org.fluentness.cacher.ViewCacher;
-import org.fluentness.localization.ViewLocalizator;
+import org.fluentness.localization.Localizable;
 import org.fluentness.logging.Logger;
 import org.fluentness.rendering.Renderable;
 
 import java.lang.reflect.Field;
 
-public interface View extends Renderable {
+public interface View extends Renderable, Localizable {
 
     // rendering
-    default String renderWithCacheAndTemplateAndLocalization(String language) {
+    default String renderWithCacheAndTemplate(String language) {
 
         // with cache
         ViewCacher viewCacher = new ViewCacher(this, language);
@@ -19,12 +19,7 @@ public interface View extends Renderable {
         }
 
         // with template
-        String result = getTemplate().render();
-
-        // with localization
-        result = new ViewLocalizator(language).localize(result);
-
-        return result;
+        return getTemplate().render();
     }
 
     // render parent view if present, otherwise return itself
@@ -68,5 +63,4 @@ public interface View extends Renderable {
             Logger.error(this.getClass(), e);
         }
     }
-
 }

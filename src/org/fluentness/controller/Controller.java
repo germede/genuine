@@ -11,7 +11,7 @@ import java.util.Arrays;
 public interface Controller {
 
 //    default HttpResponse render(View view, String language) {
-//        return new HttpResponse(HttpStatusCode.Ok).setBody(view.renderWithCacheAndTemplateAndLocalization(language));
+//        return new HttpResponse(HttpStatusCode.Ok).setBody(view.renderWithCacheAndTemplate(language));
 //    }
 
     default Response render(Class<? extends View> view, NamedValue<Object>... attributes) {
@@ -20,7 +20,7 @@ public interface Controller {
             View instance = view.newInstance();
             Arrays.stream(attributes).forEach(attribute -> instance.setAttribute(attribute.name(), attribute.value()));
             return new Response(HttpStatusCode.Ok)
-                    .setBody(instance.renderWithCacheAndTemplateAndLocalization("EN"));
+                    .setBody(instance.renderWithCacheAndTemplate("EN"));
         } catch (InstantiationException | IllegalAccessException e) {
             Logger.error(this.getClass(), e);
             return new Response(HttpStatusCode.InternalServerError);
