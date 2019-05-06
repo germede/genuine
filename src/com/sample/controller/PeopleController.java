@@ -11,6 +11,9 @@ import org.fluentness.networking.Response;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.RepositoryImpl;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class PeopleController implements Controller {
 
     private Repository<Person> personRepository = new RepositoryImpl<>(Person.class);
@@ -22,7 +25,16 @@ public class PeopleController implements Controller {
         Logger.debug(this.getClass(), request.getUrlParameter());
         Logger.debug(this.getClass(), request.getGetParameter("test"));
         Logger.debug(this.getClass(), request.getPostParameter("test"));
+        Person person = new Person();
+        String table = person.getTable();
+        String fields = String.join("", person.getColumns());
 
+        person.set(
+          name -> "pepe",
+          surname -> "nachname"
+        );
+
+        int i = 0;
 //        Person person = new Person()
 //                .setName(name)
 //                .setSurname(surname);

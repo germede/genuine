@@ -83,7 +83,14 @@ public class Fluentness {
         }
 
         public static boolean getBoolean(String key) {
-            return (boolean) configuration.get(key);
+            if (configuration.containsKey(key)) {
+                return (boolean) configuration.get(key);
+            }
+            return true;
+        }
+
+        public static boolean contains(String key) {
+            return configuration.containsKey(key);
         }
     }
 }

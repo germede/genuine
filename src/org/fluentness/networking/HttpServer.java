@@ -42,7 +42,7 @@ public class HttpServer extends HttpsConfigurator {
             server.setExecutor(null);
             server.start();
             Logger.info(HttpServer.class, "Server successfully started and listening to %s",
-                    protocol + "://" + server.getAddress().getAddress() + ":" + port
+                    protocol + ":/" + server.getAddress().getAddress() + ":" + port
             );
         } catch (Exception e) {
             stop();
