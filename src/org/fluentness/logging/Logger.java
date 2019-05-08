@@ -10,13 +10,20 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
-public class Logger {
+import static org.fluentness.Fluentness.Configuration.LOG_LEVEL;
+
+public final class Logger {
 
     private static java.util.logging.Logger logger;
     private static final String LOG_FILE_PATH = "tmp/log/";
 
     static {
-        String logLevel = toJavaLogLevel(Fluentness.Configuration.getString(Fluentness.Configuration.LOG_LEVEL));
+        String logLevel;
+        if (Fluentness.Configuration.contains(LOG_LEVEL)) {
+            logLevel = toJavaLogLevel(Fluentness.Configuration.getString(LOG_LEVEL));
+        } else {
+            logLevel = "ALL";
+        }
 
         // create logger
         logger = java.util.logging.Logger.getLogger(Logger.class.getName());

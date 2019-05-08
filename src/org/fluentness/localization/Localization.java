@@ -20,7 +20,7 @@ public interface Localization {
         }
 
         public String get(String name) {
-            return translations.getOrDefault(name, "");
+            return translations.getOrDefault(name, name);
         }
 
         public boolean contains(String name) {

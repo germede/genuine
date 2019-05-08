@@ -1,11 +1,11 @@
 package org.fluentness.database;
 
-import java.util.List;
-import java.util.Map;
+import java.sql.ResultSet;
 
 public class SqlResult {
 
-    public int resultSize;
-    public List<Map<String, Object>> resultList;
+    public int size;
+    public ResultSet set;
+
 
 }

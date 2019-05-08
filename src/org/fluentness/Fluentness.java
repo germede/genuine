@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Fluentness {
+public final class Fluentness {
 
     public static void initialize(String[] args, NamedValue<Object>... configurations) {
         try {

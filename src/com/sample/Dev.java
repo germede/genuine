@@ -21,7 +21,7 @@ public class Dev {
                 DB_PASSWORD -> "party",
                 DB_PARAMS -> "?serverTimezone=UTC",
                 CACHE_ENABLE -> false,
-                LOG_LEVEL -> "DEBUG",
+                LOG_LEVEL -> "ALL",
                 LOG_CONSOLE -> true,
                 LOG_FILE -> true
         );

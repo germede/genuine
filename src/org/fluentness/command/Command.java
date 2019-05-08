@@ -1,7 +1,7 @@
 package org.fluentness.command;
 
 import org.fluentness.common.AnsiColors;
-import org.fluentness.common.NameValuePair;
+import org.fluentness.common.NamedValueImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +26,14 @@ public interface Command extends AnsiColors {
 
     class Parameters {
 
-        private List<NameValuePair> parameters;
+        private List<NamedValueImpl> parameters;
 
         public Parameters() {
             parameters = new ArrayList<>();
         }
 
         public Command.Parameters add(String name) {
-            parameters.add(new NameValuePair(name, ""));
+            parameters.add(new NamedValueImpl(name, ""));
             return this;
         }
 
@@ -45,7 +45,7 @@ public interface Command extends AnsiColors {
             parameters.get(i).value = arg;
         }
 
-        public List<NameValuePair> getList() {
+        public List<NamedValueImpl> getList() {
             return parameters;
         }
 

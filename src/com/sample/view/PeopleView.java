@@ -1,6 +1,6 @@
 package com.sample.view;
 
-import com.sample.model.Person;
+import com.sample.model.PersonModel;
 import org.fluentness.form.Form;
 import org.fluentness.view.Attribute;
 import org.fluentness.view.HtmlView;
@@ -12,7 +12,7 @@ import java.util.List;
 public class PeopleView implements HtmlView {
 
     @Attribute
-    public List<Person> people;
+    public List<PersonModel> people;
 
     @Attribute
     public Form personForm;

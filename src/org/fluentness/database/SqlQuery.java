@@ -1,7 +1,11 @@
 package org.fluentness.database;
 
+import org.fluentness.common.NamedValue;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SqlQuery {
 
@@ -30,7 +34,7 @@ public class SqlQuery {
         return append("SELECT *");
     }
 
-    public SqlQuery select(List<String> columns) {
+    public SqlQuery select(String[] columns) {
         return append("SELECT ").append(String.join(", ", columns));
     }
 
@@ -42,14 +46,17 @@ public class SqlQuery {
         return append("DELETE");
     }
 
-    public SqlQuery into(String table, List<String> columns) {
-        return append(" INTO ").append(table).append(" (").append(String.join(",", columns)).append(")");
+    public SqlQuery into(String table) {
+        return append(" INTO ").append(table);
     }
 
-    public SqlQuery values(List<Object> values) {
-        parameters.addAll(values);
+    public SqlQuery values(NamedValue... namedValues) {
+        append(" (");
+        append(Arrays.stream(namedValues).map(NamedValue::name).collect(Collectors.joining(", ")));
+        append(")");
+        parameters.addAll(Arrays.stream(namedValues).map(NamedValue::value).collect(Collectors.toList()));
         String placeholders = "?";
-        for (int i = 1; i < values.size(); i++) {
+        for (int i = 1; i < namedValues.length; i++) {
             placeholders = placeholders.concat(", ?");
         }
         return append(" VALUES (").append(placeholders).append(")");
@@ -59,16 +66,11 @@ public class SqlQuery {
         return append(" FROM ").append(table);
     }
 
-    public SqlQuery set(List<String> columns, List<Object> values) {
-        if (columns.isEmpty() || values.isEmpty()) {
-            return this;
-        }
-        parameters.addAll(values);
-        String toAppend = columns.get(0) + " = ?";
-        for (int i = 1; i < values.size(); i++) {
-            toAppend = toAppend.concat(", ").concat(columns.get(i).concat(" = ?"));
-        }
-        return append(" SET ").append(toAppend);
+    public SqlQuery set(NamedValue... namedValues) {
+        parameters.addAll(Arrays.stream(namedValues).map(NamedValue::value).collect(Collectors.toList()));
+        append(" SET ");
+        append(Arrays.stream(namedValues).map(namedValue -> namedValue.name() + " = ?").collect(Collectors.joining(", ")));
+        return this;
     }
 
     public SqlQuery where(SqlConstraint constraint) {
@@ -88,21 +90,4 @@ public class SqlQuery {
         return Database.execute(query, parameters);
     }
 
-    public static class ColumnsValuesPairs {
-        private List<String> columns = new ArrayList<>();
-        private List<Object> values = new ArrayList<>();
-
-        public void add(String column, Object value) {
-            columns.add(column);
-            values.add(value);
-        }
-
-        public List<String> getColumns() {
-            return columns;
-        }
-
-        public List<Object> getValues() {
-            return values;
-        }
-    }
 }

@@ -1,44 +1,37 @@
 package org.fluentness.model;
 
 import org.fluentness.common.NamedValue;
-import org.fluentness.logging.Logger;
-import org.fluentness.repository.RepositoryImpl;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 public interface Model {
 
     default String getTable() {
-        return this.getClass().getSimpleName().toLowerCase();
+        return this.getClass().getSimpleName().toLowerCase().replace("model", "");
     }
 
-    default List<String> getColumns() {
-        return Arrays.stream(this.getClass().getDeclaredFields()).map(Field::getName).collect(Collectors.toList());
+    default String getPrimaryKey() {
+        getPrimary
     }
 
-    default int create() {
-        return RepositoryImpl.create(this, this.getClass());
-    }
+    Properties getProperties();
 
-    default int update() {
-        return RepositoryImpl.update(this, this.getClass());
-    }
+    class Properties {
 
-    default int delete() {
-        return RepositoryImpl.delete(this, this.getClass());
-    }
+        private Map<String, Property> properties = new HashMap<>();
 
-    default void set(NamedValue<Object>... properties) {
-        try {
-            for (NamedValue<Object> property : properties) {
-                this.getClass().getDeclaredField(property.name()).set(this, property.value());
-            }
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            Logger.error(this.getClass(),e);
+        public Properties(NamedValue<Property>... properties) {
+            Arrays.stream(properties).forEach(translation -> this.properties.put(translation.name(), translation.value()));
+        }
+
+        public Property get(String name) {
+            return properties.get(name);
+        }
+
+        public boolean contains(String name) {
+            return properties.containsKey(name);
         }
     }
 }

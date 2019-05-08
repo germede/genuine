@@ -5,6 +5,7 @@ import org.fluentness.command.Command;
 import org.fluentness.controller.Controller;
 import org.fluentness.localization.Localization;
 import org.fluentness.logging.Logger;
+import org.fluentness.model.Model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,9 +18,46 @@ import java.util.zip.ZipInputStream;
 
 public class ClassRegister {
 
+    public static final String MODEL = "model";
+    public static final String VIEW = "view";
     public static final String CONTROLLER = "controller";
     public static final String LOCALIZATION = "localization";
     public static final String COMMAND = "command";
+
+    // models
+
+    private static Set<Model> modelInstances;
+    public static Set<Model> getControllerInstances() {
+        if (modelInstances == null) {
+            modelInstances = new HashSet<>();
+            for (Class controllerClass : getExternalClasses(CONTROLLER, Controller.class)) {
+                try {
+                    Controller controller = (Controller) controllerClass.newInstance();
+                    controllerInstances.add(controller);
+                } catch (InstantiationException | IllegalAccessException e) {
+                    Logger.error(ClassRegister.class, e);
+                }
+            }
+        }
+        return controllerInstances;
+    }
+
+    // translations
+    private static Map<String, Localization.Translations> translations;
+    public static Map<String, Localization.Translations> getTranslations() {
+        if (translations == null) {
+            translations = new HashMap<>();
+            for (Class translationClass : getExternalClasses(LOCALIZATION, Localization.class)) {
+                try {
+                    Localization translationInstance = (Localization) translationClass.newInstance();
+                    translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
+                } catch (InstantiationException | IllegalAccessException e) {
+                    Logger.error(ClassRegister.class, e);
+                }
+            }
+        }
+        return translations;
+    }
 
     // commands
     private static List<Command> commandInstances;
@@ -37,42 +75,6 @@ public class ClassRegister {
             commandInstances.sort(Comparator.comparing(Command::getName));
         }
         return commandInstances;
-    }
-
-    // controllers
-    private static Set<Controller> controllerInstances;
-
-    public static Set<Controller> getControllerInstances() {
-        if (controllerInstances == null) {
-            controllerInstances = new HashSet<>();
-            for (Class controllerClass : getExternalClasses(CONTROLLER, Controller.class)) {
-                try {
-                    Controller controller = (Controller) controllerClass.newInstance();
-                    controllerInstances.add(controller);
-                } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(ClassRegister.class, e);
-                }
-            }
-        }
-        return controllerInstances;
-    }
-
-    // translations
-    private static Map<String, Localization.Translations> translations;
-
-    public static Map<String, Localization.Translations> getTranslations() {
-        if (translations == null) {
-            translations = new HashMap<>();
-            for (Class translationClass : getExternalClasses(LOCALIZATION, Localization.class)) {
-                try {
-                    Localization translationInstance = (Localization) translationClass.newInstance();
-                    translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
-                } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(ClassRegister.class, e);
-                }
-            }
-        }
-        return translations;
     }
 
     // class loader

@@ -1,7 +1,7 @@
 package com.sample.controller;
 
 import com.sample.form.PersonForm;
-import com.sample.model.Person;
+import com.sample.model.PersonModel;
 import com.sample.view.PeopleView;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
@@ -11,12 +11,9 @@ import org.fluentness.networking.Response;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.RepositoryImpl;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 public class PeopleController implements Controller {
 
-    private Repository<Person> personRepository = new RepositoryImpl<>(Person.class);
+    private Repository<PersonModel> personRepository = new RepositoryImpl<>(PersonModel.class);
 
     @Route("/list/{id}")
     public Response list(Request request) {
@@ -25,7 +22,7 @@ public class PeopleController implements Controller {
         Logger.debug(this.getClass(), request.getUrlParameter());
         Logger.debug(this.getClass(), request.getGetParameter("test"));
         Logger.debug(this.getClass(), request.getPostParameter("test"));
-        Person person = new Person();
+        PersonModel person = new PersonModel();
         String table = person.getTable();
         String fields = String.join("", person.getColumns());
 

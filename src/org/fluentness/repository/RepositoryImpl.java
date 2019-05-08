@@ -4,13 +4,11 @@ import org.fluentness.database.SqlConstraint;
 import org.fluentness.database.SqlQuery;
 import org.fluentness.database.SqlResult;
 import org.fluentness.logging.Logger;
+import org.fluentness.entity.Entity;
 import org.fluentness.model.Model;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.fluentness.repository.RepositoryHelper.retrieveSetterMethod;
 
@@ -23,60 +21,12 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
     }
 
     @Override
-    public List<T> list() {
+    public List<Entity<T>> list() {
 
 
-        List<T> models = new ArrayList<>();
-        try {
-            String table = RepositoryHelper.retrieveTable(modelClass);
-            SqlResult queryResult =
-                    new SqlQuery()
-                            .select()
-                            .from(table)
-                            .execute();
-
-            for (Map<String, Object> objectMap : queryResult.resultList) {
-                T model = modelClass.newInstance();
-                for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-                    Method setter = retrieveSetterMethod(modelClass, entry.getKey());
-                    setter.invoke(model, entry.getValue());
-                }
-                models.add(model);
-            }
-        } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Logger.error(this.getClass(), e);
-        }
-        return models;
     }
 
-    @Override
-    public T find(Object primaryKey) {
-        T model = null;
-        try {
-            String table = RepositoryHelper.retrieveTable(modelClass);
-            SqlResult queryResult =
-                    new SqlQuery()
-                            .select()
-                            .from(table)
-                            .where(
-                                    new SqlConstraint(RepositoryHelper.retrievePrimaryKeyColumnName(modelClass)).isEqualTo(primaryKey)
-                            )
-                            .execute();
 
-            if (queryResult.resultList.size() > 0) {
-                model = modelClass.newInstance();
-                for (Map.Entry<String, Object> entry : queryResult.resultList.get(0).entrySet()) {
-                    Method setter = retrieveSetterMethod(modelClass, entry.getKey());
-                    setter.invoke(model, entry.getValue());
-                }
-            }
-        } catch (ModelHasNoMappedTableException | IllegalAccessException | InstantiationException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
-            Logger.error(this.getClass(), e);
-        } catch (ModelHasNoPrimaryKeyException e) {
-            e.printStackTrace();
-        }
-        return model;
-    }
 
     @Override
     public int create(T model) {
@@ -86,10 +36,10 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
             SqlResult queryResult =
                     new SqlQuery()
                             .insert()
-                            .into(table, columnsValuesPairs.getColumns())
+                            .into(table)
                             .values(columnsValuesPairs.getValues())
                             .execute();
-            return queryResult.resultSize;
+            return queryResult.size;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException e) {
             Logger.error(this.getClass(), e);
         }
@@ -117,7 +67,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                             .orderBy(columnsValuesPairs.getColumns())
                             .execute();
 
-            return queryResult.resultSize;
+            return queryResult.size;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException e) {
             Logger.error(this.getClass(), e);
         }
@@ -137,7 +87,7 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
                                             .isEqualTo(RepositoryHelper.retrievePrimaryKey(model))
                             )
                             .execute();
-            return queryResult.resultSize;
+            return queryResult.size;
         } catch (ModelHasNoMappedTableException | IllegalAccessException | InvocationTargetException | MethodIsAbsentOrInaccessibleException | ModelHasNoPrimaryKeyException e) {
             Logger.error(this.getClass(), e);
         }
