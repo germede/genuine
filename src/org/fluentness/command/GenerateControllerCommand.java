@@ -1,7 +1,7 @@
 package org.fluentness.command;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.ClassRegister;
+import org.fluentness.register.ClassRegister;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.generator.ClassGenerator;

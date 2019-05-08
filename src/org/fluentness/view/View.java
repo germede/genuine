@@ -3,6 +3,9 @@ package org.fluentness.view;
 import org.fluentness.cacher.ViewCacher;
 import org.fluentness.localization.Localizable;
 import org.fluentness.logging.Logger;
+import org.fluentness.rendering.FlowFunctions;
+import org.fluentness.rendering.HtmlFunctions;
+import org.fluentness.rendering.HtmlHelpers;
 import org.fluentness.rendering.Renderable;
 
 import java.lang.reflect.Field;
@@ -62,5 +65,13 @@ public interface View extends Renderable, Localizable {
         } catch (IllegalAccessException e) {
             Logger.error(this.getClass(), e);
         }
+    }
+
+    interface Html extends View, HtmlFunctions, HtmlHelpers, FlowFunctions {
+
+    }
+
+    interface Xml extends View {
+
     }
 }

@@ -4,7 +4,7 @@ import org.fluentness.logging.Logger;
 
 import java.io.File;
 
-public class Utils {
+public final class Utils {
     public static void deleteDirectoryRecursively(File file) {
         if (file.isDirectory()) {
             File[] entries = file.listFiles();

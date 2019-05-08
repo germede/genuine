@@ -1,8 +1,7 @@
-package org.fluentness.common;
+package org.fluentness.register;
 
 import org.fluentness.Fluentness;
 import org.fluentness.command.Command;
-import org.fluentness.controller.Controller;
 import org.fluentness.localization.Localization;
 import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
@@ -16,7 +15,7 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class ClassRegister {
+public final class ClassRegister {
 
     public static final String MODEL = "model";
     public static final String VIEW = "view";
@@ -25,55 +24,59 @@ public class ClassRegister {
     public static final String COMMAND = "command";
 
     // models
-
-    private static Set<Model> modelInstances;
-    public static Set<Model> getControllerInstances() {
-        if (modelInstances == null) {
-            modelInstances = new HashSet<>();
-            for (Class controllerClass : getExternalClasses(CONTROLLER, Controller.class)) {
-                try {
-                    Controller controller = (Controller) controllerClass.newInstance();
-                    controllerInstances.add(controller);
-                } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(ClassRegister.class, e);
-                }
+    private static Map<String, Model> modelInstances;
+    private static Map<String, Model.Properties> modelPropertiesInstances;
+    static {
+        modelInstances = new HashMap<>();
+        modelPropertiesInstances = new HashMap<>();
+        for (Class modelClass : getExternalClasses(MODEL, Model.class)) {
+            try {
+                Model model = (Model) modelClass.newInstance();
+                modelInstances.put(model.getClass().getCanonicalName(),model);
+                modelPropertiesInstances.put(model.getClass().getCanonicalName(),model.getProperties());
+            } catch (InstantiationException | IllegalAccessException e) {
+                Logger.error(ClassRegister.class, e);
             }
         }
-        return controllerInstances;
+    }
+    public static Model getModelInstance(String className) {
+        return modelInstances.get(className);
+    }
+    public static Model.Properties getModelPropertiesInstance(String className) {
+        return modelPropertiesInstances.get(className);
     }
 
-    // translations
+    // localizations
     private static Map<String, Localization.Translations> translations;
-    public static Map<String, Localization.Translations> getTranslations() {
-        if (translations == null) {
-            translations = new HashMap<>();
-            for (Class translationClass : getExternalClasses(LOCALIZATION, Localization.class)) {
-                try {
-                    Localization translationInstance = (Localization) translationClass.newInstance();
-                    translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
-                } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(ClassRegister.class, e);
-                }
+    static {
+        translations = new HashMap<>();
+        for (Class translationClass : getExternalClasses(LOCALIZATION, Localization.class)) {
+            try {
+                Localization translationInstance = (Localization) translationClass.newInstance();
+                translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
+            } catch (InstantiationException | IllegalAccessException e) {
+                Logger.error(ClassRegister.class, e);
             }
         }
-        return translations;
+    }
+    public static Localization.Translations getTranslation(String language) {
+        return translations.get(language);
     }
 
     // commands
     private static List<Command> commandInstances;
-
-    public static List<Command> getCommandInstances() {
-        if (commandInstances == null) {
-            commandInstances = new ArrayList<>();
-            for (Class commandClass : getAllClasses(COMMAND, Command.class)) {
-                try {
-                    commandInstances.add((Command) commandClass.newInstance());
-                } catch (InstantiationException | IllegalAccessException e) {
-                    Logger.error(ClassRegister.class, e);
-                }
+    static {
+        commandInstances = new ArrayList<>();
+        for (Class commandClass : getAllClasses(COMMAND, Command.class)) {
+            try {
+                commandInstances.add((Command) commandClass.newInstance());
+            } catch (InstantiationException | IllegalAccessException e) {
+                Logger.error(ClassRegister.class, e);
             }
-            commandInstances.sort(Comparator.comparing(Command::getName));
         }
+        commandInstances.sort(Comparator.comparing(Command::getName));
+    }
+    public static List<Command> getCommandInstances() {
         return commandInstances;
     }
 

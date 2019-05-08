@@ -12,11 +12,11 @@ import java.util.List;
 
 import static org.fluentness.repository.RepositoryHelper.retrieveSetterMethod;
 
-public class RepositoryImpl<T extends Model> implements Repository<T> {
+public class BasicRepository<T extends Model> implements Repository<T> {
 
     private Class<T> modelClass;
 
-    public RepositoryImpl(Class<T> modelClass) {
+    public BasicRepository(Class<T> modelClass) {
         this.modelClass = modelClass;
     }
 
@@ -96,18 +96,18 @@ public class RepositoryImpl<T extends Model> implements Repository<T> {
 
     // Static methods
     public static int create(Model model, Class modelClass) {
-        return new RepositoryImpl<>(modelClass).create(model);
+        return new BasicRepository<>(modelClass).create(model);
     }
 
     public static Model find(Object primaryKey, Class modelClass) {
-        return new RepositoryImpl<>(modelClass).find(primaryKey);
+        return new BasicRepository<>(modelClass).find(primaryKey);
     }
 
     public static int update(Model model, Class modelClass) {
-        return new RepositoryImpl<>(modelClass).update(model);
+        return new BasicRepository<>(modelClass).update(model);
     }
 
     public static int delete(Model model, Class modelClass) {
-        return new RepositoryImpl<>(modelClass).delete(model);
+        return new BasicRepository<>(modelClass).delete(model);
     }
 }

@@ -1,12 +1,13 @@
 package org.fluentness.form;
 
-import org.fluentness.view.HtmlView;
+import org.fluentness.common.NamedValue;
+import org.fluentness.view.View;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public interface Form extends HtmlView {
+public interface Form extends View.Html, FieldFunctions {
 
     String getMethod();
 
@@ -15,7 +16,7 @@ public interface Form extends HtmlView {
     @Override
     default String render() {
         return form(attrs(METHOD -> getMethod()),
-            getFields().fields.stream().collect(Collectors.joining())
+                String.join("", getFields().fields)
         ).render();
     }
 
@@ -23,9 +24,8 @@ public interface Form extends HtmlView {
 
         private List<Field> fields = new ArrayList<>();
 
-        public Fields add(Field field) {
-            fields.add(field);
-            return this;
+        public Fields(NamedValue<Field>... fields) {
+            Arrays.stream(fields).forEach(field -> this.fields.add(field.value().setName(field.name())));
         }
     }
 }

@@ -1,34 +1,31 @@
 package org.fluentness.form;
 
 
-import org.fluentness.view.HtmlView;
+import org.fluentness.view.View;
 
-public abstract class Field implements HtmlView {
+public abstract class Field implements View.Html {
 
-    private boolean isRequired = false;
+    private boolean required = false;
     private String type;
+    private String name;
 
-    public Field(String name, String type) {
+    public Field(String type) {
         this.type = type;
     }
 
-
-    public boolean isRequired() {
-        return isRequired;
-    }
-
-    public Field setRequired(boolean required) {
-        isRequired = required;
+    public Field required() {
+        this.required = true;
         return this;
     }
 
-    public String getType() {
-        return type;
+    Field setName(String name) {
+        this.name = name;
+        return this;
     }
 
     @Override
     public String render() {
-        return input(attrs(TYPE -> type, REQUIRED -> String.valueOf(isRequired))
+        return input(attrs(TYPE -> type, REQUIRED -> String.valueOf(required), NAME -> name)
 
         ).render();
     }

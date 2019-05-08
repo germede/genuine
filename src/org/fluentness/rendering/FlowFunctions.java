@@ -1,6 +1,6 @@
 package org.fluentness.rendering;
 
-public interface ControlFlowFunctions {
+public interface FlowFunctions {
 //    @Override
 //    public String render() {
 //

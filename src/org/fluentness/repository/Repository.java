@@ -6,6 +6,7 @@ import org.fluentness.database.SqlResult;
 import org.fluentness.logging.Logger;
 import org.fluentness.entity.Entity;
 import org.fluentness.model.Model;
+import org.fluentness.register.ClassRegister;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -16,22 +17,20 @@ import java.util.List;
 public interface Repository<T extends Model> {
 
     default Model getModel() {
-        try {
-            return (Model) this.getClass().getGenericSuperclass().getClass().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        return ClassRegister.getModelInstance(this.getClass().getGenericSuperclass().getClass().getCanonicalName());
     }
 
-    default List<Entity<T>> resultSetToEntityList(ResultSet resultSet) {
+    default Model.Properties getModelProperties() {
+        return ClassRegister.getModelPropertiesInstance(this.getClass().getGenericSuperclass().getClass().getCanonicalName());
+    }
+
+    default List<Entity<T>> entityList(ResultSet resultSet) {
         List<Entity<T>> entityList = new ArrayList<>();
         try {
             ResultSetMetaData meta = resultSet.getMetaData();
             int numColumns = meta.getColumnCount();
             while (resultSet.next()) {
-                Entity entity = new Entity();
+                Entity<T> entity = new Entity<>();
                 for (int i = 1; i <= numColumns; ++i) {
                     String name = meta.getColumnName(i);
                     Object value = resultSet.getObject(i);
@@ -50,7 +49,7 @@ public interface Repository<T extends Model> {
                 .select()
                 .from(getModel().getTable())
                 .execute();
-        return resultSetToEntityList(result.set);
+        return entityList(result.set);
     }
 
     default Entity<T> find(Object primaryKey) {
@@ -59,7 +58,7 @@ public interface Repository<T extends Model> {
                 .from(getModel().getTable())
                 .where(new SqlConstraint(getModel().getPrimaryKey()).isEqualTo(primaryKey))
                 .execute();
-        return resultSetToEntityList(result.set).get(0);
+        return entityList(result.set).get(0);
     }
 
     default int create(Entity<T> entity) {

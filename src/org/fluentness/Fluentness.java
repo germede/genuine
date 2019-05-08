@@ -2,7 +2,7 @@ package org.fluentness;
 
 import org.fluentness.command.Command;
 import org.fluentness.command.HelpCommand;
-import org.fluentness.common.ClassRegister;
+import org.fluentness.register.ClassRegister;
 import org.fluentness.common.NamedValue;
 import org.fluentness.logging.Logger;
 

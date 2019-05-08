@@ -1,30 +1,28 @@
 package org.fluentness.entity;
 
 import org.fluentness.common.NamedValue;
-import org.fluentness.common.NamedValueImpl;
+import org.fluentness.common.ClassicNamedValue;
 import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
 import org.fluentness.model.Property;
-import org.fluentness.repository.RepositoryImpl;
+import org.fluentness.register.ClassRegister;
 
 import java.util.*;
 
 public class Entity<T extends Model> {
 
     private Model getModel() {
-        try {
-            return (Model) this.getClass().getGenericSuperclass().getClass().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        return ClassRegister.getModelInstance(this.getClass().getGenericSuperclass().getClass().getCanonicalName());
+    }
+
+    private Model.Properties getModelProperties() {
+        return ClassRegister.getModelPropertiesInstance(this.getClass().getGenericSuperclass().getClass().getCanonicalName());
     }
 
     private Map<String, Object> properties = new HashMap<>();
 
     public <V> V get(Class<V> propertyType, String propertyName) {
-        Model.Properties modelProperties = getModel().getProperties();
+        Model.Properties modelProperties = getModelProperties();
 
         if (modelProperties.contains(propertyName)) {
             Property modelProperty = modelProperties.get(propertyName);
@@ -52,7 +50,7 @@ public class Entity<T extends Model> {
     }
 
     public void set(String name, Object value) {
-        Model.Properties modelProperties = getModel().getProperties();
+        Model.Properties modelProperties = getModelProperties();
         if (modelProperties.contains(name)) {
             Property modelProperty = modelProperties.get(name);
             if (modelProperty.getType().equals(value.getClass())) {
@@ -73,21 +71,9 @@ public class Entity<T extends Model> {
         }
     }
 
-    public int create() {
-        return RepositoryImpl.create(this, this.getClass());
-    }
-
-    public int update() {
-        return RepositoryImpl.update(this, this.getClass());
-    }
-
-    public int delete() {
-        return RepositoryImpl.delete(this, this.getClass());
-    }
-
     public NamedValue[] getAll() {
         List<NamedValue> result = new ArrayList<>(properties.size());
-        properties.forEach((s, o) -> result.add(new NamedValueImpl(s,o)));
+        properties.forEach((s, o) -> result.add(new ClassicNamedValue(s,o)));
         return result.toArray(new NamedValue[0]);
     }
 

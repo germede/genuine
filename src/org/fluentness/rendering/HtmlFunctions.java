@@ -1,6 +1,6 @@
 package org.fluentness.rendering;
 
-public interface HtmlElement {
+public interface HtmlFunctions {
 
     // empty
 

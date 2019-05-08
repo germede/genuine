@@ -1,10 +1,9 @@
 package com.sample.view;
 
-import org.fluentness.view.HtmlView;
 import org.fluentness.view.Placeholder;
 import org.fluentness.view.View;
 
-public class BaseView implements HtmlView {
+public class BaseView implements View.Html {
 
     @Placeholder
     public View placeholder;

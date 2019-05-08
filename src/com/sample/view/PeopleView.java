@@ -3,13 +3,13 @@ package com.sample.view;
 import com.sample.model.PersonModel;
 import org.fluentness.form.Form;
 import org.fluentness.view.Attribute;
-import org.fluentness.view.HtmlView;
 import org.fluentness.view.Template;
+import org.fluentness.view.View;
 
 import java.util.List;
 
 @Template(BaseView.class)
-public class PeopleView implements HtmlView {
+public class PeopleView implements View.Html {
 
     @Attribute
     public List<PersonModel> people;

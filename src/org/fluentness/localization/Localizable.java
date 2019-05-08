@@ -1,12 +1,12 @@
 package org.fluentness.localization;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.ClassRegister;
+import org.fluentness.register.ClassRegister;
 
 public interface Localizable {
 
     default String translate(String name) {
-        return ClassRegister.getTranslations().get(getLanguage()).get(name);
+        return ClassRegister.getTranslation(getLanguage()).get(name);
     }
 
     default String getLanguage() {

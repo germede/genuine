@@ -6,14 +6,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface Model {
+public interface Model extends PropertyFunctions {
 
     default String getTable() {
         return this.getClass().getSimpleName().toLowerCase().replace("model", "");
-    }
-
-    default String getPrimaryKey() {
-        getPrimary
     }
 
     Properties getProperties();

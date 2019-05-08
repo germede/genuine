@@ -2,7 +2,7 @@ package org.fluentness.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.common.ClassRegister;
+import org.fluentness.register.ClassRegister;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.logging.Logger;

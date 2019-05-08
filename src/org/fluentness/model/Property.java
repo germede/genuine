@@ -27,6 +27,10 @@ public abstract class Property {
         return this;
     }
 
+    public boolean isPrimaryKey() {
+        return isPrimaryKey;
+    }
+
     public boolean isNullable() {
         return nullable;
     }
@@ -40,4 +44,5 @@ public abstract class Property {
     }
 
     public abstract Class getType();
+
 }
