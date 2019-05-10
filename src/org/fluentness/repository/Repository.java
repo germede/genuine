@@ -4,6 +4,7 @@ import org.fluentness.database.SqlConstraint;
 import org.fluentness.database.SqlQuery;
 import org.fluentness.entity.Entity;
 import org.fluentness.model.Model;
+import org.fluentness.register.ModelRegister;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +14,19 @@ public interface Repository<T extends Model> {
 
     Class<T> getModel();
 
-    Model getModelInstance();
+    default Model getModelInstance() {
+        return ModelRegister.getModelInstance(getModel().getCanonicalName());
+    }
 
-    Model.Properties getModelPropertiesInstance();
+    default Model.Properties getModelPropertiesInstance() {
+        return ModelRegister.getModelPropertiesInstance(getModel().getCanonicalName());
+    }
 
     default List<Entity<T>> entityListFrom(List<Map<String, Object>> resultList) {
         List<Entity<T>> entityList = new ArrayList<>();
         for (Map<String, Object> stringObjectMap : resultList) {
             Entity<T> entity = new Entity<>(getModel());
-            stringObjectMap.forEach((name, value) -> entity.set(name, value));
+            stringObjectMap.forEach(entity::set);
             entityList.add(entity);
         }
         return entityList;

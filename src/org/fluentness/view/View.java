@@ -60,7 +60,9 @@ public interface View extends Localizable {
         try {
             for (Field field : this.getClass().getDeclaredFields()) {
                 if (field.isAnnotationPresent(Placeholder.class)) {
+                    field.setAccessible(true);
                     field.set(this, view);
+                    field.setAccessible(false);
                     break;
                 }
             }

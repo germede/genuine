@@ -17,7 +17,9 @@ public final class CommandRegister
         commandInstances = new ArrayList<>();
         for (Class commandClass : ClassLoader.getAllClasses(COMMAND, Command.class)) {
             try {
-                commandInstances.add((Command) commandClass.newInstance());
+                Command command = (Command) commandClass.newInstance();
+                ClassInjector.injectFields(command);
+                commandInstances.add(command);
             } catch (InstantiationException | IllegalAccessException e) {
                 Logger.error(ClassLoader.class, e);
             }

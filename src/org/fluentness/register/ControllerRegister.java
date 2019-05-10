@@ -10,11 +10,14 @@ public final class ControllerRegister {
     public static final String CONTROLLER = "controller";
 
     private static final Set<Controller> controllerInstances;
+
     static {
         controllerInstances = new HashSet<>();
         for (Class controllerClass : ClassLoader.getExternalClasses(CONTROLLER, Controller.class)) {
             try {
-                controllerInstances.add((Controller) controllerClass.newInstance());
+                Controller controller = (Controller) controllerClass.newInstance();
+                ClassInjector.injectFields(controller);
+                controllerInstances.add(controller);
             } catch (InstantiationException | IllegalAccessException e) {
                 Logger.error(ClassLoader.class, e);
             }

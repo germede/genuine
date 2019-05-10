@@ -2,19 +2,20 @@ package com.sample.controller;
 
 import com.sample.form.PersonForm;
 import com.sample.model.PersonModel;
+import com.sample.repository.PersonRepository;
 import com.sample.view.PeopleView;
+import org.fluentness.common.Inject;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.entity.Entity;
 import org.fluentness.logging.Logger;
 import org.fluentness.networking.Request;
 import org.fluentness.networking.Response;
-import org.fluentness.repository.CrudRepository;
-import org.fluentness.repository.Repository;
 
 public class PeopleController implements Controller {
-    
-    private Repository<PersonModel> personRepository = new CrudRepository<>(PersonModel.class);
+
+    @Inject
+    private PersonRepository personRepository;
 
     @Route("/list/{id}")
     public Response list(Request request) {

@@ -17,8 +17,9 @@ public final class LocalizationRegister {
         translationsMap = new HashMap<>();
         for (Class translationClass : ClassLoader.getExternalClasses(LOCALIZATION, Localization.class)) {
             try {
-                Localization translationInstance = (Localization) translationClass.newInstance();
-                translationsMap.put(translationInstance.getLocale(), translationInstance.getTranslations());
+                Localization localization = (Localization) translationClass.newInstance();
+                ClassInjector.injectFields(localization);
+                translationsMap.put(localization.getLocale(), localization.getTranslations());
             } catch (InstantiationException | IllegalAccessException e) {
                 Logger.error(ClassLoader.class, e);
             }

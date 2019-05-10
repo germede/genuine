@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public final class ClassLoader {
+final class ClassLoader {
 
     static List<Class<?>> getAllClasses(String packageName, Class<?> parent) {
         List<Class<?>> result = getInternalClasses(packageName, parent);

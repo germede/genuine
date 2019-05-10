@@ -29,13 +29,16 @@ public final class HttpServer extends HttpsConfigurator {
 
     public static void start() {
         try {
-            if (protocol.equals("http")) {
-                server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(hostname, port), 0);
-            } else if (protocol.equals("https")) {
-                server = com.sun.net.httpserver.HttpsServer.create(new InetSocketAddress(hostname, port), 0);
-                ((HttpsServer) server).setHttpsConfigurator(new HttpSecure());
-            } else {
-                throw new ProtocolException();
+            switch (protocol) {
+                case "http":
+                    server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(hostname, port), 0);
+                    break;
+                case "https":
+                    server = HttpsServer.create(new InetSocketAddress(hostname, port), 0);
+                    ((HttpsServer) server).setHttpsConfigurator(new HttpSecure());
+                    break;
+                default:
+                    throw new ProtocolException();
             }
 
             HttpRouter.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));

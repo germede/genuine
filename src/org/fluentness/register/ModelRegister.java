@@ -17,6 +17,7 @@ public final class ModelRegister {
         for (Class modelClass : ClassLoader.getExternalClasses(MODEL, Model.class)) {
             try {
                 Model model = (Model) modelClass.newInstance();
+                ClassInjector.injectFields(model);
                 modelInstances.put(model.getClass().getCanonicalName(),model);
                 modelPropertiesInstances.put(model.getClass().getCanonicalName(),model.getProperties());
             } catch (InstantiationException | IllegalAccessException e) {
