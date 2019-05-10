@@ -25,8 +25,10 @@ public abstract class Field implements View.Html {
 
     @Override
     public String render() {
-        return input(attrs(TYPE -> type, REQUIRED -> String.valueOf(required), NAME -> name)
-
+        return input(
+                TYPE -> type,
+                REQUIRED -> String.valueOf(required),
+                NAME -> name
         ).render();
     }
 }

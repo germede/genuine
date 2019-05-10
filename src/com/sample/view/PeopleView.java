@@ -21,6 +21,7 @@ public class PeopleView implements View.Html {
     public String render() {
 
         return h1(attrs(CLASS -> "test", ID -> "1234", DATA -> "asdf"),
+
                 textarea(),
                 h1("test"),
                 forEachEntityIn(people,

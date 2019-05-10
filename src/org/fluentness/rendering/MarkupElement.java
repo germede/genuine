@@ -1,9 +1,6 @@
 package org.fluentness.rendering;
 
-import org.fluentness.common.NamedValue;
-
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class MarkupElement implements Renderable {
 
@@ -11,10 +8,16 @@ public class MarkupElement implements Renderable {
     private CharSequence[] renderables;
     private boolean isContainer;
 
-    public MarkupElement(String tag, CharSequence[] renderables, boolean isContainer) {
+    public MarkupElement(String tag, MarkupAttributes attributes) {
+        this.tag = tag;
+        this.renderables = new Renderable[]{attributes};
+        this.isContainer = false;
+    }
+
+    public MarkupElement(String tag, CharSequence[] renderables) {
         this.tag = tag;
         this.renderables = renderables;
-        this.isContainer = isContainer;
+        this.isContainer = true;
     }
 
 
@@ -25,15 +28,15 @@ public class MarkupElement implements Renderable {
         // open
         html.append("<").append(tag);
         Arrays.stream(renderables)
-                .filter(renderable -> renderable instanceof Attributes)
-                .forEach(renderable->html.append(((Attributes) renderable).render()));
+                .filter(renderable -> renderable instanceof MarkupAttributes)
+                .forEach(renderable->html.append(((MarkupAttributes) renderable).render()));
         html.append(">");
 
         // inner
         for (CharSequence renderable : renderables) {
             if ((renderable instanceof String)) {
                 html.append(renderable);
-            } else if (renderable instanceof Renderable && !(renderable instanceof Attributes)) {
+            } else if (renderable instanceof Renderable && !(renderable instanceof MarkupAttributes)) {
                 html.append(((Renderable) renderable).render());
             }
         }
@@ -46,17 +49,4 @@ public class MarkupElement implements Renderable {
         return html.toString();
     }
 
-    static class Attributes implements Renderable {
-
-        private final NamedValue[] attributes;
-
-        Attributes(NamedValue[] attributes) {
-            this.attributes = attributes;
-        }
-
-        @Override
-        public String render() {
-            return " " + Arrays.stream(attributes).collect(Collectors.joining(" "));
-        }
-    }
 }
