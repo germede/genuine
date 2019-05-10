@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class HttpResourceHandler implements HttpHandler {
+final class HttpResourceHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {

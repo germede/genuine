@@ -1,80 +1,23 @@
 package org.fluentness.rendering;
 
+import org.fluentness.entity.Entity;
+
 public interface FlowFunctions {
-//    @Override
-//    public String render() {
-//
-//         translate
-//        Translations translations = ClassRegister.getTranslations().get(language);
-//        if (translations != null) {
-//            Matcher matcher = Pattern.compile("###(\\w+)###").matcher(document);
-//            while (matcher.find()) {
-//                String key = matcher.group(1);
-//                if (translations.contains(key)) {
-//                    document.replace(matcher.start(),matcher.end(),translations.get(key));
-//                }
-//            }
-//        }
-//        return document.toString();
-//    }
-//    private String language = Configuration.getString(Configuration.APP_LANGUAGE);
-//
-//    public T setLanguage(String language) {
-//        this.language = language;
-//        return self();
-//    }
-//
-//    public T close(String tag) {
-//        return (T) append("</").append(tag).append(">");
-//    }
-//
-//html(
-//
-//
-//)
-//
-//    new Html()
-//        .ol()
-//
-
-//    default Renderable when(boolean condition, Renderable... then) {
-//        if (condition) {
-//            return new MarkupElements(then);
-//        }
-//        return new MarkupInner("");
-//    }
 
 
-//
-//    public T when(boolean condition, Then then, Otherwise otherwise) {
-//        if (condition) {
-//            then.then(this);
-//        } else {
-//            otherwise.otherwise(this);
-//        }
-//        return self();
-//    }
-//
-//    public T forEach(Iterable<?> objects, ForEach<?> forEach) {
-//        objects.forEach((Consumer<? super Object>) object -> forEach.execute(object, this));
-//        return self();
-//    }
-//
-//    // lambdas
+    default CharSequence forEachEntityIn(Iterable<? extends Entity> iterable, ForEach<? extends Entity> forEach) {
+        StringBuilder rendered = new StringBuilder();
+        iterable.forEach(item -> rendered.append(forEach.execute(item)));
+        return rendered.toString();
+    }
 
+    @FunctionalInterface
+    interface ForEach<T> {
+        CharSequence forEach(T item);
 
+        default CharSequence execute(Object object) {
+            return forEach((T) object);
+        }
+    }
 
-//    @FunctionalInterface
-//    public interface Otherwise {
-//
-//        void otherwise(ControlFlowFunctions otherwise);
-//
-//    }
-//    @FunctionalInterface
-//    public interface ForEach<S> {
-//        void forEach(S object, ControlFlowFunctions renderable);
-//        default void execute(Object object, ControlFlowFunctions renderable) {
-//            forEach((S) object, renderable);
-//        }
-//    }
 }

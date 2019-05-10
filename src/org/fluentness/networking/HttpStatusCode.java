@@ -1,6 +1,6 @@
 package org.fluentness.networking;
 
-public class HttpStatusCode {
+public final class HttpStatusCode {
 
     private HttpStatusCode() {
     }

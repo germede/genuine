@@ -5,6 +5,7 @@ import org.fluentness.common.NamedValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SqlQuery {
@@ -20,10 +21,6 @@ public class SqlQuery {
     private SqlQuery append(String toAppend) {
         sql.append(toAppend);
         return this;
-    }
-
-    public String toString() {
-        return sql.toString();
     }
 
     public SqlQuery insert() {
@@ -85,9 +82,25 @@ public class SqlQuery {
         return append(" ORDER BY ").append(String.join(", ", columns));
     }
 
-    public SqlResult execute() {
-        String query = toString();
-        return Database.execute(query, parameters);
+    public SqlQuery execute() {
+        String query = sql.toString();
+        if (query.startsWith("SELECT")) {
+            resultList = Database.read(query, parameters);
+        } else {
+            resultSize = Database.write(query, parameters);
+        }
+        return this;
     }
 
+    private List<Map<String, Object>> resultList;
+
+    public List<Map<String, Object>> resultList() {
+        return resultList;
+    }
+
+    private int resultSize;
+
+    public int resultSize() {
+        return resultSize;
+    }
 }

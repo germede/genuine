@@ -14,11 +14,19 @@ public interface Model extends PropertyFunctions {
 
     Properties getProperties();
 
+    default String getPrimaryKey() {
+        return "id";
+    }
+
+    default Properties properties(NamedValue<Property>... properties) {
+        return new Properties(properties);
+    }
+
     class Properties {
 
         private Map<String, Property> properties = new HashMap<>();
 
-        public Properties(NamedValue<Property>... properties) {
+        private Properties(NamedValue<Property>... properties) {
             Arrays.stream(properties).forEach(translation -> this.properties.put(translation.name(), translation.value()));
         }
 

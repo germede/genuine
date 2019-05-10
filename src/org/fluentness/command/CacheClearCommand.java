@@ -16,7 +16,7 @@ public class CacheClearCommand implements Command {
     }
 
     @Override
-    public void execute(Parameters parameters) {
+    public void execute(String... parameters) {
         Utils.deleteDirectoryRecursively(new File("tmp/cache"));
     }
 

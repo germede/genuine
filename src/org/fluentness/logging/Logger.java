@@ -92,11 +92,6 @@ public final class Logger {
         error(callingClass, message);
     }
 
-    public static void error(Class callingClass, Exception exception, String message, Object... parameters) {
-        message = message.concat(stackTraceToString(exception.getStackTrace()));
-        error(callingClass, message, parameters);
-    }
-
     private static String stackTraceToString(StackTraceElement[] stackTraceElements) {
         StringBuilder res = new StringBuilder();
         res.append("\n").append("Stacktrace:");

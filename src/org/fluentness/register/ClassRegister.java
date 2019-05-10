@@ -2,6 +2,7 @@ package org.fluentness.register;
 
 import org.fluentness.Fluentness;
 import org.fluentness.command.Command;
+import org.fluentness.controller.Controller;
 import org.fluentness.localization.Localization;
 import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
@@ -46,6 +47,22 @@ public final class ClassRegister {
         return modelPropertiesInstances.get(className);
     }
 
+    // controllers
+    private static Set<Controller> controllerInstances;
+    static {
+        controllerInstances = new HashSet<>();
+        for (Class controllerClass : getExternalClasses(CONTROLLER, Controller.class)) {
+            try {
+                controllerInstances.add((Controller) controllerClass.newInstance());
+            } catch (InstantiationException | IllegalAccessException e) {
+                Logger.error(ClassRegister.class, e);
+            }
+        }
+    }
+    public static Set<Controller> getControllerInstances() {
+        return controllerInstances;
+    }
+
     // localizations
     private static Map<String, Localization.Translations> translations;
     static {
@@ -87,11 +104,13 @@ public final class ClassRegister {
         return result;
     }
 
+    // class loader within fluentness
     private static List<Class<?>> getInternalClasses(String packageName, Class<?> parent) {
         packageName = Fluentness.class.getPackage().getName().concat(".").concat(packageName);
         return getClasses(packageName, parent);
     }
 
+    // class loader outside fluentness
     private static List<Class<?>> getExternalClasses(String packageName, Class<?> parent) {
         packageName = Fluentness.Configuration.getString(Fluentness.Configuration.APP_PACKAGE).concat(".").concat(packageName);
         return getClasses(packageName, parent);

@@ -26,18 +26,16 @@ public final class Fluentness {
             if (ClassRegister.getCommandInstances().stream().anyMatch(cmd -> cmd.getName().equals(args[0]))) {
                 Command command = ClassRegister.getCommandInstances().stream().filter(cmd -> cmd.getName().equals(args[0])).findFirst().get();
 
-                Command.Parameters parameters = command.getParameters();
-                if ((parameters == null || parameters.size() == args.length - 1) &&
-                        (parameters != null || args.length != 1)) {
+                String[] declaredParameters = command.getParameters();
+                if (declaredParameters.length == args.length - 1) {
 
-                    for (int i = 1; i < args.length; i++) {
-                        parameters.set(i - 1, args[i]);
-                    }
+                    String[] parameters = new String[declaredParameters.length];
+                    System.arraycopy(args, 1, parameters, 0, args.length - 1);
                     command.execute(parameters);
 
                 } else {
                     // Wrong arguments
-                    Logger.error(Fluentness.class, "Wrong use of command %s, expected %s arguments", args[0], parameters.size());
+                    Logger.error(Fluentness.class, "Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
                 }
             } else {
                 // No command found
@@ -45,7 +43,7 @@ public final class Fluentness {
             }
         } else {
             // No command
-            new HelpCommand().execute(null);
+            new HelpCommand().execute();
         }
     }
 

@@ -1,6 +1,6 @@
 package com.sample.view;
 
-import com.sample.model.PersonModel;
+import org.fluentness.entity.Entity;
 import org.fluentness.form.Form;
 import org.fluentness.view.Attribute;
 import org.fluentness.view.Template;
@@ -12,7 +12,7 @@ import java.util.List;
 public class PeopleView implements View.Html {
 
     @Attribute
-    public List<PersonModel> people;
+    public List<Entity> people;
 
     @Attribute
     public Form personForm;
@@ -23,6 +23,10 @@ public class PeopleView implements View.Html {
         return h1(attrs(CLASS -> "test", ID -> "1234", DATA -> "asdf"),
                 textarea(),
                 h1("test"),
+                forEachEntityIn(people,
+                        person -> h1(person.get("name"))
+                ),
+
                 2 == 2 ? h1("yea") : h1("no"),
                 personForm,
                 translate("welcome_message")

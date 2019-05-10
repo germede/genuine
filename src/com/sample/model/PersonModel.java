@@ -6,7 +6,7 @@ public class PersonModel implements Model {
 
     @Override
     public Properties getProperties() {
-        return new Properties(
+        return properties(
                 id -> integer().primaryKey(),
                 name -> string(),
                 surname -> string().nullable()

@@ -11,12 +11,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-public class HttpRouter {
+final class HttpRouter {
 
     private HttpRouter() {
     }
 
-    public static Map<String, HttpHandler> getRouteHandlerMap() {
+    static Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
         Set<Controller> controllerInstances = ClassRegister.getControllerInstances();
@@ -111,17 +111,13 @@ public class HttpRouter {
         } catch (IllegalAccessException e) {
             Logger.error(HttpRouter.class, e);
             HttpServer.serve(httpExchange, new Response(HttpStatusCode.InternalServerError));
-
             // exception within controller method invocation
         } catch (InvocationTargetException e) {
-            Logger.error(HttpRouter.class,
-                    (Exception) e.getTargetException(),
-                    e.getMessage(),
-                    controller.getClass().getCanonicalName(),
-                    (method.getName()));
+            Logger.error(controller.getClass(), (Exception) e.getTargetException());
             HttpServer.serve(httpExchange, new Response(HttpStatusCode.InternalServerError));
         } catch (Exception e) {
             Logger.error(HttpRouter.class, e);
+            HttpServer.serve(httpExchange, new Response(HttpStatusCode.InternalServerError));
         }
     }
 }

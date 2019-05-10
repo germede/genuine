@@ -11,7 +11,7 @@ public class EnLocalization implements Localization {
 
     @Override
     public Translations getTranslations() {
-        return new Translations(
+        return translations(
                 welcome_message -> "Welcome to the site",
                 test_message -> "This is a test message"
         );

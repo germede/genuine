@@ -13,7 +13,7 @@ public class VersionCommand implements Command {
     }
 
     @Override
-    public void execute(Parameters parameters) {
+    public void execute(String... parameters) {
         System.out.println("1.0-dev");
     }
 

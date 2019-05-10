@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateException;
 
-public class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
+final class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
 
     HttpSecure() {
         super(getSslContext(Fluentness.Configuration.getString(Fluentness.Configuration.APP_KEYSTORE)));

@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ProtocolException;
 
-public class HttpServer extends HttpsConfigurator {
+public final class HttpServer extends HttpsConfigurator {
 
     private static com.sun.net.httpserver.HttpServer server;
     private static String protocol = Fluentness.Configuration.getString(Fluentness.Configuration.APP_PROTOCOL);

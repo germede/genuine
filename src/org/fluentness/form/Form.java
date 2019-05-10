@@ -20,11 +20,15 @@ public interface Form extends View.Html, FieldFunctions {
         ).render();
     }
 
+    default Fields fields(NamedValue<Field>... fields) {
+        return new Fields(fields);
+    }
+
     class Fields {
 
         private List<Field> fields = new ArrayList<>();
 
-        public Fields(NamedValue<Field>... fields) {
+        private Fields(NamedValue<Field>... fields) {
             Arrays.stream(fields).forEach(field -> this.fields.add(field.value().setName(field.name())));
         }
     }

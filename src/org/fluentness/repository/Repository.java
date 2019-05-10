@@ -2,88 +2,71 @@ package org.fluentness.repository;
 
 import org.fluentness.database.SqlConstraint;
 import org.fluentness.database.SqlQuery;
-import org.fluentness.database.SqlResult;
-import org.fluentness.logging.Logger;
 import org.fluentness.entity.Entity;
 import org.fluentness.model.Model;
-import org.fluentness.register.ClassRegister;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface Repository<T extends Model> {
 
-    default Model getModel() {
-        return ClassRegister.getModelInstance(this.getClass().getGenericSuperclass().getClass().getCanonicalName());
-    }
+    Class<T> getModel();
 
-    default Model.Properties getModelProperties() {
-        return ClassRegister.getModelPropertiesInstance(this.getClass().getGenericSuperclass().getClass().getCanonicalName());
-    }
+    Model getModelInstance();
 
-    default List<Entity<T>> entityList(ResultSet resultSet) {
+    Model.Properties getModelPropertiesInstance();
+
+    default List<Entity<T>> entityListFrom(List<Map<String, Object>> resultList) {
         List<Entity<T>> entityList = new ArrayList<>();
-        try {
-            ResultSetMetaData meta = resultSet.getMetaData();
-            int numColumns = meta.getColumnCount();
-            while (resultSet.next()) {
-                Entity<T> entity = new Entity<>();
-                for (int i = 1; i <= numColumns; ++i) {
-                    String name = meta.getColumnName(i);
-                    Object value = resultSet.getObject(i);
-                    entity.set(name, value);
-                }
-                entityList.add(entity);
-            }
-        } catch (SQLException e) {
-            Logger.error(Repository.class, e);
+        for (Map<String, Object> stringObjectMap : resultList) {
+            Entity<T> entity = new Entity<>(getModel());
+            stringObjectMap.forEach((name, value) -> entity.set(name, value));
+            entityList.add(entity);
         }
         return entityList;
     }
 
     default List<Entity<T>> list() {
-        SqlResult result = new SqlQuery()
+        return entityListFrom(new SqlQuery()
                 .select()
-                .from(getModel().getTable())
-                .execute();
-        return entityList(result.set);
+                .from(getModelInstance().getTable())
+                .execute()
+                .resultList());
     }
 
     default Entity<T> find(Object primaryKey) {
-        SqlResult result = new SqlQuery()
+        return entityListFrom(new SqlQuery()
                 .select()
-                .from(getModel().getTable())
-                .where(new SqlConstraint(getModel().getPrimaryKey()).isEqualTo(primaryKey))
-                .execute();
-        return entityList(result.set).get(0);
+                .from(getModelInstance().getTable())
+                .where(new SqlConstraint(getModelInstance().getPrimaryKey()).isEqualTo(primaryKey))
+                .execute()
+                .resultList()).get(0);
     }
 
     default int create(Entity<T> entity) {
-        SqlResult result = new SqlQuery()
+        return new SqlQuery()
                 .insert()
-                .into(getModel().getTable())
+                .into(getModelInstance().getTable())
                 .values(entity.getAll())
-                .execute();
-        return result.size;
+                .execute()
+                .resultSize();
     }
 
     default int update(Entity<T> entity) {
-        SqlResult result = new SqlQuery()
-                .update(getModel().getTable())
+        return new SqlQuery()
+                .update(getModelInstance().getTable())
                 .set(entity.getAll())
-                .execute();
-        return result.size;
+                .execute()
+                .resultSize();
     }
 
     default int delete(Entity<T> entity) {
-        SqlResult result = new SqlQuery()
+        return new SqlQuery()
                 .delete()
-                .from(getModel().getTable())
-                .where(new SqlConstraint(getModel().getPrimaryKey()).isEqualTo(entity.getPrimaryKey()))
-                .execute();
-        return result.size;
+                .from(getModelInstance().getTable())
+                .where(new SqlConstraint(getModelInstance().getPrimaryKey()).isEqualTo(entity.getPrimaryKey()))
+                .execute()
+                .resultSize();
     }
 }

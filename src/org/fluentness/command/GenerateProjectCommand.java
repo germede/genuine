@@ -1,7 +1,6 @@
 package org.fluentness.command;
 
 import org.fluentness.Fluentness;
-import org.fluentness.register.ClassRegister;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.generator.ClassGenerator;
@@ -9,20 +8,21 @@ import org.fluentness.generator.FieldGenerator;
 import org.fluentness.generator.MethodGenerator;
 import org.fluentness.networking.Request;
 import org.fluentness.networking.Response;
+import org.fluentness.register.ClassRegister;
 import org.fluentness.repository.Repository;
 
 import java.lang.reflect.Modifier;
 
-public class GenerateControllerCommand implements Command {
+public class GenerateProjectCommand implements Command {
 
     @Override
     public String getName() {
-        return "generate:controller";
+        return "generate:crud";
     }
 
     @Override
     public String getDescription() {
-        return "Creates a new controller class within the controller package";
+        return "Creates a new CRUD set of Controller, Model, View, Localization and Form";
     }
 
     @Override

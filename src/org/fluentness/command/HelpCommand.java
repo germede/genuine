@@ -18,7 +18,7 @@ public class HelpCommand implements Command {
     }
 
     @Override
-    public void execute(Parameters parameters) {
+    public void execute(String... parameters) {
         System.out.println("\n" +
                 "   .-._.---'.                                             \n" +
                 "  (_) /    /                    /                         \n" +
@@ -49,7 +49,7 @@ public class HelpCommand implements Command {
             if (!category.getKey().isEmpty()) {
                 System.out.println(ANSI_GREEN + "- " + category.getKey() + ":" + ANSI_RESET);
             }
-            category.getValue().stream().forEach(command -> System.out.println(command.getUsage()));
+            category.getValue().forEach(Command::printUsage);
             System.out.println();
         }
     }

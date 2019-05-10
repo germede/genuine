@@ -11,10 +11,9 @@ public class EsLocalization implements Localization {
 
     @Override
     public Translations getTranslations() {
-        return new Translations(
+        return translations(
                 welcome_message -> "Bienvenido al sitio",
                 test_message -> "Esto es un test"
         );
     }
-
 }

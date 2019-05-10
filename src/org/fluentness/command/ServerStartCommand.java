@@ -15,7 +15,7 @@ public class ServerStartCommand implements Command {
     }
 
     @Override
-    public void execute(Parameters parameters) {
+    public void execute(String... parameters) {
         HttpServer.start();
     }
 }

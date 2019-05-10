@@ -3,38 +3,67 @@ package org.fluentness.database;
 import org.fluentness.Fluentness;
 import org.fluentness.logging.Logger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 final class Database {
 
-    static SqlResult execute(String query, List<Object> parameters) {
+    public static List<Map<String, Object>> read(String query, List<Object> parameters) {
         Connection connection = getConnection();
-        SqlResult result = new SqlResult();
         if (connection != null) {
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                if (parameters == null) {
-                    parameters = new ArrayList<>();
+                if (parameters != null) {
+                    int i = 0;
+                    for (Object parameter : parameters) {
+                        statement.setObject(++i, parameter);
+                    }
                 }
-                int i = 0;
-                for (Object parameter : parameters) {
-                    statement.setObject(++i, parameter);
-                }
-                Logger.debug(Database.class, statement.toString().replaceAll(".+: ",""));
-                if (query.startsWith("SELECT")) {
-                    result.set = statement.executeQuery();
-                } else {
-                    result.size = statement.executeUpdate();
-                }
+                Logger.debug(Database.class, statement.toString().replaceAll(".+: ", ""));
+                return resultSetToResultList(statement.executeQuery());
             } catch (SQLException e) {
                 Logger.error(Database.class, e);
             }
         }
-        return result;
+        return null;
+    }
+
+    public static int write(String query, List<Object> parameters) {
+        Connection connection = getConnection();
+        if (connection != null) {
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                if (parameters != null) {
+                    int i = 0;
+                    for (Object parameter : parameters) {
+                        statement.setObject(++i, parameter);
+                    }
+                }
+                Logger.debug(Database.class, statement.toString().replaceAll(".+: ", ""));
+                return statement.executeUpdate();
+            } catch (SQLException e) {
+                Logger.error(Database.class, e);
+            }
+        }
+        return 0;
+    }
+
+    private static List<Map<String, Object>> resultSetToResultList(ResultSet resultSet) throws SQLException {
+
+        List<Map<String, Object>> resultMap = new ArrayList<>();
+        ResultSetMetaData meta = resultSet.getMetaData();
+        int numColumns = meta.getColumnCount();
+        while (resultSet.next()) {
+            Map<String, Object> row = new HashMap<>();
+            for (int i = 1; i <= numColumns; ++i) {
+                String name = meta.getColumnName(i);
+                Object value = resultSet.getObject(i);
+                row.put(name, value);
+            }
+            resultMap.add(row);
+        }
+        return resultMap;
     }
 
     private static Connection getConnection() {
@@ -56,7 +85,7 @@ final class Database {
         return null;
     }
 
-    private Database () {
+    private Database() {
 
     }
 }

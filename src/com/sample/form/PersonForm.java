@@ -10,7 +10,7 @@ public class PersonForm implements Form {
 
     @Override
     public Fields getFields() {
-        return new Fields(
+        return fields(
                 name -> text().required()
         );
     }

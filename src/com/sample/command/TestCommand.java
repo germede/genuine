@@ -16,7 +16,7 @@ public class TestCommand implements Command {
     }
 
     @Override
-    public void execute(Parameters parameters) {
+    public void execute(String... parameters) {
         System.out.println("test");
     }
 }
