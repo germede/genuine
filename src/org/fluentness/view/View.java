@@ -10,7 +10,9 @@ import org.fluentness.rendering.Renderable;
 
 import java.lang.reflect.Field;
 
-public interface View extends Renderable, Localizable {
+public interface View extends Localizable {
+
+    Renderable getRenderable();
 
     // rendering
     default String renderWithCacheAndTemplate(String language) {
@@ -22,7 +24,7 @@ public interface View extends Renderable, Localizable {
         }
 
         // with template
-        return getTemplate().render();
+        return getTemplate().getRenderable().render();
     }
 
     // render parent view if present, otherwise return itself

@@ -4,10 +4,11 @@ import org.fluentness.common.NamedValue;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public interface Localization {
-    String getLanguage();
+    Locale getLocale();
 
     Translations getTranslations();
 
@@ -25,10 +26,6 @@ public interface Localization {
 
         public String get(String name) {
             return translations.getOrDefault(name, name);
-        }
-
-        public boolean contains(String name) {
-            return translations.containsKey(name);
         }
     }
 }

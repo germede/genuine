@@ -30,7 +30,7 @@ public class ViewCacher implements Cacher {
 
                 if (file.createNewFile()) {
                     // missed! -> create new cache record
-                    String content = view.render().toString();
+                    String content = view.getRenderable().render();
                     FileWriter writer = new FileWriter(file);
                     writer.write(content);
                     writer.close();
@@ -46,7 +46,7 @@ public class ViewCacher implements Cacher {
                 Logger.error(ViewCacher.class, e);
             }
         }
-        return view.render().toString();
+        return view.getRenderable().render();
     }
 
     public boolean isCacheable() {

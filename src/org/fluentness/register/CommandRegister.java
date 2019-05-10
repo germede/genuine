@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class CommandRegister
+public final class CommandRegister
 {
     public static final String COMMAND = "command";
 
-    private static List<Command> commandInstances;
+    private static final List<Command> commandInstances;
 
     static {
         commandInstances = new ArrayList<>();

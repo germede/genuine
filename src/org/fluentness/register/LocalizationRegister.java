@@ -3,28 +3,33 @@ package org.fluentness.register;
 import org.fluentness.localization.Localization;
 import org.fluentness.logging.Logger;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
-public class LocalizationRegister {
+public final class LocalizationRegister {
 
     public static final String LOCALIZATION = "localization";
 
-    private static Map<String, Localization.Translations> translations;
+    private static final Map<Locale, Localization.Translations> translationsMap;
     static {
-        translations = new HashMap<>();
+        translationsMap = new HashMap<>();
         for (Class translationClass : ClassLoader.getExternalClasses(LOCALIZATION, Localization.class)) {
             try {
                 Localization translationInstance = (Localization) translationClass.newInstance();
-                translations.put(translationInstance.getLanguage().toLowerCase(), translationInstance.getTranslations());
+                translationsMap.put(translationInstance.getLocale(), translationInstance.getTranslations());
             } catch (InstantiationException | IllegalAccessException e) {
                 Logger.error(ClassLoader.class, e);
             }
         }
     }
-    public static Localization.Translations getTranslation(String language) {
-        return translations.get(language);
+    public static String getTranslation(Locale locale, String name) {
+        return translationsMap.get(locale).get(name);
     }
 
 
+    public static Collection<Locale> getLanguages() {
+        return translationsMap.keySet();
+    }
 }

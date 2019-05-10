@@ -1,5 +1,6 @@
 package com.sample.view;
 
+import org.fluentness.rendering.Renderable;
 import org.fluentness.view.Placeholder;
 import org.fluentness.view.View;
 
@@ -9,7 +10,7 @@ public class BaseView implements View.Html {
     public View placeholder;
 
     @Override
-    public String render() {
+    public Renderable getRenderable() {
         return html(
                 head(
                         title("the best site"),
@@ -17,9 +18,8 @@ public class BaseView implements View.Html {
                         meta(CHARSET -> "utf-8")
                 ),
                 body(
-                        placeholder
-
+                        placeholder.getRenderable()
                 )
-        ).render();
+        );
     }
 }

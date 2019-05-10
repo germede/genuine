@@ -1,6 +1,7 @@
 package org.fluentness.form;
 
 import org.fluentness.common.NamedValue;
+import org.fluentness.rendering.Renderable;
 import org.fluentness.view.View;
 
 import java.util.ArrayList;
@@ -14,10 +15,10 @@ public interface Form extends View.Html, FieldFunctions {
     Fields getFields();
 
     @Override
-    default String render() {
+    default Renderable getRenderable() {
         return form(attrs(METHOD -> getMethod()),
-                String.join("", getFields().fields)
-        ).render();
+                String.join("", getFields().fields.toString())
+        );
     }
 
     default Fields fields(NamedValue<Field>... fields) {

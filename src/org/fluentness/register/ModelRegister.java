@@ -6,11 +6,11 @@ import org.fluentness.model.Model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModelRegister {
+public final class ModelRegister {
     public static final String MODEL = "model";
 
-    private static Map<String, Model> modelInstances;
-    private static Map<String, Model.Properties> modelPropertiesInstances;
+    private static final Map<String, Model> modelInstances;
+    private static final Map<String, Model.Properties> modelPropertiesInstances;
     static {
         modelInstances = new HashMap<>();
         modelPropertiesInstances = new HashMap<>();

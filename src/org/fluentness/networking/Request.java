@@ -2,10 +2,13 @@ package org.fluentness.networking;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
+import org.fluentness.register.LocalizationRegister;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -78,5 +81,13 @@ public class Request {
 
     public String getPostParameter(String name) {
         return postParameters.getOrDefault(name, "");
+    }
+
+    public Locale getPreferredLocale() {
+        if (headers.getFirst("Accept-Language") == null || headers.getFirst("Accept-Language").isEmpty()) {
+            return Locale.getDefault();
+        }
+        List<Locale.LanguageRange> ranges = Locale.LanguageRange.parse(headers.getFirst("Accept-Language"));
+        return Locale.lookup(ranges, LocalizationRegister.getLanguages());
     }
 }

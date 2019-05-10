@@ -6,11 +6,10 @@ import org.fluentness.logging.Logger;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ControllerRegister {
+public final class ControllerRegister {
     public static final String CONTROLLER = "controller";
 
-    private static Set<Controller> controllerInstances;
-
+    private static final Set<Controller> controllerInstances;
     static {
         controllerInstances = new HashSet<>();
         for (Class controllerClass : ClassLoader.getExternalClasses(CONTROLLER, Controller.class)) {

@@ -1,6 +1,7 @@
 package org.fluentness.form;
 
 
+import org.fluentness.rendering.Renderable;
 import org.fluentness.view.View;
 
 public abstract class Field implements View.Html {
@@ -24,11 +25,11 @@ public abstract class Field implements View.Html {
     }
 
     @Override
-    public String render() {
+    public Renderable getRenderable() {
         return input(
                 TYPE -> type,
                 REQUIRED -> String.valueOf(required),
                 NAME -> name
-        ).render();
+        );
     }
 }

@@ -6,6 +6,7 @@ import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.logging.Logger;
 import org.fluentness.register.ControllerRegister;
+import org.fluentness.register.RequestRegister;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -93,7 +94,13 @@ final class HttpRouter {
             // invoke controller method and serve
             String declaredControllerRoute = controller.getClass().isAnnotationPresent(Route.class) ? controller.getClass().getAnnotation(Route.class).value() : "";
             String declaredRoute = declaredControllerRoute + method.getAnnotation(Route.class).value();
-            Response response = (Response) method.invoke(controller, new Request(httpExchange, declaredRoute));
+
+            Request request = new Request(httpExchange, declaredRoute);
+            RequestRegister.putCurrent(request);
+
+            Response response = (Response) method.invoke(controller, request);
+            RequestRegister.removeCurrent();
+
             HttpServer.serve(httpExchange, response);
 
 //            } else {

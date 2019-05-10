@@ -2,11 +2,13 @@ package com.sample.localization;
 
 import org.fluentness.localization.Localization;
 
+import java.util.Locale;
+
 public class EsLocalization implements Localization {
 
     @Override
-    public String getLanguage() {
-        return "ES";
+    public Locale getLocale() {
+        return new Locale("EN");
     }
 
     @Override
