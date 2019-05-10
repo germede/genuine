@@ -1,6 +1,6 @@
 package org.fluentness.entity;
 
-import org.fluentness.common.ClassicNamedValue;
+import org.fluentness.common.NamedValueImpl;
 import org.fluentness.common.NamedValue;
 import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
@@ -67,7 +67,7 @@ public class Entity<T extends Model> {
 
     public NamedValue[] getAll() {
         List<NamedValue> result = new ArrayList<>(properties.size());
-        properties.forEach((s, o) -> result.add(new ClassicNamedValue(s, o)));
+        properties.forEach((s, o) -> result.add(new NamedValueImpl(s, o)));
         return result.toArray(new NamedValue[0]);
     }
 

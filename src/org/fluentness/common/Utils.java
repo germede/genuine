@@ -22,4 +22,8 @@ public final class Utils {
             }
         }
     }
+
+    public static String toTitelCase(String string) {
+        return string.substring(0,1).toUpperCase().concat(string.substring(1));
+    }
 }

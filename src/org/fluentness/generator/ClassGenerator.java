@@ -47,11 +47,11 @@ public class ClassGenerator implements Generator {
         return this;
     }
 
-    public ClassGenerator addAnnotation(Class<? extends Annotation> annotationClass, String parameters) {
+    public ClassGenerator addAnnotation(Class<? extends Annotation> annotationClass, String... parameters) {
         addImport(annotationClass);
         String annotation = annotationClass.getSimpleName();
-        if (!parameters.isEmpty()) {
-            annotation = annotation + "(" + parameters + ")";
+        if (parameters.length > 0) {
+            annotation = annotation + "(" + String.join(",", parameters) + ")";
         }
         this.annotations.add(annotation);
         return this;

@@ -24,10 +24,10 @@ public class MethodGenerator implements Generator {
         this.name = name;
     }
 
-    public MethodGenerator addAnnotation(Class<? extends Annotation> annotationClass, String parameters) {
+    public MethodGenerator addAnnotation(Class<? extends Annotation> annotationClass, String... parameters) {
         String annotation = annotationClass.getSimpleName();
-        if (!parameters.isEmpty()) {
-            annotation = annotation + "(" + parameters + ")";
+        if (parameters.length > 0) {
+            annotation = annotation + "(" + String.join(",", parameters) + ")";
         }
         this.annotations.add(annotation);
         this.annotationClasses.add(annotationClass);

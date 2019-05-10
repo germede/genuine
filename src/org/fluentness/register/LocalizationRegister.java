@@ -1,5 +1,6 @@
 package org.fluentness.register;
 
+import org.fluentness.common.PackageNames;
 import org.fluentness.localization.Localization;
 import org.fluentness.logging.Logger;
 
@@ -10,12 +11,10 @@ import java.util.Map;
 
 public final class LocalizationRegister {
 
-    public static final String LOCALIZATION = "localization";
-
     private static final Map<Locale, Localization.Translations> translationsMap;
     static {
         translationsMap = new HashMap<>();
-        for (Class translationClass : ClassLoader.getExternalClasses(LOCALIZATION, Localization.class)) {
+        for (Class translationClass : ClassLoader.getExternalClasses(PackageNames.LOCALIZATION, Localization.class)) {
             try {
                 Localization localization = (Localization) translationClass.newInstance();
                 ClassInjector.injectFields(localization);

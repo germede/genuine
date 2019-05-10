@@ -1,6 +1,7 @@
 package org.fluentness.register;
 
 import org.fluentness.command.Command;
+import org.fluentness.common.PackageNames;
 import org.fluentness.logging.Logger;
 
 import java.util.ArrayList;
@@ -9,13 +10,12 @@ import java.util.List;
 
 public final class CommandRegister
 {
-    public static final String COMMAND = "command";
 
     private static final List<Command> commandInstances;
 
     static {
         commandInstances = new ArrayList<>();
-        for (Class commandClass : ClassLoader.getAllClasses(COMMAND, Command.class)) {
+        for (Class commandClass : ClassLoader.getAllClasses(PackageNames.COMMAND, Command.class)) {
             try {
                 Command command = (Command) commandClass.newInstance();
                 ClassInjector.injectFields(command);

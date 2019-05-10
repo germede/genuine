@@ -1,5 +1,6 @@
 package org.fluentness.register;
 
+import org.fluentness.common.PackageNames;
 import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
 
@@ -7,14 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class ModelRegister {
-    public static final String MODEL = "model";
 
     private static final Map<String, Model> modelInstances;
     private static final Map<String, Model.Properties> modelPropertiesInstances;
     static {
         modelInstances = new HashMap<>();
         modelPropertiesInstances = new HashMap<>();
-        for (Class modelClass : ClassLoader.getExternalClasses(MODEL, Model.class)) {
+        for (Class modelClass : ClassLoader.getExternalClasses(PackageNames.MODEL, Model.class)) {
             try {
                 Model model = (Model) modelClass.newInstance();
                 ClassInjector.injectFields(model);

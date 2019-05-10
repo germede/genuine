@@ -1,10 +1,10 @@
 package org.fluentness.common;
 
-public class ClassicNamedValue implements NamedValue {
+public class NamedValueImpl implements NamedValue {
     private String name;
     private Object value;
 
-    public ClassicNamedValue(String name, Object value) {
+    public NamedValueImpl(String name, Object value) {
         this.name = name;
         this.value = value;
     }

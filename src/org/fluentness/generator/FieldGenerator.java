@@ -20,10 +20,10 @@ public class FieldGenerator implements Generator {
         this.name = name;
     }
 
-    public FieldGenerator addAnnotation(Class<? extends Annotation> annotationClass, String parameters) {
+    public FieldGenerator addAnnotation(Class<? extends Annotation> annotationClass, String... parameters) {
         String annotation = annotationClass.getSimpleName();
-        if (!parameters.isEmpty()) {
-            annotation = annotation + "(" + parameters + ")";
+        if (parameters.length > 0) {
+            annotation = annotation + "(" + String.join(",", parameters) + ")";
         }
         this.annotations.add(annotation);
         this.annotationClasses.add(annotationClass);
