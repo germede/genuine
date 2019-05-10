@@ -8,7 +8,7 @@ public class EsLocalization implements Localization {
 
     @Override
     public Locale getLocale() {
-        return new Locale("EN");
+        return new Locale("ES");
     }
 
     @Override

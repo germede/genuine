@@ -28,8 +28,7 @@ public final class LocalizationRegister {
         return translationsMap.get(locale).get(name);
     }
 
-
-    public static Collection<Locale> getLanguages() {
+    public static Collection<Locale> getLocales() {
         return translationsMap.keySet();
     }
 }

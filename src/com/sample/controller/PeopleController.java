@@ -23,6 +23,7 @@ public class PeopleController implements Controller {
         Logger.debug(this.getClass(), request.getUrlParameter());
         Logger.debug(this.getClass(), request.getGetParameter("test"));
         Logger.debug(this.getClass(), request.getPostParameter("test"));
+        Logger.debug(this.getClass(), request.getPreferredLocale().getLanguage());
         Entity person = new Entity(PersonModel.class);
         person.set(
           name -> "pepe",
