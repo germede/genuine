@@ -3,7 +3,7 @@ package com.sample.view;
 import org.fluentness.entity.Entity;
 import org.fluentness.form.Form;
 import org.fluentness.rendering.Renderable;
-import org.fluentness.view.Attribute;
+import org.fluentness.view.Parameter;
 import org.fluentness.view.Template;
 import org.fluentness.view.View;
 
@@ -12,11 +12,11 @@ import java.util.List;
 @Template(BaseView.class)
 public class PeopleView implements View.Html {
 
-    @Attribute
-    public List<Entity> people;
+    @Parameter
+    private List<Entity> people;
 
-    @Attribute
-    public Form personForm;
+    @Parameter
+    private Form personForm;
 
     @Override
     public Renderable getRenderable() {
@@ -24,8 +24,8 @@ public class PeopleView implements View.Html {
 
                 textarea(),
                 h1("test"),
-                forEachEntityIn(people,
-                        person -> h1(person.get("name"))
+                forEachEntityIn(people, person ->
+                        h1(person.get("name"))
                 ),
 
                 2 == 2 ? h1("yea") : h1("no"),

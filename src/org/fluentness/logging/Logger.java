@@ -1,6 +1,6 @@
 package org.fluentness.logging;
 
-import org.fluentness.Fluentness;
+import org.fluentness.configuration.Configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
-import static org.fluentness.Fluentness.Configuration.LOG_LEVEL;
+import static org.fluentness.configuration.Configuration.LOG_LEVEL;
 
 public final class Logger {
 
@@ -19,8 +19,8 @@ public final class Logger {
 
     static {
         String logLevel;
-        if (Fluentness.Configuration.contains(LOG_LEVEL)) {
-            logLevel = toJavaLogLevel(Fluentness.Configuration.getString(LOG_LEVEL));
+        if (Configuration.contains(LOG_LEVEL)) {
+            logLevel = toJavaLogLevel(Configuration.getString(LOG_LEVEL));
         } else {
             logLevel = "ALL";
         }
@@ -31,7 +31,7 @@ public final class Logger {
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (Fluentness.Configuration.getBoolean(Fluentness.Configuration.LOG_CONSOLE)) {
+        if (Configuration.getBoolean(Configuration.LOG_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -39,7 +39,7 @@ public final class Logger {
         }
 
         // file logging
-        if (Fluentness.Configuration.getBoolean(Fluentness.Configuration.LOG_FILE)) {
+        if (Configuration.getBoolean(Configuration.LOG_FILE)) {
             try {
                 String logFilePath = LOG_FILE_PATH +
                         new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";

@@ -9,11 +9,11 @@ import org.fluentness.entity.Entity;
 import org.fluentness.logging.Logger;
 import org.fluentness.networking.Request;
 import org.fluentness.networking.Response;
-import org.fluentness.repository.Repository;
 import org.fluentness.repository.CrudRepository;
+import org.fluentness.repository.Repository;
 
 public class PeopleController implements Controller {
-
+    
     private Repository<PersonModel> personRepository = new CrudRepository<>(PersonModel.class);
 
     @Route("/list/{id}")

@@ -1,6 +1,6 @@
 package org.fluentness.command;
 
-import org.fluentness.Fluentness;
+import org.fluentness.configuration.Configuration;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.generator.ClassGenerator;
@@ -35,7 +35,7 @@ public class GenerateControllerCommand implements Command {
         String name = parameters[0];
 
         new ClassGenerator(name + "Controller")
-                .setPackage(Fluentness.Configuration.getString(Fluentness.Configuration.APP_PACKAGE) + "." + ControllerRegister.CONTROLLER)
+                .setPackage(Configuration.getString(Configuration.APP_PACKAGE) + "." + ControllerRegister.CONTROLLER)
                 .addModifier(Modifier.PUBLIC)
                 .addAnnotation(Route.class, "\"/" + name.toLowerCase() + "\"")
                 .addInterface(Controller.class)

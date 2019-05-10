@@ -1,6 +1,7 @@
 package org.fluentness.register;
 
 import org.fluentness.Fluentness;
+import org.fluentness.configuration.Configuration;
 import org.fluentness.logging.Logger;
 
 import java.io.File;
@@ -27,7 +28,7 @@ public final class ClassLoader {
     }
 
     static List<Class<?>> getExternalClasses(String packageName, Class<?> parent) {
-        packageName = Fluentness.Configuration.getString(Fluentness.Configuration.APP_PACKAGE).concat(".").concat(packageName);
+        packageName = Configuration.getString(Configuration.APP_PACKAGE).concat(".").concat(packageName);
         return getClasses(packageName, parent);
     }
 

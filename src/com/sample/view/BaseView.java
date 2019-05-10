@@ -7,7 +7,7 @@ import org.fluentness.view.View;
 public class BaseView implements View.Html {
 
     @Placeholder
-    public View placeholder;
+    private View placeholder;
 
     @Override
     public Renderable getRenderable() {

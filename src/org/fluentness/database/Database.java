@@ -1,6 +1,6 @@
 package org.fluentness.database;
 
-import org.fluentness.Fluentness;
+import org.fluentness.configuration.Configuration;
 import org.fluentness.logging.Logger;
 
 import java.sql.*;
@@ -69,13 +69,13 @@ final class Database {
     private static Connection getConnection() {
 
         String url = "jdbc:" +
-                Fluentness.Configuration.getString(Fluentness.Configuration.DB_DRIVER) + "://" +
-                Fluentness.Configuration.getString(Fluentness.Configuration.DB_HOSTNAME) + ":" +
-                Fluentness.Configuration.getInt(Fluentness.Configuration.DB_PORT) + "/" +
-                Fluentness.Configuration.getString(Fluentness.Configuration.DB_NAME) +
-                Fluentness.Configuration.getString(Fluentness.Configuration.DB_PARAMS);
-        String username = Fluentness.Configuration.getString(Fluentness.Configuration.DB_USERNAME);
-        String password = Fluentness.Configuration.getString(Fluentness.Configuration.DB_PASSWORD);
+                Configuration.getString(Configuration.DB_DRIVER) + "://" +
+                Configuration.getString(Configuration.DB_HOSTNAME) + ":" +
+                Configuration.getInt(Configuration.DB_PORT) + "/" +
+                Configuration.getString(Configuration.DB_NAME) +
+                Configuration.getString(Configuration.DB_PARAMS);
+        String username = Configuration.getString(Configuration.DB_USERNAME);
+        String password = Configuration.getString(Configuration.DB_PASSWORD);
 
         try {
             return DriverManager.getConnection(url, username, password);

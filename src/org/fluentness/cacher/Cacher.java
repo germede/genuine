@@ -1,6 +1,6 @@
 package org.fluentness.cacher;
 
-import org.fluentness.Fluentness;
+import org.fluentness.configuration.Configuration;
 
 public interface Cacher {
 
@@ -10,6 +10,6 @@ public interface Cacher {
     String getCacheDirectory();
 
     default boolean isCacheEnabled() {
-        return Fluentness.Configuration.getBoolean(Fluentness.Configuration.CACHE_ENABLE);
+        return Configuration.getBoolean(Configuration.CACHE_ENABLE);
     }
 }

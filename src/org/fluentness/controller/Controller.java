@@ -18,7 +18,7 @@ public interface Controller {
         try {
             // instantiate view and set its attributes
             View instance = view.newInstance();
-            Arrays.stream(attributes).forEach(attribute -> instance.setAttribute(attribute.name(), attribute.value()));
+            Arrays.stream(attributes).forEach(attribute -> instance.injectAttribute(attribute.name(), attribute.value()));
             return new Response(HttpStatusCode.Ok)
                     .setBody(instance.renderWithCacheAndTemplate("EN"));
         } catch (InstantiationException | IllegalAccessException e) {

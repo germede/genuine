@@ -32,7 +32,7 @@ public interface View extends Localizable {
         try {
             if (this.getClass().isAnnotationPresent(Template.class)) {
                 View template = this.getClass().getAnnotation(Template.class).value().newInstance();
-                template.setPlaceholder(this);
+                template.injectPlaceholder(this);
                 return template;
             }
         } catch (InstantiationException | IllegalAccessException e) {
@@ -41,12 +41,13 @@ public interface View extends Localizable {
         return this;
     }
 
-    default View setAttribute(String attribute, Object value) {
+    default View injectAttribute(String name, Object value) {
         try {
-            Field[] fields = this.getClass().getDeclaredFields();
-            for (Field field : fields) {
-                if (field.getName().equals(attribute) && field.isAnnotationPresent(Attribute.class)) {
+            for (Field field : this.getClass().getDeclaredFields()) {
+                if (field.getName().equals(name) && field.isAnnotationPresent(Parameter.class)) {
+                    field.setAccessible(true);
                     field.set(this, value);
+                    field.setAccessible(false);
                 }
             }
         } catch (IllegalAccessException e) {
@@ -55,10 +56,9 @@ public interface View extends Localizable {
         return this;
     }
 
-    default void setPlaceholder(View view) {
+    default void injectPlaceholder(View view) {
         try {
-            Field[] fields = this.getClass().getDeclaredFields();
-            for (Field field : fields) {
+            for (Field field : this.getClass().getDeclaredFields()) {
                 if (field.isAnnotationPresent(Placeholder.class)) {
                     field.set(this, view);
                     break;
