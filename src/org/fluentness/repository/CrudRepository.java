@@ -1,7 +1,7 @@
 package org.fluentness.repository;
 
 import org.fluentness.model.Model;
-import org.fluentness.register.ClassRegister;
+import org.fluentness.register.ModelRegister;
 
 public class CrudRepository<T extends Model> implements Repository<T> {
     private final Class<T> model;
@@ -17,11 +17,11 @@ public class CrudRepository<T extends Model> implements Repository<T> {
 
     @Override
     public Model getModelInstance() {
-        return ClassRegister.getModelInstance(model.getCanonicalName());
+        return ModelRegister.getModelInstance(model.getCanonicalName());
     }
 
     @Override
     public Model.Properties getModelPropertiesInstance() {
-        return ClassRegister.getModelPropertiesInstance(model.getCanonicalName());
+        return ModelRegister.getModelPropertiesInstance(model.getCanonicalName());
     }
 }

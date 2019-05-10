@@ -2,9 +2,9 @@ package org.fluentness;
 
 import org.fluentness.command.Command;
 import org.fluentness.command.HelpCommand;
-import org.fluentness.register.ClassRegister;
 import org.fluentness.common.NamedValue;
 import org.fluentness.logging.Logger;
+import org.fluentness.register.CommandRegister;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,30 +22,28 @@ public final class Fluentness {
     }
 
     private static void executeCommand(String[] args) {
-        if (args.length > 0) {
-            if (ClassRegister.getCommandInstances().stream().anyMatch(cmd -> cmd.getName().equals(args[0]))) {
-                Command command = ClassRegister.getCommandInstances().stream().filter(cmd -> cmd.getName().equals(args[0])).findFirst().get();
-
-                String[] declaredParameters = command.getParameters();
-                if (declaredParameters.length == args.length - 1) {
-
-                    String[] parameters = new String[declaredParameters.length];
-                    System.arraycopy(args, 1, parameters, 0, args.length - 1);
-                    command.execute(parameters);
-
-                } else {
-                    // Wrong arguments
-                    Logger.error(Fluentness.class, "Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
-                }
-            } else {
-                // No command found
-                Logger.error(Fluentness.class, "No command %s found", args[0]);
-            }
-        } else {
-            // No command
+        if (args.length <= 0) {
             new HelpCommand().execute();
+            return;
         }
+
+        if (CommandRegister.getCommandInstances().stream().noneMatch(cmd -> cmd.getName().equals(args[0]))) {
+            Logger.error(Fluentness.class, "No command %s found", args[0]);
+            return;
+        }
+
+        Command command = CommandRegister.getCommandInstances().stream().filter(cmd -> cmd.getName().equals(args[0])).findFirst().get();
+        String[] declaredParameters = command.getParameters();
+        if (declaredParameters.length != args.length - 1) {
+            Logger.error(Fluentness.class, "Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
+            return;
+        }
+
+        String[] parameters = new String[declaredParameters.length];
+        System.arraycopy(args, 1, parameters, 0, args.length - 1);
+        command.execute(parameters);
     }
+
 
     public static class Configuration {
         public static final String APP_PACKAGE = "APP_PACKAGE";
@@ -69,7 +67,7 @@ public final class Fluentness {
         private static Map<String, Object> configuration = new HashMap<>();
 
         public static void set(NamedValue<Object>[] configurations) {
-            Arrays.stream(configurations).forEach(configurationProperty -> configuration.put(configurationProperty.name(),configurationProperty.value()));
+            Arrays.stream(configurations).forEach(configurationProperty -> configuration.put(configurationProperty.name(), configurationProperty.value()));
         }
 
         public static String getString(String key) {

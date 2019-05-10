@@ -2,10 +2,10 @@ package org.fluentness.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.register.ClassRegister;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.logging.Logger;
+import org.fluentness.register.ControllerRegister;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,7 +19,7 @@ final class HttpRouter {
     static Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
-        Set<Controller> controllerInstances = ClassRegister.getControllerInstances();
+        Set<Controller> controllerInstances = ControllerRegister.getControllerInstances();
         for (Controller controller : controllerInstances) {
 
             // retrieve controller base route

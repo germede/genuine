@@ -5,7 +5,7 @@ import org.fluentness.common.NamedValue;
 import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
 import org.fluentness.model.Property;
-import org.fluentness.register.ClassRegister;
+import org.fluentness.register.ModelRegister;
 
 import java.util.*;
 
@@ -22,11 +22,11 @@ public class Entity<T extends Model> {
     }
 
     private Model getModelInstance() {
-        return ClassRegister.getModelInstance(model.getCanonicalName());
+        return ModelRegister.getModelInstance(model.getCanonicalName());
     }
 
     private Model.Properties getModelPropertiesInstance() {
-        return ClassRegister.getModelPropertiesInstance(model.getCanonicalName());
+        return ModelRegister.getModelPropertiesInstance(model.getCanonicalName());
     }
 
     private Map<String, Object> properties = new HashMap<>();
@@ -35,10 +35,6 @@ public class Entity<T extends Model> {
         Property modelProperty = getModelPropertiesInstance().get(propertyName);
         if (modelProperty == null) {
             Logger.error(getModel(), "Property %s doesn't exists for model %s", propertyName, getModelInstance().getClass().getName());
-            return null;
-        }
-        if (!modelProperty.isReadable()) {
-            Logger.error(getModel(), "Property %s is not readable", propertyName);
             return null;
         }
         if (!modelProperty.isNullable() && this.properties.get(propertyName) == null) {
@@ -56,10 +52,6 @@ public class Entity<T extends Model> {
         Property modelProperty = getModelPropertiesInstance().get(name);
         if (modelProperty == null) {
             Logger.error(getModel(), "Property %s doesn't exists for model %s", name, getModelInstance().getClass().getName());
-            return;
-        }
-        if (!modelProperty.isWritable()) {
-            Logger.error(getModel(), "Property %s is not writable", name);
             return;
         }
         if (!modelProperty.isNullable() && value == null) {

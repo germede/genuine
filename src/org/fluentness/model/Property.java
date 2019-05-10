@@ -4,8 +4,6 @@ public abstract class Property {
 
     private boolean isPrimaryKey = false;
     private boolean nullable = false;
-    private boolean readable = true;
-    private boolean writable = true;
 
     public Property primaryKey() {
         this.isPrimaryKey = true;
@@ -17,30 +15,12 @@ public abstract class Property {
         return this;
     }
 
-    public Property readable() {
-        this.readable = true;
-        return this;
-    }
-
-    public Property writable() {
-        this.writable = true;
-        return this;
-    }
-
     public boolean isPrimaryKey() {
         return isPrimaryKey;
     }
 
     public boolean isNullable() {
         return nullable;
-    }
-
-    public boolean isReadable() {
-        return readable;
-    }
-
-    public boolean isWritable() {
-        return writable;
     }
 
     public abstract Class getType();

@@ -1,8 +1,11 @@
 package org.fluentness.command;
 
-import org.fluentness.register.ClassRegister;
+import org.fluentness.register.CommandRegister;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class HelpCommand implements Command {
@@ -32,7 +35,7 @@ public class HelpCommand implements Command {
         // categorize commands
         Map<String, List<Command>> categorizedCommands = new HashMap<>();
         categorizedCommands.put("", new ArrayList<>());
-        for (Command command : ClassRegister.getCommandInstances()) {
+        for (Command command : CommandRegister.getCommandInstances()) {
             String[] splittedCommand = command.getName().split(":");
             if (splittedCommand.length == 2) {
                 if (!categorizedCommands.containsKey(splittedCommand[0])) {

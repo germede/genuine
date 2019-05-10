@@ -8,7 +8,7 @@ import org.fluentness.generator.FieldGenerator;
 import org.fluentness.generator.MethodGenerator;
 import org.fluentness.networking.Request;
 import org.fluentness.networking.Response;
-import org.fluentness.register.ClassRegister;
+import org.fluentness.register.ControllerRegister;
 import org.fluentness.repository.Repository;
 
 import java.lang.reflect.Modifier;
@@ -34,8 +34,10 @@ public class GenerateProjectCommand implements Command {
     public void execute(String... parameters) {
         String name = parameters[0];
 
+
+
         new ClassGenerator(name + "Controller")
-                .setPackage(Fluentness.Configuration.getString(Fluentness.Configuration.APP_PACKAGE) + "." + ClassRegister.CONTROLLER)
+                .setPackage(Fluentness.Configuration.getString(Fluentness.Configuration.APP_PACKAGE) + "." + ControllerRegister.CONTROLLER)
                 .addModifier(Modifier.PUBLIC)
                 .addAnnotation(Route.class, "\"/" + name.toLowerCase() + "\"")
                 .addInterface(Controller.class)
