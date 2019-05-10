@@ -34,12 +34,11 @@ public class Entity<T extends Model> {
     public String get(String propertyName) {
         Property modelProperty = getModelPropertiesInstance().get(propertyName);
         if (modelProperty == null) {
-            Logger.error(getModel(), "Property %s doesn't exists for model %s", propertyName, getModelInstance().getClass().getName());
+            Logger.error(getModel(), "Property '%s' doesn't exists for model %s", propertyName, getModelInstance().getClass().getName());
             return null;
         }
         if (!modelProperty.isNullable() && this.properties.get(propertyName) == null) {
-            Logger.error(getModel(), "Property %s is null", propertyName);
-            return null;
+            Logger.warning(getModel(), "Property '%s' is not nullable, got null", propertyName);
         }
         return String.valueOf(this.properties.get(propertyName));
     }
@@ -51,15 +50,15 @@ public class Entity<T extends Model> {
     public void set(String name, Object value) {
         Property modelProperty = getModelPropertiesInstance().get(name);
         if (modelProperty == null) {
-            Logger.error(getModel(), "Property %s doesn't exists for model %s", name, getModelInstance().getClass().getName());
+            Logger.error(getModel(), "Property '%s' doesn't exists for model %s", name, getModelInstance().getClass().getName());
             return;
         }
         if (!modelProperty.isNullable() && value == null) {
-            Logger.error(getModel(), "Property %s cannot be set to null", name);
+            Logger.error(getModel(), "Property '%s' cannot be set to null", name);
             return;
         }
         if (value != null && !modelProperty.getType().equals(value.getClass())) {
-            Logger.error(getModel(), "Property %s type mismatch (expected %s, got %s)", name, modelProperty.getType(), value.getClass().getName());
+            Logger.error(getModel(), "Property '%s' type mismatch (expected %s, got %s)", name, modelProperty.getType(), value.getClass().getName());
             return;
         }
         this.properties.put(name, value);
