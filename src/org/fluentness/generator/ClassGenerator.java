@@ -47,6 +47,11 @@ public class ClassGenerator implements Generator {
         return this;
     }
 
+    public ClassGenerator removeImport(Class clazz) {
+        this.imports.remove(clazz);
+        return this;
+    }
+
     public ClassGenerator addAnnotation(Class<? extends Annotation> annotationClass, String... parameters) {
         addImport(annotationClass);
         String annotation = annotationClass.getSimpleName();
@@ -156,6 +161,5 @@ public class ClassGenerator implements Generator {
         }
         return result.toString();
     }
-
 
 }
