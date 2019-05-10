@@ -17,10 +17,16 @@
                     <source>8</source>
                     <target>8</target>
                     <encoding>UTF-8</encoding>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <issueManagement>
+        <url>https://github.com/gerardomd/fluentness/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
 
 
 </project>
