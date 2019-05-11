@@ -77,7 +77,7 @@ final class HttpRouter {
             }
 
             // static resource manager
-            routeHandlerMap.put("/res/", new HttpResourceHandler());
+            routeHandlerMap.put("/resources/", new HttpResourceHandler());
 
             // favicon route
             routeHandlerMap.put("/favicon.ico", new HttpResourceHandler());

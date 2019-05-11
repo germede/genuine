@@ -44,13 +44,15 @@ public final class HttpServer extends HttpsConfigurator {
             HttpRouter.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
-            Logger.info(HttpServer.class, "Server successfully started and listening to %s",
-                    protocol + ":/" + server.getAddress().getAddress() + ":" + port
-            );
+            Logger.info(HttpServer.class, "Server successfully started and listening to %s",getAddress());
         } catch (Exception e) {
             stop();
             Logger.error(HttpServer.class, e);
         }
+    }
+
+    public static String getAddress() {
+        return protocol + ":/" + server.getAddress().getAddress() + ":" + port;
     }
 
     public static void stop() {

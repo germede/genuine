@@ -4,6 +4,12 @@ import org.fluentness.common.NamedValue;
 
 public interface HtmlFunctions extends MarkupFunctions {
 
+    // helpers
+
+    default Renderable includeCss(String href) {
+        return link(rel -> "stylesheet", type -> "text/css", href_ -> "/resources/css/"+href);
+    }
+
     // empty
 
     default Renderable area(NamedValue... attributes) {
@@ -63,10 +69,6 @@ public interface HtmlFunctions extends MarkupFunctions {
     }
 
     // container
-
-    default Renderable doctype(CharSequence... content) {
-        return new MarkupElement("doctype", content);
-    }
 
     default Renderable a(CharSequence... content) {
         return new MarkupElement("a", content);
@@ -269,7 +271,10 @@ public interface HtmlFunctions extends MarkupFunctions {
     }
 
     default Renderable html(CharSequence... content) {
-        return new MarkupElement("html", content);
+        return new MarkupComposition(
+                new MarkupElement("!doctype", attrs(html -> null)),
+                new MarkupElement("html", content)
+        );
     }
 
     default Renderable i(CharSequence... content) {
@@ -499,4 +504,4 @@ public interface HtmlFunctions extends MarkupFunctions {
     default Renderable video(CharSequence... content) {
         return new MarkupElement("video", content);
     }
-    }
+}

@@ -12,9 +12,7 @@ public interface NamedValue<T> extends MethodFinder, Function<String, T>, Render
 
     default void checkParametersEnabled() {
         if ("arg0".equals(parameter(0).getName())) {
-            throw new IllegalStateException(
-                    "You need to compile with javac -parameters for parameter reflection to work; " +
-                    "You also need java 8u60 or newer to use it with lambdas");
+            throw new IllegalStateException("You need to compile with javac -parameters for parameter reflection to work and java 8u60 or newer to use it with lambdas");
         }
     }
 
@@ -23,6 +21,9 @@ public interface NamedValue<T> extends MethodFinder, Function<String, T>, Render
     }
 
     default String render() {
+        if (value() == null) {
+            return name();
+        }
         return name() + "=\"" + value() + "\"";
     }
 }

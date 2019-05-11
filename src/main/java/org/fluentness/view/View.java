@@ -4,7 +4,6 @@ import org.fluentness.cacher.ViewCacher;
 import org.fluentness.localization.Localizable;
 import org.fluentness.logging.Logger;
 import org.fluentness.rendering.HtmlFunctions;
-import org.fluentness.rendering.HtmlHelpers;
 import org.fluentness.rendering.Renderable;
 
 import java.lang.reflect.Field;
@@ -70,7 +69,7 @@ public interface View extends Localizable {
         }
     }
 
-    interface Html extends View, HtmlFunctions, HtmlHelpers {
+    interface Html extends View, HtmlFunctions {
 
     }
 

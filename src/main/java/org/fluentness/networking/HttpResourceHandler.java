@@ -16,8 +16,9 @@ final class HttpResourceHandler implements HttpHandler {
 
         String path = exchange.getRequestURI().getPath();
         if (path.equals("/favicon.ico")) {
-            path = "/res/icon/favicon.ico";
+            path = "/icon/favicon.ico";
         }
+        path = "/src/main" + path;
         try {
             path = path.substring(1).replace("//", "/");
 
