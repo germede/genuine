@@ -2,19 +2,19 @@ package org.fluentness.rendering;
 
 import java.util.Arrays;
 
-public class MarkupEmptyElement implements Renderable {
+public class MarkupElement implements Renderable {
 
     private String tag;
     private CharSequence[] renderables;
     private boolean isContainer;
 
-    public MarkupEmptyElement(String tag, MarkupAttributes attributes) {
+    public MarkupElement(String tag, MarkupAttributes attributes) {
         this.tag = tag;
         this.renderables = new Renderable[]{attributes};
         this.isContainer = false;
     }
 
-    public MarkupEmptyElement(String tag, CharSequence... renderables) {
+    public MarkupElement(String tag, CharSequence... renderables) {
         this.tag = tag;
         this.renderables = renderables;
         this.isContainer = true;

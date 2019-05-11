@@ -2,6 +2,10 @@ package org.fluentness.model;
 
 public interface PropertyFunctions {
 
+    default IntegerProperty id() {
+        return (IntegerProperty) new IntegerProperty().primaryKey().autoincrement();
+    }
+
     default StringProperty string() {
         return new StringProperty();
     }

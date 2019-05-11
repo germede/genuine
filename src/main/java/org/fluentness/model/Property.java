@@ -3,15 +3,21 @@ package org.fluentness.model;
 public abstract class Property {
 
     private boolean isPrimaryKey = false;
-    private boolean nullable = false;
+    private boolean isAutoincrement = false;
+    private boolean isNullable = false;
 
     public Property primaryKey() {
         this.isPrimaryKey = true;
         return this;
     }
 
+    public Property autoincrement() {
+        this.isAutoincrement = true;
+        return this;
+    }
+
     public Property nullable() {
-        this.nullable = true;
+        this.isNullable = true;
         return this;
     }
 
@@ -19,10 +25,13 @@ public abstract class Property {
         return isPrimaryKey;
     }
 
+    public boolean isAutoincrement() {
+        return isAutoincrement;
+    }
+
     public boolean isNullable() {
-        return nullable;
+        return isNullable;
     }
 
     public abstract Class getType();
-
 }

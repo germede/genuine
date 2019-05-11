@@ -1,6 +1,7 @@
 package org.fluentness.form;
 
 import org.fluentness.common.NamedValue;
+import org.fluentness.localization.Localizable;
 import org.fluentness.rendering.HtmlFunctions;
 import org.fluentness.rendering.Renderable;
 
@@ -8,7 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface Form extends Renderable, HtmlFunctions, FieldFunctions {
+public interface Form extends Renderable, HtmlFunctions, FieldFunctions, Localizable {
 
     String getMethod();
 

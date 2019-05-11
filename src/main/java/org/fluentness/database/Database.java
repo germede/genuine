@@ -12,6 +12,7 @@ import java.util.Map;
 final class Database {
 
     public static List<Map<String, Object>> read(String query, List<Object> parameters) {
+        List<Map<String, Object>> resultList = new ArrayList<>();
         Connection connection = getConnection();
         if (connection != null) {
             try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -22,12 +23,12 @@ final class Database {
                     }
                 }
                 Logger.debug(Database.class, statement.toString().replaceAll(".+: ", ""));
-                return resultSetToResultList(statement.executeQuery());
+                resultList = resultSetToResultList(statement.executeQuery());
             } catch (SQLException e) {
                 Logger.error(Database.class, e);
             }
         }
-        return null;
+        return resultList;
     }
 
     public static int write(String query, List<Object> parameters) {

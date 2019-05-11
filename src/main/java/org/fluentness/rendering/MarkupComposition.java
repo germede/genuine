@@ -5,15 +5,15 @@ import java.util.stream.Collectors;
 
 public class MarkupComposition implements Renderable {
 
-    private MarkupEmptyElement[] elements;
+    private MarkupElement[] elements;
 
-    public MarkupComposition(MarkupEmptyElement... elements) {
+    public MarkupComposition(MarkupElement... elements) {
         this.elements = elements;
     }
 
     @Override
     public String render() {
-        return Arrays.stream(elements).map(MarkupEmptyElement::render).collect(Collectors.joining());
+        return Arrays.stream(elements).map(MarkupElement::render).collect(Collectors.joining());
     }
 
 }

@@ -98,9 +98,13 @@ final class HttpRouter {
             Request request = new Request(httpExchange, declaredRoute);
             RequestRegister.putCurrent(request);
 
-            Response response = (Response) method.invoke(controller, request);
+            Response response;
+            if (method.getParameters().length > 0 && method.getParameters()[0].getType().equals(Request.class)) {
+                response = (Response) method.invoke(controller, request);
+            } else {
+                response = (Response) method.invoke(controller);
+            }
             RequestRegister.removeCurrent();
-
             HttpServer.serve(httpExchange, response);
 
 //            } else {

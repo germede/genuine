@@ -7,23 +7,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class Configuration {
-    public static final String APP_PACKAGE = "APP_PACKAGE";
-    public static final String APP_PROTOCOL = "APP_PROTOCOL";
-    public static final String APP_HOSTNAME = "APP_HOSTNAME";
-    public static final String APP_PORT = "APP_PORT";
-    public static final String APP_KEYSTORE = "APP_KEYSTORE";
-    public static final String APP_LANGUAGE = "APP_LANGUAGE";
-    public static final String DB_DRIVER = "DB_DRIVER";
-    public static final String DB_HOSTNAME = "DB_HOSTNAME";
-    public static final String DB_PORT = "DB_PORT";
-    public static final String DB_NAME = "DB_NAME";
-    public static final String DB_USERNAME = "DB_USERNAME";
-    public static final String DB_PASSWORD = "DB_PASSWORD";
-    public static final String DB_PARAMS = "DB_PARAMS";
-    public static final String CACHE_ENABLE = "CACHE_ENABLE";
-    public static final String LOG_LEVEL = "LOG_LEVEL";
-    public static final String LOG_CONSOLE = "LOG_CONSOLE";
-    public static final String LOG_FILE = "LOG_FILE";
+    public static final String APP_PACKAGE = "app_package";
+    public static final String APP_PROTOCOL = "app_protocol";
+    public static final String APP_HOSTNAME = "app_hostname";
+    public static final String APP_PORT = "app_port";
+    public static final String APP_KEYSTORE = "app_keystore";
+    public static final String DB_DRIVER = "db_driver";
+    public static final String DB_HOSTNAME = "db_hostname";
+    public static final String DB_PORT = "db_port";
+    public static final String DB_NAME = "db_name";
+    public static final String DB_USERNAME = "db_username";
+    public static final String DB_PASSWORD = "db_password";
+    public static final String DB_PARAMS = "db_params";
+    public static final String CACHE_ENABLE = "cache_enable";
+    public static final String LOG_LEVEL = "log_level";
+    public static final String LOG_CONSOLE = "log_console";
+    public static final String LOG_FILE = "log_file";
 
     private static Map<String, Object> configuration = new HashMap<>();
 

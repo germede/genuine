@@ -31,7 +31,7 @@ public class SqlQuery {
         return append("SELECT *");
     }
 
-    public SqlQuery select(String[] columns) {
+    public SqlQuery select(String... columns) {
         return append("SELECT ").append(String.join(", ", columns));
     }
 
@@ -86,7 +86,9 @@ public class SqlQuery {
         String query = sql.toString();
         if (query.startsWith("SELECT")) {
             resultList = Database.read(query, parameters);
+            resultSize = resultList.size();
         } else {
+            resultList = new ArrayList<>();
             resultSize = Database.write(query, parameters);
         }
         return this;
