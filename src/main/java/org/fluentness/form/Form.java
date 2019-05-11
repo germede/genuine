@@ -13,7 +13,11 @@ public interface Form extends Renderable, HtmlFunctions, FieldFunctions, Localiz
 
     String getMethod();
 
+    String getAction();
+
     Fields getFields();
+
+    Renderable getRenderable();
 
     default Fields fields(NamedValue<Field>... fields) {
         return new Fields(fields);
@@ -21,6 +25,13 @@ public interface Form extends Renderable, HtmlFunctions, FieldFunctions, Localiz
 
     default Field field(String name) {
         return getFields().get(name);
+    }
+
+    @Override
+    default String render() {
+        return form(attrs(METHOD -> getMethod(), ACTION -> getAction()),
+                getRenderable()
+        ).render();
     }
 
     class Fields {

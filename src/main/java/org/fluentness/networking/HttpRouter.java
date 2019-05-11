@@ -89,8 +89,6 @@ final class HttpRouter {
 
     private static void invokeControllerMethod(Controller controller, Method method, HttpExchange httpExchange) {
         try {
-//            if (httpExchange.getRequestMethod().equals(method.getAnnotation(Route.class).method())) {
-
             // invoke controller method and serve
             String declaredControllerRoute = controller.getClass().isAnnotationPresent(Route.class) ? controller.getClass().getAnnotation(Route.class).value() : "";
             String declaredRoute = declaredControllerRoute + method.getAnnotation(Route.class).value();
@@ -106,17 +104,6 @@ final class HttpRouter {
             }
             RequestRegister.removeCurrent();
             HttpServer.serve(httpExchange, response);
-
-//            } else {
-//
-//                 client request method mismatch
-//                Logger.warning(HttpRouter.class,
-//                        "HTTP Method mismatch in controller method %s->%s (declared: %s , got: %s)",
-//                        controller.getClass().getCanonicalName(),
-//                        method.getName(),
-//                        method.getAnnotation(Route.class).value(), httpExchange.getRequestMethod());
-//                HttpServer.serve(httpExchange, new HttpResponse(HttpStatusCode.BadRequest));
-//            }
 
             // exception due to inaccessible controller method
         } catch (IllegalAccessException e) {
