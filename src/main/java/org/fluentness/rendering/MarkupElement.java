@@ -14,12 +14,11 @@ public class MarkupElement implements Renderable {
         this.isContainer = false;
     }
 
-    public MarkupElement(String tag, CharSequence[] renderables) {
+    public MarkupElement(String tag, CharSequence... renderables) {
         this.tag = tag;
         this.renderables = renderables;
         this.isContainer = true;
     }
-
 
     @Override
     public String render() {

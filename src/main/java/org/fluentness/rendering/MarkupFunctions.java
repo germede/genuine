@@ -1,9 +1,13 @@
 package org.fluentness.rendering;
 
+import org.fluentness.common.NamedValue;
 import org.fluentness.entity.Entity;
 
-public interface FlowFunctions {
+public interface MarkupFunctions {
 
+    default MarkupAttributes attrs(NamedValue... attributes) {
+        return new MarkupAttributes(attributes);
+    }
 
     default CharSequence forEachEntityIn(Iterable<? extends Entity> iterable, ForEach<? extends Entity> forEach) {
         StringBuilder rendered = new StringBuilder();

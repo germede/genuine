@@ -1,10 +1,11 @@
 package org.fluentness.form;
 
 
+import org.fluentness.rendering.MarkupAttributes;
+import org.fluentness.rendering.MarkupElement;
 import org.fluentness.rendering.Renderable;
-import org.fluentness.view.View;
 
-public abstract class Field implements View.Html {
+public abstract class Field implements Renderable {
 
     private boolean required = false;
     private String type;
@@ -25,11 +26,13 @@ public abstract class Field implements View.Html {
     }
 
     @Override
-    public Renderable getRenderable() {
-        return input(
-                TYPE -> type,
-                REQUIRED -> String.valueOf(required),
-                NAME -> name
-        );
+    public String render() {
+        return new MarkupElement("input",
+                new MarkupAttributes(
+                        TYPE -> type,
+                        REQUIRED -> String.valueOf(required),
+                        NAME -> name
+                )
+        ).render();
     }
 }

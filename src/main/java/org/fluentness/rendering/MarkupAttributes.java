@@ -5,11 +5,11 @@ import org.fluentness.common.NamedValue;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-class MarkupAttributes implements Renderable {
+public class MarkupAttributes implements Renderable {
 
     private final NamedValue[] attributes;
 
-    MarkupAttributes(NamedValue[] attributes) {
+    public MarkupAttributes(NamedValue... attributes) {
         this.attributes = attributes;
     }
 

@@ -2,11 +2,7 @@ package org.fluentness.rendering;
 
 import org.fluentness.common.NamedValue;
 
-public interface HtmlFunctions {
-
-    default MarkupAttributes attrs(NamedValue... attributes) {
-        return new MarkupAttributes(attributes);
-    }
+public interface HtmlFunctions extends MarkupFunctions {
 
     // empty
 
