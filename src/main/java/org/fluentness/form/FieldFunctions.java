@@ -1,224 +1,216 @@
 package org.fluentness.form;
 
+import org.fluentness.common.NamedValue;
+
 public interface FieldFunctions {
 
-    default ButtonField button() {
-        return new ButtonField();
+    default ButtonField button(NamedValue<String>... attributes) {
+        return new ButtonField(attributes);
     }
 
-    default CheckboxField checkbox() {
-        return new CheckboxField();
+    default CheckboxField checkbox(NamedValue<String>... attributes) {
+        return new CheckboxField(attributes);
     }
 
-    default ColorField color() {
-        return new ColorField();
+    default ColorField color(NamedValue<String>... attributes) {
+        return new ColorField(attributes);
     }
 
-    default DateField date() {
-        return new DateField();
+    default DateField date(NamedValue<String>... attributes) {
+        return new DateField(attributes);
     }
 
-    default DatetimeField datetime() {
-        return new DatetimeField();
+    default DatetimeField datetime(NamedValue<String>... attributes) {
+        return new DatetimeField(attributes);
     }
 
-    default EmailField email() {
-        return new EmailField();
+    default EmailField email(NamedValue<String>... attributes) {
+        return new EmailField(attributes);
     }
 
-    default FileField file() {
-        return new FileField();
+    default FileField file(NamedValue<String>... attributes) {
+        return new FileField(attributes);
     }
 
-    default HiddenField hidden() {
-        return new HiddenField();
+    default HiddenField hidden(NamedValue<String>... attributes) {
+        return new HiddenField(attributes);
     }
 
-    default ImageField image() {
-        return new ImageField();
+    default ImageField image(NamedValue<String>... attributes) {
+        return new ImageField(attributes);
     }
 
-    default MonthField month() {
-        return new MonthField();
+    default MonthField month(NamedValue<String>... attributes) {
+        return new MonthField(attributes);
     }
 
-    default NumberField number() {
-        return new NumberField();
+    default NumberField number(NamedValue<String>... attributes) {
+        return new NumberField(attributes);
     }
 
-    default PasswordField password() {
-        return new PasswordField();
+    default PasswordField password(NamedValue<String>... attributes) {
+        return new PasswordField(attributes);
     }
 
-    default RadioField radio() {
-        return new RadioField();
+    default RadioField radio(NamedValue<String>... attributes) {
+        return new RadioField(attributes);
     }
 
-    default RangeField range() {
-        return new RangeField();
+    default RangeField range(NamedValue<String>... attributes) {
+        return new RangeField(attributes);
     }
 
-    default ResetField reset() {
-        return new ResetField();
+    default ResetField reset(NamedValue<String>... attributes) {
+        return new ResetField(attributes);
     }
 
-    default SearchField search() {
-        return new SearchField();
+    default SearchField search(NamedValue<String>... attributes) {
+        return new SearchField(attributes);
     }
 
-    default SubmitField submit() {
-        return new SubmitField();
+    default TelField tel(NamedValue<String>... attributes) {
+        return new TelField(attributes);
     }
 
-    default TelField tel() {
-        return new TelField();
+    default TextField text(NamedValue<String>... attributes) {
+        return new TextField(attributes);
     }
 
-    default TextField text() {
-        return new TextField();
+    default TimeField time(NamedValue<String>... attributes) {
+        return new TimeField(attributes);
     }
 
-    default TimeField time() {
-        return new TimeField();
+    default UrlField url(NamedValue<String>... attributes) {
+        return new UrlField(attributes);
     }
 
-    default UrlField url() {
-        return new UrlField();
-    }
-
-    default WeekField week() {
-        return new WeekField();
+    default WeekField week(NamedValue<String>... attributes) {
+        return new WeekField(attributes);
     }
 
     class ButtonField extends Field {
-        private ButtonField() {
-            super("button");
+        private ButtonField(NamedValue... attributes) {
+            super("button", attributes);
         }
     }
 
     class CheckboxField extends Field {
-        private CheckboxField() {
-            super("checkbox");
+        private CheckboxField(NamedValue... attributes) {
+            super("checkbox", attributes);
         }
     }
 
     class ColorField extends Field {
-        private ColorField() {
-            super("color");
+        private ColorField(NamedValue... attributes) {
+            super("color", attributes);
         }
     }
 
     class DateField extends Field {
-        private DateField() {
-            super("date");
+        private DateField(NamedValue... attributes) {
+            super("date", attributes);
         }
     }
 
     class DatetimeField extends Field {
-        private DatetimeField() {
-            super("datetime-local");
+        private DatetimeField(NamedValue... attributes) {
+            super("datetime-local", attributes);
         }
     }
 
     class EmailField extends Field {
-        private EmailField() {
-            super("email");
+        private EmailField(NamedValue... attributes) {
+            super("email", attributes);
         }
     }
 
     class FileField extends Field {
-        private FileField() {
-            super("file");
+        private FileField(NamedValue... attributes) {
+            super("file", attributes);
         }
     }
 
     class HiddenField extends Field {
-        private HiddenField() {
-            super("hidden");
+        private HiddenField(NamedValue... attributes) {
+            super("hidden", attributes);
         }
     }
 
     class ImageField extends Field {
-        private ImageField() {
-            super("image");
+        private ImageField(NamedValue... attributes) {
+            super("image", attributes);
         }
     }
 
     class MonthField extends Field {
-        private MonthField() {
-            super("month");
+        private MonthField(NamedValue... attributes) {
+            super("month", attributes);
         }
     }
 
     class NumberField extends Field {
-        private NumberField() {
-            super("number");
+        private NumberField(NamedValue... attributes) {
+            super("number", attributes);
         }
     }
 
     class PasswordField extends Field {
-        private PasswordField() {
-            super("password");
+        private PasswordField(NamedValue... attributes) {
+            super("password", attributes);
         }
     }
 
     class RadioField extends Field {
-        private RadioField() {
-            super("radio");
+        private RadioField(NamedValue... attributes) {
+            super("radio", attributes);
         }
     }
 
     class RangeField extends Field {
-        private RangeField() {
-            super("range");
+        private RangeField(NamedValue... attributes) {
+            super("range", attributes);
         }
     }
 
     class ResetField extends Field {
-        private ResetField() {
-            super("reset");
+        private ResetField(NamedValue... attributes) {
+            super("reset", attributes);
         }
     }
 
     class SearchField extends Field {
-        private SearchField() {
-            super("search");
-        }
-    }
-
-    class SubmitField extends Field {
-        private SubmitField() {
-            super("submit");
+        private SearchField(NamedValue... attributes) {
+            super("search", attributes);
         }
     }
 
     class TelField extends Field {
-        private TelField() {
-            super("tel");
+        private TelField(NamedValue... attributes) {
+            super("tel", attributes);
         }
     }
 
     class TextField extends Field {
-        private TextField() {
-            super("text");
+        private TextField(NamedValue... attributes) {
+            super("text", attributes);
         }
     }
 
     class TimeField extends Field {
-        private TimeField() {
-            super("time");
+        private TimeField(NamedValue... attributes) {
+            super("time", attributes);
         }
     }
 
     class UrlField extends Field {
-        private UrlField() {
-            super("url");
+        private UrlField(NamedValue... attributes) {
+            super("url", attributes);
         }
     }
 
     class WeekField extends Field {
-        private WeekField() {
-            super("week");
+        private WeekField(NamedValue... attributes) {
+            super("week", attributes);
         }
     }
 }

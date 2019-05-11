@@ -1,38 +1,32 @@
 package org.fluentness.form;
 
 
-import org.fluentness.rendering.MarkupAttributes;
-import org.fluentness.rendering.MarkupElement;
+import org.fluentness.common.NamedValue;
+import org.fluentness.rendering.HtmlFunctions;
+import org.fluentness.rendering.MarkupFunctions;
 import org.fluentness.rendering.Renderable;
 
-public abstract class Field implements Renderable {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    private boolean required = false;
-    private String type;
-    private String name;
+public abstract class Field implements Renderable, HtmlFunctions, MarkupFunctions {
 
-    public Field(String type) {
-        this.type = type;
+    private List<NamedValue<String>> attributes = new ArrayList();
+
+    Field(String type, NamedValue<String>[] attributes) {
+        this.attributes.add(TYPE -> type);
+        this.attributes.addAll(Arrays.asList(attributes));
     }
 
-    public Field required() {
-        this.required = true;
-        return this;
-    }
-
-    Field setName(String name) {
-        this.name = name;
-        return this;
+    void setName(String name) {
+        this.attributes.add(NAME -> name);
     }
 
     @Override
     public String render() {
-        return new MarkupElement("input",
-                new MarkupAttributes(
-                        TYPE -> type,
-                        REQUIRED -> String.valueOf(required),
-                        NAME -> name
-                )
+        return input(
+                attributes.toArray(new NamedValue[0])
         ).render();
     }
 }
