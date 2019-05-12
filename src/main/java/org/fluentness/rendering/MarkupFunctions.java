@@ -5,7 +5,7 @@ import org.fluentness.entity.Entity;
 
 public interface MarkupFunctions {
 
-    default MarkupAttributes attrs(NamedValue... attributes) {
+    default MarkupAttributes ____(NamedValue... attributes) {
         return new MarkupAttributes(attributes);
     }
 

@@ -29,7 +29,7 @@ public interface Form extends Renderable, HtmlFunctions, FieldFunctions, Localiz
 
     @Override
     default String render() {
-        return form(attrs(METHOD -> getMethod(), ACTION -> getAction()),
+        return form(____(METHOD -> getMethod(), ACTION -> getAction()),
                 getRenderable()
         ).render();
     }

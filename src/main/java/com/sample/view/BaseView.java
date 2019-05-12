@@ -14,13 +14,13 @@ public class BaseView implements View.Html {
         return html(
                 head(
                         title("A music archive made with love and Fluentness"),
-                        meta(NAME -> "lang", CONTENT -> getLocale().getLanguage()),
-                        meta(CHARSET -> "utf-8"),
+                        meta(____(NAME -> "lang", CONTENT -> getLocale().getLanguage())),
+                        meta(____(CHARSET -> "utf-8")),
                         includeCss("milligram.min.css"),
                         includeJs("script.min.js")
                 ),
                 body(
-                        div(attrs(CLASS -> "container"),
+                        div(____(CLASS -> "container"),
                                 h1(translate("welcome_message")),
                                 placeholder.getRenderable()
                         )

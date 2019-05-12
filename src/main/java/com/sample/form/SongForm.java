@@ -52,23 +52,23 @@ public class SongForm implements Form {
     @Override
     public Renderable getRenderable() {
         return fieldset(
-                label(attrs(FOR -> "song_title_input"), translate("song_title")),
+                label(____(FOR -> "song_title_input"), translate("song_title")),
                 field("title"),
-                label(attrs(FOR -> "song_artist_input"), translate("song_artist")),
+                label(____(FOR -> "song_artist_input"), translate("song_artist")),
                 field("artist"),
-                label(attrs(FOR -> "song_album_input"), translate("song_album")),
+                label(____(FOR -> "song_album_input"), translate("song_album")),
                 field("album"),
-                label(attrs(FOR -> "song_year_input"), translate("song_year")),
+                label(____(FOR -> "song_year_input"), translate("song_year")),
                 field("year"),
 
-                div(attrs(CLASS -> "float-right"),
-                        label(attrs(FOR -> "song_is_new_input", CLASS -> "label-inline"), translate("song_is_new")),
+                div(____(CLASS -> "float-right"),
+                        label(____(FOR -> "song_is_new_input", CLASS -> "label-inline"), translate("song_is_new")),
                         field("is_new")
                 ),
 
                 input(TYPE -> "submit", VALUE -> translate("submit")),
                 " ",
-                a(attrs(ONCLICK -> "window.history.back();", CLASS -> "button button-outline"), translate("cancel"))
+                a(____(ONCLICK -> "window.history.back();", CLASS -> "button button-outline"), translate("cancel"))
         );
     }
 

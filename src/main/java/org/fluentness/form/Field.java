@@ -25,8 +25,6 @@ public abstract class Field implements Renderable, HtmlFunctions, MarkupFunction
 
     @Override
     public String render() {
-        return input(
-                attributes.toArray(new NamedValue[0])
-        ).render();
+        return input(____(attributes.toArray(new NamedValue[0]))).render();
     }
 }

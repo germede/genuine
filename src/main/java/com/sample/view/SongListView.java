@@ -17,15 +17,15 @@ public class SongListView implements View.Html {
 
     @Override
     public Renderable getRenderable() {
-        return div(attrs(CLASS -> "row"),
-                div(attrs(CLASS -> "column"),
+        return div(____(CLASS -> "row"),
+                div(____(CLASS -> "column"),
 
-                        div(attrs(CLASS -> "row"),
-                                div(attrs(CLASS -> "column column-50"),
+                        div(____(CLASS -> "row"),
+                                div(____(CLASS -> "column column-50"),
                                         h2(translate("song_list"))
                                 ),
-                                div(attrs(CLASS -> "column column-50"),
-                                        a(attrs(CLASS -> "button float-right", HREF -> "/song/create"),
+                                div(____(CLASS -> "column column-50"),
+                                        a(____(CLASS -> "button float-right", HREF -> "/song/create"),
                                                 translate("song_create")
                                         )
                                 )
@@ -37,7 +37,8 @@ public class SongListView implements View.Html {
                                                 th(translate("song_artist")),
                                                 th(translate("song_album")),
                                                 th(translate("song_year")),
-                                                th(translate("song_is_new"))
+                                                th(translate("song_is_new")),
+                                                th(translate("actions"))
                                         )
                                 ),
                                 tbody(
@@ -47,7 +48,12 @@ public class SongListView implements View.Html {
                                                         td(song.get("artist")),
                                                         td(song.get("album")),
                                                         td(song.get("year")),
-                                                        td(song.get("is_new"))
+                                                        td(song.get("is_new")),
+                                                        td(
+                                                                a(____(CLASS -> "button float-right", HREF -> "/song/create"),
+                                                                        translate("song_create")
+                                                                )
+                                                        )
                                                 )
                                         )
                                 )

@@ -1,76 +1,74 @@
 package org.fluentness.rendering;
 
-import org.fluentness.common.NamedValue;
-
 public interface HtmlFunctions extends MarkupFunctions {
 
     // helpers
 
     default Renderable includeCss(String href) {
-        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/resources/css/"+href);
+        return link(____(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/resources/css/"+href));
     }
 
     default Renderable includeJs(String src) {
-        return script(attrs(SRC -> "/resources/js/"+src));
+        return script(____(SRC -> "/resources/js/"+src));
     }
 
 
     // empty
 
-    default Renderable area(NamedValue... attributes) {
-        return new MarkupElement("area", attrs(attributes));
+    default Renderable area(MarkupAttributes... attributes) {
+        return new MarkupElement("area", attributes);
     }
 
-    default Renderable base(NamedValue... attributes) {
-        return new MarkupElement("base", attrs(attributes));
+    default Renderable base(MarkupAttributes... attributes) {
+        return new MarkupElement("base", attributes);
     }
 
-    default Renderable br(NamedValue... attributes) {
-        return new MarkupElement("br", attrs(attributes));
+    default Renderable br(MarkupAttributes... attributes) {
+        return new MarkupElement("br", attributes);
     }
 
-    default Renderable col(NamedValue... attributes) {
-        return new MarkupElement("col", attrs(attributes));
+    default Renderable col(MarkupAttributes... attributes) {
+        return new MarkupElement("col", attributes);
     }
 
-    default Renderable embed(NamedValue... attributes) {
-        return new MarkupElement("embed", attrs(attributes));
+    default Renderable embed(MarkupAttributes... attributes) {
+        return new MarkupElement("embed", attributes);
     }
 
-    default Renderable hr(NamedValue... attributes) {
-        return new MarkupElement("hr", attrs(attributes));
+    default Renderable hr(MarkupAttributes... attributes) {
+        return new MarkupElement("hr", attributes);
     }
 
-    default Renderable img(NamedValue... attributes) {
-        return new MarkupElement("img", attrs(attributes));
+    default Renderable img(MarkupAttributes... attributes) {
+        return new MarkupElement("img", attributes);
     }
 
-    default Renderable input(NamedValue... attributes) {
-        return new MarkupElement("input", attrs(attributes));
+    default Renderable input(MarkupAttributes... attributes) {
+        return new MarkupElement("input", attributes);
     }
 
-    default Renderable link(NamedValue... attributes) {
-        return new MarkupElement("link", attrs(attributes));
+    default Renderable link(MarkupAttributes... attributes) {
+        return new MarkupElement("link", attributes);
     }
 
-    default Renderable meta(NamedValue... attributes) {
-        return new MarkupElement("meta", attrs(attributes));
+    default Renderable meta(MarkupAttributes... attributes) {
+        return new MarkupElement("meta", attributes);
     }
 
-    default Renderable param(NamedValue... attributes) {
-        return new MarkupElement("param", attrs(attributes));
+    default Renderable param(MarkupAttributes... attributes) {
+        return new MarkupElement("param", attributes);
     }
 
-    default Renderable source(NamedValue... attributes) {
-        return new MarkupElement("source", attrs(attributes));
+    default Renderable source(MarkupAttributes... attributes) {
+        return new MarkupElement("source", attributes);
     }
 
-    default Renderable track(NamedValue... attributes) {
-        return new MarkupElement("track", attrs(attributes));
+    default Renderable track(MarkupAttributes... attributes) {
+        return new MarkupElement("track", attributes);
     }
 
-    default Renderable wbr(NamedValue... attributes) {
-        return new MarkupElement("wbr", attrs(attributes));
+    default Renderable wbr(MarkupAttributes... attributes) {
+        return new MarkupElement("wbr", attributes);
     }
 
     // container
@@ -277,7 +275,7 @@ public interface HtmlFunctions extends MarkupFunctions {
 
     default Renderable html(CharSequence... content) {
         return new MarkupComposition(
-                new MarkupElement("!doctype", attrs(html -> null)),
+                new MarkupElement("!doctype", ____(html -> null)),
                 new MarkupElement("html", content)
         );
     }
