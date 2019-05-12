@@ -31,16 +31,29 @@ public class Entity<T extends Model> {
 
     private Map<String, Object> properties = new HashMap<>();
 
-    public String get(String propertyName) {
+    public String getString(String propertyName) {
+        return String.valueOf(get(propertyName));
+    }
+
+    public boolean getBoolean(String propertyName) {
+        return (boolean)get(propertyName);
+    }
+
+    public int getInteger(String propertyName) {
+        return Integer.parseInt(getString(propertyName));
+    }
+
+    public Object get(String propertyName) {
         Property modelProperty = getModelPropertiesInstance().get(propertyName);
         if (modelProperty == null) {
             Logger.error(getModel(), "Property '%s' doesn't exists for model %s", propertyName, getModelInstance().getClass().getName());
             return null;
         }
-        if (!modelProperty.isNullable() && this.properties.get(propertyName) == null) {
+        Object propertyValue = this.properties.get(propertyName);
+        if (!modelProperty.isNullable() && propertyValue == null) {
             Logger.warning(getModel(), "Property '%s' is not nullable, got null", propertyName);
         }
-        return String.valueOf(this.properties.get(propertyName));
+        return propertyValue;
     }
 
     public void set(NamedValue... properties) {

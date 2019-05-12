@@ -32,6 +32,12 @@ public class SqlConstraint {
         return append(" = ?");
     }
 
+    public SqlConstraint like(String secondOperand) {
+        secondOperand = "%" + secondOperand + "%";
+        parameters.add(secondOperand);
+        return append(" LIKE ?");
+    }
+
     public SqlConstraint and(SqlConstraint constraint) {
         parameters.addAll(constraint.getParameters());
         return append(" AND (").append(constraint.toString()).append(")");
@@ -41,5 +47,4 @@ public class SqlConstraint {
         parameters.addAll(constraint.getParameters());
         return append(" OR (").append(constraint.toString()).append(")");
     }
-
 }

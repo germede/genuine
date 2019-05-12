@@ -6,9 +6,7 @@ import org.fluentness.entity.Entity;
 import org.fluentness.model.Model;
 import org.fluentness.register.ModelRegister;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public interface Repository<T extends Model> {
 
@@ -22,31 +20,22 @@ public interface Repository<T extends Model> {
         return ModelRegister.getModelPropertiesInstance(getModel().getCanonicalName());
     }
 
-    default List<Entity<T>> entityListFrom(List<Map<String, Object>> resultList) {
-        List<Entity<T>> entityList = new ArrayList<>();
-        for (Map<String, Object> stringObjectMap : resultList) {
-            Entity<T> entity = new Entity<>(getModel());
-            stringObjectMap.forEach(entity::set);
-            entityList.add(entity);
-        }
-        return entityList;
-    }
-
     default List<Entity<T>> list() {
-        return entityListFrom(new SqlQuery()
+        return new SqlQuery()
                 .select()
                 .from(getModelInstance().getTable())
                 .execute()
-                .resultList());
+                .entityList(getModel());
     }
 
-    default Entity<T> find(Object primaryKey) {
-        return entityListFrom(new SqlQuery()
+    default Entity<T> findById(int id) {
+        return (Entity<T>) new SqlQuery()
                 .select()
                 .from(getModelInstance().getTable())
-                .where(new SqlConstraint(getModelInstance().getPrimaryKey()).isEqualTo(primaryKey))
+                .where(new SqlConstraint(getModelInstance().getPrimaryKey()).isEqualTo(id))
                 .execute()
-                .resultList()).get(0);
+                .entityList(getModel())
+                .get(0);
     }
 
     default int create(Entity<T> entity) {

@@ -1,6 +1,8 @@
 package org.fluentness.database;
 
 import org.fluentness.common.NamedValue;
+import org.fluentness.entity.Entity;
+import org.fluentness.model.Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class SqlQuery {
+public class SqlQuery<T extends Model> {
 
     private StringBuilder sql;
     private List<Object> parameters;
@@ -104,5 +106,15 @@ public class SqlQuery {
 
     public int resultSize() {
         return resultSize;
+    }
+
+    public List<Entity<T>> entityList(Class<? extends Model> modelClass) {
+        List<Entity<T>> entityList = new ArrayList<>();
+        for (Map<String, Object> stringObjectMap : resultList) {
+            Entity<T> entity = new Entity(modelClass);
+            stringObjectMap.forEach(entity::set);
+            entityList.add(entity);
+        }
+        return entityList;
     }
 }

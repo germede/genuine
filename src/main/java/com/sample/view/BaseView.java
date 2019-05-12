@@ -17,6 +17,7 @@ public class BaseView implements View.Html {
                         meta(____(NAME -> "lang", CONTENT -> getLocale().getLanguage())),
                         meta(____(CHARSET -> "utf-8")),
                         includeCss("milligram.min.css"),
+                        includeCss("custom.css"),
                         includeJs("script.min.js")
                 ),
                 body(

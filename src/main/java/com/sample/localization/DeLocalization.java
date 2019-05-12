@@ -18,6 +18,7 @@ public class DeLocalization implements Localization {
                 welcome_message -> "Willkommen auf der Seite",
                 submit -> "Submit",
                 action -> "Aktion",
+                search -> "Suchen",
                 cancel -> "Abbrechen",
                 song_list -> "Songliste",
                 song_create -> "Song erstellen",

@@ -29,9 +29,7 @@ public interface Form extends Renderable, HtmlFunctions, FieldFunctions, Localiz
 
     @Override
     default String render() {
-        return form(____(METHOD -> getMethod(), ACTION -> getAction()),
-                getRenderable()
-        ).render();
+        return getRenderable().render();
     }
 
     class Fields {
@@ -40,8 +38,9 @@ public interface Form extends Renderable, HtmlFunctions, FieldFunctions, Localiz
 
         private Fields(NamedValue<Field>... fields) {
             Arrays.stream(fields).forEach(field -> {
-                field.value().setName(field.name());
-                this.fields.put(field.name(), field.value());
+                Field value = field.value();
+                value.setName(field.name());
+                this.fields.put(field.name(), value);
             });
         }
 

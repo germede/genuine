@@ -8,12 +8,12 @@ import java.util.function.Function;
 public interface NamedValue<T> extends MethodFinder, Function<String, T>, Renderable {
     default String name() {
         String lambdaClassName = this.getClass().getName();
-        if (NamedValueRegister.exists(lambdaClassName)) {
-            return NamedValueRegister.get(lambdaClassName);
+        if (NamedValueRegister.existsName(lambdaClassName)) {
+            return NamedValueRegister.getName(lambdaClassName);
         }
         checkParametersEnabled();
         String name = parameter().getName();
-        NamedValueRegister.put(lambdaClassName, name);
+        NamedValueRegister.putName(lambdaClassName, name);
         return name;
     }
 

@@ -14,7 +14,7 @@ public class BaseController implements Controller {
 
     @Route("/")
     public Response index() {
-        NamedValueRegister.exists("asdf");
+        NamedValueRegister.existsName("asdf");
         return redirect("/song/list");
     }
 }

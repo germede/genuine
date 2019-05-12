@@ -18,6 +18,7 @@ public class DefaultLocalization implements Localization {
                 welcome_message -> "Welcome to the site",
                 submit -> "Submit",
                 action -> "Action",
+                search -> "Search",
                 cancel -> "Cancel",
                 song_list -> "Song list",
                 song_create -> "Create song",

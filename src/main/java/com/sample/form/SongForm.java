@@ -51,24 +51,26 @@ public class SongForm implements Form {
 
     @Override
     public Renderable getRenderable() {
-        return fieldset(
-                label(____(FOR -> "song_title_input"), translate("song_title")),
-                field("title"),
-                label(____(FOR -> "song_artist_input"), translate("song_artist")),
-                field("artist"),
-                label(____(FOR -> "song_album_input"), translate("song_album")),
-                field("album"),
-                label(____(FOR -> "song_year_input"), translate("song_year")),
-                field("year"),
+        return form(____(METHOD -> getMethod(), ACTION -> getAction()),
+                fieldset(
+                        label(____(FOR -> "song_title_input"), translate("song_title")),
+                        field("title"),
+                        label(____(FOR -> "song_artist_input"), translate("song_artist")),
+                        field("artist"),
+                        label(____(FOR -> "song_album_input"), translate("song_album")),
+                        field("album"),
+                        label(____(FOR -> "song_year_input"), translate("song_year")),
+                        field("year"),
 
-                div(____(CLASS -> "float-right"),
-                        label(____(FOR -> "song_is_new_input", CLASS -> "label-inline"), translate("song_is_new")),
-                        field("is_new")
-                ),
+                        div(____(CLASS -> "float-right"),
+                                label(____(FOR -> "song_is_new_input", CLASS -> "label-inline"), translate("song_is_new")),
+                                field("is_new")
+                        ),
 
-                input(____(TYPE -> "submit", VALUE -> translate("submit"))),
-                " ",
-                a(____(ONCLICK -> "window.history.back();", CLASS -> "button button-outline"), translate("cancel"))
+                        input(____(TYPE -> "submit", VALUE -> translate("submit"))),
+                        " ",
+                        a(____(ONCLICK -> "window.history.back();", CLASS -> "button button-outline"), translate("cancel"))
+                )
         );
     }
 

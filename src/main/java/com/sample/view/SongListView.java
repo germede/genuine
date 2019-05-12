@@ -1,5 +1,6 @@
 package com.sample.view;
 
+import com.sample.form.SongSearchForm;
 import com.sample.model.SongModel;
 import org.fluentness.entity.Entity;
 import org.fluentness.rendering.Renderable;
@@ -19,15 +20,12 @@ public class SongListView implements View.Html {
     public Renderable getRenderable() {
         return div(____(CLASS -> "row"),
                 div(____(CLASS -> "column"),
-
                         div(____(CLASS -> "row"),
                                 div(____(CLASS -> "column column-50"),
                                         h2(translate("song_list"))
                                 ),
                                 div(____(CLASS -> "column column-50"),
-                                        a(____(CLASS -> "button float-right", HREF -> "/song/create"),
-                                                translate("song_create")
-                                        )
+                                        new SongSearchForm()
                                 )
                         ),
                         table(
@@ -45,16 +43,19 @@ public class SongListView implements View.Html {
                                 tbody(
                                         forEachEntityIn(songs, song ->
                                                 tr(
-                                                        td(song.get("title")),
-                                                        td(song.get("artist")),
-                                                        td(song.get("album")),
-                                                        td(song.get("year")),
-                                                        td(song.get("is_new")),
+                                                        td(song.getString("title")),
+                                                        td(song.getString("artist")),
+                                                        td(song.getString("album")),
+                                                        td(song.getString("year")),
+                                                        td(song.getBoolean("is_new") ? "✔" : "\uD83D\uDDD9"),
                                                         td(a(____(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
-                                                        td(a(____(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD9"))
+                                                        td(a(____(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
                                                 )
                                         )
                                 )
+                        ),
+                        a(____(CLASS -> "button", HREF -> "/song/create"),
+                                translate("song_create")
                         )
                 )
         );

@@ -5,17 +5,17 @@ import java.util.Map;
 
 public final class NamedValueRegister
 {
-    private final static Map<String, String> map = new HashMap<>();
+    private final static Map<String, String> nameMap = new HashMap<>();
 
-    public static void put(String lambdaClassName, String name) {
-        map.put(lambdaClassName, name);
+    public static boolean existsName(String lambdaClassName) {
+        return nameMap.containsKey(lambdaClassName);
     }
 
-    public static boolean exists(String lambdaClassName) {
-        return map.containsKey(lambdaClassName);
+    public static String getName(String lambdaClassName) {
+        return nameMap.get(lambdaClassName);
     }
 
-    public static String get(String lambdaClassName) {
-        return map.get(lambdaClassName);
+    public static void putName(String lambdaClassName, String name) {
+        nameMap.put(lambdaClassName, name);
     }
 }

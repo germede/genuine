@@ -22,7 +22,7 @@ final class Database {
                         statement.setObject(++i, parameter);
                     }
                 }
-                Logger.debug(Database.class, statement.toString().replaceAll(".+: ", ""));
+                Logger.debug(Database.class, query);
                 resultList = resultSetToResultList(statement.executeQuery());
             } catch (SQLException e) {
                 Logger.error(Database.class, e);
@@ -41,7 +41,7 @@ final class Database {
                         statement.setObject(++i, parameter);
                     }
                 }
-                Logger.debug(Database.class, statement.toString().replaceAll(".+: ", ""));
+                Logger.debug(Database.class, query);
                 return statement.executeUpdate();
             } catch (SQLException e) {
                 Logger.error(Database.class, e);

@@ -5,9 +5,6 @@ import org.fluentness.Fluentness;
 public class Dev {
 
     public static void main(String[] args) {
-
-        long startTime = System.currentTimeMillis();
-
         Fluentness.initialize(args,
                 app_package -> "com.sample",
                 app_protocol -> "http",
@@ -26,9 +23,5 @@ public class Dev {
                 log_console -> true,
                 log_file -> true
         );
-
-        long endTime = System.currentTimeMillis();
-        long timeElapsed = endTime - startTime;
-        System.out.println("Execution time in milliseconds: " + timeElapsed);
     }
 }

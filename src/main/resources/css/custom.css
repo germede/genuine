@@ -1,0 +1,13 @@
+.form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.form-inline > input {
+    width: auto;
+}
+
+.form-inline > input:not(:first-child) {
+    margin-left: 5px;
+}
