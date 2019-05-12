@@ -1,17 +1,24 @@
 package org.fluentness.common;
 
+import org.fluentness.register.NamedValueRegister;
 import org.fluentness.rendering.Renderable;
 
 import java.util.function.Function;
 
 public interface NamedValue<T> extends MethodFinder, Function<String, T>, Renderable {
     default String name() {
+        String lambdaClassName = this.getClass().getName();
+        if (NamedValueRegister.exists(lambdaClassName)) {
+            return NamedValueRegister.get(lambdaClassName);
+        }
         checkParametersEnabled();
-        return parameter(0).getName();
+        String name = parameter().getName();
+        NamedValueRegister.put(lambdaClassName, name);
+        return name;
     }
 
     default void checkParametersEnabled() {
-        if ("arg0".equals(parameter(0).getName())) {
+        if ("arg0".equals(parameter().getName())) {
             throw new IllegalStateException("You need to compile with javac -parameters for parameter reflection to work and java 8u60 or newer to use it with lambdas");
         }
     }
@@ -21,9 +28,6 @@ public interface NamedValue<T> extends MethodFinder, Function<String, T>, Render
     }
 
     default String render() {
-        if (value() == null) {
-            return name();
-        }
         return name() + "=\"" + value() + "\"";
     }
 }

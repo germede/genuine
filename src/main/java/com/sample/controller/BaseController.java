@@ -5,6 +5,7 @@ import org.fluentness.common.Inject;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.Route;
 import org.fluentness.networking.Response;
+import org.fluentness.register.NamedValueRegister;
 
 public class BaseController implements Controller {
 
@@ -13,6 +14,7 @@ public class BaseController implements Controller {
 
     @Route("/")
     public Response index() {
+        NamedValueRegister.exists("asdf");
         return redirect("/song/list");
     }
 }

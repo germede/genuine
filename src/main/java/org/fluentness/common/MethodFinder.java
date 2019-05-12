@@ -33,12 +33,11 @@ interface MethodFinder extends Serializable {
         return Arrays.stream(containingClass.getDeclaredMethods())
                 .filter(method -> Objects.equals(method.getName(), lambda.getImplMethodName()))
                 .findFirst()
-                .orElseThrow(UnableToGuessMethodException::new);
+                .orElseThrow(RuntimeException::new);
     }
 
-    default Parameter parameter(int n) {
-        return method().getParameters()[n];
+    default Parameter parameter() {
+        Parameter[] parameters = method().getParameters();
+        return parameters[parameters.length-1];
     }
-
-    class UnableToGuessMethodException extends RuntimeException {}
 }

@@ -66,7 +66,7 @@ public class SongForm implements Form {
                         field("is_new")
                 ),
 
-                input(TYPE -> "submit", VALUE -> translate("submit")),
+                input(____(TYPE -> "submit", VALUE -> translate("submit"))),
                 " ",
                 a(____(ONCLICK -> "window.history.back();", CLASS -> "button button-outline"), translate("cancel"))
         );

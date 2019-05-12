@@ -71,7 +71,7 @@ public class Entity<T extends Model> {
         return result.toArray(new NamedValue[0]);
     }
 
-    public String getPrimaryKey() {
+    public String getId() {
         return String.valueOf(properties.get("id"));
     }
 }

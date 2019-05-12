@@ -38,7 +38,8 @@ public class SongListView implements View.Html {
                                                 th(translate("song_album")),
                                                 th(translate("song_year")),
                                                 th(translate("song_is_new")),
-                                                th(translate("actions"))
+                                                th(translate("song_update")),
+                                                th(translate("song_delete"))
                                         )
                                 ),
                                 tbody(
@@ -49,11 +50,8 @@ public class SongListView implements View.Html {
                                                         td(song.get("album")),
                                                         td(song.get("year")),
                                                         td(song.get("is_new")),
-                                                        td(
-                                                                a(____(CLASS -> "button float-right", HREF -> "/song/create"),
-                                                                        translate("song_create")
-                                                                )
-                                                        )
+                                                        td(a(____(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
+                                                        td(a(____(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD9"))
                                                 )
                                         )
                                 )

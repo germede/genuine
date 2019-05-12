@@ -70,7 +70,7 @@ public interface Repository<T extends Model> {
         return new SqlQuery()
                 .delete()
                 .from(getModelInstance().getTable())
-                .where(new SqlConstraint(getModelInstance().getPrimaryKey()).isEqualTo(entity.getPrimaryKey()))
+                .where(new SqlConstraint(getModelInstance().getPrimaryKey()).isEqualTo(entity.getId()))
                 .execute()
                 .resultSize();
     }
