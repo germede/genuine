@@ -1,4 +1,4 @@
-package sample.view;
+package com.sample.view;
 
 import org.fluentness.form.Form;
 import org.fluentness.rendering.Renderable;

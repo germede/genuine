@@ -1,4 +1,4 @@
-package sample.repository;
+package com.sample.repository;
 
 import com.sample.model.SongModel;
 import org.fluentness.database.SqlQuery;

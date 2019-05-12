@@ -1,4 +1,4 @@
-package sample.controller;
+package com.sample.controller;
 
 import com.sample.form.SongForm;
 import com.sample.model.SongModel;

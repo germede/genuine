@@ -1,4 +1,4 @@
-package sample.form;
+package com.sample.form;
 
 import org.fluentness.form.Form;
 import org.fluentness.networking.HttpMethod;

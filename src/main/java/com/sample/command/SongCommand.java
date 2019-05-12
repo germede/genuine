@@ -1,4 +1,4 @@
-package sample.command;
+package com.sample.command;
 
 import org.fluentness.command.Command;
 

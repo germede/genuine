@@ -1,4 +1,4 @@
-package sample.controller;
+package com.sample.controller;
 
 import com.sample.repository.SongRepository;
 import org.fluentness.common.Inject;

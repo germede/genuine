@@ -1,4 +1,4 @@
-package sample.view;
+package com.sample.view;
 
 import com.sample.model.SongModel;
 import org.fluentness.entity.Entity;

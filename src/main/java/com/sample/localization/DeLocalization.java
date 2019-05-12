@@ -1,4 +1,4 @@
-package sample.localization;
+package com.sample.localization;
 
 import org.fluentness.localization.Localization;
 

@@ -1,4 +1,4 @@
-package sample.view;
+package com.sample.view;
 
 import org.fluentness.rendering.Renderable;
 import org.fluentness.view.Placeholder;
