@@ -37,8 +37,7 @@ interface MethodFinder extends Serializable {
     }
 
     default Parameter parameter(int n) {
-        Parameter[] parameters = method().getParameters();
-        return parameters[n];
+        return method().getParameters()[n];
     }
 
     class UnableToGuessMethodException extends RuntimeException {}
