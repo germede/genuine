@@ -1,6 +1,7 @@
 # Intellij
 .idea/*
 .idea_modules/
+lib/
 out/
 tmp/
 *.iws
