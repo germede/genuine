@@ -1,6 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.common.NamedValue;
+import org.fluentness.localization.Localizable;
 import org.fluentness.logging.Logger;
 import org.fluentness.networking.HttpStatusCode;
 import org.fluentness.networking.Response;
@@ -20,7 +21,7 @@ public interface Controller {
             View instance = view.newInstance();
             Arrays.stream(attributes).forEach(attribute -> instance.injectAttribute(attribute.name(), attribute.value()));
             return new Response(HttpStatusCode.Ok)
-                    .setBody(instance.renderWithCacheAndTemplate("EN"));
+                    .setBody(instance.renderWithCacheAndTemplate());
         } catch (InstantiationException | IllegalAccessException e) {
             Logger.error(this.getClass(), e);
             return new Response(HttpStatusCode.InternalServerError);

@@ -1,11 +1,10 @@
 package org.fluentness.common;
 
 import org.fluentness.register.NamedValueRegister;
-import org.fluentness.rendering.Renderable;
 
 import java.util.function.Function;
 
-public interface NamedValue<T> extends MethodFinder, Function<String, T>, Renderable {
+public interface NamedValue<T> extends MethodFinder, Function<String, T> {
     default String name() {
         String lambdaClassName = this.getClass().getName();
         if (NamedValueRegister.existsName(lambdaClassName)) {
@@ -25,9 +24,5 @@ public interface NamedValue<T> extends MethodFinder, Function<String, T>, Render
 
     default T value() {
         return apply(name());
-    }
-
-    default String render() {
-        return name() + "=\"" + value() + "\"";
     }
 }

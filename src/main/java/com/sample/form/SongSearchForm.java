@@ -30,9 +30,9 @@ public class SongSearchForm implements Form {
 
     @Override
     public Renderable getRenderable() {
-        return form(____(METHOD -> getMethod(), ACTION -> getAction(), CLASS -> "form-inline float-right"),
+        return form(with(METHOD -> getMethod(), ACTION -> getAction(), CLASS -> "form-inline float-right"),
                 field("title"),
-                input(____(TYPE -> "submit", VALUE -> translate("search")))
+                input(with(TYPE -> "submit", VALUE -> translate("search")))
         );
     }
 

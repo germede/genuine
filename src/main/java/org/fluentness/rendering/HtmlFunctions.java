@@ -1,17 +1,29 @@
 package org.fluentness.rendering;
 
+import org.fluentness.logging.Logger;
+import org.fluentness.style.Style;
+
 public interface HtmlFunctions extends MarkupFunctions {
 
     // helpers
 
     default Renderable includeCss(String href) {
-        return link(____(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/resources/css/"+href));
+        return link(with(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/resources/css/"+href));
     }
 
     default Renderable includeJs(String src) {
-        return script(____(SRC -> "/resources/js/"+src));
+        return script(with(SRC -> "/resources/js/"+src));
     }
 
+
+    default Renderable style(Class<? extends Style> styleClass) {
+        try {
+            return style(styleClass.newInstance().getSelectors().toString());
+        } catch (InstantiationException | IllegalAccessException e) {
+            Logger.error(this.getClass(),e);
+        }
+        return style();
+    }
 
     // empty
 
@@ -275,7 +287,7 @@ public interface HtmlFunctions extends MarkupFunctions {
 
     default Renderable html(CharSequence... content) {
         return new MarkupComposition(
-                new MarkupElement("!doctype", ____(html -> null)),
+                new MarkupElement("!doctype", with(html -> null)),
                 new MarkupElement("html", content)
         );
     }

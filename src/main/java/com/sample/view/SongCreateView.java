@@ -14,8 +14,8 @@ public class SongCreateView implements View.Html {
 
     @Override
     public Renderable getRenderable() {
-        return div(____(CLASS -> "row"),
-                div(____(CLASS -> "column"),
+        return div(with(CLASS -> "row"),
+                div(with(CLASS -> "column"),
                         h2(translate("song_create")),
                         songForm
                 )

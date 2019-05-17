@@ -15,6 +15,8 @@ public class MarkupAttributes implements Renderable {
 
     @Override
     public String render() {
-        return " " + Arrays.stream(attributes).collect(Collectors.joining(" "));
+        return " " + Arrays.stream(attributes)
+                .map(attribute -> attribute.name() + "=\"" + attribute.value() + "\"")
+                .collect(Collectors.joining(" "));
     }
 }

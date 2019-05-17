@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SongRepository implements Repository {
     @Override
-    public Class getModel() {
+    public Class getModelClass() {
         return SongModel.class;
     }
 
@@ -22,6 +22,6 @@ public class SongRepository implements Repository {
                         new SqlConstraint("title").like(title)
                 )
                 .execute()
-                .entityList(getModel());
+                .entityList(getModelClass());
     }
 }

@@ -18,13 +18,13 @@ public class SongListView implements View.Html {
 
     @Override
     public Renderable getRenderable() {
-        return div(____(CLASS -> "row"),
-                div(____(CLASS -> "column"),
-                        div(____(CLASS -> "row"),
-                                div(____(CLASS -> "column column-50"),
+        return div(with(CLASS -> "row"),
+                div(with(CLASS -> "column"),
+                        div(with(CLASS -> "row"),
+                                div(with(CLASS -> "column column-50"),
                                         h2(translate("song_list"))
                                 ),
-                                div(____(CLASS -> "column column-50"),
+                                div(with(CLASS -> "column column-50"),
                                         new SongSearchForm()
                                 )
                         ),
@@ -48,13 +48,13 @@ public class SongListView implements View.Html {
                                                         td(song.getString("album")),
                                                         td(song.getString("year")),
                                                         td(song.getBoolean("is_new") ? "✔" : "\uD83D\uDDD9"),
-                                                        td(a(____(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
-                                                        td(a(____(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
+                                                        td(a(with(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
+                                                        td(a(with(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
                                                 )
                                         )
                                 )
                         ),
-                        a(____(CLASS -> "button", HREF -> "/song/create"),
+                        a(with(CLASS -> "button", HREF -> "/song/create"),
                                 translate("song_create")
                         )
                 )

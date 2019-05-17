@@ -20,56 +20,56 @@ public class SongForm implements Form {
     public Fields getFields() {
         return fields(
                 title -> text(
-                        REQUIRED -> "true",
-                        ID -> "song_title_input",
-                        PLACEHOLDER -> translate("song_title_placeholder"),
-                        MAXLENGTH -> "50"
+                        required -> "true",
+                        id -> "song_title_input",
+                        placeholder -> translate("song_title_placeholder"),
+                        maxlength -> "50"
                 ),
                 artist -> text(
-                        REQUIRED -> "true",
-                        ID -> "song_artist_input",
-                        PLACEHOLDER -> translate("song_artist_placeholder")
+                        required -> "true",
+                        id -> "song_artist_input",
+                        placeholder -> translate("song_artist_placeholder")
                 ),
                 album -> text(
-                        REQUIRED -> "false",
-                        ID -> "song_album_input",
-                        PLACEHOLDER -> translate("song_artist_placeholder")
+                        required -> "false",
+                        id -> "song_album_input",
+                        placeholder -> translate("song_artist_placeholder")
                 ),
                 year -> number(
-                        REQUIRED -> "true",
-                        ID -> "song_year_input",
-                        PLACEHOLDER -> translate("song_year_placeholder"),
-                        MIN -> "0",
-                        MAX -> "2099",
-                        STEP -> "1"
+                        required -> "true",
+                        id -> "song_year_input",
+                        placeholder -> translate("song_year_placeholder"),
+                        min -> "0",
+                        max -> "2099",
+                        step -> "1"
                 ),
                 is_new -> checkbox(
-                        ID -> "song_is_new_input"
+                        id -> "song_is_new_input"
                 )
         );
     }
 
     @Override
     public Renderable getRenderable() {
-        return form(____(METHOD -> getMethod(), ACTION -> getAction()),
+        return form(with(METHOD -> getMethod(), ACTION -> getAction()),
                 fieldset(
-                        label(____(FOR -> "song_title_input"), translate("song_title")),
+                        label(with(FOR -> "song_title_input"), translate("song_title")),
                         field("title"),
-                        label(____(FOR -> "song_artist_input"), translate("song_artist")),
+                        label(with(FOR -> "song_artist_input"), translate("song_artist")),
                         field("artist"),
-                        label(____(FOR -> "song_album_input"), translate("song_album")),
+                        label(with(FOR -> "song_album_input"), translate("song_album")),
                         field("album"),
-                        label(____(FOR -> "song_year_input"), translate("song_year")),
+                        label(with(FOR -> "song_year_input"), translate("song_year")),
                         field("year"),
 
-                        div(____(CLASS -> "float-right"),
-                                label(____(FOR -> "song_is_new_input", CLASS -> "label-inline"), translate("song_is_new")),
+                        div(with(CLASS -> "float-right"),
+                                label(with(FOR -> "song_is_new_input", CLASS -> "label-inline"), translate("song_is_new")),
                                 field("is_new")
                         ),
 
-                        input(____(TYPE -> "submit", VALUE -> translate("submit"))),
+                        input(with(TYPE -> "submit", VALUE -> translate("submit"))),
                         " ",
-                        a(____(ONCLICK -> "window.history.back();", CLASS -> "button button-outline"), translate("cancel"))
+                        a(with(ONCLICK -> "window.history.back();", CLASS -> "button button-outline"), translate("cancel"))
                 )
         );
     }

@@ -1,6 +1,7 @@
 package org.fluentness.cacher;
 
 import org.fluentness.logging.Logger;
+import org.fluentness.register.RequestRegister;
 import org.fluentness.view.View;
 
 import java.io.File;
@@ -14,9 +15,9 @@ public class ViewCacher implements Cacher {
     private View view;
     private String language;
 
-    public ViewCacher(View view, String language) {
+    public ViewCacher(View view) {
         this.view = view;
-        this.language = language;
+        this.language = RequestRegister.getCurrent().getPreferredLocale().getLanguage();
     }
 
     public String cache() {

@@ -13,10 +13,10 @@ public interface View extends Localizable {
     Renderable getRenderable();
 
     // rendering
-    default String renderWithCacheAndTemplate(String language) {
+    default String renderWithCacheAndTemplate() {
 
         // with cache
-        ViewCacher viewCacher = new ViewCacher(this, language);
+        ViewCacher viewCacher = new ViewCacher(this);
         if (viewCacher.isCacheable()) {
             return viewCacher.cache();
         }

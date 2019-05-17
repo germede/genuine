@@ -10,14 +10,14 @@ import java.util.List;
 
 public interface Repository<T extends Model> {
 
-    Class<T> getModel();
+    Class<T> getModelClass();
 
     default Model getModelInstance() {
-        return ModelRegister.getModelInstance(getModel().getCanonicalName());
+        return ModelRegister.getModelInstance(getModelClass().getCanonicalName());
     }
 
     default Model.Properties getModelPropertiesInstance() {
-        return ModelRegister.getModelPropertiesInstance(getModel().getCanonicalName());
+        return ModelRegister.getModelPropertiesInstance(getModelClass().getCanonicalName());
     }
 
     default List<Entity<T>> list() {
@@ -25,7 +25,7 @@ public interface Repository<T extends Model> {
                 .select()
                 .from(getModelInstance().getTable())
                 .execute()
-                .entityList(getModel());
+                .entityList(getModelClass());
     }
 
     default Entity<T> findById(int id) {
@@ -34,7 +34,7 @@ public interface Repository<T extends Model> {
                 .from(getModelInstance().getTable())
                 .where(new SqlConstraint(getModelInstance().getPrimaryKey()).isEqualTo(id))
                 .execute()
-                .entityList(getModel())
+                .entityList(getModelClass())
                 .get(0);
     }
 
