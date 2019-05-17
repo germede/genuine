@@ -5,8 +5,8 @@ import org.fluentness.model.Model;
 public class SongModel implements Model {
 
     @Override
-    public Properties getProperties() {
-        return properties(
+    public Columns getColumns() {
+        return columns(
                 id -> id(),
                 title -> string(),
                 artist -> string(),

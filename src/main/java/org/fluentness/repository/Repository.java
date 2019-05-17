@@ -16,7 +16,7 @@ public interface Repository<T extends Model> {
         return ModelRegister.getModelInstance(getModel().getCanonicalName());
     }
 
-    default Model.Properties getModelPropertiesInstance() {
+    default Model.Columns getModelPropertiesInstance() {
         return ModelRegister.getModelPropertiesInstance(getModel().getCanonicalName());
     }
 

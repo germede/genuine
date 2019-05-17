@@ -4,7 +4,7 @@ import org.fluentness.common.NamedValueImpl;
 import org.fluentness.common.NamedValue;
 import org.fluentness.logging.Logger;
 import org.fluentness.model.Model;
-import org.fluentness.model.Property;
+import org.fluentness.model.Column;
 import org.fluentness.register.ModelRegister;
 
 import java.util.*;
@@ -25,7 +25,7 @@ public class Entity<T extends Model> {
         return ModelRegister.getModelInstance(model.getCanonicalName());
     }
 
-    private Model.Properties getModelPropertiesInstance() {
+    private Model.Columns getModelPropertiesInstance() {
         return ModelRegister.getModelPropertiesInstance(model.getCanonicalName());
     }
 
@@ -44,7 +44,7 @@ public class Entity<T extends Model> {
     }
 
     public Object get(String propertyName) {
-        Property modelProperty = getModelPropertiesInstance().get(propertyName);
+        Column modelProperty = getModelPropertiesInstance().get(propertyName);
         if (modelProperty == null) {
             Logger.error(getModel(), "Property '%s' doesn't exists for model %s", propertyName, getModelInstance().getClass().getName());
             return null;
@@ -61,7 +61,7 @@ public class Entity<T extends Model> {
     }
 
     public void set(String name, Object value) {
-        Property modelProperty = getModelPropertiesInstance().get(name);
+        Column modelProperty = getModelPropertiesInstance().get(name);
         if (modelProperty == null) {
             Logger.error(getModel(), "Property '%s' doesn't exists for model %s", name, getModelInstance().getClass().getName());
             return;
