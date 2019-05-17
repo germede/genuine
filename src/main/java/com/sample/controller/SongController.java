@@ -7,13 +7,12 @@ import com.sample.view.SongCreateView;
 import com.sample.view.SongListView;
 import org.fluentness.common.Inject;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.Route;
 import org.fluentness.entity.Entity;
-import org.fluentness.networking.HttpMethod;
-import org.fluentness.networking.Request;
-import org.fluentness.networking.Response;
+import org.fluentness.router.HttpMethod;
+import org.fluentness.controller.Request;
+import org.fluentness.controller.Response;
 
-@Route("/song")
+@Controller.Route("/song")
 public class SongController implements Controller {
 
     @Inject

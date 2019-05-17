@@ -1,10 +1,11 @@
-package org.fluentness.networking;
+package org.fluentness.router;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpsConfigurator;
 import com.sun.net.httpserver.HttpsServer;
 import org.fluentness.configuration.Configuration;
-import org.fluentness.logging.Logger;
+import org.fluentness.controller.Response;
+import org.fluentness.logger.Logger;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public final class HttpServer extends HttpsConfigurator {
                     throw new ProtocolException();
             }
 
-            HttpRouter.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
+            Router.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
             Logger.info(HttpServer.class, "Server successfully started and listening to %s",getAddress());

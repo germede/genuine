@@ -1,8 +1,9 @@
 package org.fluentness.cacher;
 
-import org.fluentness.logging.Logger;
-import org.fluentness.register.RequestRegister;
 import org.fluentness.view.View;
+import org.fluentness.configuration.Configuration;
+import org.fluentness.logger.Logger;
+import org.fluentness.register.RequestRegister;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,23 +11,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ViewCacher implements Cacher {
+public final class ViewCacher {
 
-    private View view;
-    private String language;
-
-    public ViewCacher(View view) {
-        this.view = view;
-        this.language = RequestRegister.getCurrent().getPreferredLocale().getLanguage();
-    }
-
-    public String cache() {
+    public static String cache(View view) {
+        String language = RequestRegister.getCurrent().getPreferredLocale().getLanguage();
 
         // check if cache is enabled
-        if (isCacheEnabled()) {
+        if (isCacheEnabled() && isCacheable(view,language)) {
             try {
                 new File(getCacheDirectory()).mkdirs();
-                String path = getCacheDirectory() + getCacheIdentifier();
+                String path = getCacheDirectory() + getCacheIdentifier(view,language);
                 File file = new File(path);
 
                 if (file.createNewFile()) {
@@ -50,15 +44,19 @@ public class ViewCacher implements Cacher {
         return view.getRenderable().render();
     }
 
-    public boolean isCacheable() {
-        return new File(getCacheDirectory() + getCacheIdentifier()).exists();
+    private static boolean isCacheable(View view, String language) {
+        return new File(getCacheDirectory() + getCacheIdentifier(view, language)).exists();
     }
 
-    public String getCacheIdentifier() {
+    private static String getCacheIdentifier(View view, String language) {
         return getCacheDirectory() + view.getClass().getCanonicalName() + language;
     }
 
-    public String getCacheDirectory() {
+    private static String getCacheDirectory() {
         return "tmp/cache/";
+    }
+
+    private static boolean isCacheEnabled() {
+        return Configuration.getBoolean(Configuration.CACHE_ENABLE);
     }
 }

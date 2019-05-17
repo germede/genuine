@@ -1,8 +1,8 @@
 package com.sample.form;
 
 import org.fluentness.form.Form;
-import org.fluentness.networking.HttpMethod;
-import org.fluentness.rendering.Renderable;
+import org.fluentness.router.HttpMethod;
+import org.fluentness.renderable.Renderable;
 
 public class SongForm implements Form {
 

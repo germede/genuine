@@ -1,7 +1,7 @@
 package org.fluentness.register;
 
 import org.fluentness.common.Inject;
-import org.fluentness.logging.Logger;
+import org.fluentness.logger.Logger;
 
 import java.lang.reflect.Field;
 

@@ -1,4 +1,4 @@
-package org.fluentness.rendering;
+package org.fluentness.renderable;
 
 import java.util.Arrays;
 

@@ -1,10 +1,11 @@
-package org.fluentness.networking;
+package org.fluentness.router;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.Route;
-import org.fluentness.logging.Logger;
+import org.fluentness.controller.Request;
+import org.fluentness.controller.Response;
+import org.fluentness.logger.Logger;
 import org.fluentness.register.ControllerRegister;
 import org.fluentness.register.RequestRegister;
 
@@ -12,9 +13,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-final class HttpRouter {
+final class Router {
 
-    private HttpRouter() {
+    private Router() {
     }
 
     static Map<String, HttpHandler> getRouteHandlerMap() {
@@ -25,25 +26,25 @@ final class HttpRouter {
 
             // retrieve controller base route
             Class<? extends Controller> controllerClass = controller.getClass();
-            String baseRouteValue = controllerClass.isAnnotationPresent(Route.class) ?
-                    controllerClass.getAnnotation(Route.class).value() :
+            String baseRouteValue = controllerClass.isAnnotationPresent(Controller.Route.class) ?
+                    controllerClass.getAnnotation(Controller.Route.class).value() :
                     "";
 
             // retrieve controller methods with route
             List<Method> methodsWithRoute = new ArrayList<>();
             for (Method declaredMethod : controllerClass.getDeclaredMethods()) {
-                if (declaredMethod.isAnnotationPresent(Route.class)) {
+                if (declaredMethod.isAnnotationPresent(Controller.Route.class)) {
                     methodsWithRoute.add(declaredMethod);
                 }
             }
 
             for (Method methodWithRoute : methodsWithRoute) {
 
-                String route = baseRouteValue + methodWithRoute.getAnnotation(Route.class).value();
+                String route = baseRouteValue + methodWithRoute.getAnnotation(Controller.Route.class).value();
 
                 // dynamic routes in the middle path are not allowed
                 if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
-                    Logger.warning(HttpRouter.class,
+                    Logger.warning(Router.class,
                             "Controller method %s->%s dynamic url parameter must stay at the end of the path",
                             controllerClass.getCanonicalName(),
                             methodWithRoute.getName());
@@ -52,7 +53,7 @@ final class HttpRouter {
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    Logger.warning(HttpRouter.class,
+                    Logger.warning(Router.class,
                             "Cannot register controller method %s->%s because route '%s' is already registered",
                             controllerClass.getCanonicalName(),
                             methodWithRoute.getName(), route);
@@ -61,7 +62,7 @@ final class HttpRouter {
 
                 // controller method must return HttpResponse
                 if (methodWithRoute.getReturnType() != Response.class) {
-                    Logger.warning(HttpRouter.class,
+                    Logger.warning(Router.class,
                             "Controller method %s->%s must return an object of type %s",
                             controllerClass.getCanonicalName(),
                             methodWithRoute.getName(),
@@ -71,7 +72,7 @@ final class HttpRouter {
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                         httpExchange -> {
-                            Logger.debug(HttpRouter.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                            Logger.debug(Router.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                             invokeControllerMethod(controller, methodWithRoute, httpExchange);
                         });
             }
@@ -90,8 +91,8 @@ final class HttpRouter {
     private static void invokeControllerMethod(Controller controller, Method method, HttpExchange httpExchange) {
         try {
             // invoke controller method and serve
-            String declaredControllerRoute = controller.getClass().isAnnotationPresent(Route.class) ? controller.getClass().getAnnotation(Route.class).value() : "";
-            String declaredRoute = declaredControllerRoute + method.getAnnotation(Route.class).value();
+            String declaredControllerRoute = controller.getClass().isAnnotationPresent(Controller.Route.class) ? controller.getClass().getAnnotation(Controller.Route.class).value() : "";
+            String declaredRoute = declaredControllerRoute + method.getAnnotation(Controller.Route.class).value();
 
             Request request = new Request(httpExchange, declaredRoute);
             RequestRegister.putCurrent(request);
@@ -107,14 +108,14 @@ final class HttpRouter {
 
             // exception due to inaccessible controller method
         } catch (IllegalAccessException e) {
-            Logger.error(HttpRouter.class, e);
+            Logger.error(Router.class, e);
             HttpServer.serve(httpExchange, new Response(HttpStatusCode.InternalServerError));
             // exception within controller method invocation
         } catch (InvocationTargetException e) {
             Logger.error(controller.getClass(), (Exception) e.getTargetException());
             HttpServer.serve(httpExchange, new Response(HttpStatusCode.InternalServerError));
         } catch (Exception e) {
-            Logger.error(HttpRouter.class, e);
+            Logger.error(Router.class, e);
             HttpServer.serve(httpExchange, new Response(HttpStatusCode.InternalServerError));
         }
     }

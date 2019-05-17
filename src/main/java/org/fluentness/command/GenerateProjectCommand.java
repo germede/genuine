@@ -3,12 +3,11 @@ package org.fluentness.command;
 import org.fluentness.common.PackageNames;
 import org.fluentness.configuration.Configuration;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.Route;
 import org.fluentness.generator.ClassGenerator;
 import org.fluentness.generator.FieldGenerator;
 import org.fluentness.generator.MethodGenerator;
-import org.fluentness.networking.Request;
-import org.fluentness.networking.Response;
+import org.fluentness.controller.Request;
+import org.fluentness.controller.Response;
 import org.fluentness.repository.Repository;
 
 import java.lang.reflect.Modifier;
@@ -39,7 +38,7 @@ public class GenerateProjectCommand implements Command {
         new ClassGenerator(name + "Controller")
                 .setPackage(Configuration.getString(Configuration.APP_PACKAGE) + "." + PackageNames.CONTROLLER)
                 .addModifier(Modifier.PUBLIC)
-                .addAnnotation(Route.class, "\"/" + name.toLowerCase() + "\"")
+                .addAnnotation(Controller.Route.class, "\"/" + name.toLowerCase() + "\"")
                 .addInterface(Controller.class)
                 .addField(
                         new FieldGenerator(Repository.class, "repository")
@@ -49,7 +48,7 @@ public class GenerateProjectCommand implements Command {
                 )
                 .addMethod(
                         new MethodGenerator(Response.class, "list")
-                                .addAnnotation(Route.class, "\"/list\"")
+                                .addAnnotation(Controller.Route.class, "\"/list\"")
                                 .addModifier(Modifier.PUBLIC)
                                 .addParameter(Request.class, "request")
                                 .setImplementationLines(
@@ -60,7 +59,7 @@ public class GenerateProjectCommand implements Command {
                 )
                 .addMethod(
                         new MethodGenerator(Response.class, "find")
-                                .addAnnotation(Route.class, "\"/find/{id}\"")
+                                .addAnnotation(Controller.Route.class, "\"/find/{id}\"")
                                 .addModifier(Modifier.PUBLIC)
                                 .addParameter(Request.class, "request")
                                 .setImplementationLines(
@@ -71,7 +70,7 @@ public class GenerateProjectCommand implements Command {
                 )
                 .addMethod(
                         new MethodGenerator(Response.class, "create")
-                                .addAnnotation(Route.class, "\"/create\"")
+                                .addAnnotation(Controller.Route.class, "\"/create\"")
                                 .addModifier(Modifier.PUBLIC)
                                 .addParameter(Request.class, "request")
                                 .setImplementationLines(
@@ -82,7 +81,7 @@ public class GenerateProjectCommand implements Command {
                 )
                 .addMethod(
                         new MethodGenerator(Response.class, "update")
-                                .addAnnotation(Route.class, "\"/update/{id}\"")
+                                .addAnnotation(Controller.Route.class, "\"/update/{id}\"")
                                 .addModifier(Modifier.PUBLIC)
                                 .addParameter(Request.class, "request")
                                 .setImplementationLines(
@@ -93,7 +92,7 @@ public class GenerateProjectCommand implements Command {
                 )
                 .addMethod(
                         new MethodGenerator(Response.class, "delete")
-                                .addAnnotation(Route.class, "\"/delete\"")
+                                .addAnnotation(Controller.Route.class, "\"/delete\"")
                                 .addModifier(Modifier.PUBLIC)
                                 .addParameter(Request.class, "request")
                                 .setImplementationLines(

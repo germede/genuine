@@ -2,7 +2,7 @@ package org.fluentness.entity;
 
 import org.fluentness.common.NamedValueImpl;
 import org.fluentness.common.NamedValue;
-import org.fluentness.logging.Logger;
+import org.fluentness.logger.Logger;
 import org.fluentness.model.Model;
 import org.fluentness.model.Property;
 import org.fluentness.register.ModelRegister;

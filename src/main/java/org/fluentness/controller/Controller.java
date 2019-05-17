@@ -1,12 +1,14 @@
 package org.fluentness.controller;
 
 import org.fluentness.common.NamedValue;
-import org.fluentness.localization.Localizable;
-import org.fluentness.logging.Logger;
-import org.fluentness.networking.HttpStatusCode;
-import org.fluentness.networking.Response;
+import org.fluentness.logger.Logger;
+import org.fluentness.router.HttpStatusCode;
 import org.fluentness.view.View;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.Arrays;
 
 public interface Controller {
@@ -36,4 +38,9 @@ public interface Controller {
         return new Response(HttpStatusCode.MovedPermanently).setHeader("Location", to);
     }
 
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.TYPE,ElementType.METHOD})
+    @interface Route {
+        String value();
+    }
 }

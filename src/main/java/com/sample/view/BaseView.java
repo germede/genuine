@@ -1,8 +1,7 @@
 package com.sample.view;
 
 import com.sample.style.FormStyle;
-import org.fluentness.rendering.Renderable;
-import org.fluentness.view.Placeholder;
+import org.fluentness.renderable.Renderable;
 import org.fluentness.view.View;
 
 public class BaseView implements View.Html {

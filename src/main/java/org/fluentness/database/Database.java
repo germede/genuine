@@ -1,7 +1,7 @@
 package org.fluentness.database;
 
 import org.fluentness.configuration.Configuration;
-import org.fluentness.logging.Logger;
+import org.fluentness.logger.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;

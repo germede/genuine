@@ -2,8 +2,8 @@ package org.fluentness.form;
 
 import org.fluentness.common.NamedValue;
 import org.fluentness.localization.Localizable;
-import org.fluentness.rendering.HtmlFunctions;
-import org.fluentness.rendering.Renderable;
+import org.fluentness.renderable.HtmlFunctions;
+import org.fluentness.renderable.Renderable;
 
 import java.util.Arrays;
 import java.util.HashMap;

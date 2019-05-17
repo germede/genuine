@@ -3,14 +3,12 @@ package com.sample.view;
 import com.sample.form.SongSearchForm;
 import com.sample.model.SongModel;
 import org.fluentness.entity.Entity;
-import org.fluentness.rendering.Renderable;
-import org.fluentness.view.Parameter;
-import org.fluentness.view.Template;
+import org.fluentness.renderable.Renderable;
 import org.fluentness.view.View;
 
 import java.util.List;
 
-@Template(BaseView.class)
+@View.Template(BaseView.class)
 public class SongListView implements View.Html {
 
     @Parameter

@@ -1,4 +1,4 @@
-package org.fluentness.networking;
+package org.fluentness.router;
 
 public final class HttpStatusCode {
 

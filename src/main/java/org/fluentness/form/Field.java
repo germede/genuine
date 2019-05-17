@@ -3,9 +3,9 @@ package org.fluentness.form;
 
 import org.fluentness.common.NamedValue;
 import org.fluentness.common.NamedValueImpl;
-import org.fluentness.rendering.HtmlFunctions;
-import org.fluentness.rendering.MarkupFunctions;
-import org.fluentness.rendering.Renderable;
+import org.fluentness.renderable.HtmlFunctions;
+import org.fluentness.renderable.MarkupFunctions;
+import org.fluentness.renderable.Renderable;
 
 import java.util.ArrayList;
 import java.util.Arrays;

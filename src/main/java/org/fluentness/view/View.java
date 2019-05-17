@@ -2,10 +2,14 @@ package org.fluentness.view;
 
 import org.fluentness.cacher.ViewCacher;
 import org.fluentness.localization.Localizable;
-import org.fluentness.logging.Logger;
-import org.fluentness.rendering.HtmlFunctions;
-import org.fluentness.rendering.Renderable;
+import org.fluentness.logger.Logger;
+import org.fluentness.renderable.HtmlFunctions;
+import org.fluentness.renderable.Renderable;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
 public interface View extends Localizable {
@@ -14,18 +18,10 @@ public interface View extends Localizable {
 
     // rendering
     default String renderWithCacheAndTemplate() {
-
-        // with cache
-        ViewCacher viewCacher = new ViewCacher(this);
-        if (viewCacher.isCacheable()) {
-            return viewCacher.cache();
-        }
-
-        // with template
-        return getTemplate().getRenderable().render();
+        return ViewCacher.cache(getTemplate());
     }
 
-    // render parent view if present, otherwise return itself
+    // return parent view if present, otherwise return itself
     default View getTemplate() {
         try {
             if (this.getClass().isAnnotationPresent(Template.class)) {
@@ -75,5 +71,21 @@ public interface View extends Localizable {
 
     interface Xml extends View {
 
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    @interface Parameter {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    @interface Placeholder {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    @interface Template {
+        Class<? extends View> value();
     }
 }

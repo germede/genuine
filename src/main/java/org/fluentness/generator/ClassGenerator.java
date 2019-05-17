@@ -1,6 +1,6 @@
 package org.fluentness.generator;
 
-import org.fluentness.logging.Logger;
+import org.fluentness.logger.Logger;
 
 import java.io.BufferedWriter;
 import java.io.File;

@@ -1,8 +1,8 @@
-package org.fluentness.networking;
+package org.fluentness.router;
 
 import com.sun.net.httpserver.HttpsParameters;
 import org.fluentness.configuration.Configuration;
-import org.fluentness.logging.Logger;
+import org.fluentness.logger.Logger;
 
 import javax.net.ssl.*;
 import java.io.FileInputStream;

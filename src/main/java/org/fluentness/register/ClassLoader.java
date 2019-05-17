@@ -2,7 +2,7 @@ package org.fluentness.register;
 
 import org.fluentness.Fluentness;
 import org.fluentness.configuration.Configuration;
-import org.fluentness.logging.Logger;
+import org.fluentness.logger.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;

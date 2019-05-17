@@ -2,7 +2,7 @@ package org.fluentness.register;
 
 import org.fluentness.command.Command;
 import org.fluentness.common.PackageNames;
-import org.fluentness.logging.Logger;
+import org.fluentness.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Comparator;

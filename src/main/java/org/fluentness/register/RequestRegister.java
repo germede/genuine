@@ -1,6 +1,6 @@
 package org.fluentness.register;
 
-import org.fluentness.networking.Request;
+import org.fluentness.controller.Request;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package org.fluentness.logging;
+package org.fluentness.logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,6 +1,6 @@
-package org.fluentness.rendering;
+package org.fluentness.renderable;
 
-import org.fluentness.logging.Logger;
+import org.fluentness.logger.Logger;
 import org.fluentness.style.Style;
 
 public interface HtmlFunctions extends MarkupFunctions {

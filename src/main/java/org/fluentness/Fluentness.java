@@ -4,7 +4,7 @@ import org.fluentness.command.Command;
 import org.fluentness.command.HelpCommand;
 import org.fluentness.common.NamedValue;
 import org.fluentness.configuration.Configuration;
-import org.fluentness.logging.Logger;
+import org.fluentness.logger.Logger;
 import org.fluentness.register.CommandRegister;
 
 public final class Fluentness {
