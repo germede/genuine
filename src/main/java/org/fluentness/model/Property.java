@@ -1,22 +1,22 @@
 package org.fluentness.model;
 
-public abstract class Column {
+public abstract class Property {
 
     private boolean isPrimaryKey = false;
     private boolean isAutoincrement = false;
     private boolean isNullable = false;
 
-    public Column primaryKey() {
+    public Property primaryKey() {
         this.isPrimaryKey = true;
         return this;
     }
 
-    public Column autoincrement() {
+    public Property autoincrement() {
         this.isAutoincrement = true;
         return this;
     }
 
-    public Column nullable() {
+    public Property nullable() {
         this.isNullable = true;
         return this;
     }

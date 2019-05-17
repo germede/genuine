@@ -1,6 +1,6 @@
 package org.fluentness.model;
 
-public interface ColumnFunctions {
+public interface PropertyFunctions {
 
     default IntegerProperty id() {
         return (IntegerProperty) new IntegerProperty().primaryKey().autoincrement();
@@ -22,7 +22,7 @@ public interface ColumnFunctions {
         return new CustomProperty(type);
     }
 
-    class StringProperty extends Column {
+    class StringProperty extends Property {
         private StringProperty() {
         }
 
@@ -31,7 +31,7 @@ public interface ColumnFunctions {
         }
     }
 
-    class IntegerProperty extends Column {
+    class IntegerProperty extends Property {
         private IntegerProperty() {
         }
 
@@ -40,7 +40,7 @@ public interface ColumnFunctions {
         }
     }
 
-    class BooleanProperty extends Column {
+    class BooleanProperty extends Property {
         private BooleanProperty() {
         }
 
@@ -50,7 +50,7 @@ public interface ColumnFunctions {
 
     }
 
-    class CustomProperty extends Column {
+    class CustomProperty extends Property {
         private final Class type;
 
         private CustomProperty(Class type) {

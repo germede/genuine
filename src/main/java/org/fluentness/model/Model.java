@@ -6,31 +6,31 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface Model extends ColumnFunctions {
+public interface Model extends PropertyFunctions {
 
     default String getTable() {
         return this.getClass().getSimpleName().toLowerCase().replace("model", "");
     }
 
-    Columns getColumns();
+    Properties getProperties();
 
     default String getPrimaryKey() {
         return "id";
     }
 
-    default Columns columns(NamedValue<Column>... properties) {
-        return new Columns(properties);
+    default Properties properties(NamedValue<Property>... properties) {
+        return new Properties(properties);
     }
 
-    class Columns {
+    class Properties {
 
-        private Map<String, Column> properties = new HashMap<>();
+        private Map<String, Property> properties = new HashMap<>();
 
-        private Columns(NamedValue<Column>... properties) {
+        private Properties(NamedValue<Property>... properties) {
             Arrays.stream(properties).forEach(translation -> this.properties.put(translation.name(), translation.value()));
         }
 
-        public Column get(String name) {
+        public Property get(String name) {
             return properties.get(name);
         }
 

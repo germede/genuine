@@ -10,7 +10,7 @@ import java.util.Map;
 public final class ModelRegister {
 
     private static final Map<String, Model> modelInstances;
-    private static final Map<String, Model.Columns> modelPropertiesInstances;
+    private static final Map<String, Model.Properties> modelPropertiesInstances;
     static {
         modelInstances = new HashMap<>();
         modelPropertiesInstances = new HashMap<>();
@@ -19,7 +19,7 @@ public final class ModelRegister {
                 Model model = (Model) modelClass.newInstance();
                 ClassInjector.injectFields(model);
                 modelInstances.put(model.getClass().getCanonicalName(),model);
-                modelPropertiesInstances.put(model.getClass().getCanonicalName(),model.getColumns());
+                modelPropertiesInstances.put(model.getClass().getCanonicalName(),model.getProperties());
             } catch (InstantiationException | IllegalAccessException e) {
                 Logger.error(ClassLoader.class, e);
             }
@@ -28,7 +28,7 @@ public final class ModelRegister {
     public static Model getModelInstance(String className) {
         return modelInstances.get(className);
     }
-    public static Model.Columns getModelPropertiesInstance(String className) {
+    public static Model.Properties getModelPropertiesInstance(String className) {
         return modelPropertiesInstances.get(className);
     }
 
