@@ -24,12 +24,12 @@ public interface View extends Localizable {
     // return parent view if present, otherwise return itself
     default View getTemplate() {
         try {
-            if (this.getClass().isAnnotationPresent(Template.class)) {
-                View template = this.getClass().getAnnotation(Template.class).value().newInstance();
+            if (this.getClass().getMethod("getRenderable").isAnnotationPresent(Template.class)) {
+                View template = this.getClass().getMethod("getRenderable").getAnnotation(Template.class).value().newInstance();
                 template.injectPlaceholder(this);
                 return template;
             }
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             Logger.error(this.getClass(), e);
         }
         return this;
@@ -84,7 +84,7 @@ public interface View extends Localizable {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
+    @Target(ElementType.METHOD)
     @interface Template {
         Class<? extends View> value();
     }
