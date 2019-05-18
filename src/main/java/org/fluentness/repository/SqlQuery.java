@@ -1,6 +1,7 @@
-package org.fluentness.database;
+package org.fluentness.repository;
 
 import org.fluentness.common.NamedValue;
+import org.fluentness.database.Database;
 import org.fluentness.entity.Entity;
 import org.fluentness.model.Model;
 

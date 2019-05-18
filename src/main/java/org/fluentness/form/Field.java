@@ -3,29 +3,31 @@ package org.fluentness.form;
 
 import org.fluentness.common.NamedValue;
 import org.fluentness.common.NamedValueImpl;
-import org.fluentness.renderable.HtmlFunctions;
-import org.fluentness.renderable.MarkupFunctions;
+import org.fluentness.renderable.MarkupAttributes;
+import org.fluentness.renderable.MarkupElement;
 import org.fluentness.renderable.Renderable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public abstract class Field implements Renderable, HtmlFunctions, MarkupFunctions {
-
-    private List<NamedValue<String>> attributes = new ArrayList();
+public abstract class Field extends MarkupElement {
 
     Field(String type, NamedValue<String>[] attributes) {
-        this.attributes.add(new NamedValueImpl("type",type));
-        this.attributes.addAll(Arrays.asList(attributes));
+        super("input", new MarkupAttributes(attributes));
+        this.attributes.add(TYPE -> type);
     }
 
     void setName(String name) {
         this.attributes.add(new NamedValueImpl("name",name));
     }
 
-    @Override
-    public String render() {
-        return input(with(attributes.toArray(new NamedValue[0]))).render();
+    public Field precededBy(Renderable... predecessors) {
+        return (Field) super.precededBy(predecessors);
     }
+
+    public Field wrappedBy(Renderable wrapper) {
+        return (Field) super.wrappedBy(wrapper);
+    }
+
+    public Field followedBy(Renderable... successors) {
+        return (Field) super.followedBy(successors);
+    }
+
 }

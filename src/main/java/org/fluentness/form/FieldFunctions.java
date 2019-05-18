@@ -68,6 +68,10 @@ public interface FieldFunctions {
         return new SearchField(attributes);
     }
 
+    default SubmitField submit(NamedValue<String>... attributes) {
+        return new SubmitField(attributes);
+    }
+
     default TelField tel(NamedValue<String>... attributes) {
         return new TelField(attributes);
     }
@@ -181,6 +185,12 @@ public interface FieldFunctions {
     class SearchField extends Field {
         private SearchField(NamedValue... attributes) {
             super("search", attributes);
+        }
+    }
+
+    class SubmitField extends Field {
+        private SubmitField(NamedValue... attributes) {
+            super("submit", attributes);
         }
     }
 

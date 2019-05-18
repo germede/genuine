@@ -23,7 +23,7 @@ public class SongListView implements View.Html {
                                         h2(translate("song_list"))
                                 ),
                                 div(with(CLASS -> "column column-50"),
-                                        new SongSearchForm()
+                                        new SongSearchForm().getRenderable()
                                 )
                         ),
                         table(

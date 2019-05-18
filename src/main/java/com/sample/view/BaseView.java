@@ -1,6 +1,5 @@
 package com.sample.view;
 
-import com.sample.style.FormStyle;
 import org.fluentness.renderable.Renderable;
 import org.fluentness.view.View;
 
@@ -16,7 +15,7 @@ public class BaseView implements View.Html {
                         title("A music archive made with love and Fluentness"),
                         meta(with(NAME -> "lang", CONTENT -> getLocale().getLanguage())),
                         meta(with(CHARSET -> "utf-8")),
-                        new FormStyle().getSelectors().toString(),
+//                        new FormStyle().getRuleset().toString(),
                         includeCss("milligram.min.css"),
                         includeCss("custom.css"),
                         includeJs("script.min.js")

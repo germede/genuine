@@ -9,21 +9,21 @@ import java.util.stream.Collectors;
 
 public interface Style {
 
-    Selectors getSelectors();
+    Ruleset getRuleset();
 
-    default Selectors selectors(Selector... selectors) {
-        return new Selectors(selectors);
+    default Ruleset ruleset(Selector... selectors) {
+        return new Ruleset(selectors);
     }
 
-    default Selector selector(String selector, NamedValue<String>... rules) {
+    default Selector select(String selector, NamedValue<String>... rules) {
         return new Selector(selector, rules);
     }
 
-    class Selectors {
+    class Ruleset {
 
         private final Selector[] selectors;
 
-        private Selectors(Selector... selectors) {
+        private Ruleset(Selector... selectors) {
             this.selectors = selectors;
         }
 

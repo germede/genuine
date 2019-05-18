@@ -8,17 +8,18 @@ import org.fluentness.controller.Response;
 import org.fluentness.logger.Logger;
 import org.fluentness.register.ControllerRegister;
 import org.fluentness.register.RequestRegister;
+import org.fluentness.server.HttpServer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-final class Router {
+public final class Router {
 
     private Router() {
     }
 
-    static Map<String, HttpHandler> getRouteHandlerMap() {
+    public static Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
         Set<Controller> controllerInstances = ControllerRegister.getControllerInstances();

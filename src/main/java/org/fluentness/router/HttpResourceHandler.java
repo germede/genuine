@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.fluentness.controller.Response;
 import org.fluentness.logger.Logger;
+import org.fluentness.server.HttpServer;
 
 import java.io.IOException;
 import java.nio.file.Files;

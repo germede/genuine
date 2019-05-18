@@ -15,7 +15,7 @@ public class SongCreateView implements View.Html {
         return div(with(CLASS -> "row"),
                 div(with(CLASS -> "column"),
                         h2(translate("song_create")),
-                        songForm
+                        songForm.getRenderable()
                 )
         );
     }

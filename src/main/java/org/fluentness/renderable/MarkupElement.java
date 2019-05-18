@@ -5,47 +5,84 @@ import java.util.Arrays;
 public class MarkupElement implements Renderable {
 
     private String tag;
-    private CharSequence[] renderables;
-    private boolean isContainer;
+    protected MarkupAttributes attributes;
+    protected CharSequence[] inner;
+    protected boolean isContainer;
+
+    private Renderable[] predecessors;
+    private Renderable wrapper;
+    private Renderable[] successors;
 
     public MarkupElement(String tag, MarkupAttributes attributes) {
         this.tag = tag;
-        this.renderables = new Renderable[]{attributes};
+        this.attributes = attributes;
         this.isContainer = false;
     }
 
     public MarkupElement(String tag, CharSequence... renderables) {
         this.tag = tag;
-        this.renderables = renderables;
+        this.attributes = (MarkupAttributes) Arrays.stream(renderables)
+                .filter(renderable -> renderable instanceof MarkupAttributes)
+                .findFirst().orElse(new MarkupAttributes());
+        this.inner = Arrays.stream(renderables)
+                .filter(renderable -> renderable instanceof MarkupElement || renderable instanceof String)
+                .toArray(CharSequence[]::new);
         this.isContainer = true;
+    }
+
+    public MarkupElement precededBy(Renderable... predecessors) {
+        this.predecessors = predecessors;
+        return this;
+    }
+
+    public MarkupElement wrappedBy(Renderable wrapper) {
+        this.wrapper = wrapper;
+        return this;
+    }
+
+    public MarkupElement followedBy(Renderable... successors) {
+        this.successors = successors;
+        return this;
     }
 
     @Override
     public String render() {
-        StringBuilder html = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
 
-        // open
-        html.append("<").append(tag);
-        Arrays.stream(renderables)
-                .filter(renderable -> renderable instanceof MarkupAttributes)
-                .forEach(renderable->html.append(((MarkupAttributes) renderable).render()));
-        html.append(">");
-
-        // inner
-        for (CharSequence renderable : renderables) {
-            if ((renderable instanceof String)) {
-                html.append(renderable);
-            } else if (renderable instanceof Renderable && !(renderable instanceof MarkupAttributes)) {
-                html.append(((Renderable) renderable).render());
-            }
+        // predecessors
+        if (predecessors != null) {
+            Arrays.stream(predecessors).forEach(predecessor -> builder.append(predecessor.render()));
         }
 
-        // close
+        // tag
+        builder.append("<").append(tag).append(attributes.render()).append(">");
         if (isContainer) {
-            html.append("</").append(tag).append(">");
+            for (CharSequence charSequence : inner) {
+                if (charSequence instanceof MarkupElement) {
+                    builder.append(((Renderable) charSequence).render());
+                } else {
+                    builder.append(charSequence);
+                }
+            }
+            builder.append("</").append(tag).append(">");
         }
 
-        return html.toString();
+        // successors
+        if (successors != null) {
+            Arrays.stream(successors).forEach(successor -> builder.append(successor.render()));
+        }
+
+        // wrapper
+        if (wrapper instanceof MarkupElement) {
+            ((MarkupElement) wrapper).inner = new CharSequence[]{builder.toString()};
+            return wrapper.render();
+        }
+
+        return builder.toString();
     }
 
+    @Override
+    public String toString() {
+        return render();
+    }
 }

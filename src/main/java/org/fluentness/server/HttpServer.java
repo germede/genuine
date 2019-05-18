@@ -1,4 +1,4 @@
-package org.fluentness.router;
+package org.fluentness.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpsConfigurator;
@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpsServer;
 import org.fluentness.configuration.Configuration;
 import org.fluentness.controller.Response;
 import org.fluentness.logger.Logger;
+import org.fluentness.router.Router;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;

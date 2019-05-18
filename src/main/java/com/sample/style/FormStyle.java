@@ -5,20 +5,19 @@ import org.fluentness.style.Style;
 public class FormStyle implements Style {
 
     @Override
-    public Selectors getSelectors() {
-
-        return selectors(
-                selector("form",
+    public Ruleset getRuleset() {
+        return ruleset(
+                select("form",
                         font_size -> "12px",
                         font_family -> "Helvetica",
                         color -> "blue",
 
-                        selector("input",
+                        select("input",
                                 font_size -> "12px",
                                 font_family -> "Helvetica"
                         )
                 ),
-                selector("form",
+                select("form",
                         font_size -> "12px",
                         font_family -> "Helvetica",
                         color -> "blue"

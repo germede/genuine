@@ -2,18 +2,17 @@ package com.sample.form;
 
 import org.fluentness.form.Form;
 import org.fluentness.router.HttpMethod;
-import org.fluentness.renderable.Renderable;
 
 public class SongSearchForm implements Form {
 
     @Override
-    public String getMethod() {
-        return HttpMethod.GET;
+    public String getAction() {
+        return "/song/search";
     }
 
     @Override
-    public String getAction() {
-        return "/song/search";
+    public String getMethod() {
+        return HttpMethod.GET;
     }
 
     @Override
@@ -25,14 +24,6 @@ public class SongSearchForm implements Form {
                         PLACEHOLDER -> translate("song_title"),
                         MAXLENGTH -> "20"
                 )
-        );
-    }
-
-    @Override
-    public Renderable getRenderable() {
-        return form(with(METHOD -> getMethod(), ACTION -> getAction(), CLASS -> "form-inline float-right"),
-                field("title"),
-                input(with(TYPE -> "submit", VALUE -> translate("search")))
         );
     }
 

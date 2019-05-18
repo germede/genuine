@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-final class Database {
+public final class Database {
 
     public static List<Map<String, Object>> read(String query, List<Object> parameters) {
         List<Map<String, Object>> resultList = new ArrayList<>();

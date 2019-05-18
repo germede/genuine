@@ -1,8 +1,8 @@
 package com.sample.repository;
 
 import com.sample.model.SongModel;
-import org.fluentness.database.SqlConstraint;
-import org.fluentness.database.SqlQuery;
+import org.fluentness.repository.SqlConstraint;
+import org.fluentness.repository.SqlQuery;
 import org.fluentness.entity.Entity;
 import org.fluentness.repository.Repository;
 

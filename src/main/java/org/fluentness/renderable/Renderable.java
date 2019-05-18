@@ -18,5 +18,4 @@ public interface Renderable extends CharSequence {
     default CharSequence subSequence(int i, int i1) {
         return render().subSequence(i, i1);
     }
-
 }

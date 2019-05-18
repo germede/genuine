@@ -1,4 +1,4 @@
-package org.fluentness.database;
+package org.fluentness.repository;
 
 import java.util.ArrayList;
 import java.util.List;

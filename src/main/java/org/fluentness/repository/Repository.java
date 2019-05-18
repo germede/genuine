@@ -1,7 +1,5 @@
 package org.fluentness.repository;
 
-import org.fluentness.database.SqlConstraint;
-import org.fluentness.database.SqlQuery;
 import org.fluentness.entity.Entity;
 import org.fluentness.model.Model;
 import org.fluentness.register.ModelRegister;
@@ -21,6 +19,12 @@ public interface Repository<T extends Model> {
     }
 
     default List<Entity<T>> list() {
+
+//        return select(
+//                columns -> "*",
+//                from -> getModelInstance().getTable()
+//        );
+
         return new SqlQuery()
                 .select()
                 .from(getModelInstance().getTable())
@@ -29,6 +33,11 @@ public interface Repository<T extends Model> {
     }
 
     default Entity<T> findById(int id) {
+//        return select(
+//                columns -> "*"
+//
+//        )
+
         return (Entity<T>) new SqlQuery()
                 .select()
                 .from(getModelInstance().getTable())
@@ -56,6 +65,12 @@ public interface Repository<T extends Model> {
     }
 
     default int delete(Entity<T> entity) {
+
+//        return delete(
+//                from -> getModelInstance().getTable(),
+//                where ->
+//        )
+
         return new SqlQuery()
                 .delete()
                 .from(getModelInstance().getTable())

@@ -1,4 +1,4 @@
-package org.fluentness.router;
+package org.fluentness.server;
 
 import com.sun.net.httpserver.HttpsParameters;
 import org.fluentness.configuration.Configuration;
