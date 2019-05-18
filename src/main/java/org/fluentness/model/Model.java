@@ -8,15 +8,11 @@ import java.util.Map;
 
 public interface Model extends PropertyFunctions {
 
-    default String getTable() {
-        return this.getClass().getSimpleName().toLowerCase().replace("model", "");
-    }
+    String getTable();
+
+    String getPrimaryKey();
 
     Properties getProperties();
-
-    default String getPrimaryKey() {
-        return "id";
-    }
 
     default Properties properties(NamedValue<Property>... properties) {
         return new Properties(properties);
