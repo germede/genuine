@@ -5,7 +5,7 @@ import org.fluentness.common.Utils;
 import org.fluentness.configuration.Configuration;
 import org.fluentness.generator.ClassGenerator;
 import org.fluentness.generator.MethodGenerator;
-import org.fluentness.localization.Localization;
+import org.fluentness.localization.LocalizationProvider;
 
 import java.lang.reflect.Modifier;
 import java.util.Locale;
@@ -34,7 +34,7 @@ public class GenerateLocalizationCommand implements Command {
         new ClassGenerator(Utils.toTitelCase(name) + Utils.toTitelCase(PackageNames.LOCALIZATION))
                 .setPackage(Configuration.getString(Configuration.APP_PACKAGE) + "." + PackageNames.LOCALIZATION)
                 .addModifier(Modifier.PUBLIC)
-                .addInterface(Localization.class)
+                .addInterface(LocalizationProvider.class)
                 .addMethod(
                         new MethodGenerator(Locale.class, "getLocale")
                                 .addAnnotation(Override.class)
@@ -45,7 +45,7 @@ public class GenerateLocalizationCommand implements Command {
                                 .generate()
                 )
                 .addMethod(
-                        new MethodGenerator(Localization.Translations.class, "getTranslations")
+                        new MethodGenerator(LocalizationProvider.Localization.class, "getTranslations")
                                 .addAnnotation(Override.class)
                                 .addModifier(Modifier.PUBLIC)
                                 .setImplementationLines(
@@ -56,7 +56,7 @@ public class GenerateLocalizationCommand implements Command {
                                 )
                                 .generate()
                 )
-                .removeImport(Localization.Translations.class)
+                .removeImport(LocalizationProvider.Localization.class)
                 .generate()
                 .writeToFile()
         ;

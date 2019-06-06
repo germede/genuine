@@ -6,7 +6,7 @@ public class Dev {
 
     public static void main(String[] args) {
         Fluentness.initialize(args,
-                app_package -> "com.sample",
+                app_package -> Dev.class.getPackage().getName(),
                 app_protocol -> "http",
                 app_hostname -> "localhost",
                 app_port -> 8000,

@@ -1,9 +1,9 @@
 package org.fluentness.cacher;
 
-import org.fluentness.view.View;
 import org.fluentness.configuration.Configuration;
 import org.fluentness.logger.Logger;
 import org.fluentness.register.RequestRegister;
+import org.fluentness.view.View;
 
 import java.io.File;
 import java.io.FileWriter;
