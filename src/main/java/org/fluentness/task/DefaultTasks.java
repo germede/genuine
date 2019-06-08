@@ -6,13 +6,14 @@ import org.fluentness.common.namedValues.NamedValue;
 import org.fluentness.common.networking.HttpServer;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class DefaultTasks implements TaskProvider {
 
-    Task help = steps(
-        help -> step("Prints all available commands",
+    public Task help = commands(
+        help -> command("Prints all available commands",
             (parameters) -> {
                 System.out.println("\n" +
                     " _______                                \n" +
@@ -28,20 +29,28 @@ public class DefaultTasks implements TaskProvider {
                 tasks = new TreeMap<>(tasks);
 
                 for (Map.Entry<String, Task> task : tasks.entrySet()) {
-                    if (task.getValue().getSteps().length != 1) {
-                        System.out.println(String.format(ANSI_BLUE + "%-35s" + ANSI_RESET,
-                            task.getKey() + " " + ANSI_RESET + ANSI_BLACK + task.getValue().printParameters()
+
+                    if (task.getValue().getCommands().length == 1) {
+                        NamedValue<Command> command = task.getValue().getCommands()[0];
+                        String parametersToPrint = command.value().getParameters().length > 0 ?
+                            Arrays.toString(command.value().getParameters()) :
+                            "";
+                        System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET + "%s",
+                            command.name() + " " + parametersToPrint,
+                            task.getValue().getCommands()[0].value().getDescription()
                         ));
-                        for (NamedValue<Step> step : task.getValue().getSteps()) {
-                            System.out.println(String.format(ANSI_PURPLE + "    %-27s" + ANSI_RESET + "%s",
-                                task.getKey() + ":" + step.name(),
-                                step.value().getDescription()
-                            ));
-                        }
-                    } else {
-                        System.out.println(String.format(ANSI_BLUE + "%-35s" + ANSI_RESET + "%s",
-                            task.getKey() + " " + ANSI_RESET + ANSI_BLACK + task.getValue().printParameters(),
-                            task.getValue().getSteps()[0].value().getDescription()
+                        continue;
+                    }
+                    System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET,
+                        task.getKey() + ":"
+                    ));
+                    for (NamedValue<Command> command : task.getValue().getCommands()) {
+                        String parametersToPrint = command.value().getParameters().length > 0 ?
+                            Arrays.toString(command.value().getParameters()) :
+                            "";
+                        System.out.println(String.format(ANSI_PURPLE + "%-30s" + ANSI_RESET + "%s",
+                            "    " + task.getKey() + ":" + command.name() + " " + parametersToPrint,
+                            command.value().getDescription()
                         ));
                     }
                 }
@@ -50,24 +59,30 @@ public class DefaultTasks implements TaskProvider {
         )
     );
 
-    Task version = steps(
-        version -> step("Prints current Fluentness version",
+    Task test = commands(
+        test -> command(parameters("test"),"Prints current Fluentness version",
+            parameters -> System.out.println(parameters[0])
+        )
+    );
+
+    Task version = commands(
+        version -> command("Prints current Fluentness version",
             parameters -> System.out.println("1.0-dev")
         )
     );
 
-    Task clear = steps(
-        cache -> step("Clears the cache files by deleting directory tmp/cache",
+    Task clear = commands(
+        cache -> command("Clears the cache files by deleting directory tmp/cache",
             parameters -> Utils.deleteDirectoryRecursively(new File("tmp/cache"))
         ),
 
-        logs -> step("Clears the log files by deleting directory tmp/logs",
+        logs -> command("Clears the log files by deleting directory tmp/logs",
             parameters -> Utils.deleteDirectoryRecursively(new File("tmp/logs"))
         )
     );
 
-    Task run = steps(parameters("test"),
-        run -> step("Starts embedded HTTP server",
+    Task run = commands(
+        run -> command("Starts embedded HTTP server",
             parameters -> HttpServer.start()
         )
     );

@@ -2,13 +2,9 @@ package org.fluentness;
 
 import org.fluentness.common.logging.Logger;
 import org.fluentness.common.namedValues.NamedValue;
-import org.fluentness.controller.ControllerProvider;
+import org.fluentness.task.Command;
 import org.fluentness.task.DefaultTasks;
-import org.fluentness.task.Task;
 import org.fluentness.task.TaskProvider;
-
-import java.util.Arrays;
-import java.util.Map;
 
 public final class FnBoot {
 
@@ -16,25 +12,23 @@ public final class FnBoot {
 
         FnConf.setSettings(settings);
 
-        if (args.length <= 0) {
-            args = new String[]{"help"};
-        }
-
-        // merge default and custom tasks
-        Map<String, Task> tasks = new DefaultTasks().provideAll();
-        TaskProvider taskProvider = FnAtoz.getTaskProvider();
-        Map<String, Task> map = taskProvider.provideAll();
-        tasks.putAll(map);
-        ControllerProvider asdf = FnAtoz.getControllerProvider();
-
-        String[] finalArgs = args;
-        if (tasks.keySet().stream().noneMatch(task -> task.equals(finalArgs[0]))) {
-            Logger.error(FnBoot.class, "No task %s found", args[0]);
+        Command commandToExecute = null;
+        if (args.length == 0) {
+            new DefaultTasks().help.getCommands()[0].value().getExecutor().execute(new String[0]);
             return;
         }
 
-        Task taskToExecute = tasks.entrySet().stream().filter(task -> task.getKey().equals(finalArgs[0])).findFirst().get().getValue();
-        String[] declaredParameters = taskToExecute.getParameters();
+        for (NamedValue<Command> command : TaskProvider.retrieveAllCommands()) {
+            if (args[0].equals(command.name())) {
+                commandToExecute = command.value();
+            }
+        }
+        if (commandToExecute == null) {
+            Logger.error(FnBoot.class, "No command %s found", args[0]);
+            return;
+        }
+
+        String[] declaredParameters = commandToExecute.getParameters();
         if (declaredParameters.length != args.length - 1) {
             Logger.error(FnBoot.class, "Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
             return;
@@ -42,6 +36,6 @@ public final class FnBoot {
 
         String[] parameters = new String[declaredParameters.length];
         System.arraycopy(args, 1, parameters, 0, args.length - 1);
-        Arrays.stream(taskToExecute.getSteps()).forEach(step -> step.value().getExecutor().execute(parameters));
+        commandToExecute.getExecutor().execute(parameters);
     }
 }

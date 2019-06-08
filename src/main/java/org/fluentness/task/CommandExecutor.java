@@ -1,6 +1,6 @@
 package org.fluentness.task;
 
 @FunctionalInterface
-public interface StepExecutor {
+public interface CommandExecutor {
     void execute(String[] parameters);
 }
