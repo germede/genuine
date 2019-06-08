@@ -23,10 +23,10 @@ public final class Database implements Settings {
                         statement.setObject(++i, parameter);
                     }
                 }
-                Logger.debug(Database.class, query);
+                Logger.debug(query);
                 resultList = resultSetToResultList(statement.executeQuery());
             } catch (SQLException e) {
-                Logger.error(Database.class, e);
+                Logger.error(e);
             }
         }
         return resultList;
@@ -42,10 +42,10 @@ public final class Database implements Settings {
                         statement.setObject(++i, parameter);
                     }
                 }
-                Logger.debug(Database.class, query);
+                Logger.debug(query);
                 return statement.executeUpdate();
             } catch (SQLException e) {
-                Logger.error(Database.class, e);
+                Logger.error(e);
             }
         }
         return 0;
@@ -82,7 +82,7 @@ public final class Database implements Settings {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Logger.error(Database.class, e);
+            Logger.error(e);
         }
         return null;
     }

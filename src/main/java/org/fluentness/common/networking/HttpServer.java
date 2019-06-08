@@ -47,10 +47,10 @@ public final class HttpServer extends HttpsConfigurator {
             Router.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
-            Logger.info(HttpServer.class, "Server successfully started and listening to %s",getAddress());
+            Logger.info("Server successfully started and listening to %s",getAddress());
         } catch (Exception e) {
             stop();
-            Logger.error(HttpServer.class, e);
+            Logger.error(e);
         }
     }
 
@@ -61,7 +61,7 @@ public final class HttpServer extends HttpsConfigurator {
     public static void stop() {
         if (server != null) {
             server.stop(0);
-            Logger.info(HttpServer.class, "Server successfully stopped");
+            Logger.info("Server successfully stopped");
         }
     }
 
@@ -78,7 +78,7 @@ public final class HttpServer extends HttpsConfigurator {
 
             httpExchange.close();
         } catch (IOException e) {
-            Logger.error(HttpServer.class, e);
+            Logger.error(e);
         }
     }
 }

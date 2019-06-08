@@ -29,16 +29,16 @@ public final class ViewCache implements Settings {
                     FileWriter writer = new FileWriter(file);
                     writer.write(content);
                     writer.close();
-                    Logger.debug(ViewCache.class, "Create cache record %s", path);
+                    Logger.debug("Create cache record %s", path);
                     return content;
                 } else {
                     // cached! -> retrieve cache record
-                    Logger.debug(ViewCache.class, "Retrieve cache record %s", path);
+                    Logger.debug("Retrieve cache record %s", path);
                     return new String(Files.readAllBytes(Paths.get(path)));
                 }
 
             } catch (IOException e) {
-                Logger.error(ViewCache.class, e);
+                Logger.error(e);
             }
         }
         return view.render();

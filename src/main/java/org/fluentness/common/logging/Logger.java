@@ -65,23 +65,23 @@ public final class Logger {
 
     }
 
-    public static void debug(Class callingClass, String message, Object... parameters) {
-        logger.fine(String.format(callingClass.getSimpleName() + " - " + message, parameters));
+    public static void debug(String message, Object... parameters) {
+        logger.fine(String.format(message, parameters));
     }
 
-    public static void info(Class callingClass, String message, Object... parameters) {
-        logger.info(String.format(callingClass.getSimpleName() + " - " + message, parameters));
+    public static void info(String message, Object... parameters) {
+        logger.info(String.format(message, parameters));
     }
 
-    public static void warning(Class callingClass, String message, Object... parameters) {
-        logger.warning(String.format(callingClass.getSimpleName() + " - " + message, parameters));
+    public static void warning(String message, Object... parameters) {
+        logger.warning(String.format(message, parameters));
     }
 
-    public static void error(Class callingClass, String message, Object... parameters) {
-        logger.severe(String.format(callingClass.getSimpleName() + " - " + message, parameters));
+    public static void error(String message, Object... parameters) {
+        logger.severe(String.format(message, parameters));
     }
 
-    public static void error(Class callingClass, Exception exception) {
+    public static void error(Exception exception) {
         String message;
         if (exception.getMessage() == null) {
             message = exception.getClass().getSimpleName() + ":";
@@ -89,7 +89,7 @@ public final class Logger {
             message = exception.getClass().getSimpleName() + " " + exception.getMessage() + ":";
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        error(callingClass, message);
+        error(message);
     }
 
     private static String stackTraceToString(StackTraceElement[] stackTraceElements) {

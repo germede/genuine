@@ -32,7 +32,7 @@ final class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
             SSLParameters defaultSSLParameters = c.getDefaultSSLParameters();
             params.setSSLParameters(defaultSSLParameters);
         } catch (Exception e) {
-            Logger.error(HttpServer.class, e);
+            Logger.error(e);
         }
     }
 
@@ -64,12 +64,12 @@ final class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
                 IOException |
                 NoSuchAlgorithmException |
                 KeyManagementException e) {
-            Logger.error(HttpServer.class, e);
+            Logger.error(e);
         }
         try {
             return SSLContext.getInstance("TLS");
         } catch (NoSuchAlgorithmException e) {
-            Logger.error(HttpServer.class, e);
+            Logger.error(e);
         }
         return null;
     }

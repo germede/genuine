@@ -1,16 +1,11 @@
 package org.fluentness.common.logging;
 
-import org.fluentness.common.constants.AnsiColors;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 import static java.util.logging.Level.SEVERE;
 
-public class ConsoleFormatter extends Formatter implements AnsiColors {
+public class ConsoleFormatter extends AbstractFormatter {
 
     @Override
     public String format(LogRecord record) {
@@ -24,14 +19,10 @@ public class ConsoleFormatter extends Formatter implements AnsiColors {
         } else if (record.getLevel().intValue() == SEVERE.intValue()) {
             builder.append(ANSI_RED);
         }
-        builder.append("[");
-        builder.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(record.getMillis())));
-        builder.append("] [");
-        builder.append(Logger.toNormalLogLevel(record.getLevel().getName()));
-        builder.append("]");
+        appendLogRecordTitle(builder, record);
         builder.append(ANSI_RESET);
         builder.append(ANSI_RESET);
-        builder.append(" - ");
+        builder.append(" ");
         builder.append(record.getMessage());
         builder.append("\n");
         return builder.toString();

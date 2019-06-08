@@ -1,21 +1,14 @@
 package org.fluentness.common.logging;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-public class FileFormatter extends Formatter {
+public class FileFormatter extends AbstractFormatter {
 
     @Override
     public String format(LogRecord record) {
         StringBuilder builder = new StringBuilder();
-        builder.append("[");
-        builder.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(record.getMillis())));
-        builder.append("] [");
-        builder.append(Logger.toNormalLogLevel(record.getLevel().getName()));
-        builder.append("]");
-        builder.append(" - ");
+        appendLogRecordTitle(builder, record);
+        builder.append(" ");
         builder.append(record.getMessage());
         builder.append("\n");
         return builder.toString();

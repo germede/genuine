@@ -2,10 +2,15 @@ package org.fluentness.task;
 
 import org.fluentness.FnAtoz;
 import org.fluentness.common.Utils;
+import org.fluentness.common.logging.Logger;
 import org.fluentness.common.namedValues.NamedValue;
 import org.fluentness.common.networking.HttpServer;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
@@ -59,12 +64,6 @@ public class DefaultTasks implements TaskProvider {
         )
     );
 
-    Task test = commands(
-        test -> command(parameters("test"),"Prints current Fluentness version",
-            parameters -> System.out.println(parameters[0])
-        )
-    );
-
     Task version = commands(
         version -> command("Prints current Fluentness version",
             parameters -> System.out.println("1.0-dev")
@@ -81,7 +80,34 @@ public class DefaultTasks implements TaskProvider {
         )
     );
 
-    Task run = commands(
+    Task server = commands(
+
+        start -> command("Starts embedded HTTP server",
+            parameters -> HttpServer.start()
+        ),
+
+        stop -> command("Stops embedded HTTP server",
+            parameters -> HttpServer.stop()
+        )
+
+    );
+
+    Task generate = commands(
+
+        style -> command(parameters("css_file"), "Generates style based on source CSS file",
+            parameters -> {
+
+                try {
+                    String content = new String(Files.readAllBytes(Paths.get(parameters[0])), StandardCharsets.UTF_8);
+                    content = content.replaceAll("foo", "bar");
+                    System.out.println(content);
+//                    Files.write(path, content.getBytes(charset));
+                } catch (IOException e) {
+                    Logger.error("Could not read file from path" + parameters[0]);
+                }
+            }
+        ),
+
         run -> command("Starts embedded HTTP server",
             parameters -> HttpServer.start()
         )

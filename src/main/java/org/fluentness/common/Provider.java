@@ -20,7 +20,7 @@ public interface Provider<T> {
                 field.setAccessible(false);
             }
         } catch (IllegalAccessException e) {
-            Logger.error(this.getClass(), e);
+            Logger.error(e);
         }
         return objects;
     }

@@ -155,9 +155,9 @@ public class ClassGenerator implements Generator {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             writer.write(result.toString());
             writer.close();
-            Logger.info(this.getClass(), "Successfully generated " + filePath);
+            Logger.info("Successfully generated " + filePath);
         } catch (IOException e) {
-            Logger.error(this.getClass(), e);
+            Logger.error(e);
         }
         return result.toString();
     }

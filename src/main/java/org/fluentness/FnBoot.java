@@ -24,13 +24,13 @@ public final class FnBoot {
             }
         }
         if (commandToExecute == null) {
-            Logger.error(FnBoot.class, "No command %s found", args[0]);
+            Logger.error("No command %s found", args[0]);
             return;
         }
 
         String[] declaredParameters = commandToExecute.getParameters();
         if (declaredParameters.length != args.length - 1) {
-            Logger.error(FnBoot.class, "Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
+            Logger.error("Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
             return;
         }
 

@@ -36,7 +36,7 @@ public final class Router {
 
                 // dynamic routes in the middle path are not allowed
                 if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
-                    Logger.warning(Router.class,
+                    Logger.warning(
                         "Controller method %s->%s dynamic url parameter must stay at the end of the path",
                         controller.getKey(),
                         action.name());
@@ -45,7 +45,7 @@ public final class Router {
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    Logger.warning(Router.class,
+                    Logger.warning(
                         "Cannot register controller method %s->%s because route '%s' is already registered",
                         controller.getKey(),
                         action.name(), route);
@@ -54,7 +54,7 @@ public final class Router {
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                     httpExchange -> {
-                        Logger.debug(Router.class, httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                        Logger.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                         invokeControllerMethod(controller, action.value(), httpExchange);
                     });
             }
@@ -87,7 +87,7 @@ public final class Router {
             HttpServer.serve(httpExchange, response);
 
         } catch (Exception e) {
-            Logger.error(Router.class, e);
+            Logger.error(e);
             HttpServer.serve(httpExchange, new Response(INTERNAL_SERVER_ERROR));
             // exception within controller method invocation
         }

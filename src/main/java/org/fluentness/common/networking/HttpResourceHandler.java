@@ -15,7 +15,7 @@ final class HttpResourceHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {
-        Logger.debug(this.getClass(), exchange.getRequestMethod() + " " + exchange.getRequestURI());
+        Logger.debug(exchange.getRequestMethod() + " " + exchange.getRequestURI());
 
         String path = exchange.getRequestURI().getPath();
         if (path.equals("/favicon.ico")) {
@@ -45,11 +45,11 @@ final class HttpResourceHandler implements HttpHandler {
 
                 HttpServer.serve(exchange, response);
             } else {
-                Logger.warning(this.getClass(), "File " + path + " doesn't exists");
+                Logger.warning("File " + path + " doesn't exists");
                 HttpServer.serve(exchange, new Response(NOT_FOUND));
             }
         } catch (IOException e) {
-            Logger.error(this.getClass(), e);
+            Logger.error(e);
             HttpServer.serve(exchange, new Response(INTERNAL_SERVER_ERROR));
         }
     }
