@@ -11,15 +11,13 @@ import java.util.logging.LogRecord;
 
 abstract class AbstractFormatter extends Formatter implements AnsiColors {
 
-    void appendLogRecordTitle(StringBuilder builder, LogRecord record) {
+    void appendLogRecordTitle(StringBuilder builder, LogRecord logRecord) {
         builder.append("[");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
-        builder.append(df.format(new Date(record.getMillis())));
+        builder.append(df.format(new Date(logRecord.getMillis())));
         builder.append("] [");
-        builder.append(Logger.toNormalLogLevel(record.getLevel().getName()));
-        builder.append("] [");
-        builder.append(Thread.currentThread().getStackTrace()[10].getClassName());
+        builder.append(Log.toNormalLogLevel(logRecord.getLevel().getName()));
         builder.append("]");
     }
 

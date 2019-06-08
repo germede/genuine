@@ -1,9 +1,8 @@
 package org.fluentness.view;
 
 import org.fluentness.FnConf;
-import org.fluentness.common.constants.Settings;
-import org.fluentness.common.logging.Logger;
-import org.fluentness.common.networking.RequestRegister;
+import org.fluentness.common.logging.Log;
+import org.fluentness.controller.RequestRegister;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,7 +10,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public final class ViewCache implements Settings {
+import static org.fluentness.common.constants.Settings.CACHE_ENABLE;
+
+public final class ViewCache {
 
     public static String cache(View view) {
         String language = RequestRegister.getCurrent().getPreferredLocale().getLanguage();
@@ -29,16 +30,16 @@ public final class ViewCache implements Settings {
                     FileWriter writer = new FileWriter(file);
                     writer.write(content);
                     writer.close();
-                    Logger.debug("Create cache record %s", path);
+                    Log.debug("Create cache record %s", path);
                     return content;
                 } else {
                     // cached! -> retrieve cache record
-                    Logger.debug("Retrieve cache record %s", path);
+                    Log.debug("Retrieve cache record %s", path);
                     return new String(Files.readAllBytes(Paths.get(path)));
                 }
 
             } catch (IOException e) {
-                Logger.error(e);
+                Log.error(e);
             }
         }
         return view.render();

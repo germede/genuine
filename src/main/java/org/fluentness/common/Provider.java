@@ -1,6 +1,6 @@
 package org.fluentness.common;
 
-import org.fluentness.common.logging.Logger;
+import org.fluentness.common.logging.Log;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -20,7 +20,7 @@ public interface Provider<T> {
                 field.setAccessible(false);
             }
         } catch (IllegalAccessException e) {
-            Logger.error(e);
+            Log.error(e);
         }
         return objects;
     }
@@ -29,6 +29,18 @@ public interface Provider<T> {
         return provideAll().get(name);
     }
 
+    default String getNameFor(T t) {
+        for (Map.Entry<String, T> entry : provideAll().entrySet()) {
+            if (entry.getValue().equals(t)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    default boolean contains(T t) {
+        return provideAll().containsValue(t);
+    }
 
     default boolean isAnnotationPresent(String name, Class<? extends Annotation> annotationClass) {
         Field[] fields = this.getClass().getDeclaredFields();

@@ -1,6 +1,6 @@
 package org.fluentness.localization;
 
-import org.fluentness.common.namedValues.NamedValue;
+import org.fluentness.common.lambdas.NamedValue;
 import org.fluentness.common.Provider;
 
 public interface LocalizationProvider extends Provider<Localization> {

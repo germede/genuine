@@ -1,7 +1,7 @@
 package org.fluentness.localization;
 
 import org.fluentness.FnAtoz;
-import org.fluentness.common.networking.RequestRegister;
+import org.fluentness.controller.RequestRegister;
 
 import java.util.Collection;
 import java.util.Locale;

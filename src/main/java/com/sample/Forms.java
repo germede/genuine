@@ -5,28 +5,28 @@ import org.fluentness.form.FormProvider;
 
 public class Forms implements FormProvider {
 
-    Form songForm = form(POST, "/song/list",
+    Form createSong = form(POST, "/song/list",
         title -> text(
             required -> "true",
             id -> "song_title_input",
             placeholder -> translate("song_title_placeholder"),
             maxlength -> "50"
         ).precededBy(
-            label(with(FOR -> "song_title_input"), translate("song_title"))
+            label(translate("song_title")).with(FOR -> "song_title_input")
         ),
         artist -> text(
             required -> "true",
             id -> "song_artist_input",
             placeholder -> translate("song_artist_placeholder")
         ).precededBy(
-            label(with(FOR -> "song_artist_input"), translate("song_artist"))
+            label(translate("song_artist")).with(FOR -> "song_artist_input")
         ),
         album -> text(
             required -> "false",
             id -> "song_album_input",
             placeholder -> translate("song_artist_placeholder")
         ).precededBy(
-            label(with(FOR -> "song_album_input"), translate("song_album"))
+            label(translate("song_album")).with(FOR -> "song_album_input")
         ),
         year -> number(
             required -> "true",
@@ -36,26 +36,26 @@ public class Forms implements FormProvider {
             max -> "2099",
             step -> "1"
         ).precededBy(
-            label(with(FOR -> "song_year_input"), translate("song_year"))
+            label(translate("song_year")).with(FOR -> "song_year_input")
         ),
 
         is_new -> checkbox(
             id -> "song_is_new_input"
         ).precededBy(
-            label(with(FOR -> "song_is_new_input", CLASS -> "label-inline"), translate("song_is_new"))
+            label(translate("song_is_new")).with(FOR -> "song_is_new_input", CLASS -> "label-inline")
         ).wrappedBy(
-            div(with(CLASS -> "float-right"))
+            div().with(CLASS -> "float-right")
         ),
         submit -> submit(
             value -> translate("submit")
         ).followedBy(
-            a(with(ONCLICK -> "window.history.back();", CLASS -> "button button-outline"), translate("cancel"))
+            a(translate("cancel")).with(ONCLICK -> "window.history.back();", CLASS -> "button button-outline")
         )
     ).wrappedBy(
         fieldset()
     );
 
-    Form songSearchForm = form(GET, "song/search",
+    Form searchSong = form(GET, "song/search",
         title -> text(
             REQUIRED -> "true",
             ID -> "song_title_input",

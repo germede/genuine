@@ -2,18 +2,21 @@ package org.fluentness.task;
 
 import org.fluentness.FnAtoz;
 import org.fluentness.common.Utils;
-import org.fluentness.common.logging.Logger;
-import org.fluentness.common.namedValues.NamedValue;
+import org.fluentness.common.logging.Log;
+import org.fluentness.common.lambdas.NamedValue;
 import org.fluentness.common.networking.HttpServer;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DefaultTasks implements TaskProvider {
 
@@ -93,17 +96,48 @@ public class DefaultTasks implements TaskProvider {
     );
 
     Task generate = commands(
-
+        // TODO: media queries
         style -> command(parameters("css_file"), "Generates style based on source CSS file",
             parameters -> {
 
                 try {
-                    String content = new String(Files.readAllBytes(Paths.get(parameters[0])), StandardCharsets.UTF_8);
-                    content = content.replaceAll("foo", "bar");
-                    System.out.println(content);
-//                    Files.write(path, content.getBytes(charset));
+                    Path path = Paths.get(parameters[0]);
+                    String content = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+
+                    // remove comments
+                    content = content.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
+
+                    // match rules
+                    Pattern rulePattern = Pattern.compile("(.*?)\\{(.*?)\\}", Pattern.DOTALL | Pattern.MULTILINE);
+                    Matcher matcher = rulePattern.matcher(content);
+                    Map<String, String[]> parsed = new TreeMap<>();
+                    while (matcher.find()) {
+                        String selector = matcher.group(1).replaceAll("\\}","").replaceAll("\\s+", " ").trim();
+                        String[] rules = matcher.group(2).split(";\n");
+                        for (int i = 0; i < rules.length; i++) {
+                            String[] cssRule = ("        " + rules[i].replaceAll("\\s+", "")).split(":");
+                            if (cssRule.length == 1) {
+                                cssRule = new String[]{cssRule[0], ""};
+                            }
+                            if (cssRule.length == 0) {
+                                continue;
+                            }
+                            cssRule[0] = cssRule[0].replaceAll("float", "FLOAT");
+                            rules[i] = cssRule[0].replaceAll("-","_") + "-> \"" + cssRule[1] + "\"";
+                        }
+                        parsed.put(selector, rules);
+                    }
+
+                    // print result
+                    System.out.println("Style " + new File(parameters[0]).getName().replaceAll("\\..*", "") + " = css(");
+                    for (Map.Entry<String, String[]> ruleset : parsed.entrySet()) {
+                        System.out.println("    select(\"" + ruleset.getKey() + "\",");
+                        System.out.println(String.join(",\n", ruleset.getValue()));
+                        System.out.println("    ),\n");
+                    }
+                    System.out.println(");");
                 } catch (IOException e) {
-                    Logger.error("Could not read file from path" + parameters[0]);
+                    Log.error(e);
                 }
             }
         ),
@@ -113,84 +147,4 @@ public class DefaultTasks implements TaskProvider {
         )
     );
 
-
-//    @Override
-//    public String getDescription() {
-//        return "Creates a new controller class within the controller package";
-//    }
-//
-//    @Override
-//    public void execute(String... parameters) {
-//        String name = parameters[0];
-//
-//        new ClassGenerator(Utils.toTitelCase(name) + Utils.toTitelCase(PackageNames.CONTROLLER))
-//            .setPackage(FnConf.getString(FnConf.APP_PACKAGE) + "." + PackageNames.CONTROLLER)
-//            .addModifier(Modifier.PUBLIC)
-//            .addAnnotation(Controller.Route.class, "\"/" + name.toLowerCase() + "\"")
-//            .addInterface(Controller.class)
-//            .addField(
-//                new FieldGenerator(Repository.class, "repository")
-//                    .addModifier(Modifier.PRIVATE)
-//                    .setDefaultValue("new ServerStartCommand()")
-//                    .generate()
-//            )
-//            .addMethod(
-//                new MethodGenerator(Response.class, "list")
-//                    .addAnnotation(Controller.Route.class, "\"/list\"")
-//                    .addModifier(Modifier.PUBLIC)
-//                    .addParameter(Request.class, "request")
-//                    .setImplementationLines(
-//                        "// todo implement list " + name,
-//                        "return redirect(\"/\");"
-//                    )
-//                    .generate()
-//            )
-//            .addMethod(
-//                new MethodGenerator(Response.class, "find")
-//                    .addAnnotation(Controller.Route.class, "\"/find/{id}\"")
-//                    .addModifier(Modifier.PUBLIC)
-//                    .addParameter(Request.class, "request")
-//                    .setImplementationLines(
-//                        "// todo implement list " + name,
-//                        "return redirect(\"/\");"
-//                    )
-//                    .generate()
-//            )
-//            .addMethod(
-//                new MethodGenerator(Response.class, "create")
-//                    .addAnnotation(Controller.Route.class, "\"/create\"")
-//                    .addModifier(Modifier.PUBLIC)
-//                    .addParameter(Request.class, "request")
-//                    .setImplementationLines(
-//                        "// todo implement create " + name,
-//                        "return redirect(\"/\");"
-//                    )
-//                    .generate()
-//            )
-//            .addMethod(
-//                new MethodGenerator(Response.class, "update")
-//                    .addAnnotation(Controller.Route.class, "\"/update/{id}\"")
-//                    .addModifier(Modifier.PUBLIC)
-//                    .addParameter(Request.class, "request")
-//                    .setImplementationLines(
-//                        "// todo implement update " + name,
-//                        "return redirect(\"/\");"
-//                    )
-//                    .generate()
-//            )
-//            .addMethod(
-//                new MethodGenerator(Response.class, "delete")
-//                    .addAnnotation(Controller.Route.class, "\"/delete\"")
-//                    .addModifier(Modifier.PUBLIC)
-//                    .addParameter(Request.class, "request")
-//                    .setImplementationLines(
-//                        "// todo implement delete " + name,
-//                        "return redirect(\"/\");"
-//                    )
-//                    .generate()
-//            )
-//            .generate()
-//            .writeToFile()
-//        ;
-//    }
 }

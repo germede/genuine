@@ -3,8 +3,8 @@ package org.fluentness.task;
 import org.fluentness.FnAtoz;
 import org.fluentness.common.Provider;
 import org.fluentness.common.constants.AnsiColors;
-import org.fluentness.common.namedValues.NamedValue;
-import org.fluentness.common.namedValues.NamedValueImpl;
+import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.common.lambdas.NamedValueImpl;
 
 import java.util.ArrayList;
 import java.util.List;

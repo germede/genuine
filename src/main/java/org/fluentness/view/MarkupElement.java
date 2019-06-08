@@ -1,88 +1,88 @@
 package org.fluentness.view;
 
+import org.fluentness.common.lambdas.NamedValue;
+
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class MarkupElement implements View {
+public abstract class MarkupElement extends View {
 
-    private String tag;
-    protected MarkupAttributes attributes;
-    protected CharSequence[] inner;
-    protected boolean isContainer;
+    private boolean isContainer;
+    String tag;
+    List<NamedValue<String>> attributes;
+    MarkupElement[] innerMarkupElements;
+    String innerText;
+    private MarkupElement[] predecessors;
+    private MarkupElement wrapper;
+    private MarkupElement[] successors;
 
-    private View[] predecessors;
-    private View wrapper;
-    private View[] successors;
-
-    public MarkupElement(String tag, MarkupAttributes attributes) {
-        this.tag = tag;
-        this.attributes = attributes;
-        this.isContainer = false;
+    public MarkupElement(boolean isContainer) {
+        this.isContainer = isContainer;
     }
 
-    public MarkupElement(String tag, CharSequence... views) {
-        this.tag = tag;
-        this.attributes = (MarkupAttributes) Arrays.stream(views)
-                .filter(view -> view instanceof MarkupAttributes)
-                .findFirst().orElse(new MarkupAttributes());
-        this.inner = Arrays.stream(views)
-                .filter(view -> view instanceof MarkupElement || view instanceof String)
-                .toArray(CharSequence[]::new);
-        this.isContainer = true;
+    public MarkupElement addAttribute(NamedValue<String> attribute) {
+        this.attributes.add(attribute);
+        return this;
     }
 
-    public MarkupElement precededBy(View... predecessors) {
+    public MarkupElement precededBy(MarkupElement... predecessors) {
         this.predecessors = predecessors;
         return this;
     }
 
-    public MarkupElement wrappedBy(View wrapper) {
+    public MarkupElement wrappedBy(MarkupElement wrapper) {
         this.wrapper = wrapper;
         return this;
     }
 
-    public MarkupElement followedBy(View... successors) {
+    public MarkupElement followedBy(MarkupElement... successors) {
         this.successors = successors;
         return this;
     }
 
     @Override
-    public String render() {
+    public String toString() {
         StringBuilder builder = new StringBuilder();
 
         // predecessors
         if (predecessors != null) {
-            Arrays.stream(predecessors).forEach(predecessor -> builder.append(predecessor.render()));
+            Arrays.stream(predecessors).forEach(predecessor -> builder.append(predecessor.toString()));
+        }
+
+        // attributes
+        String renderedAttributes = "";
+        if (attributes != null) {
+            renderedAttributes = attributes.stream()
+                .map(attribute -> " " + attribute.name() + (attribute.value() != null ? ("=\"" + attribute.value() + "\"") : ""))
+                .collect(Collectors.joining());
         }
 
         // tag
-        builder.append("<").append(tag).append(attributes.render()).append(">");
+        builder.append("<").append(tag).append(renderedAttributes).append(">");
         if (isContainer) {
-            for (CharSequence charSequence : inner) {
-                if (charSequence instanceof MarkupElement) {
-                    builder.append(((View) charSequence).render());
-                } else {
-                    builder.append(charSequence);
+            if (innerMarkupElements != null) {
+                for (MarkupElement contentElement : innerMarkupElements) {
+                    builder.append(contentElement.toString());
                 }
+            }
+            if (innerText != null) {
+                builder.append(innerText);
             }
             builder.append("</").append(tag).append(">");
         }
 
         // successors
         if (successors != null) {
-            Arrays.stream(successors).forEach(successor -> builder.append(successor.render()));
+            Arrays.stream(successors).forEach(successor -> builder.append(successor.toString()));
         }
 
         // wrapper
-        if (wrapper instanceof MarkupElement) {
-            ((MarkupElement) wrapper).inner = new CharSequence[]{builder.toString()};
-            return wrapper.render();
+        if (wrapper != null) {
+            wrapper.innerText = builder.toString();
+            return wrapper.toString();
         }
 
         return builder.toString();
-    }
-
-    @Override
-    public String toString() {
-        return render();
     }
 }

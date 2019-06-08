@@ -1,4 +1,4 @@
-package org.fluentness.common.namedValues;
+package org.fluentness.common.lambdas;
 
 import java.io.Serializable;
 import java.lang.invoke.SerializedLambda;

@@ -1,6 +1,6 @@
 package org.fluentness.task;
 
-import org.fluentness.common.namedValues.NamedValue;
+import org.fluentness.common.lambdas.NamedValue;
 
 public class Task {
 

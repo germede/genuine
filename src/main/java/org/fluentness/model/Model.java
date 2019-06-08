@@ -1,6 +1,6 @@
 package org.fluentness.model;
 
-import org.fluentness.common.namedValues.NamedValue;
+import org.fluentness.common.lambdas.NamedValue;
 
 import java.util.Arrays;
 import java.util.HashMap;

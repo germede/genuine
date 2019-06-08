@@ -12,7 +12,7 @@ import java.util.logging.Level;
 
 import static org.fluentness.common.constants.Settings.*;
 
-public final class Logger {
+public final class Log {
 
     private static java.util.logging.Logger logger;
     private static final String LOG_FILE_PATH = "tmp/log/";
@@ -26,7 +26,7 @@ public final class Logger {
         }
 
         // create logger
-        logger = java.util.logging.Logger.getLogger(Logger.class.getName());
+        logger = java.util.logging.Logger.getLogger(Log.class.getName());
         logger.setUseParentHandlers(false);
         logger.setLevel(Level.parse(logLevel));
 
@@ -61,7 +61,7 @@ public final class Logger {
         }
     }
 
-    private Logger() {
+    private Log() {
 
     }
 

@@ -1,6 +1,6 @@
 package org.fluentness.common;
 
-import org.fluentness.common.logging.Logger;
+import org.fluentness.common.logging.Log;
 
 import java.io.File;
 
@@ -16,9 +16,9 @@ public final class Utils {
         }
         if (file.exists()) {
             if (!file.delete()) {
-                Logger.warning("Cannot delete %s", file.getPath());
+                Log.warning("Cannot delete %s", file.getPath());
             } else {
-                Logger.debug("Deleted file %s", file.getPath());
+                Log.debug("Deleted file %s", file.getPath());
             }
         }
     }

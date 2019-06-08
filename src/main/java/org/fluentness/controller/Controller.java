@@ -1,6 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.common.namedValues.NamedValue;
+import org.fluentness.common.lambdas.NamedValue;
 
 public class Controller {
 

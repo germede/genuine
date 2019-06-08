@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.common.namedValues.NamedValue;
+import org.fluentness.common.lambdas.NamedValue;
 
 import java.util.HashMap;
 import java.util.Map;

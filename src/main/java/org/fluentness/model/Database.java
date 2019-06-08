@@ -2,7 +2,7 @@ package org.fluentness.model;
 
 import org.fluentness.FnConf;
 import org.fluentness.common.constants.Settings;
-import org.fluentness.common.logging.Logger;
+import org.fluentness.common.logging.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,10 +23,10 @@ public final class Database implements Settings {
                         statement.setObject(++i, parameter);
                     }
                 }
-                Logger.debug(query);
+                Log.debug(query);
                 resultList = resultSetToResultList(statement.executeQuery());
             } catch (SQLException e) {
-                Logger.error(e);
+                Log.error(e);
             }
         }
         return resultList;
@@ -42,10 +42,10 @@ public final class Database implements Settings {
                         statement.setObject(++i, parameter);
                     }
                 }
-                Logger.debug(query);
+                Log.debug(query);
                 return statement.executeUpdate();
             } catch (SQLException e) {
-                Logger.error(e);
+                Log.error(e);
             }
         }
         return 0;
@@ -82,7 +82,7 @@ public final class Database implements Settings {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Logger.error(e);
+            Log.error(e);
         }
         return null;
     }

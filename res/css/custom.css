@@ -1,7 +1,7 @@
 .form-inline {
     display: flex;
-    flex-flow: row wrap;
-    align-items: center;
+    flex_flow: row wrap;
+    align_items: center;
 }
 
 .form-inline > input {
@@ -9,5 +9,6 @@
 }
 
 .form-inline > input:not(:first-child) {
-    margin-left: 5px;
+    margin_left: 5px;
 }
+

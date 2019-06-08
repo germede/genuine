@@ -1,7 +1,7 @@
 package org.fluentness;
 
-import org.fluentness.common.logging.Logger;
-import org.fluentness.common.namedValues.NamedValue;
+import org.fluentness.common.logging.Log;
+import org.fluentness.common.lambdas.NamedValue;
 import org.fluentness.task.Command;
 import org.fluentness.task.DefaultTasks;
 import org.fluentness.task.TaskProvider;
@@ -24,13 +24,13 @@ public final class FnBoot {
             }
         }
         if (commandToExecute == null) {
-            Logger.error("No command %s found", args[0]);
+            Log.error("No command %s found", args[0]);
             return;
         }
 
         String[] declaredParameters = commandToExecute.getParameters();
         if (declaredParameters.length != args.length - 1) {
-            Logger.error("Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
+            Log.error("Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
             return;
         }
 

@@ -1,6 +1,6 @@
 package org.fluentness.style;
 
-import org.fluentness.common.namedValues.NamedValue;
+import org.fluentness.common.lambdas.NamedValue;
 import org.fluentness.common.Provider;
 
 public interface StyleProvider extends Provider<Style> {

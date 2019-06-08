@@ -9,17 +9,12 @@ import java.util.ArrayList;
 public class Controllers implements ControllerProvider {
 
     Controller baseController = actions(
-        index -> get("/",
-            request -> redirect("/list")
-        )
+
     );
 
     @Route("/song")
     Controller songController = actions(
 
-        index -> get("/",
-            request -> redirect("/list")
-        ),
 
         list -> get("/list",
             request -> {
@@ -30,7 +25,7 @@ public class Controllers implements ControllerProvider {
         ),
 
         create -> get("/create",
-            request -> render(Atoz.views.createSong, songForm -> Atoz.forms.songForm)
+            request -> render(Atoz.views.createSong, songForm -> Atoz.forms.createSong)
         ),
 
         create_submit -> post("/create/submit",
@@ -49,7 +44,7 @@ public class Controllers implements ControllerProvider {
         )
 
 //        update -> get("/update/{id}",
-//            (request, response) -> render(Atoz.views.createSong, songForm -> new SongForm())
+//            (request, response) -> render(Atoz.views.createSong, createSong -> new SongForm())
 //        ),
 //
 //        update_submit -> post("/create/submit",
@@ -68,7 +63,7 @@ public class Controllers implements ControllerProvider {
 //        ),
 //
 //        delete -> get("/delete/{id}",
-//            (request, response) -> render(Views.class, songForm -> new SongForm())
+//            (request, response) -> render(Views.class, createSong -> new SongForm())
 //        ),
     );
 }

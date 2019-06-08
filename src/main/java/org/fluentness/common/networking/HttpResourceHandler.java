@@ -2,7 +2,7 @@ package org.fluentness.common.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.common.logging.Logger;
+import org.fluentness.common.logging.Log;
 import org.fluentness.controller.Response;
 
 import java.io.IOException;
@@ -11,17 +11,16 @@ import java.nio.file.Paths;
 
 import static org.fluentness.common.constants.HttpStatusCodes.*;
 
-final class HttpResourceHandler implements HttpHandler {
+public final class HttpResourceHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) {
-        Logger.debug(exchange.getRequestMethod() + " " + exchange.getRequestURI());
+        Log.debug(exchange.getRequestMethod() + " " + exchange.getRequestURI());
 
         String path = exchange.getRequestURI().getPath();
         if (path.equals("/favicon.ico")) {
             path = "/icon/favicon.ico";
         }
-        path = "/src/main" + path;
         try {
             path = path.substring(1).replace("//", "/");
 
@@ -45,11 +44,11 @@ final class HttpResourceHandler implements HttpHandler {
 
                 HttpServer.serve(exchange, response);
             } else {
-                Logger.warning("File " + path + " doesn't exists");
+                Log.warning("File " + path + " doesn't exists");
                 HttpServer.serve(exchange, new Response(NOT_FOUND));
             }
         } catch (IOException e) {
-            Logger.error(e);
+            Log.error(e);
             HttpServer.serve(exchange, new Response(INTERNAL_SERVER_ERROR));
         }
     }

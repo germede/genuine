@@ -1,6 +1,6 @@
 package org.fluentness.style;
 
-import org.fluentness.common.namedValues.NamedValue;
+import org.fluentness.common.lambdas.NamedValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;

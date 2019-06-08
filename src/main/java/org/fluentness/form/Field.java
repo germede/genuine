@@ -1,32 +1,31 @@
 package org.fluentness.form;
 
 
-import org.fluentness.common.namedValues.NamedValue;
-import org.fluentness.common.namedValues.NamedValueImpl;
-import org.fluentness.view.MarkupAttributes;
+import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.common.lambdas.NamedValueImpl;
+import org.fluentness.view.EmptyMarkupElement;
 import org.fluentness.view.MarkupElement;
-import org.fluentness.view.View;
 
-public abstract class Field extends MarkupElement {
+public abstract class Field extends EmptyMarkupElement {
 
     Field(String type, NamedValue<String>[] attributes) {
-        super("input", new MarkupAttributes(attributes));
-        this.attributes.add(TYPE -> type);
+        super("input", attributes);
+        addAttribute(TYPE -> type);
     }
 
     void setName(String name) {
-        this.attributes.add(new NamedValueImpl("name",name));
+        addAttribute(new NamedValueImpl("name",name));
     }
 
-    public Field precededBy(View... predecessors) {
+    public Field precededBy(MarkupElement... predecessors) {
         return (Field) super.precededBy(predecessors);
     }
 
-    public Field wrappedBy(View wrapper) {
+    public Field wrappedBy(MarkupElement wrapper) {
         return (Field) super.wrappedBy(wrapper);
     }
 
-    public Field followedBy(View... successors) {
+    public Field followedBy(MarkupElement... successors) {
         return (Field) super.followedBy(successors);
     }
 

@@ -1,15 +1,13 @@
-package org.fluentness.common.networking;
+package org.fluentness.controller;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.fluentness.FnAtoz;
-import org.fluentness.common.logging.Logger;
-import org.fluentness.common.namedValues.NamedValue;
-import org.fluentness.controller.Action;
-import org.fluentness.controller.Controller;
+import org.fluentness.common.logging.Log;
+import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.common.networking.HttpResourceHandler;
+import org.fluentness.common.networking.HttpServer;
 import org.fluentness.controller.ControllerProvider.Route;
-import org.fluentness.controller.Request;
-import org.fluentness.controller.Response;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +34,7 @@ public final class Router {
 
                 // dynamic routes in the middle path are not allowed
                 if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
-                    Logger.warning(
+                    Log.warning(
                         "Controller method %s->%s dynamic url parameter must stay at the end of the path",
                         controller.getKey(),
                         action.name());
@@ -45,7 +43,7 @@ public final class Router {
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    Logger.warning(
+                    Log.warning(
                         "Cannot register controller method %s->%s because route '%s' is already registered",
                         controller.getKey(),
                         action.name(), route);
@@ -54,13 +52,13 @@ public final class Router {
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                     httpExchange -> {
-                        Logger.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                        Log.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                         invokeControllerMethod(controller, action.value(), httpExchange);
                     });
             }
 
             // static resource manager
-            routeHandlerMap.put("/resources/", new HttpResourceHandler());
+            routeHandlerMap.put("/res/", new HttpResourceHandler());
 
             // favicon route
             routeHandlerMap.put("/favicon.ico", new HttpResourceHandler());
@@ -85,11 +83,9 @@ public final class Router {
             Response response = action.getExecutor().execute(request);
             RequestRegister.removeCurrent();
             HttpServer.serve(httpExchange, response);
-
         } catch (Exception e) {
-            Logger.error(e);
+            Log.error(e);
             HttpServer.serve(httpExchange, new Response(INTERNAL_SERVER_ERROR));
-            // exception within controller method invocation
         }
     }
 }

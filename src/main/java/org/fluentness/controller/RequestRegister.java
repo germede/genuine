@@ -1,4 +1,4 @@
-package org.fluentness.common.networking;
+package org.fluentness.controller;
 
 import org.fluentness.controller.Request;
 

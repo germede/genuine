@@ -1,4 +1,4 @@
-package org.fluentness.common.namedValues;
+package org.fluentness.common.lambdas;
 
 public class NamedValueImpl implements NamedValue {
     private String name;

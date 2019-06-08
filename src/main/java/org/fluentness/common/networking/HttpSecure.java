@@ -2,7 +2,7 @@ package org.fluentness.common.networking;
 
 import com.sun.net.httpserver.HttpsParameters;
 import org.fluentness.FnConf;
-import org.fluentness.common.logging.Logger;
+import org.fluentness.common.logging.Log;
 
 import javax.net.ssl.*;
 import java.io.FileInputStream;
@@ -32,7 +32,7 @@ final class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
             SSLParameters defaultSSLParameters = c.getDefaultSSLParameters();
             params.setSSLParameters(defaultSSLParameters);
         } catch (Exception e) {
-            Logger.error(e);
+            Log.error(e);
         }
     }
 
@@ -64,12 +64,12 @@ final class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
                 IOException |
                 NoSuchAlgorithmException |
                 KeyManagementException e) {
-            Logger.error(e);
+            Log.error(e);
         }
         try {
             return SSLContext.getInstance("TLS");
         } catch (NoSuchAlgorithmException e) {
-            Logger.error(e);
+            Log.error(e);
         }
         return null;
     }
