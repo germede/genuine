@@ -1,37 +1,29 @@
 package org.fluentness.model;
 
-import org.fluentness.common.NamedValue;
+import org.fluentness.common.namedValues.NamedValue;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface Model extends PropertyFunctions {
+public class Model {
 
-    String getTable();
+    private Map<String, Attribute> properties = new HashMap<>();
 
-    String getPrimaryKey();
-
-    Properties getProperties();
-
-    default Properties properties(NamedValue<Property>... properties) {
-        return new Properties(properties);
+    Model(NamedValue<Attribute>... properties) {
+        Arrays.stream(properties).forEach(translation -> this.properties.put(translation.name(), translation.value()));
     }
 
-    class Properties {
-
-        private Map<String, Property> properties = new HashMap<>();
-
-        private Properties(NamedValue<Property>... properties) {
-            Arrays.stream(properties).forEach(translation -> this.properties.put(translation.name(), translation.value()));
-        }
-
-        public Property get(String name) {
-            return properties.get(name);
-        }
-
-        public boolean contains(String name) {
-            return properties.containsKey(name);
-        }
+    public String getTable() {
+        return this.getClass().getSimpleName().toLowerCase().replace("model", "");
     }
+
+    public String getPrimaryKey() {
+        return "id";
+    }
+
+    public Attribute get(String name) {
+        return properties.get(name);
+    }
+
 }

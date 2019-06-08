@@ -1,46 +1,18 @@
 package org.fluentness.controller;
 
-import org.fluentness.common.NamedValue;
-import org.fluentness.logger.Logger;
-import org.fluentness.router.HttpStatusCode;
-import org.fluentness.view.View;
+import org.fluentness.common.namedValues.NamedValue;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.util.Arrays;
+public class Controller {
 
-public interface Controller {
+    private NamedValue<Action>[] actions;
 
-//    default HttpResponse render(View view, String language) {
-//        return new HttpResponse(HttpStatusCode.Ok).setBody(view.renderWithCacheAndTemplate(language));
-//    }
-
-    default Response render(Class<? extends View> view, NamedValue<Object>... attributes) {
-        try {
-            // instantiate view and set its attributes
-            View instance = view.newInstance();
-            Arrays.stream(attributes).forEach(attribute -> instance.injectAttribute(attribute.name(), attribute.value()));
-            return new Response(HttpStatusCode.Ok)
-                    .setBody(instance.renderWithCacheAndTemplate());
-        } catch (InstantiationException | IllegalAccessException e) {
-            Logger.error(this.getClass(), e);
-            return new Response(HttpStatusCode.InternalServerError);
-        }
+    public Controller(NamedValue<Action>[] actions) {
+        this.actions = actions;
     }
 
-    default Response response(String body) {
-        return new Response(HttpStatusCode.Ok).setBody(body);
+    public NamedValue<Action>[] getActions() {
+        return actions;
     }
 
-    default Response redirect(String to) {
-        return new Response(HttpStatusCode.MovedPermanently).setHeader("Location", to);
-    }
 
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.TYPE,ElementType.METHOD})
-    @interface Route {
-        String value();
-    }
 }

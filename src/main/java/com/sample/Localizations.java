@@ -1,10 +1,11 @@
 package com.sample;
 
+import org.fluentness.localization.Localization;
 import org.fluentness.localization.LocalizationProvider;
 
 public class Localizations implements LocalizationProvider {
 
-    Localization de = translations(
+    Localization en = translations(
         welcome_message -> "Welcome to the site",
         submit -> "Submit",
         action -> "Action",
@@ -25,7 +26,7 @@ public class Localizations implements LocalizationProvider {
         song_is_new -> "Is new"
     );
 
-    Localization es = translations(
+    Localization de = translations(
         welcome_message -> "Willkommen auf der Seite",
         submit -> "Submit",
         action -> "Aktion",

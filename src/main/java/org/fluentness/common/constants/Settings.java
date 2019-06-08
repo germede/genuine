@@ -1,0 +1,27 @@
+package org.fluentness.common.constants;
+
+public interface Settings {
+    String APP_PACKAGE = "APP_PACKAGE";
+    String APP_PROTOCOL = "APP_PROTOCOL";
+    String APP_HOSTNAME = "APP_HOSTNAME";
+    String APP_PORT = "APP_PORT";
+    String APP_KEYSTORE = "APP_KEYSTORE";
+    String PROVIDER_CONTROLLERS = "PROVIDER_CONTROLLERS";
+    String PROVIDER_FORMS = "PROVIDER_FORMS";
+    String PROVIDER_LOCALIZATIONS = "PROVIDER_LOCALIZATIONS";
+    String PROVIDER_MODELS = "PROVIDER_MODELS";
+    String PROVIDER_STYLES = "PROVIDER_STYLES";
+    String PROVIDER_TASKS = "PROVIDER_TASKS";
+    String PROVIDER_VIEWS = "PROVIDER_VIEWS";
+    String DB_DRIVER = "DB_DRIVER";
+    String DB_HOSTNAME = "DB_HOSTNAME";
+    String DB_PORT = "DB_PORT";
+    String DB_NAME = "DB_NAME";
+    String DB_USERNAME = "DB_USERNAME";
+    String DB_PASSWORD = "DB_PASSWORD";
+    String DB_PARAMS = "DB_PARAMS";
+    String CACHE_ENABLE = "CACHE_ENABLE";
+    String LOG_LEVEL = "LOG_LEVEL";
+    String LOG_CONSOLE = "LOG_CONSOLE";
+    String LOG_FILE = "LOG_FILE";
+}

@@ -1,6 +1,6 @@
 package org.fluentness.form;
 
-import org.fluentness.common.NamedValue;
+import org.fluentness.common.namedValues.NamedValue;
 
 public interface FieldFunctions {
 

@@ -1,6 +1,7 @@
 package com.sample;
 
-import org.fluentness.StyleProvider;
+import org.fluentness.style.Style;
+import org.fluentness.style.StyleProvider;
 
 public class Styles implements StyleProvider {
 

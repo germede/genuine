@@ -1,6 +1,6 @@
 package org.fluentness.common;
 
-import org.fluentness.logger.Logger;
+import org.fluentness.common.logging.Logger;
 
 import java.io.File;
 
