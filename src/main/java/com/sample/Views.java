@@ -21,8 +21,8 @@ class Views implements ViewProvider {
                 div(
                     placeholder()
                 )
-            )
-        ).with(CLASS -> "container")
+            ).with(CLASS -> "container")
+        )
     );
 
     @Template("base")
@@ -43,7 +43,7 @@ class Views implements ViewProvider {
                 div(
                     Atoz.forms.searchSong
                 ).with(CLASS -> "column column-50")
-            ),
+            ).with(CLASS -> "row"),
             table(
                 thead(tr(
                     th(translate("song_title")),
@@ -63,7 +63,7 @@ class Views implements ViewProvider {
 //                                    td(a(with(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
 //                                    td(a(with(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
 //                            )))
-            ).with(CLASS -> "row"),
+            ),
             a(
                 translate("song_create")
             ).with(CLASS -> "button", HREF -> "/song/create")

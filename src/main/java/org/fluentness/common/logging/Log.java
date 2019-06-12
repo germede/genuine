@@ -15,7 +15,7 @@ import static org.fluentness.common.constants.Settings.*;
 public final class Log {
 
     private static java.util.logging.Logger logger;
-    private static final String LOG_FILE_PATH = "tmp/log/";
+    private static final String LOG_FILE_PATH = "out/log/";
 
     static {
         String logLevel;

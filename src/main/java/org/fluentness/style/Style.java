@@ -17,9 +17,13 @@ public class Style {
 
     @Override
     public String toString() {
-        List<Selector> result = new ArrayList<>(Arrays.asList(this.selectors));
-        Arrays.stream(selectors).forEach(selector -> compileInnerSelectors(selector, result));
-        return result.stream().map(Selector::toString).collect(Collectors.joining());
+        List<Selector> selectors = new ArrayList<>(Arrays.asList(this.selectors));
+        Arrays.stream(this.selectors).forEach(selector -> compileInnerSelectors(selector, selectors));
+
+        StringBuilder result = new StringBuilder();
+        selectors.forEach(selector -> result.append(selector.toString()));
+
+        return result.toString();
     }
 
     private void compileInnerSelectors(Selector selector, List<Selector> result) {
@@ -55,7 +59,7 @@ public class Style {
                     .filter(rule -> !(rule instanceof Selector))
                     .forEach(rule -> result
                             .append("\n    ")
-                            .append(rule.name())
+                            .append(rule.name().replaceAll("_","-"))
                             .append(": ")
                             .append(rule.value())
                             .append(";")

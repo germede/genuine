@@ -14,7 +14,7 @@ public interface MarkupFunctions {
 
     // helpers
     default EmptyMarkupElement includeExternalCss(String href) {
-        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/res/css/" + href);
+        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/out/css/" + href);
     }
 
     default ContainerMarkupElement includeJs(String src) {
@@ -22,8 +22,8 @@ public interface MarkupFunctions {
     }
 
     default EmptyMarkupElement style(Style style, String name) {
-        //todo minify and concatenate styles
-        Path path = Paths.get("res/css/" + name + ".css");
+        //todo minify and concatenate stylestmptmp
+        Path path = Paths.get("out/css/" + name + ".css");
         if (!Files.exists(path)) {
             try {
                 Files.createFile(path);

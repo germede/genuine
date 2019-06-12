@@ -74,7 +74,11 @@ public class DefaultTasks implements TaskProvider {
     );
 
     Task clear = commands(
-        cache -> command("Clears the cache files by deleting directory tmp/cache",
+        css -> command("Clears the generated css files by deleting directory tmp/css",
+            parameters -> Utils.deleteDirectoryRecursively(new File("tmp/css"))
+        ),
+
+        cache -> command("Clears the cache by deleting directory tmp/cache",
             parameters -> Utils.deleteDirectoryRecursively(new File("tmp/cache"))
         ),
 

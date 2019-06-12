@@ -54,7 +54,7 @@ public final class ViewCache {
     }
 
     private static String getCacheDirectory() {
-        return "tmp/cache/";
+        return "out/cache/";
     }
 
     private static boolean isCacheEnabled() {
