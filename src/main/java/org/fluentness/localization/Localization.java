@@ -9,7 +9,7 @@ import java.util.Map;
 public class Localization {
     private Map<String, String> translations = new HashMap<>();
 
-    Localization(NamedValue<String>... translations) {
+    public Localization(NamedValue<String>... translations) {
         Arrays.stream(translations).forEach(translation -> this.translations.put(translation.name(), translation.value()));
     }
 

@@ -22,7 +22,7 @@ public final class Router {
     public static Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
-        Map<String, Controller> controllers = FnAtoz.getControllerProvider().provideAll();
+        Map<String, Controller> controllers = FnAtoz.getControllerProvider().getAll();
         for (Map.Entry<String, Controller> controller : controllers.entrySet()) {
 
             // retrieve controller base route

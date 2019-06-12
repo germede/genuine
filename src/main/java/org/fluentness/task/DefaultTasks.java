@@ -32,8 +32,8 @@ public class DefaultTasks implements TaskProvider {
                 System.out.println(ANSI_GREEN + "Available tasks:\n" + ANSI_RESET);
 
                 // merge default and custom tasks
-                Map<String, Task> tasks = new DefaultTasks().provideAll();
-                tasks.putAll(FnAtoz.getTaskProvider().provideAll());
+                Map<String, Task> tasks = new DefaultTasks().getAll();
+                tasks.putAll(FnAtoz.getTaskProvider().getAll());
                 tasks = new TreeMap<>(tasks);
 
                 for (Map.Entry<String, Task> task : tasks.entrySet()) {

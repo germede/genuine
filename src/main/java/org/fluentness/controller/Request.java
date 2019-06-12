@@ -2,7 +2,7 @@ package org.fluentness.controller;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
-import org.fluentness.localization.Localizable;
+import org.fluentness.FnAtoz;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -85,7 +85,7 @@ public class Request {
             return Locale.getDefault();
         }
         List<Locale.LanguageRange> ranges = Locale.LanguageRange.parse(headers.getFirst("Accept-Language"));
-        Collection<Locale> locales = Localizable.getLocales();
+        Collection<Locale> locales = FnAtoz.getLocalizationProvider().getAll().keySet().stream().map(Locale::new).collect(Collectors.toList());
         Locale result = Locale.lookup(ranges, locales);
         if (result == null) {
             result = Locale.getDefault();

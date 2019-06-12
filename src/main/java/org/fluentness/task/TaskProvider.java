@@ -29,8 +29,8 @@ public interface TaskProvider extends Provider<Task>, AnsiColors {
     }
 
     static List<NamedValue<Command>> retrieveAllCommands() {
-        Map<String, Task> tasks = new DefaultTasks().provideAll();
-        tasks.putAll(FnAtoz.getTaskProvider().provideAll());
+        Map<String, Task> tasks = new DefaultTasks().getAll();
+        tasks.putAll(FnAtoz.getTaskProvider().getAll());
 
         List<NamedValue<Command>> result = new ArrayList<>();
         for (Map.Entry<String, Task> task : tasks.entrySet()) {

@@ -1,5 +1,6 @@
 package com.sample;
 
+import org.fluentness.controller.RequestRegister;
 import org.fluentness.view.View;
 import org.fluentness.view.ViewProvider;
 
@@ -8,7 +9,7 @@ class Views implements ViewProvider {
     View base = html(
         head(
             title("A music archive made with love and Fluentness"),
-            meta(NAME -> "lang", CONTENT -> getLocale().getLanguage()),
+            meta(NAME -> "lang", CONTENT -> "en"),
             meta(CHARSET -> "utf-8"),
             style(Atoz.styles.milligram, "miligram"),
             style(Atoz.styles.custom, "custom"),

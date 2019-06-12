@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface Provider<T> {
 
-    default Map<String, T> provideAll() {
+    default Map<String, T> getAll() {
         Map<String, T> objects = new HashMap<>();
         try {
             Field[] fields = this.getClass().getDeclaredFields();
@@ -26,11 +26,11 @@ public interface Provider<T> {
     }
 
     default T get(String name) {
-        return provideAll().get(name);
+        return getAll().get(name);
     }
 
     default String getNameFor(T t) {
-        for (Map.Entry<String, T> entry : provideAll().entrySet()) {
+        for (Map.Entry<String, T> entry : getAll().entrySet()) {
             if (entry.getValue().equals(t)) {
                 return entry.getKey();
             }
@@ -39,7 +39,7 @@ public interface Provider<T> {
     }
 
     default boolean contains(T t) {
-        return provideAll().containsValue(t);
+        return getAll().containsValue(t);
     }
 
     default boolean isAnnotationPresent(String name, Class<? extends Annotation> annotationClass) {
