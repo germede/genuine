@@ -6,7 +6,7 @@ import org.fluentness.controller.ControllerProvider;
 
 import java.util.ArrayList;
 
-public class Controllers implements ControllerProvider {
+class Controllers implements ControllerProvider {
 
     Controller baseController = actions(
 

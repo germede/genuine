@@ -3,7 +3,7 @@ package com.sample;
 import org.fluentness.form.Form;
 import org.fluentness.form.FormProvider;
 
-public class Forms implements FormProvider {
+class Forms implements FormProvider {
 
     Form createSong = form(POST, "/song/list",
         title -> text(

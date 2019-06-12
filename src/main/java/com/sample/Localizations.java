@@ -3,7 +3,7 @@ package com.sample;
 import org.fluentness.localization.Localization;
 import org.fluentness.localization.LocalizationProvider;
 
-public class Localizations implements LocalizationProvider {
+class Localizations implements LocalizationProvider {
 
     Localization en = translations(
         welcome_message -> "Welcome to the site",

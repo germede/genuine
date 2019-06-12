@@ -3,7 +3,7 @@ package com.sample;
 import org.fluentness.style.Style;
 import org.fluentness.style.StyleProvider;
 
-public class Styles implements StyleProvider {
+class Styles implements StyleProvider {
 
     Style milligram = css(
         select("*, *:after, *:before",

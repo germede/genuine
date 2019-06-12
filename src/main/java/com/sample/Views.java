@@ -3,7 +3,7 @@ package com.sample;
 import org.fluentness.view.View;
 import org.fluentness.view.ViewProvider;
 
-public class Views implements ViewProvider {
+class Views implements ViewProvider {
 
     View base = html(
         head(
