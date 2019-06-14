@@ -2,6 +2,7 @@ package org.fluentness.base.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.fluentness.Fluentness;
 import org.fluentness.base.constants.PublicDirectories;
 import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.base.logging.Log;
@@ -15,7 +16,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.fluentness.base.components.Components.controllers;
 import static org.fluentness.base.constants.HttpStatusCodes.*;
 
 public enum HttpRouter implements HttpHandler {
@@ -25,7 +25,7 @@ public enum HttpRouter implements HttpHandler {
     public Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
-        Map<String, Controller> controllers = controllers().getAll();
+        Map<String, Controller> controllers = Fluentness.get.controllers.getAll();
         for (Map.Entry<String, Controller> controller : controllers.entrySet()) {
 
             // retrieve controller base route
@@ -90,8 +90,8 @@ public enum HttpRouter implements HttpHandler {
     }
 
     private String extractBaseRouteFromController(String controllerName) {
-        return controllers().isAnnotationPresent(controllerName, Route.class) ?
-            ((Route) controllers().getAnnotation(controllerName, Route.class)).value() :
+        return Fluentness.get.controllers.isAnnotationPresent(controllerName, Route.class) ?
+            ((Route) Fluentness.get.controllers.getAnnotation(controllerName, Route.class)).value() :
             "";
     }
 

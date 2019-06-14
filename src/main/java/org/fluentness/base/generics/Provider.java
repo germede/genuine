@@ -1,6 +1,5 @@
 package org.fluentness.base.generics;
 
-import org.fluentness.base.components.Components;
 import org.fluentness.base.logging.Log;
 
 import java.lang.annotation.Annotation;
@@ -8,7 +7,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface Provider<T> extends Components {
+public interface Provider<T> {
 
     default Map<String, T> getAll() {
         Map<String, T> objects = new HashMap<>();

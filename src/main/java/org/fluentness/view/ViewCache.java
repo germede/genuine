@@ -1,15 +1,13 @@
 package org.fluentness.view;
 
+import org.fluentness.Fluentness;
 import org.fluentness.base.constants.PrivateDirectories;
 import org.fluentness.base.generics.Cache;
-
-import static org.fluentness.base.components.Components.views;
 
 public enum ViewCache implements Cache<View> {
     INSTANCE;
 
     @Override
     public String getIdentifyingPath(View view) {
-        return PrivateDirectories.VIEW_CACHE + "/" + views().getNameFor(view) + ".html";
-    }
+        return PrivateDirectories.VIEW_CACHE + "/" + Fluentness.get.views.getNameFor(view) + ".html";    }
 }

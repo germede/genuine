@@ -1,7 +1,7 @@
 package org.fluentness.base.networking;
 
 import com.sun.net.httpserver.HttpsParameters;
-import org.fluentness.Fluentness;
+import org.fluentness.configuration.Configuration;
 import org.fluentness.base.logging.Log;
 
 import javax.net.ssl.*;
@@ -15,7 +15,7 @@ import static org.fluentness.base.constants.Settings.APP_KEYSTORE;
 final class HttpsServer extends com.sun.net.httpserver.HttpsConfigurator {
 
     HttpsServer() {
-        super(getSslContext(Fluentness.getString(APP_KEYSTORE)));
+        super(getSslContext(Configuration.getString(APP_KEYSTORE)));
     }
 
     @Override

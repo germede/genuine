@@ -1,13 +1,12 @@
 package org.fluentness.task;
 
+import org.fluentness.Fluentness;
 import org.fluentness.base.constants.AnsiColors;
 import org.fluentness.base.generics.Provider;
 import org.fluentness.base.lambdas.KeyValuePair;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.fluentness.base.components.Components.tasks;
 
 public interface TaskProvider extends Provider<Task>, AnsiColors {
 
@@ -29,7 +28,7 @@ public interface TaskProvider extends Provider<Task>, AnsiColors {
 
     static Map<String,Command> retrieveAllCommands() {
         Map<String, Task> tasks = new TaskProviderImpl().getAll();
-        tasks.putAll(tasks().getAll());
+        tasks.putAll(Fluentness.get.tasks.getAll());
 
         Map<String,Command> result = new HashMap<>();
         for (Map.Entry<String, Task> task : tasks.entrySet()) {

@@ -2,13 +2,12 @@ package org.fluentness.controller;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
+import org.fluentness.Fluentness;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static org.fluentness.base.components.Components.localizations;
 
 public class Request {
 
@@ -86,7 +85,9 @@ public class Request {
             return Locale.getDefault();
         }
         List<Locale.LanguageRange> ranges = Locale.LanguageRange.parse(headers.getFirst("Accept-Language"));
-        Collection<Locale> locales = localizations().getAll().keySet().stream().map(Locale::new).collect(Collectors.toList());
+        Collection<Locale> locales = Fluentness.get.localizations.getAll().keySet().stream()
+            .map(Locale::new)
+            .collect(Collectors.toList());
         Locale result = Locale.lookup(ranges, locales);
         if (result == null) {
             result = Locale.getDefault();

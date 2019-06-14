@@ -2,34 +2,27 @@ package com.sample;
 
 import org.fluentness.Fluentness;
 
-class Boot extends Fluentness {
+class Boot {
+
+    static Fluentness<Configurations, Controllers, Forms, Localizations, Models, Styles, Tasks, Views> F;
 
     public static void main(String[] args) {
-        set(APP_PROTOCOL, "http");
-        set(APP_HOSTNAME, "localhost");
-        set(APP_PORT, 8000);
-        set(APP_KEYSTORE, "res/keystore.jks");
-        set(PROVIDER_CONTROLLERS, new Controllers());
-        set(PROVIDER_FORMS, new Forms());
-        set(PROVIDER_LOCALIZATIONS, new Localizations());
-        set(PROVIDER_MODELS, new Models());
-        set(PROVIDER_STYLES, new Styles());
-        set(PROVIDER_TASKS, new Tasks());
-        set(PROVIDER_VIEWS, new Views());
-        set(DB_DRIVER, "mysql");
-        set(DB_HOSTNAME, "localhost");
-        set(DB_PORT, 3306);
-        set(DB_NAME, "music");
-        set(DB_USERNAME, "party");
-        set(DB_PASSWORD, "party");
-        set(DB_PARAMS, "?serverTimezone=UTC");
-        set(LOG_LEVEL, "ALL");
-        set(LOG_CONSOLE, true);
-        set(LOG_FILE, true);
-        set(VIEW_CACHE, true);
-        set(STYLE_CACHE, true);
-        set(STYLE_MINIFY, true);
+        F = new Fluentness()
+            .setConfigurations(new Configurations())
+            .
 
-        init(args);
+        F = new Fluentness<>(
+            Configurations.class,
+            Controllers.class,
+            Forms.class,
+            Localizations.class,
+            Models.class,
+            Styles.class,
+            Tasks.class,
+            Views.class
+        );
+        F.init();
+        F.configurations.dev.apply();
+        F.executeCommand(args);
     }
 }

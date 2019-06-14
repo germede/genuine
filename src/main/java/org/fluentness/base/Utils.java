@@ -26,7 +26,7 @@ public enum Utils {
         }
     }
 
-    public String toTitelCase(String string) {
+    public String toTitleCase(String string) {
         return string.substring(0,1).toUpperCase().concat(string.substring(1));
     }
 }

@@ -3,7 +3,7 @@ package com.sample;
 import org.fluentness.model.Model;
 import org.fluentness.model.ModelProvider;
 
-class Models implements ModelProvider {
+public class Models implements ModelProvider {
 
     Model song = properties(
         id -> id(),

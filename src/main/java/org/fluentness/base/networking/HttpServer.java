@@ -2,7 +2,7 @@ package org.fluentness.base.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpsConfigurator;
-import org.fluentness.Fluentness;
+import org.fluentness.configuration.Configuration;
 import org.fluentness.base.logging.Log;
 import org.fluentness.controller.Response;
 
@@ -17,9 +17,9 @@ import static org.fluentness.base.constants.Settings.*;
 public final class HttpServer extends HttpsConfigurator {
 
     private static com.sun.net.httpserver.HttpServer server;
-    private static String protocol = Fluentness.getString(APP_PROTOCOL);
-    private static String hostname = Fluentness.getString(APP_HOSTNAME);
-    private static int port = Fluentness.getInt(APP_PORT);
+    private static String protocol = Configuration.getString(APP_PROTOCOL);
+    private static String hostname = Configuration.getString(APP_HOSTNAME);
+    private static int port = Configuration.getInt(APP_PORT);
 
     private HttpServer() {
         super(null);

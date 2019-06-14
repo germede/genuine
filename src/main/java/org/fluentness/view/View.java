@@ -1,6 +1,7 @@
 package org.fluentness.view;
 
 import org.fluentness.Fluentness;
+import org.fluentness.configuration.Configuration;
 import org.fluentness.base.generics.Register;
 import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.localization.Localization;
@@ -12,8 +13,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.fluentness.base.components.Components.localizations;
-import static org.fluentness.base.components.Components.views;
 import static org.fluentness.base.constants.Settings.VIEW_CACHE;
 
 
@@ -24,13 +23,13 @@ public abstract class View implements Serializable, LocalizationFunctions, Regis
     public String toString() {
 
         // retrieving cache
-        if (Fluentness.getBoolean(VIEW_CACHE) && ViewCache.INSTANCE.isCacheable(this)) {
+        if (Configuration.getBoolean(VIEW_CACHE) && ViewCache.INSTANCE.isCacheable(this)) {
             return ViewCache.INSTANCE.retrieve(this);
         }
 
         // initialization
         String rendered;
-        ViewProvider viewProvider = views();
+        ViewProvider viewProvider = Fluentness.get.views;
         String viewName = viewProvider.getNameFor(this);
 
         // templating
@@ -44,10 +43,10 @@ public abstract class View implements Serializable, LocalizationFunctions, Regis
         }
 
         // localization
-        Map<String, Localization> all = localizations().getAll();
-        Localization localization = localizations().get(getLocale().toString());
+        Map<String, Localization> all = Fluentness.get.localizations.getAll();
+        Localization localization = Fluentness.get.localizations.get(getLocale().toString());
         if (localization == null) {
-            localization = localizations().get(getLocale().getLanguage());
+            localization = Fluentness.get.localizations.get(getLocale().getLanguage());
         }
         if (localization == null) {
             localization = new Localization();
@@ -60,7 +59,7 @@ public abstract class View implements Serializable, LocalizationFunctions, Regis
         }
 
         // storing cache
-        if (Fluentness.getBoolean(VIEW_CACHE)) {
+        if (Configuration.getBoolean(VIEW_CACHE)) {
             ViewCache.INSTANCE.store(this,rendered);
         }
 

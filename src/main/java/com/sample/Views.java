@@ -3,15 +3,18 @@ package com.sample;
 import org.fluentness.view.View;
 import org.fluentness.view.ViewProvider;
 
-class Views implements ViewProvider {
+import static com.sample.Boot.F;
+
+
+public class Views implements ViewProvider {
 
     View base = html(
         head(
             title("A music archive made attrs love and Fluentness"),
             meta(NAME -> "lang", CONTENT -> "en"),
             meta(CHARSET -> "utf-8"),
-            include(style("milligram")),
-            include(style("custom")),
+            include(F.styles.milligram),
+            include(F.styles.custom),
             includeJs("script.min.js")
         ),
         body(
@@ -27,8 +30,8 @@ class Views implements ViewProvider {
     @Template("base")
     View createSong = div(
         div(
-            h2(translate("song_create"))
-//                    retrieve(Form.class, "form")
+            h2(translate("song_create")),
+            F.forms.createSong
         ).attrs(CLASS -> "column")
     ).attrs(CLASS -> "row");
 
@@ -40,7 +43,7 @@ class Views implements ViewProvider {
                     h2(translate("song_list"))
                 ).attrs(CLASS -> "column column-50"),
                 div(
-                    form("searchSong")
+                    F.forms.searchSong
                 ).attrs(CLASS -> "column column-50")
             ).attrs(CLASS -> "row"),
             table(

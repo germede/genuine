@@ -3,7 +3,7 @@ package com.sample;
 import org.fluentness.task.Task;
 import org.fluentness.task.TaskProvider;
 
-class Tasks implements TaskProvider {
+public class Tasks implements TaskProvider {
 
     Task song = commands(
         hello -> command(parameters("name"), "Say hello to someone",

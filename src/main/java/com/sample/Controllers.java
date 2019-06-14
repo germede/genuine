@@ -6,7 +6,9 @@ import org.fluentness.controller.ControllerProvider;
 
 import java.util.ArrayList;
 
-class Controllers implements ControllerProvider {
+import static com.sample.Boot.F;
+
+public class Controllers implements ControllerProvider {
 
     Controller baseController = actions(
 
@@ -16,9 +18,9 @@ class Controllers implements ControllerProvider {
     Controller songController = actions(
 
 
-        list -> get("/list", request -> render(view("songList").with(songs -> new ArrayList<Song>()))),
+        list -> get("/list", request -> render(F.views.songList.with(songs -> new ArrayList<Song>()))),
 
-        create -> get("/create", request -> render(view("createSong").with(songForm -> form("createSong")))),
+        create -> get("/create", request -> render(F.views.createSong)),
 
         create_submit -> post("/create/submit", request ->
             {

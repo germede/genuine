@@ -3,9 +3,10 @@ package com.sample;
 import org.fluentness.form.Form;
 import org.fluentness.form.FormProvider;
 
-class Forms implements FormProvider {
+public class Forms implements FormProvider {
 
-    Form createSong = form(POST, "/song/list",
+
+    Form createSong = post("/song/list",
 
         title -> text(
             required -> "true",
@@ -61,7 +62,7 @@ class Forms implements FormProvider {
         fieldset()
     );
 
-    Form searchSong = form(GET, "song/search",
+    Form searchSong = get("song/search",
         title -> text(
             REQUIRED -> "true",
             ID -> "song_title_input",

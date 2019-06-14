@@ -9,12 +9,20 @@ import org.fluentness.view.MarkupFunctions;
 
 public interface FormProvider extends Provider<Form>, HttpMethods, LocalizationFunctions, MarkupFunctions, FieldFunctions {
 
-    default Form form(String method, String action, KeyValuePair<Field>... fields) {
+    default Form get(String action, KeyValuePair<Field>... fields) {
         MarkupElement[] fieldMarkupElements = new MarkupElement[fields.length];
         for (int i = 0; i < fields.length; i++) {
             fieldMarkupElements[i] = fields[i].value();
         }
-        return new Form(method, action, fieldMarkupElements);
+        return new Form("get", action, fieldMarkupElements);
+    }
+
+    default Form post(String action, KeyValuePair<Field>... fields) {
+        MarkupElement[] fieldMarkupElements = new MarkupElement[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            fieldMarkupElements[i] = fields[i].value();
+        }
+        return new Form("post", action, fieldMarkupElements);
     }
 
 }

@@ -1,6 +1,6 @@
 package org.fluentness.base.logging;
 
-import org.fluentness.Fluentness;
+import org.fluentness.configuration.Configuration;
 import org.fluentness.base.constants.PrivateDirectories;
 
 import java.io.File;
@@ -19,8 +19,8 @@ public final class Log {
 
     static {
         String logLevel;
-        if (Fluentness.contains(LOG_LEVEL)) {
-            logLevel = toJavaLogLevel(Fluentness.getString(LOG_LEVEL));
+        if (Configuration.INSTANCE.containsKey(LOG_LEVEL)) {
+            logLevel = toJavaLogLevel(Configuration.getString(LOG_LEVEL));
         } else {
             logLevel = "ALL";
         }
@@ -31,7 +31,7 @@ public final class Log {
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (Fluentness.getBoolean(LOG_CONSOLE)) {
+        if (Configuration.getBoolean(LOG_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -39,7 +39,7 @@ public final class Log {
         }
 
         // file logging
-        if (Fluentness.getBoolean(LOG_FILE)) {
+        if (Configuration.getBoolean(LOG_FILE)) {
             new File(PrivateDirectories.LOG).mkdirs();
             try {
                 String logFilePath = PrivateDirectories.LOG + "/" +

@@ -1,5 +1,6 @@
 package org.fluentness.task;
 
+import org.fluentness.Fluentness;
 import org.fluentness.base.Utils;
 import org.fluentness.base.constants.PrivateDirectories;
 import org.fluentness.base.constants.PublicDirectories;
@@ -19,8 +20,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.fluentness.base.components.Components.tasks;
-
 public class TaskProviderImpl implements TaskProvider {
 
     public Task help = commands(
@@ -36,7 +35,7 @@ public class TaskProviderImpl implements TaskProvider {
 
                 // merge default and custom tasks
                 Map<String, Task> tasks = new TaskProviderImpl().getAll();
-                tasks.putAll(tasks().getAll());
+                tasks.putAll(Fluentness.get.tasks.getAll());
                 tasks = new TreeMap<>(tasks);
 
                 for (Map.Entry<String, Task> task : tasks.entrySet()) {
@@ -82,7 +81,7 @@ public class TaskProviderImpl implements TaskProvider {
             parameters -> Utils.INSTANCE.deleteRecursively(new File(PrivateDirectories.VIEW_CACHE))
         ),
 
-        style_cache -> command("Clears the view cache by deleting directory " + PublicDirectories.STYLE_CACHE,
+        style_cache -> command("Clears the style cache by deleting directory " + PublicDirectories.STYLE_CACHE,
             parameters -> Utils.INSTANCE.deleteRecursively(new File(PublicDirectories.STYLE_CACHE))
         ),
 
