@@ -1,6 +1,7 @@
-package org.fluentness.common.logging;
+package org.fluentness.base.logging;
 
-import org.fluentness.FnConf;
+import org.fluentness.Fluentness;
+import org.fluentness.base.constants.PrivateDirectories;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,17 +11,16 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
-import static org.fluentness.common.constants.Settings.*;
+import static org.fluentness.base.constants.Settings.*;
 
 public final class Log {
 
     private static java.util.logging.Logger logger;
-    private static final String LOG_FILE_PATH = "out/log/";
 
     static {
         String logLevel;
-        if (FnConf.contains(LOG_LEVEL)) {
-            logLevel = toJavaLogLevel(FnConf.getString(LOG_LEVEL));
+        if (Fluentness.contains(LOG_LEVEL)) {
+            logLevel = toJavaLogLevel(Fluentness.getString(LOG_LEVEL));
         } else {
             logLevel = "ALL";
         }
@@ -31,7 +31,7 @@ public final class Log {
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (FnConf.getBoolean(LOG_CONSOLE)) {
+        if (Fluentness.getBoolean(LOG_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -39,16 +39,16 @@ public final class Log {
         }
 
         // file logging
-        if (FnConf.getBoolean(LOG_FILE)) {
+        if (Fluentness.getBoolean(LOG_FILE)) {
+            new File(PrivateDirectories.LOG).mkdirs();
             try {
-                String logFilePath = LOG_FILE_PATH +
+                String logFilePath = PrivateDirectories.LOG +
                         new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
                 File file = new File(logFilePath);
                 FileHandler fileHandler;
                 if (file.exists()) {
                     fileHandler = new FileHandler(logFilePath,true);
                 } else {
-                    file.getParentFile().mkdirs();
                     file.createNewFile();
                     fileHandler = new FileHandler(logFilePath);
                 }

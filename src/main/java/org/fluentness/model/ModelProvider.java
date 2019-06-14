@@ -1,11 +1,11 @@
 package org.fluentness.model;
 
-import org.fluentness.common.lambdas.NamedValue;
-import org.fluentness.common.Provider;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.Provider;
 
 public interface ModelProvider extends Provider<Model>, AttributeFunctions {
 
-    default Model properties(NamedValue<Attribute>... properties) {
+    default Model properties(KeyValuePair<Attribute>... properties) {
         return new Model(properties);
     }
 }

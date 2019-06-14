@@ -1,4 +1,4 @@
-package org.fluentness.common.constants;
+package org.fluentness.base.constants;
 
 public interface HttpMethods {
     String GET = "GET";

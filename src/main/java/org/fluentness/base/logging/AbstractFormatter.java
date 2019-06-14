@@ -1,6 +1,6 @@
-package org.fluentness.common.logging;
+package org.fluentness.base.logging;
 
-import org.fluentness.common.constants.AnsiColors;
+import org.fluentness.base.constants.AnsiColors;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

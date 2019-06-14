@@ -1,10 +1,11 @@
 package org.fluentness.task;
 
-import org.fluentness.FnAtoz;
-import org.fluentness.common.Utils;
-import org.fluentness.common.logging.Log;
-import org.fluentness.common.lambdas.NamedValue;
-import org.fluentness.common.networking.HttpServer;
+import org.fluentness.base.Utils;
+import org.fluentness.base.constants.PrivateDirectories;
+import org.fluentness.base.constants.PublicDirectories;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.logging.Log;
+import org.fluentness.base.networking.HttpServer;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +19,9 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DefaultTasks implements TaskProvider {
+import static org.fluentness.base.components.Components.tasks;
+
+public class TaskProviderImpl implements TaskProvider {
 
     public Task help = commands(
         help -> command("Prints all available commands",
@@ -32,19 +35,19 @@ public class DefaultTasks implements TaskProvider {
                 System.out.println(ANSI_GREEN + "Available tasks:\n" + ANSI_RESET);
 
                 // merge default and custom tasks
-                Map<String, Task> tasks = new DefaultTasks().getAll();
-                tasks.putAll(FnAtoz.getTaskProvider().getAll());
+                Map<String, Task> tasks = new TaskProviderImpl().getAll();
+                tasks.putAll(tasks().getAll());
                 tasks = new TreeMap<>(tasks);
 
                 for (Map.Entry<String, Task> task : tasks.entrySet()) {
 
                     if (task.getValue().getCommands().length == 1) {
-                        NamedValue<Command> command = task.getValue().getCommands()[0];
+                        KeyValuePair<Command> command = task.getValue().getCommands()[0];
                         String parametersToPrint = command.value().getParameters().length > 0 ?
                             Arrays.toString(command.value().getParameters()) :
                             "";
                         System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET + "%s",
-                            command.name() + " " + parametersToPrint,
+                            command.key() + " " + parametersToPrint,
                             task.getValue().getCommands()[0].value().getDescription()
                         ));
                         continue;
@@ -52,12 +55,12 @@ public class DefaultTasks implements TaskProvider {
                     System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET,
                         task.getKey() + ":"
                     ));
-                    for (NamedValue<Command> command : task.getValue().getCommands()) {
+                    for (KeyValuePair<Command> command : task.getValue().getCommands()) {
                         String parametersToPrint = command.value().getParameters().length > 0 ?
                             Arrays.toString(command.value().getParameters()) :
                             "";
                         System.out.println(String.format(ANSI_PURPLE + "%-30s" + ANSI_RESET + "%s",
-                            "    " + task.getKey() + ":" + command.name() + " " + parametersToPrint,
+                            "    " + task.getKey() + ":" + command.key() + " " + parametersToPrint,
                             command.value().getDescription()
                         ));
                     }
@@ -74,16 +77,17 @@ public class DefaultTasks implements TaskProvider {
     );
 
     Task clear = commands(
-        css -> command("Clears the generated css files by deleting directory tmp/css",
-            parameters -> Utils.deleteDirectoryRecursively(new File("tmp/css"))
+
+        view_cache -> command("Clears the view cache by deleting directory " + PrivateDirectories.VIEW_CACHE,
+            parameters -> Utils.INSTANCE.deleteRecursively(new File(PrivateDirectories.VIEW_CACHE))
         ),
 
-        cache -> command("Clears the cache by deleting directory tmp/cache",
-            parameters -> Utils.deleteDirectoryRecursively(new File("tmp/cache"))
+        style_cache -> command("Clears the view cache by deleting directory " + PublicDirectories.STYLE_CACHE,
+            parameters -> Utils.INSTANCE.deleteRecursively(new File(PublicDirectories.STYLE_CACHE))
         ),
 
-        logs -> command("Clears the log files by deleting directory tmp/logs",
-            parameters -> Utils.deleteDirectoryRecursively(new File("tmp/logs"))
+        logs -> command("Clears the log files by deleting directory " + PrivateDirectories.LOG,
+            parameters -> Utils.INSTANCE.deleteRecursively(new File(PrivateDirectories.LOG))
         )
     );
 
@@ -112,11 +116,11 @@ public class DefaultTasks implements TaskProvider {
                     content = content.replaceAll("(?:/\\*(?:[^*]|(?:\\*+[^*/]))*\\*+/)|(?://.*)", "");
 
                     // match rules
-                    Pattern rulePattern = Pattern.compile("(.*?)\\{(.*?)\\}", Pattern.DOTALL | Pattern.MULTILINE);
+                    Pattern rulePattern = Pattern.compile("(.*?)\\{(.*?)}", Pattern.DOTALL | Pattern.MULTILINE);
                     Matcher matcher = rulePattern.matcher(content);
                     Map<String, String[]> parsed = new TreeMap<>();
                     while (matcher.find()) {
-                        String selector = matcher.group(1).replaceAll("\\}","").replaceAll("\\s+", " ").trim();
+                        String selector = matcher.group(1).replaceAll("}", "").replaceAll("\\s+", " ").trim();
                         String[] rules = matcher.group(2).split(";\n");
                         for (int i = 0; i < rules.length; i++) {
                             String[] cssRule = ("        " + rules[i].replaceAll("\\s+", "")).split(":");
@@ -127,7 +131,7 @@ public class DefaultTasks implements TaskProvider {
                                 continue;
                             }
                             cssRule[0] = cssRule[0].replaceAll("float", "FLOAT");
-                            rules[i] = cssRule[0].replaceAll("-","_") + "-> \"" + cssRule[1] + "\"";
+                            rules[i] = cssRule[0].replaceAll("-", "_") + "-> \"" + cssRule[1] + "\"";
                         }
                         parsed.put(selector, rules);
                     }

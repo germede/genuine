@@ -1,9 +1,9 @@
 package org.fluentness.controller;
 
-import org.fluentness.common.lambdas.NamedValue;
-import org.fluentness.common.Provider;
-import org.fluentness.common.constants.HttpMethods;
-import org.fluentness.common.constants.HttpStatusCodes;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.Provider;
+import org.fluentness.base.constants.HttpMethods;
+import org.fluentness.base.constants.HttpStatusCodes;
 import org.fluentness.view.View;
 
 import java.lang.annotation.ElementType;
@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 
 public interface ControllerProvider extends Provider<Controller>, HttpMethods, HttpStatusCodes {
 
-    default Controller actions(NamedValue<Action>... actions) {
+    default Controller actions(KeyValuePair<Action>... actions) {
         return new Controller(actions);
     }
 
@@ -49,11 +49,8 @@ public interface ControllerProvider extends Provider<Controller>, HttpMethods, H
         return new Action(TRACE, route, action);
     }
 
-    default Response render(View view, NamedValue<Object>... attributes) {
-        // instantiate view and set its attributes
-//        Arrays.stream(attributes)
-//            .forEach(attribute -> view.injectAttribute(attribute.name(), attribute.value()));
-        return new Response(OK).setBody(view.render());
+    default Response render(View view) {
+        return new Response(OK).setBody(view.toString());
     }
 
     default Response response(String body) {

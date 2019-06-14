@@ -1,4 +1,4 @@
-package org.fluentness.common.constants;
+package org.fluentness.base.constants;
 
 public interface Settings {
     String APP_PACKAGE = "APP_PACKAGE";
@@ -20,8 +20,9 @@ public interface Settings {
     String DB_USERNAME = "DB_USERNAME";
     String DB_PASSWORD = "DB_PASSWORD";
     String DB_PARAMS = "DB_PARAMS";
-    String CACHE_ENABLE = "CACHE_ENABLE";
     String LOG_LEVEL = "LOG_LEVEL";
     String LOG_CONSOLE = "LOG_CONSOLE";
     String LOG_FILE = "LOG_FILE";
+    String VIEW_CACHE_ENABLE = "VIEW_CACHE_ENABLE";
+    String STYLE_MINIFY_ENABLE = "STYLE_MINIFY_ENABLE";
 }

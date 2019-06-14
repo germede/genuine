@@ -1,9 +1,9 @@
 package org.fluentness.view;
 
-import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.base.lambdas.KeyValuePair;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class ContainerMarkupElement extends MarkupElement {
 
@@ -19,8 +19,9 @@ public class ContainerMarkupElement extends MarkupElement {
         this.innerText = innerText;
     }
 
-    public ContainerMarkupElement with(NamedValue<String>... attributes) {
-        this.attributes = new ArrayList<>(Arrays.asList(attributes));
+    public ContainerMarkupElement attrs(KeyValuePair<String>... attributes) {
+        this.attributes = new HashMap<>();
+        Arrays.stream(attributes).forEach(attribute -> this.attributes.put(attribute.key(),attribute.value()));
         return this;
     }
 }

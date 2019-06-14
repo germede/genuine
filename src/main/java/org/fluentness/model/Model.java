@@ -1,6 +1,6 @@
 package org.fluentness.model;
 
-import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.base.lambdas.KeyValuePair;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,8 +10,8 @@ public class Model {
 
     private Map<String, Attribute> properties = new HashMap<>();
 
-    Model(NamedValue<Attribute>... properties) {
-        Arrays.stream(properties).forEach(translation -> this.properties.put(translation.name(), translation.value()));
+    Model(KeyValuePair<Attribute>... properties) {
+        Arrays.stream(properties).forEach(translation -> this.properties.put(translation.key(), translation.value()));
     }
 
     public String getTable() {

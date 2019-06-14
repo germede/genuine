@@ -1,16 +1,16 @@
 package org.fluentness.controller;
 
-import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.base.lambdas.KeyValuePair;
 
 public class Controller {
 
-    private NamedValue<Action>[] actions;
+    private KeyValuePair<Action>[] actions;
 
-    public Controller(NamedValue<Action>[] actions) {
+    public Controller(KeyValuePair<Action>[] actions) {
         this.actions = actions;
     }
 
-    public NamedValue<Action>[] getActions() {
+    public KeyValuePair<Action>[] getActions() {
         return actions;
     }
 

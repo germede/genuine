@@ -1,16 +1,16 @@
 package org.fluentness.task;
 
-import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.base.lambdas.KeyValuePair;
 
 public class Task {
 
-    private NamedValue<Command>[] commands;
+    private KeyValuePair<Command>[] commands;
 
-    public Task(NamedValue<Command>[] commands) {
+    public Task(KeyValuePair<Command>[] commands) {
         this.commands = commands;
     }
 
-    public NamedValue<Command>[] getCommands() {
+    public KeyValuePair<Command>[] getCommands() {
         return commands;
     }
 

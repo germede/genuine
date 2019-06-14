@@ -16,20 +16,12 @@ class Controllers implements ControllerProvider {
     Controller songController = actions(
 
 
-        list -> get("/list",
-            request -> {
-                String title = request.getGetParameter("title");
-                return render(Atoz.views.songList,
-                    songs -> new ArrayList<Song>());
-            }
-        ),
+        list -> get("/list", request -> render(view("songList").with(songs -> new ArrayList<Song>()))),
 
-        create -> get("/create",
-            request -> render(Atoz.views.createSong, songForm -> Atoz.forms.createSong)
-        ),
+        create -> get("/create", request -> render(view("createSong").with(songForm -> form("createSong")))),
 
-        create_submit -> post("/create/submit",
-            request -> {
+        create_submit -> post("/create/submit", request ->
+            {
                 Song song = new Song(
                     1,
                     request.getPostParameter("title"),

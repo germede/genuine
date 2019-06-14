@@ -1,17 +1,17 @@
-package org.fluentness.common.lambdas;
+package org.fluentness.base.lambdas;
 
 import java.util.function.Function;
 
-public interface NamedValue<T> extends MethodFinder, Function<String, T> {
-    default String name() {
+public interface KeyValuePair<T> extends MethodFinder, Function<String, T> {
+    default String key() {
         String lambdaClassName = this.getClass().getName();
-        if (NamedValueRegister.existsName(lambdaClassName)) {
-            return NamedValueRegister.getName(lambdaClassName);
+        if (KeyValuePairKeyRegister.INSTANCE.containsKey(lambdaClassName)) {
+            return KeyValuePairKeyRegister.INSTANCE.get(lambdaClassName);
         }
         checkParametersEnabled();
-        String name = parameter().getName();
-        NamedValueRegister.putName(lambdaClassName, name);
-        return name;
+        String key = parameter().getName();
+        KeyValuePairKeyRegister.INSTANCE.put(lambdaClassName, key);
+        return key;
     }
 
     default void checkParametersEnabled() {
@@ -21,6 +21,6 @@ public interface NamedValue<T> extends MethodFinder, Function<String, T> {
     }
 
     default T value() {
-        return apply(name());
+        return apply(key());
     }
 }

@@ -1,14 +1,13 @@
 package org.fluentness.task;
 
-import org.fluentness.FnAtoz;
-import org.fluentness.common.Provider;
-import org.fluentness.common.constants.AnsiColors;
-import org.fluentness.common.lambdas.NamedValue;
-import org.fluentness.common.lambdas.NamedValueImpl;
+import org.fluentness.base.constants.AnsiColors;
+import org.fluentness.base.generics.Provider;
+import org.fluentness.base.lambdas.KeyValuePair;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+
+import static org.fluentness.base.components.Components.tasks;
 
 public interface TaskProvider extends Provider<Task>, AnsiColors {
 
@@ -16,7 +15,7 @@ public interface TaskProvider extends Provider<Task>, AnsiColors {
         return parameters;
     }
 
-    default Task commands(NamedValue<Command>... commands) {
+    default Task commands(KeyValuePair<Command>... commands) {
         return new Task(commands);
     }
 
@@ -28,17 +27,17 @@ public interface TaskProvider extends Provider<Task>, AnsiColors {
         return new Command(new String[0], description, executor);
     }
 
-    static List<NamedValue<Command>> retrieveAllCommands() {
-        Map<String, Task> tasks = new DefaultTasks().getAll();
-        tasks.putAll(FnAtoz.getTaskProvider().getAll());
+    static Map<String,Command> retrieveAllCommands() {
+        Map<String, Task> tasks = new TaskProviderImpl().getAll();
+        tasks.putAll(tasks().getAll());
 
-        List<NamedValue<Command>> result = new ArrayList<>();
+        Map<String,Command> result = new HashMap<>();
         for (Map.Entry<String, Task> task : tasks.entrySet()) {
-            for (NamedValue<Command> command : task.getValue().getCommands()) {
+            for (KeyValuePair<Command> command : task.getValue().getCommands()) {
                 if (task.getValue().getCommands().length == 1){
-                    result.add(command);
+                    result.put(command.key(),command.value());
                 } else {
-                    result.add(new NamedValueImpl(task.getKey() + ":" + command.name(), command.value()));
+                    result.put(task.getKey() + ":" + command.key(), command.value());
                 }
             }
         }

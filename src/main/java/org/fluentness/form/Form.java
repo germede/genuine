@@ -1,6 +1,5 @@
 package org.fluentness.form;
 
-import org.fluentness.common.lambdas.NamedValueImpl;
 import org.fluentness.view.ContainerMarkupElement;
 import org.fluentness.view.MarkupElement;
 
@@ -11,9 +10,9 @@ public class Form extends ContainerMarkupElement {
 
     private Map<String, Field> fields = new HashMap<>();
 
-    Form(String method, String action, MarkupElement[] fields) {
+    Form(String methodValue, String actionValue, MarkupElement[] fields) {
         super("form",fields);
-        with(new NamedValueImpl("method", method), new NamedValueImpl("action", action));
+        attrs(method -> methodValue, action -> actionValue);
     }
 
     public Field get(String name) {

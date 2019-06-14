@@ -11,3 +11,6 @@ tmp/
 # Java
 *.class
 *.log
+
+# Minified CSS
+*.min.css

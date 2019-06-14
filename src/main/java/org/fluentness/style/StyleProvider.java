@@ -1,7 +1,7 @@
 package org.fluentness.style;
 
-import org.fluentness.common.lambdas.NamedValue;
-import org.fluentness.common.Provider;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.Provider;
 
 public interface StyleProvider extends Provider<Style> {
 
@@ -9,7 +9,7 @@ public interface StyleProvider extends Provider<Style> {
         return new Style(selectors);
     }
 
-    default Style.Selector select(String selector, NamedValue<String>... rules) {
+    default Style.Selector select(String selector, KeyValuePair<String>... rules) {
         return new Style.Selector(selector, rules);
     }
 

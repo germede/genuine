@@ -1,6 +1,6 @@
 package org.fluentness.view;
 
-import org.fluentness.common.Provider;
+import org.fluentness.base.generics.Provider;
 import org.fluentness.localization.LocalizationFunctions;
 
 import java.lang.annotation.ElementType;

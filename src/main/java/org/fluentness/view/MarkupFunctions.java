@@ -1,95 +1,82 @@
 package org.fluentness.view;
 
-import org.fluentness.common.logging.Log;
-import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.base.constants.PublicDirectories;
+import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.style.Style;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import org.fluentness.style.StyleCache;
 
 public interface MarkupFunctions {
 
     // helpers
-    default EmptyMarkupElement includeExternalCss(String href) {
-        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/out/css/" + href);
+    default EmptyMarkupElement includeCss(String href) {
+        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> href);
     }
 
     default ContainerMarkupElement includeJs(String src) {
-        return script().with(SRC -> "/res/js/" + src);
+        return script().attrs(SRC -> "/" + PublicDirectories.JS + "/" + src);
     }
 
-    default EmptyMarkupElement style(Style style, String name) {
-        //todo minify and concatenate stylestmptmp
-        Path path = Paths.get("out/css/" + name + ".css");
-        if (!Files.exists(path)) {
-            try {
-                Files.createFile(path);
-                Files.write(path, style.toString().getBytes(StandardCharsets.UTF_8));
-            } catch (IOException e) {
-                Log.error(e);
-            }
+    default EmptyMarkupElement include(Style style) {
+        if (!StyleCache.INSTANCE.isCacheable(style)) {
+            StyleCache.INSTANCE.store(style);
         }
-        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/"+path);
+        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/" + StyleCache.INSTANCE.getIdentifyingPath(style));
     }
-
 
     // empty
-    default EmptyMarkupElement area(NamedValue<String>... attributes) {
+    default EmptyMarkupElement area(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("area", attributes);
     }
 
-    default EmptyMarkupElement base(NamedValue<String>... attributes) {
+    default EmptyMarkupElement base(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("base", attributes);
     }
 
-    default EmptyMarkupElement br(NamedValue<String>... attributes) {
+    default EmptyMarkupElement br(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("br", attributes);
     }
 
-    default EmptyMarkupElement col(NamedValue<String>... attributes) {
+    default EmptyMarkupElement col(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("col", attributes);
     }
 
-    default EmptyMarkupElement embed(NamedValue<String>... attributes) {
+    default EmptyMarkupElement embed(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("embed", attributes);
     }
 
-    default EmptyMarkupElement hr(NamedValue<String>... attributes) {
+    default EmptyMarkupElement hr(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("hr", attributes);
     }
 
-    default EmptyMarkupElement img(NamedValue<String>... attributes) {
+    default EmptyMarkupElement img(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("img", attributes);
     }
 
-    default EmptyMarkupElement input(NamedValue<String>... attributes) {
+    default EmptyMarkupElement input(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("input", attributes);
     }
 
-    default EmptyMarkupElement link(NamedValue<String>... attributes) {
+    default EmptyMarkupElement link(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("link", attributes);
     }
 
-    default EmptyMarkupElement meta(NamedValue<String>... attributes) {
+    default EmptyMarkupElement meta(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("meta", attributes);
     }
 
-    default EmptyMarkupElement param(NamedValue<String>... attributes) {
+    default EmptyMarkupElement param(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("param", attributes);
     }
 
-    default EmptyMarkupElement source(NamedValue<String>... attributes) {
+    default EmptyMarkupElement source(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("source", attributes);
     }
 
-    default EmptyMarkupElement track(NamedValue<String>... attributes) {
+    default EmptyMarkupElement track(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("track", attributes);
     }
 
-    default EmptyMarkupElement wbr(NamedValue<String>... attributes) {
+    default EmptyMarkupElement wbr(KeyValuePair<String>... attributes) {
         return new EmptyMarkupElement("wbr", attributes);
     }
 
@@ -683,9 +670,9 @@ public interface MarkupFunctions {
         return new ContainerMarkupElement("footer", inner);
     }
 
-    default ContainerMarkupElement form(String inner) {
-        return new ContainerMarkupElement("form", inner);
-    }
+//    default ContainerMarkupElement form(String inner) {
+//        return new ContainerMarkupElement("form", inner);
+//    }
 
     default ContainerMarkupElement frame(String inner) {
         return new ContainerMarkupElement("frame", inner);
@@ -876,9 +863,9 @@ public interface MarkupFunctions {
         return new ContainerMarkupElement("strong", inner);
     }
 
-    default ContainerMarkupElement style(String inner) {
-        return new ContainerMarkupElement("style", inner);
-    }
+//    default ContainerMarkupElement style(String inner) {
+//        return new ContainerMarkupElement("style", inner);
+//    }
 
     default ContainerMarkupElement sub(String inner) {
         return new ContainerMarkupElement("sub", inner);

@@ -1,4 +1,4 @@
-package org.fluentness.common.constants;
+package org.fluentness.base.constants;
 
 public interface AnsiColors {
     String ANSI_RESET = "\u001B[0m";

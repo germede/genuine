@@ -1,4 +1,4 @@
-package org.fluentness.common.logging;
+package org.fluentness.base.logging;
 
 import java.util.logging.Level;
 import java.util.logging.LogRecord;

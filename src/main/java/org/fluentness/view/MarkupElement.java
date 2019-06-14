@@ -1,16 +1,14 @@
 package org.fluentness.view;
 
-import org.fluentness.common.lambdas.NamedValue;
-
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public abstract class MarkupElement extends View {
 
     private boolean isContainer;
     String tag;
-    List<NamedValue<String>> attributes;
+    Map<String,String> attributes;
     MarkupElement[] innerMarkupElements;
     String innerText;
     private MarkupElement[] predecessors;
@@ -21,9 +19,8 @@ public abstract class MarkupElement extends View {
         this.isContainer = isContainer;
     }
 
-    public MarkupElement addAttribute(NamedValue<String> attribute) {
-        this.attributes.add(attribute);
-        return this;
+    protected void addAttribute(String key, String value) {
+        this.attributes.put(key, value);
     }
 
     public MarkupElement precededBy(MarkupElement... predecessors) {
@@ -42,19 +39,19 @@ public abstract class MarkupElement extends View {
     }
 
     @Override
-    public String toString() {
+    public String render() {
         StringBuilder builder = new StringBuilder();
 
         // predecessors
         if (predecessors != null) {
-            Arrays.stream(predecessors).forEach(predecessor -> builder.append(predecessor.toString()));
+            Arrays.stream(predecessors).forEach(predecessor -> builder.append(predecessor.render()));
         }
 
         // attributes
         String renderedAttributes = "";
         if (attributes != null) {
-            renderedAttributes = attributes.stream()
-                .map(attribute -> " " + attribute.name() + (attribute.value() != null ? ("=\"" + attribute.value() + "\"") : ""))
+            renderedAttributes = attributes.entrySet().stream()
+                .map(attribute -> " " + attribute.getKey() + (attribute.getValue() != null ? ("=\"" + attribute.getValue() + "\"") : ""))
                 .collect(Collectors.joining());
         }
 
@@ -63,7 +60,7 @@ public abstract class MarkupElement extends View {
         if (isContainer) {
             if (innerMarkupElements != null) {
                 for (MarkupElement contentElement : innerMarkupElements) {
-                    builder.append(contentElement.toString());
+                    builder.append(contentElement.render());
                 }
             }
             if (innerText != null) {
@@ -74,13 +71,14 @@ public abstract class MarkupElement extends View {
 
         // successors
         if (successors != null) {
-            Arrays.stream(successors).forEach(successor -> builder.append(successor.toString()));
+            Arrays.stream(successors).forEach(successor -> builder.append(successor.render()));
         }
 
         // wrapper
         if (wrapper != null) {
             wrapper.innerText = builder.toString();
-            return wrapper.toString();
+
+            return wrapper.render();
         }
 
         return builder.toString();

@@ -1,46 +1,76 @@
 package org.fluentness.view;
 
-import org.fluentness.FnAtoz;
+import org.fluentness.Fluentness;
+import org.fluentness.base.generics.Register;
+import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.localization.Localization;
 import org.fluentness.localization.LocalizationFunctions;
-import org.fluentness.localization.LocalizationProvider;
 
+import java.io.File;
+import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class View implements LocalizationFunctions {
+import static org.fluentness.base.components.Components.localizations;
+import static org.fluentness.base.components.Components.views;
+import static org.fluentness.base.constants.Settings.VIEW_CACHE_ENABLE;
 
-    public String render() {
 
-        ViewProvider viewProvider = FnAtoz.getViewProvider();
+public abstract class View implements Serializable, LocalizationFunctions, Register<String, Object> {
+
+    abstract String render();
+
+    public String toString() {
+
+        // retrieving cache
+        if (Fluentness.getBoolean(VIEW_CACHE_ENABLE) && ViewCache.INSTANCE.isCacheable(this)) {
+            return ViewCache.INSTANCE.retrieve(this);
+        }
+
+        // initialization
+        String rendered;
+        ViewProvider viewProvider = views();
         String viewName = viewProvider.getNameFor(this);
 
+        // templating
         if (viewProvider.isAnnotationPresent(viewName, ViewProvider.Template.class)) {
             View template = viewProvider.get(
                 ((ViewProvider.Template) viewProvider.getAnnotation(viewName, ViewProvider.Template.class)).value()
             );
-            return localize(template.toString().replace(ViewProvider.placeholder, toString()));
+            rendered = template.render().replace(ViewProvider.placeholder, render());
+        } else {
+            rendered = render();
         }
-        return localize(toString());
-    }
 
-    private String localize(String toLocalize) {
-        Map<String, Localization> all = FnAtoz.getLocalizationProvider().getAll();
-        Localization localization = FnAtoz.getLocalizationProvider().get(getLocale().toString());
+        // localization
+        Map<String, Localization> all = localizations().getAll();
+        Localization localization = localizations().get(getLocale().toString());
         if (localization == null) {
-            localization = FnAtoz.getLocalizationProvider().get(getLocale().getLanguage());
+            localization = localizations().get(getLocale().getLanguage());
         }
         if (localization == null) {
             localization = new Localization();
         }
         localization.get("cancel");
 
-        Matcher matcher = Pattern.compile("\\{\\{([A-Za-z1-9_]+)}}").matcher(toLocalize);
+        Matcher matcher = Pattern.compile("\\{\\{([A-Za-z1-9_]+)}}").matcher(rendered);
         while (matcher.find()) {
-            toLocalize = toLocalize.replace(matcher.group(0), localization.get(matcher.group(1)));
+            rendered = rendered.replace(matcher.group(0), localization.get(matcher.group(1)));
         }
-        return toLocalize;
+
+        // storing cache
+        if (Fluentness.getBoolean(VIEW_CACHE_ENABLE) && !new File(ViewCache.INSTANCE.getIdentifyingPath(this)).exists()) {
+            ViewCache.INSTANCE.store(this);
+        }
+
+        return rendered;
+    }
+
+    public View with(KeyValuePair<Object>... parameters) {
+        Arrays.stream(parameters).forEach(objectNamedValue -> put(objectNamedValue.key(), objectNamedValue.value()));
+        return this;
     }
 
 }

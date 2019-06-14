@@ -1,17 +1,12 @@
 package org.fluentness.localization;
 
-import org.fluentness.FnAtoz;
-import org.fluentness.common.lambdas.NamedValue;
-import org.fluentness.common.Provider;
-
-import java.util.Collection;
-import java.util.Locale;
-import java.util.stream.Collectors;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.Provider;
 
 public interface LocalizationProvider extends Provider<Localization> {
 
 
-    default Localization translations(NamedValue<String>... translations) {
+    default Localization translations(KeyValuePair<String>... translations) {
         return new Localization(translations);
     }
 

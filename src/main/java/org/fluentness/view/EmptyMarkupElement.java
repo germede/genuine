@@ -1,16 +1,17 @@
 package org.fluentness.view;
 
-import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.base.lambdas.KeyValuePair;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class EmptyMarkupElement extends MarkupElement {
 
-    public EmptyMarkupElement(String tag, NamedValue<String>... attributes) {
+    public EmptyMarkupElement(String tag, KeyValuePair<String>... attributes) {
         super(false);
         this.tag = tag;
-        this.attributes = new ArrayList<>(Arrays.asList(attributes));
+        this.attributes = new HashMap<>();
+        Arrays.stream(attributes).forEach(attribute -> this.attributes.put(attribute.key(),attribute.value()));
     }
 
 }

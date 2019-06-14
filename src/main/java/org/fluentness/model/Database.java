@@ -1,8 +1,7 @@
 package org.fluentness.model;
 
-import org.fluentness.FnConf;
-import org.fluentness.common.constants.Settings;
-import org.fluentness.common.logging.Log;
+import org.fluentness.Fluentness;
+import org.fluentness.base.logging.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class Database implements Settings {
+import static org.fluentness.base.constants.Settings.*;
+
+public final class Database {
 
     public static List<Map<String, Object>> read(String query, List<Object> parameters) {
         List<Map<String, Object>> resultList = new ArrayList<>();
@@ -71,13 +72,13 @@ public final class Database implements Settings {
     private static Connection getConnection() {
 
         String url = "jdbc:" +
-                FnConf.getString(DB_DRIVER) + "://" +
-                FnConf.getString(DB_HOSTNAME) + ":" +
-                FnConf.getInt(DB_PORT) + "/" +
-                FnConf.getString(DB_NAME) +
-                FnConf.getString(DB_PARAMS);
-        String username = FnConf.getString(DB_USERNAME);
-        String password = FnConf.getString(DB_PASSWORD);
+                Fluentness.getString(DB_DRIVER) + "://" +
+                Fluentness.getString(DB_HOSTNAME) + ":" +
+                Fluentness.getInt(DB_PORT) + "/" +
+                Fluentness.getString(DB_NAME) +
+                Fluentness.getString(DB_PARAMS);
+        String username = Fluentness.getString(DB_USERNAME);
+        String password = Fluentness.getString(DB_PASSWORD);
 
         try {
             return DriverManager.getConnection(url, username, password);

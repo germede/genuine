@@ -1,8 +1,8 @@
-package org.fluentness.common.networking;
+package org.fluentness.base.networking;
 
 import com.sun.net.httpserver.HttpsParameters;
-import org.fluentness.FnConf;
-import org.fluentness.common.logging.Log;
+import org.fluentness.Fluentness;
+import org.fluentness.base.logging.Log;
 
 import javax.net.ssl.*;
 import java.io.FileInputStream;
@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateException;
 
-import static org.fluentness.common.constants.Settings.APP_KEYSTORE;
+import static org.fluentness.base.constants.Settings.APP_KEYSTORE;
 
-final class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
+final class HttpsServer extends com.sun.net.httpserver.HttpsConfigurator {
 
-    HttpSecure() {
-        super(getSslContext(FnConf.getString(APP_KEYSTORE)));
+    HttpsServer() {
+        super(getSslContext(Fluentness.getString(APP_KEYSTORE)));
     }
 
     @Override
@@ -37,7 +37,7 @@ final class HttpSecure extends com.sun.net.httpserver.HttpsConfigurator {
     }
 
     private static SSLContext getSslContext(String keystore) {
-        SSLContext sslContext = null;
+        SSLContext sslContext;
         try {
             sslContext = SSLContext.getInstance("TLS");
 

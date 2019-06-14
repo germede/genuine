@@ -1,20 +1,19 @@
 package org.fluentness.form;
 
 
-import org.fluentness.common.lambdas.NamedValue;
-import org.fluentness.common.lambdas.NamedValueImpl;
+import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.view.EmptyMarkupElement;
 import org.fluentness.view.MarkupElement;
 
 public abstract class Field extends EmptyMarkupElement {
 
-    Field(String type, NamedValue<String>[] attributes) {
+    Field(String type, KeyValuePair<String>[] attributes) {
         super("input", attributes);
-        addAttribute(TYPE -> type);
+        addAttribute("type", type);
     }
 
     void setName(String name) {
-        addAttribute(new NamedValueImpl("name",name));
+        addAttribute("name", name);
     }
 
     public Field precededBy(MarkupElement... predecessors) {

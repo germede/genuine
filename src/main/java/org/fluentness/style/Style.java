@@ -1,11 +1,10 @@
 package org.fluentness.style;
 
-import org.fluentness.common.lambdas.NamedValue;
+import org.fluentness.base.lambdas.KeyValuePair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Style {
 
@@ -23,11 +22,11 @@ public class Style {
         StringBuilder result = new StringBuilder();
         selectors.forEach(selector -> result.append(selector.toString()));
 
-        return result.toString();
+        return result.toString().replaceAll("\\s+","");
     }
 
     private void compileInnerSelectors(Selector selector, List<Selector> result) {
-        for (NamedValue<String> rule : selector.rules) {
+        for (KeyValuePair<String> rule : selector.rules) {
             if (rule instanceof Selector) {
                 Selector inner = (Selector) rule;
                 inner.selector = String.format("%s %s", selector.selector, inner.selector);
@@ -37,12 +36,12 @@ public class Style {
         }
     }
 
-    public static class Selector implements NamedValue<String> {
+    public static class Selector implements KeyValuePair<String> {
 
         private String selector;
-        private NamedValue<String>[] rules;
+        private KeyValuePair<String>[] rules;
 
-        Selector(String selector, NamedValue<String>... rules) {
+        Selector(String selector, KeyValuePair<String>... rules) {
             this.selector = selector;
             this.rules = rules;
         }
@@ -59,7 +58,7 @@ public class Style {
                     .filter(rule -> !(rule instanceof Selector))
                     .forEach(rule -> result
                             .append("\n    ")
-                            .append(rule.name().replaceAll("_","-"))
+                            .append(rule.key().replaceAll("_","-"))
                             .append(": ")
                             .append(rule.value())
                             .append(";")

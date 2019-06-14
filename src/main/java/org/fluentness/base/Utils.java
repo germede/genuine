@@ -1,16 +1,19 @@
-package org.fluentness.common;
+package org.fluentness.base;
 
-import org.fluentness.common.logging.Log;
+import org.fluentness.base.logging.Log;
 
 import java.io.File;
 
-public final class Utils {
-    public static void deleteDirectoryRecursively(File file) {
+public enum Utils {
+
+    INSTANCE;
+
+    public void deleteRecursively(File file) {
         if (file.isDirectory()) {
             File[] entries = file.listFiles();
             if (entries != null) {
                 for (File entry : entries) {
-                    deleteDirectoryRecursively(entry);
+                    deleteRecursively(entry);
                 }
             }
         }
@@ -23,7 +26,7 @@ public final class Utils {
         }
     }
 
-    public static String toTitelCase(String string) {
+    public String toTitelCase(String string) {
         return string.substring(0,1).toUpperCase().concat(string.substring(1));
     }
 }

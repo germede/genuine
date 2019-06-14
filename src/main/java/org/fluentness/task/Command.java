@@ -1,6 +1,6 @@
 package org.fluentness.task;
 
-import org.fluentness.common.constants.AnsiColors;
+import org.fluentness.base.constants.AnsiColors;
 
 public class Command implements AnsiColors {
 
