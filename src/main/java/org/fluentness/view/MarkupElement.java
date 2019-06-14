@@ -51,7 +51,7 @@ public abstract class MarkupElement extends View {
         String renderedAttributes = "";
         if (attributes != null) {
             renderedAttributes = attributes.entrySet().stream()
-                .map(attribute -> " " + attribute.getKey() + (attribute.getValue() != null ? ("=\"" + attribute.getValue() + "\"") : ""))
+                .map(attribute -> " " + attribute.getKey().toLowerCase() + (attribute.getValue() != null ? ("=\"" + attribute.getValue() + "\"") : ""))
                 .collect(Collectors.joining());
         }
 

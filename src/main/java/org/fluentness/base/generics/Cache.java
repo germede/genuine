@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public interface Cache<T> {
 
@@ -15,12 +16,11 @@ public interface Cache<T> {
 
     String getIdentifyingPath(T t);
 
-    default void store(T t) {
+    default void store(T t, String content) {
         try {
             Log.debug("Create cache record %s", getIdentifyingPath(t));
             new File(getIdentifyingPath(t)).getParentFile().mkdirs();
-            new File(getIdentifyingPath(t)).createNewFile();
-            Files.write(Paths.get(getIdentifyingPath(t)),t.toString().getBytes());
+            Files.write(Paths.get(getIdentifyingPath(t)),content.getBytes(),StandardOpenOption.CREATE);
         } catch (IOException e) {
             Log.error(e);
         }

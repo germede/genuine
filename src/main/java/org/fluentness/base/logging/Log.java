@@ -42,7 +42,7 @@ public final class Log {
         if (Fluentness.getBoolean(LOG_FILE)) {
             new File(PrivateDirectories.LOG).mkdirs();
             try {
-                String logFilePath = PrivateDirectories.LOG +
+                String logFilePath = PrivateDirectories.LOG + "/" +
                         new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
                 File file = new File(logFilePath);
                 FileHandler fileHandler;

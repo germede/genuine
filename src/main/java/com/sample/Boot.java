@@ -26,8 +26,9 @@ class Boot extends Fluentness {
         set(LOG_LEVEL, "ALL");
         set(LOG_CONSOLE, true);
         set(LOG_FILE, true);
-        set(VIEW_CACHE_ENABLE, false);
-        set(STYLE_MINIFY_ENABLE, true);
+        set(VIEW_CACHE, true);
+        set(STYLE_CACHE, true);
+        set(STYLE_MINIFY, true);
 
         init(args);
     }

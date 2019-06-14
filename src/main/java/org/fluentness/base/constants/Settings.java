@@ -23,6 +23,7 @@ public interface Settings {
     String LOG_LEVEL = "LOG_LEVEL";
     String LOG_CONSOLE = "LOG_CONSOLE";
     String LOG_FILE = "LOG_FILE";
-    String VIEW_CACHE_ENABLE = "VIEW_CACHE_ENABLE";
-    String STYLE_MINIFY_ENABLE = "STYLE_MINIFY_ENABLE";
+    String VIEW_CACHE = "VIEW_CACHE";
+    String STYLE_CACHE = "STYLE_CACHE";
+    String STYLE_MINIFY = "STYLE_MINIFY";
 }
