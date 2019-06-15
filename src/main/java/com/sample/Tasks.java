@@ -1,9 +1,9 @@
 package com.sample;
 
 import org.fluentness.task.Task;
-import org.fluentness.task.TaskProvider;
+import org.fluentness.task.TaskProducer;
 
-public class Tasks implements TaskProvider {
+public class Tasks extends TaskProducer {
 
     Task song = commands(
         hello -> command(parameters("name"), "Say hello to someone",

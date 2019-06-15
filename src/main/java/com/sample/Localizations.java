@@ -1,9 +1,9 @@
 package com.sample;
 
 import org.fluentness.localization.Localization;
-import org.fluentness.localization.LocalizationProvider;
+import org.fluentness.localization.LocalizationProducer;
 
-public class Localizations implements LocalizationProvider {
+public class Localizations extends LocalizationProducer {
 
     Localization en = translations(
         welcome_message -> "Welcome to the site",

@@ -1,14 +1,16 @@
 package org.fluentness.configuration;
 
+import org.fluentness.base.generics.Component;
 import org.fluentness.base.generics.Register;
 
 import java.util.Arrays;
 
-public class Configuration implements Register<String, Object> {
+public class Configuration implements Component, Register<String, Object> {
 
-    public static Configuration INSTANCE;
+    public static Configuration INSTANCE = new Configuration(null);
 
     private Setting[] settings;
+
     public Configuration(Setting[] settings) {
         this.settings = settings;
     }
@@ -26,7 +28,10 @@ public class Configuration implements Register<String, Object> {
     }
 
     public static boolean getBoolean(String key) {
-        return (boolean) INSTANCE.get(key);
+        if (INSTANCE.containsKey(key)) {
+            return (boolean) INSTANCE.get(key);
+        }
+        return false;
     }
 
     public static Object getObject(String key) {
@@ -39,5 +44,4 @@ public class Configuration implements Register<String, Object> {
         }
         return defaultObject;
     }
-
 }

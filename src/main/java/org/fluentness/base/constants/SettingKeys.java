@@ -1,6 +1,6 @@
 package org.fluentness.base.constants;
 
-public interface Settings {
+public interface SettingKeys {
     String APP_PACKAGE = "APP_PACKAGE";
     String APP_PROTOCOL = "APP_PROTOCOL";
     String APP_HOSTNAME = "APP_HOSTNAME";

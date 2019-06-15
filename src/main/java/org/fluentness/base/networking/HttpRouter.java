@@ -7,7 +7,7 @@ import org.fluentness.base.constants.PublicDirectories;
 import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.base.logging.Log;
 import org.fluentness.controller.*;
-import org.fluentness.controller.ControllerProvider.Route;
+import org.fluentness.controller.ControllerProducer.Route;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,7 +25,7 @@ public enum HttpRouter implements HttpHandler {
     public Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
 
-        Map<String, Controller> controllers = Fluentness.get.controllers.getAll();
+        Map<String, Controller> controllers = Fluentness.INSTANCE.controllers.getAll();
         for (Map.Entry<String, Controller> controller : controllers.entrySet()) {
 
             // retrieve controller base route
@@ -37,7 +37,7 @@ public enum HttpRouter implements HttpHandler {
 
                 // dynamic routes in the middle path are not allowed
                 if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
-                    Log.warning(
+                    Log.INSTANCE.warning(
                         "Controller method %s->%s dynamic url parameter must stay at the end of the path",
                         controller.getKey(),
                         action.key());
@@ -46,8 +46,8 @@ public enum HttpRouter implements HttpHandler {
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    Log.warning(
-                        "Cannot register controller method %s->%s because route '%s' is already registered",
+                    Log.INSTANCE.warning(
+                        "Cannot map controller method %s->%s because route '%s' is already registered",
                         controller.getKey(),
                         action.key(), route);
                     continue;
@@ -55,7 +55,7 @@ public enum HttpRouter implements HttpHandler {
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                     httpExchange -> {
-                        Log.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                        Log.INSTANCE.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                         callMethodAction(controller, action.value(), httpExchange);
                     });
             }
@@ -66,7 +66,7 @@ public enum HttpRouter implements HttpHandler {
                     try {
                         routeHandlerMap.put("/" + directory.get(null), this);
                     } catch (IllegalAccessException e) {
-                        Log.error(e);
+                        Log.INSTANCE.error(e);
                     }
                 }
             );
@@ -82,23 +82,23 @@ public enum HttpRouter implements HttpHandler {
             RequestRegister.INSTANCE.put(Thread.currentThread(), request);
             Response response = action.getExecutor().execute(request);
             RequestRegister.INSTANCE.remove(Thread.currentThread());
-            HttpServer.serve(httpExchange, response);
+            HttpServer.INSTANCE.serve(httpExchange, response);
         } catch (Exception e) {
-            Log.error(e);
-            HttpServer.serve(httpExchange, new Response(INTERNAL_SERVER_ERROR));
+            Log.INSTANCE.error(e);
+            HttpServer.INSTANCE.serve(httpExchange, new Response(INTERNAL_SERVER_ERROR));
         }
     }
 
     private String extractBaseRouteFromController(String controllerName) {
-        return Fluentness.get.controllers.isAnnotationPresent(controllerName, Route.class) ?
-            ((Route) Fluentness.get.controllers.getAnnotation(controllerName, Route.class)).value() :
+        return Fluentness.INSTANCE.controllers.isAnnotationPresent(controllerName, Route.class) ?
+            ((Route) Fluentness.INSTANCE.controllers.getAnnotation(controllerName, Route.class)).value() :
             "";
     }
 
     @Override
     public void handle(HttpExchange httpExchange) {
         // handle static resources
-        Log.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+        Log.INSTANCE.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
 
         String path = httpExchange.getRequestURI().getPath();
         try {
@@ -122,14 +122,14 @@ public enum HttpRouter implements HttpHandler {
                     response.setHeader("Content-Type", "image/svg+xml");
                 }
 
-                HttpServer.serve(httpExchange, response);
+                HttpServer.INSTANCE.serve(httpExchange, response);
             } else {
-                Log.warning("File " + path + " doesn't exists");
-                HttpServer.serve(httpExchange, new Response(NOT_FOUND));
+                Log.INSTANCE.warning("File " + path + " doesn't exists");
+                HttpServer.INSTANCE.serve(httpExchange, new Response(NOT_FOUND));
             }
         } catch (IOException e) {
-            Log.error(e);
-            HttpServer.serve(httpExchange, new Response(INTERNAL_SERVER_ERROR));
+            Log.INSTANCE.error(e);
+            HttpServer.INSTANCE.serve(httpExchange, new Response(INTERNAL_SERVER_ERROR));
         }
     }
 }

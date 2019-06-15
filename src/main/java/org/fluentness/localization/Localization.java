@@ -1,12 +1,13 @@
 package org.fluentness.localization;
 
+import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Localization {
+public class Localization implements Component {
     private Map<String, String> translations = new HashMap<>();
 
     public Localization(KeyValuePair<String>... translations) {

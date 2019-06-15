@@ -1,8 +1,9 @@
 package org.fluentness.controller;
 
+import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
 
-public class Controller {
+public class Controller implements Component {
 
     private KeyValuePair<Action>[] actions;
 

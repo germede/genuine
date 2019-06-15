@@ -9,5 +9,5 @@ public enum ViewCache implements Cache<View> {
 
     @Override
     public String getIdentifyingPath(View view) {
-        return PrivateDirectories.VIEW_CACHE + "/" + Fluentness.get.views.getNameFor(view) + ".html";    }
+        return PrivateDirectories.VIEW_CACHE + "/" + Fluentness.INSTANCE.views.getKeyForValue(view) + ".html";    }
 }

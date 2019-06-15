@@ -1,12 +1,13 @@
 package org.fluentness.form;
 
+import org.fluentness.base.generics.Component;
 import org.fluentness.view.ContainerMarkupElement;
 import org.fluentness.view.MarkupElement;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Form extends ContainerMarkupElement {
+public class Form extends ContainerMarkupElement implements Component {
 
     private Map<String, Field> fields = new HashMap<>();
 

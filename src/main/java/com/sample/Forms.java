@@ -1,9 +1,9 @@
 package com.sample;
 
 import org.fluentness.form.Form;
-import org.fluentness.form.FormProvider;
+import org.fluentness.form.FormProducer;
 
-public class Forms implements FormProvider {
+public class Forms extends FormProducer {
 
 
     Form createSong = post("/song/list",

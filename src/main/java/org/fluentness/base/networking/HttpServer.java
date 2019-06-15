@@ -1,43 +1,31 @@
 package org.fluentness.base.networking;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpsConfigurator;
-import org.fluentness.configuration.Configuration;
 import org.fluentness.base.logging.Log;
+import org.fluentness.configuration.Configuration;
 import org.fluentness.controller.Response;
 
-import javax.net.ssl.SSLContext;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ProtocolException;
 
-import static org.fluentness.base.constants.Settings.*;
+import static org.fluentness.base.constants.SettingKeys.*;
 
-public final class HttpServer extends HttpsConfigurator {
+public enum  HttpServer {
+    INSTANCE;
 
-    private static com.sun.net.httpserver.HttpServer server;
-    private static String protocol = Configuration.getString(APP_PROTOCOL);
-    private static String hostname = Configuration.getString(APP_HOSTNAME);
-    private static int port = Configuration.getInt(APP_PORT);
+    private com.sun.net.httpserver.HttpServer server;
+    private String protocol = Configuration.getString(APP_PROTOCOL);
+    private String hostname = Configuration.getString(APP_HOSTNAME);
+    private int port = Configuration.getInt(APP_PORT);
 
-    private HttpServer() {
-        super(null);
-    }
 
-    public HttpServer(SSLContext sslContext) {
-        super(sslContext);
-    }
-
-    public static void start() {
+    public void start() {
         try {
             switch (protocol) {
                 case "http":
                     server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(hostname, port), 0);
-                    break;
-                case "https":
-                    server = com.sun.net.httpserver.HttpsServer.create(new InetSocketAddress(hostname, port), 0);
-                    ((com.sun.net.httpserver.HttpsServer) server).setHttpsConfigurator(new HttpsServer());
                     break;
                 default:
                     throw new ProtocolException();
@@ -46,25 +34,25 @@ public final class HttpServer extends HttpsConfigurator {
             HttpRouter.INSTANCE.getRouteHandlerMap().forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
-            Log.info("Server successfully started and listening to %s",getAddress());
+            Log.INSTANCE.info("Server successfully started and listening to %s",getAddress());
         } catch (Exception e) {
             stop();
-            Log.error(e);
+            Log.INSTANCE.error(e);
         }
     }
 
-    private static String getAddress() {
+    private String getAddress() {
         return protocol + ":/" + server.getAddress().getAddress() + ":" + port;
     }
 
-    public static void stop() {
+    public void stop() {
         if (server != null) {
             server.stop(0);
-            Log.info("Server successfully stopped");
+            Log.INSTANCE.info("Server successfully stopped");
         }
     }
 
-    static void serve(HttpExchange httpExchange, Response httpResponse) {
+    void serve(HttpExchange httpExchange, Response httpResponse) {
         try {
             httpResponse.getHeaders().forEach((key, value) -> httpExchange.getResponseHeaders().set(key, value));
             httpExchange.sendResponseHeaders(httpResponse.getStatusCode(), httpResponse.getBody().getBytes().length);
@@ -77,7 +65,7 @@ public final class HttpServer extends HttpsConfigurator {
 
             httpExchange.close();
         } catch (IOException e) {
-            Log.error(e);
+            Log.INSTANCE.error(e);
         }
     }
 }

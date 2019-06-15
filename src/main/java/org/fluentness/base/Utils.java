@@ -19,9 +19,9 @@ public enum Utils {
         }
         if (file.exists()) {
             if (!file.delete()) {
-                Log.warning("Cannot delete %s", file.getPath());
+                Log.INSTANCE.warning("Cannot delete %s", file.getPath());
             } else {
-                Log.debug("Deleted file %s", file.getPath());
+                Log.INSTANCE.debug("Deleted file %s", file.getPath());
             }
         }
     }

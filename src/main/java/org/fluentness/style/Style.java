@@ -1,12 +1,13 @@
 package org.fluentness.style;
 
+import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Style {
+public class Style implements Component {
 
     private final Selector[] selectors;
 
@@ -36,35 +37,4 @@ public class Style {
         }
     }
 
-    public static class Selector implements KeyValuePair<String> {
-
-        private String selector;
-        private KeyValuePair<String>[] rules;
-
-        Selector(String selector, KeyValuePair<String>... rules) {
-            this.selector = selector;
-            this.rules = rules;
-        }
-
-        @Override
-        public String apply(String s) {
-            return null;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder result = new StringBuilder(selector + " {");
-            Arrays.stream(rules)
-                    .filter(rule -> !(rule instanceof Selector))
-                    .forEach(rule -> result
-                            .append("\n    ")
-                            .append(rule.key().replaceAll("_","-"))
-                            .append(": ")
-                            .append(rule.value())
-                            .append(";")
-                    );
-            result.append("\n}\n\n");
-            return result.toString();
-        }
-    }
 }

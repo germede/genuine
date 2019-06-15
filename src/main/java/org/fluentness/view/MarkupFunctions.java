@@ -2,10 +2,11 @@ package org.fluentness.view;
 
 import org.fluentness.configuration.Configuration;
 import org.fluentness.base.constants.PublicDirectories;
-import org.fluentness.base.constants.Settings;
 import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.style.Style;
 import org.fluentness.style.StyleCache;
+
+import static org.fluentness.base.constants.SettingKeys.STYLE_CACHE;
 
 public interface MarkupFunctions {
 
@@ -19,7 +20,7 @@ public interface MarkupFunctions {
     }
 
     default EmptyMarkupElement include(Style style) {
-        if (!Configuration.getBoolean(Settings.STYLE_CACHE) || !StyleCache.INSTANCE.isCacheable(style)) {
+        if (!Configuration.getBoolean(STYLE_CACHE) || !StyleCache.INSTANCE.isCacheable(style)) {
             StyleCache.INSTANCE.store(style, style.toString());
         }
         return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/" + StyleCache.INSTANCE.getIdentifyingPath(style));

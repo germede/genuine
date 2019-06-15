@@ -1,7 +1,7 @@
 package org.fluentness.base.logging;
 
-import org.fluentness.configuration.Configuration;
 import org.fluentness.base.constants.PrivateDirectories;
+import org.fluentness.configuration.Configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,14 +10,17 @@ import java.util.Date;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static org.fluentness.base.constants.Settings.*;
+import static org.fluentness.base.constants.SettingKeys.*;
 
-public final class Log {
+public enum  Log {
 
-    private static java.util.logging.Logger logger;
+    INSTANCE;
 
-    static {
+    private Logger logger;
+
+    public void configure() {
         String logLevel;
         if (Configuration.INSTANCE.containsKey(LOG_LEVEL)) {
             logLevel = toJavaLogLevel(Configuration.getString(LOG_LEVEL));
@@ -43,11 +46,11 @@ public final class Log {
             new File(PrivateDirectories.LOG).mkdirs();
             try {
                 String logFilePath = PrivateDirectories.LOG + "/" +
-                        new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
+                    new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
                 File file = new File(logFilePath);
                 FileHandler fileHandler;
                 if (file.exists()) {
-                    fileHandler = new FileHandler(logFilePath,true);
+                    fileHandler = new FileHandler(logFilePath, true);
                 } else {
                     file.createNewFile();
                     fileHandler = new FileHandler(logFilePath);
@@ -61,27 +64,23 @@ public final class Log {
         }
     }
 
-    private Log() {
-
-    }
-
-    public static void debug(String message, Object... parameters) {
+    public void debug(String message, Object... parameters) {
         logger.fine(String.format(message, parameters));
     }
 
-    public static void info(String message, Object... parameters) {
+    public void info(String message, Object... parameters) {
         logger.info(String.format(message, parameters));
     }
 
-    public static void warning(String message, Object... parameters) {
+    public void warning(String message, Object... parameters) {
         logger.warning(String.format(message, parameters));
     }
 
-    public static void error(String message, Object... parameters) {
+    public void error(String message, Object... parameters) {
         logger.severe(String.format(message, parameters));
     }
 
-    public static void error(Exception exception) {
+    public void error(Exception exception) {
         String message;
         if (exception.getMessage() == null) {
             message = exception.getClass().getSimpleName() + ":";
@@ -92,7 +91,7 @@ public final class Log {
         error(message);
     }
 
-    private static String stackTraceToString(StackTraceElement[] stackTraceElements) {
+    private String stackTraceToString(StackTraceElement[] stackTraceElements) {
         StringBuilder res = new StringBuilder();
         res.append("\n").append("Stacktrace:");
         for (StackTraceElement stackTraceElement : stackTraceElements) {
@@ -101,18 +100,22 @@ public final class Log {
         return res.toString();
     }
 
-    static String toNormalLogLevel(String javaLevel) {
+    String toNormalLogLevel(String javaLevel) {
         switch (javaLevel) {
-            case "FINE": return "DEBUG";
-            case "SEVERE": return "ERROR";
+            case "FINE":
+                return "DEBUG";
+            case "SEVERE":
+                return "ERROR";
         }
         return javaLevel;
     }
 
-    static String toJavaLogLevel(String normalLevel) {
+    String toJavaLogLevel(String normalLevel) {
         switch (normalLevel) {
-            case "DEBUG": return "FINE";
-            case "ERROR": return "SEVERE";
+            case "DEBUG":
+                return "FINE";
+            case "ERROR":
+                return "SEVERE";
         }
         return normalLevel;
     }

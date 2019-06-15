@@ -20,7 +20,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TaskProviderImpl implements TaskProvider {
+public class FTaskProvider extends TaskProducer {
 
     public Task help = commands(
         help -> command("Prints all available commands",
@@ -34,8 +34,8 @@ public class TaskProviderImpl implements TaskProvider {
                 System.out.println(ANSI_GREEN + "Available tasks:\n" + ANSI_RESET);
 
                 // merge default and custom tasks
-                Map<String, Task> tasks = new TaskProviderImpl().getAll();
-                tasks.putAll(Fluentness.get.tasks.getAll());
+                Map<String, Task> tasks = new FTaskProvider().getAll();
+                tasks.putAll(Fluentness.INSTANCE.tasks.getAll());
                 tasks = new TreeMap<>(tasks);
 
                 for (Map.Entry<String, Task> task : tasks.entrySet()) {
@@ -93,11 +93,11 @@ public class TaskProviderImpl implements TaskProvider {
     Task server = commands(
 
         start -> command("Starts embedded HTTP server",
-            parameters -> HttpServer.start()
+            parameters -> HttpServer.INSTANCE.start()
         ),
 
         stop -> command("Stops embedded HTTP server",
-            parameters -> HttpServer.stop()
+            parameters -> HttpServer.INSTANCE.stop()
         )
 
     );
@@ -144,13 +144,13 @@ public class TaskProviderImpl implements TaskProvider {
                     }
                     System.out.println(");");
                 } catch (IOException e) {
-                    Log.error(e);
+                    Log.INSTANCE.error(e);
                 }
             }
         ),
 
         run -> command("Starts embedded HTTP server",
-            parameters -> HttpServer.start()
+            parameters -> HttpServer.INSTANCE.start()
         )
     );
 

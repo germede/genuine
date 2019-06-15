@@ -1,9 +1,10 @@
 package org.fluentness.view;
 
 import org.fluentness.Fluentness;
-import org.fluentness.configuration.Configuration;
+import org.fluentness.base.generics.Component;
 import org.fluentness.base.generics.Register;
 import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.configuration.Configuration;
 import org.fluentness.localization.Localization;
 import org.fluentness.localization.LocalizationFunctions;
 
@@ -13,10 +14,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.fluentness.base.constants.Settings.VIEW_CACHE;
+import static org.fluentness.base.constants.SettingKeys.VIEW_CACHE;
 
 
-public abstract class View implements Serializable, LocalizationFunctions, Register<String, Object> {
+public abstract class View implements Component, Serializable, LocalizationFunctions, Register<String, Object> {
+
+    public static final String LOCALIZATION_PLACEHOLDER = "{{%s}}";
 
     abstract String render();
 
@@ -29,24 +32,24 @@ public abstract class View implements Serializable, LocalizationFunctions, Regis
 
         // initialization
         String rendered;
-        ViewProvider viewProvider = Fluentness.get.views;
-        String viewName = viewProvider.getNameFor(this);
+        ViewProducer viewProvider = Fluentness.INSTANCE.views;
+        String viewName = viewProvider.getKeyForValue(this);
 
         // templating
-        if (viewProvider.isAnnotationPresent(viewName, ViewProvider.Template.class)) {
+        if (viewProvider.isAnnotationPresent(viewName, ViewProducer.Template.class)) {
             View template = viewProvider.get(
-                ((ViewProvider.Template) viewProvider.getAnnotation(viewName, ViewProvider.Template.class)).value()
+                ((ViewProducer.Template) viewProvider.getAnnotation(viewName, ViewProducer.Template.class)).value()
             );
-            rendered = template.render().replace(ViewProvider.placeholder, render());
+            rendered = template.render().replace(ViewProducer.TEMPLATE_PLACEHOLDER, render());
         } else {
             rendered = render();
         }
 
         // localization
-        Map<String, Localization> all = Fluentness.get.localizations.getAll();
-        Localization localization = Fluentness.get.localizations.get(getLocale().toString());
+        Map<String, Localization> all = Fluentness.INSTANCE.localizations.getAll();
+        Localization localization = Fluentness.INSTANCE.localizations.get(getLocale().toString());
         if (localization == null) {
-            localization = Fluentness.get.localizations.get(getLocale().getLanguage());
+            localization = Fluentness.INSTANCE.localizations.get(getLocale().getLanguage());
         }
         if (localization == null) {
             localization = new Localization();

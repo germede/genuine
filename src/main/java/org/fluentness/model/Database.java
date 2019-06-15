@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.fluentness.base.constants.Settings.*;
+import static org.fluentness.base.constants.SettingKeys.*;
 
 public final class Database {
 
@@ -24,10 +24,10 @@ public final class Database {
                         statement.setObject(++i, parameter);
                     }
                 }
-                Log.debug(query);
+                Log.INSTANCE.debug(query);
                 resultList = resultSetToResultList(statement.executeQuery());
             } catch (SQLException e) {
-                Log.error(e);
+                Log.INSTANCE.error(e);
             }
         }
         return resultList;
@@ -43,10 +43,10 @@ public final class Database {
                         statement.setObject(++i, parameter);
                     }
                 }
-                Log.debug(query);
+                Log.INSTANCE.debug(query);
                 return statement.executeUpdate();
             } catch (SQLException e) {
-                Log.error(e);
+                Log.INSTANCE.error(e);
             }
         }
         return 0;
@@ -83,7 +83,7 @@ public final class Database {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            Log.error(e);
+            Log.INSTANCE.error(e);
         }
         return null;
     }

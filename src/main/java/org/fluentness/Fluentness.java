@@ -1,130 +1,96 @@
 package org.fluentness;
 
+import org.fluentness.base.generics.Component;
 import org.fluentness.base.generics.Register;
 import org.fluentness.base.logging.Log;
-import org.fluentness.configuration.ConfigurationProvider;
-import org.fluentness.controller.ControllerProvider;
-import org.fluentness.form.FormProvider;
-import org.fluentness.localization.LocalizationProvider;
-import org.fluentness.model.ModelProvider;
-import org.fluentness.style.StyleProvider;
+import org.fluentness.configuration.Configuration;
+import org.fluentness.configuration.ConfigurationProducer;
+import org.fluentness.controller.ControllerProducer;
+import org.fluentness.form.FormProducer;
+import org.fluentness.localization.LocalizationProducer;
+import org.fluentness.model.ModelProducer;
+import org.fluentness.style.StyleProducer;
 import org.fluentness.task.Command;
-import org.fluentness.task.TaskProvider;
-import org.fluentness.task.TaskProviderImpl;
-import org.fluentness.view.ViewProvider;
+import org.fluentness.task.FTaskProvider;
+import org.fluentness.task.Task;
+import org.fluentness.task.TaskProducer;
+import org.fluentness.view.ViewProducer;
 
 import java.util.Map;
 
-public class Fluentness<
-    Configurations extends ConfigurationProvider,
-    Controllers extends ControllerProvider,
-    Forms extends FormProvider,
-    Localizations extends LocalizationProvider,
-    Models extends ModelProvider,
-    Styles extends StyleProvider,
-    Tasks extends TaskProvider,
-    Views extends ViewProvider
-    >
-    implements Register<String, Object> {
+public enum Fluentness {
 
-    Class<Configurations> configurationProviderClass;
-    Class<Controllers> controllerProviderClass;
-    Class<Forms> formProviderClass;
-    Class<Localizations> localizationProviderClass;
-    Class<Models> modelProviderClass;
-    Class<Styles> styleProviderClass;
-    Class<Tasks> taskProviderClass;
-    Class<Views> viewProviderClass;
+    INSTANCE;
 
-    public Configurations configurations;
-    public Controllers controllers;
-    public Forms forms;
-    public Localizations localizations;
-    public Models models;
-    public Styles styles;
-    public Tasks tasks;
-    public Views views;
+    public String appPackage;
 
-    public static Fluentness get;
+    public ConfigurationProducer configurations;
+    public ControllerProducer controllers;
+    public FormProducer forms;
+    public LocalizationProducer localizations;
+    public ModelProducer models;
+    public StyleProducer styles;
+    public TaskProducer tasks;
+    public ViewProducer views;
 
-    public Fluentness(
-        Class<Configurations> configurationProviderClass,
-        Class<Controllers> controllerProviderClass,
-        Class<Forms> formProviderClass,
-        Class<Localizations> localizationProviderClass,
-        Class<Models> modelProviderClass,
-        Class<Styles> styleProviderClass,
-        Class<Tasks> taskProviderClass,
-        Class<Views> viewProviderClass
-    ) {
-        this.configurationProviderClass = configurationProviderClass;
-        this.controllerProviderClass = controllerProviderClass;
-        this.formProviderClass = formProviderClass;
-        this.localizationProviderClass = localizationProviderClass;
-        this.modelProviderClass = modelProviderClass;
-        this.styleProviderClass = styleProviderClass;
-        this.taskProviderClass = taskProviderClass;
-        this.viewProviderClass = viewProviderClass;
-        get = this;
+    public void initialize(String appPackage, String configurationToApply, String[] programArguments) {
+        Log.INSTANCE.configure();
+        Fluentness.INSTANCE.appPackage = appPackage;
+        initProviders();
+        callPlugins();
+        applyConfiguration(configurationToApply);
+        executeCommand(programArguments);
     }
 
-
-
-    public Step.Zero Fluentness() {
-         return new Step.Zero();
-    }
-    public class Step {
-
-        public class Zero {
-
-        }
-
-        public class One {
-            public One() {
-            }
-
-        }
-
-    }
-
-    private void initializeProviders() {
-        // take account dependencies: top to bottom -> no dependencies to many dependencies
+    private void initProviders() {
         try {
-            configurations = configurationProviderClass.newInstance();
-            localizations = localizationProviderClass.newInstance();
-            models = modelProviderClass.newInstance();
-            forms = formProviderClass.newInstance();
-            styles = styleProviderClass.newInstance();
-            tasks = taskProviderClass.newInstance();
-            views = viewProviderClass.newInstance();
-            controllers = controllerProviderClass.newInstance();
-        } catch (InstantiationException | NullPointerException | IllegalAccessException e) {
-            Log.error(e);
+
+
+            configurations = (ConfigurationProducer) Class.forName(appPackage + ".Configurations").newInstance();
+            localizations = (LocalizationProducer) Class.forName(appPackage + ".Localizations").newInstance();
+            models = (ModelProducer) Class.forName(appPackage + ".Models").newInstance();
+            styles = (StyleProducer) Class.forName(appPackage + ".Styles").newInstance();
+            forms = (FormProducer) Class.forName(appPackage + ".Forms").newInstance();
+            views = (ViewProducer) Class.forName(appPackage + ".Views").newInstance();
+            tasks = (TaskProducer) Class.forName(appPackage + ".Tasks").newInstance();
+            controllers = (ControllerProducer) Class.forName(appPackage + ".Controllers").newInstance();
+        } catch (InstantiationException | NullPointerException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
+    private void callPlugins() {
 
-    public void executeCommand(String[] args) {
+    }
+
+    private void applyConfiguration(String configurationName) {
+        Configuration configuration = configurations.get(configurationName);
+        configuration.apply();
+        Log.INSTANCE.configure();
+
+    }
+
+    private void executeCommand(String[] args) {
 
         Command commandToExecute = null;
         if (args.length == 0) {
-            new TaskProviderImpl().help.getCommands()[0].value().getExecutor().execute(new String[0]);
+            new FTaskProvider().help.getCommands()[0].value().getExecutor().execute(new String[0]);
             System.exit(0);
         }
 
-        for (Map.Entry<String, Command> command : TaskProvider.retrieveAllCommands().entrySet()) {
+        for (Map.Entry<String, Command> command : Task.retrieveAllCommands().entrySet()) {
             if (args[0].equals(command.getKey())) {
                 commandToExecute = command.getValue();
             }
         }
         if (commandToExecute == null) {
-            Log.error("No command %s found", args[0]);
+            Log.INSTANCE.error("No command %s found", args[0]);
             System.exit(0);
         }
 
         String[] declaredParameters = commandToExecute.getParameters();
         if (declaredParameters.length != args.length - 1) {
-            Log.error("Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
+            Log.INSTANCE.error("Wrong use of command %s, expected %s arguments", args[0], declaredParameters.length);
             System.exit(0);
         }
 
@@ -133,4 +99,25 @@ public class Fluentness<
         commandToExecute.getExecutor().execute(parameters);
     }
 
+    public static class OnionHierarchy implements Register<Component, Integer> {
+
+        public static final OnionHierarchy INSTANCE = new OnionHierarchy();
+
+        // Ordering less dependant -> more dependant
+        static {
+//            map.put("configuration", 0);
+//            map.put("localization", 3000);
+//            map.put("model", 4000);
+//            map.put("style", 5000);
+//            map.put("form", 2000);
+//            map.put("view", 7000);
+//            map.put("task", 6000);
+//            map.put("controller", 1000);
+        }
+
+        public boolean isOnionDependant(String producedComponentName, String consumedComponentName) {
+//            return map.get(producedComponentName.toLowerCase()) <;
+            return false;
+        }
+    }
 }

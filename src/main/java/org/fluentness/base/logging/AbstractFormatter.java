@@ -17,7 +17,15 @@ abstract class AbstractFormatter extends Formatter implements AnsiColors {
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
         builder.append(df.format(new Date(logRecord.getMillis())));
         builder.append("] [");
-        builder.append(Log.toNormalLogLevel(logRecord.getLevel().getName()));
+        builder.append(Log.INSTANCE.toNormalLogLevel(logRecord.getLevel().getName()));
+        for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
+            if (!stackTraceElement.getClassName().startsWith("java") &&
+                !stackTraceElement.getClassName().startsWith("org.fluentness.base.logging")) {
+                builder.append("] [");
+                builder.append(stackTraceElement.getClassName().replaceAll(".*\\.",""));
+                break;
+            }
+        }
         builder.append("]");
     }
 

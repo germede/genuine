@@ -2,13 +2,14 @@ package com.sample;
 
 import com.sample.generated.Song;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.ControllerProvider;
+import org.fluentness.controller.ControllerProducer;
+import org.fluentness.task.TaskConsumer;
+import org.fluentness.view.ViewConsumer;
 
 import java.util.ArrayList;
 
-import static com.sample.Boot.F;
 
-public class Controllers implements ControllerProvider {
+public class Controllers extends ControllerProducer implements ViewConsumer<Views>, TaskConsumer<Tasks> {
 
     Controller baseController = actions(
 
@@ -18,9 +19,9 @@ public class Controllers implements ControllerProvider {
     Controller songController = actions(
 
 
-        list -> get("/list", request -> render(F.views.songList.with(songs -> new ArrayList<Song>()))),
+        list -> get("/list", request -> render(views().songList.with(songs -> new ArrayList<Song>()))),
 
-        create -> get("/create", request -> render(F.views.createSong)),
+        create -> get("/create", request -> render(views().createSong)),
 
         create_submit -> post("/create/submit", request ->
             {

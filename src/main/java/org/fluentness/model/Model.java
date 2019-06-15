@@ -1,12 +1,13 @@
 package org.fluentness.model;
 
+import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Model {
+public class Model implements Component {
 
     private Map<String, Attribute> properties = new HashMap<>();
 

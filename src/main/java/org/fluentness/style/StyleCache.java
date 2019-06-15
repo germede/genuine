@@ -9,6 +9,6 @@ public enum StyleCache implements Cache<Style> {
 
     @Override
     public String getIdentifyingPath(Style style) {
-        return PublicDirectories.STYLE_CACHE + "/" + Fluentness.get.styles.getNameFor(style) + ".min.css";
+        return PublicDirectories.STYLE_CACHE + "/" + Fluentness.INSTANCE.styles.getKeyForValue(style) + ".min.css";
     }
 }

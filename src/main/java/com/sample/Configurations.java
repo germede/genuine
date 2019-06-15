@@ -1,9 +1,10 @@
 package com.sample;
 
+import org.fluentness.Fluentness;
 import org.fluentness.configuration.Configuration;
-import org.fluentness.configuration.ConfigurationProvider;
+import org.fluentness.configuration.ConfigurationProducer;
 
-public class Configurations implements ConfigurationProvider {
+public class Configurations extends ConfigurationProducer {
 
     Configuration dev = settings(
         set(APP_PROTOCOL, "http"),
@@ -24,5 +25,9 @@ public class Configurations implements ConfigurationProvider {
         set(STYLE_CACHE, true),
         set(STYLE_MINIFY, true)
     );
+
+    public static void main(String[] args) {
+        Fluentness.INSTANCE.initialize("com.sample","dev",args);
+    }
 
 }

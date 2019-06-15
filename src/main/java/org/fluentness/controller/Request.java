@@ -85,7 +85,7 @@ public class Request {
             return Locale.getDefault();
         }
         List<Locale.LanguageRange> ranges = Locale.LanguageRange.parse(headers.getFirst("Accept-Language"));
-        Collection<Locale> locales = Fluentness.get.localizations.getAll().keySet().stream()
+        Collection<Locale> locales = Fluentness.INSTANCE.localizations.getAll().keySet().stream()
             .map(Locale::new)
             .collect(Collectors.toList());
         Locale result = Locale.lookup(ranges, locales);

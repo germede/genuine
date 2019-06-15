@@ -1,9 +1,9 @@
 package com.sample;
 
 import org.fluentness.style.Style;
-import org.fluentness.style.StyleProvider;
+import org.fluentness.style.StyleProducer;
 
-public class Styles implements StyleProvider {
+public class Styles extends StyleProducer {
 
     Style milligram = css(
         select("*, *:after, *:before",
