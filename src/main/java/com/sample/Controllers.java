@@ -3,13 +3,12 @@ package com.sample;
 import com.sample.generated.Song;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.ControllerProducer;
-import org.fluentness.task.TaskConsumer;
 import org.fluentness.view.ViewConsumer;
 
 import java.util.ArrayList;
 
 
-public class Controllers extends ControllerProducer implements ViewConsumer<Views>, TaskConsumer<Tasks> {
+public class Controllers extends ControllerProducer implements ViewConsumer<Views> {
 
     Controller baseController = actions(
 
@@ -18,11 +17,8 @@ public class Controllers extends ControllerProducer implements ViewConsumer<View
     @Route("/song")
     Controller songController = actions(
 
-
         list -> get("/list", request -> render(views().songList.with(songs -> new ArrayList<Song>()))),
-
         create -> get("/create", request -> render(views().createSong)),
-
         create_submit -> post("/create/submit", request ->
             {
                 Song song = new Song(

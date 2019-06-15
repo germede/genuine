@@ -1,9 +1,11 @@
 package org.fluentness.form;
 
-import org.fluentness.base.generics.Component;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.onion.Component;
 import org.fluentness.view.ContainerMarkupElement;
 import org.fluentness.view.MarkupElement;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +13,8 @@ public class Form extends ContainerMarkupElement implements Component {
 
     private Map<String, Field> fields = new HashMap<>();
 
-    Form(String methodValue, String actionValue, MarkupElement[] fields) {
-        super("form",fields);
+    Form(String methodValue, String actionValue, KeyValuePair<Field>[] fields) {
+        super("form", Arrays.stream(fields).map(KeyValuePair::value).toArray(MarkupElement[]::new));
         attrs(method -> methodValue, action -> actionValue);
     }
 

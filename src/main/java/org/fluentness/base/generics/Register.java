@@ -1,21 +1,31 @@
 package org.fluentness.base.generics;
 
+import org.fluentness.base.onion.Producer;
+import org.fluentness.task.TaskProducer;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public interface Register<K, V> {
     Map<String, Map> mapOfMaps = new HashMap<>();
 
-    default Map<K,V> map() {
-        Map test = mapOfMaps;
+    default Map<K, V> map() {
+        // lazy loading of registers
         if (!mapOfMaps.containsKey(this.getClass().getCanonicalName())) {
-            mapOfMaps.put(this.getClass().getCanonicalName(),new HashMap<K,V>());
+            if (this instanceof TaskProducer) {
+                mapOfMaps.put(this.getClass().getCanonicalName(), new TreeMap());
+            } else {
+                mapOfMaps.put(this.getClass().getCanonicalName(), new HashMap());
+            }
             if (this instanceof Producer) {
                 putAll(((Producer) this).retrieveAll());
             }
         }
         return mapOfMaps.get(this.getClass().getCanonicalName());
-    };
+    }
+
+    ;
 
     default boolean containsValue(V value) {
         return map().containsKey(value);
@@ -47,7 +57,7 @@ public interface Register<K, V> {
         return null;
     }
 
-    default Map<K,V> getAll() {
+    default Map<K, V> getAll() {
         return map();
     }
 

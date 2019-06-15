@@ -1,39 +1,55 @@
 package org.fluentness.task;
 
-import org.fluentness.Fluentness;
-import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.onion.Component;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
-public class Task implements Component {
+public class Task implements Component, Executable {
 
-    private KeyValuePair<Command>[] commands;
+    private String description;
+    private Step[] steps;
+    private Executable executable;
+    private String[] arguments;
 
-    public Task(KeyValuePair<Command>[] commands) {
-        this.commands = commands;
-    }
-
-    public KeyValuePair<Command>[] getCommands() {
-        return commands;
-    }
-
-    public static Map<String,Command> retrieveAllCommands() {
-        Map<String, Task> tasks = new FTaskProvider().getAll();
-        tasks.putAll(Fluentness.INSTANCE.tasks.getAll());
-
-        Map<String,Command> result = new HashMap<>();
-        for (Map.Entry<String, Task> task : tasks.entrySet()) {
-            for (KeyValuePair<Command> command : task.getValue().getCommands()) {
-                if (task.getValue().getCommands().length == 1){
-                    result.put(command.key(),command.value());
-                } else {
-                    result.put(task.getKey() + ":" + command.key(), command.value());
-                }
-            }
+    public Task(String description, KeyValuePair<Step>... steps) {
+        this.description = description;
+        this.steps = Arrays.stream(steps).map(KeyValuePair::value).toArray(Step[]::new);
+        this.steps = new Step[steps.length];
+        for (int i = 0; i < steps.length; i++) {
+            this.steps[i] = steps[i].value();
+            this.steps[i].setName(steps[i].key());
         }
-        return result;
+        this.executable = parameters -> Arrays.stream(steps).forEach(step -> step.value().execute(parameters));
+        this.arguments = new String[0];
     }
 
+    public Task(String description, Executable executable) {
+        this.description = description;
+        this.steps = new Step[0];
+        this.executable = executable;
+        this.arguments = new String[0];
+    }
+
+    String getDescription() {
+        return description;
+    }
+
+    Step[] getSteps() {
+        return steps;
+    }
+
+    public String[] getArguments() {
+        return arguments;
+    }
+
+    @Override
+    public void execute(String[] parameters) {
+        executable.execute(parameters);
+    }
+
+    public Task args(String... arguments) {
+        this.arguments = arguments;
+        return this;
+    }
 }

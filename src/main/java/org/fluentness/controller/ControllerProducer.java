@@ -2,7 +2,7 @@ package org.fluentness.controller;
 
 import org.fluentness.base.constants.HttpMethods;
 import org.fluentness.base.constants.HttpStatusCodes;
-import org.fluentness.base.generics.Producer;
+import org.fluentness.base.onion.Producer;
 import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.view.View;
 

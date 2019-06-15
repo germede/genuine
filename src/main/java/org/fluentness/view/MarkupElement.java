@@ -19,7 +19,7 @@ public abstract class MarkupElement extends View {
         this.isContainer = isContainer;
     }
 
-    protected void addAttribute(String key, String value) {
+    public void addAttribute(String key, String value) {
         this.attributes.put(key, value);
     }
 

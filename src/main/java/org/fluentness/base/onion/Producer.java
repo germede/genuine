@@ -1,5 +1,6 @@
-package org.fluentness.base.generics;
+package org.fluentness.base.onion;
 
+import org.fluentness.base.generics.Register;
 import org.fluentness.base.logging.Log;
 
 import java.lang.annotation.Annotation;
@@ -12,49 +13,28 @@ public interface Producer<T extends Component> extends Register<String, T> {
     Class<T> getProducedComponentType();
 
     default Map<String, T> retrieveAll() {
-        checkProducerConsumerHierarchyCompatibility();
+        // should only be called once by register
 
-        Map<String, T> objects = new HashMap<>();
+        Map<String, T> components = new HashMap<>();
         try {
             Field[] fields = this.getClass().getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);
                 if (!getProducedComponentType().isAssignableFrom(field.get(this).getClass())) {
-                    Log.INSTANCE.error("Field %s->%s should be of type %s, use consumer interfaces for dependency injection instead",
+                    Log.INSTANCE.fatal("Field %s->%s should be of type %s, use consumer interfaces for dependency injection instead",
                         this.getClass().getSimpleName(),
                         field.getName(),
                         getProducedComponentType().getSimpleName()
                     );
-                    System.exit(1);
                 }
                 T t = (T) field.get(this);
-                objects.put(field.getName(), t);
+                components.put(field.getName(), t);
                 field.setAccessible(false);
             }
         } catch (IllegalAccessException e) {
             Log.INSTANCE.error(e);
         }
-        return objects;
-    }
-
-    default void checkProducerConsumerHierarchyCompatibility() {
-        Class aClass = this.getClass();
-        Class[] interfaces = aClass.getInterfaces();
-        for (Class<?> anInterface : interfaces) {
-            if (Consumer.class.isAssignableFrom(anInterface)) {
-                Consumer consumerClass = (Consumer) this;
-
-
-                Log.INSTANCE.warning(anInterface.getClass().getName());
-                if (Fluentness.OnionHierarchy.INSTANCE.isOnionDependant(this.getClass().getSi, consumerClass) < 0) {
-                    Log.INSTANCE.error("Producer %s should not depend on consumer %s due to onion hierarchy",
-                        this.getClass().getSimpleName(),
-                        consumerClass.getSimpleName()
-                    );
-                    System.exit(1);
-                }
-            }
-        }
+        return components;
     }
 
     default boolean isAnnotationPresent(String name, Class<? extends Annotation> annotationClass) {
@@ -67,7 +47,7 @@ public interface Producer<T extends Component> extends Register<String, T> {
         return false;
     }
 
-    default Annotation getAnnotation(String name, Class<? extends Annotation> annotationClass) {
+    default <A extends Annotation> A getAnnotation(String name, Class<? extends A> annotationClass) {
         Field[] fields = this.getClass().getDeclaredFields();
         for (Field field : fields) {
             if (field.getName().equals(name)) {

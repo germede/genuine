@@ -2,7 +2,7 @@ package org.fluentness.base.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import org.fluentness.base.logging.Log;
-import org.fluentness.configuration.Configuration;
+import org.fluentness.base.settings.Configuration;
 import org.fluentness.controller.Response;
 
 import java.io.IOException;
@@ -10,15 +10,15 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ProtocolException;
 
-import static org.fluentness.base.constants.SettingKeys.*;
+import static org.fluentness.base.settings.Settings.Keys.*;
 
 public enum  HttpServer {
     INSTANCE;
 
     private com.sun.net.httpserver.HttpServer server;
-    private String protocol = Configuration.getString(APP_PROTOCOL);
-    private String hostname = Configuration.getString(APP_HOSTNAME);
-    private int port = Configuration.getInt(APP_PORT);
+    private String protocol = Configuration.INSTANCE.getString(APP_PROTOCOL);
+    private String hostname = Configuration.INSTANCE.getString(APP_HOSTNAME);
+    private int port = Configuration.INSTANCE.getInt(APP_PORT);
 
 
     public void start() {

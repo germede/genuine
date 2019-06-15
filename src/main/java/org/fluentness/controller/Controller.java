@@ -1,19 +1,21 @@
 package org.fluentness.controller;
 
-import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.onion.Component;
 
 public class Controller implements Component {
 
-    private KeyValuePair<Action>[] actions;
+    private Action[] actions;
 
     public Controller(KeyValuePair<Action>[] actions) {
-        this.actions = actions;
+        this.actions = new Action[actions.length];
+        for (int i = 0; i < actions.length; i++) {
+            this.actions[i] = actions[i].value();
+            this.actions[i].setName(actions[i].key());
+        }
     }
 
-    public KeyValuePair<Action>[] getActions() {
+    public Action[] getActions() {
         return actions;
     }
-
-
 }

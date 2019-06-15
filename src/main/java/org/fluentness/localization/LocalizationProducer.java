@@ -1,6 +1,6 @@
 package org.fluentness.localization;
 
-import org.fluentness.base.generics.Producer;
+import org.fluentness.base.onion.Producer;
 import org.fluentness.base.lambdas.KeyValuePair;
 
 public abstract class LocalizationProducer implements Producer<Localization> {

@@ -1,7 +1,7 @@
 package org.fluentness.base.logging;
 
 import org.fluentness.base.constants.PrivateDirectories;
-import org.fluentness.configuration.Configuration;
+import org.fluentness.base.settings.Configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.fluentness.base.constants.SettingKeys.*;
+import static org.fluentness.base.settings.Settings.Keys.*;
 
 public enum  Log {
 
@@ -21,12 +21,7 @@ public enum  Log {
     private Logger logger;
 
     public void configure() {
-        String logLevel;
-        if (Configuration.INSTANCE.containsKey(LOG_LEVEL)) {
-            logLevel = toJavaLogLevel(Configuration.getString(LOG_LEVEL));
-        } else {
-            logLevel = "ALL";
-        }
+        String logLevel = toJavaLogLevel(Configuration.INSTANCE.getString(LOG_LEVEL));
 
         // create logger
         logger = java.util.logging.Logger.getLogger(Log.class.getName());
@@ -34,7 +29,7 @@ public enum  Log {
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (Configuration.getBoolean(LOG_CONSOLE)) {
+        if (Configuration.INSTANCE.getBoolean(LOG_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -42,7 +37,7 @@ public enum  Log {
         }
 
         // file logging
-        if (Configuration.getBoolean(LOG_FILE)) {
+        if (Configuration.INSTANCE.getBoolean(LOG_FILE)) {
             new File(PrivateDirectories.LOG).mkdirs();
             try {
                 String logFilePath = PrivateDirectories.LOG + "/" +
@@ -89,6 +84,11 @@ public enum  Log {
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
         error(message);
+    }
+
+    public void fatal(String message, Object... parameters) {
+        logger.severe(String.format(message, parameters));
+        System.exit(1);
     }
 
     private String stackTraceToString(StackTraceElement[] stackTraceElements) {

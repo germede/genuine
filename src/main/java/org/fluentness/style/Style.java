@@ -1,7 +1,7 @@
 package org.fluentness.style;
 
-import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.onion.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;

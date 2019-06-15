@@ -1,6 +1,6 @@
 package org.fluentness.view;
 
-import org.fluentness.base.generics.Producer;
+import org.fluentness.base.onion.Producer;
 import org.fluentness.localization.LocalizationFunctions;
 
 import java.lang.annotation.ElementType;

@@ -1,10 +1,10 @@
 package org.fluentness.view;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.generics.Component;
 import org.fluentness.base.generics.Register;
 import org.fluentness.base.lambdas.KeyValuePair;
-import org.fluentness.configuration.Configuration;
+import org.fluentness.base.onion.Component;
+import org.fluentness.base.settings.Configuration;
 import org.fluentness.localization.Localization;
 import org.fluentness.localization.LocalizationFunctions;
 
@@ -14,19 +14,21 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.fluentness.base.constants.SettingKeys.VIEW_CACHE;
-
+import static org.fluentness.base.settings.Settings.Keys.VIEW_CACHE;
 
 public abstract class View implements Component, Serializable, LocalizationFunctions, Register<String, Object> {
 
     public static final String LOCALIZATION_PLACEHOLDER = "{{%s}}";
 
-    abstract String render();
+    public View with(KeyValuePair<Object>... parameters) {
+        Arrays.stream(parameters).forEach(parameter -> put(parameter.key(), parameter.value()));
+        return this;
+    }
 
     public String toString() {
 
         // retrieving cache
-        if (Configuration.getBoolean(VIEW_CACHE) && ViewCache.INSTANCE.isCacheable(this)) {
+        if (Configuration.INSTANCE.getBoolean(VIEW_CACHE) && ViewCache.INSTANCE.isCacheable(this)) {
             return ViewCache.INSTANCE.retrieve(this);
         }
 
@@ -38,7 +40,7 @@ public abstract class View implements Component, Serializable, LocalizationFunct
         // templating
         if (viewProvider.isAnnotationPresent(viewName, ViewProducer.Template.class)) {
             View template = viewProvider.get(
-                ((ViewProducer.Template) viewProvider.getAnnotation(viewName, ViewProducer.Template.class)).value()
+                viewProvider.getAnnotation(viewName, ViewProducer.Template.class).value()
             );
             rendered = template.render().replace(ViewProducer.TEMPLATE_PLACEHOLDER, render());
         } else {
@@ -62,16 +64,13 @@ public abstract class View implements Component, Serializable, LocalizationFunct
         }
 
         // storing cache
-        if (Configuration.getBoolean(VIEW_CACHE)) {
+        if (Configuration.INSTANCE.getBoolean(VIEW_CACHE)) {
             ViewCache.INSTANCE.store(this,rendered);
         }
 
         return rendered;
     }
 
-    public View with(KeyValuePair<Object>... parameters) {
-        Arrays.stream(parameters).forEach(objectNamedValue -> put(objectNamedValue.key(), objectNamedValue.value()));
-        return this;
-    }
+    abstract String render();
 
 }

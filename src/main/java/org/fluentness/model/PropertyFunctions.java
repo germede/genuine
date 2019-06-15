@@ -1,6 +1,6 @@
 package org.fluentness.model;
 
-public interface AttributeFunctions {
+public interface PropertyFunctions {
 
     default IntegerAttribute id() {
         return (IntegerAttribute) new IntegerAttribute().primaryKey().autoincrement();
@@ -22,7 +22,7 @@ public interface AttributeFunctions {
         return new CustomAttribute(type);
     }
 
-    class StringAttribute extends Attribute {
+    class StringAttribute extends Property {
         private StringAttribute() {
         }
 
@@ -31,7 +31,7 @@ public interface AttributeFunctions {
         }
     }
 
-    class IntegerAttribute extends Attribute {
+    class IntegerAttribute extends Property {
         private IntegerAttribute() {
         }
 
@@ -40,7 +40,7 @@ public interface AttributeFunctions {
         }
     }
 
-    class BooleanAttribute extends Attribute {
+    class BooleanAttribute extends Property {
         private BooleanAttribute() {
         }
 
@@ -50,7 +50,7 @@ public interface AttributeFunctions {
 
     }
 
-    class CustomAttribute extends Attribute {
+    class CustomAttribute extends Property {
         private final Class type;
 
         private CustomAttribute(Class type) {

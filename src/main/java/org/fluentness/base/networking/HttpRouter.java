@@ -4,10 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.fluentness.Fluentness;
 import org.fluentness.base.constants.PublicDirectories;
-import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.base.logging.Log;
 import org.fluentness.controller.*;
-import org.fluentness.controller.ControllerProducer.Route;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,39 +22,33 @@ public enum HttpRouter implements HttpHandler {
 
     public Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
+        for (Map.Entry<String, Controller> controller : Fluentness.INSTANCE.controllers.getAll().entrySet()) {
+            for (Action action : controller.getValue().getActions()) {
 
-        Map<String, Controller> controllers = Fluentness.INSTANCE.controllers.getAll();
-        for (Map.Entry<String, Controller> controller : controllers.entrySet()) {
-
-            // retrieve controller base route
-            String baseRoute = extractBaseRouteFromController(controller.getKey());
-
-            for (KeyValuePair<Action> action : controller.getValue().getActions()) {
-
-                String route = baseRoute + action.value().getRoute();
+                String route = extractBaseRouteFromController(controller.getKey()) + action.getRoute();
 
                 // dynamic routes in the middle path are not allowed
                 if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
                     Log.INSTANCE.warning(
-                        "Controller method %s->%s dynamic url parameter must stay at the end of the path",
+                        "Controller action %s->%s dynamic url parameter must stay at the end of the path",
                         controller.getKey(),
-                        action.key());
+                        action.getName());
                     continue;
                 }
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
                     Log.INSTANCE.warning(
-                        "Cannot map controller method %s->%s because route '%s' is already registered",
+                        "Cannot map controller action %s->%s because route '%s' is already registered",
                         controller.getKey(),
-                        action.key(), route);
+                        action.getName(), route);
                     continue;
                 }
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                     httpExchange -> {
                         Log.INSTANCE.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
-                        callMethodAction(controller, action.value(), httpExchange);
+                        callMethodAction(controller.getKey(), action, httpExchange);
                     });
             }
 
@@ -76,9 +68,10 @@ public enum HttpRouter implements HttpHandler {
         return routeHandlerMap;
     }
 
-    private void callMethodAction(Map.Entry<String, Controller> controller, Action action, HttpExchange httpExchange) {
+    private void callMethodAction(String controllerName, Action action, HttpExchange httpExchange) {
         try {
-            Request request = new Request(httpExchange, extractBaseRouteFromController(controller.getKey()) + action.getRoute());
+            Request request = new Request(httpExchange,
+                extractBaseRouteFromController(controllerName) + action.getRoute());
             RequestRegister.INSTANCE.put(Thread.currentThread(), request);
             Response response = action.getExecutor().execute(request);
             RequestRegister.INSTANCE.remove(Thread.currentThread());
@@ -90,8 +83,8 @@ public enum HttpRouter implements HttpHandler {
     }
 
     private String extractBaseRouteFromController(String controllerName) {
-        return Fluentness.INSTANCE.controllers.isAnnotationPresent(controllerName, Route.class) ?
-            ((Route) Fluentness.INSTANCE.controllers.getAnnotation(controllerName, Route.class)).value() :
+        return Fluentness.INSTANCE.controllers.isAnnotationPresent(controllerName, ControllerProducer.Route.class) ?
+            Fluentness.INSTANCE.controllers.getAnnotation(controllerName, ControllerProducer.Route.class).value() :
             "";
     }
 

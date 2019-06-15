@@ -1,22 +1,22 @@
 package org.fluentness.model;
 
-public abstract class Attribute {
+public abstract class Property {
 
     private boolean isPrimaryKey = false;
     private boolean isAutoincrement = false;
     private boolean isNullable = false;
 
-    public Attribute primaryKey() {
+    public Property primaryKey() {
         this.isPrimaryKey = true;
         return this;
     }
 
-    public Attribute autoincrement() {
+    public Property autoincrement() {
         this.isAutoincrement = true;
         return this;
     }
 
-    public Attribute nullable() {
+    public Property nullable() {
         this.isNullable = true;
         return this;
     }

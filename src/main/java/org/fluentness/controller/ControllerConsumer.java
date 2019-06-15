@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.generics.Consumer;
+import org.fluentness.base.onion.Consumer;
 
 public interface ControllerConsumer<T extends ControllerProducer> extends Consumer {
 
