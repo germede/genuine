@@ -2,7 +2,7 @@ package org.fluentness;
 
 import org.fluentness.configuration.Configuration;
 
-public enum FnConf {
+public enum Settings {
 
     INSTANCE;
 

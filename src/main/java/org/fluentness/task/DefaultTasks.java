@@ -1,13 +1,11 @@
-package org.fluentness;
+package org.fluentness.task;
 
+import org.fluentness.Fluentness;
 import org.fluentness.common.Utils;
 import org.fluentness.common.constants.PrivateDirectories;
 import org.fluentness.common.constants.PublicDirectories;
 import org.fluentness.common.logging.Log;
 import org.fluentness.common.networking.HttpServer;
-import org.fluentness.task.Step;
-import org.fluentness.task.Task;
-import org.fluentness.task.TaskProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,48 +13,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.fluentness.common.constants.OnionArchitecture.ONION_ARCHITECTURE;
-
-class FnTasks extends TaskProvider {
+public class DefaultTasks extends TaskProvider {
 
     Task help = does("Shows all available commands",
         arguments -> {
-            System.out.println("\n" +
-                " _______                                \n" +
-                "(  /  //             _/_                \n" +
-                " -/--// , , _  _ _   /  _ _   _  (   (  \n" +
-                "_/  (/_(_/_(/_/ / /_(__/ / /_(/_/_)_/_)_\n");
-
-            System.out.println(ANSI_GREEN + "Available tasks:\n" + ANSI_RESET);
-
-            for (Map.Entry<String, Task> task : Fluentness.INSTANCE.tasks.getAll().entrySet()) {
-
-                String[] declaredArguments = task.getValue().getArguments();
-
-                String argumentsToPrint = declaredArguments.length > 0 ? Arrays.toString(declaredArguments) : "";
-                System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET + "%s",
-                    task.getKey().replaceAll("_",":") + " " + argumentsToPrint,
-                    task.getValue().getDescription()
-                ));
-
-                if (task.getValue().getSteps().length > 0) {
-                    Step[] steps = task.getValue().getSteps();
-                    for (int i = 0; i < steps.length; i++) {
-                        Step step = steps[i];
-                        System.out.println(String.format(ANSI_PURPLE + "%-30s" + ANSI_RESET + "%s",
-                            "    " + (i + 1) + ". " + step.getName(),
-                            step.getDescription()
-                        ));
-                    }
-                }
-            }
-
+            Fluentness.INSTANCE.printHelp();
         }
     );
 
@@ -66,21 +32,7 @@ class FnTasks extends TaskProvider {
 
     Task print_onion = does("Prints the Fluentness onion architecture",
         arguments -> {
-            for (int i = 0; i < ONION_ARCHITECTURE.size(); i++) {
-                String component = ONION_ARCHITECTURE.get(i).getSimpleName();
-                if (i == 0) {
-                    System.out.println("\n" + ANSI_GREEN + "               ↑ ");
-                    System.out.println("LESS DEPENDANT | " + component + ANSI_RESET);
-                    continue;
-                }
-                if (i == ONION_ARCHITECTURE.size() - 1) {
-                    System.out.println(ANSI_BLUE + "MORE DEPENDANT | " + component);
-                    System.out.println("               ↓ " + ANSI_RESET);
-                    continue;
-                }
-                System.out.println("               | " + component);
-            }
-            System.out.println();
+            Fluentness.INSTANCE.printOnionArchitecture();
         }
     );
 

@@ -2,7 +2,7 @@ package org.fluentness.common.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.FnConf;
+import org.fluentness.Settings;
 import org.fluentness.common.logging.Log;
 
 import java.io.IOException;
@@ -17,9 +17,9 @@ public enum  HttpServer {
     INSTANCE;
 
     private com.sun.net.httpserver.HttpServer server;
-    private String protocol = FnConf.INSTANCE.getString(APP_PROTOCOL);
-    private String hostname = FnConf.INSTANCE.getString(APP_HOSTNAME);
-    private int port = FnConf.INSTANCE.getInt(APP_PORT);
+    private String protocol = Settings.INSTANCE.getString(APP_PROTOCOL);
+    private String hostname = Settings.INSTANCE.getString(APP_HOSTNAME);
+    private int port = Settings.INSTANCE.getInt(APP_PORT);
 
 
     public void start() {

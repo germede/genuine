@@ -1,6 +1,6 @@
 package org.fluentness.common.generics;
 
-import org.fluentness.FnConf;
+import org.fluentness.Settings;
 import org.fluentness.common.logging.Log;
 
 import java.io.File;
@@ -16,11 +16,11 @@ public interface Cache<T> {
     String getIdentifyingCacheFilePath(T t);
 
     default String cache(T t) {
-        if (FnConf.INSTANCE.getBoolean(CACHE_ENABLE) && doesCacheFileExists(t)) {
+        if (Settings.INSTANCE.getBoolean(CACHE_ENABLE) && doesCacheFileExists(t)) {
             return retrieve(t);
         }
         String content = t.toString();
-        if (FnConf.INSTANCE.getBoolean(CACHE_ENABLE)) {
+        if (Settings.INSTANCE.getBoolean(CACHE_ENABLE)) {
             store(t, content);
         }
         return content;

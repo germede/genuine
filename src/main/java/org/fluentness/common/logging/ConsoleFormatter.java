@@ -5,7 +5,7 @@ import java.util.logging.LogRecord;
 
 import static java.util.logging.Level.SEVERE;
 
-public class ConsoleFormatter extends AbstractFormatter {
+public class ConsoleFormatter extends BaseFormatter {
 
     @Override
     public String format(LogRecord logRecord) {

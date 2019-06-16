@@ -10,6 +10,8 @@ import org.fluentness.form.FormProvider;
 import org.fluentness.localization.LocalizationProvider;
 import org.fluentness.model.ModelProvider;
 import org.fluentness.style.StyleProvider;
+import org.fluentness.task.DefaultTasks;
+import org.fluentness.task.Step;
 import org.fluentness.task.Task;
 import org.fluentness.task.TaskProvider;
 import org.fluentness.view.ViewProvider;
@@ -17,6 +19,7 @@ import org.fluentness.view.ViewProvider;
 import java.util.Arrays;
 import java.util.Map;
 
+import static org.fluentness.common.constants.AnsiColors.*;
 import static org.fluentness.common.constants.OnionArchitecture.*;
 
 public enum Fluentness {
@@ -34,8 +37,6 @@ public enum Fluentness {
     public TaskProvider tasks;
     public ViewProvider views;
 
-    private FnTasks fnTaskProvider = new FnTasks();
-
     public void initialize(String appPackage, String configurationToApply, String[] programArguments) {
         this.appPackage = appPackage;
         initOnionArchitecture(configurationToApply);
@@ -45,7 +46,7 @@ public enum Fluentness {
     private void initOnionArchitecture(String configurationToApply) {
         try {
             configurations = (ConfigurationProvider) Class.forName(appPackage + "." + CONFIGURATIONS).newInstance();
-            FnConf.INSTANCE.apply(configurations.get(configurationToApply));
+            Settings.INSTANCE.apply(configurations.get(configurationToApply));
             Log.INSTANCE.configure();
             checkOnionCompliance(configurations);
 
@@ -65,7 +66,7 @@ public enum Fluentness {
             checkOnionCompliance(views);
 
             tasks = (TaskProvider) Class.forName(appPackage + "." + TASKS).newInstance();
-            tasks.putAll(fnTaskProvider.getAll());
+            tasks.putAll(new DefaultTasks().getAll());
             checkOnionCompliance(tasks);
 
             controllers = (ControllerProvider) Class.forName(appPackage + "." + CONTROLLERS).newInstance();
@@ -91,7 +92,7 @@ public enum Fluentness {
 
                 int consumerComponentPriority = ONION_ARCHITECTURE.indexOf(consumerComponent);
                 if (consumerComponentPriority > componentPriority) {
-                    fnTaskProvider.print_onion.execute(new String[0]);
+                    printOnionArchitecture();
                     Log.INSTANCE.fatal("%sProducer should not consume %s components due to the onion architecture",
                         component.getSimpleName(),
                         consumerComponent.getSimpleName()
@@ -103,13 +104,30 @@ public enum Fluentness {
             Log.INSTANCE.error(e);
             System.exit(1);
         }
+    }
 
+    public void printOnionArchitecture() {
+        for (int i = 0; i < ONION_ARCHITECTURE.size(); i++) {
+            String component = ONION_ARCHITECTURE.get(i).getSimpleName();
+            if (i == 0) {
+                System.out.println("\n" + ANSI_GREEN + "               ↑ ");
+                System.out.println("LESS DEPENDANT | " + component + ANSI_RESET);
+                continue;
+            }
+            if (i == ONION_ARCHITECTURE.size() - 1) {
+                System.out.println(ANSI_BLUE + "MORE DEPENDANT | " + component);
+                System.out.println("               ↓ " + ANSI_RESET);
+                continue;
+            }
+            System.out.println("               | " + component);
+        }
+        System.out.println();
     }
 
     private void executeCommand(String[] args) {
 
         if (args.length == 0) {
-            fnTaskProvider.help.execute(new String[0]);
+            printHelp();
             System.exit(0);
         }
 
@@ -142,4 +160,35 @@ public enum Fluentness {
         taskToExecute.getValue().execute(arguments);
     }
 
+    public void printHelp() {
+        System.out.println("\n" +
+            " _______                                \n" +
+            "(  /  //             _/_                \n" +
+            " -/--// , , _  _ _   /  _ _   _  (   (  \n" +
+            "_/  (/_(_/_(/_/ / /_(__/ / /_(/_/_)_/_)_\n");
+
+        System.out.println(ANSI_GREEN + "Available tasks:\n" + ANSI_RESET);
+
+        for (Map.Entry<String, Task> task : Fluentness.INSTANCE.tasks.getAll().entrySet()) {
+
+            String[] declaredArguments = task.getValue().getArguments();
+
+            String argumentsToPrint = declaredArguments.length > 0 ? Arrays.toString(declaredArguments) : "";
+            System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET + "%s",
+                task.getKey().replaceAll("_",":") + " " + argumentsToPrint,
+                task.getValue().getDescription()
+            ));
+
+            if (task.getValue().getSteps().length > 0) {
+                Step[] steps = task.getValue().getSteps();
+                for (int i = 0; i < steps.length; i++) {
+                    Step step = steps[i];
+                    System.out.println(String.format(ANSI_PURPLE + "%-30s" + ANSI_RESET + "%s",
+                        "    " + (i + 1) + ". " + step.getName(),
+                        step.getDescription()
+                    ));
+                }
+            }
+        }
+    }
 }
