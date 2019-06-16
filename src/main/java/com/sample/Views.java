@@ -1,58 +1,58 @@
 package com.sample;
 
+import org.fluentness.form.FormConsumer;
+import org.fluentness.style.StyleConsumer;
 import org.fluentness.view.View;
-import org.fluentness.view.ViewProducer;
+import org.fluentness.view.ViewProvider;
 
-public class Views extends ViewProducer {
+public class Views extends ViewProvider implements StyleConsumer<Styles>, FormConsumer<Forms> {
 
     View base = html(
         head(
             title("A music archive made attrs love and Fluentness"),
             meta(NAME -> "lang", CONTENT -> "en"),
             meta(CHARSET -> "utf-8"),
-//            include(F.styles.milligram),
-//            include(F.styles.custom),
+            include(styles().bundle),
             includeJs("script.min.js")
         ),
         body(
-            div(
+            div(attrs(CLASS -> "container"),
                 h1(translate("welcome_message")),
-                div(
-                    placeholder()
-                )
-            ).attrs(CLASS -> "container")
+                placeholder()
+            )
         )
     );
 
-    @Template("base")
-    View createSong = div(
-        div(
-            h2(translate("song_create"))
-//            F.forms.createSong
-        ).attrs(CLASS -> "column")
-    ).attrs(CLASS -> "row");
+    View createSong = using(base,
+        div(attrs(CLASS -> "row"),
+            div(attrs(CLASS -> "column"),
+                h2(translate("song_create")),
+                forms().createSong
+            )
+        )
+    );
 
-    @Template("base")
-    View songList = div(
-        div(
-            div(
-                div(
-                    h2(translate("song_list"))
-                ).attrs(CLASS -> "column column-50"),
-                div(
-//                    F.forms.searchSong
-                ).attrs(CLASS -> "column column-50")
-            ).attrs(CLASS -> "row"),
-            table(
-                thead(tr(
-                    th(translate("song_title")),
-                    th(translate("song_artist")),
-                    th(translate("song_album")),
-                    th(translate("song_year")),
-                    th(translate("song_is_new")),
-                    th(translate("song_update")),
-                    th(translate("song_delete"))
-                ))
+    View songList = using(base,
+        div(attrs(CLASS -> "row"),
+            div(attrs(CLASS -> "column"),
+                div(attrs(CLASS -> "row"),
+                    div(attrs(CLASS -> "column column-50"),
+                        h2(translate("song_list"))
+                    ),
+                    div(attrs(CLASS -> "column column-50"),
+                        forms().searchSong
+                    )
+                ),
+                table(
+                    thead(tr(
+                        th(translate("song_title")),
+                        th(translate("song_artist")),
+                        th(translate("song_album")),
+                        th(translate("song_year")),
+                        th(translate("song_is_new")),
+                        th(translate("song_update")),
+                        th(translate("song_delete"))
+                    ))
 //                            tbody(forEachEntityIn(retrieve(List.class, "songs"), song -> tr(
 //                                    td(song.getString("title")),
 //                                    td(song.getString("artist")),
@@ -62,11 +62,12 @@ public class Views extends ViewProducer {
 //                                    td(a(attrs(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
 //                                    td(a(attrs(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
 //                            )))
-            ),
-            a(
-                translate("song_create")
-            ).attrs(CLASS -> "button", HREF -> "/song/create")
-        ).attrs(CLASS -> "column")
-    ).attrs(CLASS -> "row");
+                ),
+                a(attrs(CLASS -> "button", href -> "/song/create"),
+                    translate("song_create")
+                )
+            )
+        )
+    );
 
 }

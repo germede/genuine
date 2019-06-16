@@ -1,7 +1,7 @@
 package org.fluentness.model;
 
-import org.fluentness.base.lambdas.KeyValuePair;
-import org.fluentness.base.onion.Component;
+import org.fluentness.common.lambdas.KeyValuePair;
+import org.fluentness.common.components.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class Model implements Component {
     private Map<String, Property> properties = new HashMap<>();
 
     Model(KeyValuePair<Property>... properties) {
-        Arrays.stream(properties).forEach(property -> this.properties.put(property.key(), property.value()));
+        Arrays.stream(properties).forEach(property -> this.properties.put(property.getKey(), property.getValue()));
     }
 
     public String getTable() {

@@ -1,7 +1,7 @@
 package org.fluentness.task;
 
-import org.fluentness.base.lambdas.KeyValuePair;
-import org.fluentness.base.onion.Component;
+import org.fluentness.common.lambdas.KeyValuePair;
+import org.fluentness.common.components.Component;
 
 import java.util.Arrays;
 
@@ -14,13 +14,13 @@ public class Task implements Component, Executable {
 
     public Task(String description, KeyValuePair<Step>... steps) {
         this.description = description;
-        this.steps = Arrays.stream(steps).map(KeyValuePair::value).toArray(Step[]::new);
+        this.steps = Arrays.stream(steps).map(KeyValuePair::getValue).toArray(Step[]::new);
         this.steps = new Step[steps.length];
         for (int i = 0; i < steps.length; i++) {
-            this.steps[i] = steps[i].value();
-            this.steps[i].setName(steps[i].key());
+            this.steps[i] = steps[i].getValue();
+            this.steps[i].setName(steps[i].getKey());
         }
-        this.executable = parameters -> Arrays.stream(steps).forEach(step -> step.value().execute(parameters));
+        this.executable = parameters -> Arrays.stream(steps).forEach(step -> step.getValue().execute(parameters));
         this.arguments = new String[0];
     }
 

@@ -1,75 +1,78 @@
 package org.fluentness;
 
-import org.fluentness.base.logging.Log;
-import org.fluentness.base.onion.Component;
-import org.fluentness.base.onion.Consumer;
-import org.fluentness.base.onion.Producer;
-import org.fluentness.base.settings.Settings;
+import org.fluentness.common.components.Component;
+import org.fluentness.common.components.Consumer;
+import org.fluentness.common.components.Provider;
+import org.fluentness.common.logging.Log;
+import org.fluentness.configuration.ConfigurationProvider;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.ControllerProducer;
+import org.fluentness.controller.ControllerProvider;
 import org.fluentness.form.Form;
-import org.fluentness.form.FormProducer;
+import org.fluentness.form.FormProvider;
 import org.fluentness.localization.Localization;
-import org.fluentness.localization.LocalizationProducer;
+import org.fluentness.localization.LocalizationProvider;
 import org.fluentness.model.Model;
-import org.fluentness.model.ModelProducer;
+import org.fluentness.model.ModelProvider;
 import org.fluentness.style.Style;
-import org.fluentness.style.StyleProducer;
+import org.fluentness.style.StyleProvider;
 import org.fluentness.task.FnTaskProvider;
 import org.fluentness.task.Task;
-import org.fluentness.task.TaskProducer;
+import org.fluentness.task.TaskProvider;
 import org.fluentness.view.View;
-import org.fluentness.view.ViewProducer;
+import org.fluentness.view.ViewProvider;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public enum Fluentness {
 
     INSTANCE;
 
-    public String appPackage;
+    private String appPackage;
 
-    public ControllerProducer controllers;
-    public FormProducer forms;
-    public LocalizationProducer localizations;
-    public ModelProducer models;
-    public StyleProducer styles;
-    public TaskProducer tasks;
-    public ViewProducer views;
+    public ConfigurationProvider configurations;
+    public ControllerProvider controllers;
+    public FormProvider forms;
+    public LocalizationProvider localizations;
+    public ModelProvider models;
+    public StyleProvider styles;
+    public TaskProvider tasks;
+    public ViewProvider views;
 
-    public List<Class<? extends Component>> onionArchitecture = new ArrayList<>();
+    public static final List<Class<? extends Component>> onionArchitecture = new ArrayList<>();
 
-    public void initialize(String appPackage, Settings settingsToApply, String[] programArguments) {
-        settingsToApply.apply();
-        Log.INSTANCE.configure();
-        try {
-            Fluentness.INSTANCE.appPackage = appPackage;
-            initOnionArchitecture();
-            executeCommand(programArguments);
-        } catch (Exception e) {
-            Log.INSTANCE.error(e);
-        }
+    static {
+        onionArchitecture.add(Localization.class);
+        onionArchitecture.add(Model.class);
+        onionArchitecture.add(Style.class);
+        onionArchitecture.add(Form.class);
+        onionArchitecture.add(View.class);
+        onionArchitecture.add(Task.class);
+        onionArchitecture.add(Controller.class);
     }
 
-    private void initOnionArchitecture() {
+    public void initialize(String appPackage, String settingsToApply, String[] programArguments) {
+        this.appPackage = appPackage;
+        initOnionArchitecture(settingsToApply);
+        executeCommand(programArguments);
+    }
+
+    private void initOnionArchitecture(String settingsToApply) {
         try {
-            // onion hierarchy and naming conventions are hereby defined
+            // onion hierarchy and naming conventions are hereby granted
+            configurations = (ConfigurationProvider) Class.forName(appPackage + ".Configurations").newInstance();
+            configurations.get(settingsToApply).apply();
+            Log.INSTANCE.configure();
 
-            onionArchitecture.add(Localization.class);
-            onionArchitecture.add(Model.class);
-            onionArchitecture.add(Style.class);
-            onionArchitecture.add(Form.class);
-            onionArchitecture.add(View.class);
-            onionArchitecture.add(Task.class);
-            onionArchitecture.add(Controller.class);
-
-            localizations = (LocalizationProducer) Class.forName(appPackage + ".Localizations").newInstance();
-            models = (ModelProducer) Class.forName(appPackage + ".Models").newInstance();
-            styles = (StyleProducer) Class.forName(appPackage + ".Styles").newInstance();
-            forms = (FormProducer) Class.forName(appPackage + ".Forms").newInstance();
-            views = (ViewProducer) Class.forName(appPackage + ".Views").newInstance();
-            tasks = (TaskProducer) Class.forName(appPackage + ".Tasks").newInstance();
-            controllers = (ControllerProducer) Class.forName(appPackage + ".Controllers").newInstance();
+            localizations = (LocalizationProvider) Class.forName(appPackage + ".Localizations").newInstance();
+            models = (ModelProvider) Class.forName(appPackage + ".Models").newInstance();
+            styles = (StyleProvider) Class.forName(appPackage + ".Styles").newInstance();
+            forms = (FormProvider) Class.forName(appPackage + ".Forms").newInstance();
+            views = (ViewProvider) Class.forName(appPackage + ".Views").newInstance();
+            tasks = (TaskProvider) Class.forName(appPackage + ".Tasks").newInstance();
+            controllers = (ControllerProvider) Class.forName(appPackage + ".Controllers").newInstance();
 
             checkOnionCompliance(localizations);
             checkOnionCompliance(models);
@@ -79,15 +82,14 @@ public enum Fluentness {
             checkOnionCompliance(tasks);
             checkOnionCompliance(controllers);
 
-            Map<String, Task> all = new FnTaskProvider().getAll();
-            tasks.putAll(all);
+            tasks.putAll(new FnTaskProvider().getAll());
 
         } catch (InstantiationException | NullPointerException | IllegalAccessException | ClassNotFoundException e) {
             Log.INSTANCE.error(e);
         }
     }
 
-    public void checkOnionCompliance(Producer producer) {
+    public void checkOnionCompliance(Provider producer) {
         Class<? extends Component> component = producer.getProducedComponentType();
         Class<? extends Consumer>[] consumers = Arrays.stream(producer.getClass().getInterfaces())
             .filter(Consumer.class::isAssignableFrom).toArray(Class[]::new);
@@ -124,10 +126,11 @@ public enum Fluentness {
             System.exit(0);
         }
 
+        String taskName = args[0].replaceAll(":", "_");
         Map.Entry<String, Task> taskToExecute = null;
         String[] declaredArguments = new String[0];
         for (Map.Entry<String, Task> task : tasks.getAll().entrySet()) {
-            if (args[0].equals(task.getKey())) {
+            if (taskName.equals(task.getKey())) {
                 taskToExecute = task;
                 declaredArguments = task.getValue().getArguments();
                 break;
@@ -135,7 +138,7 @@ public enum Fluentness {
         }
 
         if (taskToExecute == null) {
-            Log.INSTANCE.fatal("No task %s found", args[0]);
+            Log.INSTANCE.fatal("No task %s found", taskName);
         }
         assert taskToExecute != null;
 

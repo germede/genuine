@@ -1,7 +1,7 @@
 package org.fluentness.localization;
 
-import org.fluentness.base.lambdas.KeyValuePair;
-import org.fluentness.base.onion.Component;
+import org.fluentness.common.lambdas.KeyValuePair;
+import org.fluentness.common.components.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public class Localization implements Component {
     private Map<String, String> translations = new HashMap<>();
 
     public Localization(KeyValuePair<String>... translations) {
-        Arrays.stream(translations).forEach(translation -> this.translations.put(translation.key(), translation.value()));
+        Arrays.stream(translations).forEach(translation -> this.translations.put(translation.getKey(), translation.getValue()));
     }
 
     public String get(String name) {

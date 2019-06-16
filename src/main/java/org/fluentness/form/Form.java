@@ -1,28 +1,25 @@
 package org.fluentness.form;
 
-import org.fluentness.base.lambdas.KeyValuePair;
-import org.fluentness.base.onion.Component;
-import org.fluentness.view.ContainerMarkupElement;
+import org.fluentness.common.lambdas.KeyValuePair;
+import org.fluentness.common.components.Component;
+import org.fluentness.view.MarkupElementContainer;
+import org.fluentness.view.MarkupAttributes;
 import org.fluentness.view.MarkupElement;
+import org.fluentness.view.View;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Form extends ContainerMarkupElement implements Component {
+public class Form extends MarkupElementContainer implements Component {
 
     private Map<String, Field> fields = new HashMap<>();
 
     Form(String methodValue, String actionValue, KeyValuePair<Field>[] fields) {
-        super("form", Arrays.stream(fields).map(KeyValuePair::value).toArray(MarkupElement[]::new));
-        attrs(method -> methodValue, action -> actionValue);
+        super("form", new MarkupAttributes(method -> methodValue, action -> actionValue), Arrays.stream(fields).map(KeyValuePair::getValue).toArray(MarkupElement[]::new));
     }
 
-    public Field get(String name) {
-        return fields.get(name);
-    }
-
-    public Form precededBy(MarkupElement... predecessors) {
+    public Form precededBy(View... predecessors) {
         return (Form) super.precededBy(predecessors);
     }
 
@@ -30,7 +27,7 @@ public class Form extends ContainerMarkupElement implements Component {
         return (Form) super.wrappedBy(wrapper);
     }
 
-    public Form followedBy(MarkupElement... successors) {
+    public Form followedBy(View... successors) {
         return (Form) super.followedBy(successors);
     }
 }

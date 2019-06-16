@@ -1,34 +1,32 @@
 package com.sample;
 
-import com.sample.generated.Song;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.ControllerProducer;
+import org.fluentness.controller.ControllerProvider;
 import org.fluentness.view.ViewConsumer;
 
 import java.util.ArrayList;
 
 
-public class Controllers extends ControllerProducer implements ViewConsumer<Views> {
+public class Controllers extends ControllerProvider implements ViewConsumer<Views> {
 
     Controller baseController = actions(
 
     );
 
-    @Route("/song")
-    Controller songController = actions(
+    Controller songController = actions("/song",
 
-        list -> get("/list", request -> render(views().songList.with(songs -> new ArrayList<Song>()))),
+        list -> get("/list", request -> render(views().songList.assigning(songs -> new ArrayList<>()))),
         create -> get("/create", request -> render(views().createSong)),
         create_submit -> post("/create/submit", request ->
             {
-                Song song = new Song(
-                    1,
-                    request.getPostParameter("title"),
-                    request.getPostParameter("artist"),
-                    request.getPostParameter("album"),
-                    Integer.parseInt(request.getPostParameter("year")),
-                    Boolean.parseBoolean(request.getPostParameter("is_new"))
-                );
+//                Song song = new Song(
+//                    1,
+//                    request.getPostParameter("title"),
+//                    request.getPostParameter("artist"),
+//                    request.getPostParameter("album"),
+//                    Integer.parseInt(request.getPostParameter("year")),
+//                    Boolean.parseBoolean(request.getPostParameter("is_new"))
+//                );
 
                 return redirect("/song/list");
             }

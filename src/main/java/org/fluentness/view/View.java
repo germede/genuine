@@ -1,76 +1,50 @@
 package org.fluentness.view;
 
-import org.fluentness.Fluentness;
-import org.fluentness.base.generics.Register;
-import org.fluentness.base.lambdas.KeyValuePair;
-import org.fluentness.base.onion.Component;
-import org.fluentness.base.settings.Configuration;
-import org.fluentness.localization.Localization;
-import org.fluentness.localization.LocalizationFunctions;
+import org.fluentness.common.caching.Cacheable;
+import org.fluentness.common.components.Component;
+import org.fluentness.common.lambdas.KeyValuePair;
+import org.fluentness.configuration.Configuration;
+import org.fluentness.localization.Localizable;
 
-import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static org.fluentness.base.settings.Settings.Keys.VIEW_CACHE;
+import static org.fluentness.common.constants.Settings.VIEW_CACHE;
 
-public abstract class View implements Component, Serializable, LocalizationFunctions, Register<String, Object> {
+public abstract class View implements Component, Cacheable, Localizable {
 
     public static final String LOCALIZATION_PLACEHOLDER = "{{%s}}";
+    static final String TEMPLATE_PLACEHOLDER = "###TEMPLATE_PLACEHOLDER###";
 
-    public View with(KeyValuePair<Object>... parameters) {
-        Arrays.stream(parameters).forEach(parameter -> put(parameter.key(), parameter.value()));
+    private Map<String, Object> parameters;
+
+    public View assigning(KeyValuePair<Object>... parameters) {
+        this.parameters = new HashMap<>();
+        Arrays.stream(parameters).forEach(parameter -> this.parameters.put(parameter.getKey(), parameter.getValue()));
         return this;
     }
 
-    public String toString() {
+    @Override
+    public String cache() {
 
-        // retrieving cache
-        if (Configuration.INSTANCE.getBoolean(VIEW_CACHE) && ViewCache.INSTANCE.isCacheable(this)) {
+        if (Configuration.INSTANCE.getBoolean(VIEW_CACHE) && ViewCache.INSTANCE.doesCacheFileExists(this)) {
             return ViewCache.INSTANCE.retrieve(this);
         }
 
-        // initialization
-        String rendered;
-        ViewProducer viewProvider = Fluentness.INSTANCE.views;
-        String viewName = viewProvider.getKeyForValue(this);
+        String rendered = localize(render());
 
-        // templating
-        if (viewProvider.isAnnotationPresent(viewName, ViewProducer.Template.class)) {
-            View template = viewProvider.get(
-                viewProvider.getAnnotation(viewName, ViewProducer.Template.class).value()
-            );
-            rendered = template.render().replace(ViewProducer.TEMPLATE_PLACEHOLDER, render());
-        } else {
-            rendered = render();
-        }
-
-        // localization
-        Map<String, Localization> all = Fluentness.INSTANCE.localizations.getAll();
-        Localization localization = Fluentness.INSTANCE.localizations.get(getLocale().toString());
-        if (localization == null) {
-            localization = Fluentness.INSTANCE.localizations.get(getLocale().getLanguage());
-        }
-        if (localization == null) {
-            localization = new Localization();
-        }
-        localization.get("cancel");
-
-        Matcher matcher = Pattern.compile("\\{\\{([A-Za-z1-9_]+)}}").matcher(rendered);
-        while (matcher.find()) {
-            rendered = rendered.replace(matcher.group(0), localization.get(matcher.group(1)));
-        }
-
-        // storing cache
         if (Configuration.INSTANCE.getBoolean(VIEW_CACHE)) {
-            ViewCache.INSTANCE.store(this,rendered);
+            ViewCache.INSTANCE.store(this, rendered);
         }
 
         return rendered;
     }
 
-    abstract String render();
+    public abstract String render();
 
+    View setTemplate(View view) {
+        // overridable
+        return this;
+    }
 }

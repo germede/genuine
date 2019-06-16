@@ -1,11 +1,11 @@
 package org.fluentness.task;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.Utils;
-import org.fluentness.base.constants.PrivateDirectories;
-import org.fluentness.base.constants.PublicDirectories;
-import org.fluentness.base.logging.Log;
-import org.fluentness.base.networking.HttpServer;
+import org.fluentness.common.Utils;
+import org.fluentness.common.constants.PrivateDirectories;
+import org.fluentness.common.constants.PublicDirectories;
+import org.fluentness.common.logging.Log;
+import org.fluentness.common.networking.HttpServer;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,13 +19,48 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FnTaskProvider extends TaskProducer {
+public class FnTaskProvider extends TaskProvider {
 
-    Task version = does("Prints current Fluentness version",
+    Task help = does("Shows all available commands",
+        arguments -> {
+            System.out.println("\n" +
+                " _______                                \n" +
+                "(  /  //             _/_                \n" +
+                " -/--// , , _  _ _   /  _ _   _  (   (  \n" +
+                "_/  (/_(_/_(/_/ / /_(__/ / /_(/_/_)_/_)_\n");
+
+            System.out.println(ANSI_GREEN + "Available tasks:\n" + ANSI_RESET);
+
+            for (Map.Entry<String, Task> task : Fluentness.INSTANCE.tasks.getAll().entrySet()) {
+
+                String[] declaredArguments = task.getValue().getArguments();
+
+                String argumentsToPrint = declaredArguments.length > 0 ? Arrays.toString(declaredArguments) : "";
+                System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET + "%s",
+                    task.getKey().replaceAll("_",":") + " " + argumentsToPrint,
+                    task.getValue().getDescription()
+                ));
+
+                if (task.getValue().getSteps().length > 0) {
+                    Step[] steps = task.getValue().getSteps();
+                    for (int i = 0; i < steps.length; i++) {
+                        Step step = steps[i];
+                        System.out.println(String.format(ANSI_PURPLE + "%-30s" + ANSI_RESET + "%s",
+                            "    " + (i + 1) + ". " + step.getName(),
+                            step.getDescription()
+                        ));
+                    }
+                }
+            }
+
+        }
+    );
+
+    Task print_version = does("Prints current Fluentness version",
         arguments -> System.out.println("1.0-dev")
     );
 
-    Task onion = does("Prints the Fluentness onion architecture",
+    Task print_onion = does("Prints the Fluentness onion architecture",
         arguments -> {
             for (int i = 0; i < Fluentness.INSTANCE.onionArchitecture.size(); i++) {
                 String component = Fluentness.INSTANCE.onionArchitecture.get(i).getSimpleName();
@@ -58,15 +93,15 @@ public class FnTaskProvider extends TaskProducer {
         )
     );
 
-    Task server = does("Starts embedded HTTP server",
+    Task server_start = does("Starts embedded HTTP server",
         arguments -> HttpServer.INSTANCE.start()
     );
 
-    Task stop = does("Stops embedded HTTP server",
+    Task server_stop = does("Stops embedded HTTP server",
         arguments -> HttpServer.INSTANCE.stop()
     );
 
-    Task style = does("Generates style based on source CSS file",
+    Task generate_style = does("Generates style based on source CSS file",
         arguments -> {
 
             try {
@@ -109,40 +144,6 @@ public class FnTaskProvider extends TaskProducer {
                 Log.INSTANCE.error(e);
             }
         }
-    ).args("css_file_path");
+    ).args("css");
 
-    Task help = does("Prints all available commands",
-        arguments -> {
-            System.out.println("\n" +
-                " _______                                \n" +
-                "(  /  //             _/_                \n" +
-                " -/--// , , _  _ _   /  _ _   _  (   (  \n" +
-                "_/  (/_(_/_(/_/ / /_(__/ / /_(/_/_)_/_)_\n");
-
-            System.out.println(ANSI_GREEN + "Available tasks:\n" + ANSI_RESET);
-
-            for (Map.Entry<String, Task> task : Fluentness.INSTANCE.tasks.getAll().entrySet()) {
-
-                String[] declaredArguments = task.getValue().getArguments();
-
-                String argumentsToPrint = declaredArguments.length > 0 ? Arrays.toString(declaredArguments) : "";
-                System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET + "%s",
-                    task.getKey() + " " + argumentsToPrint,
-                    task.getValue().getDescription()
-                ));
-
-                if (task.getValue().getSteps().length > 0) {
-                    Step[] steps = task.getValue().getSteps();
-                    for (int i = 0; i < steps.length; i++) {
-                        Step step = steps[i];
-                        System.out.println(String.format(ANSI_PURPLE + "%-30s" + ANSI_RESET + "%s",
-                            "    " + (i + 1) + ". " + step.getName(),
-                            step.getDescription()
-                        ));
-                    }
-                }
-            }
-
-        }
-    );
 }

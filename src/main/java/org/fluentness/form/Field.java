@@ -1,25 +1,23 @@
 package org.fluentness.form;
 
 
-import org.fluentness.base.lambdas.KeyValuePair;
-import org.fluentness.view.EmptyMarkupElement;
+import org.fluentness.common.lambdas.KeyValuePair;
+import org.fluentness.view.MarkupElementEmpty;
 import org.fluentness.view.MarkupElement;
+import org.fluentness.view.View;
 
-import java.util.Arrays;
+public abstract class Field extends MarkupElementEmpty {
 
-public abstract class Field extends EmptyMarkupElement {
-
-    Field(String type, KeyValuePair<String>[] attributes) {
-        super("input");
-        addAttribute("type", type);
-        Arrays.stream(attributes).forEach(attribute->addAttribute(attribute.key(),attribute.value()));
+    Field(String fieldType, KeyValuePair<String>[] attributes) {
+        super("input", attributes);
+        this.attributes.add(type -> fieldType);
     }
 
-    void setName(String name) {
-        addAttribute("name", name);
+    void setName(String fieldName) {
+        this.attributes.add(name -> fieldName);
     }
 
-    public Field precededBy(MarkupElement... predecessors) {
+    public Field precededBy(View... predecessors) {
         return (Field) super.precededBy(predecessors);
     }
 
@@ -27,7 +25,7 @@ public abstract class Field extends EmptyMarkupElement {
         return (Field) super.wrappedBy(wrapper);
     }
 
-    public Field followedBy(MarkupElement... successors) {
+    public Field followedBy(View... successors) {
         return (Field) super.followedBy(successors);
     }
 

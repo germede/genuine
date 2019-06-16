@@ -1,9 +1,9 @@
 package com.sample;
 
 import org.fluentness.model.Model;
-import org.fluentness.model.ModelProducer;
+import org.fluentness.model.ModelProvider;
 
-public class Models extends ModelProducer {
+public class Models extends ModelProvider {
 
     Model song = properties(
         id -> id(),

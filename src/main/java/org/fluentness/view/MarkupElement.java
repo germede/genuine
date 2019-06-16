@@ -1,29 +1,30 @@
 package org.fluentness.view;
 
+import org.fluentness.common.lambdas.KeyValuePair;
+
 import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public abstract class MarkupElement extends View {
 
-    private boolean isContainer;
-    String tag;
-    Map<String,String> attributes;
-    MarkupElement[] innerMarkupElements;
-    String innerText;
-    private MarkupElement[] predecessors;
-    private MarkupElement wrapper;
-    private MarkupElement[] successors;
+    protected boolean isContainer;
+    protected String tag;
+    protected MarkupAttributes attributes;
+    protected View[] innerViews;
+    protected String innerText;
+    protected View template;
+    protected View[] predecessors;
+    protected MarkupElement wrapper;
+    protected View[] successors;
 
-    public MarkupElement(boolean isContainer) {
+    protected MarkupElement(boolean isContainer) {
         this.isContainer = isContainer;
     }
 
-    public void addAttribute(String key, String value) {
-        this.attributes.put(key, value);
+    protected void addAttribute(KeyValuePair<String> attribute) {
+        this.attributes.add(attribute);
     }
 
-    public MarkupElement precededBy(MarkupElement... predecessors) {
+    public MarkupElement precededBy(View... predecessors) {
         this.predecessors = predecessors;
         return this;
     }
@@ -33,8 +34,14 @@ public abstract class MarkupElement extends View {
         return this;
     }
 
-    public MarkupElement followedBy(MarkupElement... successors) {
+    public MarkupElement followedBy(View... successors) {
         this.successors = successors;
+        return this;
+    }
+
+    @Override
+    public View setTemplate(View view) {
+        this.template = view;
         return this;
     }
 
@@ -50,17 +57,15 @@ public abstract class MarkupElement extends View {
         // attributes
         String renderedAttributes = "";
         if (attributes != null) {
-            renderedAttributes = attributes.entrySet().stream()
-                .map(attribute -> " " + attribute.getKey().toLowerCase() + (attribute.getValue() != null ? ("=\"" + attribute.getValue() + "\"") : ""))
-                .collect(Collectors.joining());
+            renderedAttributes = attributes.render();
         }
 
         // tag
         builder.append("<").append(tag).append(renderedAttributes).append(">");
         if (isContainer) {
-            if (innerMarkupElements != null) {
-                for (MarkupElement contentElement : innerMarkupElements) {
-                    builder.append(contentElement.render());
+            if (innerViews != null) {
+                for (View innerView : innerViews) {
+                    builder.append(innerView.render());
                 }
             }
             if (innerText != null) {
@@ -74,13 +79,19 @@ public abstract class MarkupElement extends View {
             Arrays.stream(successors).forEach(successor -> builder.append(successor.render()));
         }
 
+        String rendered = builder.toString();
         // wrapper
         if (wrapper != null) {
-            wrapper.innerText = builder.toString();
-
-            return wrapper.render();
+            wrapper.innerText = rendered;
+            rendered = wrapper.render();
         }
 
-        return builder.toString();
+        // templating
+        if (template != null) {
+            rendered = template.render().replace(View.TEMPLATE_PLACEHOLDER, rendered);
+        }
+
+        return rendered;
     }
+
 }

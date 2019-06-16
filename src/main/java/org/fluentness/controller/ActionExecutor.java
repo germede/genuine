@@ -1,6 +1,9 @@
 package org.fluentness.controller;
 
+import org.fluentness.common.networking.HttpRequest;
+import org.fluentness.common.networking.HttpResponse;
+
 @FunctionalInterface
 public interface ActionExecutor {
-    Response execute(Request request);
+    HttpResponse execute(HttpRequest request);
 }

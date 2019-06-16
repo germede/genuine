@@ -1,7 +1,7 @@
 package org.fluentness.model;
 
-import org.fluentness.base.settings.Configuration;
-import org.fluentness.base.logging.Log;
+import org.fluentness.configuration.Configuration;
+import org.fluentness.common.logging.Log;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.fluentness.base.settings.Settings.Keys.*;
+import static org.fluentness.common.constants.Settings.*;
 
 public final class Database {
 

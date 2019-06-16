@@ -1,10 +1,9 @@
 package com.sample;
 
 import org.fluentness.form.Form;
-import org.fluentness.form.FormProducer;
+import org.fluentness.form.FormProvider;
 
-public class Forms extends FormProducer {
-
+public class Forms extends FormProvider {
 
     Form createSong = post("/song/list",
 
@@ -14,7 +13,9 @@ public class Forms extends FormProducer {
             placeholder -> translate("song_title_placeholder"),
             maxlength -> "50"
         ).precededBy(
-            label(translate("song_title")).attrs(FOR -> "song_title_input")
+            label(attrs(FOR -> "song_title_input"),
+                translate("song_title")
+            )
         ),
 
         artist -> text(
@@ -22,7 +23,9 @@ public class Forms extends FormProducer {
             id -> "song_artist_input",
             placeholder -> translate("song_artist_placeholder")
         ).precededBy(
-            label(translate("song_artist")).attrs(FOR -> "song_artist_input")
+            label(attrs(FOR -> "song_artist_input"),
+                translate("song_artist")
+            )
         ),
 
         album -> text(
@@ -30,7 +33,9 @@ public class Forms extends FormProducer {
             id -> "song_album_input",
             placeholder -> translate("song_artist_placeholder")
         ).precededBy(
-            label(translate("song_album")).attrs(FOR -> "song_album_input")
+            label(attrs(FOR -> "song_album_input"),
+                translate("song_album")
+            )
         ),
 
         year -> number(
@@ -41,33 +46,37 @@ public class Forms extends FormProducer {
             max -> "2099",
             step -> "1"
         ).precededBy(
-            label(translate("song_year")).attrs(FOR -> "song_year_input")
+            label(attrs(FOR -> "song_year_input"),
+                translate("song_year")
+            )
         ),
 
         is_new -> checkbox(
             id -> "song_is_new_input"
         ).precededBy(
-            label(translate("song_is_new")).attrs(FOR -> "song_is_new_input", CLASS -> "label-inline")
+            label(attrs(FOR -> "song_is_new_input", CLASS -> "label-inline"),
+                translate("song_is_new")
+            )
         ).wrappedBy(
-            div().attrs(CLASS -> "float-right")
+            div(attrs(CLASS -> "float-right"))
         ),
 
         submit -> submit(
             value -> translate("submit")
         ).followedBy(
-            a(translate("cancel")).attrs(ONCLICK -> "window.history.back();", CLASS -> "button button-outline")
+            raw(" "),
+            a(attrs(ONCLICK -> "window.history.back();", CLASS -> "button button-outline"),
+                translate("cancel")
+            )
         )
-
-    ).wrappedBy(
-        fieldset()
     );
 
     Form searchSong = get("song/search",
         title -> text(
-            REQUIRED -> "true",
-            ID -> "song_title_input",
-            PLACEHOLDER -> translate("song_title"),
-            MAXLENGTH -> "20"
+            required -> "true",
+            id -> "song_title_input",
+            placeholder -> translate("song_title"),
+            maxlength -> "20"
         )
     );
 }

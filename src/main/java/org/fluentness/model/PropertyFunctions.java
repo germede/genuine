@@ -1,6 +1,6 @@
 package org.fluentness.model;
 
-public interface PropertyFunctions {
+interface PropertyFunctions {
 
     default IntegerAttribute id() {
         return (IntegerAttribute) new IntegerAttribute().primaryKey().autoincrement();

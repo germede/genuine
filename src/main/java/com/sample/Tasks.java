@@ -1,9 +1,9 @@
 package com.sample;
 
 import org.fluentness.task.Task;
-import org.fluentness.task.TaskProducer;
+import org.fluentness.task.TaskProvider;
 
-public class Tasks extends TaskProducer {
+public class Tasks extends TaskProvider {
 
     Task test = does("Simulates dialogue",
         hello -> step("Say hello to someone",
