@@ -6,6 +6,7 @@ public interface Settings  {
     String APP_HOSTNAME = "APP_HOSTNAME";
     String APP_PORT = "APP_PORT";
     String APP_KEYSTORE = "APP_KEYSTORE";
+    String CACHE_ENABLE = "CACHE_ENABLE";
     String DB_DRIVER = "DB_DRIVER";
     String DB_HOSTNAME = "DB_HOSTNAME";
     String DB_PORT = "DB_PORT";
@@ -14,9 +15,8 @@ public interface Settings  {
     String DB_PASSWORD = "DB_PASSWORD";
     String DB_PARAMS = "DB_PARAMS";
     String LOG_LEVEL = "LOG_LEVEL";
-    String LOG_CONSOLE = "LOG_CONSOLE";
-    String LOG_FILE = "LOG_FILE";
-    String VIEW_CACHE = "VIEW_CACHE";
+    String LOG_TO_CONSOLE = "LOG_TO_CONSOLE";
+    String LOG_TO_FILE = "LOG_TO_FILE";
     String STYLE_MINIFY = "STYLE_MINIFY";
 
 }

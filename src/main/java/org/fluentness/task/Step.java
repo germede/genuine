@@ -6,7 +6,7 @@ public class Step implements Executable {
     private final String description;
     private final Executable executable;
 
-    Step(String description, Executable executable) {
+    protected Step(String description, Executable executable) {
         this.description = description;
         this.executable = executable;
     }

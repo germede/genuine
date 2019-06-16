@@ -1,15 +1,14 @@
 package org.fluentness.controller;
 
-import org.fluentness.common.components.Provider;
+import org.fluentness.common.generics.Provider;
 import org.fluentness.common.constants.HttpMethods;
 import org.fluentness.common.constants.HttpStatusCodes;
 import org.fluentness.common.lambdas.KeyValuePair;
 import org.fluentness.common.networking.HttpResponse;
 import org.fluentness.view.View;
+import org.fluentness.view.ViewCache;
 
 public abstract class ControllerProvider implements Provider<Controller>, HttpMethods, HttpStatusCodes {
-
-
 
     @Override
     public Class<Controller> getProducedComponentType() {
@@ -57,7 +56,7 @@ public abstract class ControllerProvider implements Provider<Controller>, HttpMe
     }
 
     protected HttpResponse render(View view) {
-        return new HttpResponse(OK).setBody(view.cache());
+        return new HttpResponse(OK).setBody(ViewCache.INSTANCE.cache(view));
     }
 
     protected HttpResponse response(String body) {

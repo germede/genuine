@@ -16,7 +16,7 @@ import java.util.Map;
 
 import static org.fluentness.common.constants.HttpStatusCodes.*;
 
-public enum HttpRouter implements HttpHandler {
+public enum HttpRouter {
 
     INSTANCE;
 
@@ -54,7 +54,7 @@ public enum HttpRouter implements HttpHandler {
             Arrays.stream(PublicDirectories.class.getFields()).forEach(directory ->
                 {
                     try {
-                        routeHandlerMap.put("/" + directory.get(null), this);
+                        routeHandlerMap.put("/" + directory.get(null), HttpResourceHandler.INSTANCE);
                     } catch (IllegalAccessException e) {
                         Log.INSTANCE.error(e);
                     }
@@ -74,44 +74,6 @@ public enum HttpRouter implements HttpHandler {
             HttpRequestRegister.INSTANCE.removeCurrent();
             HttpServer.INSTANCE.serve(httpExchange, response);
         } catch (Exception e) {
-            Log.INSTANCE.error(e);
-            HttpServer.INSTANCE.serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
-        }
-    }
-
-    @Override
-    public void handle(HttpExchange httpExchange) {
-        // handle static resources
-        Log.INSTANCE.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
-
-        String path = httpExchange.getRequestURI().getPath();
-        try {
-            path = path.substring(1).replace("//", "/");
-
-            boolean exists = Files.exists(Paths.get(path));
-            if (exists) {
-                HttpResponse response = new HttpResponse(OK);
-
-                response.setBody(new String(Files.readAllBytes(Paths.get(path))));
-
-                if (path.endsWith(".js")) {
-                    response.setHeader("Content-Type", "text/javascript");
-                } else if (path.endsWith(".html")) {
-                    response.setHeader("Content-Type", "text/html");
-                } else if (path.endsWith(".css")) {
-                    response.setHeader("Content-Type", "text/css");
-                } else if (path.endsWith(".json")) {
-                    response.setHeader("Content-Type", "application/json");
-                } else if (path.endsWith(".svg")) {
-                    response.setHeader("Content-Type", "image/svg+xml");
-                }
-
-                HttpServer.INSTANCE.serve(httpExchange, response);
-            } else {
-                Log.INSTANCE.warning("File " + path + " doesn't exists");
-                HttpServer.INSTANCE.serve(httpExchange, new HttpResponse(NOT_FOUND));
-            }
-        } catch (IOException e) {
             Log.INSTANCE.error(e);
             HttpServer.INSTANCE.serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }

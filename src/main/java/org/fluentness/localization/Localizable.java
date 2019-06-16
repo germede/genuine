@@ -1,9 +1,9 @@
 package org.fluentness.localization;
 
 import org.fluentness.Fluentness;
+import org.fluentness.common.constants.ViewPlaceholders;
 import org.fluentness.common.networking.HttpRequest;
 import org.fluentness.common.networking.HttpRequestRegister;
-import org.fluentness.view.View;
 
 import java.util.Locale;
 import java.util.Map;
@@ -20,7 +20,7 @@ public interface Localizable {
     }
 
     default String translate(String name) {
-        return String.format(View.LOCALIZATION_PLACEHOLDER,name);
+        return String.format(ViewPlaceholders.LOCALIZATION_PLACEHOLDER,name);
     }
 
     default String localize(String toLocalize) {

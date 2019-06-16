@@ -1,5 +1,6 @@
 package org.fluentness.view;
 
+import org.fluentness.common.constants.ViewPlaceholders;
 import org.fluentness.common.lambdas.KeyValuePair;
 
 import java.util.Arrays;
@@ -88,7 +89,7 @@ public abstract class MarkupElement extends View {
 
         // templating
         if (template != null) {
-            rendered = template.render().replace(View.TEMPLATE_PLACEHOLDER, rendered);
+            rendered = template.render().replace(ViewPlaceholders.TEMPLATE_PLACEHOLDER, rendered);
         }
 
         return rendered;

@@ -1,7 +1,7 @@
 package org.fluentness.task;
 
 import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.common.components.Component;
+import org.fluentness.common.generics.Component;
 
 import java.util.Arrays;
 
@@ -12,7 +12,7 @@ public class Task implements Component, Executable {
     private Executable executable;
     private String[] arguments;
 
-    public Task(String description, KeyValuePair<Step>... steps) {
+    protected Task(String description, KeyValuePair<Step>... steps) {
         this.description = description;
         this.steps = Arrays.stream(steps).map(KeyValuePair::getValue).toArray(Step[]::new);
         this.steps = new Step[steps.length];
@@ -24,18 +24,18 @@ public class Task implements Component, Executable {
         this.arguments = new String[0];
     }
 
-    public Task(String description, Executable executable) {
+    protected Task(String description, Executable executable) {
         this.description = description;
         this.steps = new Step[0];
         this.executable = executable;
         this.arguments = new String[0];
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    Step[] getSteps() {
+    public Step[] getSteps() {
         return steps;
     }
 

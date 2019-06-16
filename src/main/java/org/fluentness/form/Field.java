@@ -6,7 +6,7 @@ import org.fluentness.view.MarkupElementEmpty;
 import org.fluentness.view.MarkupElement;
 import org.fluentness.view.View;
 
-public abstract class Field extends MarkupElementEmpty {
+public class Field extends MarkupElementEmpty {
 
     Field(String fieldType, KeyValuePair<String>[] attributes) {
         super("input", attributes);

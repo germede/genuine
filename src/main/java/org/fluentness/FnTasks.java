@@ -1,11 +1,13 @@
-package org.fluentness.task;
+package org.fluentness;
 
-import org.fluentness.Fluentness;
 import org.fluentness.common.Utils;
 import org.fluentness.common.constants.PrivateDirectories;
 import org.fluentness.common.constants.PublicDirectories;
 import org.fluentness.common.logging.Log;
 import org.fluentness.common.networking.HttpServer;
+import org.fluentness.task.Step;
+import org.fluentness.task.Task;
+import org.fluentness.task.TaskProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +21,9 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FnTaskProvider extends TaskProvider {
+import static org.fluentness.common.constants.OnionArchitecture.ONION_ARCHITECTURE;
+
+class FnTasks extends TaskProvider {
 
     Task help = does("Shows all available commands",
         arguments -> {
@@ -62,20 +66,21 @@ public class FnTaskProvider extends TaskProvider {
 
     Task print_onion = does("Prints the Fluentness onion architecture",
         arguments -> {
-            for (int i = 0; i < Fluentness.INSTANCE.onionArchitecture.size(); i++) {
-                String component = Fluentness.INSTANCE.onionArchitecture.get(i).getSimpleName();
+            for (int i = 0; i < ONION_ARCHITECTURE.size(); i++) {
+                String component = ONION_ARCHITECTURE.get(i).getSimpleName();
                 if (i == 0) {
                     System.out.println("\n" + ANSI_GREEN + "               ↑ ");
                     System.out.println("LESS DEPENDANT | " + component + ANSI_RESET);
                     continue;
                 }
-                if (i == Fluentness.INSTANCE.onionArchitecture.size() - 1) {
+                if (i == ONION_ARCHITECTURE.size() - 1) {
                     System.out.println(ANSI_BLUE + "MORE DEPENDANT | " + component);
                     System.out.println("               ↓ " + ANSI_RESET);
                     continue;
                 }
                 System.out.println("               | " + component);
             }
+            System.out.println();
         }
     );
 
@@ -84,8 +89,8 @@ public class FnTaskProvider extends TaskProvider {
             arguments -> Utils.INSTANCE.deleteRecursively(new File(PrivateDirectories.VIEW_CACHE))
         ),
 
-        style_cache -> step("Clears the style cache by deleting directory " + PublicDirectories.STYLE_CACHE,
-            arguments -> Utils.INSTANCE.deleteRecursively(new File(PublicDirectories.STYLE_CACHE))
+        style_cache -> step("Clears the style cache by deleting directory " + PublicDirectories.STYLES,
+            arguments -> Utils.INSTANCE.deleteRecursively(new File(PublicDirectories.STYLES))
         ),
 
         logs -> step("Clears the log files by deleting directory " + PrivateDirectories.LOG,

@@ -1,30 +1,23 @@
 package org.fluentness;
 
-import org.fluentness.common.components.Component;
-import org.fluentness.common.components.Consumer;
-import org.fluentness.common.components.Provider;
+import org.fluentness.common.generics.Component;
+import org.fluentness.common.generics.Consumer;
+import org.fluentness.common.generics.Provider;
 import org.fluentness.common.logging.Log;
 import org.fluentness.configuration.ConfigurationProvider;
-import org.fluentness.controller.Controller;
 import org.fluentness.controller.ControllerProvider;
-import org.fluentness.form.Form;
 import org.fluentness.form.FormProvider;
-import org.fluentness.localization.Localization;
 import org.fluentness.localization.LocalizationProvider;
-import org.fluentness.model.Model;
 import org.fluentness.model.ModelProvider;
-import org.fluentness.style.Style;
 import org.fluentness.style.StyleProvider;
-import org.fluentness.task.FnTaskProvider;
 import org.fluentness.task.Task;
 import org.fluentness.task.TaskProvider;
-import org.fluentness.view.View;
 import org.fluentness.view.ViewProvider;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
+
+import static org.fluentness.common.constants.OnionArchitecture.*;
 
 public enum Fluentness {
 
@@ -41,48 +34,42 @@ public enum Fluentness {
     public TaskProvider tasks;
     public ViewProvider views;
 
-    public static final List<Class<? extends Component>> onionArchitecture = new ArrayList<>();
+    private FnTasks fnTaskProvider = new FnTasks();
 
-    static {
-        onionArchitecture.add(Localization.class);
-        onionArchitecture.add(Model.class);
-        onionArchitecture.add(Style.class);
-        onionArchitecture.add(Form.class);
-        onionArchitecture.add(View.class);
-        onionArchitecture.add(Task.class);
-        onionArchitecture.add(Controller.class);
-    }
-
-    public void initialize(String appPackage, String settingsToApply, String[] programArguments) {
+    public void initialize(String appPackage, String configurationToApply, String[] programArguments) {
         this.appPackage = appPackage;
-        initOnionArchitecture(settingsToApply);
+        initOnionArchitecture(configurationToApply);
         executeCommand(programArguments);
     }
 
-    private void initOnionArchitecture(String settingsToApply) {
+    private void initOnionArchitecture(String configurationToApply) {
         try {
-            // onion hierarchy and naming conventions are hereby granted
-            configurations = (ConfigurationProvider) Class.forName(appPackage + ".Configurations").newInstance();
-            configurations.get(settingsToApply).apply();
+            configurations = (ConfigurationProvider) Class.forName(appPackage + "." + CONFIGURATIONS).newInstance();
+            FnConf.INSTANCE.apply(configurations.get(configurationToApply));
             Log.INSTANCE.configure();
+            checkOnionCompliance(configurations);
 
-            localizations = (LocalizationProvider) Class.forName(appPackage + ".Localizations").newInstance();
-            models = (ModelProvider) Class.forName(appPackage + ".Models").newInstance();
-            styles = (StyleProvider) Class.forName(appPackage + ".Styles").newInstance();
-            forms = (FormProvider) Class.forName(appPackage + ".Forms").newInstance();
-            views = (ViewProvider) Class.forName(appPackage + ".Views").newInstance();
-            tasks = (TaskProvider) Class.forName(appPackage + ".Tasks").newInstance();
-            controllers = (ControllerProvider) Class.forName(appPackage + ".Controllers").newInstance();
-
+            localizations = (LocalizationProvider) Class.forName(appPackage + "." + LOCALIZATIONS).newInstance();
             checkOnionCompliance(localizations);
-            checkOnionCompliance(models);
-            checkOnionCompliance(styles);
-            checkOnionCompliance(forms);
-            checkOnionCompliance(views);
-            checkOnionCompliance(tasks);
-            checkOnionCompliance(controllers);
 
-            tasks.putAll(new FnTaskProvider().getAll());
+            models = (ModelProvider) Class.forName(appPackage + "." + MODELS).newInstance();
+            checkOnionCompliance(models);
+
+            styles = (StyleProvider) Class.forName(appPackage + "." + STYLES).newInstance();
+            checkOnionCompliance(styles);
+
+            forms = (FormProvider) Class.forName(appPackage + "." + FORMS).newInstance();
+            checkOnionCompliance(forms);
+
+            views = (ViewProvider) Class.forName(appPackage + "." + VIEWS).newInstance();
+            checkOnionCompliance(views);
+
+            tasks = (TaskProvider) Class.forName(appPackage + "." + TASKS).newInstance();
+            tasks.putAll(fnTaskProvider.getAll());
+            checkOnionCompliance(tasks);
+
+            controllers = (ControllerProvider) Class.forName(appPackage + "." + CONTROLLERS).newInstance();
+            checkOnionCompliance(controllers);
 
         } catch (InstantiationException | NullPointerException | IllegalAccessException | ClassNotFoundException e) {
             Log.INSTANCE.error(e);
@@ -94,7 +81,7 @@ public enum Fluentness {
         Class<? extends Consumer>[] consumers = Arrays.stream(producer.getClass().getInterfaces())
             .filter(Consumer.class::isAssignableFrom).toArray(Class[]::new);
 
-        int componentPriority = onionArchitecture.indexOf(component);
+        int componentPriority = ONION_ARCHITECTURE.indexOf(component);
 
         try {
             for (Class<? extends Consumer> consumer : consumers) {
@@ -102,10 +89,10 @@ public enum Fluentness {
                 Class<? extends Component> consumerComponent =
                     (Class<? extends Component>) Class.forName(consumer.getCanonicalName().replace("Consumer", ""));
 
-                int consumerComponentPriority = onionArchitecture.indexOf(consumerComponent);
+                int consumerComponentPriority = ONION_ARCHITECTURE.indexOf(consumerComponent);
                 if (consumerComponentPriority > componentPriority) {
-
-                    Log.INSTANCE.fatal("%sProducer should not consume %s due to the onion architecture",
+                    fnTaskProvider.print_onion.execute(new String[0]);
+                    Log.INSTANCE.fatal("%sProducer should not consume %s components due to the onion architecture",
                         component.getSimpleName(),
                         consumerComponent.getSimpleName()
                     );
@@ -122,7 +109,7 @@ public enum Fluentness {
     private void executeCommand(String[] args) {
 
         if (args.length == 0) {
-            tasks.get("help").execute(new String[0]);
+            fnTaskProvider.help.execute(new String[0]);
             System.exit(0);
         }
 
@@ -154,4 +141,5 @@ public enum Fluentness {
         System.arraycopy(args, 1, arguments, 0, args.length - 1);
         taskToExecute.getValue().execute(arguments);
     }
+
 }

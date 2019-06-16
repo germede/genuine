@@ -24,7 +24,7 @@ public class Styles extends StyleProvider {
     );
 
     Style bundle = bundle(
-        this.milligram,
-        this.custom
+        milligram,
+        custom
     );
 }

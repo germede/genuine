@@ -1,7 +1,7 @@
 package org.fluentness.form;
 
 import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.common.components.Component;
+import org.fluentness.common.generics.Component;
 import org.fluentness.view.MarkupElementContainer;
 import org.fluentness.view.MarkupAttributes;
 import org.fluentness.view.MarkupElement;

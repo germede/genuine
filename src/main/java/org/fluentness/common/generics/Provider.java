@@ -1,10 +1,10 @@
-package org.fluentness.common.components;
+package org.fluentness.common.generics;
 
-import org.fluentness.common.caching.Register;
 import org.fluentness.common.logging.Log;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,14 +14,21 @@ public interface Provider<T extends Component> extends Register<String, T> {
 
     default Map<String, T> retrieveAll() {
         // should only be called once by register
-
         Map<String, T> components = new HashMap<>();
+
         try {
             Field[] fields = this.getClass().getDeclaredFields();
             for (Field field : fields) {
+                if (field.getModifiers() != 0) {
+                    Log.INSTANCE.warning("Component %s->%s should have no modifiers, found %s",
+                        this.getClass().getSimpleName(),
+                        field.getName(),
+                        Modifier.toString(field.getModifiers())
+                    );
+                }
                 field.setAccessible(true);
                 if (!getProducedComponentType().isAssignableFrom(field.get(this).getClass())) {
-                    Log.INSTANCE.fatal("Field %s->%s should be of type %s, use consumer interfaces for dependency injection instead",
+                    Log.INSTANCE.fatal("Component %s->%s should be of type %s, use consumer interfaces for dependency injection instead",
                         this.getClass().getSimpleName(),
                         field.getName(),
                         getProducedComponentType().getSimpleName()

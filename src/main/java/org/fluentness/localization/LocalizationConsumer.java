@@ -1,7 +1,7 @@
 package org.fluentness.localization;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.components.Consumer;
+import org.fluentness.common.generics.Consumer;
 
 public interface LocalizationConsumer<T extends LocalizationProvider> extends Consumer {
 

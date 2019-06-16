@@ -6,15 +6,14 @@ import org.fluentness.view.ViewConsumer;
 
 import java.util.ArrayList;
 
-
 public class Controllers extends ControllerProvider implements ViewConsumer<Views> {
 
     Controller baseController = actions(
-
+        index -> get("/", request -> redirect("/song/list")),
+        test -> get("/test", request -> response("Hello world"))
     );
 
     Controller songController = actions("/song",
-
         list -> get("/list", request -> render(views().songList.assigning(songs -> new ArrayList<>()))),
         create -> get("/create", request -> render(views().createSong)),
         create_submit -> post("/create/submit", request ->

@@ -1,6 +1,6 @@
 package org.fluentness.form;
 
-import org.fluentness.common.components.Provider;
+import org.fluentness.common.generics.Provider;
 import org.fluentness.common.constants.HttpMethods;
 import org.fluentness.common.lambdas.KeyValuePair;
 import org.fluentness.localization.Localizable;

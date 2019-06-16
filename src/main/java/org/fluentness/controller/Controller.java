@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.common.components.Component;
+import org.fluentness.common.generics.Component;
 
 public class Controller implements Component {
 

@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.components.Consumer;
+import org.fluentness.common.generics.Consumer;
 
 public interface ControllerConsumer<T extends ControllerProvider> extends Consumer {
 

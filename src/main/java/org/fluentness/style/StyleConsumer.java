@@ -1,7 +1,7 @@
 package org.fluentness.style;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.components.Consumer;
+import org.fluentness.common.generics.Consumer;
 
 public interface StyleConsumer<T extends StyleProvider> extends Consumer {
 

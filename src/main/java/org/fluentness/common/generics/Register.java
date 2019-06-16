@@ -1,6 +1,5 @@
-package org.fluentness.common.caching;
+package org.fluentness.common.generics;
 
-import org.fluentness.common.components.Provider;
 import org.fluentness.task.TaskProvider;
 
 import java.util.HashMap;

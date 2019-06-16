@@ -1,6 +1,7 @@
 package org.fluentness.view;
 
-import org.fluentness.common.components.Provider;
+import org.fluentness.common.constants.ViewPlaceholders;
+import org.fluentness.common.generics.Provider;
 import org.fluentness.localization.Localizable;
 
 public abstract class ViewProvider implements Provider<View>, Localizable, HtmlFunctions {
@@ -11,7 +12,7 @@ public abstract class ViewProvider implements Provider<View>, Localizable, HtmlF
     }
 
     protected View placeholder() {
-        return new RawView(View.TEMPLATE_PLACEHOLDER);
+        return new RawView(ViewPlaceholders.TEMPLATE_PLACEHOLDER);
     }
 
     protected View raw(String raw) {

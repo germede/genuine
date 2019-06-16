@@ -4,223 +4,92 @@ import org.fluentness.common.lambdas.KeyValuePair;
 
 interface FieldFunctions {
 
-    default ButtonField button(KeyValuePair<String>... attributes) {
-        return new ButtonField(attributes);
+    default Field button(KeyValuePair<String>... attributes) {
+        return new Field("button",attributes);
     }
 
-    default CheckboxField checkbox(KeyValuePair<String>... attributes) {
-        return new CheckboxField(attributes);
+    default Field checkbox(KeyValuePair<String>... attributes) {
+        return new Field("checkbox",attributes);
     }
 
-    default ColorField color(KeyValuePair<String>... attributes) {
-        return new ColorField(attributes);
+    default Field color(KeyValuePair<String>... attributes) {
+        return new Field("color",attributes);
     }
 
-    default DateField date(KeyValuePair<String>... attributes) {
-        return new DateField(attributes);
+    default Field date(KeyValuePair<String>... attributes) {
+        return new Field("date",attributes);
     }
 
-    default DatetimeField datetime(KeyValuePair<String>... attributes) {
-        return new DatetimeField(attributes);
+    default Field datetime(KeyValuePair<String>... attributes) {
+        return new Field("datetime",attributes);
     }
 
-    default EmailField email(KeyValuePair<String>... attributes) {
-        return new EmailField(attributes);
+    default Field email(KeyValuePair<String>... attributes) {
+        return new Field("email",attributes);
     }
 
-    default FileField file(KeyValuePair<String>... attributes) {
-        return new FileField(attributes);
+    default Field file(KeyValuePair<String>... attributes) {
+        return new Field("file",attributes);
     }
 
-    default HiddenField hidden(KeyValuePair<String>... attributes) {
-        return new HiddenField(attributes);
+    default Field hidden(KeyValuePair<String>... attributes) {
+        return new Field("hidden",attributes);
     }
 
-    default ImageField image(KeyValuePair<String>... attributes) {
-        return new ImageField(attributes);
+    default Field image(KeyValuePair<String>... attributes) {
+        return new Field("image",attributes);
     }
 
-    default MonthField month(KeyValuePair<String>... attributes) {
-        return new MonthField(attributes);
+    default Field month(KeyValuePair<String>... attributes) {
+        return new Field("month",attributes);
     }
 
-    default NumberField number(KeyValuePair<String>... attributes) {
-        return new NumberField(attributes);
+    default Field number(KeyValuePair<String>... attributes) {
+        return new Field("number",attributes);
     }
 
-    default PasswordField password(KeyValuePair<String>... attributes) {
-        return new PasswordField(attributes);
+    default Field password(KeyValuePair<String>... attributes) {
+        return new Field("password",attributes);
     }
 
-    default RadioField radio(KeyValuePair<String>... attributes) {
-        return new RadioField(attributes);
+    default Field radio(KeyValuePair<String>... attributes) {
+        return new Field("radio",attributes);
     }
 
-    default RangeField range(KeyValuePair<String>... attributes) {
-        return new RangeField(attributes);
+    default Field range(KeyValuePair<String>... attributes) {
+        return new Field("range",attributes);
     }
 
-    default ResetField reset(KeyValuePair<String>... attributes) {
-        return new ResetField(attributes);
+    default Field reset(KeyValuePair<String>... attributes) {
+        return new Field("reset",attributes);
     }
 
-    default SearchField search(KeyValuePair<String>... attributes) {
-        return new SearchField(attributes);
+    default Field search(KeyValuePair<String>... attributes) {
+        return new Field("search",attributes);
     }
 
-    default SubmitField submit(KeyValuePair<String>... attributes) {
-        return new SubmitField(attributes);
+    default Field submit(KeyValuePair<String>... attributes) {
+        return new Field("submit",attributes);
     }
 
-    default TelField tel(KeyValuePair<String>... attributes) {
-        return new TelField(attributes);
+    default Field tel(KeyValuePair<String>... attributes) {
+        return new Field("tel",attributes);
     }
 
-    default TextField text(KeyValuePair<String>... attributes) {
-        return new TextField(attributes);
+    default Field text(KeyValuePair<String>... attributes) {
+        return new Field("text",attributes);
     }
 
-    default TimeField time(KeyValuePair<String>... attributes) {
-        return new TimeField(attributes);
+    default Field time(KeyValuePair<String>... attributes) {
+        return new Field("time",attributes);
     }
 
-    default UrlField url(KeyValuePair<String>... attributes) {
-        return new UrlField(attributes);
+    default Field url(KeyValuePair<String>... attributes) {
+        return new Field("url",attributes);
     }
 
-    default WeekField week(KeyValuePair<String>... attributes) {
-        return new WeekField(attributes);
+    default Field week(KeyValuePair<String>... attributes) {
+        return new Field("week",attributes);
     }
 
-    class ButtonField extends Field {
-        private ButtonField(KeyValuePair... attributes) {
-            super("button", attributes);
-        }
-    }
-
-    class CheckboxField extends Field {
-        private CheckboxField(KeyValuePair... attributes) {
-            super("checkbox", attributes);
-        }
-    }
-
-    class ColorField extends Field {
-        private ColorField(KeyValuePair... attributes) {
-            super("color", attributes);
-        }
-    }
-
-    class DateField extends Field {
-        private DateField(KeyValuePair... attributes) {
-            super("date", attributes);
-        }
-    }
-
-    class DatetimeField extends Field {
-        private DatetimeField(KeyValuePair... attributes) {
-            super("datetime-local", attributes);
-        }
-    }
-
-    class EmailField extends Field {
-        private EmailField(KeyValuePair... attributes) {
-            super("email", attributes);
-        }
-    }
-
-    class FileField extends Field {
-        private FileField(KeyValuePair... attributes) {
-            super("file", attributes);
-        }
-    }
-
-    class HiddenField extends Field {
-        private HiddenField(KeyValuePair... attributes) {
-            super("hidden", attributes);
-        }
-    }
-
-    class ImageField extends Field {
-        private ImageField(KeyValuePair... attributes) {
-            super("image", attributes);
-        }
-    }
-
-    class MonthField extends Field {
-        private MonthField(KeyValuePair... attributes) {
-            super("month", attributes);
-        }
-    }
-
-    class NumberField extends Field {
-        private NumberField(KeyValuePair... attributes) {
-            super("number", attributes);
-        }
-    }
-
-    class PasswordField extends Field {
-        private PasswordField(KeyValuePair... attributes) {
-            super("password", attributes);
-        }
-    }
-
-    class RadioField extends Field {
-        private RadioField(KeyValuePair... attributes) {
-            super("radio", attributes);
-        }
-    }
-
-    class RangeField extends Field {
-        private RangeField(KeyValuePair... attributes) {
-            super("range", attributes);
-        }
-    }
-
-    class ResetField extends Field {
-        private ResetField(KeyValuePair... attributes) {
-            super("reset", attributes);
-        }
-    }
-
-    class SearchField extends Field {
-        private SearchField(KeyValuePair... attributes) {
-            super("search", attributes);
-        }
-    }
-
-    class SubmitField extends Field {
-        private SubmitField(KeyValuePair... attributes) {
-            super("submit", attributes);
-        }
-    }
-
-    class TelField extends Field {
-        private TelField(KeyValuePair... attributes) {
-            super("tel", attributes);
-        }
-    }
-
-    class TextField extends Field {
-        private TextField(KeyValuePair... attributes) {
-            super("text", attributes);
-        }
-    }
-
-    class TimeField extends Field {
-        private TimeField(KeyValuePair... attributes) {
-            super("time", attributes);
-        }
-    }
-
-    class UrlField extends Field {
-        private UrlField(KeyValuePair... attributes) {
-            super("url", attributes);
-        }
-    }
-
-    class WeekField extends Field {
-        private WeekField(KeyValuePair... attributes) {
-            super("week", attributes);
-        }
-    }
 }

@@ -1,7 +1,7 @@
 package org.fluentness.form;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.components.Consumer;
+import org.fluentness.common.generics.Consumer;
 
 public interface FormConsumer<T extends FormProvider> extends Consumer {
 

@@ -2,7 +2,7 @@ package org.fluentness.task;
 
 import org.fluentness.common.constants.AnsiColors;
 import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.common.components.Provider;
+import org.fluentness.common.generics.Provider;
 
 public abstract class TaskProvider implements Provider<Task>, AnsiColors {
 

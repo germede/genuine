@@ -1,8 +1,10 @@
 package org.fluentness.view;
 
+import org.fluentness.Fluentness;
 import org.fluentness.common.constants.PublicDirectories;
 import org.fluentness.style.Style;
-import org.fluentness.style.StyleCache;
+
+import java.io.File;
 
 public interface HtmlFunctions extends
     MarkupFunctions,
@@ -12,17 +14,17 @@ public interface HtmlFunctions extends
     HtmlFunctionsContainerAttributesView,
     HtmlFunctionsContainerAttributesString {
 
-    default MarkupElementEmpty includeCss(String href) {
-        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> href);
-    }
 
     default MarkupElementContainer includeJs(String src) {
         return script(attrs(SRC -> "/" + PublicDirectories.JS + "/" + src));
     }
 
-    default MarkupElementEmpty include(Style style) {
-        style.cache();
-        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/" + StyleCache.INSTANCE.getIdentifyingCacheFilePath(style));
+    default MarkupElementEmpty style(Style style) {
+        String path = PublicDirectories.STYLES + "/" + Fluentness.INSTANCE.styles.getKeyForValue(style) + ".css";
+        if (!new File(path).exists()) {
+            style.writeToFile(path);
+        }
+        return link(REL -> "stylesheet", TYPE -> "text/css", HREF -> "/" + path);
     }
 
 }

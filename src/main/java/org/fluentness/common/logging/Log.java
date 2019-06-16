@@ -1,7 +1,7 @@
 package org.fluentness.common.logging;
 
+import org.fluentness.FnConf;
 import org.fluentness.common.constants.PrivateDirectories;
-import org.fluentness.configuration.Configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public enum  Log {
     private Logger logger;
 
     public void configure() {
-        String logLevel = toJavaLogLevel(Configuration.INSTANCE.getString(LOG_LEVEL));
+        String logLevel = toJavaLogLevel(FnConf.INSTANCE.getString(LOG_LEVEL));
 
         // create logger
         logger = java.util.logging.Logger.getLogger(Log.class.getName());
@@ -29,7 +29,7 @@ public enum  Log {
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (Configuration.INSTANCE.getBoolean(LOG_CONSOLE)) {
+        if (FnConf.INSTANCE.getBoolean(LOG_TO_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -37,7 +37,7 @@ public enum  Log {
         }
 
         // file logging
-        if (Configuration.INSTANCE.getBoolean(LOG_FILE)) {
+        if (FnConf.INSTANCE.getBoolean(LOG_TO_FILE)) {
             new File(PrivateDirectories.LOG).mkdirs();
             try {
                 String logFilePath = PrivateDirectories.LOG + "/" +

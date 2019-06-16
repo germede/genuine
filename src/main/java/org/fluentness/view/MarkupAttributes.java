@@ -16,6 +16,10 @@ public class MarkupAttributes extends View {
         this.attributes.addAll(Arrays.asList(attributes));
     }
 
+    public void add(KeyValuePair<String> attribute) {
+        attributes.add(attribute);
+    }
+
     @Override
     public String render() {
         return attributes.stream()
@@ -24,7 +28,8 @@ public class MarkupAttributes extends View {
             .collect(Collectors.joining());
     }
 
-    public void add(KeyValuePair<String> attribute) {
-        attributes.add(attribute);
+    @Override
+    View setTemplate(View view) {
+        return this;
     }
 }

@@ -12,7 +12,7 @@ public class Views extends ViewProvider implements StyleConsumer<Styles>, FormCo
             title("A music archive made attrs love and Fluentness"),
             meta(NAME -> "lang", CONTENT -> "en"),
             meta(CHARSET -> "utf-8"),
-            include(styles().bundle),
+            style(styles().bundle),
             includeJs("script.min.js")
         ),
         body(

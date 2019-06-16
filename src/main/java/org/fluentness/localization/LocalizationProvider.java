@@ -1,6 +1,6 @@
 package org.fluentness.localization;
 
-import org.fluentness.common.components.Provider;
+import org.fluentness.common.generics.Provider;
 import org.fluentness.common.lambdas.KeyValuePair;
 
 public abstract class LocalizationProvider implements Provider<Localization> {
