@@ -4,17 +4,17 @@ import org.fluentness.common.generics.Component;
 import org.fluentness.common.generics.Consumer;
 import org.fluentness.common.generics.Provider;
 import org.fluentness.common.logging.Log;
-import org.fluentness.configuration.ConfigurationProvider;
-import org.fluentness.controller.ControllerProvider;
-import org.fluentness.form.FormProvider;
-import org.fluentness.localization.LocalizationProvider;
-import org.fluentness.model.ModelProvider;
-import org.fluentness.style.StyleProvider;
-import org.fluentness.task.DefaultTasks;
-import org.fluentness.task.Step;
-import org.fluentness.task.Task;
-import org.fluentness.task.TaskProvider;
-import org.fluentness.view.ViewProvider;
+import org.fluentness.flow.configuration.ConfigurationProvider;
+import org.fluentness.flow.controller.ControllerProvider;
+import org.fluentness.flow.form.FormProvider;
+import org.fluentness.flow.localization.LocalizationProvider;
+import org.fluentness.data.ModelProvider;
+import org.fluentness.flow.style.StyleProvider;
+import org.fluentness.flow.task.DefaultTasks;
+import org.fluentness.flow.task.Step;
+import org.fluentness.flow.task.Task;
+import org.fluentness.flow.task.TaskProvider;
+import org.fluentness.flow.view.ViewProvider;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -45,31 +45,31 @@ public enum Fluentness {
 
     private void initOnionArchitecture(String configurationToApply) {
         try {
-            configurations = (ConfigurationProvider) Class.forName(appPackage + "." + CONFIGURATIONS).newInstance();
+            configurations = (ConfigurationProvider) Class.forName(appPackage + CONFIGURATIONS).newInstance();
             Settings.INSTANCE.apply(configurations.get(configurationToApply));
             Log.INSTANCE.configure();
             checkOnionCompliance(configurations);
 
-            localizations = (LocalizationProvider) Class.forName(appPackage + "." + LOCALIZATIONS).newInstance();
+            localizations = (LocalizationProvider) Class.forName(appPackage + LOCALIZATIONS).newInstance();
             checkOnionCompliance(localizations);
 
-            models = (ModelProvider) Class.forName(appPackage + "." + MODELS).newInstance();
+            models = (ModelProvider) Class.forName(appPackage + MODELS).newInstance();
             checkOnionCompliance(models);
 
-            styles = (StyleProvider) Class.forName(appPackage + "." + STYLES).newInstance();
+            styles = (StyleProvider) Class.forName(appPackage + STYLES).newInstance();
             checkOnionCompliance(styles);
 
-            forms = (FormProvider) Class.forName(appPackage + "." + FORMS).newInstance();
+            forms = (FormProvider) Class.forName(appPackage + FORMS).newInstance();
             checkOnionCompliance(forms);
 
-            views = (ViewProvider) Class.forName(appPackage + "." + VIEWS).newInstance();
+            views = (ViewProvider) Class.forName(appPackage + VIEWS).newInstance();
             checkOnionCompliance(views);
 
-            tasks = (TaskProvider) Class.forName(appPackage + "." + TASKS).newInstance();
+            tasks = (TaskProvider) Class.forName(appPackage + TASKS).newInstance();
             tasks.putAll(new DefaultTasks().getAll());
             checkOnionCompliance(tasks);
 
-            controllers = (ControllerProvider) Class.forName(appPackage + "." + CONTROLLERS).newInstance();
+            controllers = (ControllerProvider) Class.forName(appPackage + CONTROLLERS).newInstance();
             checkOnionCompliance(controllers);
 
         } catch (InstantiationException | NullPointerException | IllegalAccessException | ClassNotFoundException e) {
@@ -175,7 +175,7 @@ public enum Fluentness {
 
             String argumentsToPrint = declaredArguments.length > 0 ? Arrays.toString(declaredArguments) : "";
             System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET + "%s",
-                task.getKey().replaceAll("_",":") + " " + argumentsToPrint,
+                task.getKey().replaceAll("_", ":") + " " + argumentsToPrint,
                 task.getValue().getDescription()
             ));
 

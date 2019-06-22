@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.configuration.Configuration;
+import org.fluentness.flow.configuration.Configuration;
 
 public enum Settings {
 

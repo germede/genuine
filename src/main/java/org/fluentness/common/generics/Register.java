@@ -1,6 +1,6 @@
 package org.fluentness.common.generics;
 
-import org.fluentness.task.TaskProvider;
+import org.fluentness.flow.task.TaskProvider;
 
 import java.util.HashMap;
 import java.util.Map;
