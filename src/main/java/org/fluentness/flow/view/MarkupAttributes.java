@@ -28,8 +28,4 @@ public class MarkupAttributes extends View {
             .collect(Collectors.joining());
     }
 
-    @Override
-    View setTemplate(View view) {
-        return this;
-    }
 }

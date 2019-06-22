@@ -15,12 +15,16 @@ public interface Cache<T> {
 
     String getIdentifyingCacheFilePath(T t);
 
+    boolean isCacheable(T t);
+
     default String cache(T t) {
-        if (Settings.INSTANCE.getBoolean(CACHE_ENABLE) && doesCacheFileExists(t)) {
+        boolean cacheable = isCacheable(t);
+        if (Settings.INSTANCE.getBoolean(CACHE_ENABLE) && doesCacheFileExists(t) && cacheable) {
             return retrieve(t);
         }
+
         String content = t.toString();
-        if (Settings.INSTANCE.getBoolean(CACHE_ENABLE)) {
+        if (Settings.INSTANCE.getBoolean(CACHE_ENABLE) && cacheable) {
             store(t, content);
         }
         return content;
@@ -34,7 +38,7 @@ public interface Cache<T> {
         try {
             Log.INSTANCE.debug("Create cache record %s", getIdentifyingCacheFilePath(t));
             new File(getIdentifyingCacheFilePath(t)).getParentFile().mkdirs();
-            Files.write(Paths.get(getIdentifyingCacheFilePath(t)),content.getBytes(), StandardOpenOption.CREATE);
+            Files.write(Paths.get(getIdentifyingCacheFilePath(t)), content.getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
             Log.INSTANCE.error(e);
         }

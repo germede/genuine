@@ -3,6 +3,7 @@ package org.fluentness.common.lambdas;
 import java.util.function.Function;
 
 public interface KeyValuePair<T> extends MethodFinder, Function<String, T> {
+
     default String getKey() {
         String lambdaClassName = this.getClass().getName();
         if (KeyValuePairKeyRegister.INSTANCE.containsKey(lambdaClassName)) {

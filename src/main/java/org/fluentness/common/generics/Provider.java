@@ -1,6 +1,9 @@
 package org.fluentness.common.generics;
 
 import org.fluentness.common.logging.Log;
+import org.fluentness.data.Model;
+import org.fluentness.data.Repository;
+import org.fluentness.data.RepositoryRegister;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -9,6 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public interface Provider<T extends Component> extends Register<String, T> {
+
+    default <M extends Model> Repository<M> repository(Class<M> model) {
+        return (Repository<M>) RepositoryRegister.INSTANCE.getRepository(model);
+    }
 
     Class<T> getProducedComponentType();
 

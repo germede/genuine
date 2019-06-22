@@ -2,13 +2,20 @@ package org.fluentness.flow.view;
 
 import org.fluentness.common.constants.ViewPlaceholders;
 import org.fluentness.common.generics.Provider;
-import org.fluentness.flow.localization.Localizable;
 
-public abstract class ViewProvider implements Provider<View>, Localizable, HtmlFunctions {
+public abstract class ViewProvider implements Provider<View>, HtmlFunctions {
 
     @Override
     public Class<View> getProducedComponentType() {
         return View.class;
+    }
+
+    protected String translate(String name) {
+        return String.format(ViewPlaceholders.LOCALIZATION_PLACEHOLDER, name);
+    }
+
+    protected View parameter(String name) {
+        return new RawView(String.format(ViewPlaceholders.PARAMETER_PLACEHOLDER, name));
     }
 
     protected View placeholder() {
@@ -19,7 +26,7 @@ public abstract class ViewProvider implements Provider<View>, Localizable, HtmlF
         return new RawView(raw);
     }
 
-    protected View using(View template, View toInclude) {
+    protected View basedOn(View template, View toInclude) {
         return toInclude.setTemplate(template);
     }
 }

@@ -1,12 +1,11 @@
 package org.fluentness.flow.controller;
 
-import org.fluentness.common.generics.Provider;
 import org.fluentness.common.constants.HttpMethods;
 import org.fluentness.common.constants.HttpStatusCodes;
+import org.fluentness.common.generics.Provider;
 import org.fluentness.common.lambdas.KeyValuePair;
 import org.fluentness.common.networking.HttpResponse;
 import org.fluentness.flow.view.View;
-import org.fluentness.flow.view.ViewCache;
 
 public abstract class ControllerProvider implements Provider<Controller>, HttpMethods, HttpStatusCodes {
 
@@ -56,7 +55,7 @@ public abstract class ControllerProvider implements Provider<Controller>, HttpMe
     }
 
     protected HttpResponse render(View view) {
-        return new HttpResponse(OK).setBody(ViewCache.INSTANCE.cache(view));
+        return new HttpResponse(OK).setBody(view.renderWithCache());
     }
 
     protected HttpResponse response(String body) {

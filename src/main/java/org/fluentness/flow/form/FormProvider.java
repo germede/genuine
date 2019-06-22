@@ -1,14 +1,18 @@
 package org.fluentness.flow.form;
 
+import org.fluentness.common.constants.ViewPlaceholders;
 import org.fluentness.common.generics.Provider;
 import org.fluentness.common.constants.HttpMethods;
 import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.flow.localization.Localizable;
 import org.fluentness.flow.view.HtmlFunctions;
 import org.fluentness.flow.view.RawView;
 import org.fluentness.flow.view.View;
 
-public abstract class FormProvider implements Provider<Form>, Localizable, HttpMethods, HtmlFunctions, FieldFunctions {
+public abstract class FormProvider implements Provider<Form>, HttpMethods, HtmlFunctions, FieldFunctions {
+
+    protected String translate(String name) {
+        return String.format(ViewPlaceholders.LOCALIZATION_PLACEHOLDER, name);
+    }
 
     @Override
     public Class<Form> getProducedComponentType() {

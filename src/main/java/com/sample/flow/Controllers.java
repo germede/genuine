@@ -5,8 +5,6 @@ import org.fluentness.flow.controller.Controller;
 import org.fluentness.flow.controller.ControllerProvider;
 import org.fluentness.flow.view.ViewConsumer;
 
-import java.util.ArrayList;
-
 public class Controllers extends ControllerProvider implements ViewConsumer<Views> {
 
     Controller baseController = actions(
@@ -17,18 +15,23 @@ public class Controllers extends ControllerProvider implements ViewConsumer<View
             newSong.setName("Tolles Lied");
             newSong.create();
 
+
             return response("yea");
         })
     );
 
     Controller songController = actions("/song",
-        list -> get("/list", request -> render(views().songList.assigning(songs -> new ArrayList<>()))),
+        list -> get("/list", request -> render(
+            views().songList.assigning(
+                songs -> repository(Song.class).query("findByName", name -> "Tolles Lied")
+            )
+            )
+        ),
 
         create -> get("/create", request -> render(views().createSong)),
 
         create_submit -> post("/create/submit", request ->
             {
-
 
 
 //                Song song = new Song(

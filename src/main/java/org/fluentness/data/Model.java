@@ -1,30 +1,58 @@
 package org.fluentness.data;
 
-import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.common.generics.Component;
+import org.fluentness.common.logging.Log;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+public interface Model {
 
-public class Model implements Component {
-
-    private Map<String, Property> properties = new HashMap<>();
-
-    Model(KeyValuePair<Property>... properties) {
-        Arrays.stream(properties).forEach(property -> this.properties.put(property.getKey(), property.getValue()));
+    default void create(){
+        Transaction transaction = null;
+        try {
+            Session session = SessionFactory.INSTANCE.openSession();
+            transaction = session.beginTransaction();
+            session.save(this);
+            transaction.commit();
+            Log.INSTANCE.debug("%s record inserted successfully", this.getClass().getSimpleName());
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            Log.INSTANCE.error(e);
+        }
     }
 
-    public String getTable() {
-        return this.getClass().getSimpleName().toLowerCase().replace("model", "");
+    default void update(){
+        Transaction transaction = null;
+        try {
+            Session session = SessionFactory.INSTANCE.openSession();
+            transaction = session.beginTransaction();
+            session.update(this);
+            transaction.commit();
+            Log.INSTANCE.debug("%s record updated successfully", this.getClass().getSimpleName());
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            Log.INSTANCE.error(e);
+        }
     }
 
-    public String getPrimaryKey() {
-        return "id";
-    }
-
-    public Property get(String name) {
-        return properties.get(name);
+    default void delete(){
+        Transaction transaction = null;
+        try {
+            Session session = SessionFactory.INSTANCE.openSession();
+            transaction = session.beginTransaction();
+            session.delete(this);
+            transaction.commit();
+            Log.INSTANCE.debug("%s record deleted successfully", this.getClass().getSimpleName());
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            Log.INSTANCE.error(e);
+        }
     }
 
 }

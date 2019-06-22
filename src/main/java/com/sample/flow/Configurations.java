@@ -1,6 +1,5 @@
 package com.sample.flow;
 
-import org.fluentness.Fluentness;
 import org.fluentness.flow.configuration.Configuration;
 import org.fluentness.flow.configuration.ConfigurationProvider;
 
@@ -44,7 +43,4 @@ public class Configurations extends ConfigurationProvider {
         set(STYLE_MINIFY, true)
     );
 
-    public static void main(String[] args) {
-        Fluentness.INSTANCE.initialize("com.sample","dev", args);
-    }
 }

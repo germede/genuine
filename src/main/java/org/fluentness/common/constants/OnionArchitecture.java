@@ -5,7 +5,6 @@ import org.fluentness.flow.configuration.Configuration;
 import org.fluentness.flow.controller.Controller;
 import org.fluentness.flow.form.Form;
 import org.fluentness.flow.localization.Localization;
-import org.fluentness.data.Model;
 import org.fluentness.flow.style.Style;
 import org.fluentness.flow.task.Task;
 import org.fluentness.flow.view.View;
@@ -19,7 +18,6 @@ public interface OnionArchitecture {
     String CONTROLLERS = ".flow.Controllers";
     String FORMS = ".flow.Forms";
     String LOCALIZATIONS = ".flow.Localizations";
-    String MODELS = ".flow.Models";
     String STYLES = ".flow.Styles";
     String TASKS = ".flow.Tasks";
     String VIEWS = ".flow.Views";
@@ -27,7 +25,6 @@ public interface OnionArchitecture {
     List<Class<? extends Component>> ONION_ARCHITECTURE = Arrays.asList(
         Configuration.class,
         Localization.class,
-        Model.class,
         Style.class,
         Form.class,
         View.class,

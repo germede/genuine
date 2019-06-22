@@ -1,13 +1,14 @@
 package com.sample.data;
 
-import org.fluentness.data.ModelF;
+import org.fluentness.data.Model;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "song")
-public class Song implements ModelF {
+@NamedQuery(name = "findByName", query = "SELECT s FROM Song s WHERE s.name = :name")
+public class Song implements Model {
 
     private int id;
     private String name;
@@ -45,4 +46,5 @@ public class Song implements ModelF {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
 }

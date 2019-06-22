@@ -23,7 +23,7 @@ public class Views extends ViewProvider implements StyleConsumer<Styles>, FormCo
         )
     );
 
-    View createSong = using(base,
+    View createSong = basedOn(base,
         div(attrs(CLASS -> "row"),
             div(attrs(CLASS -> "column"),
                 h2(translate("song_create")),
@@ -32,7 +32,7 @@ public class Views extends ViewProvider implements StyleConsumer<Styles>, FormCo
         )
     );
 
-    View songList = using(base,
+    View songList = basedOn(base,
         div(attrs(CLASS -> "row"),
             div(attrs(CLASS -> "column"),
                 div(attrs(CLASS -> "row"),
@@ -44,24 +44,33 @@ public class Views extends ViewProvider implements StyleConsumer<Styles>, FormCo
                     )
                 ),
                 table(
-                    thead(tr(
-                        th(translate("song_title")),
-                        th(translate("song_artist")),
-                        th(translate("song_album")),
-                        th(translate("song_year")),
-                        th(translate("song_is_new")),
-                        th(translate("song_update")),
-                        th(translate("song_delete"))
-                    ))
-//                            tbody(forEachEntityIn(retrieve(List.class, "songs"), song -> tr(
-//                                    td(song.getString("title")),
-//                                    td(song.getString("artist")),
-//                                    td(song.getString("album")),
-//                                    td(song.getString("year")),
-//                                    td(song.getBoolean("is_new") ? "✔" : "\uD83D\uDDD9"),
-//                                    td(a(attrs(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
-//                                    td(a(attrs(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
-//                            )))
+                    thead(
+                        tr(
+                            th(translate("song_title")),
+                            th(translate("song_artist")),
+                            th(translate("song_album")),
+                            th(translate("song_year")),
+                            th(translate("song_is_new")),
+                            th(translate("song_update")),
+                            th(translate("song_delete"))
+                        )
+                    ),
+                    tbody(
+                        parameter("songs")
+
+
+
+//                            , song -> tr(
+//                            td(song.getString("title")),
+//                            td(song.getString("artist")),
+//                            td(song.getString("album")),
+//                            td(song.getString("year")),
+//                            td(song.getBoolean("is_new") ? "✔" : "\uD83D\uDDD9"),
+//                            td(a(attrs(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
+//                            td(a(attrs(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
+//                            )
+
+                    )
                 ),
                 a(attrs(CLASS -> "button", href -> "/song/create"),
                     translate("song_create")

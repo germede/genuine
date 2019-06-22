@@ -11,9 +11,4 @@ public class RawView extends View {
     public String render() {
         return raw;
     }
-
-    @Override
-    View setTemplate(View view) {
-        return null;
-    }
 }

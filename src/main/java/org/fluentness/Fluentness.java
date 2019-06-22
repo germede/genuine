@@ -8,7 +8,6 @@ import org.fluentness.flow.configuration.ConfigurationProvider;
 import org.fluentness.flow.controller.ControllerProvider;
 import org.fluentness.flow.form.FormProvider;
 import org.fluentness.flow.localization.LocalizationProvider;
-import org.fluentness.data.ModelProvider;
 import org.fluentness.flow.style.StyleProvider;
 import org.fluentness.flow.task.DefaultTasks;
 import org.fluentness.flow.task.Step;
@@ -32,13 +31,12 @@ public enum Fluentness {
     public ControllerProvider controllers;
     public FormProvider forms;
     public LocalizationProvider localizations;
-    public ModelProvider models;
     public StyleProvider styles;
     public TaskProvider tasks;
     public ViewProvider views;
 
-    public void initialize(String appPackage, String configurationToApply, String[] programArguments) {
-        this.appPackage = appPackage;
+    public void initialize(Class mainClass, String configurationToApply, String[] programArguments) {
+        appPackage = mainClass.getPackage().getName();
         initOnionArchitecture(configurationToApply);
         executeCommand(programArguments);
     }
@@ -52,9 +50,6 @@ public enum Fluentness {
 
             localizations = (LocalizationProvider) Class.forName(appPackage + LOCALIZATIONS).newInstance();
             checkOnionCompliance(localizations);
-
-            models = (ModelProvider) Class.forName(appPackage + MODELS).newInstance();
-            checkOnionCompliance(models);
 
             styles = (StyleProvider) Class.forName(appPackage + STYLES).newInstance();
             checkOnionCompliance(styles);

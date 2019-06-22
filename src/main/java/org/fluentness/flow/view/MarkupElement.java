@@ -1,6 +1,5 @@
 package org.fluentness.flow.view;
 
-import org.fluentness.common.constants.ViewPlaceholders;
 import org.fluentness.common.lambdas.KeyValuePair;
 
 import java.util.Arrays;
@@ -12,7 +11,6 @@ public abstract class MarkupElement extends View {
     protected MarkupAttributes attributes;
     protected View[] innerViews;
     protected String innerText;
-    protected View template;
     protected View[] predecessors;
     protected MarkupElement wrapper;
     protected View[] successors;
@@ -37,12 +35,6 @@ public abstract class MarkupElement extends View {
 
     public MarkupElement followedBy(View... successors) {
         this.successors = successors;
-        return this;
-    }
-
-    @Override
-    public View setTemplate(View view) {
-        this.template = view;
         return this;
     }
 
@@ -85,11 +77,6 @@ public abstract class MarkupElement extends View {
         if (wrapper != null) {
             wrapper.innerText = rendered;
             rendered = wrapper.render();
-        }
-
-        // templating
-        if (template != null) {
-            rendered = template.render().replace(ViewPlaceholders.TEMPLATE_PLACEHOLDER, rendered);
         }
 
         return rendered;
