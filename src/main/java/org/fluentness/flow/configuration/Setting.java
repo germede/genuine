@@ -1,19 +1,21 @@
 package org.fluentness.flow.configuration;
 
-public class Setting {
-    private String key;
-    private Object value;
+import org.fluentness.common.constants.SettingKeys;
 
-    Setting(String key, Object value) {
+public class Setting {
+    private SettingKeys.Key key;
+    private String value;
+
+    Setting(SettingKeys.Key key, String value) {
         this.key = key;
         this.value = value;
     }
 
-    public String getKey() {
+    public SettingKeys.Key getKey() {
         return key;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 }

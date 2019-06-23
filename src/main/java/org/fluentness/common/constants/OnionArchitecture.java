@@ -14,6 +14,8 @@ import java.util.List;
 
 public interface OnionArchitecture {
 
+    String DATA = ".data";
+
     String CONFIGURATIONS = ".flow.Configurations";
     String CONTROLLERS = ".flow.Controllers";
     String FORMS = ".flow.Forms";

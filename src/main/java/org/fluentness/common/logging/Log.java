@@ -12,7 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.fluentness.common.constants.Settings.*;
+import static org.fluentness.common.constants.SettingKeys.*;
 
 public enum  Log {
 
@@ -21,7 +21,7 @@ public enum  Log {
     private Logger logger;
 
     public void configure() {
-        String logLevel = toJavaLogLevel(Settings.INSTANCE.getString(LOG_LEVEL));
+        String logLevel = toJavaLogLevel(Settings.INSTANCE.get(LOG_LEVEL));
 
         // create logger
         logger = java.util.logging.Logger.getLogger(Log.class.getName());
@@ -29,7 +29,7 @@ public enum  Log {
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (Settings.INSTANCE.getBoolean(LOG_TO_CONSOLE)) {
+        if (Settings.INSTANCE.is(ENABLE_LOG_TO_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -37,7 +37,7 @@ public enum  Log {
         }
 
         // file logging
-        if (Settings.INSTANCE.getBoolean(LOG_TO_FILE)) {
+        if (Settings.INSTANCE.is(ENABLE_LOG_TO_FILE)) {
             new File(PrivateDirectories.LOG).mkdirs();
             try {
                 String logFilePath = PrivateDirectories.LOG + "/" +

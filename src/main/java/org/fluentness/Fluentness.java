@@ -4,6 +4,7 @@ import org.fluentness.common.generics.Component;
 import org.fluentness.common.generics.Consumer;
 import org.fluentness.common.generics.Provider;
 import org.fluentness.common.logging.Log;
+import org.fluentness.data.Hibernate;
 import org.fluentness.flow.configuration.ConfigurationProvider;
 import org.fluentness.flow.controller.ControllerProvider;
 import org.fluentness.flow.form.FormProvider;
@@ -25,7 +26,7 @@ public enum Fluentness {
 
     INSTANCE;
 
-    private String appPackage;
+    public String appPackage;
 
     public ConfigurationProvider configurations;
     public ControllerProvider controllers;
@@ -38,6 +39,7 @@ public enum Fluentness {
     public void initialize(Class mainClass, String configurationToApply, String[] programArguments) {
         appPackage = mainClass.getPackage().getName();
         initOnionArchitecture(configurationToApply);
+        Hibernate.INSTANCE.initialize();
         executeCommand(programArguments);
     }
 
@@ -88,7 +90,7 @@ public enum Fluentness {
                 int consumerComponentPriority = ONION_ARCHITECTURE.indexOf(consumerComponent);
                 if (consumerComponentPriority > componentPriority) {
                     printOnionArchitecture();
-                    Log.INSTANCE.fatal("%sProducer should not consume %s components due to the onion architecture",
+                    Log.INSTANCE.fatal("%sProvider should not consume %s components due to the onion architecture",
                         component.getSimpleName(),
                         consumerComponent.getSimpleName()
                     );

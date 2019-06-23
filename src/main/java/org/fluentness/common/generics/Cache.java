@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-import static org.fluentness.common.constants.Settings.CACHE_ENABLE;
+import static org.fluentness.common.constants.SettingKeys.ENABLE_CACHE;
 
 public interface Cache<T> {
 
@@ -19,12 +19,12 @@ public interface Cache<T> {
 
     default String cache(T t) {
         boolean cacheable = isCacheable(t);
-        if (Settings.INSTANCE.getBoolean(CACHE_ENABLE) && doesCacheFileExists(t) && cacheable) {
+        if (Settings.INSTANCE.is(ENABLE_CACHE) && doesCacheFileExists(t) && cacheable) {
             return retrieve(t);
         }
 
         String content = t.toString();
-        if (Settings.INSTANCE.getBoolean(CACHE_ENABLE) && cacheable) {
+        if (Settings.INSTANCE.is(ENABLE_CACHE) && cacheable) {
             store(t, content);
         }
         return content;

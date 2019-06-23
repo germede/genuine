@@ -1,41 +1,37 @@
 package org.fluentness;
 
+import org.fluentness.common.constants.SettingKeys;
 import org.fluentness.flow.configuration.Configuration;
+import org.fluentness.flow.configuration.DefaultConfiguration;
 
 public enum Settings {
 
     INSTANCE;
 
-    private Configuration configuration;
+    private Configuration appliedConfiguration;
+    private Configuration defaultConfiguration = DefaultConfiguration.INSTANCE.get();
 
     void apply(Configuration configuration) {
-        this.configuration = configuration;
+        this.appliedConfiguration = configuration;
     }
 
-    public String getString(String key) {
-        return String.valueOf(INSTANCE.configuration.get(key));
-    }
-
-    public int getInt(String key) {
-        return (int) INSTANCE.configuration.get(key);
-    }
-
-    public boolean getBoolean(String key) {
-        if (configuration.containsKey(key)) {
-            return (boolean) INSTANCE.configuration.get(key);
+    public String get(SettingKeys.Key key) {
+        if (appliedConfiguration.containsKey(key)) {
+            return appliedConfiguration.get(key);
+        } else if (defaultConfiguration.containsKey(key)){
+            return defaultConfiguration.get(key);
+        } else {
+            return "";
         }
-        return false;
     }
 
-    public Object getObject(String key) {
-        return INSTANCE.configuration.get(key);
-    }
-
-    public Object getObjectOrDefault(String key, Object defaultObject) {
-        if (INSTANCE.configuration.containsKey(key)) {
-            return INSTANCE.configuration.get(key);
+    public boolean is(SettingKeys.Key key) {
+        if (appliedConfiguration.containsKey(key)) {
+            return Boolean.parseBoolean(appliedConfiguration.get(key));
+        } else if (defaultConfiguration.containsKey(key)){
+            return Boolean.parseBoolean(defaultConfiguration.get(key));
+        } else {
+            return true;
         }
-        return defaultObject;
     }
-
 }

@@ -21,7 +21,7 @@ public final class Repository<T extends Model> {
     public List<T> findAll() {
         Transaction transaction = null;
         try {
-            Session session = SessionFactory.INSTANCE.openSession();
+            Session session = Hibernate.INSTANCE.openSession();
             transaction = session.beginTransaction();
             List<T> list = session.createQuery("from " + modelClass.getName()).list();
             transaction.commit();
@@ -39,7 +39,7 @@ public final class Repository<T extends Model> {
     public List<T> query(String namedQuery, KeyValuePair<Object>... parameters) {
         Transaction transaction = null;
         try {
-            Session session = SessionFactory.INSTANCE.openSession();
+            Session session = Hibernate.INSTANCE.openSession();
             transaction = session.beginTransaction();
             Query<T> query = session.createNamedQuery(namedQuery, modelClass);
             for (KeyValuePair<Object> parameter : parameters) {

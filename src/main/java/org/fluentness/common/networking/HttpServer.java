@@ -11,15 +11,15 @@ import java.net.InetSocketAddress;
 import java.net.ProtocolException;
 import java.util.Map;
 
-import static org.fluentness.common.constants.Settings.*;
+import static org.fluentness.common.constants.SettingKeys.*;
 
 public enum  HttpServer {
     INSTANCE;
 
     private com.sun.net.httpserver.HttpServer server;
-    private String protocol = Settings.INSTANCE.getString(APP_PROTOCOL);
-    private String hostname = Settings.INSTANCE.getString(APP_HOSTNAME);
-    private int port = Settings.INSTANCE.getInt(APP_PORT);
+    private String protocol = Settings.INSTANCE.get(APP_PROTOCOL);
+    private String hostname = Settings.INSTANCE.get(APP_HOST);
+    private int port = Integer.parseInt(Settings.INSTANCE.get(APP_PORT));
 
 
     public void start() {

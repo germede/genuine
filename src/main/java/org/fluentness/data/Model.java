@@ -10,7 +10,7 @@ public interface Model {
     default void create(){
         Transaction transaction = null;
         try {
-            Session session = SessionFactory.INSTANCE.openSession();
+            Session session = Hibernate.INSTANCE.openSession();
             transaction = session.beginTransaction();
             session.save(this);
             transaction.commit();
@@ -26,7 +26,7 @@ public interface Model {
     default void update(){
         Transaction transaction = null;
         try {
-            Session session = SessionFactory.INSTANCE.openSession();
+            Session session = Hibernate.INSTANCE.openSession();
             transaction = session.beginTransaction();
             session.update(this);
             transaction.commit();
@@ -42,7 +42,7 @@ public interface Model {
     default void delete(){
         Transaction transaction = null;
         try {
-            Session session = SessionFactory.INSTANCE.openSession();
+            Session session = Hibernate.INSTANCE.openSession();
             transaction = session.beginTransaction();
             session.delete(this);
             transaction.commit();
