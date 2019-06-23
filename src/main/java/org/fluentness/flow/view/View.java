@@ -15,7 +15,15 @@ import java.util.regex.Pattern;
 
 public abstract class View implements Component {
 
-    private Map<String, Object> parameters;
+    private static final Map<Thread, Map<String, Object>> parameters = new HashMap<>();
+    boolean hasParameters() {
+        return parameters.get(Thread.currentThread()) != null && !parameters.get(Thread.currentThread()).isEmpty();
+    }
+
+    protected static Object retrieveParameterForCurrentThread(String parameter) {
+        return parameters.get(Thread.currentThread()).get(parameter);
+    }
+
     private View template;
 
     View setTemplate(View view) {
@@ -23,17 +31,15 @@ public abstract class View implements Component {
         return this;
     }
 
-    boolean hasParameters() {
-        return parameters != null && !parameters.isEmpty();
-    }
-
     public View assigning(KeyValuePair<Object>... parameters) {
-        if (this.parameters != null) {
-            this.parameters.clear();
+        if (View.parameters.containsKey(Thread.currentThread())) {
+            View.parameters.get(Thread.currentThread()).clear();
         } else {
-            this.parameters = new HashMap<>();
+            View.parameters.put(Thread.currentThread(),new HashMap<>());
         }
-        Arrays.stream(parameters).forEach(parameter -> this.parameters.put(parameter.getKey(), parameter.getValue()));
+        Arrays.stream(parameters).forEach(
+            parameter -> View.parameters.get(Thread.currentThread()).put(parameter.getKey(), parameter.getValue())
+        );
         return this;
     }
 
@@ -47,24 +53,10 @@ public abstract class View implements Component {
 
     @Override
     public String toString() {
-        return localize(
-            parametrize(
-                render()
-            )
-        );
+        return localize(render());
     }
 
     public abstract String render();
-
-    private String parametrize(String toParametrize) {
-        if (hasParameters()) {
-            Matcher matcher = Pattern.compile("\\{\\{P:([A-Za-z1-9_]+)}}").matcher(toParametrize);
-            while (matcher.find()) {
-                toParametrize = toParametrize.replace(matcher.group(0), String.valueOf(parameters.get(matcher.group(1))));
-            }
-        }
-        return toParametrize;
-    }
 
     private String localize(String toLocalize) {
         Map<String, Localization> all = Fluentness.INSTANCE.localizations.getAll();

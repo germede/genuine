@@ -1,5 +1,6 @@
 package com.sample.flow;
 
+import com.sample.data.Song;
 import org.fluentness.flow.form.FormConsumer;
 import org.fluentness.flow.style.StyleConsumer;
 import org.fluentness.flow.view.View;
@@ -56,20 +57,15 @@ public class Views extends ViewProvider implements StyleConsumer<Styles>, FormCo
                         )
                     ),
                     tbody(
-                        parameter("songs")
-
-
-
-//                            , song -> tr(
-//                            td(song.getString("title")),
-//                            td(song.getString("artist")),
-//                            td(song.getString("album")),
-//                            td(song.getString("year")),
-//                            td(song.getBoolean("is_new") ? "✔" : "\uD83D\uDDD9"),
-//                            td(a(attrs(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
-//                            td(a(attrs(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
-//                            )
-
+                        forEachItemIn("songs", Song.class,
+                            song -> tr(
+                                td(song.getName()),
+                                td(print("testParameter"))
+//                                td(song.getBoolean("is_new") ? "✔" : "\uD83D\uDDD9"),
+//                                td(a(attrs(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
+//                                td(a(attrs(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
+                            )
+                        )
                     )
                 ),
                 a(attrs(CLASS -> "button", href -> "/song/create"),

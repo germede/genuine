@@ -29,7 +29,9 @@ public class Controllers extends ControllerProvider implements ViewConsumer<View
 
                 return render(
                     views().songList.assigning(
-                        songs -> songList
+                        songs -> songList,
+                        testBoolean -> true
+                        testParameter -> 1234
                     )
                 );
             }
