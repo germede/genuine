@@ -18,6 +18,7 @@ public interface SettingKeys {
     SettingKeys.Key HIBERNATE_OPTIONS = Key.HIBERNATE_OPTIONS;
     SettingKeys.Key LOG_LEVEL = Key.LOG_LEVEL;
     SettingKeys.Key ENABLE_CACHE = Key.ENABLE_CACHE;
+    SettingKeys.Key ENABLE_HIBERNATE = Key.ENABLE_HIBERNATE;
     SettingKeys.Key ENABLE_LOG_VERBOSE = Key.ENABLE_LOG_VERBOSE;
     SettingKeys.Key ENABLE_LOG_TO_CONSOLE = Key.ENABLE_LOG_TO_CONSOLE;
     SettingKeys.Key ENABLE_LOG_TO_FILE = Key.ENABLE_LOG_TO_FILE;
@@ -38,8 +39,9 @@ public interface SettingKeys {
         HIBERNATE_PARAMS,
         HIBERNATE_DIALECT,
         HIBERNATE_OPTIONS,
-        ENABLE_CACHE,
         LOG_LEVEL,
+        ENABLE_CACHE,
+        ENABLE_HIBERNATE,
         ENABLE_LOG_VERBOSE,
         ENABLE_LOG_TO_CONSOLE,
         ENABLE_LOG_TO_FILE,

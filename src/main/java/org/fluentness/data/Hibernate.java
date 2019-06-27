@@ -21,29 +21,30 @@ public enum Hibernate {
 
     public void initialize() {
 
-        Configuration configuration = new Configuration();
-        configuration.setProperty("hibernate.connection.url",
-            "jdbc:" + Settings.INSTANCE.get(HIBERNATE_DRIVER) +
-                "://" + Settings.INSTANCE.get(HIBERNATE_HOST) +
-                ":" + Settings.INSTANCE.get(HIBERNATE_PORT) +
-                "/" + Settings.INSTANCE.get(Key.HIBERNATE_DATABASE) +
-                Settings.INSTANCE.get(HIBERNATE_PARAMS));
-        configuration.setProperty("hibernate.connection.driver_class", Settings.INSTANCE.get(HIBERNATE_DRIVER_CLASS));
-        configuration.setProperty("hibernate.dialect", Settings.INSTANCE.get(HIBERNATE_DIALECT));
-        configuration.setProperty("hibernate.connection.username", Settings.INSTANCE.get(HIBERNATE_USERNAME));
-        configuration.setProperty("hibernate.connection.password", Settings.INSTANCE.get(HIBERNATE_PASSWORD));
+        if (Settings.INSTANCE.is(ENABLE_HIBERNATE)) {
+            Configuration configuration = new Configuration();
+            configuration.setProperty("hibernate.connection.url",
+                "jdbc:" + Settings.INSTANCE.get(HIBERNATE_DRIVER) +
+                    "://" + Settings.INSTANCE.get(HIBERNATE_HOST) +
+                    ":" + Settings.INSTANCE.get(HIBERNATE_PORT) +
+                    "/" + Settings.INSTANCE.get(Key.HIBERNATE_DATABASE) +
+                    Settings.INSTANCE.get(HIBERNATE_PARAMS));
+            configuration.setProperty("hibernate.connection.driver_class", Settings.INSTANCE.get(HIBERNATE_DRIVER_CLASS));
+            configuration.setProperty("hibernate.dialect", Settings.INSTANCE.get(HIBERNATE_DIALECT));
+            configuration.setProperty("hibernate.connection.username", Settings.INSTANCE.get(HIBERNATE_USERNAME));
+            configuration.setProperty("hibernate.connection.password", Settings.INSTANCE.get(HIBERNATE_PASSWORD));
 
-        for (String hibernateOption : Settings.INSTANCE.get(HIBERNATE_OPTIONS).split(";")) {
-            String[] keyValue = hibernateOption.split(":");
-            configuration.setProperty(keyValue[0],keyValue[1]);
+            for (String hibernateOption : Settings.INSTANCE.get(HIBERNATE_OPTIONS).split(";")) {
+                String[] keyValue = hibernateOption.split(":");
+                configuration.setProperty(keyValue[0],keyValue[1]);
+            }
+
+            for (Class<? extends Model> modelClass : getModelClasses()) {
+                configuration.addAnnotatedClass(modelClass);
+            }
+
+            sessionFactory = configuration.buildSessionFactory();
         }
-
-        for (Class<? extends Model> modelClass : getModelClasses()) {
-            configuration.addAnnotatedClass(modelClass);
-        }
-
-        sessionFactory = configuration.buildSessionFactory();
-
     }
 
     private List<Class<? extends Model>> getModelClasses() {

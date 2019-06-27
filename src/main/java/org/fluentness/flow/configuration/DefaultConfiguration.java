@@ -17,6 +17,7 @@ public enum DefaultConfiguration {
             new Setting(HIBERNATE_HOST, "localhost"),
             new Setting(HIBERNATE_PORT, "3306"),
             new Setting(LOG_LEVEL, "ALL"),
+            new Setting(ENABLE_HIBERNATE, "false"),
             new Setting(ENABLE_LOG_TO_CONSOLE, "true"),
             new Setting(ENABLE_LOG_TO_FILE, "true"),
             new Setting(ENABLE_CACHE, "true"),
