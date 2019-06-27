@@ -5,7 +5,7 @@
 
 FROM openjdk:8
 
-MAINTAINER fluentness.org
+MAINTAINER germede
 
 ENV MAVEN_VERSION 3.6.0
 ENV MAVEN_HOME /usr/share/maven
