@@ -8,23 +8,25 @@ import org.fluentness.flow.view.ViewProvider;
 
 public class Views extends ViewProvider implements StyleConsumer<Styles>, FormConsumer<Forms> {
 
-    View base = html(
-        head(
-            title("A music archive made attrs love and Fluentness"),
-            meta(NAME -> "lang", CONTENT -> "en"),
-            meta(CHARSET -> "utf-8"),
-            style(styles().bundle),
-            includeJs("script.min.js")
-        ),
-        body(
-            div(attrs(CLASS -> "container"),
-                h1(translate("welcome_message")),
-                placeholder()
+    View base(View toInclude) {
+        return html(
+            head(
+                title("A music archive made attrs love and Fluentness"),
+                meta(NAME -> "lang", CONTENT -> "en"),
+                meta(CHARSET -> "utf-8"),
+                style(styles().bundle),
+                includeJs("script.min.js")
+            ),
+            body(
+                div(attrs(CLASS -> "container"),
+                    h1(translate("welcome_message")),
+                    toInclude
+                )
             )
-        )
-    );
+        );
+    }
 
-    View createSong = basedOn(base,
+    View createSong = base(
         div(attrs(CLASS -> "row"),
             div(attrs(CLASS -> "column"),
                 h2(translate("song_create")),
@@ -33,7 +35,7 @@ public class Views extends ViewProvider implements StyleConsumer<Styles>, FormCo
         )
     );
 
-    View songList = basedOn(base,
+    View songList = base(
         div(attrs(CLASS -> "row"),
             div(attrs(CLASS -> "column"),
                 div(attrs(CLASS -> "row"),

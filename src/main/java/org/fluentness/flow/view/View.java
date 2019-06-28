@@ -1,7 +1,6 @@
 package org.fluentness.flow.view;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.constants.ViewPlaceholders;
 import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.base.networking.HttpRequestRegister;
@@ -24,13 +23,6 @@ public abstract class View implements Component {
         return parameters.get(Thread.currentThread()).get(parameter);
     }
 
-    private View template;
-
-    View setTemplate(View view) {
-        this.template = view;
-        return this;
-    }
-
     public View assigning(KeyValuePair<Object>... parameters) {
         if (View.parameters.containsKey(Thread.currentThread())) {
             View.parameters.get(Thread.currentThread()).clear();
@@ -44,11 +36,7 @@ public abstract class View implements Component {
     }
 
     public String renderWithCache() {
-        String rendered = ViewCache.INSTANCE.cache(this);
-        if (template != null) {
-            rendered = ViewCache.INSTANCE.cache(template).replace(ViewPlaceholders.TEMPLATE_PLACEHOLDER, rendered);
-        }
-        return rendered;
+        return ViewCache.INSTANCE.cache(this);
     }
 
     @Override

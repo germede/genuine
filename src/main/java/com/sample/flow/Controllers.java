@@ -25,7 +25,7 @@ public class Controllers extends ControllerProvider implements ViewConsumer<View
     Controller songController = actions("/song",
         list -> get("/list", request -> {
 
-                List<Song> songList = repository(Song.class).query("findByName", name -> "Tolles Lied");
+                List<Song> songList = repository(Song.class).findByQuery("findByName", name -> "Tolles Lied");
 
                 return render(
                     views().songList.assigning(

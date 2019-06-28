@@ -1,61 +1,48 @@
 package com.sample.flow;
 
-import com.sample.base.FieldFactory;
 import org.fluentness.flow.form.Field;
 import org.fluentness.flow.form.Form;
 import org.fluentness.flow.form.FormProvider;
 
-public class Forms extends FormProvider implements Fields {
+public class Forms extends FormProvider {
 
-    Field textField() {
+    Field textField(String idString, String placeholderKey, String labelKey) {
+        return text(
+            required -> "true",
+            id -> idString,
+            placeholder -> translate(placeholderKey),
+            maxlength -> "50"
+        ).precededBy(
+            label(attrs(FOR -> idString),
+                translate(labelKey)
+            )
+        );
+    }
 
+    Field yearField(String idString, String placeholderKey, String labelKey) {
+        return number(
+            required -> "true",
+            id -> idString,
+            placeholder -> translate(placeholderKey),
+            min -> "1900",
+            max -> "2099",
+            step -> "1"
+        ).precededBy(
+            label(attrs(FOR -> idString),
+                translate(labelKey)
+            )
+        );
     }
 
     Form createSong = post("/song/list",
 
-        title -> text(
-            required -> "true",
-            id -> "song_title_input",
-            placeholder -> translate("song_title_placeholder"),
-            maxlength -> "50"
-        ).precededBy(
-            label(attrs(FOR -> "song_title_input"),
-                translate("song_title")
-            )
-        ),
+        title -> textField("song_title_input", "song_title_placeholder", "song_title"),
 
-        artist -> text(
-            required -> "true",
-            id -> "song_artist_input",
-            placeholder -> translate("song_artist_placeholder")
-        ).precededBy(
-            label(attrs(FOR -> "song_artist_input"),
-                translate("song_artist")
-            )
-        ),
+        artist -> textField("song_artist_input", "song_artist_placeholder", "song_artist"),
 
-        album -> text(
-            required -> "false",
-            id -> "song_album_input",
-            placeholder -> translate("song_artist_placeholder")
-        ).precededBy(
-            label(attrs(FOR -> "song_album_input"),
-                translate("song_album")
-            )
-        ),
+        album -> textField("song_album_input", "song_album_placeholder", "song_album"),
 
-        year -> number(
-            required -> "true",
-            id -> "song_year_input",
-            placeholder -> translate("song_year_placeholder"),
-            min -> "0",
-            max -> "2099",
-            step -> "1"
-        ).precededBy(
-            label(attrs(FOR -> "song_year_input"),
-                translate("song_year")
-            )
-        ),
+        year -> yearField("song_year_input","song_year_placeholder","song_year"),
 
         is_new -> checkbox(
             id -> "song_is_new_input"
