@@ -17,7 +17,7 @@ public class HttpResponse {
         return statusCode;
     }
 
-    public HttpResponse setStatusCode(int statusCode) {
+    public HttpResponse withStatusCode(int statusCode) {
         this.statusCode = statusCode;
         return this;
     }
@@ -26,7 +26,7 @@ public class HttpResponse {
         return headers;
     }
 
-    public HttpResponse setHeader(String key, String value) {
+    public HttpResponse withHeader(String key, String value) {
         this.headers.put(key, value);
         return this;
     }
@@ -35,7 +35,7 @@ public class HttpResponse {
         return body;
     }
 
-    public HttpResponse setBody(String body) {
+    public HttpResponse withBody(String body) {
         this.body = body;
         return this;
     }

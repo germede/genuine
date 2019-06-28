@@ -27,18 +27,18 @@ public enum  HttpResourceHandler implements HttpHandler {
             if (exists) {
                 HttpResponse response = new HttpResponse(OK);
 
-                response.setBody(new String(Files.readAllBytes(Paths.get(path))));
+                response.withBody(new String(Files.readAllBytes(Paths.get(path))));
 
                 if (path.endsWith(".js")) {
-                    response.setHeader("Content-Type", "text/javascript");
+                    response.withHeader("Content-Type", "text/javascript");
                 } else if (path.endsWith(".html")) {
-                    response.setHeader("Content-Type", "text/html");
+                    response.withHeader("Content-Type", "text/html");
                 } else if (path.endsWith(".css")) {
-                    response.setHeader("Content-Type", "text/css");
+                    response.withHeader("Content-Type", "text/css");
                 } else if (path.endsWith(".json")) {
-                    response.setHeader("Content-Type", "application/json");
+                    response.withHeader("Content-Type", "application/json");
                 } else if (path.endsWith(".svg")) {
-                    response.setHeader("Content-Type", "image/svg+xml");
+                    response.withHeader("Content-Type", "image/svg+xml");
                 }
 
                 HttpServer.INSTANCE.serve(httpExchange, response);
