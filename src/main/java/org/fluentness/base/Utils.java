@@ -6,7 +6,7 @@ import java.io.File;
 
 public enum Utils {
 
-    INSTANCE;
+    call;
 
     public void deleteRecursively(File file) {
         if (file.isDirectory()) {
@@ -19,9 +19,9 @@ public enum Utils {
         }
         if (file.exists()) {
             if (!file.delete()) {
-                Log.INSTANCE.warning("Cannot delete %s", file.getPath());
+                Log.call.warning("Cannot delete %s", file.getPath());
             } else {
-                Log.INSTANCE.debug("Deleted file %s", file.getPath());
+                Log.call.debug("Deleted file %s", file.getPath());
             }
         }
     }

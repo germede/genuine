@@ -1,9 +1,8 @@
 package org.fluentness.data;
 
-import org.fluentness.Fluentness;
-import org.fluentness.Settings;
-import org.fluentness.base.constants.OnionArchitecture;
-import org.fluentness.base.logging.Log;
+import org.fluentness.base.Settings;
+import org.fluentness.base.Structure;
+import org.fluentness.base.exceptions.FluentnessInitializationException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -15,32 +14,32 @@ import java.util.List;
 
 import static org.fluentness.base.constants.SettingKeys.*;
 
-public enum Hibernate {
-    INSTANCE;
+public enum Data {
+    call;
 
     private SessionFactory sessionFactory;
 
-    public void initialize() {
+    public void initialize(String appPackage) throws FluentnessInitializationException {
 
-        if (Settings.INSTANCE.is(ENABLE_HIBERNATE)) {
+        if (Settings.call.is(ENABLE_HIBERNATE)) {
             Configuration configuration = new Configuration();
             configuration.setProperty("hibernate.connection.url",
-                "jdbc:" + Settings.INSTANCE.get(HIBERNATE_DRIVER) +
-                    "://" + Settings.INSTANCE.get(HIBERNATE_HOST) +
-                    ":" + Settings.INSTANCE.get(HIBERNATE_PORT) +
-                    "/" + Settings.INSTANCE.get(Key.HIBERNATE_DATABASE) +
-                    Settings.INSTANCE.get(HIBERNATE_PARAMS));
-            configuration.setProperty("hibernate.connection.driver_class", Settings.INSTANCE.get(HIBERNATE_DRIVER_CLASS));
-            configuration.setProperty("hibernate.dialect", Settings.INSTANCE.get(HIBERNATE_DIALECT));
-            configuration.setProperty("hibernate.connection.username", Settings.INSTANCE.get(HIBERNATE_USERNAME));
-            configuration.setProperty("hibernate.connection.password", Settings.INSTANCE.get(HIBERNATE_PASSWORD));
+                "jdbc:" + Settings.call.get(HIBERNATE_DRIVER) +
+                    "://" + Settings.call.get(HIBERNATE_HOST) +
+                    ":" + Settings.call.get(HIBERNATE_PORT) +
+                    "/" + Settings.call.get(Key.HIBERNATE_DATABASE) +
+                    Settings.call.get(HIBERNATE_PARAMS));
+            configuration.setProperty("hibernate.connection.driver_class", Settings.call.get(HIBERNATE_DRIVER_CLASS));
+            configuration.setProperty("hibernate.dialect", Settings.call.get(HIBERNATE_DIALECT));
+            configuration.setProperty("hibernate.connection.username", Settings.call.get(HIBERNATE_USERNAME));
+            configuration.setProperty("hibernate.connection.password", Settings.call.get(HIBERNATE_PASSWORD));
 
-            for (String hibernateOption : Settings.INSTANCE.get(HIBERNATE_OPTIONS).split(";")) {
+            for (String hibernateOption : Settings.call.get(HIBERNATE_OPTIONS).split(";")) {
                 String[] keyValue = hibernateOption.split(":");
                 configuration.setProperty(keyValue[0],keyValue[1]);
             }
 
-            for (Class<? extends Model> modelClass : getModelClasses()) {
+            for (Class<? extends Model> modelClass : getModelClasses(appPackage)) {
                 configuration.addAnnotatedClass(modelClass);
             }
 
@@ -48,11 +47,11 @@ public enum Hibernate {
         }
     }
 
-    private List<Class<? extends Model>> getModelClasses() {
+    private List<Class<? extends Model>> getModelClasses(String appPackage) throws FluentnessInitializationException {
         List<Class<? extends Model>> result = new ArrayList<>();
         try {
 
-            String packageName = Fluentness.INSTANCE.appPackage + OnionArchitecture.DATA;
+            String packageName = appPackage + Structure.call.data;
             String path = packageName.replace(".", "/");
             URL root = Thread.currentThread().getContextClassLoader().getResource(path);
 
@@ -72,7 +71,7 @@ public enum Hibernate {
             }
 
         } catch (ClassNotFoundException e) {
-            Log.INSTANCE.error(e);
+            throw new FluentnessInitializationException(e);
         }
         return result;
     }

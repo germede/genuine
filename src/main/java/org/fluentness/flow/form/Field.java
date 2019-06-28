@@ -13,10 +13,6 @@ public class Field extends MarkupElementEmpty {
         this.attributes.add(type -> fieldType);
     }
 
-    void setName(String fieldName) {
-        this.attributes.add(name -> fieldName);
-    }
-
     public Field precededBy(View... predecessors) {
         return (Field) super.precededBy(predecessors);
     }

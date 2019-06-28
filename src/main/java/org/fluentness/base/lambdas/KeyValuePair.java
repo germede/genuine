@@ -6,12 +6,12 @@ public interface KeyValuePair<T> extends MethodFinder, Function<String, T> {
 
     default String getKey() {
         String lambdaClassName = this.getClass().getName();
-        if (KeyValuePairKeyRegister.INSTANCE.containsKey(lambdaClassName)) {
-            return KeyValuePairKeyRegister.INSTANCE.get(lambdaClassName);
+        if (KeyValuePairKeyRegister.call.containsKey(lambdaClassName)) {
+            return KeyValuePairKeyRegister.call.get(lambdaClassName);
         }
         checkParametersEnabled();
         String key = parameter().getName();
-        KeyValuePairKeyRegister.INSTANCE.put(lambdaClassName, key);
+        KeyValuePairKeyRegister.call.put(lambdaClassName, key);
         return key;
     }
 

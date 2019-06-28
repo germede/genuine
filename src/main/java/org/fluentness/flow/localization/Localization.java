@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Localization implements Component {
+public class Localization extends Component {
     private Map<String, String> translations = new HashMap<>();
 
     public Localization(KeyValuePair<String>... translations) {

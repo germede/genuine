@@ -3,7 +3,7 @@ package org.fluentness.flow.style;
 import org.fluentness.base.generics.Provider;
 import org.fluentness.base.lambdas.KeyValuePair;
 
-public abstract class StyleProvider implements Provider<Style> {
+public abstract class StyleProvider extends Provider<Style> {
 
     @Override
     public Class<Style> getProducedComponentType() {

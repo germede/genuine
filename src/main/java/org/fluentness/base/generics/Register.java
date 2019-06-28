@@ -1,29 +1,18 @@
 package org.fluentness.base.generics;
 
-import org.fluentness.flow.task.TaskProvider;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
-public interface Register<K, V> {
+// Force register to be singleton
+public interface Register<SINGLETON extends Enum, K, V> {
 
-    // keys of map of maps are the classes that implement register, NOT the instances
-    Map<Class, Map> mapOfMaps = new HashMap<>();
+    Map<Class<? extends Enum>, Map> singletonRegisterMap = new HashMap<>();
 
     default Map<K, V> map() {
-        // lazy creator of registers
-        if (!mapOfMaps.containsKey(this.getClass())) {
-            if (this instanceof TaskProvider) {
-                mapOfMaps.put(this.getClass(), new TreeMap());
-            } else {
-                mapOfMaps.put(this.getClass(), new HashMap());
-            }
-            if (this instanceof Provider) {
-                putAll(((Provider) this).retrieveAll());
-            }
+        if (singletonRegisterMap.get(this.getClass()) == null) {
+            singletonRegisterMap.put((Class<? extends Enum>) this.getClass(), new HashMap());
         }
-        return mapOfMaps.get(this.getClass());
+        return singletonRegisterMap.get(this.getClass());
     }
 
     default boolean containsValue(V value) {

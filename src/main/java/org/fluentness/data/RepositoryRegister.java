@@ -2,9 +2,9 @@ package org.fluentness.data;
 
 import org.fluentness.base.generics.Register;
 
-public enum RepositoryRegister implements Register<Class<? extends Model>, Repository<? extends Model>> {
+public enum RepositoryRegister implements Register<RepositoryRegister, Class<? extends Model>, Repository<? extends Model>> {
 
-    INSTANCE;
+    call;
 
     public Repository<?> getRepository(Class<? extends Model> modelClass){
         if (containsKey(modelClass)) {

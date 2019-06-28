@@ -1,9 +1,9 @@
 package org.fluentness.flow.view;
 
-import org.fluentness.Fluentness;
 import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.base.networking.HttpRequestRegister;
+import org.fluentness.flow.Flow;
 import org.fluentness.flow.localization.Localization;
 
 import java.util.Arrays;
@@ -12,9 +12,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class View implements Component {
+public abstract class View extends Component {
 
     private static final Map<Thread, Map<String, Object>> parameters = new HashMap<>();
+
     boolean hasParameters() {
         return parameters.get(Thread.currentThread()) != null && !parameters.get(Thread.currentThread()).isEmpty();
     }
@@ -27,7 +28,7 @@ public abstract class View implements Component {
         if (View.parameters.containsKey(Thread.currentThread())) {
             View.parameters.get(Thread.currentThread()).clear();
         } else {
-            View.parameters.put(Thread.currentThread(),new HashMap<>());
+            View.parameters.put(Thread.currentThread(), new HashMap<>());
         }
         Arrays.stream(parameters).forEach(
             parameter -> View.parameters.get(Thread.currentThread()).put(parameter.getKey(), parameter.getValue())
@@ -36,7 +37,7 @@ public abstract class View implements Component {
     }
 
     public String renderWithCache() {
-        return ViewCache.INSTANCE.cache(this);
+        return ViewCache.call.cache(this);
     }
 
     @Override
@@ -46,21 +47,14 @@ public abstract class View implements Component {
 
     public abstract String render();
 
-    private String localize(String toLocalize) {
-        Map<String, Localization> all = Fluentness.INSTANCE.localizations.getAll();
-        Localization localization = Fluentness.INSTANCE.localizations.get(HttpRequestRegister.getCurrentLocale().toString());
-        if (localization == null) {
-            localization = Fluentness.INSTANCE.localizations.get(HttpRequestRegister.getCurrentLocale().getLanguage());
-        }
-        if (localization == null) {
-            localization = new Localization();
-        }
-        localization.get("cancel");
+    private String localize(String text) {
+        Localization localizationToApply = Flow.call.localizations.get(HttpRequestRegister.getCurrentLocale().toString());
+        String currentLocale = HttpRequestRegister.getCurrentLocale().toString();
 
-        Matcher matcher = Pattern.compile("\\{\\{L:([A-Za-z1-9_]+)}}").matcher(toLocalize);
+        Matcher matcher = Pattern.compile("\\{\\{L:([A-Za-z1-9_]+)}}").matcher(text);
         while (matcher.find()) {
-            toLocalize = toLocalize.replace(matcher.group(0), localization.get(matcher.group(1)));
+            text = text.replace(matcher.group(0), localizationToApply.get(matcher.group(1)));
         }
-        return toLocalize;
+        return text;
     }
 }

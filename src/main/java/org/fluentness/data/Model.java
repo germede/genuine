@@ -10,48 +10,48 @@ public interface Model {
     default void create(){
         Transaction transaction = null;
         try {
-            Session session = Hibernate.INSTANCE.openSession();
+            Session session = Data.call.openSession();
             transaction = session.beginTransaction();
             session.save(this);
             transaction.commit();
-            Log.INSTANCE.debug("%s record inserted successfully", this.getClass().getSimpleName());
+            Log.call.debug("%s record inserted successfully", this.getClass().getSimpleName());
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
         }
     }
 
     default void update(){
         Transaction transaction = null;
         try {
-            Session session = Hibernate.INSTANCE.openSession();
+            Session session = Data.call.openSession();
             transaction = session.beginTransaction();
             session.update(this);
             transaction.commit();
-            Log.INSTANCE.debug("%s record updated successfully", this.getClass().getSimpleName());
+            Log.call.debug("%s record updated successfully", this.getClass().getSimpleName());
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
         }
     }
 
     default void delete(){
         Transaction transaction = null;
         try {
-            Session session = Hibernate.INSTANCE.openSession();
+            Session session = Data.call.openSession();
             transaction = session.beginTransaction();
             session.delete(this);
             transaction.commit();
-            Log.INSTANCE.debug("%s record deleted successfully", this.getClass().getSimpleName());
+            Log.call.debug("%s record deleted successfully", this.getClass().getSimpleName());
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
         }
     }
 

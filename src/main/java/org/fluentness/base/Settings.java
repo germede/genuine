@@ -1,4 +1,4 @@
-package org.fluentness;
+package org.fluentness.base;
 
 import org.fluentness.base.constants.SettingKeys;
 import org.fluentness.flow.configuration.Configuration;
@@ -6,12 +6,12 @@ import org.fluentness.flow.configuration.DefaultConfiguration;
 
 public enum Settings {
 
-    INSTANCE;
+    call;
 
     private Configuration appliedConfiguration;
-    private Configuration defaultConfiguration = DefaultConfiguration.INSTANCE.get();
+    private Configuration defaultConfiguration = DefaultConfiguration.call.get();
 
-    void apply(Configuration configuration) {
+    public void apply(Configuration configuration) {
         this.appliedConfiguration = configuration;
     }
 

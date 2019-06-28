@@ -1,6 +1,6 @@
 package org.fluentness.base.generics;
 
-import org.fluentness.Settings;
+import org.fluentness.base.Settings;
 import org.fluentness.base.logging.Log;
 
 import java.io.File;
@@ -19,12 +19,12 @@ public interface Cache<T> {
 
     default String cache(T t) {
         boolean cacheable = isCacheable(t);
-        if (Settings.INSTANCE.is(ENABLE_CACHE) && doesCacheFileExists(t) && cacheable) {
+        if (Settings.call.is(ENABLE_CACHE) && doesCacheFileExists(t) && cacheable) {
             return retrieve(t);
         }
 
         String content = t.toString();
-        if (Settings.INSTANCE.is(ENABLE_CACHE) && cacheable) {
+        if (Settings.call.is(ENABLE_CACHE) && cacheable) {
             store(t, content);
         }
         return content;
@@ -36,20 +36,20 @@ public interface Cache<T> {
 
     default void store(T t, String content) {
         try {
-            Log.INSTANCE.debug("Create cache record %s", getIdentifyingCacheFilePath(t));
+            Log.call.debug("Create cache record %s", getIdentifyingCacheFilePath(t));
             new File(getIdentifyingCacheFilePath(t)).getParentFile().mkdirs();
             Files.write(Paths.get(getIdentifyingCacheFilePath(t)), content.getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
         }
     }
 
     default String retrieve(T t) {
         try {
-            Log.INSTANCE.debug("Retrieve cache record %s", getIdentifyingCacheFilePath(t));
+            Log.call.debug("Retrieve cache record %s", getIdentifyingCacheFilePath(t));
             return new String(Files.readAllBytes(Paths.get(getIdentifyingCacheFilePath(t))));
         } catch (IOException e) {
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
             return "";
         }
     }

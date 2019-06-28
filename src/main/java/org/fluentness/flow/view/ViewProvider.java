@@ -2,11 +2,11 @@ package org.fluentness.flow.view;
 
 import org.fluentness.base.constants.ViewPlaceholders;
 import org.fluentness.base.generics.Provider;
-import org.fluentness.flow.localization.Translator;
+import org.fluentness.flow.localization.Localizator;
 
 import java.util.function.Function;
 
-public abstract class ViewProvider implements Provider<View>, HtmlFunctions, Translator {
+public abstract class ViewProvider extends Provider<View> implements HtmlFunctions, Localizator {
 
     @Override
     public Class<View> getProducedComponentType() {
@@ -19,10 +19,6 @@ public abstract class ViewProvider implements Provider<View>, HtmlFunctions, Tra
 
     protected View raw(String raw) {
         return new RawView(raw);
-    }
-
-    protected View basedOn(View template, View toInclude) {
-        return toInclude.setTemplate(template);
     }
 
     protected View print(String parameter) {

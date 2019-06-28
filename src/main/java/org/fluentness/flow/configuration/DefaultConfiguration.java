@@ -4,7 +4,7 @@ import static org.fluentness.base.constants.SettingKeys.*;
 
 public enum DefaultConfiguration {
 
-    INSTANCE;
+    call;
 
     public Configuration get() {
         return new Configuration(

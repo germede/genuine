@@ -3,7 +3,7 @@ package org.fluentness.flow.configuration;
 import org.fluentness.base.constants.SettingKeys;
 import org.fluentness.base.generics.Provider;
 
-public abstract class ConfigurationProvider implements Provider<Configuration>, SettingKeys {
+public abstract class ConfigurationProvider extends Provider<Configuration> implements SettingKeys {
 
     @Override
     public Class<Configuration> getProducedComponentType() {

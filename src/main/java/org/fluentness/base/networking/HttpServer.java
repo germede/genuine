@@ -2,7 +2,7 @@ package org.fluentness.base.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.Settings;
+import org.fluentness.base.Settings;
 import org.fluentness.base.logging.Log;
 
 import java.io.IOException;
@@ -14,12 +14,12 @@ import java.util.Map;
 import static org.fluentness.base.constants.SettingKeys.*;
 
 public enum  HttpServer {
-    INSTANCE;
+    call;
 
     private com.sun.net.httpserver.HttpServer server;
-    private String protocol = Settings.INSTANCE.get(APP_PROTOCOL);
-    private String hostname = Settings.INSTANCE.get(APP_HOST);
-    private int port = Integer.parseInt(Settings.INSTANCE.get(APP_PORT));
+    private String protocol = Settings.call.get(APP_PROTOCOL);
+    private String hostname = Settings.call.get(APP_HOST);
+    private int port = Integer.parseInt(Settings.call.get(APP_PORT));
 
 
     public void start() {
@@ -32,14 +32,14 @@ public enum  HttpServer {
                     throw new ProtocolException();
             }
 
-            Map<String, HttpHandler> routeHandlerMap = HttpRouter.INSTANCE.getRouteHandlerMap();
+            Map<String, HttpHandler> routeHandlerMap = HttpRouter.call.getRouteHandlerMap();
             routeHandlerMap.forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
             server.start();
-            Log.INSTANCE.info("Server successfully started and listening to %s",getAddress());
+            Log.call.info("Server successfully started and listening to %s",getAddress());
         } catch (Exception e) {
             stop();
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
         }
     }
 
@@ -50,7 +50,7 @@ public enum  HttpServer {
     public void stop() {
         if (server != null) {
             server.stop(0);
-            Log.INSTANCE.info("Server successfully stopped");
+            Log.call.info("Server successfully stopped");
         }
     }
 
@@ -67,7 +67,7 @@ public enum  HttpServer {
 
             httpExchange.close();
         } catch (IOException e) {
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
         }
     }
 }

@@ -1,5 +1,5 @@
 package org.fluentness.base.generics;
 
-public interface Consumer {
+public interface Consumer<T extends Component>  {
 
 }

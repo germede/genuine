@@ -4,8 +4,8 @@ import org.fluentness.base.generics.Register;
 
 import java.util.Locale;
 
-public enum HttpRequestRegister implements Register<Thread, HttpRequest> {
-    INSTANCE;
+public enum HttpRequestRegister implements Register<HttpRequestRegister, Thread, HttpRequest> {
+    call;
 
     public void putCurrent(HttpRequest request) {
         put(Thread.currentThread(),request);
@@ -20,7 +20,7 @@ public enum HttpRequestRegister implements Register<Thread, HttpRequest> {
     }
 
     public static Locale getCurrentLocale() {
-        HttpRequest httpRequest = INSTANCE.getCurrent();
+        HttpRequest httpRequest = call.getCurrent();
         return httpRequest != null ?
             httpRequest.getPreferredLocale() :
             Locale.getDefault();

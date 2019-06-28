@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Configuration implements Component {
+public class Configuration extends Component {
     
     private Map<SettingKeys.Key, String> settings = new HashMap<>();
 

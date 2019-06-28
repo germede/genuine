@@ -21,17 +21,17 @@ public final class Repository<T extends Model> {
     public List<T> findAll() {
         Transaction transaction = null;
         try {
-            Session session = Hibernate.INSTANCE.openSession();
+            Session session = Data.call.openSession();
             transaction = session.beginTransaction();
             List list = session.createQuery("from " + modelClass.getName()).list();
             transaction.commit();
-            Log.INSTANCE.debug("All %s records retrieved successfully", this.getClass().getSimpleName());
+            Log.call.debug("All %s records retrieved successfully", this.getClass().getSimpleName());
             return (List<T>) list;
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
         }
         return new ArrayList<>();
     }
@@ -39,17 +39,17 @@ public final class Repository<T extends Model> {
     public T findById(int id) {
         Transaction transaction = null;
         try {
-            Session session = Hibernate.INSTANCE.openSession();
+            Session session = Data.call.openSession();
             transaction = session.beginTransaction();
             T result = session.get(modelClass, id);
             transaction.commit();
-            Log.INSTANCE.debug("All %s records retrieved successfully", this.getClass().getSimpleName());
+            Log.call.debug("All %s records retrieved successfully", this.getClass().getSimpleName());
             return result;
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
         }
         return null;
     }
@@ -57,7 +57,7 @@ public final class Repository<T extends Model> {
     public List<T> findByQuery(String namedQuery, KeyValuePair<Object>... parameters) {
         Transaction transaction = null;
         try {
-            Session session = Hibernate.INSTANCE.openSession();
+            Session session = Data.call.openSession();
             transaction = session.beginTransaction();
             Query<T> query = session.createNamedQuery(namedQuery, modelClass);
             for (KeyValuePair<Object> parameter : parameters) {
@@ -65,7 +65,7 @@ public final class Repository<T extends Model> {
             }
             List<T> list = query.list();
             transaction.commit();
-            Log.INSTANCE.debug("%s records retrieved successfully using named query '%s'",
+            Log.call.debug("%s records retrieved successfully using named query '%s'",
                 this.getClass().getSimpleName(),
                 namedQuery
             );
@@ -74,7 +74,7 @@ public final class Repository<T extends Model> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            Log.INSTANCE.error(e);
+            Log.call.error(e);
         }
         return new ArrayList<>();
     }

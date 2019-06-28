@@ -1,73 +1,77 @@
 package org.fluentness.base.generics;
 
+import org.fluentness.base.exceptions.ComponentNotFoundException;
 import org.fluentness.base.logging.Log;
 import org.fluentness.data.Model;
 import org.fluentness.data.Repository;
 import org.fluentness.data.RepositoryRegister;
+import org.fluentness.flow.task.Task;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public interface Provider<T extends Component> extends Register<String, T> {
+public abstract class Provider<T extends Component> {
 
-    default <M extends Model> Repository<M> repository(Class<M> model) {
-        return (Repository<M>) RepositoryRegister.INSTANCE.getRepository(model);
-    }
+    private List<T> components;
 
-    Class<T> getProducedComponentType();
-
-    default Map<String, T> retrieveAll() {
-        // should only be called once by register
-        Map<String, T> components = new HashMap<>();
-
-        try {
-            Field[] fields = this.getClass().getDeclaredFields();
-            for (Field field : fields) {
-                if (field.getModifiers() != 0) {
-                    Log.INSTANCE.warning("Component %s->%s should have no modifiers, found %s",
-                        this.getClass().getSimpleName(),
-                        field.getName(),
-                        Modifier.toString(field.getModifiers())
-                    );
+    public List<T> getAll() {
+        if (components == null) {
+            components = new ArrayList<>();
+            try {
+                Field[] fields = this.getClass().getDeclaredFields();
+                for (Field field : fields) {
+                    if (field.getModifiers() != 0) {
+                        Log.call.fatal("Component %s->%s should have no modifiers, found %s",
+                            this.getClass().getSimpleName(),
+                            field.getName(),
+                            Modifier.toString(field.getModifiers())
+                        );
+                    }
+                    field.setAccessible(true);
+                    if (!getProducedComponentType().isAssignableFrom(field.get(this).getClass())) {
+                        Log.call.fatal("Provider %s should provide Components of type %s, use consumer interfaces for dependency injection instead",
+                            this.getClass().getSimpleName(),
+                            field.getName(),
+                            getProducedComponentType().getSimpleName()
+                        );
+                    }
+                    T component = (T) field.get(this);
+                    component.setName(field.getName());
+                    if (component.getClass().equals(Task.class)) {
+                        component.setName(field.getName().replaceAll("_",":"));
+                    }
+                    components.add(component);
                 }
-                field.setAccessible(true);
-                if (!getProducedComponentType().isAssignableFrom(field.get(this).getClass())) {
-                    Log.INSTANCE.fatal("Component %s->%s should be of type %s, use consumer interfaces for dependency injection instead",
-                        this.getClass().getSimpleName(),
-                        field.getName(),
-                        getProducedComponentType().getSimpleName()
-                    );
-                }
-                T t = (T) field.get(this);
-                components.put(field.getName(), t);
-                field.setAccessible(false);
+            } catch (IllegalAccessException e) {
+                Log.call.fatal(e);
             }
-        } catch (IllegalAccessException e) {
-            Log.INSTANCE.error(e);
         }
         return components;
     }
 
-    default boolean isAnnotationPresent(String name, Class<? extends Annotation> annotationClass) {
-        Field[] fields = this.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            if (field.getName().equals(name) && field.isAnnotationPresent(annotationClass)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    default <A extends Annotation> A getAnnotation(String name, Class<? extends A> annotationClass) {
-        Field[] fields = this.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            if (field.getName().equals(name)) {
-                return field.getAnnotation(annotationClass);
-            }
+    public T get(String name) {
+        try {
+            return getAll().stream()
+                .filter(component -> name.contains(component.getName()))
+                .findAny().orElseThrow(ComponentNotFoundException::new);
+        } catch (ComponentNotFoundException e) {
+            Log.call.fatal("Component %s not found by provider %s",
+                name,
+                this.getClass().getSimpleName()
+            );
         }
         return null;
     }
+
+    public void addAll(List<T> components) {
+        getAll().addAll(components);
+    }
+
+    protected  <M extends Model> Repository<M> repository(Class<M> model) {
+        return (Repository<M>) RepositoryRegister.call.getRepository(model);
+    }
+
+    public abstract Class<T> getProducedComponentType();
 }

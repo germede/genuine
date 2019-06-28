@@ -3,7 +3,7 @@ package org.fluentness.flow.localization;
 import org.fluentness.base.generics.Provider;
 import org.fluentness.base.lambdas.KeyValuePair;
 
-public abstract class LocalizationProvider implements Provider<Localization> {
+public abstract class LocalizationProvider extends Provider<Localization> {
 
     @Override
     public Class<Localization> getProducedComponentType() {

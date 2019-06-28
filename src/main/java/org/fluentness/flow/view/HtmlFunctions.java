@@ -1,6 +1,5 @@
 package org.fluentness.flow.view;
 
-import org.fluentness.Fluentness;
 import org.fluentness.base.constants.PublicDirectories;
 import org.fluentness.flow.style.Style;
 
@@ -20,7 +19,7 @@ public interface HtmlFunctions extends
     }
 
     default MarkupElementEmpty style(Style style) {
-        String path = PublicDirectories.STYLES + "/" + Fluentness.INSTANCE.styles.getKeyForValue(style) + ".css";
+        String path = PublicDirectories.STYLES + "/" + style.getName() + ".css";
         if (!new File(path).exists()) {
             style.writeToFile(path);
         }

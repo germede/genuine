@@ -7,7 +7,7 @@ import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.base.networking.HttpResponse;
 import org.fluentness.flow.view.View;
 
-public abstract class ControllerProvider implements Provider<Controller>, HttpMethods, HttpStatusCodes {
+public abstract class ControllerProvider extends Provider<Controller> implements HttpMethods, HttpStatusCodes {
 
     @Override
     public Class<Controller> getProducedComponentType() {

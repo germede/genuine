@@ -1,30 +1,31 @@
 package org.fluentness.flow.task;
 
 import org.fluentness.base.constants.AnsiColors;
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.Component;
 import org.fluentness.base.generics.Provider;
 
-public abstract class TaskProvider implements Provider<Task>, AnsiColors {
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
+public abstract class TaskProvider extends Provider<Task> implements AnsiColors {
 
     @Override
     public Class<Task> getProducedComponentType() {
         return Task.class;
     }
 
-    protected Task does(String description, Executable executable) {
-        return new Task(description, executable);
+    protected Task does(String description, TaskExecutor executable, String... args) {
+        return new Task(description, executable, args);
     }
 
-    protected Task does(String description, KeyValuePair<Step>... steps) {
-        return new Task(description, steps);
+    Map<String, List<Task>> getAllGroupedByCategory() {
+        Map<String, List<Task>> categories = new TreeMap<>(
+            getAll().stream().collect(Collectors.groupingBy(task -> task.getName().split(":")[0]))
+        );
+        categories.forEach((s, tasks) -> tasks.sort(Comparator.comparing(Component::getName)));
+        return categories;
     }
-
-    protected Step step(Executable executor) {
-        return new Step("", executor);
-    }
-
-    protected Step step(String description, Executable executor) {
-        return new Step(description, executor);
-    }
-
 }
