@@ -5,6 +5,7 @@ import org.fluentness.Settings;
 import org.fluentness.base.constants.OnionArchitecture;
 import org.fluentness.base.logging.Log;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.io.File;
@@ -17,7 +18,7 @@ import static org.fluentness.base.constants.SettingKeys.*;
 public enum Hibernate {
     INSTANCE;
 
-    private org.hibernate.SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     public void initialize() {
 

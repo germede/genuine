@@ -23,10 +23,10 @@ public final class Repository<T extends Model> {
         try {
             Session session = Hibernate.INSTANCE.openSession();
             transaction = session.beginTransaction();
-            List<T> list = session.createQuery("from " + modelClass.getName()).list();
+            List list = session.createQuery("from " + modelClass.getName()).list();
             transaction.commit();
             Log.INSTANCE.debug("All %s records retrieved successfully", this.getClass().getSimpleName());
-            return list;
+            return (List<T>) list;
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -36,7 +36,25 @@ public final class Repository<T extends Model> {
         return new ArrayList<>();
     }
 
-    public List<T> query(String namedQuery, KeyValuePair<Object>... parameters) {
+    public T findById(int id) {
+        Transaction transaction = null;
+        try {
+            Session session = Hibernate.INSTANCE.openSession();
+            transaction = session.beginTransaction();
+            T result = session.get(modelClass, id);
+            transaction.commit();
+            Log.INSTANCE.debug("All %s records retrieved successfully", this.getClass().getSimpleName());
+            return result;
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            Log.INSTANCE.error(e);
+        }
+        return null;
+    }
+
+    public List<T> findByQuery(String namedQuery, KeyValuePair<Object>... parameters) {
         Transaction transaction = null;
         try {
             Session session = Hibernate.INSTANCE.openSession();
@@ -60,4 +78,6 @@ public final class Repository<T extends Model> {
         }
         return new ArrayList<>();
     }
+
+
 }

@@ -55,15 +55,15 @@ public abstract class ControllerProvider implements Provider<Controller>, HttpMe
     }
 
     protected HttpResponse render(View view) {
-        return new HttpResponse(OK).setBody(view.renderWithCache());
+        return new HttpResponse(OK).withBody(view.renderWithCache());
     }
 
     protected HttpResponse response(String body) {
-        return new HttpResponse(OK).setBody(body);
+        return new HttpResponse(OK).withBody(body);
     }
 
     protected HttpResponse redirect(String to) {
-        return new HttpResponse(MOVED_PERMANENTLY).setHeader("Location", to);
+        return new HttpResponse(MOVED_PERMANENTLY).withHeader("Location", to);
     }
 
 }
