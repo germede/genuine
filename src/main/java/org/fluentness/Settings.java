@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.common.constants.SettingKeys;
+import org.fluentness.base.constants.SettingKeys;
 import org.fluentness.flow.configuration.Configuration;
 import org.fluentness.flow.configuration.DefaultConfiguration;
 

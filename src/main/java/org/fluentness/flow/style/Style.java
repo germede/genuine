@@ -1,7 +1,7 @@
 package org.fluentness.flow.style;
 
-import org.fluentness.common.generics.Component;
-import org.fluentness.common.logging.Log;
+import org.fluentness.base.generics.Component;
+import org.fluentness.base.logging.Log;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,9 +1,15 @@
 package com.sample.flow;
 
+import com.sample.base.FieldFactory;
+import org.fluentness.flow.form.Field;
 import org.fluentness.flow.form.Form;
 import org.fluentness.flow.form.FormProvider;
 
-public class Forms extends FormProvider {
+public class Forms extends FormProvider implements Fields {
+
+    Field textField() {
+
+    }
 
     Form createSong = post("/song/list",
 

@@ -1,6 +1,6 @@
 package org.fluentness.flow.configuration;
 
-import static org.fluentness.common.constants.SettingKeys.*;
+import static org.fluentness.base.constants.SettingKeys.*;
 
 public enum DefaultConfiguration {
 

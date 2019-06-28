@@ -1,7 +1,7 @@
 package org.fluentness.flow.task;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.generics.Consumer;
+import org.fluentness.base.generics.Consumer;
 
 public interface TaskConsumer<T extends TaskProvider> extends Consumer {
 

@@ -2,8 +2,8 @@ package org.fluentness.data;
 
 import org.fluentness.Fluentness;
 import org.fluentness.Settings;
-import org.fluentness.common.constants.OnionArchitecture;
-import org.fluentness.common.logging.Log;
+import org.fluentness.base.constants.OnionArchitecture;
+import org.fluentness.base.logging.Log;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.fluentness.common.constants.SettingKeys.*;
+import static org.fluentness.base.constants.SettingKeys.*;
 
 public enum Hibernate {
     INSTANCE;

@@ -1,8 +1,8 @@
 package org.fluentness.flow.task;
 
-import org.fluentness.common.constants.AnsiColors;
-import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.common.generics.Provider;
+import org.fluentness.base.constants.AnsiColors;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.Provider;
 
 public abstract class TaskProvider implements Provider<Task>, AnsiColors {
 

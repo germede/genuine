@@ -1,7 +1,7 @@
 package org.fluentness.flow.view;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.constants.PublicDirectories;
+import org.fluentness.base.constants.PublicDirectories;
 import org.fluentness.flow.style.Style;
 
 import java.io.File;

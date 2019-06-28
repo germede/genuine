@@ -1,6 +1,6 @@
 package org.fluentness.flow.configuration;
 
-import org.fluentness.common.constants.SettingKeys;
+import org.fluentness.base.constants.SettingKeys;
 
 public class Setting {
     private SettingKeys.Key key;

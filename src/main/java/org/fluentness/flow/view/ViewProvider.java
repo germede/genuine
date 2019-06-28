@@ -1,19 +1,16 @@
 package org.fluentness.flow.view;
 
-import org.fluentness.common.constants.ViewPlaceholders;
-import org.fluentness.common.generics.Provider;
+import org.fluentness.base.constants.ViewPlaceholders;
+import org.fluentness.base.generics.Provider;
+import org.fluentness.flow.localization.Translator;
 
 import java.util.function.Function;
 
-public abstract class ViewProvider implements Provider<View>, HtmlFunctions {
+public abstract class ViewProvider implements Provider<View>, HtmlFunctions, Translator {
 
     @Override
     public Class<View> getProducedComponentType() {
         return View.class;
-    }
-
-    protected String translate(String name) {
-        return String.format(ViewPlaceholders.LOCALIZATION_PLACEHOLDER, name);
     }
 
     protected View placeholder() {

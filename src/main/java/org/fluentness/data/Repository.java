@@ -1,7 +1,7 @@
 package org.fluentness.data;
 
-import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.common.logging.Log;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.logging.Log;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

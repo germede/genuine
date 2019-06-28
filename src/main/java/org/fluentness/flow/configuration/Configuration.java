@@ -1,7 +1,7 @@
 package org.fluentness.flow.configuration;
 
-import org.fluentness.common.constants.SettingKeys;
-import org.fluentness.common.generics.Component;
+import org.fluentness.base.constants.SettingKeys;
+import org.fluentness.base.generics.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;

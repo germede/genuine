@@ -1,6 +1,6 @@
 package org.fluentness.flow.view;
 
-import org.fluentness.common.lambdas.KeyValuePair;
+import org.fluentness.base.lambdas.KeyValuePair;
 
 interface HtmlFunctionsEmpty {
 

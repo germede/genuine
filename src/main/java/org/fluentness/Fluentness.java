@@ -1,9 +1,9 @@
 package org.fluentness;
 
-import org.fluentness.common.generics.Component;
-import org.fluentness.common.generics.Consumer;
-import org.fluentness.common.generics.Provider;
-import org.fluentness.common.logging.Log;
+import org.fluentness.base.generics.Component;
+import org.fluentness.base.generics.Consumer;
+import org.fluentness.base.generics.Provider;
+import org.fluentness.base.logging.Log;
 import org.fluentness.data.Hibernate;
 import org.fluentness.flow.configuration.ConfigurationProvider;
 import org.fluentness.flow.controller.ControllerProvider;
@@ -19,8 +19,8 @@ import org.fluentness.flow.view.ViewProvider;
 import java.util.Arrays;
 import java.util.Map;
 
-import static org.fluentness.common.constants.AnsiColors.*;
-import static org.fluentness.common.constants.OnionArchitecture.*;
+import static org.fluentness.base.constants.AnsiColors.*;
+import static org.fluentness.base.constants.OnionArchitecture.*;
 
 public enum Fluentness {
 

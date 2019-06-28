@@ -1,7 +1,7 @@
 package org.fluentness.flow.controller;
 
-import org.fluentness.common.networking.HttpRequest;
-import org.fluentness.common.networking.HttpResponse;
+import org.fluentness.base.networking.HttpRequest;
+import org.fluentness.base.networking.HttpResponse;
 
 @FunctionalInterface
 public interface ActionExecutor {

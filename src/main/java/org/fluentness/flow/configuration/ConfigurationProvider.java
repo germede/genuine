@@ -1,7 +1,7 @@
 package org.fluentness.flow.configuration;
 
-import org.fluentness.common.constants.SettingKeys;
-import org.fluentness.common.generics.Provider;
+import org.fluentness.base.constants.SettingKeys;
+import org.fluentness.base.generics.Provider;
 
 public abstract class ConfigurationProvider implements Provider<Configuration>, SettingKeys {
 

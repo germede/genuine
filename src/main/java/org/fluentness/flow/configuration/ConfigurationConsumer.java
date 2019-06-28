@@ -1,7 +1,7 @@
 package org.fluentness.flow.configuration;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.generics.Consumer;
+import org.fluentness.base.generics.Consumer;
 
 public interface ConfigurationConsumer<T extends ConfigurationProvider> extends Consumer {
 

@@ -1,10 +1,10 @@
 package org.fluentness.flow.controller;
 
-import org.fluentness.common.constants.HttpMethods;
-import org.fluentness.common.constants.HttpStatusCodes;
-import org.fluentness.common.generics.Provider;
-import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.common.networking.HttpResponse;
+import org.fluentness.base.constants.HttpMethods;
+import org.fluentness.base.constants.HttpStatusCodes;
+import org.fluentness.base.generics.Provider;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.networking.HttpResponse;
 import org.fluentness.flow.view.View;
 
 public abstract class ControllerProvider implements Provider<Controller>, HttpMethods, HttpStatusCodes {

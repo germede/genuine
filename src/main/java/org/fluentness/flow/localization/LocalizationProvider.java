@@ -1,7 +1,7 @@
 package org.fluentness.flow.localization;
 
-import org.fluentness.common.generics.Provider;
-import org.fluentness.common.lambdas.KeyValuePair;
+import org.fluentness.base.generics.Provider;
+import org.fluentness.base.lambdas.KeyValuePair;
 
 public abstract class LocalizationProvider implements Provider<Localization> {
 

@@ -1,9 +1,9 @@
 package org.fluentness.flow.view;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.constants.PrivateDirectories;
-import org.fluentness.common.generics.Cache;
-import org.fluentness.common.networking.HttpRequestRegister;
+import org.fluentness.base.constants.PrivateDirectories;
+import org.fluentness.base.generics.Cache;
+import org.fluentness.base.networking.HttpRequestRegister;
 
 public enum ViewCache implements Cache<View> {
 

@@ -1,10 +1,10 @@
 package org.fluentness.flow.view;
 
 import org.fluentness.Fluentness;
-import org.fluentness.common.constants.ViewPlaceholders;
-import org.fluentness.common.generics.Component;
-import org.fluentness.common.lambdas.KeyValuePair;
-import org.fluentness.common.networking.HttpRequestRegister;
+import org.fluentness.base.constants.ViewPlaceholders;
+import org.fluentness.base.generics.Component;
+import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.networking.HttpRequestRegister;
 import org.fluentness.flow.localization.Localization;
 
 import java.util.Arrays;

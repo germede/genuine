@@ -1,8 +1,8 @@
 package org.fluentness.flow.form;
 
-import org.fluentness.common.lambdas.KeyValuePair;
+import org.fluentness.base.lambdas.KeyValuePair;
 
-interface FieldFunctions {
+public interface FieldFunctions {
 
     default Field button(KeyValuePair<String>... attributes) {
         return new Field("button",attributes);

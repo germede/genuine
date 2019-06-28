@@ -30,7 +30,7 @@ public class Controllers extends ControllerProvider implements ViewConsumer<View
                 return render(
                     views().songList.assigning(
                         songs -> songList,
-                        testBoolean -> true
+                        testBoolean -> true,
                         testParameter -> 1234
                     )
                 );
