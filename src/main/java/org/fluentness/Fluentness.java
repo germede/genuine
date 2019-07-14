@@ -1,29 +1,58 @@
 package org.fluentness;
 
 import org.fluentness.base.exceptions.FluentnessInitializationException;
+import org.fluentness.base.logging.Log;
+import org.fluentness.base.networking.HttpServer;
+import org.fluentness.base.settings.Key;
+import org.fluentness.base.settings.Settings;
 import org.fluentness.data.Data;
 import org.fluentness.flow.Flow;
 import org.fluentness.flow.task.Task;
 import org.fluentness.flow.task.TaskProvider;
 
 public enum Fluentness {
-
     call;
 
-    public void initialize(String configurationToApply, String[] programArguments) {
+    static {
+        Settings.call.initialize();
+    }
+
+    public Fluentness set(Key<String> key, String value) {
+        Settings.call.setString(key, value);
+        return this;
+    }
+
+    public Fluentness set(Key<Integer> key, Integer value) {
+        Settings.call.setInteger(key, value);
+        return this;
+    }
+
+    public Fluentness set(Key<Boolean> key, Boolean value) {
+        Settings.call.setBoolean(key, value);
+        return this;
+    }
+
+    public void initialize(String[] args) {
         try {
             try {
                 String appPackage = Class.forName(
-                    Thread.currentThread().getStackTrace()[Thread.currentThread().getStackTrace().length - 1].getClassName()
+                    Thread
+                        .currentThread()
+                        .getStackTrace()[Thread.currentThread().getStackTrace().length - 1]
+                        .getClassName()
                 ).getPackage().getName();
-                Flow.call.initialize(appPackage, configurationToApply);
+
+                Log.call.initialize();
                 Data.call.initialize(appPackage);
+                Flow.call.initialize(appPackage);
+                HttpServer.call.initialize();
+                executeCommand(args);
+
             } catch (ClassNotFoundException e) {
                 throw new FluentnessInitializationException(
                     "Fluentness initializer should be called in main method, calling class should be public", e
                 );
             }
-            executeCommand(programArguments);
         } catch (FluentnessInitializationException e) {
             e.printStackTrace();
         }
@@ -33,6 +62,7 @@ public enum Fluentness {
     private void executeCommand(String[] args) throws FluentnessInitializationException {
 
         TaskProvider tasks = Flow.call.tasks;
+
         if (args.length == 0) {
             tasks.get("print:help").execute(args);
             System.exit(0);

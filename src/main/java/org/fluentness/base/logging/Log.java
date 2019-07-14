@@ -1,35 +1,33 @@
 package org.fluentness.base.logging;
 
-import org.fluentness.base.Settings;
 import org.fluentness.base.constants.PrivateDirectories;
+import org.fluentness.base.settings.Settings;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
-import static org.fluentness.base.constants.SettingKeys.*;
+import static org.fluentness.base.settings.BooleanKey.ENABLE_LOG_TO_CONSOLE;
+import static org.fluentness.base.settings.BooleanKey.ENABLE_LOG_TO_FILE;
+import static org.fluentness.base.settings.StringKey.LOG_LEVEL;
 
-public enum  Log {
-
+public enum Log {
     call;
 
     private Logger logger;
 
-    public void configure() {
-        String logLevel = toJavaLogLevel(Settings.call.get(LOG_LEVEL));
+    public void initialize() {
+        String logLevel = Settings.call.getString(LOG_LEVEL);
 
         // create logger
-        logger = java.util.logging.Logger.getLogger(Log.class.getName());
+        logger = java.util.logging.Logger.getGlobal();
         logger.setUseParentHandlers(false);
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (Settings.call.is(ENABLE_LOG_TO_CONSOLE)) {
+        if (Settings.call.getBoolean(ENABLE_LOG_TO_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -37,7 +35,7 @@ public enum  Log {
         }
 
         // file logging
-        if (Settings.call.is(ENABLE_LOG_TO_FILE)) {
+        if (Settings.call.getBoolean(ENABLE_LOG_TO_FILE)) {
             new File(PrivateDirectories.LOG).mkdirs();
             try {
                 String logFilePath = PrivateDirectories.LOG + "/" +
@@ -59,20 +57,27 @@ public enum  Log {
         }
     }
 
+    private String format(String message, Object... parameters) {
+        if (parameters != null && parameters.length > 0) {
+            return String.format(message, parameters);
+        }
+        return message;
+    }
+
     public void debug(String message, Object... parameters) {
-        logger.fine(String.format(message, parameters));
+        logger.fine(format(message, parameters));
     }
 
     public void info(String message, Object... parameters) {
-        logger.info(String.format(message, parameters));
+        logger.info(format(message, parameters));
     }
 
     public void warning(String message, Object... parameters) {
-        logger.warning(String.format(message, parameters));
+        logger.warning(format(message, parameters));
     }
 
     public void error(String message, Object... parameters) {
-        logger.severe(String.format(message, parameters));
+        logger.severe(format(message, parameters));
     }
 
     public void error(Exception exception) {
@@ -87,7 +92,7 @@ public enum  Log {
     }
 
     public void fatal(String message, Object... parameters) {
-        error(String.format(message, parameters));
+        error(format(message, parameters));
         System.exit(1);
     }
 
@@ -103,25 +108,5 @@ public enum  Log {
             res.append("\n    ").append(stackTraceElement.toString());
         }
         return res.toString();
-    }
-
-    String toNormalLogLevel(String javaLevel) {
-        switch (javaLevel) {
-            case "FINE":
-                return "DEBUG";
-            case "SEVERE":
-                return "ERROR";
-        }
-        return javaLevel;
-    }
-
-    String toJavaLogLevel(String normalLevel) {
-        switch (normalLevel) {
-            case "DEBUG":
-                return "FINE";
-            case "ERROR":
-                return "SEVERE";
-        }
-        return normalLevel;
     }
 }

@@ -2,8 +2,8 @@ package org.fluentness.base.networking;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.base.Settings;
 import org.fluentness.base.logging.Log;
+import org.fluentness.base.settings.Settings;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -11,19 +11,24 @@ import java.net.InetSocketAddress;
 import java.net.ProtocolException;
 import java.util.Map;
 
-import static org.fluentness.base.constants.SettingKeys.*;
+import static org.fluentness.base.settings.IntegerKey.APP_PORT;
+import static org.fluentness.base.settings.StringKey.APP_HOST;
+import static org.fluentness.base.settings.StringKey.APP_PROTOCOL;
 
-public enum  HttpServer {
+public enum HttpServer {
     call;
 
     private com.sun.net.httpserver.HttpServer server;
-    private String protocol = Settings.call.get(APP_PROTOCOL);
-    private String hostname = Settings.call.get(APP_HOST);
-    private int port = Integer.parseInt(Settings.call.get(APP_PORT));
+    private String protocol;
+    private String hostname;
+    private int port;
 
-
-    public void start() {
+    public void initialize() {
+        protocol = Settings.call.getString(APP_PROTOCOL);
+        hostname = Settings.call.getString(APP_HOST);
+        port = Settings.call.getInteger(APP_PORT);
         try {
+
             switch (protocol) {
                 case "http":
                     server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(hostname, port), 0);
@@ -35,26 +40,26 @@ public enum  HttpServer {
             Map<String, HttpHandler> routeHandlerMap = HttpRouter.call.getRouteHandlerMap();
             routeHandlerMap.forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
-            server.start();
-            Log.call.info("Server successfully started and listening to %s",getAddress());
+
         } catch (Exception e) {
             stop();
             Log.call.error(e);
         }
     }
 
-    private String getAddress() {
-        return protocol + ":/" + server.getAddress().getAddress() + ":" + port;
+    public void start() {
+        server.start();
+        Log.call.info("Server successfully started and listening to %s",
+            protocol + ":/" + server.getAddress().getAddress() + ":" + port);
     }
+
 
     public void stop() {
-        if (server != null) {
-            server.stop(0);
-            Log.call.info("Server successfully stopped");
-        }
+        server.stop(0);
+        Log.call.info("Server successfully stopped");
     }
 
-    void serve(HttpExchange httpExchange, HttpResponse httpResponse) {
+    public void serve(HttpExchange httpExchange, HttpResponse httpResponse) {
         try {
             httpResponse.getHeaders().forEach((key, value) -> httpExchange.getResponseHeaders().set(key, value));
             httpExchange.sendResponseHeaders(httpResponse.getStatusCode(), httpResponse.getBody().getBytes().length);

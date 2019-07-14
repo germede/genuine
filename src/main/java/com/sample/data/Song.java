@@ -1,19 +1,17 @@
 package com.sample.data;
 
-import org.fluentness.data.Model;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "song")
-@NamedQuery(name = "findByName", query = "SELECT s FROM Song s WHERE s.name = :name")
-public class Song implements Model {
+public class Song {
 
     private int id;
-    private String name;
+    private String title;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -24,13 +22,13 @@ public class Song implements Model {
     }
 
     @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
+    @Column(name = "title")
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     @Override
@@ -39,12 +37,11 @@ public class Song implements Model {
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
         return Objects.equals(id, song.id) &&
-            Objects.equals(name, song.name);
+            Objects.equals(title, song.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, title);
     }
-
 }

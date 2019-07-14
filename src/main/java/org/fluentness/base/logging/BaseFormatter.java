@@ -17,7 +17,7 @@ abstract class BaseFormatter extends Formatter implements AnsiColors {
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
         builder.append(df.format(new Date(logRecord.getMillis())));
         builder.append("] [");
-        builder.append(Log.call.toNormalLogLevel(logRecord.getLevel().getName()));
+        builder.append(logRecord.getLevel().getName());
         for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
             if (!stackTraceElement.getClassName().startsWith("java") &&
                 !stackTraceElement.getClassName().startsWith(BaseFormatter.class.getPackage().getName())) {

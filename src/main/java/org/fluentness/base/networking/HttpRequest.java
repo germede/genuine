@@ -85,7 +85,7 @@ public class HttpRequest {
             return Locale.getDefault();
         }
         List<Locale.LanguageRange> ranges = Locale.LanguageRange.parse(headers.getFirst("Accept-Language"));
-        Collection<Locale> locales = Flow.call.localizations.getAll().stream()
+        Collection<Locale> locales = Flow.call.locales.getAll().stream()
             .map(localization -> new Locale(localization.getName()))
             .collect(Collectors.toList());
         Locale result = Locale.lookup(ranges, locales);

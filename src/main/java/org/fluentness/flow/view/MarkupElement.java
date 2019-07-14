@@ -1,14 +1,12 @@
 package org.fluentness.flow.view;
 
-import org.fluentness.base.lambdas.KeyValuePair;
-
 import java.util.Arrays;
 
 public abstract class MarkupElement extends View {
 
     protected boolean isContainer;
     protected String tag;
-    protected MarkupAttributes attributes;
+    public MarkupAttributes attributes;
     protected View[] innerViews;
     protected String innerText;
     protected View[] predecessors;
@@ -17,10 +15,6 @@ public abstract class MarkupElement extends View {
 
     protected MarkupElement(boolean isContainer) {
         this.isContainer = isContainer;
-    }
-
-    protected void addAttribute(KeyValuePair<String> attribute) {
-        this.attributes.add(attribute);
     }
 
     public MarkupElement precededBy(View... predecessors) {

@@ -6,17 +6,18 @@ import org.fluentness.flow.view.MarkupElement;
 import org.fluentness.flow.view.MarkupElementContainer;
 import org.fluentness.flow.view.View;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 public class Form extends MarkupElementContainer {
 
-    private Map<String, Field> fields = new HashMap<>();
-
     Form(String methodValue, String actionValue, KeyValuePair<Field>[] fields) {
-        super("form", new MarkupAttributes(method -> methodValue, action -> actionValue),
-            Arrays.stream(fields).map(KeyValuePair::getValue).toArray(MarkupElement[]::new));
+        super("form");
+        attributes = new MarkupAttributes(method -> methodValue, action -> actionValue);
+        innerViews = new View[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            KeyValuePair<Field> field = fields[i];
+            Field fieldInstance = field.getValue();
+            fieldInstance.attributes.add(name -> field.getKey());
+            innerViews[i] = fieldInstance;
+        }
     }
 
     public Form precededBy(View... predecessors) {

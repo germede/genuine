@@ -64,7 +64,7 @@ public class Forms extends FormProvider {
         )
     );
 
-    Form searchSong = get("song/search",
+    Form searchSong = get("/song/search",
         title -> text(
             required -> "true",
             id -> "song_title_input",

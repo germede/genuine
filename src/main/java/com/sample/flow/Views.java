@@ -11,7 +11,7 @@ public class Views extends ViewProvider implements StyleConsumer<Styles>, FormCo
     View base(View toInclude) {
         return html(
             head(
-                title("A music archive made attrs love and Fluentness"),
+                title("A music archive made with love and Fluentness"),
                 meta(NAME -> "lang", CONTENT -> "en"),
                 meta(CHARSET -> "utf-8"),
                 style(styles().bundle),
@@ -61,7 +61,7 @@ public class Views extends ViewProvider implements StyleConsumer<Styles>, FormCo
                     tbody(
                         forEachItemIn("songs", Song.class,
                             song -> tr(
-                                td(song.getName()),
+                                td(song.getTitle()),
                                 td(print("testParameter"))
 //                                td(song.getBoolean("is_new") ? "✔" : "\uD83D\uDDD9"),
 //                                td(a(attrs(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),

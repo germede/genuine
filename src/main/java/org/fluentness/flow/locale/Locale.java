@@ -10,7 +10,7 @@ import java.util.Map;
 public class Locale extends Component {
     private Map<String, String> translations = new HashMap<>();
 
-    public Locale(KeyValuePair<String>... translations) {
+    Locale(KeyValuePair<String>... translations) {
         Arrays.stream(translations).forEach(translation -> this.translations.put(translation.getKey(), translation.getValue()));
     }
 

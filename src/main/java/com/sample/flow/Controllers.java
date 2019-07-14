@@ -3,30 +3,27 @@ package com.sample.flow;
 import com.sample.data.Song;
 import org.fluentness.flow.controller.Controller;
 import org.fluentness.flow.controller.ControllerProvider;
+import org.fluentness.flow.repository.RepositoryConsumer;
 import org.fluentness.flow.view.ViewConsumer;
 
 import java.util.List;
 
-public class Controllers extends ControllerProvider implements ViewConsumer<Views> {
+public class Controllers extends ControllerProvider implements RepositoryConsumer<Repositories>, ViewConsumer<Views> {
 
-    Controller baseController = actions(
+    Controller base = actions(
         index -> get("/", request -> redirect("/song/list")),
 
         test -> get("/test", request -> {
             Song newSong = new Song();
-            newSong.setName("Tolles Lied");
-            newSong.create();
-
-
+            newSong.setTitle("Ein Lied");
+            repositories().song.create(newSong);
             return response("yea");
         })
     );
 
-    Controller songController = actions("/song",
+    Controller song = actions("/song",
         list -> get("/list", request -> {
-
-                List<Song> songList = repository(Song.class).findByQuery("findByName", name -> "Tolles Lied");
-
+                List<Song> songList = repositories().song.findAll();
                 return render(
                     views().songList.assigning(
                         songs -> songList,
@@ -34,6 +31,15 @@ public class Controllers extends ControllerProvider implements ViewConsumer<View
                         testParameter -> 1234
                     )
                 );
+            }
+        ),
+
+        search -> get("/search", request -> {
+                List<Song> songList = repositories().song.find("byTitle", title -> {
+                    String toSearch = "%" + request.getGetParameter("title") + "%";
+                    return toSearch;
+                });
+                return render(views().songList.assigning(songs -> songList));
             }
         ),
 

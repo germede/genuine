@@ -8,7 +8,7 @@ public class Task extends Component {
     private TaskExecutor executable;
     private String[] arguments;
 
-    protected Task(String description, TaskExecutor executable, String[] arguments) {
+    Task(String description, TaskExecutor executable, String[] arguments) {
         this.description = description;
         this.executable = executable;
         this.arguments = arguments;

@@ -1,6 +1,6 @@
 package org.fluentness.base.generics;
 
-import org.fluentness.base.Settings;
+import org.fluentness.base.settings.Settings;
 import org.fluentness.base.logging.Log;
 
 import java.io.File;
@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-import static org.fluentness.base.constants.SettingKeys.ENABLE_CACHE;
+import static org.fluentness.base.settings.BooleanKey.ENABLE_CACHE;
 
 public interface Cache<T> {
 
@@ -19,12 +19,12 @@ public interface Cache<T> {
 
     default String cache(T t) {
         boolean cacheable = isCacheable(t);
-        if (Settings.call.is(ENABLE_CACHE) && doesCacheFileExists(t) && cacheable) {
+        if (Settings.call.getBoolean(ENABLE_CACHE) && doesCacheFileExists(t) && cacheable) {
             return retrieve(t);
         }
 
         String content = t.toString();
-        if (Settings.call.is(ENABLE_CACHE) && cacheable) {
+        if (Settings.call.getBoolean(ENABLE_CACHE) && cacheable) {
             store(t, content);
         }
         return content;

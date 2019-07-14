@@ -2,9 +2,6 @@ package org.fluentness.base.generics;
 
 import org.fluentness.base.exceptions.ComponentNotFoundException;
 import org.fluentness.base.logging.Log;
-import org.fluentness.data.Model;
-import org.fluentness.data.Repository;
-import org.fluentness.data.RepositoryRegister;
 import org.fluentness.flow.task.Task;
 
 import java.lang.reflect.Field;
@@ -67,10 +64,6 @@ public abstract class Provider<T extends Component> {
 
     public void addAll(List<T> components) {
         getAll().addAll(components);
-    }
-
-    protected  <M extends Model> Repository<M> repository(Class<M> model) {
-        return (Repository<M>) RepositoryRegister.call.getRepository(model);
     }
 
     public abstract Class<T> getProducedComponentType();

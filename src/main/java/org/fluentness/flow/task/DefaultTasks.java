@@ -1,7 +1,6 @@
 package org.fluentness.flow.task;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.Structure;
 import org.fluentness.base.Utils;
 import org.fluentness.base.constants.PrivateDirectories;
 import org.fluentness.base.constants.PublicDirectories;
@@ -49,14 +48,14 @@ public class DefaultTasks extends TaskProvider {
 
     Task print_onion = does("Prints the Fluentness genuine onion architecture",
         arguments -> {
-            for (int i = 0; i < Structure.call.onionArchitecture.size(); i++) {
-                String component = Structure.call.onionArchitecture.get(i).getSimpleName();
+            for (int i = 0; i < Flow.call.onionArchitecture.size(); i++) {
+                String component = Flow.call.onionArchitecture.get(i).getSimpleName();
                 if (i == 0) {
                     System.out.println("\n" + ANSI_GREEN + "               ↑ ");
                     System.out.println("LESS DEPENDANT | " + component + ANSI_RESET);
                     continue;
                 }
-                if (i == Structure.call.onionArchitecture.size() - 1) {
+                if (i == Flow.call.onionArchitecture.size() - 1) {
                     System.out.println(ANSI_BLUE + "MORE DEPENDANT | " + component);
                     System.out.println("               ↓ " + ANSI_RESET);
                     continue;
