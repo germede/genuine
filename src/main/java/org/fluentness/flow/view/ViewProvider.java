@@ -2,7 +2,7 @@ package org.fluentness.flow.view;
 
 import org.fluentness.base.constants.ViewPlaceholders;
 import org.fluentness.base.generics.Provider;
-import org.fluentness.flow.localization.Localizator;
+import org.fluentness.flow.locale.Localizator;
 
 import java.util.function.Function;
 

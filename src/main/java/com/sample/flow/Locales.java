@@ -1,11 +1,11 @@
 package com.sample.flow;
 
-import org.fluentness.flow.localization.Localization;
-import org.fluentness.flow.localization.LocalizationProvider;
+import org.fluentness.flow.locale.Locale;
+import org.fluentness.flow.locale.LocaleProvider;
 
-public class Localizations extends LocalizationProvider {
+public class Locales extends LocaleProvider {
 
-    Localization en = translations(
+    Locale en = translations(
         welcome_message -> "Welcome to the site",
         submit -> "Submit",
         action -> "Action",
@@ -26,7 +26,7 @@ public class Localizations extends LocalizationProvider {
         song_is_new -> "Is new"
     );
 
-    Localization de = translations(
+    Locale de = translations(
         welcome_message -> "Willkommen auf der Seite",
         submit -> "Submit",
         action -> "Aktion",

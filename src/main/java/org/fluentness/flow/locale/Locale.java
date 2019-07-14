@@ -1,4 +1,4 @@
-package org.fluentness.flow.localization;
+package org.fluentness.flow.locale;
 
 import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.base.generics.Component;
@@ -7,10 +7,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Localization extends Component {
+public class Locale extends Component {
     private Map<String, String> translations = new HashMap<>();
 
-    public Localization(KeyValuePair<String>... translations) {
+    public Locale(KeyValuePair<String>... translations) {
         Arrays.stream(translations).forEach(translation -> this.translations.put(translation.getKey(), translation.getValue()));
     }
 

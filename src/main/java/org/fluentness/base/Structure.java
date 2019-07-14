@@ -4,7 +4,7 @@ import org.fluentness.base.generics.Component;
 import org.fluentness.flow.configuration.Configuration;
 import org.fluentness.flow.controller.Controller;
 import org.fluentness.flow.form.Form;
-import org.fluentness.flow.localization.Localization;
+import org.fluentness.flow.locale.Locale;
 import org.fluentness.flow.style.Style;
 import org.fluentness.flow.task.Task;
 import org.fluentness.flow.view.View;
@@ -29,7 +29,7 @@ public enum Structure implements Comparator<Class<? extends Component>> {
 
     public List<Class<? extends Component>> onionArchitecture = Arrays.asList(
         Configuration.class,
-        Localization.class,
+        Locale.class,
         Style.class,
         Form.class,
         View.class,

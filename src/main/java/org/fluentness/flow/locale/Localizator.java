@@ -1,4 +1,4 @@
-package org.fluentness.flow.localization;
+package org.fluentness.flow.locale;
 
 import org.fluentness.base.constants.ViewPlaceholders;
 
