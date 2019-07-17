@@ -63,4 +63,4 @@ I personally recommend you IntelliJ IDEA Community Edition.
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the LICENSE.md file for details
+Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
