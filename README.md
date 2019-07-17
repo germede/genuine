@@ -6,29 +6,31 @@ friendly framework
 Fluentness is intented to be what JavaEE never was, a **friendly** fully-featured web framework. 
 
 It is based on these technologies:
-- Java 8
+- Java 8, specifically OpenJDK
 - Maven
 - JUnit
 - EclipseLink (JPA)
 - Sun HttpServer
 - Much love
 
+## Architecture
+
 ## Decalogue
 
-**F**orce your code to be compact, yet legible  
-**L**oose coupling by using onion layers  
-**U**se class attributes as finished components and functions as helpers  
-**E**mbrace the consumer and producer architecture  
-**N**otice how harmful the new operator can be  
-**T**ry to avoid comments  
-**N**ame each component, as it was your child  
-**E**ndorse convention over configuration  
-**S**eparate application data (what) from application flow (how)  
-**S**tart using enums for singleton, final classes  
+>**F**orce your code to be compact, yet legible  
+>**L**oose coupling by using onion layers  
+>**U**se class attributes as finished components and functions as helpers  
+>**E**mbrace the consumer and producer architecture  
+>**N**otice how harmful the new operator can be  
+>**T**ry to avoid comments  
+>**N**ame each component, as it was your child  
+>**E**ndorse convention over configuration  
+>**S**eparate application data (what) from application flow (how)  
+>**S**tart using enums for singleton, final classes  
 
 ## Quickstart
 
-### 1. Add maven dependency
+### 1. Add Maven dependency
 to your pom.xml
 
 ```xml
@@ -39,7 +41,7 @@ to your pom.xml
 </dependency>
 ```
 
-### 2. Bootstrap Fluentness
+### 2. Initialize Fluentness
 in your main method:
 
 ```java
@@ -49,7 +51,7 @@ public static void main(String[] args) {
 ```
 
 ### 3. Run your application
-using commands
+using following commands
 ```bash
 mvn clean package
 ```
