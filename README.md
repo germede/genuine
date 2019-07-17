@@ -5,15 +5,6 @@ friendly framework
 ## Introduction
 Fluentness is intented to be what JavaEE never was, a **friendly** fully-featured web framework. 
 
-It is based on these technologies:
-- Java 8, specifically OpenJDK
-- Maven
-- JUnit
-- EclipseLink (JPA)
-- Sun HttpServer
-- Much love
-
-## Architecture
 
 ## Decalogue
 
@@ -62,7 +53,18 @@ java -jar app.jar
 or directly from your favourite IDE. 
 I personally recommend you IntelliJ IDEA Community Edition.
 
+## Technologies
+This project is based on these technologies:
+- Java 8, specifically OpenJDK
+- Maven
+- JUnit
+- EclipseLink (JPA)
+- Sun HttpServer
+- Much love
+
+
+## Contributing
+Feel free to open issues directly on GitHub. Pull requests are also welcome. Please take the license limitations into account when using or modifying this project.
 
 ## License
-
 Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
