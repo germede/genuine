@@ -10,15 +10,8 @@ import org.fluentness.flow.Flow;
 import org.fluentness.flow.task.Task;
 import org.fluentness.flow.task.TaskProvider;
 
-import javax.lang.model.type.PrimitiveType;
-import java.io.Serializable;
-
 public enum Fluentness {
     instance;
-
-    static {
-        Settings.instance.initialize();
-    }
 
     public <T> Fluentness set(Key<T> key, T value) {
         Settings.instance.set(key, value);
