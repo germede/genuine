@@ -7,6 +7,7 @@ import org.fluentness.base.logging.Log;
 import org.fluentness.flow.Flow;
 import org.fluentness.flow.controller.Action;
 import org.fluentness.flow.controller.Controller;
+import org.fluentness.flow.controller.ControllerProvider;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public enum HttpRouter {
 
     public Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
-        for (Controller controller : Flow.instance.controllers.getAll()) {
+        for (Controller controller : Flow.instance.getProvider(ControllerProvider.class).getComponents()) {
             for (Action action : controller.getActions()) {
 
                 String route = controller.getBaseRoute() + action.getRoute();

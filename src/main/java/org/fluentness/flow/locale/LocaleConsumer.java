@@ -6,6 +6,6 @@ import org.fluentness.flow.Flow;
 public interface LocaleConsumer<T extends LocaleProvider> extends Consumer {
 
     default T locales() {
-        return (T) Flow.instance.locales;
+        return (T) Flow.instance.getProvider(LocaleProvider.class);
     }
 }

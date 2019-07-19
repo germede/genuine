@@ -91,16 +91,6 @@ public enum Log {
         error(message);
     }
 
-    public void fatal(String message, Object... parameters) {
-        error(format(message, parameters));
-        System.exit(1);
-    }
-
-    public void fatal(Exception exception) {
-        error(exception);
-        System.exit(1);
-    }
-
     private String stackTraceToString(StackTraceElement[] stackTraceElements) {
         StringBuilder res = new StringBuilder();
         res.append("\n").append("Stacktrace:");

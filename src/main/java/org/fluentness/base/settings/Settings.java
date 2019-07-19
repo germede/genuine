@@ -8,17 +8,11 @@ import static org.fluentness.base.settings.IntegerKey.APP_PORT;
 import static org.fluentness.base.settings.StringKey.*;
 
 public enum Settings {
-    instance();
+    instance;
 
-    private Map<Key, Object> settings;
+    private Map<Key, Object> settings = new HashMap<>();
 
-    Settings() {
-        initialize();
-    }
-
-    void initialize() {
-        settings = new HashMap<>();
-
+    public void initialize() {
         // default settings
         set(APP_PROTOCOL, "http");
         set(APP_HOST, "localhost");
@@ -31,15 +25,15 @@ public enum Settings {
         set(ENABLE_STYLE_MINIFY, true);
     }
 
-    public <T> void set(Key<T> key, T value) {
-        settings.put(key, value);
+    public void clear() {
+        settings.clear();
     }
 
     public <T>T get(Key<T> key) {
         return (T) settings.get(key);
     }
 
-    void clear() {
-        settings.clear();
+    public <T> void set(Key<T> key, T value) {
+        settings.put(key, value);
     }
 }

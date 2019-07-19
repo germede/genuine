@@ -1,5 +1,7 @@
 package org.fluentness.flow;
 
+import org.fluentness.Fluentness;
+import org.fluentness.base.Utils;
 import org.fluentness.base.exceptions.FluentnessInitializationException;
 import org.fluentness.base.generics.Component;
 import org.fluentness.base.generics.Consumer;
@@ -14,85 +16,76 @@ import org.fluentness.flow.repository.Repository;
 import org.fluentness.flow.repository.RepositoryProvider;
 import org.fluentness.flow.style.Style;
 import org.fluentness.flow.style.StyleProvider;
-import org.fluentness.flow.task.DefaultTasks;
 import org.fluentness.flow.task.Task;
 import org.fluentness.flow.task.TaskProvider;
 import org.fluentness.flow.view.View;
 import org.fluentness.flow.view.ViewProvider;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+
+import static org.fluentness.base.constants.AnsiColors.*;
 
 public enum Flow implements Comparator<Class<? extends Component>> {
     instance;
 
-    public RepositoryProvider repositories;
-    public LocaleProvider locales;
-    public StyleProvider styles;
-    public FormProvider forms;
-    public ViewProvider views;
-    public TaskProvider tasks;
-    public ControllerProvider controllers;
+    private List<Class<? extends Component>> onionLayers = new ArrayList<>();
+    private Map<Class<? extends Provider>, Provider> providers = new HashMap<>();
 
-    public List<Class<? extends Component>> onionArchitecture = Arrays.asList(
-        Repository.class,
-        Locale.class,
-        Style.class,
-        Form.class,
-        View.class,
-        Task.class,
-        Controller.class
-    );
+    public void initialize() throws FluentnessInitializationException {
+        onionLayers.add(Repository.class);
+        onionLayers.add(Locale.class);
+        onionLayers.add(Style.class);
+        onionLayers.add(Form.class);
+        onionLayers.add(View.class);
+        onionLayers.add(Task.class);
+        onionLayers.add(Controller.class);
 
-    public void initialize(String appPackage) throws FluentnessInitializationException {
+        String appPackage = Fluentness.instance.getAppPackage();
 
         try {
-
-            repositories = (RepositoryProvider) Class.forName(appPackage + ".flow.Repositories").newInstance();
-            checkOnionCompliance(repositories);
-
-            locales = (LocaleProvider) Class.forName(appPackage + ".flow.Locales").newInstance();
-            checkOnionCompliance(locales);
-
-            styles = (StyleProvider) Class.forName(appPackage + ".flow.Styles").newInstance();
-            checkOnionCompliance(styles);
-
-            forms = (FormProvider) Class.forName(appPackage + ".flow.Forms").newInstance();
-            checkOnionCompliance(forms);
-
-            views = (ViewProvider) Class.forName(appPackage + ".flow.Views").newInstance();
-            checkOnionCompliance(views);
-
-            tasks = (TaskProvider) Class.forName(appPackage + ".flow.Tasks").newInstance();
-            tasks.addAll(new DefaultTasks().getAll());
-            checkOnionCompliance(tasks);
-
-            controllers = (ControllerProvider) Class.forName(appPackage + ".flow.Controllers").newInstance();
-            checkOnionCompliance(controllers);
-
+            setProvider(RepositoryProvider.class, appPackage + ".flow.Repositories");
+            setProvider(LocaleProvider.class, appPackage + ".flow.Locales");
+            setProvider(StyleProvider.class, appPackage + ".flow.Styles");
+            setProvider(FormProvider.class, appPackage + ".flow.Forms");
+            setProvider(ViewProvider.class, appPackage + ".flow.Views");
+            setProvider(TaskProvider.class, appPackage + ".flow.Tasks");
+            setProvider(ControllerProvider.class, appPackage + ".flow.Controllers");
         } catch (InstantiationException | NullPointerException | IllegalAccessException | ClassNotFoundException e) {
             throw new FluentnessInitializationException("Exception while initializing onion architecture", e);
         }
     }
 
-    public void checkOnionCompliance(Provider provider) throws FluentnessInitializationException {
+    public <T extends Provider> T getProvider(Class<T> providerClass) {
+        return (T) providers.get(providerClass);
+    }
 
-        Class producedComponentType = provider.getProducedComponentType();
+    public void setProvider(Class<? extends Provider> providerClass, String providerClassName) throws
+        IllegalAccessException,
+        InstantiationException,
+        ClassNotFoundException,
+        FluentnessInitializationException {
 
+        Provider provider = Utils.instance.instantiateClass(providerClass, providerClassName);
+        checkOnionLayerCompliance(provider);
+        providers.put(providerClass, provider);
+    }
+
+    public void checkOnionLayerCompliance(Provider provider) throws FluentnessInitializationException {
+
+        Class producedComponent = provider.getProducedComponentType();
         try {
             Class[] consumerClasses = Arrays.stream(provider.getClass().getInterfaces())
-                .filter(Consumer.class::isAssignableFrom).toArray(Class[]::new);
+                .filter(Consumer.class::isAssignableFrom)
+                .toArray(Class[]::new);
 
-            for (Class<? extends Consumer> consumer : consumerClasses) {
-                Class<? extends Component> consumerComponentType =
-                    (Class<? extends Component>) Class.forName(consumer.getCanonicalName().replace("Consumer", ""));
+            for (Class consumer : consumerClasses) {
+                Class consumerComponent = Class.forName(consumer.getCanonicalName().replace("Consumer", ""));
 
-                if (compare(producedComponentType, consumerComponentType) < 0) {
+                if (compare(producedComponent, consumerComponent) < 0) {
                     throw new FluentnessInitializationException(
                         "%s should not consume %s components due to the onion architecture",
                         provider.getClass().getSimpleName(),
-                        consumerComponentType.getSimpleName()
+                        consumerComponent.getSimpleName()
                     );
                 }
             }
@@ -102,8 +95,26 @@ public enum Flow implements Comparator<Class<? extends Component>> {
         }
     }
 
+    public void printOnionLayers() {
+        for (int i = 0; i < onionLayers.size(); i++) {
+            String component = onionLayers.get(i).getSimpleName();
+            if (i == 0) {
+                System.out.println("\n" + ANSI_GREEN + "               ↑ ");
+                System.out.println("LESS DEPENDANT | " + component + ANSI_RESET);
+                continue;
+            }
+            if (i == onionLayers.size() - 1) {
+                System.out.println(ANSI_BLUE + "MORE DEPENDANT | " + component);
+                System.out.println("               ↓ " + ANSI_RESET);
+                continue;
+            }
+            System.out.println("               | " + component);
+        }
+        System.out.println();
+    }
+
     @Override
     public int compare(Class<? extends Component> componentType1, Class<? extends Component> componentType2) {
-        return Integer.compare(onionArchitecture.indexOf(componentType1), onionArchitecture.indexOf(componentType2));
+        return Integer.compare(onionLayers.indexOf(componentType1), onionLayers.indexOf(componentType2));
     }
 }

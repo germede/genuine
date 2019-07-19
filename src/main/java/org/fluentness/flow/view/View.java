@@ -5,6 +5,7 @@ import org.fluentness.base.lambdas.KeyValuePair;
 import org.fluentness.base.networking.HttpRequestRegister;
 import org.fluentness.flow.Flow;
 import org.fluentness.flow.locale.Locale;
+import org.fluentness.flow.locale.LocaleProvider;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,12 +49,12 @@ public abstract class View extends Component {
     public abstract String render();
 
     private String localize(String text) {
-        Locale localizationToApply = Flow.instance.locales.get(HttpRequestRegister.getCurrentLocale().toString());
-        String currentLocale = HttpRequestRegister.getCurrentLocale().toString();
+        Locale localeToApply = Flow.instance.getProvider(LocaleProvider.class)
+            .getComponent(HttpRequestRegister.getCurrentLocale().toString());
 
         Matcher matcher = Pattern.compile("\\{\\{L:([A-Za-z1-9_]+)}}").matcher(text);
         while (matcher.find()) {
-            text = text.replace(matcher.group(0), localizationToApply.get(matcher.group(1)));
+            text = text.replace(matcher.group(0), localeToApply.get(matcher.group(1)));
         }
         return text;
     }

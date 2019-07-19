@@ -5,8 +5,17 @@ import org.fluentness.base.logging.Log;
 import java.io.File;
 
 public enum Utils {
-
     instance;
+
+    public <T> T instantiateClass(Class<T> clazz, String name)
+        throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        Object object = Class.forName(name).newInstance();
+        if (clazz.isAssignableFrom(object.getClass())) {
+            return (T) object;
+        } else {
+            throw new InstantiationException();
+        }
+    }
 
     public void deleteRecursively(File file) {
         if (file.isDirectory()) {

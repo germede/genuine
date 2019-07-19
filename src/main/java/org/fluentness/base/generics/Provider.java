@@ -1,6 +1,6 @@
 package org.fluentness.base.generics;
 
-import org.fluentness.base.exceptions.ComponentNotFoundException;
+import org.fluentness.base.exceptions.ProviderException;
 import org.fluentness.base.logging.Log;
 import org.fluentness.flow.task.Task;
 
@@ -11,16 +11,16 @@ import java.util.List;
 
 public abstract class Provider<T extends Component> {
 
-    private List<T> components;
+    private List<T> components = new ArrayList<>();
 
-    public List<T> getAll() {
+    public List<T> getComponents() {
         if (components == null) {
-            components = new ArrayList<>();
             try {
                 Field[] fields = this.getClass().getDeclaredFields();
                 for (Field field : fields) {
                     if (field.getModifiers() != 0) {
-                        Log.instance.fatal("Component %s->%s should have no modifiers, found %s",
+                        throw new ProviderException(
+                            "Component %s->%s should have no modifiers, found %s",
                             this.getClass().getSimpleName(),
                             field.getName(),
                             Modifier.toString(field.getModifiers())
@@ -28,7 +28,8 @@ public abstract class Provider<T extends Component> {
                     }
                     field.setAccessible(true);
                     if (!getProducedComponentType().isAssignableFrom(field.get(this).getClass())) {
-                        Log.instance.fatal("Provider %s should provide Components of type %s, use consumer interfaces for dependency injection instead",
+                        throw new ProviderException(
+                            "Provider %s should provide Components of type %s, use consumer interfaces for dependency injection instead",
                             this.getClass().getSimpleName(),
                             field.getName(),
                             getProducedComponentType().getSimpleName()
@@ -37,33 +38,22 @@ public abstract class Provider<T extends Component> {
                     T component = (T) field.get(this);
                     component.setName(field.getName());
                     if (component.getClass().equals(Task.class)) {
-                        component.setName(field.getName().replaceAll("_",":"));
+                        component.setName(field.getName().replaceAll("_", ":"));
                     }
                     components.add(component);
                 }
             } catch (IllegalAccessException e) {
-                Log.instance.fatal(e);
+                Log.instance.error(e);
+            } catch (ProviderException e) {
+                Log.instance.error(e.getMessage());
+                System.exit(1);
             }
         }
         return components;
     }
 
-    public T get(String name) {
-        try {
-            return getAll().stream()
-                .filter(component -> name.contains(component.getName()))
-                .findAny().orElseThrow(ComponentNotFoundException::new);
-        } catch (ComponentNotFoundException e) {
-            Log.instance.fatal("Component %s not found by provider %s",
-                name,
-                this.getClass().getSimpleName()
-            );
-        }
-        return null;
-    }
-
-    public void addAll(List<T> components) {
-        getAll().addAll(components);
+    public T getComponent(String name) {
+        return getComponents().stream().filter(component -> component.getName().equals(name)).findFirst().get();
     }
 
     public abstract Class<T> getProducedComponentType();

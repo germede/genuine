@@ -12,7 +12,7 @@ public enum Data {
 
     private EntityManager entityManager;
 
-    public void initialize(String appPackage) {
+    public void initialize() {
         entityManager = Persistence
             .createEntityManagerFactory(Settings.instance.get(PERSISTENCE_UNIT))
             .createEntityManager();

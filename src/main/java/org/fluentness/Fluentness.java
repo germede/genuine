@@ -2,7 +2,6 @@ package org.fluentness;
 
 import org.fluentness.base.exceptions.FluentnessInitializationException;
 import org.fluentness.base.logging.Log;
-import org.fluentness.base.networking.HttpServer;
 import org.fluentness.base.settings.Key;
 import org.fluentness.base.settings.Settings;
 import org.fluentness.data.Data;
@@ -13,15 +12,27 @@ import org.fluentness.flow.task.TaskProvider;
 public enum Fluentness {
     instance;
 
+    static {
+        // load default settings
+        Settings.instance.initialize();
+    }
+
+    private String appPackage;
+
+    public String getAppPackage() {
+        return appPackage;
+    }
+
     public <T> Fluentness set(Key<T> key, T value) {
         Settings.instance.set(key, value);
         return this;
     }
 
     public void initialize(String[] args) {
+
         try {
             try {
-                String appPackage = Class.forName(
+                appPackage = Class.forName(
                     Thread
                         .currentThread()
                         .getStackTrace()[Thread.currentThread().getStackTrace().length - 1]
@@ -29,9 +40,10 @@ public enum Fluentness {
                 ).getPackage().getName();
 
                 Log.instance.initialize();
-                Data.instance.initialize(appPackage);
-                Flow.instance.initialize(appPackage);
-                HttpServer.instance.initialize();
+
+                Data.instance.initialize();
+                Flow.instance.initialize();
+
                 executeCommand(args);
 
             } catch (ClassNotFoundException e) {
@@ -44,20 +56,19 @@ public enum Fluentness {
         }
     }
 
-
     private void executeCommand(String[] args) throws FluentnessInitializationException {
 
-        TaskProvider tasks = Flow.instance.tasks;
+        TaskProvider tasks = Flow.instance.getProvider(TaskProvider.class);
 
         if (args.length == 0) {
-            tasks.get("print:help").execute(args);
+            tasks.getComponents().get(0).execute(args);
             System.exit(0);
         }
 
         String taskName = args[0];
         Task taskToExecute = null;
         String[] declaredArguments = new String[0];
-        for (Task task : tasks.getAll()) {
+        for (Task task : tasks.getComponents()) {
             if (taskName.equals(task.getName())) {
                 taskToExecute = task;
                 declaredArguments = task.getArguments();
@@ -81,5 +92,4 @@ public enum Fluentness {
         System.arraycopy(args, 1, arguments, 0, args.length - 1);
         taskToExecute.execute(arguments);
     }
-
 }
