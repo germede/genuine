@@ -1,65 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-      
-  <modelVersion>4.0.0</modelVersion>
-      
-  <groupId>org.fluentness</groupId>
-      
-  <artifactId>fluentness</artifactId>
-      
-  <version>1.0</version>
-      
-  <modules>
-            
-    <module>archetype</module>
-            
-    <module>core</module>
-            
-    <module>sample</module>
-        
-    <module>sampleii</module>
-  </modules>
-      
-  <packaging>pom</packaging>
-      
-  <dependencies>
-            
-    <dependency>
-                  
-      <groupId>org.eclipse.persistence</groupId>
-                  
-      <artifactId>eclipselink</artifactId>
-                  
-      <version>2.5.0</version>
-              
-    </dependency>
-            
-    <dependency>
-                  
-      <groupId>junit</groupId>
-                  
-      <artifactId>junit</artifactId>
-                  
-      <version>4.12</version>
-                  
-      <scope>test</scope>
-              
-    </dependency>
-        
-  </dependencies>
-      
-  <build>
-            
-    <directory>out</directory>
-        
-  </build>
-      
-  <issueManagement>
-            
-    <url>https://github.com/germede/fluentness/issues</url>
-            
-    <system>GitHub Issues</system>
-        
-  </issueManagement>
-  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.fluentness</groupId>
+    <artifactId>fluentness</artifactId>
+    <version>0.0.1</version>
+
+    <modules>
+        <module>archetype</module>
+        <module>core</module>
+        <module>sample</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <issueManagement>
+        <url>https://github.com/germede/fluentness/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
 </project>
