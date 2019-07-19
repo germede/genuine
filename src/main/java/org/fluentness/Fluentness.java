@@ -10,6 +10,9 @@ import org.fluentness.flow.Flow;
 import org.fluentness.flow.task.Task;
 import org.fluentness.flow.task.TaskProvider;
 
+import javax.lang.model.type.PrimitiveType;
+import java.io.Serializable;
+
 public enum Fluentness {
     call;
 
@@ -17,18 +20,8 @@ public enum Fluentness {
         Settings.call.initialize();
     }
 
-    public Fluentness set(Key<String> key, String value) {
-        Settings.call.setString(key, value);
-        return this;
-    }
-
-    public Fluentness set(Key<Integer> key, Integer value) {
-        Settings.call.setInteger(key, value);
-        return this;
-    }
-
-    public Fluentness set(Key<Boolean> key, Boolean value) {
-        Settings.call.setBoolean(key, value);
+    public <T> Fluentness set(Key<T> key, T value) {
+        Settings.call.set(key, value);
         return this;
     }
 

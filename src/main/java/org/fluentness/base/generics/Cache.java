@@ -19,12 +19,12 @@ public interface Cache<T> {
 
     default String cache(T t) {
         boolean cacheable = isCacheable(t);
-        if (Settings.call.getBoolean(ENABLE_CACHE) && doesCacheFileExists(t) && cacheable) {
+        if (Settings.call.get(ENABLE_CACHE) && doesCacheFileExists(t) && cacheable) {
             return retrieve(t);
         }
 
         String content = t.toString();
-        if (Settings.call.getBoolean(ENABLE_CACHE) && cacheable) {
+        if (Settings.call.get(ENABLE_CACHE) && cacheable) {
             store(t, content);
         }
         return content;

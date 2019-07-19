@@ -24,9 +24,9 @@ public enum HttpServer {
     private int port;
 
     public void initialize() {
-        protocol = Settings.call.getString(APP_PROTOCOL);
-        hostname = Settings.call.getString(APP_HOST);
-        port = Settings.call.getInteger(APP_PORT);
+        protocol = Settings.call.get(APP_PROTOCOL);
+        hostname = Settings.call.get(APP_HOST);
+        port = Settings.call.get(APP_PORT);
         try {
 
             switch (protocol) {

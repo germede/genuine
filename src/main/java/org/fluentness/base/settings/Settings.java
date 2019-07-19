@@ -14,38 +14,23 @@ public enum Settings {
 
     public void initialize() {
         // default settings
-        setString(APP_PROTOCOL, "http");
-        setString(APP_HOST, "localhost");
-        setInteger(APP_PORT, 8000);
-        setString(LOG_LEVEL, "ALL");
-        setString(PERSISTENCE_UNIT, "default");
-        setBoolean(ENABLE_LOG_TO_CONSOLE, true);
-        setBoolean(ENABLE_LOG_TO_FILE, true);
-        setBoolean(ENABLE_CACHE, true);
-        setBoolean(ENABLE_STYLE_MINIFY, true);
+        set(APP_PROTOCOL, "http");
+        set(APP_HOST, "localhost");
+        set(APP_PORT, 8000);
+        set(LOG_LEVEL, "ALL");
+        set(PERSISTENCE_UNIT, "default");
+        set(ENABLE_LOG_TO_CONSOLE, true);
+        set(ENABLE_LOG_TO_FILE, true);
+        set(ENABLE_CACHE, true);
+        set(ENABLE_STYLE_MINIFY, true);
     }
 
-    public void setString(Key<String> key, String value) {
-        settings.put(key,value);
+    public <T> void set(Key<T> key, T value) {
+        settings.put(key, value);
     }
 
-    public void setInteger(Key<Integer> key, Integer value) {
-        settings.put(key,value);
+    public <T>T get(Key<T> key) {
+        return (T) settings.getOrDefault(key, "");
     }
 
-    public void setBoolean(Key<Boolean> key, Boolean value) {
-        settings.put(key,value);
-    }
-
-    public String getString(Key<String> key) {
-        return (String) settings.getOrDefault(key, "");
-    }
-
-    public Integer getInteger(Key<Integer> key) {
-        return (Integer) settings.getOrDefault(key, 0);
-    }
-
-    public Boolean getBoolean(Key<Boolean> key) {
-        return (Boolean) settings.getOrDefault(key, false);
-    }
 }

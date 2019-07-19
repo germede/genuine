@@ -14,7 +14,7 @@ public enum Data {
 
     public void initialize(String appPackage) {
         entityManager = Persistence
-            .createEntityManagerFactory(Settings.call.getString(PERSISTENCE_UNIT))
+            .createEntityManagerFactory(Settings.call.get(PERSISTENCE_UNIT))
             .createEntityManager();
     }
 
