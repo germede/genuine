@@ -6,8 +6,17 @@
     <groupId>org.fluentness</groupId>
     <artifactId>fluentness</artifactId>
     <version>1.0-dev</version>
+    <packaging>maven-archetype</packaging>
 
     <build>
+        <directory>out</directory>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.archetype</groupId>
+                <artifactId>archetype-packaging</artifactId>
+                <version>LATEST</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -51,7 +60,6 @@
     </build>
 
     <dependencies>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -62,8 +70,6 @@
             <artifactId>eclipselink</artifactId>
             <version>2.5.0</version>
         </dependency>
-
-
     </dependencies>
 
     <issueManagement>
