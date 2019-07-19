@@ -6,6 +6,6 @@ import org.fluentness.flow.Flow;
 public interface ControllerConsumer<T extends ControllerProvider> extends Consumer {
 
     default T controller() {
-        return (T) Flow.call.controllers;
+        return (T) Flow.instance.controllers;
     }
 }

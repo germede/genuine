@@ -20,7 +20,7 @@ public abstract class Provider<T extends Component> {
                 Field[] fields = this.getClass().getDeclaredFields();
                 for (Field field : fields) {
                     if (field.getModifiers() != 0) {
-                        Log.call.fatal("Component %s->%s should have no modifiers, found %s",
+                        Log.instance.fatal("Component %s->%s should have no modifiers, found %s",
                             this.getClass().getSimpleName(),
                             field.getName(),
                             Modifier.toString(field.getModifiers())
@@ -28,7 +28,7 @@ public abstract class Provider<T extends Component> {
                     }
                     field.setAccessible(true);
                     if (!getProducedComponentType().isAssignableFrom(field.get(this).getClass())) {
-                        Log.call.fatal("Provider %s should provide Components of type %s, use consumer interfaces for dependency injection instead",
+                        Log.instance.fatal("Provider %s should provide Components of type %s, use consumer interfaces for dependency injection instead",
                             this.getClass().getSimpleName(),
                             field.getName(),
                             getProducedComponentType().getSimpleName()
@@ -42,7 +42,7 @@ public abstract class Provider<T extends Component> {
                     components.add(component);
                 }
             } catch (IllegalAccessException e) {
-                Log.call.fatal(e);
+                Log.instance.fatal(e);
             }
         }
         return components;
@@ -54,7 +54,7 @@ public abstract class Provider<T extends Component> {
                 .filter(component -> name.contains(component.getName()))
                 .findAny().orElseThrow(ComponentNotFoundException::new);
         } catch (ComponentNotFoundException e) {
-            Log.call.fatal("Component %s not found by provider %s",
+            Log.instance.fatal("Component %s not found by provider %s",
                 name,
                 this.getClass().getSimpleName()
             );

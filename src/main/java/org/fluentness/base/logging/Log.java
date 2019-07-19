@@ -14,12 +14,12 @@ import static org.fluentness.base.settings.BooleanKey.ENABLE_LOG_TO_FILE;
 import static org.fluentness.base.settings.StringKey.LOG_LEVEL;
 
 public enum Log {
-    call;
+    instance;
 
     private Logger logger;
 
     public void initialize() {
-        String logLevel = Settings.call.get(LOG_LEVEL);
+        String logLevel = Settings.instance.get(LOG_LEVEL);
 
         // create logger
         logger = java.util.logging.Logger.getGlobal();
@@ -27,7 +27,7 @@ public enum Log {
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (Settings.call.get(ENABLE_LOG_TO_CONSOLE)) {
+        if (Settings.instance.get(ENABLE_LOG_TO_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -35,7 +35,7 @@ public enum Log {
         }
 
         // file logging
-        if (Settings.call.get(ENABLE_LOG_TO_FILE)) {
+        if (Settings.instance.get(ENABLE_LOG_TO_FILE)) {
             new File(PrivateDirectories.LOG).mkdirs();
             try {
                 String logFilePath = PrivateDirectories.LOG + "/" +

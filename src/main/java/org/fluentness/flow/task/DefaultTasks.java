@@ -24,7 +24,7 @@ public class DefaultTasks extends TaskProvider {
 
             System.out.println(ANSI_GREEN + "Available tasks:\n" + ANSI_RESET);
 
-            for (Map.Entry<String, List<Task>> category : Flow.call.tasks.getAllGroupedByCategory().entrySet()) {
+            for (Map.Entry<String, List<Task>> category : Flow.instance.tasks.getAllGroupedByCategory().entrySet()) {
 
 
                 if (category.getValue().size() == 1) {
@@ -48,14 +48,14 @@ public class DefaultTasks extends TaskProvider {
 
     Task print_onion = does("Prints the Fluentness genuine onion architecture",
         arguments -> {
-            for (int i = 0; i < Flow.call.onionArchitecture.size(); i++) {
-                String component = Flow.call.onionArchitecture.get(i).getSimpleName();
+            for (int i = 0; i < Flow.instance.onionArchitecture.size(); i++) {
+                String component = Flow.instance.onionArchitecture.get(i).getSimpleName();
                 if (i == 0) {
                     System.out.println("\n" + ANSI_GREEN + "               ↑ ");
                     System.out.println("LESS DEPENDANT | " + component + ANSI_RESET);
                     continue;
                 }
-                if (i == Flow.call.onionArchitecture.size() - 1) {
+                if (i == Flow.instance.onionArchitecture.size() - 1) {
                     System.out.println(ANSI_BLUE + "MORE DEPENDANT | " + component);
                     System.out.println("               ↓ " + ANSI_RESET);
                     continue;
@@ -71,23 +71,23 @@ public class DefaultTasks extends TaskProvider {
     );
 
     Task clear_view_cache = does("Clears the view cache by deleting directory " + PrivateDirectories.VIEW_CACHE,
-        arguments -> Utils.call.deleteRecursively(new File(PrivateDirectories.VIEW_CACHE))
+        arguments -> Utils.instance.deleteRecursively(new File(PrivateDirectories.VIEW_CACHE))
     );
 
     Task clear_style_cache = does("Clears the style cache by deleting directory " + PublicDirectories.STYLES,
-        arguments -> Utils.call.deleteRecursively(new File(PublicDirectories.STYLES))
+        arguments -> Utils.instance.deleteRecursively(new File(PublicDirectories.STYLES))
     );
 
     Task clear_logs = does("Clears the log files by deleting directory " + PrivateDirectories.LOG,
-        arguments -> Utils.call.deleteRecursively(new File(PrivateDirectories.LOG))
+        arguments -> Utils.instance.deleteRecursively(new File(PrivateDirectories.LOG))
     );
 
     Task server_start = does("Starts embedded HTTP server",
-        arguments -> HttpServer.call.start()
+        arguments -> HttpServer.instance.start()
     );
 
     Task server_stop = does("Stops embedded HTTP server",
-        arguments -> HttpServer.call.stop()
+        arguments -> HttpServer.instance.stop()
     );
 
 }

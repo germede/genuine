@@ -6,7 +6,7 @@ import org.fluentness.flow.Flow;
 public interface ViewConsumer<T extends ViewProvider> extends Consumer {
 
     default T views() {
-        return (T) Flow.call.views;
+        return (T) Flow.instance.views;
     }
 
 }

@@ -6,6 +6,6 @@ import org.fluentness.flow.Flow;
 public interface FormConsumer<T extends FormProvider> extends Consumer {
 
     default T forms() {
-        return (T) Flow.call.forms;
+        return (T) Flow.instance.forms;
     }
 }

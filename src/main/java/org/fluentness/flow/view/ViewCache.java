@@ -6,7 +6,7 @@ import org.fluentness.base.networking.HttpRequestRegister;
 
 public enum ViewCache implements Cache<View> {
 
-    call;
+    instance;
 
     @Override
     public String getIdentifyingCacheFilePath(View view) {

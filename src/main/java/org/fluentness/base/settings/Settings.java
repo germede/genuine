@@ -8,7 +8,7 @@ import static org.fluentness.base.settings.IntegerKey.APP_PORT;
 import static org.fluentness.base.settings.StringKey.*;
 
 public enum Settings {
-    call;
+    instance;
 
     private Map<Key, Object> settings = new HashMap<>();
 

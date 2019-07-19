@@ -37,7 +37,7 @@ public abstract class View extends Component {
     }
 
     public String renderWithCache() {
-        return ViewCache.call.cache(this);
+        return ViewCache.instance.cache(this);
     }
 
     @Override
@@ -48,7 +48,7 @@ public abstract class View extends Component {
     public abstract String render();
 
     private String localize(String text) {
-        Locale localizationToApply = Flow.call.locales.get(HttpRequestRegister.getCurrentLocale().toString());
+        Locale localizationToApply = Flow.instance.locales.get(HttpRequestRegister.getCurrentLocale().toString());
         String currentLocale = HttpRequestRegister.getCurrentLocale().toString();
 
         Matcher matcher = Pattern.compile("\\{\\{L:([A-Za-z1-9_]+)}}").matcher(text);

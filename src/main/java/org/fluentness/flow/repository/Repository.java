@@ -22,7 +22,7 @@ public class Repository<T> extends Component {
         this.queries = new HashMap<>();
         Arrays.stream(queries).forEach(query -> this.queries.put(query.getKey(), query.getValue()));
         this.ec = ec;
-        this.em = Data.call.getEntityManager();
+        this.em = Data.instance.getEntityManager();
     }
 
     public boolean isTransactionActive() {
@@ -49,10 +49,10 @@ public class Repository<T> extends Component {
             em.persist(entity);
             em.flush();
             commitTransaction();
-            Log.call.debug("%s record created successfully", ec.getSimpleName());
+            Log.instance.debug("%s record created successfully", ec.getSimpleName());
             return true;
         }
-        Log.call.debug("%s record already exists, cannot create", ec.getSimpleName());
+        Log.instance.debug("%s record already exists, cannot create", ec.getSimpleName());
         return false;
     }
 
@@ -64,10 +64,10 @@ public class Repository<T> extends Component {
             em.persist(entity);
             em.flush();
             commitTransaction();
-            Log.call.debug("%s record updated successfully", ec.getSimpleName());
+            Log.instance.debug("%s record updated successfully", ec.getSimpleName());
             return true;
         }
-        Log.call.debug("%s record doesn't exists, cannot update", ec.getSimpleName());
+        Log.instance.debug("%s record doesn't exists, cannot update", ec.getSimpleName());
         return false;
     }
 
@@ -79,21 +79,21 @@ public class Repository<T> extends Component {
             em.remove(entity);
             em.flush();
             commitTransaction();
-            Log.call.debug("%s record deleted successfully", ec.getSimpleName());
+            Log.instance.debug("%s record deleted successfully", ec.getSimpleName());
             return true;
         }
-        Log.call.debug("%s record doesn't exists, cannot delete", ec.getSimpleName());
+        Log.instance.debug("%s record doesn't exists, cannot delete", ec.getSimpleName());
         return false;
     }
 
     public List<T> findAll() {
         Query query = em.createQuery("SELECT e FROM " + ec.getSimpleName() + " e");
-        Log.call.debug("Retrieving all %s records", ec.getSimpleName());
+        Log.instance.debug("Retrieving all %s records", ec.getSimpleName());
         return query.getResultList();
     }
 
     public T findById(int id) {
-        Log.call.debug("Retrieving %s record by ID %s", ec.getSimpleName(), id);
+        Log.instance.debug("Retrieving %s record by ID %s", ec.getSimpleName(), id);
         return em.find(ec, id);
     }
 
@@ -103,7 +103,7 @@ public class Repository<T> extends Component {
         for (KeyValuePair<Object> parameter : parameters) {
             query.setParameter(parameter.getKey(), parameter.getValue());
         }
-        Log.call.debug("Retrieving %s records using custom query '%s'",
+        Log.instance.debug("Retrieving %s records using custom query '%s'",
             ec.getSimpleName(),
             queryName
         );

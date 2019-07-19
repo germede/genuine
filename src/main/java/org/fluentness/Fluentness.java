@@ -14,14 +14,14 @@ import javax.lang.model.type.PrimitiveType;
 import java.io.Serializable;
 
 public enum Fluentness {
-    call;
+    instance;
 
     static {
-        Settings.call.initialize();
+        Settings.instance.initialize();
     }
 
     public <T> Fluentness set(Key<T> key, T value) {
-        Settings.call.set(key, value);
+        Settings.instance.set(key, value);
         return this;
     }
 
@@ -35,10 +35,10 @@ public enum Fluentness {
                         .getClassName()
                 ).getPackage().getName();
 
-                Log.call.initialize();
-                Data.call.initialize(appPackage);
-                Flow.call.initialize(appPackage);
-                HttpServer.call.initialize();
+                Log.instance.initialize();
+                Data.instance.initialize(appPackage);
+                Flow.instance.initialize(appPackage);
+                HttpServer.instance.initialize();
                 executeCommand(args);
 
             } catch (ClassNotFoundException e) {
@@ -54,7 +54,7 @@ public enum Fluentness {
 
     private void executeCommand(String[] args) throws FluentnessInitializationException {
 
-        TaskProvider tasks = Flow.call.tasks;
+        TaskProvider tasks = Flow.instance.tasks;
 
         if (args.length == 0) {
             tasks.get("print:help").execute(args);

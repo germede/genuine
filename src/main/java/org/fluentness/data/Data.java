@@ -8,13 +8,13 @@ import javax.persistence.Persistence;
 import static org.fluentness.base.settings.StringKey.PERSISTENCE_UNIT;
 
 public enum Data {
-    call;
+    instance;
 
     private EntityManager entityManager;
 
     public void initialize(String appPackage) {
         entityManager = Persistence
-            .createEntityManagerFactory(Settings.call.get(PERSISTENCE_UNIT))
+            .createEntityManagerFactory(Settings.instance.get(PERSISTENCE_UNIT))
             .createEntityManager();
     }
 

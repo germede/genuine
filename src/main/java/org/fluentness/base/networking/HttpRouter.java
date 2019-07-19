@@ -16,18 +16,18 @@ import static org.fluentness.base.constants.HttpStatusCodes.INTERNAL_SERVER_ERRO
 
 public enum HttpRouter {
 
-    call;
+    instance;
 
     public Map<String, HttpHandler> getRouteHandlerMap() {
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
-        for (Controller controller : Flow.call.controllers.getAll()) {
+        for (Controller controller : Flow.instance.controllers.getAll()) {
             for (Action action : controller.getActions()) {
 
                 String route = controller.getBaseRoute() + action.getRoute();
 
                 // dynamic routes in the middle path are not allowed
                 if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
-                    Log.call.warning(
+                    Log.instance.warning(
                         "Controller action %s->%s dynamic url parameter must stay at the end of the path",
                         controller.getName(), action.getName());
                     continue;
@@ -35,7 +35,7 @@ public enum HttpRouter {
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    Log.call.warning(
+                    Log.instance.warning(
                         "Cannot map controller action %s->%s because route '%s' is already registered",
                         controller.getName(), action.getName(), route);
                     continue;
@@ -43,7 +43,7 @@ public enum HttpRouter {
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                     httpExchange -> {
-                        Log.call.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                        Log.instance.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                         callMethodAction(controller, action, httpExchange);
                     });
             }
@@ -52,9 +52,9 @@ public enum HttpRouter {
             Arrays.stream(PublicDirectories.class.getFields()).forEach(directory ->
                 {
                     try {
-                        routeHandlerMap.put("/" + directory.get(null), HttpResourceHandler.call);
+                        routeHandlerMap.put("/" + directory.get(null), HttpResourceHandler.instance);
                     } catch (IllegalAccessException e) {
-                        Log.call.error(e);
+                        Log.instance.error(e);
                     }
                 }
             );
@@ -67,13 +67,13 @@ public enum HttpRouter {
     private void callMethodAction(Controller controller, Action action, HttpExchange httpExchange) {
         try {
             HttpRequest request = new HttpRequest(httpExchange, controller.getBaseRoute() + action.getRoute());
-            HttpRequestRegister.call.putCurrent(request);
+            HttpRequestRegister.instance.putCurrent(request);
             HttpResponse response = action.getExecutor().execute(request);
-            HttpRequestRegister.call.removeCurrent();
-            HttpServer.call.serve(httpExchange, response);
+            HttpRequestRegister.instance.removeCurrent();
+            HttpServer.instance.serve(httpExchange, response);
         } catch (Exception e) {
-            Log.call.error(e);
-            HttpServer.call.serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
+            Log.instance.error(e);
+            HttpServer.instance.serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }
 }

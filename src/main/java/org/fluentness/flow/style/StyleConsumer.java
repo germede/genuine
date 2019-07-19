@@ -6,6 +6,6 @@ import org.fluentness.flow.Flow;
 public interface StyleConsumer<T extends StyleProvider> extends Consumer {
 
     default T styles() {
-        return (T) Flow.call.styles;
+        return (T) Flow.instance.styles;
     }
 }

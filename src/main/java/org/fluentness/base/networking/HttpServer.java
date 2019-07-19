@@ -16,7 +16,7 @@ import static org.fluentness.base.settings.StringKey.APP_HOST;
 import static org.fluentness.base.settings.StringKey.APP_PROTOCOL;
 
 public enum HttpServer {
-    call;
+    instance;
 
     private com.sun.net.httpserver.HttpServer server;
     private String protocol;
@@ -24,9 +24,9 @@ public enum HttpServer {
     private int port;
 
     public void initialize() {
-        protocol = Settings.call.get(APP_PROTOCOL);
-        hostname = Settings.call.get(APP_HOST);
-        port = Settings.call.get(APP_PORT);
+        protocol = Settings.instance.get(APP_PROTOCOL);
+        hostname = Settings.instance.get(APP_HOST);
+        port = Settings.instance.get(APP_PORT);
         try {
 
             switch (protocol) {
@@ -37,26 +37,26 @@ public enum HttpServer {
                     throw new ProtocolException();
             }
 
-            Map<String, HttpHandler> routeHandlerMap = HttpRouter.call.getRouteHandlerMap();
+            Map<String, HttpHandler> routeHandlerMap = HttpRouter.instance.getRouteHandlerMap();
             routeHandlerMap.forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
 
         } catch (Exception e) {
             stop();
-            Log.call.error(e);
+            Log.instance.error(e);
         }
     }
 
     public void start() {
         server.start();
-        Log.call.info("Server successfully started and listening to %s",
+        Log.instance.info("Server successfully started and listening to %s",
             protocol + ":/" + server.getAddress().getAddress() + ":" + port);
     }
 
 
     public void stop() {
         server.stop(0);
-        Log.call.info("Server successfully stopped");
+        Log.instance.info("Server successfully stopped");
     }
 
     public void serve(HttpExchange httpExchange, HttpResponse httpResponse) {
@@ -72,7 +72,7 @@ public enum HttpServer {
 
             httpExchange.close();
         } catch (IOException e) {
-            Log.call.error(e);
+            Log.instance.error(e);
         }
     }
 }

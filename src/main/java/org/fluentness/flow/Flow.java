@@ -25,7 +25,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public enum Flow implements Comparator<Class<? extends Component>> {
-    call;
+    instance;
 
     public RepositoryProvider repositories;
     public LocaleProvider locales;

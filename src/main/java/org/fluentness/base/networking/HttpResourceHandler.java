@@ -12,12 +12,12 @@ import static org.fluentness.base.constants.HttpStatusCodes.*;
 
 public enum  HttpResourceHandler implements HttpHandler {
 
-    call;
+    instance;
 
     @Override
     public void handle(HttpExchange httpExchange) {
 
-        Log.call.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+        Log.instance.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
 
         String path = httpExchange.getRequestURI().getPath();
         try {
@@ -41,14 +41,14 @@ public enum  HttpResourceHandler implements HttpHandler {
                     response.withHeader("Content-Type", "image/svg+xml");
                 }
 
-                HttpServer.call.serve(httpExchange, response);
+                HttpServer.instance.serve(httpExchange, response);
             } else {
-                Log.call.warning("File " + path + " doesn't exists");
-                HttpServer.call.serve(httpExchange, new HttpResponse(NOT_FOUND));
+                Log.instance.warning("File " + path + " doesn't exists");
+                HttpServer.instance.serve(httpExchange, new HttpResponse(NOT_FOUND));
             }
         } catch (IOException e) {
-            Log.call.error(e);
-            HttpServer.call.serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
+            Log.instance.error(e);
+            HttpServer.instance.serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }
 }
