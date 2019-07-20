@@ -1,7 +1,7 @@
 package org.fluentness.flow.style;
 
+import org.fluentness.Fluentness;
 import org.fluentness.base.generics.Component;
-import org.fluentness.base.logging.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +13,11 @@ public abstract class Style extends Component {
 
     public void writeToFile(String path) {
         try {
-            Log.instance.fine("Create CSS file %s", path);
+            Fluentness.base.getLogger().fine("Create CSS file %s", path);
             new File(path).getParentFile().mkdirs();
             Files.write(Paths.get(path),render().getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            Log.instance.severe(e);
+            Fluentness.base.getLogger().severe(e);
         }
     }
 

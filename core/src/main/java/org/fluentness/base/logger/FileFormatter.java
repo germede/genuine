@@ -1,8 +1,8 @@
-package org.fluentness.base.logging;
+package org.fluentness.base.logger;
 
 import java.util.logging.LogRecord;
 
-public class FileFormatter extends BaseFormatter {
+public class FileFormatter extends AbstractFormatter {
 
     @Override
     public String format(LogRecord logRecord) {

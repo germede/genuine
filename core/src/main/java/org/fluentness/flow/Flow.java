@@ -1,7 +1,6 @@
 package org.fluentness.flow;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.Utils;
 import org.fluentness.base.exceptions.FluentnessInitializationException;
 import org.fluentness.base.generics.Component;
 import org.fluentness.base.generics.Consumer;
@@ -25,8 +24,7 @@ import java.util.*;
 
 import static org.fluentness.base.constants.AnsiColors.*;
 
-public enum Flow implements Comparator<Class<? extends Component>> {
-    instance;
+public class Flow {
 
     private List<Class<? extends Component>> onionLayers = new ArrayList<>();
     private Map<Class<? extends Provider>, Provider> providers = new HashMap<>();
@@ -40,7 +38,7 @@ public enum Flow implements Comparator<Class<? extends Component>> {
         onionLayers.add(Task.class);
         onionLayers.add(Controller.class);
 
-        String appPackage = Fluentness.instance.getAppPackage();
+        String appPackage = Fluentness.appPackage;
 
         try {
             setProvider(RepositoryProvider.class, appPackage + ".flow.Repositories");
@@ -65,9 +63,25 @@ public enum Flow implements Comparator<Class<? extends Component>> {
         ClassNotFoundException,
         FluentnessInitializationException {
 
-        Provider provider = Utils.instance.instantiateClass(providerClass, providerClassName);
+        Provider provider = instantiate(providerClass, providerClassName);
         checkOnionLayerCompliance(provider);
         providers.put(providerClass, provider);
+    }
+
+    public <T> T instantiate(Class<T> clazz, String implementation)
+        throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        Object object = Class.forName(implementation).newInstance();
+        if (clazz.isAssignableFrom(object.getClass())) {
+            return (T) object;
+        } else {
+            throw new ClassCastException(
+                String.format(
+                    "Given class %s must be the same type as %s's type",
+                    clazz.getSimpleName(),
+                    object.getClass().getSimpleName()
+                )
+            );
+        }
     }
 
     public void checkOnionLayerCompliance(Provider provider) throws FluentnessInitializationException {
@@ -81,7 +95,7 @@ public enum Flow implements Comparator<Class<? extends Component>> {
             for (Class consumer : consumerClasses) {
                 Class consumerComponent = Class.forName(consumer.getCanonicalName().replace("Consumer", ""));
 
-                if (compare(producedComponent, consumerComponent) < 0) {
+                if (new ComponentComparator().compare(producedComponent, consumerComponent) < 0) {
                     throw new FluentnessInitializationException(
                         "%s should not consume %s components due to the onion layer priority",
                         provider.getClass().getSimpleName(),
@@ -113,8 +127,11 @@ public enum Flow implements Comparator<Class<? extends Component>> {
         System.out.println();
     }
 
-    @Override
-    public int compare(Class<? extends Component> componentType1, Class<? extends Component> componentType2) {
-        return Integer.compare(onionLayers.indexOf(componentType1), onionLayers.indexOf(componentType2));
+    public class ComponentComparator implements Comparator<Class<? extends Component>> {
+
+        @Override
+        public int compare(Class<? extends Component> componentType1, Class<? extends Component> componentType2) {
+            return Integer.compare(onionLayers.indexOf(componentType1), onionLayers.indexOf(componentType2));
+        }
     }
 }

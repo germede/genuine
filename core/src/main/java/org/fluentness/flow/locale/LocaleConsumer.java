@@ -1,11 +1,11 @@
 package org.fluentness.flow.locale;
 
+import org.fluentness.Fluentness;
 import org.fluentness.base.generics.Consumer;
-import org.fluentness.flow.Flow;
 
 public interface LocaleConsumer<T extends LocaleProvider> extends Consumer {
 
     default T locales() {
-        return (T) Flow.instance.getProvider(LocaleProvider.class);
+        return (T) Fluentness.flow.getProvider(LocaleProvider.class);
     }
 }

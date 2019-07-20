@@ -6,15 +6,15 @@ Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-inte
 ## Decalogue
 
 >**F**orce your code to be compact, yet legible  
->**L**oose coupling by using onion layers  
->**U**se class attributes as finished components and functions as helpers  
+>**L**oose coupling by using onion-like software layers  
+>**U**se flow class attributes as finished components and functions as helpers    
 >**E**mbrace the consumer-provider architecture  
->**N**otice how harmful the new operator can be  
->**T**ry to avoid comments and do more unit testing instead  
+>**N**otice how unit tests may help you discover where the software design lacks    
+>**T**ry to avoid comments and annotations  
 >**N**ame each component as if it were your child  
 >**E**ndorse convention over configuration  
->**S**eparate application data (what) from application flow (how)  
->**S**tart using enums for singleton objects  
+>**S**plit your application in base, data and flow: the Fluentness way  
+>**S**tart looking for singleton alternatives like injecting dependencies   
 
 ## Quickstart
 

@@ -1,9 +1,8 @@
 package org.fluentness.flow.repository;
 
+import org.fluentness.Fluentness;
 import org.fluentness.base.generics.Component;
 import org.fluentness.base.lambdas.KeyValuePair;
-import org.fluentness.base.logging.Log;
-import org.fluentness.data.Data;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -22,7 +21,7 @@ public class Repository<T> extends Component {
         this.queries = new HashMap<>();
         Arrays.stream(queries).forEach(query -> this.queries.put(query.getKey(), query.getValue()));
         this.ec = ec;
-        this.em = Data.instance.getEntityManager();
+        this.em = Fluentness.data.getEntityManager();
     }
 
     public boolean isTransactionActive() {
@@ -49,10 +48,10 @@ public class Repository<T> extends Component {
             em.persist(entity);
             em.flush();
             commitTransaction();
-            Log.instance.fine("%s record created successfully", ec.getSimpleName());
+            Fluentness.base.getLogger().fine("%s record created successfully", ec.getSimpleName());
             return true;
         }
-        Log.instance.fine("%s record already exists, cannot create", ec.getSimpleName());
+        Fluentness.base.getLogger().fine("%s record already exists, cannot create", ec.getSimpleName());
         return false;
     }
 
@@ -64,10 +63,10 @@ public class Repository<T> extends Component {
             em.persist(entity);
             em.flush();
             commitTransaction();
-            Log.instance.fine("%s record updated successfully", ec.getSimpleName());
+            Fluentness.base.getLogger().fine("%s record updated successfully", ec.getSimpleName());
             return true;
         }
-        Log.instance.fine("%s record doesn't exists, cannot update", ec.getSimpleName());
+        Fluentness.base.getLogger().fine("%s record doesn't exists, cannot update", ec.getSimpleName());
         return false;
     }
 
@@ -79,21 +78,21 @@ public class Repository<T> extends Component {
             em.remove(entity);
             em.flush();
             commitTransaction();
-            Log.instance.fine("%s record deleted successfully", ec.getSimpleName());
+            Fluentness.base.getLogger().fine("%s record deleted successfully", ec.getSimpleName());
             return true;
         }
-        Log.instance.fine("%s record doesn't exists, cannot delete", ec.getSimpleName());
+        Fluentness.base.getLogger().fine("%s record doesn't exists, cannot delete", ec.getSimpleName());
         return false;
     }
 
     public List<T> findAll() {
         Query query = em.createQuery("SELECT e FROM " + ec.getSimpleName() + " e");
-        Log.instance.fine("Retrieving all %s records", ec.getSimpleName());
+        Fluentness.base.getLogger().fine("Retrieving all %s records", ec.getSimpleName());
         return query.getResultList();
     }
 
     public T findById(int id) {
-        Log.instance.fine("Retrieving %s record by ID %s", ec.getSimpleName(), id);
+        Fluentness.base.getLogger().fine("Retrieving %s record by ID %s", ec.getSimpleName(), id);
         return em.find(ec, id);
     }
 
@@ -103,7 +102,7 @@ public class Repository<T> extends Component {
         for (KeyValuePair<Object> parameter : parameters) {
             query.setParameter(parameter.getKey(), parameter.getValue());
         }
-        Log.instance.fine("Retrieving %s records using custom query '%s'",
+        Fluentness.base.getLogger().fine("Retrieving %s records using custom query '%s'",
             ec.getSimpleName(),
             queryName
         );

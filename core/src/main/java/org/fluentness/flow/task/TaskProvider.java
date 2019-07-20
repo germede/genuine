@@ -1,14 +1,11 @@
 package org.fluentness.flow.task;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.Utils;
 import org.fluentness.base.constants.AnsiColors;
 import org.fluentness.base.constants.PrivateDirectories;
 import org.fluentness.base.constants.PublicDirectories;
 import org.fluentness.base.generics.Component;
 import org.fluentness.base.generics.Provider;
-import org.fluentness.base.networking.HttpServer;
-import org.fluentness.flow.Flow;
 
 import java.io.File;
 import java.util.*;
@@ -23,6 +20,24 @@ public abstract class TaskProvider extends Provider<Task> implements AnsiColors 
 
     protected Task does(String description, TaskExecutor executable, String... args) {
         return new Task(description, executable, args);
+    }
+
+    private void deleteRecursively(File file) {
+        if (file.isDirectory()) {
+            File[] entries = file.listFiles();
+            if (entries != null) {
+                for (File entry : entries) {
+                    deleteRecursively(entry);
+                }
+            }
+        }
+        if (file.exists()) {
+            if (!file.delete()) {
+                Fluentness.base.getLogger().warning("Cannot delete %s", file.getPath());
+            } else {
+                Fluentness.base.getLogger().fine("Deleted file %s", file.getPath());
+            }
+        }
     }
 
     Map<String, List<Task>> getAllGroupedByCategory() {
@@ -45,7 +60,7 @@ public abstract class TaskProvider extends Provider<Task> implements AnsiColors 
             System.out.println(ANSI_GREEN + "Available tasks:\n" + ANSI_RESET);
 
             for (Map.Entry<String, List<Task>> category :
-                Flow.instance.getProvider(TaskProvider.class).getAllGroupedByCategory().entrySet()
+                Fluentness.flow.getProvider(TaskProvider.class).getAllGroupedByCategory().entrySet()
             ) {
 
 
@@ -69,7 +84,7 @@ public abstract class TaskProvider extends Provider<Task> implements AnsiColors 
     );
 
     Task print_onion = does("Prints the onion layer list sorted by priority",
-        arguments -> Flow.instance.printOnionLayers()
+        arguments -> Fluentness.flow.printOnionLayers()
     );
 
     Task print_version = does("Prints current Fluentness version",
@@ -77,25 +92,25 @@ public abstract class TaskProvider extends Provider<Task> implements AnsiColors 
     );
 
     Task clear_view_cache = does("Clears the view cache by deleting directory " + PrivateDirectories.VIEW_CACHE,
-        arguments -> Utils.instance.deleteRecursively(new File(PrivateDirectories.VIEW_CACHE))
+        arguments -> deleteRecursively(new File(PrivateDirectories.VIEW_CACHE))
     );
 
     Task clear_style_cache = does("Clears the style cache by deleting directory " + PublicDirectories.STYLES,
-        arguments -> Utils.instance.deleteRecursively(new File(PublicDirectories.STYLES))
+        arguments -> deleteRecursively(new File(PublicDirectories.STYLES))
     );
 
-    Task clear_logs = does("Clears the log files by deleting directory " + PrivateDirectories.LOG,
-        arguments -> Utils.instance.deleteRecursively(new File(PrivateDirectories.LOG))
+    Task clear_logs = does("Clears the logger files by deleting directory " + PrivateDirectories.LOG,
+        arguments -> deleteRecursively(new File(PrivateDirectories.LOG))
     );
 
     Task server_start = does("Starts embedded HTTP server",
         arguments -> {
-            HttpServer.instance.initialize();
-            HttpServer.instance.start();
+            Fluentness.base.getServer().initialize();
+            Fluentness.base.getServer().start();
         }
     );
 
     Task server_stop = does("Stops embedded HTTP server",
-        arguments -> HttpServer.instance.stop()
+        arguments -> Fluentness.base.getServer().stop()
     );
 }

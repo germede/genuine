@@ -1,4 +1,4 @@
-package org.fluentness.base.networking;
+package org.fluentness.base.server;
 
 
 import java.util.HashMap;

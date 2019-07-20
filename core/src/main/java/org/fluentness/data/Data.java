@@ -1,21 +1,20 @@
 package org.fluentness.data;
 
-import org.fluentness.base.settings.Settings;
+import org.fluentness.Fluentness;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import static org.fluentness.base.settings.StringKey.PERSISTENCE_UNIT;
+import static org.fluentness.base.config.StringKey.PERSISTENCE_UNIT;
 
-public enum Data {
-    instance;
+public class Data {
 
     private EntityManager entityManager;
 
     public void initialize() {
-        if (Settings.instance.has(PERSISTENCE_UNIT)) {
+        if (Fluentness.base.getConfig().has(PERSISTENCE_UNIT)) {
             entityManager = Persistence
-                .createEntityManagerFactory(Settings.instance.get(PERSISTENCE_UNIT))
+                .createEntityManagerFactory(Fluentness.base.getConfig().get(PERSISTENCE_UNIT))
                 .createEntityManager();
         }
 
@@ -23,5 +22,9 @@ public enum Data {
 
     public EntityManager getEntityManager() {
         return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

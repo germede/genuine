@@ -1,4 +1,4 @@
-package org.fluentness.base.settings;
+package org.fluentness.base.config;
 
 public enum IntegerKey implements Key<Integer> {
 

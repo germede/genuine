@@ -1,4 +1,4 @@
-package org.fluentness.base.logging;
+package org.fluentness.base.logger;
 
 import org.fluentness.base.constants.AnsiColors;
 
@@ -9,7 +9,7 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-abstract class BaseFormatter extends Formatter implements AnsiColors {
+abstract class AbstractFormatter extends Formatter implements AnsiColors {
 
     void appendLogRecordTitle(StringBuilder builder, LogRecord logRecord) {
         builder.append("[");
@@ -20,7 +20,7 @@ abstract class BaseFormatter extends Formatter implements AnsiColors {
         builder.append(logRecord.getLevel().getName());
         for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
             if (!stackTraceElement.getClassName().startsWith("java") &&
-                !stackTraceElement.getClassName().startsWith(BaseFormatter.class.getPackage().getName())) {
+                !stackTraceElement.getClassName().startsWith(AbstractFormatter.class.getPackage().getName())) {
                 builder.append("] [");
                 builder.append(stackTraceElement.getClassName().replaceAll(".*\\.",""));
                 break;

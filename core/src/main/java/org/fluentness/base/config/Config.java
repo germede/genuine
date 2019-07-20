@@ -1,19 +1,18 @@
-package org.fluentness.base.settings;
+package org.fluentness.base.config;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.fluentness.base.settings.BooleanKey.*;
-import static org.fluentness.base.settings.IntegerKey.APP_PORT;
-import static org.fluentness.base.settings.StringKey.*;
+import static org.fluentness.base.config.BooleanKey.*;
+import static org.fluentness.base.config.IntegerKey.APP_PORT;
+import static org.fluentness.base.config.StringKey.*;
 
-public enum Settings {
-    instance;
+public class Config {
 
     private Map<Key, Object> settings = new HashMap<>();
 
     public void initialize() {
-        // default settings
+        // default config
         set(APP_PROTOCOL, "http");
         set(APP_HOST, "localhost");
         set(APP_PORT, 8000);

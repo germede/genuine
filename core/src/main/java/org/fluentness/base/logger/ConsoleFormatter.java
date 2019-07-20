@@ -1,11 +1,11 @@
-package org.fluentness.base.logging;
+package org.fluentness.base.logger;
 
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 import static java.util.logging.Level.SEVERE;
 
-public class ConsoleFormatter extends BaseFormatter {
+public class ConsoleFormatter extends AbstractFormatter {
 
     @Override
     public String format(LogRecord logRecord) {

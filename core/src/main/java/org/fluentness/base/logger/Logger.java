@@ -1,33 +1,42 @@
-package org.fluentness.base.logging;
+package org.fluentness.base.logger;
 
+import org.fluentness.Fluentness;
 import org.fluentness.base.constants.PrivateDirectories;
-import org.fluentness.base.settings.Settings;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 
-import static org.fluentness.base.settings.BooleanKey.ENABLE_LOG_TO_CONSOLE;
-import static org.fluentness.base.settings.BooleanKey.ENABLE_LOG_TO_FILE;
-import static org.fluentness.base.settings.StringKey.LOG_LEVEL;
+import static org.fluentness.base.config.BooleanKey.ENABLE_LOG_TO_CONSOLE;
+import static org.fluentness.base.config.BooleanKey.ENABLE_LOG_TO_FILE;
+import static org.fluentness.base.config.StringKey.LOG_LEVEL;
 
-public enum Log {
-    instance;
+public class Logger {
 
-    private Logger logger;
+    public Logger() {
+
+    }
+
+    private java.util.logging.Logger logger;
 
     public void initialize() {
-        String logLevel = Settings.instance.get(LOG_LEVEL);
 
-        // create logger
         logger = java.util.logging.Logger.getGlobal();
         logger.setUseParentHandlers(false);
+
+        String logLevel = "ALL";
+        if (Fluentness.base.getConfig().has(LOG_LEVEL)) {
+            logLevel = Fluentness.base.getConfig().get(LOG_LEVEL);
+        }
+
         logger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (Settings.instance.get(ENABLE_LOG_TO_CONSOLE)) {
+        if (Fluentness.base.getConfig().has(ENABLE_LOG_TO_CONSOLE) && Fluentness.base.getConfig().get(ENABLE_LOG_TO_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -35,7 +44,7 @@ public enum Log {
         }
 
         // file logging
-        if (Settings.instance.get(ENABLE_LOG_TO_FILE)) {
+        if (Fluentness.base.getConfig().has(ENABLE_LOG_TO_FILE) && Fluentness.base.getConfig().get(ENABLE_LOG_TO_FILE)) {
             new File(PrivateDirectories.LOG).mkdirs();
             try {
                 String logFilePath = PrivateDirectories.LOG + "/" +

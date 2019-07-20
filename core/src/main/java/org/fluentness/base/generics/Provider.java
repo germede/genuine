@@ -1,7 +1,7 @@
 package org.fluentness.base.generics;
 
+import org.fluentness.Fluentness;
 import org.fluentness.base.exceptions.ProviderException;
-import org.fluentness.base.logging.Log;
 import org.fluentness.flow.task.Task;
 import org.fluentness.flow.task.TaskProvider;
 
@@ -51,9 +51,9 @@ public abstract class Provider<T extends Component> {
                     components.add(component);
                 }
             } catch (IllegalAccessException e) {
-                Log.instance.severe(e);
+                Fluentness.base.getLogger().severe(e);
             } catch (ProviderException e) {
-                Log.instance.severe(e.getMessage());
+                Fluentness.base.getLogger().severe(e.getMessage());
                 System.exit(1);
             }
         }

@@ -1,40 +1,28 @@
 package org.fluentness;
 
+import org.fluentness.base.Base;
 import org.fluentness.base.exceptions.FluentnessInitializationException;
-import org.fluentness.base.logging.Log;
-import org.fluentness.base.settings.Key;
-import org.fluentness.base.settings.Settings;
 import org.fluentness.data.Data;
 import org.fluentness.flow.Flow;
 import org.fluentness.flow.task.Task;
 import org.fluentness.flow.task.TaskProvider;
 
-public enum Fluentness {
-    instance;
+public final class Fluentness {
 
-    static {
-        // load default settings
-        Settings.instance.initialize();
-    }
+    // global services
+    public static Base base = new Base();
+    public static Data data = new Data();
+    public static Flow flow = new Flow();
 
-    private String appPackage;
+    public static String appPackage;
 
-    public String getAppPackage() {
-        return appPackage;
-    }
-
-    public <T> Fluentness set(Key<T> key, T value) {
-        Settings.instance.set(key, value);
-        return this;
-    }
-
-    public void initialize(String appPackage, String[] args) {
-        this.appPackage = appPackage;
+    public static void initialize(String appPackage, String[] args) {
+        Fluentness.appPackage = appPackage;
         try {
-            Log.instance.initialize();
 
-            Data.instance.initialize();
-            Flow.instance.initialize();
+            base.initialize();
+            data.initialize();
+            flow.initialize();
 
             executeCommand(args);
         } catch (FluentnessInitializationException e) {
@@ -42,9 +30,9 @@ public enum Fluentness {
         }
     }
 
-    private void executeCommand(String[] args) throws FluentnessInitializationException {
+    private static void executeCommand(String[] args) throws FluentnessInitializationException {
 
-        TaskProvider tasks = Flow.instance.getProvider(TaskProvider.class);
+        TaskProvider tasks = Fluentness.flow.getProvider(TaskProvider.class);
 
         if (args.length == 0) {
             tasks.getComponent("help").execute(args);

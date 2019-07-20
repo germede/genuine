@@ -2,7 +2,7 @@ package org.fluentness.flow.view;
 
 import org.fluentness.base.constants.PrivateDirectories;
 import org.fluentness.base.generics.Cache;
-import org.fluentness.base.networking.HttpRequestRegister;
+import org.fluentness.base.server.HttpRequestRegister;
 
 public enum ViewCache implements Cache<View> {
 
@@ -12,7 +12,7 @@ public enum ViewCache implements Cache<View> {
     public String getIdentifyingCacheFilePath(View view) {
         return PrivateDirectories.VIEW_CACHE + "/" +
             view.getName() + "." +
-            HttpRequestRegister.getCurrentLocale().toString() + ".html";
+            HttpRequestRegister.instance.getCurrentLocale().toString() + ".html";
     }
 
     @Override

@@ -1,9 +1,8 @@
-package org.fluentness.base.networking;
+package org.fluentness.base.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.base.logging.Log;
-import org.fluentness.base.settings.Settings;
+import org.fluentness.Fluentness;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -11,22 +10,26 @@ import java.net.InetSocketAddress;
 import java.net.ProtocolException;
 import java.util.Map;
 
-import static org.fluentness.base.settings.IntegerKey.APP_PORT;
-import static org.fluentness.base.settings.StringKey.APP_HOST;
-import static org.fluentness.base.settings.StringKey.APP_PROTOCOL;
+import static org.fluentness.base.config.IntegerKey.APP_PORT;
+import static org.fluentness.base.config.StringKey.APP_HOST;
+import static org.fluentness.base.config.StringKey.APP_PROTOCOL;
 
-public enum HttpServer {
-    instance;
+public class Server {
 
-    private com.sun.net.httpserver.HttpServer server;
+    private Router router;
     private String protocol;
     private String host;
     private int port;
+    private com.sun.net.httpserver.HttpServer server;
+
+    public Server(Router router) {
+        this.router = router;
+    }
 
     public void initialize() {
-        protocol = Settings.instance.get(APP_PROTOCOL);
-        host = Settings.instance.get(APP_HOST);
-        port = Settings.instance.get(APP_PORT);
+        protocol = Fluentness.base.getConfig().get(APP_PROTOCOL);
+        host = Fluentness.base.getConfig().get(APP_HOST);
+        port = Fluentness.base.getConfig().get(APP_PORT);
         try {
 
             switch (protocol) {
@@ -37,26 +40,26 @@ public enum HttpServer {
                     throw new ProtocolException();
             }
 
-            Map<String, HttpHandler> routeHandlerMap = HttpRouter.instance.getRouteHandlerMap();
+            Map<String, HttpHandler> routeHandlerMap = router.getRouteHandlerMap();
             routeHandlerMap.forEach((key, value) -> server.createContext(key, value));
             server.setExecutor(null);
 
         } catch (Exception e) {
             stop();
-            Log.instance.severe(e);
+            Fluentness.base.getLogger().severe(e);
         }
     }
 
     public void start() {
         server.start();
-        Log.instance.info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
+        Fluentness.base.getLogger().info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
     }
 
 
     public void stop() {
         if (server != null) {
             server.stop(0);
-            Log.instance.info("Server successfully stopped");
+            Fluentness.base.getLogger().info("Server successfully stopped");
         }
     }
 
@@ -73,7 +76,7 @@ public enum HttpServer {
 
             httpExchange.close();
         } catch (IOException e) {
-            Log.instance.severe(e);
+            Fluentness.base.getLogger().severe(e);
         }
     }
 }

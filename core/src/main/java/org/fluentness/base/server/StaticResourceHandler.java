@@ -1,8 +1,8 @@
-package org.fluentness.base.networking;
+package org.fluentness.base.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.base.logging.Log;
+import org.fluentness.Fluentness;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,14 +10,12 @@ import java.nio.file.Paths;
 
 import static org.fluentness.base.constants.HttpStatusCodes.*;
 
-public enum  HttpResourceHandler implements HttpHandler {
-
-    instance;
+public class StaticResourceHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) {
 
-        Log.instance.fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+        Fluentness.base.getLogger().fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
 
         String path = httpExchange.getRequestURI().getPath();
         try {
@@ -41,14 +39,14 @@ public enum  HttpResourceHandler implements HttpHandler {
                     response.withHeader("Content-Type", "image/svg+xml");
                 }
 
-                HttpServer.instance.serve(httpExchange, response);
+                Fluentness.base.getServer().serve(httpExchange, response);
             } else {
-                Log.instance.warning("File " + path + " doesn't exists");
-                HttpServer.instance.serve(httpExchange, new HttpResponse(NOT_FOUND));
+                Fluentness.base.getLogger().warning("File " + path + " doesn't exists");
+                Fluentness.base.getServer().serve(httpExchange, new HttpResponse(NOT_FOUND));
             }
         } catch (IOException e) {
-            Log.instance.severe(e);
-            HttpServer.instance.serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
+            Fluentness.base.getLogger().severe(e);
+            Fluentness.base.getServer().serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }
 }
