@@ -13,9 +13,12 @@ public enum Data {
     private EntityManager entityManager;
 
     public void initialize() {
-        entityManager = Persistence
-            .createEntityManagerFactory(Settings.instance.get(PERSISTENCE_UNIT))
-            .createEntityManager();
+        if (Settings.instance.has(PERSISTENCE_UNIT)) {
+            entityManager = Persistence
+                .createEntityManagerFactory(Settings.instance.get(PERSISTENCE_UNIT))
+                .createEntityManager();
+        }
+
     }
 
     public EntityManager getEntityManager() {

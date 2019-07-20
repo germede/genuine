@@ -36,4 +36,8 @@ public enum Settings {
     public <T> void set(Key<T> key, T value) {
         settings.put(key, value);
     }
+
+    public <T> boolean has(Key<T> key) {
+        return settings.containsKey(key);
+    }
 }
