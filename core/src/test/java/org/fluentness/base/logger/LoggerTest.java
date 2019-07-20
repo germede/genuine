@@ -1,41 +1,47 @@
 package org.fluentness.base.logger;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.config.BooleanKey;
-import org.fluentness.base.config.IntegerKey;
-import org.fluentness.base.config.StringKey;
-import org.junit.After;
+import org.fluentness.base.config.Config;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.mockito.Mockito.*;
+
 public class LoggerTest {
+
+    private Config configMock = mock(Config.class);
 
     @Before
     public void before() {
-        Fluentness.base.getConfig().initialize();
+        configMock.clear();
+        Fluentness.base.setConfig(configMock);
+        Fluentness.base.getLogger().initialize();
     }
 
     @Test
-    public void whenNoSettingsAreSet_thenDefaultSettingsAreGot() {
-        Assert.assertEquals(Fluentness.base.getConfig().get(StringKey.APP_PROTOCOL), "http");
-        Assert.assertNull(Fluentness.base.getConfig().get(StringKey.APP_KEYSTORE));
+    public void whenNoConfigIsSet_thenLogLevelIsAll() {
+
+        Assert.assertEquals(Fluentness.base.getLogger().getInternalLogger().getLevel().toString(), "ALL");
     }
+
 
     @Test
-    public void whenSettingsAreSet_thenThoseSettingsAreGot() {
-        Fluentness.base.getConfig().set(StringKey.APP_PROTOCOL, "Lorem ipsum");
-        Fluentness.base.getConfig().set(IntegerKey.APP_PORT, 1234);
-        Fluentness.base.getConfig().set(BooleanKey.ENABLE_CACHE, true);
+    public void whenLoggerMethodsAreCalled_thenInternalLoggerMethodsAreCalled() {
 
-        Assert.assertEquals(Fluentness.base.getConfig().get(StringKey.APP_PROTOCOL), "Lorem ipsum");
-        Assert.assertEquals((int) Fluentness.base.getConfig().get(IntegerKey.APP_PORT), 1234);
-        Assert.assertEquals(Fluentness.base.getConfig().get(BooleanKey.ENABLE_CACHE), true);
-    }
+        java.util.logging.Logger internalLoggerMock = mock(java.util.logging.Logger.class);
+        Fluentness.base.getLogger().setInternalLogger(internalLoggerMock);
 
-    @After
-    public void after() {
-        Fluentness.base.getConfig().clear();
+        Fluentness.base.getLogger().fine("Everything is fine");
+        Fluentness.base.getLogger().info("Just for info %s", 1234);
+        Fluentness.base.getLogger().warning("Attention, this is a warning");
+        Fluentness.base.getLogger().severe("This is very serious");
+        Fluentness.base.getLogger().severe(new Exception("An exception occurred"));
+
+        verify(internalLoggerMock, times(1)).fine(anyString());
+        verify(internalLoggerMock, times(1)).info(anyString());
+        verify(internalLoggerMock, times(1)).warning(anyString());
+        verify(internalLoggerMock, times(2)).severe(anyString());
     }
 
 }

@@ -17,26 +17,29 @@ import static org.fluentness.base.config.StringKey.LOG_LEVEL;
 
 public class Logger {
 
-    private java.util.logging.Logger logger;
+    private java.util.logging.Logger internalLogger;
+
+    public Logger(java.util.logging.Logger internalLogger) {
+        this.internalLogger = internalLogger;
+    }
 
     public void initialize() {
 
-        logger = java.util.logging.Logger.getGlobal();
-        logger.setUseParentHandlers(false);
+        internalLogger.setUseParentHandlers(false);
 
         String logLevel = "ALL";
         if (Fluentness.base.getConfig().has(LOG_LEVEL)) {
             logLevel = Fluentness.base.getConfig().get(LOG_LEVEL);
         }
 
-        logger.setLevel(Level.parse(logLevel));
+        internalLogger.setLevel(Level.parse(logLevel));
 
         // console logging
         if (Fluentness.base.getConfig().has(ENABLE_LOG_TO_CONSOLE) && Fluentness.base.getConfig().get(ENABLE_LOG_TO_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
-            logger.addHandler(consoleHandler);
+            internalLogger.addHandler(consoleHandler);
         }
 
         // file logging
@@ -55,38 +58,35 @@ public class Logger {
                 }
                 fileHandler.setFormatter(new FileFormatter());
                 fileHandler.setLevel(Level.parse(logLevel));
-                logger.addHandler(fileHandler);
+                internalLogger.addHandler(fileHandler);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public java.util.logging.Logger getLogger() {
-        return logger;
+    public java.util.logging.Logger getInternalLogger() {
+        return internalLogger;
     }
 
-    private String format(String message, Object... parameters) {
-        if (parameters != null && parameters.length > 0) {
-            return String.format(message, parameters);
-        }
-        return message;
+    public void setInternalLogger(java.util.logging.Logger internalLogger) {
+        this.internalLogger = internalLogger;
     }
 
     public void fine(String message, Object... parameters) {
-        logger.fine(format(message, parameters));
+        internalLogger.fine(format(message, parameters));
     }
 
     public void info(String message, Object... parameters) {
-        logger.info(format(message, parameters));
+        internalLogger.info(format(message, parameters));
     }
 
     public void warning(String message, Object... parameters) {
-        logger.warning(format(message, parameters));
+        internalLogger.warning(format(message, parameters));
     }
 
     public void severe(String message, Object... parameters) {
-        logger.severe(format(message, parameters));
+        internalLogger.severe(format(message, parameters));
     }
 
     public void severe(Exception exception) {
@@ -98,6 +98,13 @@ public class Logger {
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
         severe(message);
+    }
+
+    private String format(String message, Object... parameters) {
+        if (parameters != null && parameters.length > 0) {
+            return String.format(message, parameters);
+        }
+        return message;
     }
 
     private String stackTraceToString(StackTraceElement[] stackTraceElements) {

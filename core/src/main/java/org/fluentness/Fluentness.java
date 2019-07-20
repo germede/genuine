@@ -9,7 +9,6 @@ import org.fluentness.flow.task.TaskProvider;
 
 public class Fluentness {
 
-    // global services
     public static Base base = new Base();
     public static Data data = new Data();
     public static Flow flow = new Flow();

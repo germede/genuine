@@ -10,11 +10,11 @@ Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-inte
 >**U**se flow class attributes as finished components and functions as helpers    
 >**E**mbrace the consumer-provider architecture  
 >**N**otice how unit tests may help you discover where the software design lacks    
->**T**ry to avoid comments and annotations  
+>**T**ry to avoid abusing of comments, singletons and annotations  
 >**N**ame each component as if it were your child  
 >**E**ndorse convention over configuration  
 >**S**plit your application in base, data and flow: the Fluentness way  
->**S**tart looking for singleton alternatives like injecting dependencies   
+>**S**tart implementing constructor or interface-based dependency injection    
 
 ## Quickstart
 

@@ -10,7 +10,7 @@ import org.fluentness.base.server.StaticResourceHandler;
 public class Base {
 
     private Config config = new Config();
-    private Logger logger = new Logger();
+    private Logger logger = new Logger(java.util.logging.Logger.getGlobal());
     private Server server = new Server(new Router(new StaticResourceHandler()));
     private Cacher cacher = new Cacher();
 
