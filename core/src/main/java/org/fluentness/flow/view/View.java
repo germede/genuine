@@ -2,7 +2,7 @@ package org.fluentness.flow.view;
 
 import org.fluentness.Fluentness;
 import org.fluentness.base.generics.Component;
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 import org.fluentness.base.server.HttpRequestRegister;
 import org.fluentness.flow.locale.Locale;
 import org.fluentness.flow.locale.LocaleProvider;
@@ -17,7 +17,7 @@ public abstract class View extends Component {
 
     private static final Map<Thread, Map<String, Object>> parameters = new HashMap<>();
 
-    boolean hasParameters() {
+    public boolean hasParameters() {
         return parameters.get(Thread.currentThread()) != null && !parameters.get(Thread.currentThread()).isEmpty();
     }
 
@@ -38,7 +38,7 @@ public abstract class View extends Component {
     }
 
     public String renderWithCache() {
-        return ViewCache.instance.cache(this);
+        return Fluentness.base.getCacher().cache(this);
     }
 
     @Override

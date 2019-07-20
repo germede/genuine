@@ -2,7 +2,7 @@ package org.fluentness.flow.repository;
 
 import org.fluentness.Fluentness;
 import org.fluentness.base.generics.Component;
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

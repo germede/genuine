@@ -1,4 +1,4 @@
-package org.fluentness.base.lambdas;
+package org.fluentness.base.generics;
 
 import org.fluentness.Fluentness;
 

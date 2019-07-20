@@ -1,6 +1,6 @@
 package org.fluentness.flow.style;
 
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 
 import java.util.Arrays;
 

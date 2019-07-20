@@ -1,7 +1,7 @@
 package org.fluentness.flow.style;
 
 import org.fluentness.base.generics.Provider;
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 
 public abstract class StyleProvider extends Provider<Style> {
 

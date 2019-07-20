@@ -1,6 +1,6 @@
 package org.fluentness.flow.form;
 
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 import org.fluentness.flow.view.MarkupAttributes;
 import org.fluentness.flow.view.MarkupElement;
 import org.fluentness.flow.view.MarkupElementContainer;

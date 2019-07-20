@@ -1,6 +1,6 @@
 package org.fluentness.flow.locale;
 
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 import org.fluentness.base.generics.Component;
 
 import java.util.Arrays;

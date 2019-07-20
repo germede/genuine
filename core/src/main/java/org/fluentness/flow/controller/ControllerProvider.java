@@ -3,7 +3,7 @@ package org.fluentness.flow.controller;
 import org.fluentness.base.constants.HttpMethods;
 import org.fluentness.base.constants.HttpStatusCodes;
 import org.fluentness.base.generics.Provider;
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 import org.fluentness.base.server.HttpResponse;
 import org.fluentness.flow.view.View;
 

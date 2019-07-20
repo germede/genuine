@@ -1,5 +1,6 @@
 package org.fluentness.base;
 
+import org.fluentness.base.cacher.Cacher;
 import org.fluentness.base.config.Config;
 import org.fluentness.base.logger.Logger;
 import org.fluentness.base.server.Router;
@@ -11,11 +12,13 @@ public class Base {
     private Config config = new Config();
     private Logger logger = new Logger();
     private Server server = new Server(new Router(new StaticResourceHandler()));
+    private Cacher cacher = new Cacher();
 
     public void initialize() {
         config.initialize();
         logger.initialize();
         server.initialize();
+        cacher.initialize();
     }
 
     public Config getConfig() {
@@ -40,5 +43,13 @@ public class Base {
 
     public void setServer(Server server) {
         this.server = server;
+    }
+
+    public Cacher getCacher() {
+        return cacher;
+    }
+
+    public void setCacher(Cacher cacher) {
+        this.cacher = cacher;
     }
 }

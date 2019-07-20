@@ -7,7 +7,7 @@ import org.fluentness.flow.Flow;
 import org.fluentness.flow.task.Task;
 import org.fluentness.flow.task.TaskProvider;
 
-public final class Fluentness {
+public class Fluentness {
 
     // global services
     public static Base base = new Base();

@@ -1,7 +1,7 @@
 package org.fluentness.flow.repository;
 
 import org.fluentness.base.generics.Provider;
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 import org.fluentness.flow.locale.Locale;
 
 public abstract class RepositoryProvider extends Provider<Locale> {

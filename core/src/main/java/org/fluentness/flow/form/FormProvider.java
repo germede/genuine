@@ -2,7 +2,7 @@ package org.fluentness.flow.form;
 
 import org.fluentness.base.constants.HttpMethods;
 import org.fluentness.base.generics.Provider;
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 import org.fluentness.flow.locale.Localizator;
 import org.fluentness.flow.view.HtmlFunctions;
 import org.fluentness.flow.view.RawView;

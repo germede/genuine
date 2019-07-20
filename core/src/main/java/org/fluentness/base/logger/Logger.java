@@ -17,10 +17,6 @@ import static org.fluentness.base.config.StringKey.LOG_LEVEL;
 
 public class Logger {
 
-    public Logger() {
-
-    }
-
     private java.util.logging.Logger logger;
 
     public void initialize() {
@@ -64,6 +60,10 @@ public class Logger {
                 e.printStackTrace();
             }
         }
+    }
+
+    public java.util.logging.Logger getLogger() {
+        return logger;
     }
 
     private String format(String message, Object... parameters) {

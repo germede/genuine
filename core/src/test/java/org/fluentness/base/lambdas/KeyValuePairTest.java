@@ -1,6 +1,7 @@
 package org.fluentness.base.lambdas;
 
 import org.fluentness.Fluentness;
+import org.fluentness.base.generics.KeyValuePair;
 import org.fluentness.base.logger.Logger;
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,6 +1,6 @@
 package org.fluentness.flow.form;
 
-import org.fluentness.base.lambdas.KeyValuePair;
+import org.fluentness.base.generics.KeyValuePair;
 
 public interface FieldFactory {
 
