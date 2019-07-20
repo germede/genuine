@@ -4,15 +4,30 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>fluentness</artifactId>
-        <groupId>org.fluentness</groupId>
-        <version>0.0.1</version>
-    </parent>
-
-    <artifactId>sample</artifactId>
+    <artifactId>fluentness-sample</artifactId>
+    <groupId>org.fluentness</groupId>
+    <version>0.0.1</version>
 
     <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.fluentness</groupId>
+            <artifactId>core</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <directory>out</directory>

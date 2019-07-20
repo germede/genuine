@@ -1,4 +1,4 @@
-![Fluentness logo](logo/logo.png?raw=true "Fluentness logo")
+![Fluentness logo](core/art/logo.png?raw=true "Fluentness logo")
 
 ## Introduction
 Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-integrated, consistent web framework. 
@@ -34,7 +34,7 @@ mvn install
 ```
 
 ### 3. Bootstrap your application :rocket:
-You have basically 2 options:
+You have basically 3 options:
 
 
 ### 3a. Using the CLI
@@ -68,8 +68,11 @@ In this guide we'll be using IntelliJ IDE Community Edition:
 9. Open the DummyApp.java bootstrapper class and click on 'Run'.
 10. Under "Run Configurations", set "server:start" as program argument. Run again. 
 
+### 3c. Checkout the SongLibrary sample project
+in the directory /sample. This sample project is used for functional testing, but you can use it as base project instead of generating archetype.
+
 ### 4. Read the docs :closed_book:
-Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) how a Fluentness-based application is developed. Fluentness is intended to be easy to learn 
+Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) how the sample Fluentness-based application "SongLibrary" was developed. Fluentness is intended to be easy to learn 
 for newbies, but some documentation is always needed.   
 
 ### 5. Have fun and contribute :construction_worker:
