@@ -18,7 +18,6 @@ public enum Settings {
         set(APP_HOST, "localhost");
         set(APP_PORT, 8000);
         set(LOG_LEVEL, "ALL");
-        set(PERSISTENCE_UNIT, "default");
         set(ENABLE_LOG_TO_CONSOLE, true);
         set(ENABLE_LOG_TO_FILE, true);
         set(ENABLE_CACHE, true);
