@@ -4,6 +4,8 @@
 lib/
 out/
 tmp/
+res/
+classes/
 *.iws
 .iml
 *.ipr

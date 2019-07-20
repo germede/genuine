@@ -34,7 +34,7 @@ public abstract class TaskProvider extends Provider<Task> implements AnsiColors 
     }
 
     // default tasks
-    Task print_help = does("Prints all available commands",
+    Task help = does("Prints all available commands",
         arguments -> {
             System.out.println("\n" +
                 " _______                                \n" +

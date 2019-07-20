@@ -61,7 +61,7 @@ public enum Fluentness {
         TaskProvider tasks = Flow.instance.getProvider(TaskProvider.class);
 
         if (args.length == 0) {
-            tasks.getComponents().get(0).execute(args);
+            tasks.getComponent("help").execute(args);
             System.exit(0);
         }
 
