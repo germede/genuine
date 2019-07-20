@@ -49,10 +49,10 @@ public class Repository<T> extends Component {
             em.persist(entity);
             em.flush();
             commitTransaction();
-            Log.instance.debug("%s record created successfully", ec.getSimpleName());
+            Log.instance.fine("%s record created successfully", ec.getSimpleName());
             return true;
         }
-        Log.instance.debug("%s record already exists, cannot create", ec.getSimpleName());
+        Log.instance.fine("%s record already exists, cannot create", ec.getSimpleName());
         return false;
     }
 
@@ -64,10 +64,10 @@ public class Repository<T> extends Component {
             em.persist(entity);
             em.flush();
             commitTransaction();
-            Log.instance.debug("%s record updated successfully", ec.getSimpleName());
+            Log.instance.fine("%s record updated successfully", ec.getSimpleName());
             return true;
         }
-        Log.instance.debug("%s record doesn't exists, cannot update", ec.getSimpleName());
+        Log.instance.fine("%s record doesn't exists, cannot update", ec.getSimpleName());
         return false;
     }
 
@@ -79,21 +79,21 @@ public class Repository<T> extends Component {
             em.remove(entity);
             em.flush();
             commitTransaction();
-            Log.instance.debug("%s record deleted successfully", ec.getSimpleName());
+            Log.instance.fine("%s record deleted successfully", ec.getSimpleName());
             return true;
         }
-        Log.instance.debug("%s record doesn't exists, cannot delete", ec.getSimpleName());
+        Log.instance.fine("%s record doesn't exists, cannot delete", ec.getSimpleName());
         return false;
     }
 
     public List<T> findAll() {
         Query query = em.createQuery("SELECT e FROM " + ec.getSimpleName() + " e");
-        Log.instance.debug("Retrieving all %s records", ec.getSimpleName());
+        Log.instance.fine("Retrieving all %s records", ec.getSimpleName());
         return query.getResultList();
     }
 
     public T findById(int id) {
-        Log.instance.debug("Retrieving %s record by ID %s", ec.getSimpleName(), id);
+        Log.instance.fine("Retrieving %s record by ID %s", ec.getSimpleName(), id);
         return em.find(ec, id);
     }
 
@@ -103,7 +103,7 @@ public class Repository<T> extends Component {
         for (KeyValuePair<Object> parameter : parameters) {
             query.setParameter(parameter.getKey(), parameter.getValue());
         }
-        Log.instance.debug("Retrieving %s records using custom query '%s'",
+        Log.instance.fine("Retrieving %s records using custom query '%s'",
             ec.getSimpleName(),
             queryName
         );

@@ -64,7 +64,7 @@ public enum Log {
         return message;
     }
 
-    public void debug(String message, Object... parameters) {
+    public void fine(String message, Object... parameters) {
         logger.fine(format(message, parameters));
     }
 
@@ -76,11 +76,11 @@ public enum Log {
         logger.warning(format(message, parameters));
     }
 
-    public void error(String message, Object... parameters) {
+    public void severe(String message, Object... parameters) {
         logger.severe(format(message, parameters));
     }
 
-    public void error(Exception exception) {
+    public void severe(Exception exception) {
         String message;
         if (exception.getMessage() == null) {
             message = exception.getClass().getSimpleName() + ":";
@@ -88,7 +88,7 @@ public enum Log {
             message = exception.getClass().getSimpleName() + " " + exception.getMessage() + ":";
         }
         message = message.concat(stackTraceToString(exception.getStackTrace()));
-        error(message);
+        severe(message);
     }
 
     private String stackTraceToString(StackTraceElement[] stackTraceElements) {

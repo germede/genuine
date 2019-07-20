@@ -51,9 +51,9 @@ public abstract class Provider<T extends Component> {
                     components.add(component);
                 }
             } catch (IllegalAccessException e) {
-                Log.instance.error(e);
+                Log.instance.severe(e);
             } catch (ProviderException e) {
-                Log.instance.error(e.getMessage());
+                Log.instance.severe(e.getMessage());
                 System.exit(1);
             }
         }

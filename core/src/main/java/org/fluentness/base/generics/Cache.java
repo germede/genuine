@@ -36,20 +36,20 @@ public interface Cache<T> {
 
     default void store(T t, String content) {
         try {
-            Log.instance.debug("Create cache record %s", getIdentifyingCacheFilePath(t));
+            Log.instance.fine("Create cache record %s", getIdentifyingCacheFilePath(t));
             new File(getIdentifyingCacheFilePath(t)).getParentFile().mkdirs();
             Files.write(Paths.get(getIdentifyingCacheFilePath(t)), content.getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            Log.instance.error(e);
+            Log.instance.severe(e);
         }
     }
 
     default String retrieve(T t) {
         try {
-            Log.instance.debug("Retrieve cache record %s", getIdentifyingCacheFilePath(t));
+            Log.instance.fine("Retrieve cache record %s", getIdentifyingCacheFilePath(t));
             return new String(Files.readAllBytes(Paths.get(getIdentifyingCacheFilePath(t))));
         } catch (IOException e) {
-            Log.instance.error(e);
+            Log.instance.severe(e);
             return "";
         }
     }

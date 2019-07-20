@@ -13,11 +13,11 @@ public abstract class Style extends Component {
 
     public void writeToFile(String path) {
         try {
-            Log.instance.debug("Create CSS file %s", path);
+            Log.instance.fine("Create CSS file %s", path);
             new File(path).getParentFile().mkdirs();
             Files.write(Paths.get(path),render().getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            Log.instance.error(e);
+            Log.instance.severe(e);
         }
     }
 

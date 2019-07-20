@@ -6,11 +6,12 @@
 
     <groupId>org.fluentness</groupId>
     <artifactId>fluentness</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
 
     <modules>
         <module>archetype</module>
         <module>core</module>
+        <module>sample</module>
     </modules>
 
     <packaging>pom</packaging>

@@ -30,7 +30,7 @@ public enum Utils {
             if (!file.delete()) {
                 Log.instance.warning("Cannot delete %s", file.getPath());
             } else {
-                Log.instance.debug("Deleted file %s", file.getPath());
+                Log.instance.fine("Deleted file %s", file.getPath());
             }
         }
     }

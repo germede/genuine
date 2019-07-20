@@ -44,7 +44,7 @@ public enum HttpRouter {
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                     httpExchange -> {
-                        Log.instance.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                        Log.instance.fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                         callMethodAction(controller, action, httpExchange);
                     });
             }
@@ -55,7 +55,7 @@ public enum HttpRouter {
                     try {
                         routeHandlerMap.put("/" + directory.get(null), HttpResourceHandler.instance);
                     } catch (IllegalAccessException e) {
-                        Log.instance.error(e);
+                        Log.instance.severe(e);
                     }
                 }
             );
@@ -73,7 +73,7 @@ public enum HttpRouter {
             HttpRequestRegister.instance.removeCurrent();
             HttpServer.instance.serve(httpExchange, response);
         } catch (Exception e) {
-            Log.instance.error(e);
+            Log.instance.severe(e);
             HttpServer.instance.serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }

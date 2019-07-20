@@ -20,18 +20,18 @@ public enum HttpServer {
 
     private com.sun.net.httpserver.HttpServer server;
     private String protocol;
-    private String hostname;
+    private String host;
     private int port;
 
     public void initialize() {
         protocol = Settings.instance.get(APP_PROTOCOL);
-        hostname = Settings.instance.get(APP_HOST);
+        host = Settings.instance.get(APP_HOST);
         port = Settings.instance.get(APP_PORT);
         try {
 
             switch (protocol) {
                 case "http":
-                    server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(hostname, port), 0);
+                    server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(host, port), 0);
                     break;
                 default:
                     throw new ProtocolException();
@@ -43,20 +43,21 @@ public enum HttpServer {
 
         } catch (Exception e) {
             stop();
-            Log.instance.error(e);
+            Log.instance.severe(e);
         }
     }
 
     public void start() {
         server.start();
-        Log.instance.info("Server successfully started and listening to %s",
-            protocol + ":/" + server.getAddress().getAddress() + ":" + port);
+        Log.instance.info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
     }
 
 
     public void stop() {
-        server.stop(0);
-        Log.instance.info("Server successfully stopped");
+        if (server != null) {
+            server.stop(0);
+            Log.instance.info("Server successfully stopped");
+        }
     }
 
     public void serve(HttpExchange httpExchange, HttpResponse httpResponse) {
@@ -72,7 +73,7 @@ public enum HttpServer {
 
             httpExchange.close();
         } catch (IOException e) {
-            Log.instance.error(e);
+            Log.instance.severe(e);
         }
     }
 }

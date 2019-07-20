@@ -17,7 +17,7 @@ public enum  HttpResourceHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) {
 
-        Log.instance.debug(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+        Log.instance.fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
 
         String path = httpExchange.getRequestURI().getPath();
         try {
@@ -47,7 +47,7 @@ public enum  HttpResourceHandler implements HttpHandler {
                 HttpServer.instance.serve(httpExchange, new HttpResponse(NOT_FOUND));
             }
         } catch (IOException e) {
-            Log.instance.error(e);
+            Log.instance.severe(e);
             HttpServer.instance.serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }
