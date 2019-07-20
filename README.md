@@ -85,7 +85,7 @@ This project is based on these technologies:
 - EclipseLink (JPA)
 - Sun integrated HttpServer
 - Scriptina font and Inkscape for the logo artwork
-- Engagement :blue_heart:
+- Engagement :heart:
 
 ## License
 Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
