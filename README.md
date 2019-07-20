@@ -48,7 +48,7 @@ mvn archetype:generate                                  \
   -DartifactId=your.artifact.id                         \
   -Dversion=0.0.1
 ```
-Hit <kbd>Enter</kbd> when confirmation needed.:desktop_computer:
+Hit <kbd>Enter</kbd> when confirmation needed.
 ```bash
 cd your.artifact.id
 mvn compile exec:java -Dexec.mainClass=your.group.id.DummyApp -Dexec.args="server:start"
