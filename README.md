@@ -1,5 +1,4 @@
-# Fluentness
-//img
+![Fluentness logo](logo/logo.png?raw=true "Fluentness logo")
 
 ## Introduction
 Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-integrated, consistent web framework. 
@@ -85,6 +84,7 @@ This project is based on these technologies:
 - JUnit
 - EclipseLink (JPA)
 - Sun integrated HttpServer
+- Scriptina font and Inkscape for the logo artwork
 - Much love
 
 ## License
