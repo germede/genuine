@@ -18,14 +18,14 @@ Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-inte
 
 ## Quickstart
 
-### 1. Clone this repository
+### 1. Clone this repository :arrow_down:
 into your working directory
 
 ```bash
 git clone https://github.com/germede/Fluentness
 ```
 
-### 2. Compile and install the sources 
+### 2. Compile and install the sources :desktop_computer:
 into your local Maven repository
 
 ```bash
@@ -33,11 +33,11 @@ cd Fluentness
 mvn install
 ```
 
-### 3. Bootstrap your application
+### 3. Bootstrap your application :rocket:
 You have basically 2 options:
 
 
-### 3b. Using the CLI
+### 3a. Using the CLI
 Navigate to your project root directory and execute following:
 ```bash
 mvn archetype:generate                                  \
@@ -48,7 +48,7 @@ mvn archetype:generate                                  \
   -DartifactId=your.artifact.id                         \
   -Dversion=0.0.1
 ```
-Hit <kbd>Enter</kbd> when confirmation needed.
+Hit <kbd>Enter</kbd> when confirmation needed.:desktop_computer:
 ```bash
 cd your.artifact.id
 mvn compile exec:java -Dexec.mainClass=your.group.id.DummyApp -Dexec.args="server:start"
@@ -68,11 +68,11 @@ In this guide we'll be using IntelliJ IDE Community Edition:
 9. Open the DummyApp.java bootstrapper class and click on 'Run'.
 10. Under "Run Configurations", set "server:start" as program argument. Run again. 
 
-### 4. Read the docs
+### 4. Read the docs :closed_book:
 Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) how a Fluentness-based application is developed. Fluentness is intended to be easy to learn 
 for newbies, but some documentation is always needed.   
 
-### 5. Have fun and contribute
+### 5. Have fun and contribute :construction_worker:
 Feel free to [open a new issue](https://github.com/germede/Fluentness/issues/new) directly on GitHub. Pull requests into the develop branch are also welcome. 
 Please take the license limitations into account when using or modifying this project.
 
@@ -85,7 +85,7 @@ This project is based on these technologies:
 - EclipseLink (JPA)
 - Sun integrated HttpServer
 - Scriptina font and Inkscape for the logo artwork
-- Much love
+- Engagement :blue_heart:
 
 ## License
 Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
