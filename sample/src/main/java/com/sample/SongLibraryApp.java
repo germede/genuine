@@ -5,7 +5,7 @@ import org.fluentness.Fluentness;
 public class SongLibraryApp {
 
     public static void main(String[] args) {
-        Fluentness.instance.initialize(args);
+        Fluentness.instance.initialize("com.sample", args);
     }
 
 }

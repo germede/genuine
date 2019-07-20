@@ -51,7 +51,7 @@ public enum Flow implements Comparator<Class<? extends Component>> {
             setProvider(TaskProvider.class, appPackage + ".flow.Tasks");
             setProvider(ControllerProvider.class, appPackage + ".flow.Controllers");
         } catch (InstantiationException | NullPointerException | IllegalAccessException | ClassNotFoundException e) {
-            throw new FluentnessInitializationException("Exception while initializing onion architecture", e);
+            throw new FluentnessInitializationException("Exception while initializing onion layers", e);
         }
     }
 
@@ -83,7 +83,7 @@ public enum Flow implements Comparator<Class<? extends Component>> {
 
                 if (compare(producedComponent, consumerComponent) < 0) {
                     throw new FluentnessInitializationException(
-                        "%s should not consume %s components due to the onion architecture",
+                        "%s should not consume %s components due to the onion layer priority",
                         provider.getClass().getSimpleName(),
                         consumerComponent.getSimpleName()
                     );

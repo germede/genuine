@@ -26,9 +26,6 @@
                     <target>8</target>
                     <encoding>UTF-8</encoding>
                     <parameters>true</parameters>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>

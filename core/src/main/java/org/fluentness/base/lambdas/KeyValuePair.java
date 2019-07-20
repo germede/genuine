@@ -1,5 +1,7 @@
 package org.fluentness.base.lambdas;
 
+import org.fluentness.base.logging.Log;
+
 import java.util.function.Function;
 
 public interface KeyValuePair<T> extends MethodFinder, Function<String, T> {
@@ -17,7 +19,7 @@ public interface KeyValuePair<T> extends MethodFinder, Function<String, T> {
 
     default void checkParametersEnabled() {
         if ("arg0".equals(parameter().getName())) {
-            throw new IllegalStateException("You need to compile with javac -parameters for parameter reflection to work and java 8u60 or newer to use it with lambdas");
+            Log.instance.warning("You need to compile with javac -parameters for parameter reflection to work and java 8u60 or newer to use it with lambdas");
         }
     }
 

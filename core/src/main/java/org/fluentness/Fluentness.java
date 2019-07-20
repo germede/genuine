@@ -28,29 +28,15 @@ public enum Fluentness {
         return this;
     }
 
-    public void initialize(String[] args) {
-
+    public void initialize(String appPackage, String[] args) {
+        this.appPackage = appPackage;
         try {
-            try {
-                appPackage = Class.forName(
-                    Thread
-                        .currentThread()
-                        .getStackTrace()[Thread.currentThread().getStackTrace().length - 1]
-                        .getClassName()
-                ).getPackage().getName();
+            Log.instance.initialize();
 
-                Log.instance.initialize();
+            Data.instance.initialize();
+            Flow.instance.initialize();
 
-                Data.instance.initialize();
-                Flow.instance.initialize();
-
-                executeCommand(args);
-
-            } catch (ClassNotFoundException e) {
-                throw new FluentnessInitializationException(
-                    "Fluentness initializer should be called in main method, calling class should be public", e
-                );
-            }
+            executeCommand(args);
         } catch (FluentnessInitializationException e) {
             e.printStackTrace();
         }

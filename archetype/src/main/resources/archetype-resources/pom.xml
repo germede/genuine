@@ -39,15 +39,7 @@
                     <target>8</target>
                     <encoding>UTF-8</encoding>
                     <parameters>true</parameters>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.4.0</version>
             </plugin>
         </plugins>
     </build>
