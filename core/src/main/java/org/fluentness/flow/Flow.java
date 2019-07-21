@@ -1,32 +1,22 @@
 package org.fluentness.flow;
 
 import org.fluentness.Fluentness;
+import org.fluentness.base.constants.OnionLayers;
 import org.fluentness.base.exceptions.OnionLayerComplianceException;
-import org.fluentness.base.generics.Component;
-import org.fluentness.base.generics.Consumer;
 import org.fluentness.base.generics.Provider;
-import org.fluentness.flow.controller.Controller;
 import org.fluentness.flow.controller.ControllerProvider;
-import org.fluentness.flow.form.Form;
 import org.fluentness.flow.form.FormProvider;
-import org.fluentness.flow.locale.Locale;
 import org.fluentness.flow.locale.LocaleProvider;
-import org.fluentness.flow.repository.Repository;
 import org.fluentness.flow.repository.RepositoryProvider;
-import org.fluentness.flow.style.Style;
 import org.fluentness.flow.style.StyleProvider;
-import org.fluentness.flow.task.Task;
 import org.fluentness.flow.task.TaskProvider;
-import org.fluentness.flow.view.View;
 import org.fluentness.flow.view.ViewProvider;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import static org.fluentness.base.constants.AnsiColors.*;
+public class Flow implements OnionLayers {
 
-public class Flow {
-
-    private List<Class<? extends Component>> onionLayers = new ArrayList<>();
     private Map<Class<? extends Provider>, Provider> providers = new HashMap<>();
 
     public void initialize() throws
@@ -35,14 +25,6 @@ public class Flow {
         InstantiationException,
         OnionLayerComplianceException {
 
-        onionLayers.add(Repository.class);
-        onionLayers.add(Locale.class);
-        onionLayers.add(Style.class);
-        onionLayers.add(Form.class);
-        onionLayers.add(View.class);
-        onionLayers.add(Task.class);
-        onionLayers.add(Controller.class);
-
         setProvider(RepositoryProvider.class, Fluentness.appPackage + ".flow.Repositories");
         setProvider(LocaleProvider.class, Fluentness.appPackage + ".flow.Locales");
         setProvider(StyleProvider.class, Fluentness.appPackage + ".flow.Styles");
@@ -50,6 +32,10 @@ public class Flow {
         setProvider(ViewProvider.class, Fluentness.appPackage + ".flow.Views");
         setProvider(TaskProvider.class, Fluentness.appPackage + ".flow.Tasks");
         setProvider(ControllerProvider.class, Fluentness.appPackage + ".flow.Controllers");
+    }
+
+    public void reset() {
+        providers.clear();
     }
 
     public <T extends Provider> T getProvider(Class<T> providerClass) {
@@ -62,12 +48,12 @@ public class Flow {
         ClassNotFoundException,
         OnionLayerComplianceException {
 
-        Provider provider = instantiate(providerClass, providerClassName);
+        Provider provider = instantiateProvider(providerClass, providerClassName);
         checkOnionLayerCompliance(provider);
         providers.put(providerClass, provider);
     }
 
-    public <T> T instantiate(Class<T> clazz, String implementation) throws
+    public <T> T instantiateProvider(Class<T> clazz, String implementation) throws
         ClassNotFoundException,
         IllegalAccessException,
         InstantiationException {
@@ -86,51 +72,6 @@ public class Flow {
         }
     }
 
-    public void checkOnionLayerCompliance(Provider provider) throws
-        OnionLayerComplianceException,
-        ClassNotFoundException {
 
-        Class producedComponent = provider.getProducedComponentType();
-        Class[] consumerClasses = Arrays.stream(provider.getClass().getInterfaces())
-            .filter(Consumer.class::isAssignableFrom)
-            .toArray(Class[]::new);
 
-        for (Class consumer : consumerClasses) {
-            Class consumerComponent = Class.forName(consumer.getCanonicalName().replace("Consumer", ""));
-
-            if (new ComponentComparator().compare(producedComponent, consumerComponent) < 0) {
-                throw new OnionLayerComplianceException(
-                    "%s should not consume %s components due to the onion layer priority",
-                    provider.getClass().getSimpleName(),
-                    consumerComponent.getSimpleName()
-                );
-            }
-        }
-    }
-
-    public void printOnionLayers() {
-        for (int i = 0; i < onionLayers.size(); i++) {
-            String component = onionLayers.get(i).getSimpleName();
-            if (i == 0) {
-                System.out.println("\n" + ANSI_GREEN + "               ↑ ");
-                System.out.println("LESS DEPENDANT | " + component + ANSI_RESET);
-                continue;
-            }
-            if (i == onionLayers.size() - 1) {
-                System.out.println(ANSI_BLUE + "MORE DEPENDANT | " + component);
-                System.out.println("               ↓ " + ANSI_RESET);
-                continue;
-            }
-            System.out.println("               | " + component);
-        }
-        System.out.println();
-    }
-
-    public class ComponentComparator implements Comparator<Class<? extends Component>> {
-
-        @Override
-        public int compare(Class<? extends Component> componentType1, Class<? extends Component> componentType2) {
-            return Integer.compare(onionLayers.indexOf(componentType1), onionLayers.indexOf(componentType2));
-        }
-    }
 }
