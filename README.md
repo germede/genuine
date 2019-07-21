@@ -6,15 +6,15 @@ Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-inte
 ## Decalogue
 
 >**F**orce your code to be compact, yet legible  
->**L**oose coupling by using onion-like software layers  
+>**L**oose coupling by splitting your application in base, data and flow: the Fluentness way   
 >**U**se flow class attributes as finished components and functions as helpers    
->**E**mbrace the consumer-provider architecture  
+>**E**mbrace the consumer-provider, onion-layer-like flow architecture  
 >**N**otice how unit tests may help you discover where the software design lacks    
 >**T**ry to avoid abusing of comments, singletons and annotations  
 >**N**ame each component as if it were your child  
 >**E**ndorse convention over configuration  
->**S**plit your application in base, data and flow: the Fluentness way  
->**S**tart implementing constructor or interface-based dependency injection    
+>**S**ubstitute framework standard implementation of basic services, if you need so  
+>**S**tart applying SOLID, KISS and DRY principles
 
 ## Quickstart
 

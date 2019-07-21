@@ -2,6 +2,7 @@ package org.fluentness.base.logger;
 
 import org.fluentness.Fluentness;
 import org.fluentness.base.config.Config;
+import org.fluentness.base.config.ConfigImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import static org.mockito.Mockito.*;
 
 public class LoggerTest {
 
-    private Config configMock = mock(Config.class);
+    private Config configMock = mock(ConfigImpl.class);
 
     @Before
     public void before() {
@@ -38,7 +39,7 @@ public class LoggerTest {
     public void whenLoggerMethodsAreCalled_thenInternalLoggerMethodsAreCalled() {
 
         java.util.logging.Logger internalLoggerMock = mock(java.util.logging.Logger.class);
-        Fluentness.base.getLogger().setInternalLogger(internalLoggerMock);
+        Fluentness.base.setLogger(mock(Logger.class).);
 
         Fluentness.base.getLogger().fine("Everything is fine");
         Fluentness.base.getLogger().info("Just for info %s", 1234);

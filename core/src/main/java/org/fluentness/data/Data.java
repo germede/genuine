@@ -17,7 +17,6 @@ public class Data {
                 .createEntityManagerFactory(Fluentness.base.getConfig().get(PERSISTENCE_UNIT))
                 .createEntityManager();
         }
-
     }
 
     public EntityManager getEntityManager() {

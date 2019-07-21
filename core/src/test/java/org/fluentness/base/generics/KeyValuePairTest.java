@@ -1,7 +1,7 @@
 package org.fluentness.base.generics;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.logger.Logger;
+import org.fluentness.base.logger.LoggerImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,7 @@ public class KeyValuePairTest {
 
     @Before
     public void before() {
-        Fluentness.base.setLogger(mock(Logger.class));
+        Fluentness.base.setLogger(mock(LoggerImpl.class));
     }
 
     @Test
