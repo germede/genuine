@@ -3,17 +3,27 @@
 ## Introduction
 Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-integrated, consistent web framework. 
 
+So let's say you want a fancy application that just says Hello to someone. Just add this to your flow/Controllers.java
+```java
+public class Controllers extends ControllerProvider {
+    Controller base = actions(
+        hello -> get("/hello", request -> response("Hello " + request.getGetParameter("name")))
+    );
+}
+```
+Visit http://localhost:8000/hello?name=YourName
+
 ## Decalogue
 
 >**F**orce your code to be compact, yet legible  
->**L**oose coupling by splitting your application in base, data and flow: the Fluentness way   
->**U**se flow class attributes as finished components and functions as helpers    
+>**L**oose coupling by splitting your application in base, data and flow: the Fluentness way  
+>**U**se flow class attributes as finished components and functions as helpers  
 >**E**mbrace the consumer-provider, onion-layer-like flow architecture  
->**N**otice how unit tests may help you define and accept requirements    
->**T**ry to avoid abusing of comments, singletons and annotations  
->**N**ame each component as if it were your child  
+>**N**otice how unit tests may help you define and accept requirements  
+>**T**ry to avoid abusing of comments, singletons, statics and annotations  
+>**N**ame every component as if it were your child  
 >**E**ndorse convention over configuration and dependency injection  
->**S**ubstitute framework default implementation of basic services, when needed
+>**S**ubstitute framework default implementation with your own when needed  
 >**S**tart applying SOLID, KISS and DRY principles
 
 ## Quickstart
@@ -53,25 +63,28 @@ Open the DummyApp.java bootstrapper class and click on 'Run'.
 Under "Run Configurations", set "server:start" as program argument. Run again. 
 
 ### 4. Read the docs :closed_book:
-Alternatively there is the directory /sample. This sample project is used for functional testing, but you can use it as base project instead of generating archetype.
 
 Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) how the sample Fluentness-based application "SongLibrary" was developed. Fluentness is intended to be easy to learn 
-for newbies, but some documentation is always needed.   
+for newbies, but some documentation is always needed.
 
-### 5. Have fun and contribute :construction_worker:
-Feel free to [open a new issue](https://github.com/germede/Fluentness/issues/new) directly on GitHub. Pull requests into the develop branch are also welcome. 
-Please take the license limitations into account when using or modifying this project.
+That sample project "SongLibrary" is used for functional testing, but you can still use it as base project instead of generating an archetype.  
+
+### 5. Have fun and contribute :busts_in_silhouette:
+Feel free to [open a new issue](https://github.com/germede/Fluentness/issues/new) directly on GitHub. 
+Pull requests into the develop branch are also welcome. 
+
+Fluentness is also thought to be extendable, either within your application's base package or even developing standalone plugins. Please take the license limitations into account when using or modifying this project.
 
 
 ## Technologies
 This project is based on these technologies:
 - Java 8, implemented by OpenJDK
 - JPA, implemented by EclipseLink 
-- JUnit for unit testing
+- JUnit for unit testing + Mockito
 - Maven for building and distributing
-- Sun integrated HttpServer
+- Sun integrated HttpServer, although replaceable
 - Scriptina font and Inkscape for the artwork
-- Engagement :heart:
+- Much Engagement :muscle:
 
 ## License
 Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
