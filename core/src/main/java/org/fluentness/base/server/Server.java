@@ -2,8 +2,10 @@ package org.fluentness.base.server;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import java.io.IOException;
+
 public interface Server {
-    void initialize();
+    void initialize() throws IOException;
 
     void start();
 

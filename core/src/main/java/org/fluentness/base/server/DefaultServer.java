@@ -3,6 +3,7 @@ package org.fluentness.base.server;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.fluentness.Fluentness;
+import org.fluentness.flow.controller.ControllerProvider;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -16,43 +17,31 @@ import static org.fluentness.base.config.StringKey.APP_PROTOCOL;
 
 public class DefaultServer implements Server {
 
-    private Router router;
     private String protocol;
     private String host;
     private int port;
     private com.sun.net.httpserver.HttpServer server;
 
-    public DefaultServer(Router router) {
-        this.router = router;
-    }
-
     @Override
-    public void initialize() {
+    public void initialize() throws IOException {
         protocol = Fluentness.base.getConfig().get(APP_PROTOCOL);
         host = Fluentness.base.getConfig().get(APP_HOST);
         port = Fluentness.base.getConfig().get(APP_PORT);
-        try {
-
-            switch (protocol) {
-                case "http":
-                    server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(host, port), 0);
-                    break;
-                default:
-                    throw new ProtocolException();
-            }
-
-            Map<String, HttpHandler> routeHandlerMap = router.getRouteHandlerMap();
-            routeHandlerMap.forEach((key, value) -> server.createContext(key, value));
-            server.setExecutor(null);
-
-        } catch (Exception e) {
-            stop();
-            Fluentness.base.getLogger().severe(e);
+        switch (protocol) {
+            case "http":
+                server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(host, port), 0);
+                break;
+            default:
+                throw new ProtocolException();
         }
+        server.setExecutor(null);
     }
 
     @Override
     public void start() {
+        Map<String, HttpHandler> routeHandlerMap = Fluentness.flow.getProvider(ControllerProvider.class).getRouteHandlerMap();
+        routeHandlerMap.forEach((key, value) -> server.createContext(key, value));
+
         server.start();
         Fluentness.base.getLogger().info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
     }

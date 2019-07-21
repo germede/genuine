@@ -32,7 +32,7 @@ public class Fluentness {
         }
     }
 
-    public static void reset() {
+    static void reset() {
         base.reset();
         data.reset();
         flow.reset();

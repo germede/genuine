@@ -10,7 +10,8 @@ import java.nio.file.Paths;
 
 import static org.fluentness.base.constants.HttpStatusCodes.*;
 
-public class StaticResourceHandler implements HttpHandler {
+public enum HttpResourceHandler implements HttpHandler {
+    instance;
 
     @Override
     public void handle(HttpExchange httpExchange) {

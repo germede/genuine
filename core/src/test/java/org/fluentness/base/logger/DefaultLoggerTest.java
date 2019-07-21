@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 
@@ -32,7 +33,7 @@ public class DefaultLoggerTest extends IsolatedUnitTest {
     }
 
     @Test
-    public void whenNoConfigIsSet_thenLogLevelIsAllAndOnlyConsoleFormatterIsEnabled() {
+    public void whenNoConfigIsSet_thenLogLevelIsAllAndOnlyConsoleFormatterIsEnabled() throws IOException {
         Fluentness.base.getLogger().initialize();
 
         Assert.assertEquals(internalLogger.getLevel().toString(), "ALL");
@@ -43,7 +44,7 @@ public class DefaultLoggerTest extends IsolatedUnitTest {
     }
 
     @Test
-    public void whenLogLevelIsOffAndLogToConsoleIsDisabled_thenLogLevelIsOffAndNoHandlerIsEnabled() {
+    public void whenLogLevelIsOffAndLogToConsoleIsDisabled_thenLogLevelIsOffAndNoHandlerIsEnabled() throws IOException {
         Fluentness.base.getConfig().set(LOG_LEVEL,"OFF");
         Fluentness.base.getConfig().set(ENABLE_LOG_TO_CONSOLE,false);
         Fluentness.base.getLogger().initialize();
@@ -53,13 +54,13 @@ public class DefaultLoggerTest extends IsolatedUnitTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenIllegalLogLevelIsSet_thenIllegalArgumentExceptionIsThrown() {
+    public void whenIllegalLogLevelIsSet_thenIllegalArgumentExceptionIsThrown() throws IOException {
         Fluentness.base.getConfig().set(LOG_LEVEL,"ILLEGAL");
         Fluentness.base.getLogger().initialize();
     }
 
     @Test
-    public void whenWarningLevelAndEnableLogToFileConfigAreSet_thenLevelIsWarningAndBothFormatterAreEnabled() {
+    public void whenWarningLevelAndEnableLogToFileConfigAreSet_thenLevelIsWarningAndBothFormatterAreEnabled() throws IOException {
         Fluentness.base.getConfig().set(LOG_LEVEL,"WARNING");
         Fluentness.base.getConfig().set(ENABLE_LOG_TO_FILE,true);
         Fluentness.base.getLogger().initialize();

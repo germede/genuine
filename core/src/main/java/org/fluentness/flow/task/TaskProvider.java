@@ -104,10 +104,7 @@ public abstract class TaskProvider extends Provider<Task> implements AnsiColors 
     );
 
     Task server_start = does("Starts embedded HTTP server",
-        arguments -> {
-            Fluentness.base.getServer().initialize();
-            Fluentness.base.getServer().start();
-        }
+        arguments -> Fluentness.base.getServer().start()
     );
 
     Task server_stop = does("Stops embedded HTTP server",

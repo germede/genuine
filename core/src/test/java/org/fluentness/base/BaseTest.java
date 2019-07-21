@@ -13,6 +13,8 @@ import org.fluentness.base.server.Server;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.mockito.Mockito.mock;
 
 public class BaseTest extends IsolatedUnitTest {
@@ -26,7 +28,7 @@ public class BaseTest extends IsolatedUnitTest {
     }
 
     @Test
-    public void whenBaseIsInitialized_thenBaseComponentsAreSetToTheirDefaultImplementations() {
+    public void whenBaseIsInitialized_thenBaseComponentsAreSetToTheirDefaultImplementations() throws IOException {
         Fluentness.base.initialize();
 
         Assert.assertTrue(Fluentness.base.getConfig() instanceof DefaultConfig);
@@ -36,7 +38,7 @@ public class BaseTest extends IsolatedUnitTest {
     }
 
     @Test
-    public void whenCustomComponentsAreSetBeforehand_thenCustomBaseComponentsAreGotAfterInitializing() {
+    public void whenCustomComponentsAreSetBeforehand_thenCustomBaseComponentsAreGotAfterInitializing() throws IOException {
         Config configMock = mock(Config.class);
         Logger loggerMock = mock(Logger.class);
         Server serverMock = mock(Server.class);

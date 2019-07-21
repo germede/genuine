@@ -24,7 +24,7 @@ public class DefaultLogger implements Logger {
     }
 
     @Override
-    public void initialize() {
+    public void initialize() throws IOException {
 
         internalLogger.setUseParentHandlers(false);
 
@@ -46,23 +46,19 @@ public class DefaultLogger implements Logger {
         // file logging
         if (Fluentness.base.getConfig().has(ENABLE_LOG_TO_FILE) && Fluentness.base.getConfig().get(ENABLE_LOG_TO_FILE)) {
             new File(PrivateDirectories.LOG).mkdirs();
-            try {
-                String logFilePath = PrivateDirectories.LOG + "/" +
-                    new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
-                File file = new File(logFilePath);
-                FileHandler fileHandler;
-                if (file.exists()) {
-                    fileHandler = new FileHandler(logFilePath, true);
-                } else {
-                    file.createNewFile();
-                    fileHandler = new FileHandler(logFilePath);
-                }
-                fileHandler.setFormatter(new FileFormatter());
-                fileHandler.setLevel(Level.parse(logLevel));
-                internalLogger.addHandler(fileHandler);
-            } catch (IOException e) {
-                e.printStackTrace();
+            String logFilePath = PrivateDirectories.LOG + "/" +
+                new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
+            File file = new File(logFilePath);
+            FileHandler fileHandler;
+            if (file.exists()) {
+                fileHandler = new FileHandler(logFilePath, true);
+            } else {
+                file.createNewFile();
+                fileHandler = new FileHandler(logFilePath);
             }
+            fileHandler.setFormatter(new FileFormatter());
+            fileHandler.setLevel(Level.parse(logLevel));
+            internalLogger.addHandler(fileHandler);
         }
     }
 

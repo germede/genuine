@@ -1,7 +1,10 @@
 package org.fluentness.base.logger;
 
+import java.io.IOException;
+
 public interface Logger {
-    void initialize();
+
+    void initialize() throws IOException;
 
     void fine(String message, Object... parameters);
 
