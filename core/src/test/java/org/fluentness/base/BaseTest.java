@@ -1,7 +1,6 @@
 package org.fluentness.base;
 
 import org.fluentness.Fluentness;
-import org.fluentness.AbstractUnitTest;
 import org.fluentness.base.cacher.Cacher;
 import org.fluentness.base.cacher.DefaultCacher;
 import org.fluentness.base.config.Config;
@@ -17,7 +16,7 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
 
-public class BaseTest extends AbstractUnitTest {
+public class BaseTest {
 
     @Test
     public void whenNothingIsDone_thenBaseComponentsAreNotSet() {

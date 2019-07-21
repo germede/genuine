@@ -1,7 +1,6 @@
 package org.fluentness.base.logger;
 
 import org.fluentness.Fluentness;
-import org.fluentness.AbstractUnitTest;
 import org.fluentness.base.config.Config;
 import org.fluentness.base.config.DefaultConfig;
 import org.junit.Assert;
@@ -17,7 +16,7 @@ import static org.fluentness.base.config.BooleanKey.ENABLE_LOG_TO_FILE;
 import static org.fluentness.base.config.StringKey.LOG_LEVEL;
 import static org.mockito.Mockito.*;
 
-public class DefaultLoggerTest extends AbstractUnitTest {
+public class DefaultLoggerTest {
 
     private java.util.logging.Logger internalLogger;
 

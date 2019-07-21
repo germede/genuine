@@ -1,10 +1,9 @@
 package org.fluentness.base.config;
 
 import org.fluentness.Fluentness;
-import org.fluentness.AbstractUnitTest;
 import org.junit.*;
 
-public class DefaultConfigTest extends AbstractUnitTest {
+public class DefaultConfigTest {
 
     @Before
     public void setUp() {
