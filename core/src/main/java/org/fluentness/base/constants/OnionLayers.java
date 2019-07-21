@@ -36,9 +36,7 @@ public interface OnionLayers extends Comparator<Class<? extends Component>> {
         return Integer.compare(OnionLayers.onionLayers.indexOf(componentType1), OnionLayers.onionLayers.indexOf(componentType2));
     }
 
-    default void checkOnionLayerCompliance(Provider provider) throws
-        OnionLayerComplianceException,
-        ClassNotFoundException {
+    default void checkOnionLayerCompliance(Provider provider) throws OnionLayerComplianceException {
 
         Class producedComponent = provider.getProducedComponentType();
         Class[] consumerClasses = Arrays.stream(provider.getClass().getInterfaces())
@@ -46,14 +44,18 @@ public interface OnionLayers extends Comparator<Class<? extends Component>> {
             .toArray(Class[]::new);
 
         for (Class consumer : consumerClasses) {
-            Class consumerComponent = Class.forName(consumer.getCanonicalName().replace("Consumer", ""));
-
-            if (compare(producedComponent, consumerComponent) < 0) {
-                throw new OnionLayerComplianceException(
-                    "%s should not consume %s components due to the onion layer priority",
-                    provider.getClass().getSimpleName(),
-                    consumerComponent.getSimpleName()
-                );
+            String componentCanonicalName = consumer.getCanonicalName().replace("Consumer", "");
+            try {
+                Class consumerComponent = Class.forName(componentCanonicalName);
+                if (compare(producedComponent, consumerComponent) < 0) {
+                    throw new OnionLayerComplianceException(
+                        "%s should not consume %s components due to the onion layer priority",
+                        provider.getClass().getSimpleName(),
+                        consumerComponent.getSimpleName()
+                    );
+                }
+            } catch (ClassNotFoundException e) {
+                throw new OnionLayerComplianceException("Component %s not found", componentCanonicalName);
             }
         }
     }

@@ -10,6 +10,7 @@ import org.fluentness.base.logger.Logger;
 import org.fluentness.base.server.DefaultServer;
 import org.fluentness.base.server.Server;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,8 +19,13 @@ import static org.mockito.Mockito.mock;
 
 public class BaseTest {
 
+    @Before
+    public void setUp() {
+        Fluentness.base.reset();
+    }
+
     @Test
-    public void whenNothingIsDone_thenBaseComponentsAreNotSet() {
+    public void getters_noneIsDone_nullIsGot() {
         Assert.assertNull(Fluentness.base.getConfig());
         Assert.assertNull(Fluentness.base.getLogger());
         Assert.assertNull(Fluentness.base.getServer());
@@ -27,7 +33,7 @@ public class BaseTest {
     }
 
     @Test
-    public void whenBaseIsInitialized_thenBaseComponentsAreSetToTheirDefaultImplementations() throws IOException {
+    public void getters_baseIsInitialized_defaultImplementationsAreGot() throws IOException {
         Fluentness.base.initialize();
 
         Assert.assertTrue(Fluentness.base.getConfig() instanceof DefaultConfig);
@@ -37,7 +43,7 @@ public class BaseTest {
     }
 
     @Test
-    public void whenCustomComponentsAreSetBeforehand_thenCustomBaseComponentsAreGotAfterInitializing() throws IOException {
+    public void getters_customBaseComponentsAreSet_customBaseComponentsAreGot() throws IOException {
         Config configMock = mock(Config.class);
         Logger loggerMock = mock(Logger.class);
         Server serverMock = mock(Server.class);

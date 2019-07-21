@@ -42,21 +42,23 @@ public class Flow implements OnionLayers {
         return (T) providers.get(providerClass);
     }
 
-    public void setProvider(Class<? extends Provider> providerClass, String providerClassName) throws
-        IllegalAccessException,
-        InstantiationException,
-        ClassNotFoundException,
-        OnionLayerComplianceException {
+    public void setProvider(Class<? extends Provider> providerClass, Provider provider)
+        throws OnionLayerComplianceException {
+
+        checkOnionLayerCompliance(provider);
+        providers.put(providerClass, provider);
+    }
+
+    public void setProvider(Class<? extends Provider> providerClass, String providerClassName)
+        throws IllegalAccessException, InstantiationException, ClassNotFoundException, OnionLayerComplianceException {
 
         Provider provider = instantiateProvider(providerClass, providerClassName);
         checkOnionLayerCompliance(provider);
         providers.put(providerClass, provider);
     }
 
-    public <T extends Provider> T instantiateProvider(Class<T> clazz, String implementation) throws
-        ClassNotFoundException,
-        IllegalAccessException,
-        InstantiationException {
+    public <T extends Provider> T instantiateProvider(Class<T> clazz, String implementation)
+        throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
         Object object = Class.forName(implementation).newInstance();
         if (clazz.isAssignableFrom(object.getClass())) {
@@ -71,7 +73,6 @@ public class Flow implements OnionLayers {
             );
         }
     }
-
 
 
 }

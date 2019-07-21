@@ -32,50 +32,54 @@ public class DefaultLoggerTest {
     }
 
     @Test
-    public void whenNoConfigIsSet_thenLogLevelIsAllAndOnlyConsoleFormatterIsEnabled() throws IOException {
+    public void initialize_noConfigIsSet_logLevelIsAllAndOnlyConsoleFormatterIsEnabled() throws IOException {
         Fluentness.base.getLogger().initialize();
 
-        Assert.assertEquals(internalLogger.getLevel().toString(), "ALL");
-        Assert.assertEquals(internalLogger.getHandlers().length, 1);
+        Assert.assertEquals("ALL", internalLogger.getLevel().toString());
+        Assert.assertEquals(1, internalLogger.getHandlers().length);
         Assert.assertTrue(internalLogger.getHandlers()[0] instanceof ConsoleHandler);
         Assert.assertTrue(internalLogger.getHandlers()[0].getFormatter() instanceof ConsoleFormatter);
-        Assert.assertEquals(internalLogger.getHandlers()[0].getLevel().toString(), "ALL");
+        Assert.assertEquals("ALL", internalLogger.getHandlers()[0].getLevel().toString());
     }
 
     @Test
-    public void whenLogLevelIsOffAndLogToConsoleIsDisabled_thenLogLevelIsOffAndNoHandlerIsEnabled() throws IOException {
-        Fluentness.base.getConfig().set(LOG_LEVEL,"OFF");
-        Fluentness.base.getConfig().set(ENABLE_LOG_TO_CONSOLE,false);
+    public void initialize_logLevelIsOffAndLogToConsoleIsDisabled_logLevelIsOffAndNoHandlerIsEnabled()
+        throws IOException {
+
+        Fluentness.base.getConfig().set(LOG_LEVEL, "OFF");
+        Fluentness.base.getConfig().set(ENABLE_LOG_TO_CONSOLE, false);
         Fluentness.base.getLogger().initialize();
 
-        Assert.assertEquals(internalLogger.getLevel().toString(), "OFF");
-        Assert.assertEquals(internalLogger.getHandlers().length, 0);
+        Assert.assertEquals("OFF", internalLogger.getLevel().toString());
+        Assert.assertEquals(0, internalLogger.getHandlers().length);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenIllegalLogLevelIsSet_thenIllegalArgumentExceptionIsThrown() throws IOException {
-        Fluentness.base.getConfig().set(LOG_LEVEL,"ILLEGAL");
+    public void initialize_illegalLogLevelIsSet_illegalArgumentExceptionIsThrown() throws IOException {
+        Fluentness.base.getConfig().set(LOG_LEVEL, "THIS LEVEL DOES NOT EVEN EXIST");
         Fluentness.base.getLogger().initialize();
     }
 
     @Test
-    public void whenWarningLevelAndEnableLogToFileConfigAreSet_thenLevelIsWarningAndBothFormatterAreEnabled() throws IOException {
-        Fluentness.base.getConfig().set(LOG_LEVEL,"WARNING");
-        Fluentness.base.getConfig().set(ENABLE_LOG_TO_FILE,true);
+    public void initialize_warningLevelAndEnableLogToFileConfigAreSet_levelIsWarningAndBothFormatterAreEnabled()
+        throws IOException {
+
+        Fluentness.base.getConfig().set(LOG_LEVEL, "WARNING");
+        Fluentness.base.getConfig().set(ENABLE_LOG_TO_FILE, true);
         Fluentness.base.getLogger().initialize();
 
-        Assert.assertEquals(internalLogger.getLevel().toString(), "WARNING");
-        Assert.assertEquals(internalLogger.getHandlers().length, 2);
+        Assert.assertEquals("WARNING", internalLogger.getLevel().toString());
+        Assert.assertEquals(2, internalLogger.getHandlers().length);
         Assert.assertTrue(internalLogger.getHandlers()[0] instanceof ConsoleHandler);
         Assert.assertTrue(internalLogger.getHandlers()[0].getFormatter() instanceof ConsoleFormatter);
-        Assert.assertEquals(internalLogger.getHandlers()[0].getLevel().toString(), "WARNING");
+        Assert.assertEquals("WARNING", internalLogger.getHandlers()[0].getLevel().toString());
         Assert.assertTrue(internalLogger.getHandlers()[1] instanceof FileHandler);
         Assert.assertTrue(internalLogger.getHandlers()[1].getFormatter() instanceof FileFormatter);
-        Assert.assertEquals(internalLogger.getHandlers()[1].getLevel().toString(), "WARNING");
+        Assert.assertEquals("WARNING", internalLogger.getHandlers()[1].getLevel().toString());
     }
 
     @Test
-    public void whenLoggerMethodsAreCalled_thenInternalLoggerMethodsAreCalled() {
+    public void loggerMethods_loggerMethodsAreCalled_internalLoggerMethodsAreCalled() {
         Fluentness.base.getLogger().fine("Everything is fine");
         Fluentness.base.getLogger().fine("Everything is fine again");
         Fluentness.base.getLogger().info("Just for info %s", 1234);

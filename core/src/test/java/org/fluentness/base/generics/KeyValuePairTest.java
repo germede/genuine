@@ -16,18 +16,19 @@ public class KeyValuePairTest {
     }
 
     @Test
-    public void whenKeyValuePairIsSet_thenKeyAndValueAreGot() {
+    public void getters_keyValuePairIsSet_keyAndValueAreGot() {
         KeyValuePair<String> stringKeyValuePair = theKey -> "theValue";
 
-        Assert.assertEquals(stringKeyValuePair.getKey(), "theKey");
-        Assert.assertEquals(stringKeyValuePair.getValue(), "theValue");
+        Assert.assertEquals("theKey", stringKeyValuePair.getKey());
+        Assert.assertEquals("theValue", stringKeyValuePair.getValue());
     }
 
     @Test
-    public void whenKeyArg0IsSet_thenWarningIsLogged() {
+    public void getters_keyArg0IsSet_arg0IsGotAndWarningIsLogged() {
         KeyValuePair<String> stringKeyValuePair = arg0 -> "theValue";
 
-        Assert.assertEquals(stringKeyValuePair.getKey(), "arg0");
+        Assert.assertEquals("arg0", stringKeyValuePair.getKey());
+        Assert.assertEquals("theValue", stringKeyValuePair.getValue());
         verify(Fluentness.base.getLogger(), times(1)).warning(anyString());
     }
 

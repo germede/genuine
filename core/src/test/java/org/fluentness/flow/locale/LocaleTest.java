@@ -6,26 +6,57 @@ import org.junit.Test;
 public class LocaleTest {
 
     @Test
-    public void whenNoTranslationIsSet_thenNoTranslationIsGotButTheKeySelf() {
+    public void get_noTranslationIsSet_translationKeyIsGot() {
         Locale locale = new Locale();
 
-        Assert.assertEquals(locale.get("test_message"), "test_message");
-        Assert.assertEquals(locale.get("test_message2"), "test_message2");
-        Assert.assertEquals(locale.get("test_message3"), "test_message3");
+        Assert.assertEquals("test_message", locale.get("test_message"));
+        Assert.assertEquals("test_message2", locale.get("test_message2"));
+        Assert.assertEquals("test_message3", locale.get("test_message3"));
     }
 
     @Test
-    public void whenTranslationsAreSet_thenTranslationsAreGot() {
+    public void get_translationsAreSet_translationsAreGot() {
         Locale locale = new Locale(
             test_message -> "Test Message",
             test_message2 -> "Test Message 2",
             test_message3 -> "Test Message 3"
         );
 
-        Assert.assertEquals(locale.get("test_message"), "Test Message");
-        Assert.assertEquals(locale.get("test_message2"), "Test Message 2");
-        Assert.assertEquals(locale.get("test_message3"), "Test Message 3");
-        Assert.assertEquals(locale.get("this_message_was_not_set"), "this_message_was_not_set");
+        Assert.assertEquals("Test Message", locale.get("test_message"));
+        Assert.assertEquals("Test Message 2", locale.get("test_message2"));
+        Assert.assertEquals("Test Message 3", locale.get("test_message3"));
+        Assert.assertEquals("this_message_was_not_set", locale.get("this_message_was_not_set"));
+    }
+
+    @Test
+    public void get_nullTranslationIsSet_nullTranslationIsGot() {
+        Locale locale = new Locale(
+            test_message -> null
+        );
+
+        Assert.assertNull(locale.get("test_message"));
+    }
+
+    @Test
+    public void get_nullKeyIsAsked_nullTranslationIsGot() {
+        Locale locale = new Locale(
+            test_message -> "Test Message",
+            test_message2 -> "Test Message 2",
+            test_message3 -> "Test Message 3"
+        );
+
+        Assert.assertNull(locale.get(null));
+    }
+
+    @Test
+    public void get_emptyKeyIsAsked_emptyKeyIsGot() {
+        Locale locale = new Locale(
+            test_message -> "Test Message",
+            test_message2 -> "Test Message 2",
+            test_message3 -> "Test Message 3"
+        );
+
+        Assert.assertEquals("", locale.get(""));
     }
 
 }
