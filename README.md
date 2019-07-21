@@ -12,8 +12,8 @@ Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-inte
 >**N**otice how unit tests may help you define and accept requirements    
 >**T**ry to avoid abusing of comments, singletons and annotations  
 >**N**ame each component as if it were your child  
->**E**ndorse convention over configuration  
->**S**ubstitute framework standard implementation of basic services, if you need so  
+>**E**ndorse convention over configuration and dependency injection  
+>**S**ubstitute framework default implementation of basic services, when needed
 >**S**tart applying SOLID, KISS and DRY principles
 
 ## Quickstart
