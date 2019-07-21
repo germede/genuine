@@ -62,7 +62,7 @@ Enable Auto-Import when asked for.
 Open the DummyApp.java bootstrapper class and click on 'Run'.  
 Under "Run Configurations", set "server:start" as program argument. Run again. 
 
-### 4. Read the docs :closed_book:
+### 4. Read the docs :books:
 
 Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) how the sample Fluentness-based application "SongLibrary" was developed. Fluentness is intended to be easy to learn 
 for newbies, but some documentation is always needed.
@@ -73,14 +73,14 @@ That sample project "SongLibrary" is used for functional testing, but you can st
 Feel free to [open a new issue](https://github.com/germede/Fluentness/issues/new) directly on GitHub. 
 Pull requests into the develop branch are also welcome. 
 
-Fluentness is also thought to be extendable, either within your application's base package or even developing standalone plugins. Please take the license limitations into account when using or modifying this project.
+Fluentness is thought to be extendable, either within your application's base package or even developing standalone plugins. Please take the license limitations into account when using or modifying this project.
 
 
 ## Technologies
 This project is based on these technologies:
 - Java 8, implemented by OpenJDK
 - JPA, implemented by EclipseLink 
-- JUnit for unit testing + Mockito
+- JUnit + Mockito for unit testing
 - Maven for building and distributing
 - Sun integrated HttpServer, although replaceable
 - Scriptina font and Inkscape for the artwork
