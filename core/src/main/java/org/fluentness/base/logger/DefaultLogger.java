@@ -15,11 +15,11 @@ import static org.fluentness.base.config.BooleanKey.ENABLE_LOG_TO_CONSOLE;
 import static org.fluentness.base.config.BooleanKey.ENABLE_LOG_TO_FILE;
 import static org.fluentness.base.config.StringKey.LOG_LEVEL;
 
-public class LoggerImpl implements Logger {
+public class DefaultLogger implements Logger {
 
     private java.util.logging.Logger internalLogger;
 
-    public LoggerImpl(java.util.logging.Logger internalLogger) {
+    public DefaultLogger(java.util.logging.Logger internalLogger) {
         this.internalLogger = internalLogger;
     }
 

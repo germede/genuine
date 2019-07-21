@@ -13,7 +13,7 @@ import java.nio.file.StandardOpenOption;
 
 import static org.fluentness.base.config.BooleanKey.ENABLE_CACHE;
 
-public class CacherImpl implements Cacher {
+public class DefaultCacher implements Cacher {
 
     @Override
     public void initialize() {

@@ -14,7 +14,7 @@ import static org.fluentness.base.config.IntegerKey.APP_PORT;
 import static org.fluentness.base.config.StringKey.APP_HOST;
 import static org.fluentness.base.config.StringKey.APP_PROTOCOL;
 
-public class ServerImpl implements Server {
+public class DefaultServer implements Server {
 
     private Router router;
     private String protocol;
@@ -22,7 +22,7 @@ public class ServerImpl implements Server {
     private int port;
     private com.sun.net.httpserver.HttpServer server;
 
-    public ServerImpl(Router router) {
+    public DefaultServer(Router router) {
         this.router = router;
     }
 

@@ -7,7 +7,7 @@ import static org.fluentness.base.config.BooleanKey.*;
 import static org.fluentness.base.config.IntegerKey.APP_PORT;
 import static org.fluentness.base.config.StringKey.*;
 
-public class ConfigImpl implements Config {
+public class DefaultConfig implements Config {
 
     private Map<Key, Object> settings = new HashMap<>();
 
