@@ -53,7 +53,7 @@ public class Flow implements OnionLayers {
         providers.put(providerClass, provider);
     }
 
-    public <T> T instantiateProvider(Class<T> clazz, String implementation) throws
+    public <T extends Provider> T instantiateProvider(Class<T> clazz, String implementation) throws
         ClassNotFoundException,
         IllegalAccessException,
         InstantiationException {
