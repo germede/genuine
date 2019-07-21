@@ -18,11 +18,14 @@ public class LocalizatorTest {
     }
 
     @Test
-    public void translate_nullIsGiven_nullIsGot() {
+    public void translate_nullIsGiven_formattedLocalizationPlaceholderWithNullAsStringIsGot() {
         Localizator localizator = new Localizator() {
         };
 
-        Assert.assertNull(localizator.translate(null));
+        Assert.assertEquals(
+            String.format(ViewPlaceholders.LOCALIZATION_PLACEHOLDER, "null"),
+            localizator.translate(null)
+        );
     }
 
 }

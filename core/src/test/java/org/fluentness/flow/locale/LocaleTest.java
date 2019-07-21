@@ -3,6 +3,9 @@ package org.fluentness.flow.locale;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LocaleTest {
 
     @Test
@@ -57,6 +60,23 @@ public class LocaleTest {
         );
 
         Assert.assertEquals("", locale.get(""));
+    }
+
+    @Test
+    public void getAll_translationsAreGiven_translationsAreGot() {
+
+        Map<String, String> expectedTranslations = new HashMap<>();
+        expectedTranslations.put("test_message", "Test Message");
+        expectedTranslations.put("test_message2", "Test Message 2");
+        expectedTranslations.put("test_message3", "Test Message 3");
+
+        Map<String, String> actualTranslations = new Locale(
+            test_message -> "Test Message",
+            test_message2 -> "Test Message 2",
+            test_message3 -> "Test Message 3"
+        ).getAll();
+
+        Assert.assertEquals(expectedTranslations, actualTranslations);
     }
 
 }

@@ -17,4 +17,8 @@ public class Locale extends Component {
     public String get(String name) {
         return translations.getOrDefault(name, name);
     }
+
+    public Map<String, String> getAll() {
+        return translations;
+    }
 }
