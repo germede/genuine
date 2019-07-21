@@ -1,16 +1,16 @@
 package org.fluentness.base.config;
 
 import org.fluentness.Fluentness;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.fluentness.IsolatedUnitTest;
+import org.junit.*;
 
-public class DefaultConfigTest {
+public class DefaultConfigTest extends IsolatedUnitTest {
 
     @Before
-    public void before() {
-        Fluentness.base.getConfig().initialize();
+    public void setUp() {
+        Config config = new DefaultConfig();
+        config.initialize();
+        Fluentness.base.setConfig(config);
     }
 
     @Test
@@ -28,11 +28,6 @@ public class DefaultConfigTest {
         Assert.assertEquals(Fluentness.base.getConfig().get(StringKey.APP_PROTOCOL), "Lorem ipsum");
         Assert.assertEquals((int) Fluentness.base.getConfig().get(IntegerKey.APP_PORT), 1234);
         Assert.assertEquals(Fluentness.base.getConfig().get(BooleanKey.ENABLE_CACHE), true);
-    }
-
-    @After
-    public void after() {
-        Fluentness.base.getConfig().clear();
     }
 
 }

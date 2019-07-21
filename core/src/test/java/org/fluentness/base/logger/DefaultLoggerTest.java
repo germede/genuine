@@ -1,6 +1,8 @@
 package org.fluentness.base.logger;
 
 import org.fluentness.Fluentness;
+import org.fluentness.IsolatedUnitTest;
+import org.fluentness.base.config.Config;
 import org.fluentness.base.config.DefaultConfig;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,27 +16,24 @@ import static org.fluentness.base.config.BooleanKey.ENABLE_LOG_TO_FILE;
 import static org.fluentness.base.config.StringKey.LOG_LEVEL;
 import static org.mockito.Mockito.*;
 
-public class DefaultLoggerTest {
+public class DefaultLoggerTest extends IsolatedUnitTest {
 
-    private DefaultConfig config;
     private java.util.logging.Logger internalLogger;
-    private Logger logger;
 
     @Before
-    public void before() {
-        config = new DefaultConfig();
-        config.initialize();
+    public void setUp() {
+        Config config = new DefaultConfig();
+        config.setDefaultSettings();
         Fluentness.base.setConfig(config);
 
         // always a brand new internal logger
         internalLogger = spy(java.util.logging.Logger.getLogger(String.valueOf(System.currentTimeMillis())));
-        logger = new DefaultLogger(internalLogger);
-        Fluentness.base.setLogger(logger);
+        Fluentness.base.setLogger(new DefaultLogger(internalLogger));
     }
 
     @Test
     public void whenNoConfigIsSet_thenLogLevelIsAllAndOnlyConsoleFormatterIsEnabled() {
-        logger.initialize();
+        Fluentness.base.getLogger().initialize();
 
         Assert.assertEquals(internalLogger.getLevel().toString(), "ALL");
         Assert.assertEquals(internalLogger.getHandlers().length, 1);
@@ -45,9 +44,9 @@ public class DefaultLoggerTest {
 
     @Test
     public void whenLogLevelIsOffAndLogToConsoleIsDisabled_thenLogLevelIsOffAndNoHandlerIsEnabled() {
-        config.set(LOG_LEVEL, "OFF");
-        config.set(ENABLE_LOG_TO_CONSOLE, false);
-        logger.initialize();
+        Fluentness.base.getConfig().set(LOG_LEVEL,"OFF");
+        Fluentness.base.getConfig().set(ENABLE_LOG_TO_CONSOLE,false);
+        Fluentness.base.getLogger().initialize();
 
         Assert.assertEquals(internalLogger.getLevel().toString(), "OFF");
         Assert.assertEquals(internalLogger.getHandlers().length, 0);
@@ -55,15 +54,15 @@ public class DefaultLoggerTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void whenIllegalLogLevelIsSet_thenIllegalArgumentExceptionIsThrown() {
-        config.set(LOG_LEVEL, "Ich bin ein Berliner");
-        logger.initialize();
+        Fluentness.base.getConfig().set(LOG_LEVEL,"ILLEGAL");
+        Fluentness.base.getLogger().initialize();
     }
 
     @Test
     public void whenWarningLevelAndEnableLogToFileConfigAreSet_thenLevelIsWarningAndBothFormatterAreEnabled() {
-        config.set(LOG_LEVEL, "WARNING");
-        config.set(ENABLE_LOG_TO_FILE, true);
-        logger.initialize();
+        Fluentness.base.getConfig().set(LOG_LEVEL,"WARNING");
+        Fluentness.base.getConfig().set(ENABLE_LOG_TO_FILE,true);
+        Fluentness.base.getLogger().initialize();
 
         Assert.assertEquals(internalLogger.getLevel().toString(), "WARNING");
         Assert.assertEquals(internalLogger.getHandlers().length, 2);

@@ -1,6 +1,7 @@
 package org.fluentness.base;
 
 import org.fluentness.Fluentness;
+import org.fluentness.IsolatedUnitTest;
 import org.fluentness.base.cacher.Cacher;
 import org.fluentness.base.cacher.DefaultCacher;
 import org.fluentness.base.config.Config;
@@ -14,10 +15,10 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 
-public class BaseTest {
+public class BaseTest extends IsolatedUnitTest {
 
     @Test
-    public void whenNothingIsDone_thenBaseComponentsAreNotInitialized() {
+    public void whenNothingIsDone_thenBaseComponentsAreNotSet() {
         Assert.assertNull(Fluentness.base.getConfig());
         Assert.assertNull(Fluentness.base.getLogger());
         Assert.assertNull(Fluentness.base.getServer());
