@@ -65,12 +65,12 @@ Please take the license limitations into account when using or modifying this pr
 
 ## Technologies
 This project is based on these technologies:
-- Java 8, specifically OpenJDK
-- Maven
-- JUnit
-- EclipseLink (JPA)
+- Java 8, implemented by OpenJDK
+- JPA, implemented by EclipseLink 
+- JUnit for unit testing
+- Maven for building and distributing
 - Sun integrated HttpServer
-- Scriptina font and Inkscape for the logo artwork
+- Scriptina font and Inkscape for the artwork
 - Engagement :heart:
 
 ## License
