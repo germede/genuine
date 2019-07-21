@@ -9,16 +9,15 @@ import org.fluentness.flow.task.TaskProvider;
 
 public class Fluentness {
 
-    public static Base base = new Base();
-    public static Data data = new Data();
-    public static Flow flow = new Flow();
+    public static final Base base = new Base();
+    public static final Data data = new Data();
+    public static final Flow flow = new Flow();
 
     public static String appPackage;
 
     public static void initialize(String appPackage, String[] args) {
         Fluentness.appPackage = appPackage;
         try {
-
             base.initialize();
             data.initialize();
             flow.initialize();

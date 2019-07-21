@@ -15,10 +15,10 @@ public class Base {
     private Cacher cacher = new Cacher();
 
     public void initialize() {
-        config.initialize();
-        logger.initialize();
-        server.initialize();
-        cacher.initialize();
+        getConfig().initialize();
+        getLogger().initialize();
+        getServer().initialize();
+        getCacher().initialize();
     }
 
     public Config getConfig() {

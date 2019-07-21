@@ -18,7 +18,7 @@ public class Config {
         set(APP_PORT, 8000);
         set(LOG_LEVEL, "ALL");
         set(ENABLE_LOG_TO_CONSOLE, true);
-        set(ENABLE_LOG_TO_FILE, true);
+        set(ENABLE_LOG_TO_FILE, false);
         set(ENABLE_CACHE, true);
         set(ENABLE_STYLE_MINIFY, true);
     }

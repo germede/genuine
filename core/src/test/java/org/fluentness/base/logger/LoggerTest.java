@@ -20,7 +20,15 @@ public class LoggerTest {
     }
 
     @Test
-    public void whenNoConfigIsSet_thenLogLevelIsAll() {
+    public void whenNoConfigIsSet_thenLogLevelIsAllAndOnlyConsoleLoggerIsEnabled() {
+
+        Assert.assertEquals(Fluentness.base.getLogger().getInternalLogger().getLevel().toString(), "ALL");
+        Assert.assertEquals(Fluentness.base.getLogger().);
+        Fluentness.base.getLogger().initialize();
+    }
+
+    @Test
+    public void when () {
 
         Assert.assertEquals(Fluentness.base.getLogger().getInternalLogger().getLevel().toString(), "ALL");
     }
