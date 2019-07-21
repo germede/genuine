@@ -11,7 +11,7 @@ import org.fluentness.flow.view.View;
 public abstract class FormProvider extends Provider<Form> implements FieldFactory, Localizator, HttpMethods, HtmlFunctions {
 
     @Override
-    public Class<Form> getProducedComponentType() {
+    public Class<Form> getProvidedComponentType() {
         return Form.class;
     }
 

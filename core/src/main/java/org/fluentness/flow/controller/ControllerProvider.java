@@ -21,7 +21,7 @@ import java.util.Map;
 public abstract class ControllerProvider extends Provider<Controller> implements HttpMethods, HttpStatusCodes {
 
     @Override
-    public Class<Controller> getProducedComponentType() {
+    public Class<Controller> getProvidedComponentType() {
         return Controller.class;
     }
 

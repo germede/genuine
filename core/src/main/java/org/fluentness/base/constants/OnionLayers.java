@@ -38,7 +38,7 @@ public interface OnionLayers extends Comparator<Class<? extends Component>> {
 
     default void checkOnionLayerCompliance(Provider provider) throws OnionLayerComplianceException {
 
-        Class producedComponent = provider.getProducedComponentType();
+        Class producedComponent = provider.getProvidedComponentType();
         Class[] consumerClasses = Arrays.stream(provider.getClass().getInterfaces())
             .filter(Consumer.class::isAssignableFrom)
             .toArray(Class[]::new);

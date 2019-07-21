@@ -9,7 +9,7 @@ import java.util.function.Function;
 public abstract class ViewProvider extends Provider<View> implements HtmlFunctions, Localizator {
 
     @Override
-    public Class<View> getProducedComponentType() {
+    public Class<View> getProvidedComponentType() {
         return View.class;
     }
 

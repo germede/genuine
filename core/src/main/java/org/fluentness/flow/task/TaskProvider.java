@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public abstract class TaskProvider extends Provider<Task> implements AnsiColors {
 
     @Override
-    public Class<Task> getProducedComponentType() {
+    public Class<Task> getProvidedComponentType() {
         return Task.class;
     }
 

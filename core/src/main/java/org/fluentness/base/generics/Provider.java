@@ -35,12 +35,12 @@ public abstract class Provider<T extends Component> {
                         );
                     }
                     field.setAccessible(true);
-                    if (!getProducedComponentType().isAssignableFrom(field.get(this).getClass())) {
+                    if (!getProvidedComponentType().isAssignableFrom(field.get(this).getClass())) {
                         throw new ProviderException(
                             "Provider %s should provide Components of type %s, use consumer interfaces for dependency injection instead",
                             this.getClass().getSimpleName(),
                             field.getName(),
-                            getProducedComponentType().getSimpleName()
+                            getProvidedComponentType().getSimpleName()
                         );
                     }
                     T component = (T) field.get(this);
@@ -65,5 +65,5 @@ public abstract class Provider<T extends Component> {
         return components.stream().filter(component -> component.getName().equals(name)).findFirst().get();
     }
 
-    public abstract Class<T> getProducedComponentType();
+    public abstract Class<T> getProvidedComponentType();
 }

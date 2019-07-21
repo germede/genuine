@@ -6,7 +6,7 @@ import org.fluentness.base.generics.KeyValuePair;
 public abstract class LocaleProvider extends Provider<Locale> {
 
     @Override
-    public Class<Locale> getProducedComponentType() {
+    public Class<Locale> getProvidedComponentType() {
         return Locale.class;
     }
 

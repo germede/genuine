@@ -6,7 +6,7 @@ import org.fluentness.base.generics.KeyValuePair;
 public abstract class StyleProvider extends Provider<Style> {
 
     @Override
-    public Class<Style> getProducedComponentType() {
+    public Class<Style> getProvidedComponentType() {
         return Style.class;
     }
 

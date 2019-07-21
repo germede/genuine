@@ -7,7 +7,7 @@ import org.fluentness.flow.locale.Locale;
 public abstract class RepositoryProvider extends Provider<Locale> {
 
     @Override
-    public Class<Locale> getProducedComponentType() {
+    public Class<Locale> getProvidedComponentType() {
         return Locale.class;
     }
 
