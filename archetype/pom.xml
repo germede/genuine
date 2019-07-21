@@ -15,7 +15,6 @@
     <packaging>maven-archetype</packaging>
 
     <build>
-        <directory>out</directory>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.archetype</groupId>

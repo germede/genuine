@@ -7,7 +7,6 @@ tmp/
 res/
 classes/
 *.iws
-.iml
 *.ipr
 
 # Java
