@@ -4,25 +4,40 @@ import org.fluentness.base.cacher.Cacher;
 import org.fluentness.base.cacher.DefaultCacher;
 import org.fluentness.base.config.Config;
 import org.fluentness.base.config.DefaultConfig;
-import org.fluentness.base.logger.Logger;
 import org.fluentness.base.logger.DefaultLogger;
+import org.fluentness.base.logger.Logger;
+import org.fluentness.base.server.DefaultServer;
 import org.fluentness.base.server.Router;
 import org.fluentness.base.server.Server;
-import org.fluentness.base.server.DefaultServer;
 import org.fluentness.base.server.StaticResourceHandler;
 
 public class Base {
 
-    private Config config = new DefaultConfig();
-    private Logger logger = new DefaultLogger(java.util.logging.Logger.getGlobal());
-    private Server server = new DefaultServer(new Router(new StaticResourceHandler()));
-    private Cacher cacher = new DefaultCacher();
+    private Config config;
+    private Logger logger;
+    private Server server;
+    private Cacher cacher;
 
     public void initialize() {
-        getConfig().initialize();
-        getLogger().initialize();
-        getServer().initialize();
-        getCacher().initialize();
+        if (config == null) {
+            config = new DefaultConfig();
+            config.initialize();
+        }
+        if (logger == null) {
+            logger = new DefaultLogger(
+                java.util.logging.Logger.getLogger(String.valueOf(System.currentTimeMillis())) // always get a new logger
+            );
+        }
+
+        logger.initialize();
+        if (server == null) {
+            server = new DefaultServer(new Router(new StaticResourceHandler()));
+            server.initialize();
+        }
+        if (cacher == null) {
+            cacher = new DefaultCacher();
+            cacher.initialize();
+        }
     }
 
     public Config getConfig() {

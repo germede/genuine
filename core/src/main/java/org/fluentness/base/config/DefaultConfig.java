@@ -30,7 +30,7 @@ public class DefaultConfig implements Config {
     }
 
     @Override
-    public <T>T get(Key<T> key) {
+    public <T> T get(Key<T> key) {
         return (T) settings.get(key);
     }
 
