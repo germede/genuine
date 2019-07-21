@@ -2,7 +2,7 @@ package org.fluentness;
 
 import org.junit.After;
 
-public abstract class IsolatedUnitTest {
+public abstract class AbstractUnitTest {
 
     @After
     public void tearDown() {

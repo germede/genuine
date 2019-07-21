@@ -1,7 +1,7 @@
 package org.fluentness.flow;
 
 import org.fluentness.Fluentness;
-import org.fluentness.IsolatedUnitTest;
+import org.fluentness.AbstractUnitTest;
 import org.fluentness.base.generics.Provider;
 import org.fluentness.flow.controller.ControllerProvider;
 import org.fluentness.flow.repository.RepositoryProvider;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 
-public class FlowTest extends IsolatedUnitTest {
+public class FlowTest extends AbstractUnitTest {
 
     @Test(expected = NullPointerException.class)
     public void whenNoClassIsGiven_thenNullPointerExceptionIsThrown()

@@ -1,7 +1,7 @@
 package org.fluentness.data;
 
 import org.fluentness.Fluentness;
-import org.fluentness.IsolatedUnitTest;
+import org.fluentness.AbstractUnitTest;
 import org.fluentness.base.config.Config;
 import org.fluentness.data.entityManagerFactory.DefaultEntityManagerFactory;
 import org.fluentness.data.entityManagerFactory.EntityManagerFactory;
@@ -16,7 +16,7 @@ import static org.fluentness.base.config.StringKey.PERSISTENCE_UNIT;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class DataTest extends IsolatedUnitTest {
+public class DataTest extends AbstractUnitTest {
 
     @Before
     public void setUp() {

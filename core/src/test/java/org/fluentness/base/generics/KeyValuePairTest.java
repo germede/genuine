@@ -1,7 +1,7 @@
 package org.fluentness.base.generics;
 
 import org.fluentness.Fluentness;
-import org.fluentness.IsolatedUnitTest;
+import org.fluentness.AbstractUnitTest;
 import org.fluentness.base.logger.DefaultLogger;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-public class KeyValuePairTest extends IsolatedUnitTest {
+public class KeyValuePairTest extends AbstractUnitTest {
 
     @Before
     public void setUp() {
