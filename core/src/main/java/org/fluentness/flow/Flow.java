@@ -1,7 +1,7 @@
 package org.fluentness.flow;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.exceptions.FluentnessInitializationException;
+import org.fluentness.base.exceptions.OnionLayerComplianceException;
 import org.fluentness.base.generics.Component;
 import org.fluentness.base.generics.Consumer;
 import org.fluentness.base.generics.Provider;
@@ -29,7 +29,12 @@ public class Flow {
     private List<Class<? extends Component>> onionLayers = new ArrayList<>();
     private Map<Class<? extends Provider>, Provider> providers = new HashMap<>();
 
-    public void initialize() throws FluentnessInitializationException {
+    public void initialize() throws
+        IllegalAccessException,
+        ClassNotFoundException,
+        InstantiationException,
+        OnionLayerComplianceException {
+
         onionLayers.add(Repository.class);
         onionLayers.add(Locale.class);
         onionLayers.add(Style.class);
@@ -38,19 +43,13 @@ public class Flow {
         onionLayers.add(Task.class);
         onionLayers.add(Controller.class);
 
-        String appPackage = Fluentness.appPackage;
-
-        try {
-            setProvider(RepositoryProvider.class, appPackage + ".flow.Repositories");
-            setProvider(LocaleProvider.class, appPackage + ".flow.Locales");
-            setProvider(StyleProvider.class, appPackage + ".flow.Styles");
-            setProvider(FormProvider.class, appPackage + ".flow.Forms");
-            setProvider(ViewProvider.class, appPackage + ".flow.Views");
-            setProvider(TaskProvider.class, appPackage + ".flow.Tasks");
-            setProvider(ControllerProvider.class, appPackage + ".flow.Controllers");
-        } catch (InstantiationException | NullPointerException | IllegalAccessException | ClassNotFoundException e) {
-            throw new FluentnessInitializationException("Exception while initializing onion layers", e);
-        }
+        setProvider(RepositoryProvider.class, Fluentness.appPackage + ".flow.Repositories");
+        setProvider(LocaleProvider.class, Fluentness.appPackage + ".flow.Locales");
+        setProvider(StyleProvider.class, Fluentness.appPackage + ".flow.Styles");
+        setProvider(FormProvider.class, Fluentness.appPackage + ".flow.Forms");
+        setProvider(ViewProvider.class, Fluentness.appPackage + ".flow.Views");
+        setProvider(TaskProvider.class, Fluentness.appPackage + ".flow.Tasks");
+        setProvider(ControllerProvider.class, Fluentness.appPackage + ".flow.Controllers");
     }
 
     public <T extends Provider> T getProvider(Class<T> providerClass) {
@@ -61,15 +60,18 @@ public class Flow {
         IllegalAccessException,
         InstantiationException,
         ClassNotFoundException,
-        FluentnessInitializationException {
+        OnionLayerComplianceException {
 
         Provider provider = instantiate(providerClass, providerClassName);
         checkOnionLayerCompliance(provider);
         providers.put(providerClass, provider);
     }
 
-    public <T> T instantiate(Class<T> clazz, String implementation)
-        throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public <T> T instantiate(Class<T> clazz, String implementation) throws
+        ClassNotFoundException,
+        IllegalAccessException,
+        InstantiationException {
+
         Object object = Class.forName(implementation).newInstance();
         if (clazz.isAssignableFrom(object.getClass())) {
             return (T) object;
@@ -84,28 +86,25 @@ public class Flow {
         }
     }
 
-    public void checkOnionLayerCompliance(Provider provider) throws FluentnessInitializationException {
+    public void checkOnionLayerCompliance(Provider provider) throws
+        OnionLayerComplianceException,
+        ClassNotFoundException {
 
         Class producedComponent = provider.getProducedComponentType();
-        try {
-            Class[] consumerClasses = Arrays.stream(provider.getClass().getInterfaces())
-                .filter(Consumer.class::isAssignableFrom)
-                .toArray(Class[]::new);
+        Class[] consumerClasses = Arrays.stream(provider.getClass().getInterfaces())
+            .filter(Consumer.class::isAssignableFrom)
+            .toArray(Class[]::new);
 
-            for (Class consumer : consumerClasses) {
-                Class consumerComponent = Class.forName(consumer.getCanonicalName().replace("Consumer", ""));
+        for (Class consumer : consumerClasses) {
+            Class consumerComponent = Class.forName(consumer.getCanonicalName().replace("Consumer", ""));
 
-                if (new ComponentComparator().compare(producedComponent, consumerComponent) < 0) {
-                    throw new FluentnessInitializationException(
-                        "%s should not consume %s components due to the onion layer priority",
-                        provider.getClass().getSimpleName(),
-                        consumerComponent.getSimpleName()
-                    );
-                }
+            if (new ComponentComparator().compare(producedComponent, consumerComponent) < 0) {
+                throw new OnionLayerComplianceException(
+                    "%s should not consume %s components due to the onion layer priority",
+                    provider.getClass().getSimpleName(),
+                    consumerComponent.getSimpleName()
+                );
             }
-
-        } catch (ClassNotFoundException e) {
-            throw new FluentnessInitializationException(e);
         }
     }
 

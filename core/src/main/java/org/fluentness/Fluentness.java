@@ -18,11 +18,15 @@ public class Fluentness {
     public static void initialize(String appPackage, String[] args) {
         Fluentness.appPackage = appPackage;
         try {
-            base.initialize();
-            data.initialize();
-            flow.initialize();
+            try {
+                base.initialize();
+                data.initialize();
+                flow.initialize();
 
-            executeCommand(args);
+                executeCommand(args);
+            } catch (Exception e) {
+                throw new FluentnessInitializationException(e);
+            }
         } catch (FluentnessInitializationException e) {
             e.printStackTrace();
         }
