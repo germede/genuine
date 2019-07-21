@@ -3,30 +3,13 @@ package org.fluentness.base.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.fluentness.base.config.BooleanKey.*;
-import static org.fluentness.base.config.IntegerKey.APP_PORT;
-import static org.fluentness.base.config.StringKey.*;
-
 public class DefaultConfig implements Config {
 
     private Map<Key, Object> settings = new HashMap<>();
 
     @Override
     public void initialize() {
-        // default config
-        set(APP_PROTOCOL, "http");
-        set(APP_HOST, "localhost");
-        set(APP_PORT, 8000);
-        set(LOG_LEVEL, "ALL");
-        set(ENABLE_LOG_TO_CONSOLE, true);
-        set(ENABLE_LOG_TO_FILE, false);
-        set(ENABLE_CACHE, true);
-        set(ENABLE_STYLE_MINIFY, true);
-    }
-
-    @Override
-    public void clear() {
-        settings.clear();
+        setDefaultSettings();
     }
 
     @Override
