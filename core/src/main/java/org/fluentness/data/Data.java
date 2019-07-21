@@ -23,6 +23,11 @@ public class Data {
         }
     }
 
+    public void reset() {
+        entityManagerFactory = null;
+        entityManager = null;
+    }
+
     public EntityManagerFactory getEntityManagerFactory() {
         return entityManagerFactory;
     }

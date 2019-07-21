@@ -40,6 +40,13 @@ public class Base {
         }
     }
 
+    public void reset() {
+        config = null;
+        logger = null;
+        server = null;
+        cacher = null;
+    }
+
     public Config getConfig() {
         return config;
     }

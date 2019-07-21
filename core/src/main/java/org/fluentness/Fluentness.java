@@ -32,6 +32,12 @@ public class Fluentness {
         }
     }
 
+    public static void reset() {
+        base.reset();
+        data.reset();
+        flow.reset();
+    }
+
     private static void executeCommand(String[] args) throws FluentnessInitializationException {
 
         TaskProvider tasks = Fluentness.flow.getProvider(TaskProvider.class);
