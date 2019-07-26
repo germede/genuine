@@ -1,39 +1,23 @@
 package org.fluentness.data;
 
-import org.fluentness.Fluentness;
-import org.fluentness.data.entityManagerFactory.DefaultEntityManagerFactory;
-import org.fluentness.data.entityManagerFactory.EntityManagerFactory;
+import org.fluentness.data.model.Model;
+import org.fluentness.data.repository.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.Map;
 
-import static org.fluentness.base.config.StringKey.PERSISTENCE_UNIT;
+public final class Data {
 
-public class Data {
+    private final Map<Class, Repository> repositories;
+    private final EntityManager entityManager;
 
-    private EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
-
-    public void initialize() {
-        if (entityManagerFactory == null) {
-            entityManagerFactory = new DefaultEntityManagerFactory();
-        }
-
-        if (Fluentness.base.getConfig().has(PERSISTENCE_UNIT)) {
-            this.entityManager = entityManagerFactory.get(Fluentness.base.getConfig().get(PERSISTENCE_UNIT));
-        }
+    Data(Map<Class, Repository> repositories, EntityManager entityManager) {
+        this.repositories = repositories;
+        this.entityManager = entityManager;
     }
 
-    public void reset() {
-        entityManagerFactory = null;
-        entityManager = null;
-    }
-
-    public EntityManagerFactory getEntityManagerFactory() {
-        return entityManagerFactory;
-    }
-
-    public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
+    public <M extends Model> Repository<M> getRepository(Class<M> modelClass) {
+        return (Repository<M>) repositories.get(modelClass);
     }
 
     public EntityManager getEntityManager() {

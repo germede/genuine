@@ -1,14 +1,14 @@
 package org.fluentness.base;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.cacher.Cacher;
-import org.fluentness.base.cacher.DefaultCacher;
-import org.fluentness.base.config.Config;
-import org.fluentness.base.config.DefaultConfig;
-import org.fluentness.base.logger.DefaultLogger;
-import org.fluentness.base.logger.Logger;
-import org.fluentness.base.server.DefaultServer;
-import org.fluentness.base.server.Server;
+import org.fluentness.base.service.cacher.Cacher;
+import org.fluentness.base.service.cacher.DefaultCacher;
+import org.fluentness.base.common.environment.Config;
+import org.fluentness.base.common.environment.DefaultConfig;
+import org.fluentness.base.service.logger.DefaultLogger;
+import org.fluentness.base.service.logger.Logger;
+import org.fluentness.base.service.server.DefaultServer;
+import org.fluentness.base.service.server.Server;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,25 +21,25 @@ public class BaseTest {
 
     @Before
     public void setUp() {
-        Fluentness.base.reset();
+        Fluentness.getBase().reset();
     }
 
     @Test
     public void getters_noneIsDone_nullIsGot() {
-        Assert.assertNull(Fluentness.base.getConfig());
-        Assert.assertNull(Fluentness.base.getLogger());
-        Assert.assertNull(Fluentness.base.getServer());
-        Assert.assertNull(Fluentness.base.getCacher());
+        Assert.assertNull(Fluentness.getBase().getConfig());
+        Assert.assertNull(Fluentness.getBase().getLogger());
+        Assert.assertNull(Fluentness.getBase().getServer());
+        Assert.assertNull(Fluentness.getBase().getCacher());
     }
 
     @Test
     public void getters_baseIsInitialized_defaultImplementationsAreGot() throws IOException {
-        Fluentness.base.initialize();
+        Fluentness.getBase().initialize();
 
-        Assert.assertTrue(Fluentness.base.getConfig() instanceof DefaultConfig);
-        Assert.assertTrue(Fluentness.base.getLogger() instanceof DefaultLogger);
-        Assert.assertTrue(Fluentness.base.getServer() instanceof DefaultServer);
-        Assert.assertTrue(Fluentness.base.getCacher() instanceof DefaultCacher);
+        Assert.assertTrue(Fluentness.getBase().getConfig() instanceof DefaultConfig);
+        Assert.assertTrue(Fluentness.getBase().getLogger() instanceof DefaultLogger);
+        Assert.assertTrue(Fluentness.getBase().getServer() instanceof DefaultServer);
+        Assert.assertTrue(Fluentness.getBase().getCacher() instanceof DefaultCacher);
     }
 
     @Test
@@ -48,20 +48,20 @@ public class BaseTest {
         Logger loggerMock = mock(Logger.class);
         Server serverMock = mock(Server.class);
         Cacher cacherMock = mock(Cacher.class);
-        Fluentness.base.setConfig(configMock);
-        Fluentness.base.setLogger(loggerMock);
-        Fluentness.base.setServer(serverMock);
-        Fluentness.base.setCacher(cacherMock);
-        Fluentness.base.initialize();
+        Fluentness.getBase().setConfig(configMock);
+        Fluentness.getBase().setLogger(loggerMock);
+        Fluentness.getBase().setServer(serverMock);
+        Fluentness.getBase().setCacher(cacherMock);
+        Fluentness.getBase().initialize();
 
-        Assert.assertNotNull(Fluentness.base.getConfig());
-        Assert.assertFalse(Fluentness.base.getConfig() instanceof DefaultConfig);
-        Assert.assertNotNull(Fluentness.base.getLogger());
-        Assert.assertFalse(Fluentness.base.getLogger() instanceof DefaultLogger);
-        Assert.assertNotNull(Fluentness.base.getServer());
-        Assert.assertFalse(Fluentness.base.getServer() instanceof DefaultServer);
-        Assert.assertNotNull(Fluentness.base.getCacher());
-        Assert.assertFalse(Fluentness.base.getCacher() instanceof DefaultCacher);
+        Assert.assertNotNull(Fluentness.getBase().getConfig());
+        Assert.assertFalse(Fluentness.getBase().getConfig() instanceof DefaultConfig);
+        Assert.assertNotNull(Fluentness.getBase().getLogger());
+        Assert.assertFalse(Fluentness.getBase().getLogger() instanceof DefaultLogger);
+        Assert.assertNotNull(Fluentness.getBase().getServer());
+        Assert.assertFalse(Fluentness.getBase().getServer() instanceof DefaultServer);
+        Assert.assertNotNull(Fluentness.getBase().getCacher());
+        Assert.assertFalse(Fluentness.getBase().getCacher() instanceof DefaultCacher);
     }
 
 }

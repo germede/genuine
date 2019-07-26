@@ -1,9 +1,9 @@
 package com.sample.flow;
 
-import org.fluentness.flow.style.Style;
-import org.fluentness.flow.style.StyleProvider;
+import org.fluentness.flow.producer.style.Style;
+import org.fluentness.flow.producer.style.StyleProducer;
 
-public class Styles extends StyleProvider {
+public class Styles extends StyleProducer {
 
     Style milligram = external("res/css/milligram.min.css");
 

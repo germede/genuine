@@ -1,19 +1,23 @@
 package com.sample.flow;
 
 import com.sample.data.Song;
-import org.fluentness.flow.controller.Controller;
-import org.fluentness.flow.controller.ControllerProvider;
-import org.fluentness.flow.repository.RepositoryConsumer;
-import org.fluentness.flow.view.ViewConsumer;
+import org.fluentness.flow.consumer.FormConsumer;
+import org.fluentness.flow.consumer.ViewConsumer;
+import org.fluentness.flow.producer.controller.Controller;
+import org.fluentness.flow.producer.controller.ControllerProducer;
+import org.fluentness.flow.producer.view.View;
 
 import java.util.List;
 
-public class Controllers extends ControllerProvider implements RepositoryConsumer<Repositories>, ViewConsumer<Views> {
+public class Controllers extends ControllerProducer implements FormConsumer<Forms>, ViewConsumer<Views> {
 
     Controller base = actions(
         index -> get("/", request -> redirect("/song/list")),
 
         test -> get("/test", request -> {
+
+
+
             Song newSong = new Song();
             newSong.setTitle("Ein Lied");
             repositories().song.create(newSong);

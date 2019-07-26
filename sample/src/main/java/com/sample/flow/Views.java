@@ -1,12 +1,12 @@
 package com.sample.flow;
 
 import com.sample.data.Song;
-import org.fluentness.flow.form.FormConsumer;
-import org.fluentness.flow.style.StyleConsumer;
-import org.fluentness.flow.view.View;
-import org.fluentness.flow.view.ViewProvider;
+import org.fluentness.flow.consumer.FormConsumer;
+import org.fluentness.flow.consumer.StyleConsumer;
+import org.fluentness.flow.producer.view.View;
+import org.fluentness.flow.producer.view.ViewProducer;
 
-public class Views extends ViewProvider implements StyleConsumer<Styles>, FormConsumer<Forms> {
+public class Views extends ViewProducer implements StyleConsumer<Styles>, FormConsumer<Forms> {
 
     View base(View toInclude) {
         return html(

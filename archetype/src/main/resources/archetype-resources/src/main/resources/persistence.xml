@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="default">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <producer>org.eclipse.persistence.jpa.PersistenceProducer</producer>
         <properties>
             <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/party?serverTimezone=UTC" />
             <property name="eclipselink.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
