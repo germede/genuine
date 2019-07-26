@@ -1,19 +1,32 @@
 package org.fluentness.base;
 
+import org.fluentness.Fluentness;
+import org.fluentness.base.common.Architecture;
+import org.fluentness.base.common.exception.DefinitionException;
 import org.fluentness.base.service.Service;
 
-import java.util.Map;
+public class Base extends Architecture<Service, Service> {
 
-public final class Base {
-
-    private final Map<Class<Service>, Service> services;
-
-    Base(Map<Class<Service>, Service> services) {
-        this.services = services;
+    public Base(Fluentness app) {
+        super(app);
     }
 
-    public <S extends Service> S getService(Class<S> serviceClass) {
-        return (S) services.get(serviceClass);
+    @Override
+    protected void validateDefinition(Class<Service> key, Class<Service> value) throws DefinitionException {
+        if (key.equals(Service.class)) {
+            throw new DefinitionException(
+                "The interface Service itself cannot be declared as a service, but its sub-interfaces"
+            );
+        }
+        if (defined.containsKey(key)) {
+            throw new DefinitionException("Service %s was already defined");
+        }
+        if (!key.isInterface()) {
+            throw new DefinitionException(
+                "Service %s must be an interface",
+                key.getSimpleName()
+            );
+        }
     }
 
 }

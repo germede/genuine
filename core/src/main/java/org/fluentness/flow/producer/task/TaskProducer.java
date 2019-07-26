@@ -30,9 +30,9 @@ public abstract class TaskProducer extends Producer<Task> implements AnsiColors 
         }
         if (file.exists()) {
             if (!file.delete()) {
-                Fluentness.getBase().getLogger().warning("Cannot delete %s", file.getPath());
+                Fluentness.getBase().getService(Logger.class).warning("Cannot delete %s", file.getPath());
             } else {
-                Fluentness.getBase().getLogger().fine("Deleted file %s", file.getPath());
+                Fluentness.getBase().getService(Logger.class).fine("Deleted file %s", file.getPath());
             }
         }
     }

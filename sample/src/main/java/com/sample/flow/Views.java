@@ -1,12 +1,19 @@
 package com.sample.flow;
 
 import com.sample.data.Song;
-import org.fluentness.flow.consumer.FormConsumer;
-import org.fluentness.flow.consumer.StyleConsumer;
+import org.fluentness.base.common.injection.InjectProvider;
+import org.fluentness.flow.producer.form.Form;
+import org.fluentness.flow.producer.style.Style;
 import org.fluentness.flow.producer.view.View;
 import org.fluentness.flow.producer.view.ViewProducer;
 
-public class Views extends ViewProducer implements StyleConsumer<Styles>, FormConsumer<Forms> {
+public class Views extends ViewProducer {
+
+    @InjectProvider(Style.class)
+    private Styles styles;
+
+    @InjectProvider(Form.class)
+    private Forms forms;
 
     View base(View toInclude) {
         return html(
@@ -14,7 +21,7 @@ public class Views extends ViewProducer implements StyleConsumer<Styles>, FormCo
                 title("A music archive made with love and Fluentness"),
                 meta(NAME -> "lang", CONTENT -> "en"),
                 meta(CHARSET -> "utf-8"),
-                style(styles().bundle),
+                style(styles.bundle),
                 includeJs("script.min.js")
             ),
             body(
@@ -30,7 +37,7 @@ public class Views extends ViewProducer implements StyleConsumer<Styles>, FormCo
         div(attrs(CLASS -> "row"),
             div(attrs(CLASS -> "column"),
                 h2(translate("song_create")),
-                forms().createSong
+                forms.createSong
             )
         )
     );
@@ -43,7 +50,7 @@ public class Views extends ViewProducer implements StyleConsumer<Styles>, FormCo
                         h2(translate("song_list"))
                     ),
                     div(attrs(CLASS -> "column column-50"),
-                        forms().searchSong
+                        forms.searchSong
                     )
                 ),
                 table(

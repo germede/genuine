@@ -13,11 +13,11 @@ public abstract class Style extends Component {
 
     public void writeToFile(String path) {
         try {
-            Fluentness.getBase().getLogger().fine("Create CSS file %s", path);
+            Fluentness.getBase().getService(Logger.class).fine("Create CSS file %s", path);
             new File(path).getParentFile().mkdirs();
             Files.write(Paths.get(path),render().getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            Fluentness.getBase().getLogger().severe(e);
+            Fluentness.getBase().getService(Logger.class).severe(e);
         }
     }
 

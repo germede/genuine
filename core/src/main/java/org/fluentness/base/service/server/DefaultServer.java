@@ -43,7 +43,7 @@ public class DefaultServer implements Server {
         routeHandlerMap.forEach((key, value) -> server.createContext(key, value));
 
         server.start();
-        Fluentness.getBase().getLogger().info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
+        Fluentness.getBase().getService(Logger.class).info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
     }
 
 
@@ -51,7 +51,7 @@ public class DefaultServer implements Server {
     public void stop() {
         if (server != null) {
             server.stop(0);
-            Fluentness.getBase().getLogger().info("Server successfully stopped");
+            Fluentness.getBase().getService(Logger.class).info("Server successfully stopped");
         }
     }
 
@@ -69,7 +69,7 @@ public class DefaultServer implements Server {
 
             httpExchange.close();
         } catch (IOException e) {
-            Fluentness.getBase().getLogger().severe(e);
+            Fluentness.getBase().getService(Logger.class).severe(e);
         }
     }
 }

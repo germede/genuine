@@ -1,9 +1,26 @@
 package com.sample.flow;
 
+import com.sample.data.Song;
+import org.fluentness.base.common.injection.InjectProvider;
+import org.fluentness.base.common.injection.InjectRepository;
+import org.fluentness.base.common.injection.InjectService;
+import org.fluentness.base.service.logger.Logger;
 import org.fluentness.flow.producer.task.Task;
 import org.fluentness.flow.producer.task.TaskProducer;
 
 public class Tasks extends TaskProducer {
+
+    @InjectService(Logger.class)
+
+    // todo MAKE FLuentness and all providers an interface!!!!!!!!!!,
+    // remove consumers and use only dependency injection
+    // injector as singleton in common package
+    // producer -> provider
+    // producer and component split
+
+
+    private Logger logger;
+
 
     Task say_hello = does("Say hello to someone",
         arguments -> {
@@ -12,8 +29,13 @@ public class Tasks extends TaskProducer {
         },
         "name");
 
+
+    @InjectProvider(Task.class)
     Task say_bye = does("Say good bye to the world without using arguments",
         arguments -> System.out.println("Good bye world")
     );
+
+    @InjectRepository(Song.class)
+    Task say = does("asdf",arguments -> System.out.println("tes"));
 
 }

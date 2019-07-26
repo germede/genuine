@@ -86,7 +86,7 @@ public abstract class ControllerProducer extends Producer<Controller> implements
 
                 // dynamic routes in the middle path are not allowed
                 if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
-                    Fluentness.getBase().getLogger().warning(
+                    Fluentness.getBase().getService(Logger.class).warning(
                         "Controller action %s->%s dynamic url parameter must stay at the end of the path",
                         controller.getName(), action.getName());
                     continue;
@@ -94,7 +94,7 @@ public abstract class ControllerProducer extends Producer<Controller> implements
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    Fluentness.getBase().getLogger().warning(
+                    Fluentness.getBase().getService(Logger.class).warning(
                         "Cannot map controller action %s->%s because route '%s' is already registered",
                         controller.getName(), action.getName(), route);
                     continue;
@@ -102,7 +102,7 @@ public abstract class ControllerProducer extends Producer<Controller> implements
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                     httpExchange -> {
-                        Fluentness.getBase().getLogger().fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                        Fluentness.getBase().getService(Logger.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                         callAction(controller, action, httpExchange);
                     });
             }
@@ -113,7 +113,7 @@ public abstract class ControllerProducer extends Producer<Controller> implements
                     try {
                         routeHandlerMap.put("/" + directory.get(null), HttpResourceHandler.instance);
                     } catch (IllegalAccessException e) {
-                        Fluentness.getBase().getLogger().severe(e);
+                        Fluentness.getBase().getService(Logger.class).severe(e);
                     }
                 }
             );
@@ -131,7 +131,7 @@ public abstract class ControllerProducer extends Producer<Controller> implements
             HttpRequestRegister.instance.removeCurrent();
             Fluentness.getBase().getServer().serve(httpExchange, response);
         } catch (Exception e) {
-            Fluentness.getBase().getLogger().severe(e);
+            Fluentness.getBase().getService(Logger.class).severe(e);
             Fluentness.getBase().getServer().serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }

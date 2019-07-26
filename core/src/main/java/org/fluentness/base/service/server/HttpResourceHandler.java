@@ -16,7 +16,7 @@ public enum HttpResourceHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) {
 
-        Fluentness.getBase().getLogger().fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+        Fluentness.getBase().getService(Logger.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
 
         String path = httpExchange.getRequestURI().getPath();
         try {
@@ -42,11 +42,11 @@ public enum HttpResourceHandler implements HttpHandler {
 
                 Fluentness.getBase().getServer().serve(httpExchange, response);
             } else {
-                Fluentness.getBase().getLogger().warning("File " + path + " doesn't exists");
+                Fluentness.getBase().getService(Logger.class).warning("File " + path + " doesn't exists");
                 Fluentness.getBase().getServer().serve(httpExchange, new HttpResponse(NOT_FOUND));
             }
         } catch (IOException e) {
-            Fluentness.getBase().getLogger().severe(e);
+            Fluentness.getBase().getService(Logger.class).severe(e);
             Fluentness.getBase().getServer().serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }

@@ -1,15 +1,22 @@
 package com.sample.flow;
 
 import com.sample.data.Song;
-import org.fluentness.flow.consumer.FormConsumer;
-import org.fluentness.flow.consumer.ViewConsumer;
+import com.sample.data.SongRepository;
+import org.fluentness.base.common.injection.InjectProvider;
+import org.fluentness.base.common.injection.InjectRepository;
 import org.fluentness.flow.producer.controller.Controller;
 import org.fluentness.flow.producer.controller.ControllerProducer;
 import org.fluentness.flow.producer.view.View;
 
 import java.util.List;
 
-public class Controllers extends ControllerProducer implements FormConsumer<Forms>, ViewConsumer<Views> {
+public class Controllers extends ControllerProducer {
+
+    @InjectRepository(Song.class)
+    private SongRepository songRepository;
+
+    @InjectProvider(View.class)
+    private Views views;
 
     Controller base = actions(
         index -> get("/", request -> redirect("/song/list")),
@@ -20,16 +27,16 @@ public class Controllers extends ControllerProducer implements FormConsumer<Form
 
             Song newSong = new Song();
             newSong.setTitle("Ein Lied");
-            repositories().song.create(newSong);
+            songRepository.create(newSong);
             return response("yea");
         })
     );
 
     Controller song = actions("/song",
         list -> get("/list", request -> {
-                List<Song> songList = repositories().song.findAll();
+                List<Song> songList = songRepository.findAll();
                 return render(
-                    views().songList.assigning(
+                    views.songList.assigning(
                         songs -> songList,
                         testBoolean -> true,
                         testParameter -> 1234
@@ -39,15 +46,12 @@ public class Controllers extends ControllerProducer implements FormConsumer<Form
         ),
 
         search -> get("/search", request -> {
-                List<Song> songList = repositories().song.find("byTitle", title -> {
-                    String toSearch = "%" + request.getGetParameter("title") + "%";
-                    return toSearch;
-                });
-                return render(views().songList.assigning(songs -> songList));
+                List<Song> songList = songRepository.findByTitle("%" + request.getGetParameter("title") + "%");
+                return render(views.songList.assigning(songs -> songList));
             }
         ),
 
-        create -> get("/create", request -> render(views().createSong)),
+        create -> get("/create", request -> render(views.createSong)),
 
         create_submit -> post("/create/submit", request ->
             {

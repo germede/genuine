@@ -1,102 +1,96 @@
 package org.fluentness;
 
 import org.fluentness.base.Base;
-import org.fluentness.base.BaseDefinition;
 import org.fluentness.base.common.environment.Environment;
 import org.fluentness.base.common.exception.DefinitionException;
+import org.fluentness.base.common.exception.InjectionException;
 import org.fluentness.base.common.exception.TaskNotFoundException;
 import org.fluentness.base.common.exception.WrongUseOfTaskException;
+import org.fluentness.base.common.injection.InjectProvider;
+import org.fluentness.base.common.injection.InjectRepository;
+import org.fluentness.base.common.injection.InjectService;
+import org.fluentness.base.service.Service;
 import org.fluentness.data.Data;
-import org.fluentness.data.DataDefinition;
+import org.fluentness.data.model.Model;
 import org.fluentness.flow.Flow;
-import org.fluentness.flow.FlowDefinition;
+import org.fluentness.flow.producer.Component;
+import org.fluentness.flow.producer.Producer;
 import org.fluentness.flow.producer.task.Task;
-import org.fluentness.flow.producer.task.TaskProducer;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import static org.fluentness.base.common.constant.AnsiColors.*;
+import java.lang.reflect.Field;
+import java.util.concurrent.ExecutionException;
 
 public abstract class Fluentness {
 
-    private static Fluentness app;
     private static Environment environment;
-    private static Base base;
-    private static Data data;
-    private static Flow flow;
 
     public static Environment getEnvironment() {
         return environment;
     }
 
-    public static Base getBase() {
-        return base;
-    }
-
-    public static Data getData() {
-        return data;
-    }
-
-    public static Flow getFlow() {
-        return flow;
-    }
-
-    private static List<Class> onionLayers = new LinkedList<>();
-
-    public static void addOnionLayer(Class onionLayer) {
-        onionLayers.add(onionLayer);
-    }
-
-    public static void printOnionLayers() {
-        for (int i = 0; i < onionLayers.size(); i++) {
-            String onionLayer = onionLayers.get(i).getSimpleName();
-            if (i == 0) {
-                System.out.println("\n" + ANSI_GREEN + "               ↑ ");
-                System.out.println("LESS DEPENDANT | " + onionLayer + ANSI_RESET);
-                continue;
-            }
-            if (i == onionLayers.size() - 1) {
-                System.out.println(ANSI_BLUE + "MORE DEPENDANT | " + onionLayer);
-                System.out.println("               ↓ " + ANSI_RESET);
-                continue;
-            }
-            System.out.println("               | " + onionLayer);
-        }
-        System.out.println();
-    }
-
-    protected static Fluentness bootstrap(Fluentness app) {
-        Fluentness.app = app;
-        return app;
-    }
-
-    public Fluentness within(Environment environment) {
+    protected static Fluentness bootstrap(Fluentness app, Environment environment, String[] args) {
         environment.initialize();
         Fluentness.environment = environment;
         try {
-            BaseDefinition baseDefinition = new BaseDefinition();
-            DataDefinition dataDefinition = new DataDefinition();
-            FlowDefinition flowDefinition = new FlowDefinition();
 
-            app.defineBase(baseDefinition);
-            app.defineData(dataDefinition);
-            app.defineFlow(flowDefinition);
+            app.base = new Base(app);
+            app.data = new Data(app);
+            app.flow = new Flow(app);
 
-            base = baseDefinition.build();
-            data = dataDefinition.build();
-            flow = flowDefinition.build();
+            app.define(app.base);
+            app.define(app.base);
+            app.define(app.base);
 
-        } catch (DefinitionException e) {
+            app.base.applyDefinition();
+            app.data.applyDefinition();
+            app.flow.applyDefinition();
+
+            app.execute(args);
+
+        } catch (DefinitionException | InjectionException | ExecutionException e) {
             e.printStackTrace();
             System.exit(1);
         }
-        return this;
+        return app;
     }
 
-    public void executing(String[] args) {
+    private Base base;
+    private Data data;
+    private Flow flow;
+
+    public <T> T instantiateInjecting(Class<T> toInstantiate) throws InjectionException {
+        T instance;
         try {
-            TaskProducer tasks = Fluentness.getFlow().getProducer(TaskProducer.class);
+            instance = toInstantiate.newInstance();
+
+            // inject dependencies
+            for (Field field : toInstantiate.getFields()) {
+
+                Object dependency = field.isAnnotationPresent(InjectService.class) ?
+                    base.get((Class<Service>) field.getAnnotation(InjectService.class).value()) :
+                    field.isAnnotationPresent(InjectRepository.class) ?
+                        data.get((Class<Model>) field.getAnnotation(InjectRepository.class).value()) :
+                        field.isAnnotationPresent(InjectProvider.class) ?
+                            flow.get((Class<Component>) field.getAnnotation(InjectProvider.class).value()) :
+                            null;
+
+                if (dependency != null) {
+                    field.setAccessible(true);
+                    field.set(instance, dependency);
+                    field.setAccessible(false);
+                }
+            }
+
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new InjectionException(e);
+        }
+        return instance;
+    }
+
+
+    private void execute(String[] args) throws ExecutionException {
+        try {
+            Producer<Task> tasks = flow.getProducer(Task.class);
 
             if (args.length == 0) {
                 tasks.getComponent("help").execute(args);
@@ -131,14 +125,9 @@ public abstract class Fluentness {
             taskToExecute.execute(arguments);
 
         } catch (TaskNotFoundException | WrongUseOfTaskException e) {
-            e.printStackTrace();
+            throw new ExecutionException(e);
         }
     }
 
 
-    protected abstract void defineBase(BaseDefinition definition) throws DefinitionException;
-
-    protected abstract void defineData(DataDefinition definition) throws DefinitionException;
-
-    protected abstract void defineFlow(FlowDefinition definition) throws DefinitionException;
 }

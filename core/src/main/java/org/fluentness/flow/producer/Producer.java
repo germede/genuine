@@ -1,7 +1,7 @@
 package org.fluentness.flow.producer;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.common.exception.ProducerException;
+import org.fluentness.base.common.exception.ProviderException;
 import org.fluentness.data.model.Model;
 import org.fluentness.data.repository.Repository;
 import org.fluentness.flow.producer.task.Task;
@@ -50,7 +50,7 @@ public abstract class Producer<C extends Component> {
                 }
                 for (Field field : fields) {
                     if (field.getModifiers() != 0) {
-                        throw new ProducerException(
+                        throw new ProviderException(
                             "Component %s->%s should have no modifiers, found %s",
                             this.getClass().getSimpleName(),
                             field.getName(),
@@ -59,7 +59,7 @@ public abstract class Producer<C extends Component> {
                     }
                     field.setAccessible(true);
                     if (!getProducedComponentType().isAssignableFrom(field.get(this).getClass())) {
-                        throw new ProducerException(
+                        throw new ProviderException(
                             "Producer %s should provide Components of type %s, use consumer interfaces for dependency injection instead",
                             this.getClass().getSimpleName(),
                             field.getName(),
@@ -74,9 +74,9 @@ public abstract class Producer<C extends Component> {
                     components.add(component);
                 }
             } catch (IllegalAccessException e) {
-                Fluentness.getBase().getLogger().severe(e);
-            } catch (ProducerException e) {
-                Fluentness.getBase().getLogger().severe(e.getMessage());
+                Fluentness.getBase().getService(Logger.class).severe(e);
+            } catch (ProviderException e) {
+                Fluentness.getBase().getService(Logger.class).severe(e.getMessage());
                 System.exit(1);
             }
         }

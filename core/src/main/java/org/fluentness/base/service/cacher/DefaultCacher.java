@@ -52,21 +52,21 @@ public class DefaultCacher implements Cacher {
     @Override
     public void store(View view, String content) {
         try {
-            Fluentness.getBase().getLogger().fine("Create cache record %s", getIdentifyingCacheFilePath(view));
+            Fluentness.getBase().getService(Logger.class).fine("Create cache record %s", getIdentifyingCacheFilePath(view));
             new File(getIdentifyingCacheFilePath(view)).getParentFile().mkdirs();
             Files.write(Paths.get(getIdentifyingCacheFilePath(view)), content.getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            Fluentness.getBase().getLogger().severe(e);
+            Fluentness.getBase().getService(Logger.class).severe(e);
         }
     }
 
     @Override
     public String retrieve(View t) {
         try {
-            Fluentness.getBase().getLogger().fine("Retrieve cache record %s", getIdentifyingCacheFilePath(t));
+            Fluentness.getBase().getService(Logger.class).fine("Retrieve cache record %s", getIdentifyingCacheFilePath(t));
             return new String(Files.readAllBytes(Paths.get(getIdentifyingCacheFilePath(t))));
         } catch (IOException e) {
-            Fluentness.getBase().getLogger().severe(e);
+            Fluentness.getBase().getService(Logger.class).severe(e);
             return "";
         }
     }
