@@ -1,8 +1,8 @@
 package org.fluentness.flow;
 
 import org.fluentness.Fluentness;
-import org.fluentness.flow.producer.Producer;
-import org.fluentness.flow.producer.controller.ControllerProducer;
+import org.fluentness.flow.provider.Provider;
+import org.fluentness.flow.provider.ControllerProvider;
 import org.fluentness.data.repository.RepositoryProducer;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,21 +26,21 @@ public class FlowTest {
     @Test(expected = NullPointerException.class)
     public void instantiateProducer_noClassNameIsGiven_nullPointerExceptionIsThrown()
         throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-        Fluentness.getFlow().instantiateProducer(ControllerProducer.class, null);
+        Fluentness.getFlow().instantiateProducer(ControllerProvider.class, null);
     }
 
     @Test(expected = ClassNotFoundException.class)
     public void instantiateProducer_absentClassIsGiven_classNotFoundExceptionIsThrown()
         throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-        Fluentness.getFlow().instantiateProducer(ControllerProducer.class, "this.class.does.not.Exist");
+        Fluentness.getFlow().instantiateProducer(ControllerProvider.class, "this.class.does.not.Exist");
     }
 
     @Test
     public void instantiateProducer_normalProducerClassIsGiven_producerIsInstantiated()
         throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-        Producer producerMock = mock(Producer.class);
+        Provider producerMock = mock(Provider.class);
 
-        Producer producer = Fluentness.getFlow().instantiateProducer(
+        Provider producer = Fluentness.getFlow().instantiateProducer(
             producerMock.getClass(),
             producerMock.getClass().getCanonicalName()
         );
@@ -50,7 +50,7 @@ public class FlowTest {
     @Test(expected = ClassCastException.class)
     public void instantiateProducer_wrongProducerClassIsGiven_classCastExceptionIsThrown()
         throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-        ControllerProducer controllerProducerMock = mock(ControllerProducer.class);
+        ControllerProvider controllerProducerMock = mock(ControllerProvider.class);
 
         Fluentness.getFlow().instantiateProducer(
             RepositoryProducer.class,

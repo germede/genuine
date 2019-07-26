@@ -5,18 +5,18 @@ import org.fluentness.base.common.injection.InjectProvider;
 import org.fluentness.base.common.injection.InjectRepository;
 import org.fluentness.base.common.injection.InjectService;
 import org.fluentness.base.service.logger.Logger;
-import org.fluentness.flow.producer.task.Task;
-import org.fluentness.flow.producer.task.TaskProducer;
+import org.fluentness.flow.component.task.Task;
+import org.fluentness.flow.provider.TaskProvider;
 
-public class Tasks extends TaskProducer {
+public class Tasks extends TaskProvider {
 
     @InjectService(Logger.class)
 
     // todo MAKE FLuentness and all providers an interface!!!!!!!!!!,
     // remove consumers and use only dependency injection
     // injector as singleton in common package
-    // producer -> provider
-    // producer and component split
+    // provider -> provider
+    // provider and component split
 
 
     private Logger logger;

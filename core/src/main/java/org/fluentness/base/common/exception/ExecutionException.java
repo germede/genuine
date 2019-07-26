@@ -2,7 +2,6 @@ package org.fluentness.base.common.exception;
 
 public class ExecutionException extends AbstractException {
 
-
     public ExecutionException(String message) {
         super(message);
     }

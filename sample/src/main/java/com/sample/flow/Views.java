@@ -2,12 +2,12 @@ package com.sample.flow;
 
 import com.sample.data.Song;
 import org.fluentness.base.common.injection.InjectProvider;
-import org.fluentness.flow.producer.form.Form;
-import org.fluentness.flow.producer.style.Style;
-import org.fluentness.flow.producer.view.View;
-import org.fluentness.flow.producer.view.ViewProducer;
+import org.fluentness.flow.component.form.Form;
+import org.fluentness.flow.component.style.Style;
+import org.fluentness.flow.component.view.View;
+import org.fluentness.flow.provider.ViewProvider;
 
-public class Views extends ViewProducer {
+public class Views extends ViewProvider {
 
     @InjectProvider(Style.class)
     private Styles styles;

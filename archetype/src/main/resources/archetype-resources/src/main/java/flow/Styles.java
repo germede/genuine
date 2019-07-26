@@ -1,7 +1,7 @@
 package ${package}.flow;
 
-import org.fluentness.flow.producer.style.Style;
-import org.fluentness.flow.producer.style.StyleProducer;
+import org.fluentness.flow.component.style.Style;
+import org.fluentness.flow.component.style.StyleProducer;
 
 public class Styles extends StyleProducer {
 

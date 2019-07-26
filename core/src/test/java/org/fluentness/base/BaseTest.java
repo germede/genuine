@@ -3,8 +3,8 @@ package org.fluentness.base;
 import org.fluentness.Fluentness;
 import org.fluentness.base.service.cacher.Cacher;
 import org.fluentness.base.service.cacher.DefaultCacher;
-import org.fluentness.base.common.environment.Config;
-import org.fluentness.base.common.environment.DefaultConfig;
+import org.fluentness.base.service.config.Config;
+import org.fluentness.base.service.config.DefaultConfig;
 import org.fluentness.base.service.logger.DefaultLogger;
 import org.fluentness.base.service.logger.Logger;
 import org.fluentness.base.service.server.DefaultServer;
@@ -44,7 +44,7 @@ public class BaseTest {
 
     @Test
     public void getters_customBaseComponentsAreSet_customBaseComponentsAreGot() throws IOException {
-        Config configMock = mock(Config.class);
+        Config configMock = mock(DefaultConfig.class);
         Logger loggerMock = mock(Logger.class);
         Server serverMock = mock(Server.class);
         Cacher cacherMock = mock(Cacher.class);

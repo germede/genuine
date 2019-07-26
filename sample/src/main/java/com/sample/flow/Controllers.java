@@ -1,28 +1,18 @@
 package com.sample.flow;
 
 import com.sample.data.Song;
-import com.sample.data.SongRepository;
-import org.fluentness.base.common.injection.InjectProvider;
-import org.fluentness.base.common.injection.InjectRepository;
-import org.fluentness.flow.producer.controller.Controller;
-import org.fluentness.flow.producer.controller.ControllerProducer;
-import org.fluentness.flow.producer.view.View;
+import org.fluentness.flow.component.controller.Controller;
+import org.fluentness.flow.provider.ControllerProvider;
 
 import java.util.List;
 
-public class Controllers extends ControllerProducer {
+public class Controllers extends ControllerProvider {
 
-    @InjectRepository(Song.class)
-    private SongRepository songRepository;
-
-    @InjectProvider(View.class)
-    private Views views;
 
     Controller base = actions(
         index -> get("/", request -> redirect("/song/list")),
 
         test -> get("/test", request -> {
-
 
 
             Song newSong = new Song();

@@ -3,7 +3,7 @@ package org.fluentness.base.service.server;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.fluentness.Fluentness;
-import org.fluentness.flow.producer.controller.ControllerProducer;
+import org.fluentness.flow.provider.ControllerProvider;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -11,9 +11,9 @@ import java.net.InetSocketAddress;
 import java.net.ProtocolException;
 import java.util.Map;
 
-import static org.fluentness.base.common.environment.IntegerKey.APP_PORT;
-import static org.fluentness.base.common.environment.StringKey.APP_HOST;
-import static org.fluentness.base.common.environment.StringKey.APP_PROTOCOL;
+import static org.fluentness.base.service.config.IntegerKey.APP_PORT;
+import static org.fluentness.base.service.config.StringKey.APP_HOST;
+import static org.fluentness.base.service.config.StringKey.APP_PROTOCOL;
 
 public class DefaultServer implements Server {
 
@@ -24,9 +24,9 @@ public class DefaultServer implements Server {
 
     @Override
     public void initialize() throws IOException {
-        protocol = Fluentness.getBase().getConfig().get(APP_PROTOCOL);
-        host = Fluentness.getBase().getConfig().get(APP_HOST);
-        port = Fluentness.getBase().getConfig().get(APP_PORT);
+        protocol = base(Config.class).get(APP_PROTOCOL);
+        host = base(Config.class).get(APP_HOST);
+        port = base(Config.class).get(APP_PORT);
         switch (protocol) {
             case "http":
                 server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(host, port), 0);
@@ -39,11 +39,11 @@ public class DefaultServer implements Server {
 
     @Override
     public void start() {
-        Map<String, HttpHandler> routeHandlerMap = Fluentness.getFlow().getProducer(ControllerProducer.class).getRouteHandlerMap();
+        Map<String, HttpHandler> routeHandlerMap = Fluentness.getFlow().getProvider(ControllerProvider.class).getRouteHandlerMap();
         routeHandlerMap.forEach((key, value) -> server.createContext(key, value));
 
         server.start();
-        Fluentness.getBase().getService(Logger.class).info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
+        base(Logger.class).info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
     }
 
 
@@ -51,7 +51,7 @@ public class DefaultServer implements Server {
     public void stop() {
         if (server != null) {
             server.stop(0);
-            Fluentness.getBase().getService(Logger.class).info("Server successfully stopped");
+            base(Logger.class).info("Server successfully stopped");
         }
     }
 
@@ -69,7 +69,7 @@ public class DefaultServer implements Server {
 
             httpExchange.close();
         } catch (IOException e) {
-            Fluentness.getBase().getService(Logger.class).severe(e);
+            base(Logger.class).severe(e);
         }
     }
 }

@@ -1,7 +1,7 @@
 package ${package}.flow;
 
-import org.fluentness.flow.producer.form.Form;
-import org.fluentness.flow.producer.form.FormProducer;
+import org.fluentness.flow.component.form.Form;
+import org.fluentness.flow.component.form.FormProducer;
 
 public class Forms extends FormProducer {
 

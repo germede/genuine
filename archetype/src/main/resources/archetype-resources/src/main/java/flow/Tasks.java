@@ -1,7 +1,7 @@
 package ${package}.flow;
 
-import org.fluentness.flow.producer.task.Task;
-import org.fluentness.flow.producer.task.TaskProducer;
+import org.fluentness.flow.component.task.Task;
+import org.fluentness.flow.component.task.TaskProducer;
 
 public class Tasks extends TaskProducer {
 

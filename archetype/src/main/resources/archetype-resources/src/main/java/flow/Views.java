@@ -1,7 +1,7 @@
 package ${package}.flow;
 
-import org.fluentness.flow.producer.view.View;
-import org.fluentness.flow.producer.view.ViewProducer;
+import org.fluentness.flow.component.view.View;
+import org.fluentness.flow.component.view.ViewProducer;
 
 public class Views extends ViewProducer {
 

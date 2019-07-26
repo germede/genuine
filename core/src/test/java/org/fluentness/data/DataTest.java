@@ -1,7 +1,7 @@
 package org.fluentness.data;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.common.environment.Config;
+import org.fluentness.base.service.config.DefaultConfig;
 import org.fluentness.data.entityManagerFactory.DefaultEntityManagerFactory;
 import org.fluentness.data.entityManagerFactory.EntityManagerFactory;
 import org.junit.Assert;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
-import static org.fluentness.base.common.environment.StringKey.PERSISTENCE_UNIT;
+import static org.fluentness.base.service.config.StringKey.PERSISTENCE_UNIT;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -19,7 +19,7 @@ public class DataTest {
 
     @Before
     public void setUp() {
-        Fluentness.getBase().setConfig(mock(Config.class));
+        Fluentness.getBase().setConfig(mock(DefaultConfig.class));
         Fluentness.getData().reset();
     }
 

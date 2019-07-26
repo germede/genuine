@@ -2,20 +2,19 @@ package org.fluentness.data.repository;
 
 import org.fluentness.Fluentness;
 import org.fluentness.base.service.logger.Logger;
-import org.fluentness.data.model.Model;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public interface Repository<T extends Model> {
+public interface Repository<T extends org.fluentness.data.model.Repository> extends  {
 
     default Class<T> getModelClass() {
         String modelClassName = this.getClass().getCanonicalName().replace("Repository", "");
         try {
             return (Class<T>) Class.forName(modelClassName);
         } catch (ClassNotFoundException | ClassCastException e) {
-            Fluentness.getBase().getService(Logger.class).severe(
+            base(Logger.class).severe(
                 "Model class %s not found for repository %s. Please respect the class naming conventions",
                 this.getClass().getSimpleName().replace("Repository", ""),
                 this.getClass().getSimpleName()
@@ -51,11 +50,11 @@ public interface Repository<T extends Model> {
             getEntityManager().persist(entity);
             getEntityManager().flush();
             commitTransaction();
-            Fluentness.getBase().getService(Logger.class)
+            base(Logger.class)
                 .fine("%s record created successfully", getModelClass().getSimpleName());
             return true;
         }
-        Fluentness.getBase().getService(Logger.class)
+        base(Logger.class)
             .fine("%s record already exists, cannot create", getModelClass().getSimpleName());
         return false;
     }
@@ -68,10 +67,10 @@ public interface Repository<T extends Model> {
             getEntityManager().persist(entity);
             getEntityManager().flush();
             commitTransaction();
-            Fluentness.getBase().getService(Logger.class).fine("%s record updated successfully", getModelClass().getSimpleName());
+            base(Logger.class).fine("%s record updated successfully", getModelClass().getSimpleName());
             return true;
         }
-        Fluentness.getBase().getService(Logger.class).fine("%s record doesn't exists, cannot update", getModelClass().getSimpleName());
+        base(Logger.class).fine("%s record doesn't exists, cannot update", getModelClass().getSimpleName());
         return false;
     }
 
@@ -83,21 +82,21 @@ public interface Repository<T extends Model> {
             getEntityManager().remove(entity);
             getEntityManager().flush();
             commitTransaction();
-            Fluentness.getBase().getService(Logger.class).fine("%s record deleted successfully", getModelClass().getSimpleName());
+            base(Logger.class).fine("%s record deleted successfully", getModelClass().getSimpleName());
             return true;
         }
-        Fluentness.getBase().getService(Logger.class).fine("%s record doesn't exists, cannot delete", getModelClass().getSimpleName());
+        base(Logger.class).fine("%s record doesn't exists, cannot delete", getModelClass().getSimpleName());
         return false;
     }
 
     default List<T> findAll() {
         Query query = getEntityManager().createQuery("SELECT e FROM " + getModelClass().getSimpleName() + " e");
-        Fluentness.getBase().getService(Logger.class).fine("Retrieving all %s records", getModelClass().getSimpleName());
+        base(Logger.class).fine("Retrieving all %s records", getModelClass().getSimpleName());
         return query.getResultList();
     }
 
     default T findById(int id) {
-        Fluentness.getBase().getService(Logger.class).fine("Retrieving %s record by ID %s", getModelClass().getSimpleName(), id);
+        base(Logger.class).fine("Retrieving %s record by ID %s", getModelClass().getSimpleName(), id);
         return getEntityManager().find(getModelClass(), id);
     }
 

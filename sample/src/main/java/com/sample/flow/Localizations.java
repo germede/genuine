@@ -1,9 +1,9 @@
 package com.sample.flow;
 
-import org.fluentness.flow.producer.localization.Localization;
-import org.fluentness.flow.producer.localization.LocalizationProducer;
+import org.fluentness.flow.component.localization.Localization;
+import org.fluentness.flow.provider.LocalizationProvider;
 
-public class Localizations extends LocalizationProducer {
+public class Localizations extends LocalizationProvider {
 
     Localization en = translations(
         welcome_message -> "Welcome to the site",

@@ -1,10 +1,10 @@
 package com.sample.flow;
 
-import org.fluentness.flow.producer.form.Field;
-import org.fluentness.flow.producer.form.Form;
-import org.fluentness.flow.producer.form.FormProducer;
+import org.fluentness.flow.component.form.Field;
+import org.fluentness.flow.component.form.Form;
+import org.fluentness.flow.provider.FormProvider;
 
-public class Forms extends FormProducer {
+public class Forms extends FormProvider {
 
     Field textField(String idString, String placeholderKey, String labelKey) {
         return text(

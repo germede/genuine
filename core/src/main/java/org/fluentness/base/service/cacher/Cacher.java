@@ -1,7 +1,7 @@
 package org.fluentness.base.service.cacher;
 
 import org.fluentness.base.service.Service;
-import org.fluentness.flow.producer.view.View;
+import org.fluentness.flow.provider.view.View;
 
 public interface Cacher extends Service {
     void initialize();

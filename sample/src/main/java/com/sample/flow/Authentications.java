@@ -1,7 +1,7 @@
 package com.sample.flow;
 
-import org.fluentness.flow.producer.controller.ControllerProducer;
+import org.fluentness.flow.provider.ControllerProvider;
 
-public class Authentications extends ControllerProducer {
+public class Authentications extends ControllerProvider {
 
 }

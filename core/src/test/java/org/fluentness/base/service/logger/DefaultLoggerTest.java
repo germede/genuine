@@ -1,8 +1,8 @@
 package org.fluentness.base.service.logger;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.common.environment.Config;
-import org.fluentness.base.common.environment.DefaultConfig;
+import org.fluentness.base.service.config.Config;
+import org.fluentness.base.service.config.DefaultConfig;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 
-import static org.fluentness.base.common.environment.BooleanKey.ENABLE_LOG_TO_CONSOLE;
-import static org.fluentness.base.common.environment.BooleanKey.ENABLE_LOG_TO_FILE;
-import static org.fluentness.base.common.environment.StringKey.LOG_LEVEL;
+import static org.fluentness.base.service.config.BooleanKey.ENABLE_LOG_TO_CONSOLE;
+import static org.fluentness.base.service.config.BooleanKey.ENABLE_LOG_TO_FILE;
+import static org.fluentness.base.service.config.StringKey.LOG_LEVEL;
 import static org.mockito.Mockito.*;
 
 public class DefaultLoggerTest {

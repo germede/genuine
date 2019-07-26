@@ -2,7 +2,6 @@ package org.fluentness.base.common.exception;
 
 public class InjectionException extends AbstractException {
 
-
     public InjectionException(String message) {
         super(message);
     }

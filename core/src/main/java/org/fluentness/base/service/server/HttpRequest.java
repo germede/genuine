@@ -3,7 +3,7 @@ package org.fluentness.base.service.server;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import org.fluentness.Fluentness;
-import org.fluentness.flow.producer.localization.LocalizationProducer;
+import org.fluentness.flow.provider.LocalizationProvider;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -86,7 +86,7 @@ public class HttpRequest {
             return Locale.getDefault();
         }
         List<Locale.LanguageRange> ranges = Locale.LanguageRange.parse(headers.getFirst("Accept-Language"));
-        Collection<Locale> locales = Fluentness.getFlow().getProducer(LocalizationProducer.class).getComponents().stream()
+        Collection<Locale> locales = Fluentness.getFlow().getProvider(LocalizationProvider.class).getComponents().stream()
             .map(localization -> new Locale(localization.getName()))
             .collect(Collectors.toList());
         Locale result = Locale.lookup(ranges, locales);
