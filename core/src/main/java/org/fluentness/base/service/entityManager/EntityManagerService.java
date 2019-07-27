@@ -2,6 +2,8 @@ package org.fluentness.base.service.entityManager;
 
 import org.fluentness.base.service.Service;
 
+import javax.persistence.EntityManager;
+
 public interface EntityManagerService extends Service {
 
     @Override
@@ -9,5 +11,5 @@ public interface EntityManagerService extends Service {
         return 600;
     }
 
-    javax.persistence.EntityManager em();
+    EntityManager em();
 }

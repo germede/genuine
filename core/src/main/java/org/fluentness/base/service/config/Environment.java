@@ -1,9 +1,7 @@
 package org.fluentness.base.service.config;
 
-public abstract class Environment {
+public interface Environment {
 
-
-
-    protected abstract void configure(ConfigService config);
+    void configure(ConfigService config);
 
 }

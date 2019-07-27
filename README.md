@@ -1,7 +1,7 @@
 ![Fluentness logo](core/art/logo.png?raw=true "Fluentness logo")
 
 ## Introduction
-Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-integrated, consistent and flexible web framework. 
+Fluentness is intended to be an easy-to-learn, fully-integrated, Java-based, consistent and flexible web framework. 
 
 So let's say you want a fancy application that just says Hello to someone. Just add this to your flow/Controllers.java
 ```java
@@ -17,7 +17,7 @@ Visit http://localhost:8000/hello?name=YourName
 
 >**F**orce your code to be compact, yet legible  
 >**L**oose coupling by splitting your application in base, data and flow: the Fluentness way  
->**U**se flow class attributes as finished components and functions as helpers  
+>**U**se class attributes as finished components and functions as helpers  
 >**E**mbrace the consumer-provider, onion-layer-like base-data-flow architecture  
 >**N**otice how unit tests may help you define and accept requirements  
 >**T**ry to avoid abusing of comments, singletons, statics and annotations  
@@ -73,20 +73,19 @@ That sample project "SongLibrary" is used for functional testing, but you can st
 Feel free to [open a new issue](https://github.com/germede/Fluentness/issues/new) directly on GitHub. 
 Pull requests into the develop branch are also welcome. 
 
-Fluentness is thought to be extendable, either within your application's base package or even developing standalone plugins. Please take the license limitations into account when using or modifying this project.
-
+Fluentness is thought to be extendable, either within your application's base package or even developing standalone plugins. 
 
 ## Technologies
 This project is based on these technologies:
-- Java 8, implemented by OpenJDK
-- JPA, implemented by EclipseLink 
-- JUnit + Mockito for unit testing
-- Maven for building and distributing
-- Sun integrated HttpServer, although replaceable
-- Scriptina font and Inkscape for the artwork
+- Java 8, specifically [OpenJDK](https://openjdk.java.net/)
+- JPA as ORM, implemented by [EclipseLink](https://www.eclipse.org/eclipselink/) 
+- [JUnit](https://junit.org/junit4/) and Mockito for unit testing
+- Apache [Maven](https://maven.apache.org/) for building and distributing
+- [NanoHTTPD](https://github.com/NanoHttpd/nanohttpd) as embedded Web server
+- [Inkscape](https://inkscape.org/) with fonts [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the logo
 - Much Engagement :muscle:
 
 ## License
 Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
-Copyright © 2019 germede
+Copyright © 2019 Gerardo Medina

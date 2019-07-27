@@ -3,11 +3,12 @@ package org.fluentness.base.service.server;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import org.fluentness.flow.FlowConsumer;
-import org.fluentness.flow.provider.LocalizationProvider;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HttpRequest implements FlowConsumer {
@@ -88,14 +89,14 @@ public class HttpRequest implements FlowConsumer {
 
         return Locale.getDefault();
         // todo remove depencency on flow
-        List<Locale.LanguageRange> ranges = Locale.LanguageRange.parse(headers.getFirst("Accept-Language"));
-        Collection<Locale> locales = provider(LocalizationProvider.class).provideComponents().stream()
-            .map(localization -> new Locale(localization.getName()))
-            .collect(Collectors.toList());
-        Locale result = Locale.lookup(ranges, locales);
-        if (result == null) {
-            result = Locale.getDefault();
-        }
-        return result;
+//        List<Locale.LanguageRange> ranges = Locale.LanguageRange.parse(headers.getFirst("Accept-Language"));
+//        Collection<Locale> locales = provider(LocalizationProvider.class).provideComponents().stream()
+//            .map(localization -> new Locale(localization.getName()))
+//            .collect(Collectors.toList());
+//        Locale result = Locale.lookup(ranges, locales);
+//        if (result == null) {
+//            result = Locale.getDefault();
+//        }
+//        return result;
     }
 }

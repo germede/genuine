@@ -15,7 +15,7 @@ public interface ServerService extends Service {
 
     void start(Map<String, HttpHandler> routeHandlerMap);
 
-    void stop();
-
     void serve(HttpExchange httpExchange, HttpResponse httpResponse);
+
+    void stop();
 }

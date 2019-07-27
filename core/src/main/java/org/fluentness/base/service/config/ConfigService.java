@@ -9,8 +9,6 @@ public interface ConfigService extends Service {
         return 0;
     }
 
-    ConfigService within(Environment environment);
-
     <T> boolean has(Key<T> key);
 
     <T> T get(Key<T> key);

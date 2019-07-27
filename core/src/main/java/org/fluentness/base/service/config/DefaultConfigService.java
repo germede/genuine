@@ -14,7 +14,7 @@ public class DefaultConfigService implements ConfigService {
     public DefaultConfigService() {
         // default settings
         set(APP_PROTOCOL, "http");
-        set(APP_HOST, "localhost");
+        set(APP_HOSTNAME, "localhost");
         set(APP_PORT, 8000);
         set(LOG_LEVEL, "ALL");
         set(ENABLE_LOG_TO_CONSOLE, true);

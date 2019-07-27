@@ -21,6 +21,11 @@
             <!-- todo change version at one place-->
             <version>0.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.17</version>
+        </dependency>
     </dependencies>
 
 </project>
