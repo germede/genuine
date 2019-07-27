@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="songLibraryPU">
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <class>com.sample.data.Song</class>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/party?serverTimezone=UTC"/>
+            <property name="javax.persistence.jdbc.user" value="party"/>
+            <property name="javax.persistence.jdbc.password" value="party"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="openjpa.ConnectionFactoryProperties" value="MaxActive=10,MaxIdle=5,MinIdle=2,MaxWait=1800000"/>
+            <property name="openjpa.jdbc.DBDictionary" value="org.apache.openjpa.jdbc.sql.MySQLDictionary"/>
+            <property name="openjpa.DataCache" value="true"/>
+            <property name="openjpa.QueryCache" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

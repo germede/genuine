@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <datasource-mapping>
+          <factory-entry name="songLibraryPU" />
+        </datasource-mapping>
+        <naming-strategy-map />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/../sampleapp/src/main/resources/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/../sampleapp/out/classes" />
+    <output-test url="file://$MODULE_DIR$/../sampleapp/out/test-classes" />
+    <content url="file://$MODULE_DIR$/../sampleapp">
+      <sourceFolder url="file://$MODULE_DIR$/../sampleapp/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../sampleapp/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../sampleapp/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../sampleapp/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="framework" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.20" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-annotations-api:9.0.20" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.openjpa:openjpa-all:3.1.0" level="project" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.17" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.6.1" level="project" />
+  </component>
+</module>
