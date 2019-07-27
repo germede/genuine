@@ -12,7 +12,7 @@ public class Views extends ViewProvider {
                 title("A music archive made with love and Fluentness"),
                 meta(NAME -> "lang", CONTENT -> "en"),
                 meta(CHARSET -> "utf-8"),
-                style(consumeProvider(Styles.class).bundle),
+                style(provider(Styles.class).bundle),
                 includeJs("script.min.js")
             ),
             body(
@@ -28,7 +28,7 @@ public class Views extends ViewProvider {
         div(attrs(CLASS -> "row"),
             div(attrs(CLASS -> "column"),
                 h2(translate("song_create")),
-                consumeProvider(Forms.class).createSong
+                provider(Forms.class).createSong
             )
         )
     );
@@ -41,7 +41,7 @@ public class Views extends ViewProvider {
                         h2(translate("song_list"))
                     ),
                     div(attrs(CLASS -> "column column-50"),
-                        consumeProvider(Forms.class).searchSong
+                        provider(Forms.class).searchSong
                     ),
                     table(
                         thead(

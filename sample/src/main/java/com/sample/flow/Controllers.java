@@ -17,16 +17,16 @@ public class Controllers extends ControllerProvider {
 
             Song newSong = new Song();
             newSong.setTitle("Ein Lied");
-            consumeRepository(SongRepository.class).create(newSong);
+            repository(SongRepository.class).create(newSong);
             return response("yea");
         })
     );
 
     Controller song = actions("/song",
         list -> get("/list", request -> {
-                List<Song> songList = consumeRepository(SongRepository.class).findAll();
+                List<Song> songList = repository(SongRepository.class).findAll();
                 return render(
-                    consumeProvider(Views.class).songList.assigning(
+                    provider(Views.class).songList.assigning(
                         songs -> songList,
                         testBoolean -> true,
                         testParameter -> 1234
@@ -36,13 +36,13 @@ public class Controllers extends ControllerProvider {
         ),
 
         search -> get("/search", request -> {
-                List<Song> songList = consumeRepository(SongRepository.class)
+                List<Song> songList = repository(SongRepository.class)
                     .findByTitle("%" + request.getGetParameter("title") + "%");
-                return render(consumeProvider(Views.class).songList.assigning(songs -> songList));
+                return render(provider(Views.class).songList.assigning(songs -> songList));
             }
         ),
 
-        create -> get("/create", request -> render(consumeProvider(Views.class).createSong)),
+        create -> get("/create", request -> render(provider(Views.class).createSong)),
 
         create_submit -> post("/create/submit", request ->
             {

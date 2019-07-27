@@ -29,12 +29,12 @@ public class DefaultViewCacheService implements ViewCacheService {
     @Override
     public String cache(View view) {
         boolean cacheable = isCacheable(view);
-        if (consumeService(ConfigService.class).get(ENABLE_CACHE) && doesCacheFileExists(view) && cacheable) {
+        if (service(ConfigService.class).get(ENABLE_CACHE) && doesCacheFileExists(view) && cacheable) {
             return retrieve(view);
         }
 
         String content = view.toString();
-        if (consumeService(ConfigService.class).get(ENABLE_CACHE) && cacheable) {
+        if (service(ConfigService.class).get(ENABLE_CACHE) && cacheable) {
             store(view, content);
         }
         return content;
@@ -48,21 +48,21 @@ public class DefaultViewCacheService implements ViewCacheService {
     @Override
     public void store(View view, String content) {
         try {
-            consumeService(LoggerService.class).fine("Create cache record %s", getIdentifyingCacheFilePath(view));
+            service(LoggerService.class).fine("Create cache record %s", getIdentifyingCacheFilePath(view));
             new File(getIdentifyingCacheFilePath(view)).getParentFile().mkdirs();
             Files.write(Paths.get(getIdentifyingCacheFilePath(view)), content.getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            consumeService(LoggerService.class).severe(e);
+            service(LoggerService.class).severe(e);
         }
     }
 
     @Override
     public String retrieve(View t) {
         try {
-            consumeService(LoggerService.class).fine("Retrieve cache record %s", getIdentifyingCacheFilePath(t));
+            service(LoggerService.class).fine("Retrieve cache record %s", getIdentifyingCacheFilePath(t));
             return new String(Files.readAllBytes(Paths.get(getIdentifyingCacheFilePath(t))));
         } catch (IOException e) {
-            consumeService(LoggerService.class).severe(e);
+            service(LoggerService.class).severe(e);
             return "";
         }
     }

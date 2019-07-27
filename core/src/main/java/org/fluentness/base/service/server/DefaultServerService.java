@@ -25,9 +25,9 @@ public class DefaultServerService implements ServerService {
 
     public DefaultServerService() throws DefinitionException {
         try {
-            protocol = consumeService(ConfigService.class).get(APP_PROTOCOL);
-            host = consumeService(ConfigService.class).get(APP_HOST);
-            port = consumeService(ConfigService.class).get(APP_PORT);
+            protocol = service(ConfigService.class).get(APP_PROTOCOL);
+            host = service(ConfigService.class).get(APP_HOST);
+            port = service(ConfigService.class).get(APP_PORT);
             switch (protocol) {
                 case "http":
                     internalServer = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(host, port), 0);
@@ -46,7 +46,7 @@ public class DefaultServerService implements ServerService {
         routeHandlerMap.forEach((key, value) -> internalServer.createContext(key, value));
 
         internalServer.start();
-        consumeService(LoggerService.class).info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
+        service(LoggerService.class).info("Server successfully started and listening to %s", protocol + "://" + host + ":" + port);
     }
 
 
@@ -54,7 +54,7 @@ public class DefaultServerService implements ServerService {
     public void stop() {
         if (internalServer != null) {
             internalServer.stop(0);
-            consumeService(LoggerService.class).info("Server successfully stopped");
+            service(LoggerService.class).info("Server successfully stopped");
         }
     }
 
@@ -72,7 +72,7 @@ public class DefaultServerService implements ServerService {
 
             httpExchange.close();
         } catch (IOException e) {
-            consumeService(LoggerService.class).severe(e);
+            service(LoggerService.class).severe(e);
         }
     }
 }

@@ -85,9 +85,11 @@ public class HttpRequest implements FlowConsumer {
         if (headers.getFirst("Accept-Language") == null || headers.getFirst("Accept-Language").isEmpty()) {
             return Locale.getDefault();
         }
+
+        return Locale.getDefault();
         // todo remove depencency on flow
         List<Locale.LanguageRange> ranges = Locale.LanguageRange.parse(headers.getFirst("Accept-Language"));
-        Collection<Locale> locales = consumeProvider(LocalizationProvider.class).provideComponents().stream()
+        Collection<Locale> locales = provider(LocalizationProvider.class).provideComponents().stream()
             .map(localization -> new Locale(localization.getName()))
             .collect(Collectors.toList());
         Locale result = Locale.lookup(ranges, locales);

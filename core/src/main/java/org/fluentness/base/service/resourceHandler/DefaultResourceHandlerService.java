@@ -16,7 +16,7 @@ public class DefaultResourceHandlerService implements ResourceHandlerService {
     @Override
     public void handle(HttpExchange httpExchange) {
 
-        consumeService(LoggerService.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+        service(LoggerService.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
 
         String path = httpExchange.getRequestURI().getPath();
         try {
@@ -40,14 +40,14 @@ public class DefaultResourceHandlerService implements ResourceHandlerService {
                     response.withHeader("Content-Type", "image/svg+xml");
                 }
 
-                consumeService(ServerService.class).serve(httpExchange, response);
+                service(ServerService.class).serve(httpExchange, response);
             } else {
-                consumeService(LoggerService.class).warning("File " + path + " doesn't exists");
-                consumeService(ServerService.class).serve(httpExchange, new HttpResponse(NOT_FOUND));
+                service(LoggerService.class).warning("File " + path + " doesn't exists");
+                service(ServerService.class).serve(httpExchange, new HttpResponse(NOT_FOUND));
             }
         } catch (IOException e) {
-            consumeService(LoggerService.class).severe(e);
-            consumeService(ServerService.class).serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
+            service(LoggerService.class).severe(e);
+            service(ServerService.class).serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }
 }

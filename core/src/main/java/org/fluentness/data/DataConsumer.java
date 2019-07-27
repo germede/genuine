@@ -9,7 +9,7 @@ public interface DataConsumer {
         return Data.instance.has(key);
     }
 
-    default <R extends Repository> R consumeRepository(Class<R> repository) {
+    default <R extends Repository> R repository(Class<R> repository) {
         return (R) Data.instance.get(repository);
     }
 

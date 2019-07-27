@@ -2,12 +2,12 @@ package com.sample.base;
 
 import org.fluentness.base.service.config.ConfigService;
 import org.fluentness.base.service.config.Environment;
-import org.fluentness.base.service.config.IntegerKey;
+import org.fluentness.base.service.config.StringKey;
 
-public class DevEnvironment implements Environment {
+public class DevEnvironment extends Environment {
 
     @Override
     public void configure(ConfigService config) {
-        config.set(IntegerKey.APP_PORT, 8080);
+        config.set(StringKey.PERSISTENCE_UNIT, "songLibraryPU");
     }
 }

@@ -43,7 +43,7 @@ public abstract class ControllerProvider extends Provider<Controller> implements
 
                 // dynamic routes in the middle path are not allowed
                 if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
-                    consumeService(LoggerService.class).warning(
+                    service(LoggerService.class).warning(
                         "Controller action %s->%s dynamic url parameter must stay at the end of the path",
                         controller.getName(), action.getName());
                     continue;
@@ -51,7 +51,7 @@ public abstract class ControllerProvider extends Provider<Controller> implements
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    consumeService(LoggerService.class).warning(
+                    service(LoggerService.class).warning(
                         "Cannot map controller action %s->%s because route '%s' is already registered",
                         controller.getName(), action.getName(), route);
                     continue;
@@ -59,7 +59,7 @@ public abstract class ControllerProvider extends Provider<Controller> implements
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                     httpExchange -> {
-                        consumeService(LoggerService.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                        service(LoggerService.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                         callAction(controller, action, httpExchange);
                     });
             }
@@ -68,9 +68,9 @@ public abstract class ControllerProvider extends Provider<Controller> implements
             Arrays.stream(PublicDirectories.class.getFields()).forEach(directory ->
                 {
                     try {
-                        routeHandlerMap.put("/" + directory.get(null), consumeService(ResourceHandlerService.class));
+                        routeHandlerMap.put("/" + directory.get(null), service(ResourceHandlerService.class));
                     } catch (IllegalAccessException e) {
-                        consumeService(LoggerService.class).severe(e);
+                        service(LoggerService.class).severe(e);
                     }
                 }
             );
@@ -86,10 +86,10 @@ public abstract class ControllerProvider extends Provider<Controller> implements
             HttpRequestRegister.instance.putCurrent(request);
             HttpResponse response = action.getExecutor().execute(request);
             HttpRequestRegister.instance.removeCurrent();
-            consumeService(ServerService.class).serve(httpExchange, response);
+            service(ServerService.class).serve(httpExchange, response);
         } catch (Exception e) {
-            consumeService(LoggerService.class).severe(e);
-            consumeService(ServerService.class).serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
+            service(LoggerService.class).severe(e);
+            service(ServerService.class).serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }
 

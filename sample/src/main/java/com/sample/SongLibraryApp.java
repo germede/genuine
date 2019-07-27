@@ -10,6 +10,7 @@ import org.fluentness.Fluentness;
 import org.fluentness.base.Base;
 import org.fluentness.base.common.exception.DefinitionException;
 import org.fluentness.base.service.config.DefaultConfigService;
+import org.fluentness.base.service.entityManager.DefaultEntityManagerService;
 import org.fluentness.base.service.logger.DefaultLoggerService;
 import org.fluentness.base.service.resourceHandler.DefaultResourceHandlerService;
 import org.fluentness.base.service.server.DefaultServerService;
@@ -35,8 +36,8 @@ public class SongLibraryApp extends Fluentness {
             .add(new DefaultServerService())
             .add(new DefaultResourceHandlerService())
             .add(new DefaultViewCacheService())
+            .add(new DefaultEntityManagerService())
         ;
-//            .add(new DefaultEntityManagerService());
     }
 
     @Override

@@ -26,14 +26,14 @@ public class DefaultLoggerService implements LoggerService {
         internalLogger.setUseParentHandlers(false);
 
         String logLevel = "ALL";
-        if (consumeService(ConfigService.class).has(LOG_LEVEL)) {
-            logLevel = consumeService(ConfigService.class).get(LOG_LEVEL);
+        if (service(ConfigService.class).has(LOG_LEVEL)) {
+            logLevel = service(ConfigService.class).get(LOG_LEVEL);
         }
 
         internalLogger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (consumeService(ConfigService.class).has(ENABLE_LOG_TO_CONSOLE) && consumeService(ConfigService.class).get(ENABLE_LOG_TO_CONSOLE)) {
+        if (service(ConfigService.class).has(ENABLE_LOG_TO_CONSOLE) && service(ConfigService.class).get(ENABLE_LOG_TO_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -42,7 +42,7 @@ public class DefaultLoggerService implements LoggerService {
 
         // file logging
         try {
-            if (consumeService(ConfigService.class).has(ENABLE_LOG_TO_FILE) && consumeService(ConfigService.class).get(ENABLE_LOG_TO_FILE)) {
+            if (service(ConfigService.class).has(ENABLE_LOG_TO_FILE) && service(ConfigService.class).get(ENABLE_LOG_TO_FILE)) {
                 new File(PrivateDirectories.LOG).mkdirs();
                 String logFilePath = PrivateDirectories.LOG + "/" +
                     new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";

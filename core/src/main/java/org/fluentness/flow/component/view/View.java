@@ -40,7 +40,7 @@ public abstract class View extends Component implements FlowConsumer, BaseConsum
     }
 
     public String renderWithCache() {
-        return consumeService(ViewCacheService.class).cache(this);
+        return service(ViewCacheService.class).cache(this);
     }
 
     @Override
@@ -51,7 +51,7 @@ public abstract class View extends Component implements FlowConsumer, BaseConsum
     public abstract String render();
 
     private String localize(String text) {
-        Localization localeToApply = consumeProvider(LocalizationProvider.class)
+        Localization localeToApply = provider(LocalizationProvider.class)
             .getComponent(HttpRequestRegister.instance.getCurrentLocale().toString());
 
         Matcher matcher = Pattern.compile("\\{\\{L:([A-Za-z1-9_]+)}}").matcher(text);

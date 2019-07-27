@@ -40,9 +40,9 @@ public class DefaultTaskProvider extends TaskProvider implements FlowConsumer {
         }
         if (file.exists()) {
             if (!file.delete()) {
-                consumeService(LoggerService.class).warning("Cannot delete %s", file.getPath());
+                service(LoggerService.class).warning("Cannot delete %s", file.getPath());
             } else {
-                consumeService(LoggerService.class).fine("Deleted file %s", file.getPath());
+                service(LoggerService.class).fine("Deleted file %s", file.getPath());
             }
         }
     }
@@ -79,7 +79,8 @@ public class DefaultTaskProvider extends TaskProvider implements FlowConsumer {
         }
     );
 
-    Task print_version = does("Prints current Fluentness version",
+    Task version = does("Prints current Fluentness version",
+        // todo fix
         arguments -> System.out.println(Fluentness.class.getPackage().getImplementationVersion())
     );
 
@@ -96,10 +97,10 @@ public class DefaultTaskProvider extends TaskProvider implements FlowConsumer {
     );
 
     Task server_start = does("Starts embedded HTTP server",
-        arguments -> consumeService(ServerService.class).start(consumeProvider(ControllerProvider.class).getRouteHandlerMap())
+        arguments -> service(ServerService.class).start(provider(ControllerProvider.class).getRouteHandlerMap())
     );
 
     Task server_stop = does("Stops embedded HTTP server",
-        arguments -> consumeService(ServerService.class).stop()
+        arguments -> service(ServerService.class).stop()
     );
 }

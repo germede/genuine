@@ -9,7 +9,7 @@ public interface FlowConsumer {
         return Flow.instance.has(key);
     }
 
-    default <P extends Provider> P consumeProvider(Class<P> provider) {
+    default <P extends Provider> P provider(Class<P> provider) {
         return (P) Flow.instance.get(provider);
     }
 

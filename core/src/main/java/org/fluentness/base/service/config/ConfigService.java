@@ -16,4 +16,5 @@ public interface ConfigService extends Service {
     <T> T get(Key<T> key);
 
     <T> void set(Key<T> key, T value);
+
 }

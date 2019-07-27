@@ -14,11 +14,11 @@ public abstract class Style extends Component implements BaseConsumer {
 
     public void writeToFile(String path) {
         try {
-            consumeService(LoggerService.class).fine("Create CSS file %s", path);
+            service(LoggerService.class).fine("Create CSS file %s", path);
             new File(path).getParentFile().mkdirs();
             Files.write(Paths.get(path),render().getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            consumeService(LoggerService.class).severe(e);
+            service(LoggerService.class).severe(e);
         }
     }
 

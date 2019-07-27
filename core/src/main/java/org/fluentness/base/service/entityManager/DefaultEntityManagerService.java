@@ -15,9 +15,10 @@ public class DefaultEntityManagerService implements EntityManagerService {
 
     public DefaultEntityManagerService() throws DefinitionException {
         try {
-            if (consumeService(ConfigService.class).has(PERSISTENCE_UNIT)) {
-                String persistenceUnit = consumeService(ConfigService.class).get(PERSISTENCE_UNIT);
-                this.entityManager = Persistence.createEntityManagerFactory(persistenceUnit).createEntityManager();
+            if (service(ConfigService.class).has(PERSISTENCE_UNIT)) {
+                this.entityManager = Persistence.createEntityManagerFactory(
+                    service(ConfigService.class).get(PERSISTENCE_UNIT)
+                ).createEntityManager();
             } else {
                 throw new PersistenceException("No persistence unit defined in config environment");
             }

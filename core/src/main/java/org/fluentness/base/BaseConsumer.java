@@ -8,7 +8,7 @@ public interface BaseConsumer {
         return Base.instance.has(service);
     }
 
-    default <S extends Service> S consumeService(Class<S> service) {
+    default <S extends Service> S service(Class<S> service) {
         return (S) Base.instance.get(service);
     }
 }

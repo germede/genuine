@@ -55,9 +55,9 @@ public abstract class Provider<C extends Component> implements ArchitectureEleme
                     components.add(component);
                 }
             } catch (IllegalAccessException e) {
-                consumeService(LoggerService.class).severe(e);
+                service(LoggerService.class).severe(e);
             } catch (ProviderException e) {
-                consumeService(LoggerService.class).severe(e.getMessage());
+                service(LoggerService.class).severe(e.getMessage());
                 System.exit(1);
             }
         }

@@ -5,5 +5,4 @@ import org.fluentness.base.common.ArchitectureElement;
 
 public interface Service extends ArchitectureElement, BaseConsumer {
 
-
 }
