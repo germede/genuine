@@ -86,6 +86,6 @@ This project is based on these technologies:
 - Much Engagement :muscle:
 
 ## License
-Fluentness is released under the [MIT License](https://github.com/germede/Fluentness/blob/master/LICENSE.md).
+Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
 Copyright © 2019 Gerardo Medina
