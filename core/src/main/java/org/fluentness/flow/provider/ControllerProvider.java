@@ -2,10 +2,14 @@ package org.fluentness.flow.provider;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.base.Base;
+import org.fluentness.base.BaseConsumer;
 import org.fluentness.base.common.constant.PublicDirectories;
-import org.fluentness.base.service.logger.Logger;
-import org.fluentness.base.service.server.*;
+import org.fluentness.base.service.resourceHandler.ResourceHandlerService;
+import org.fluentness.base.service.logger.LoggerService;
+import org.fluentness.base.service.server.HttpRequest;
+import org.fluentness.base.service.server.HttpRequestRegister;
+import org.fluentness.base.service.server.HttpResponse;
+import org.fluentness.base.service.server.ServerService;
 import org.fluentness.flow.component.controller.Action;
 import org.fluentness.flow.component.controller.Controller;
 import org.fluentness.flow.component.controller.ControllerFactory;
@@ -16,10 +20,15 @@ import java.util.Map;
 
 import static org.fluentness.base.common.constant.HttpStatusCodes.INTERNAL_SERVER_ERROR;
 
-public abstract class ControllerProvider extends Provider<Controller> implements ControllerFactory, Base.Consumer {
+public abstract class ControllerProvider extends Provider<Controller> implements ControllerFactory, BaseConsumer {
 
     @Override
-    public Class<Controller> getProducedComponentType() {
+    public int getDefinitionPriority() {
+        return 2400;
+    }
+
+    @Override
+    public Class<Controller> getComponentClass() {
         return Controller.class;
     }
 
@@ -27,14 +36,14 @@ public abstract class ControllerProvider extends Provider<Controller> implements
     public Map<String, HttpHandler> getRouteHandlerMap() {
 
         Map<String, HttpHandler> routeHandlerMap = new HashMap<>();
-        for (Controller controller : getComponents()) {
+        for (Controller controller : provideComponents()) {
             for (Action action : controller.getActions()) {
 
                 String route = controller.getBaseRoute() + action.getRoute();
 
                 // dynamic routes in the middle path are not allowed
                 if (route.contains("{") && route.charAt(route.length() - 1) != '}') {
-                    base(Logger.class).warning(
+                    consumeService(LoggerService.class).warning(
                         "Controller action %s->%s dynamic url parameter must stay at the end of the path",
                         controller.getName(), action.getName());
                     continue;
@@ -42,7 +51,7 @@ public abstract class ControllerProvider extends Provider<Controller> implements
 
                 // already registered method warning
                 if (routeHandlerMap.containsKey(route)) {
-                    base(Logger.class).warning(
+                    consumeService(LoggerService.class).warning(
                         "Cannot map controller action %s->%s because route '%s' is already registered",
                         controller.getName(), action.getName(), route);
                     continue;
@@ -50,7 +59,7 @@ public abstract class ControllerProvider extends Provider<Controller> implements
 
                 routeHandlerMap.put(route.replaceAll("\\{.+", "").replace("//", "/"),
                     httpExchange -> {
-                        base(Logger.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+                        consumeService(LoggerService.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
                         callAction(controller, action, httpExchange);
                     });
             }
@@ -59,9 +68,9 @@ public abstract class ControllerProvider extends Provider<Controller> implements
             Arrays.stream(PublicDirectories.class.getFields()).forEach(directory ->
                 {
                     try {
-                        routeHandlerMap.put("/" + directory.get(null), HttpResourceHandler.instance);
+                        routeHandlerMap.put("/" + directory.get(null), consumeService(ResourceHandlerService.class));
                     } catch (IllegalAccessException e) {
-                        base(Logger.class).severe(e);
+                        consumeService(LoggerService.class).severe(e);
                     }
                 }
             );
@@ -77,10 +86,10 @@ public abstract class ControllerProvider extends Provider<Controller> implements
             HttpRequestRegister.instance.putCurrent(request);
             HttpResponse response = action.getExecutor().execute(request);
             HttpRequestRegister.instance.removeCurrent();
-            base(Server.class).serve(httpExchange, response);
+            consumeService(ServerService.class).serve(httpExchange, response);
         } catch (Exception e) {
-            base(Logger.class).severe(e);
-            base(Server.class).serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
+            consumeService(LoggerService.class).severe(e);
+            consumeService(ServerService.class).serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }
 

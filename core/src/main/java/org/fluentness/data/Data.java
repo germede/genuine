@@ -1,31 +1,21 @@
 package org.fluentness.data;
 
 import org.fluentness.base.common.Architecture;
-import org.fluentness.data.model.Repository;
-
-import java.util.Map;
+import org.fluentness.data.repository.Repository;
 
 public class Data extends Architecture<Repository> {
 
-    private static Data instance;
-//    private EntityManager entityManager;
+    static Data instance;
 
-    Data(Map<Class<Repository>, Repository> applied) {
-        super(applied);
+    public Data() {
         instance = this;
-//        if (Fluentness.getEnvironment().has(PERSISTENCE_UNIT)) {
-//            String persistenceUnit = Fluentness.getEnvironment().get(PERSISTENCE_UNIT);
-//            this.entityManager = Persistence.createEntityManagerFactory(persistenceUnit).createEntityManager();
-//        }
     }
 
-//    public EntityManager getEntityManager() {
-//        return entityManager;
-//    }
-
-    public interface Consumer {
-        static <R extends Repository> R data(Class<R> repository) {
-            return (R) instance.instances.get(repository);
-        }
+    @Override
+    protected Class<? extends Repository>[] getKeysThatWillPointTo(Repository instance) {
+        return array(
+            instance.getModelClass(),
+            instance.getClass()
+        );
     }
 }

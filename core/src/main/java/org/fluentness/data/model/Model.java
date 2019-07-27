@@ -1,4 +1,4 @@
 package org.fluentness.data.model;
 
-public interface Repository {
+public interface Model {
 }

@@ -1,12 +1,17 @@
 package org.fluentness.flow.provider;
 
-import org.fluentness.flow.provider.style.Style;
-import org.fluentness.flow.provider.style.StyleFactory;
+import org.fluentness.flow.component.style.Style;
+import org.fluentness.flow.component.style.StyleFactory;
 
 public abstract class StyleProvider extends Provider<Style> implements StyleFactory {
 
     @Override
-    public Class<Style> getProducedComponentType() {
+    public int getDefinitionPriority() {
+        return 2100;
+    }
+
+    @Override
+    public Class<Style> getComponentClass() {
         return Style.class;
     }
 

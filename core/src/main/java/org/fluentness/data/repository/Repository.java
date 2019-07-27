@@ -1,103 +1,108 @@
 package org.fluentness.data.repository;
 
-import org.fluentness.Fluentness;
-import org.fluentness.base.service.logger.Logger;
+import org.fluentness.base.BaseConsumer;
+import org.fluentness.base.common.ArchitectureElement;
+import org.fluentness.base.service.entityManager.EntityManagerService;
+import org.fluentness.base.service.logger.LoggerService;
+import org.fluentness.data.DataConsumer;
+import org.fluentness.data.model.Model;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-public interface Repository<T extends org.fluentness.data.model.Repository> extends  {
+public interface Repository<M extends Model> extends ArchitectureElement, BaseConsumer, DataConsumer {
 
-    default Class<T> getModelClass() {
+    @Override
+    default int getDefinitionPriority() {
+        return 1000;
+    }
+
+    default Class<M> getModelClass() {
         String modelClassName = this.getClass().getCanonicalName().replace("Repository", "");
         try {
-            return (Class<T>) Class.forName(modelClassName);
+            return (Class<M>) Class.forName(modelClassName);
         } catch (ClassNotFoundException | ClassCastException e) {
-            base(Logger.class).severe(
+            consumeService(LoggerService.class).severe(
                 "Model class %s not found for repository %s. Please respect the class naming conventions",
                 this.getClass().getSimpleName().replace("Repository", ""),
                 this.getClass().getSimpleName()
             );
         }
+        return null;
     }
-
-    default EntityManager getEntityManager() {
-        return Fluentness.getData().getEntityManager();
-    }
-
+    
     default boolean isTransactionActive() {
-        return getEntityManager().getTransaction().isActive();
+        return consumeService(EntityManagerService.class).em().getTransaction().isActive();
     }
 
     default void beginTransaction() {
-        getEntityManager().getTransaction().begin();
+        consumeService(EntityManagerService.class).em().getTransaction().begin();
     }
 
     default void commitTransaction() {
-        getEntityManager().getTransaction().commit();
+        consumeService(EntityManagerService.class).em().getTransaction().commit();
     }
 
     default void rollbackTransaction() {
-        getEntityManager().getTransaction().rollback();
+        consumeService(EntityManagerService.class).em().getTransaction().rollback();
     }
 
-    default boolean create(T entity) {
-        if (!getEntityManager().contains(entity)) {
-            if(!isTransactionActive()) {
+    default boolean create(M entity) {
+        if (!consumeService(EntityManagerService.class).em().contains(entity)) {
+            if (!isTransactionActive()) {
                 beginTransaction();
             }
-            getEntityManager().persist(entity);
-            getEntityManager().flush();
+            consumeService(EntityManagerService.class).em().persist(entity);
+            consumeService(EntityManagerService.class).em().flush();
             commitTransaction();
-            base(Logger.class)
+            consumeService(LoggerService.class)
                 .fine("%s record created successfully", getModelClass().getSimpleName());
             return true;
         }
-        base(Logger.class)
+        consumeService(LoggerService.class)
             .fine("%s record already exists, cannot create", getModelClass().getSimpleName());
         return false;
     }
 
-    default boolean update(T entity) {
-        if (getEntityManager().contains(entity)) {
-            if(!isTransactionActive()) {
+    default boolean update(M entity) {
+        if (consumeService(EntityManagerService.class).em().contains(entity)) {
+            if (!isTransactionActive()) {
                 beginTransaction();
             }
-            getEntityManager().persist(entity);
-            getEntityManager().flush();
+            consumeService(EntityManagerService.class).em().persist(entity);
+            consumeService(EntityManagerService.class).em().flush();
             commitTransaction();
-            base(Logger.class).fine("%s record updated successfully", getModelClass().getSimpleName());
+            consumeService(LoggerService.class).fine("%s record updated successfully", getModelClass().getSimpleName());
             return true;
         }
-        base(Logger.class).fine("%s record doesn't exists, cannot update", getModelClass().getSimpleName());
+        consumeService(LoggerService.class).fine("%s record doesn't exists, cannot update", getModelClass().getSimpleName());
         return false;
     }
 
-    default boolean delete(T entity) {
-        if (getEntityManager().contains(entity)) {
-            if(!isTransactionActive()) {
+    default boolean delete(M entity) {
+        if (consumeService(EntityManagerService.class).em().contains(entity)) {
+            if (!isTransactionActive()) {
                 beginTransaction();
             }
-            getEntityManager().remove(entity);
-            getEntityManager().flush();
+            consumeService(EntityManagerService.class).em().remove(entity);
+            consumeService(EntityManagerService.class).em().flush();
             commitTransaction();
-            base(Logger.class).fine("%s record deleted successfully", getModelClass().getSimpleName());
+            consumeService(LoggerService.class).fine("%s record deleted successfully", getModelClass().getSimpleName());
             return true;
         }
-        base(Logger.class).fine("%s record doesn't exists, cannot delete", getModelClass().getSimpleName());
+        consumeService(LoggerService.class).fine("%s record doesn't exists, cannot delete", getModelClass().getSimpleName());
         return false;
     }
 
-    default List<T> findAll() {
-        Query query = getEntityManager().createQuery("SELECT e FROM " + getModelClass().getSimpleName() + " e");
-        base(Logger.class).fine("Retrieving all %s records", getModelClass().getSimpleName());
+    default List<M> findAll() {
+        Query query = consumeService(EntityManagerService.class).em().createQuery("SELECT e FROM " + getModelClass().getSimpleName() + " e");
+        consumeService(LoggerService.class).fine("Retrieving all %s records", getModelClass().getSimpleName());
         return query.getResultList();
     }
 
-    default T findById(int id) {
-        base(Logger.class).fine("Retrieving %s record by ID %s", getModelClass().getSimpleName(), id);
-        return getEntityManager().find(getModelClass(), id);
+    default M findById(int id) {
+        consumeService(LoggerService.class).fine("Retrieving %s record by ID %s", getModelClass().getSimpleName(), id);
+        return consumeService(EntityManagerService.class).em().find(getModelClass(), id);
     }
 
 }

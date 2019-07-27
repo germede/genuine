@@ -4,14 +4,14 @@ import org.fluentness.flow.provider.LocalizationProvider;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class LocaleProducerTest {
+public class LocaleProviderTest {
 
     @Test
     public void getProvidedComponentType_always_LocaleIsReturned() {
         LocalizationProvider localeProducer = new LocalizationProvider() {
         };
 
-        Assert.assertEquals(Localization.class, localeProducer.getProducedComponentType());
+        Assert.assertEquals(Localization.class, localeProducer.getComponentClass());
     }
 
     @Test

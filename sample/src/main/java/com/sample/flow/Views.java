@@ -1,19 +1,10 @@
 package com.sample.flow;
 
 import com.sample.data.Song;
-import org.fluentness.base.common.injection.InjectProvider;
-import org.fluentness.flow.component.form.Form;
-import org.fluentness.flow.component.style.Style;
 import org.fluentness.flow.component.view.View;
 import org.fluentness.flow.provider.ViewProvider;
 
 public class Views extends ViewProvider {
-
-    @InjectProvider(Style.class)
-    private Styles styles;
-
-    @InjectProvider(Form.class)
-    private Forms forms;
 
     View base(View toInclude) {
         return html(
@@ -21,7 +12,7 @@ public class Views extends ViewProvider {
                 title("A music archive made with love and Fluentness"),
                 meta(NAME -> "lang", CONTENT -> "en"),
                 meta(CHARSET -> "utf-8"),
-                style(styles.bundle),
+                style(consumeProvider(Styles.class).bundle),
                 includeJs("script.min.js")
             ),
             body(
@@ -37,7 +28,7 @@ public class Views extends ViewProvider {
         div(attrs(CLASS -> "row"),
             div(attrs(CLASS -> "column"),
                 h2(translate("song_create")),
-                forms.createSong
+                consumeProvider(Forms.class).createSong
             )
         )
     );
@@ -50,35 +41,35 @@ public class Views extends ViewProvider {
                         h2(translate("song_list"))
                     ),
                     div(attrs(CLASS -> "column column-50"),
-                        forms.searchSong
-                    )
-                ),
-                table(
-                    thead(
-                        tr(
-                            th(translate("song_title")),
-                            th(translate("song_artist")),
-                            th(translate("song_album")),
-                            th(translate("song_year")),
-                            th(translate("song_is_new")),
-                            th(translate("song_update")),
-                            th(translate("song_delete"))
-                        )
+                        consumeProvider(Forms.class).searchSong
                     ),
-                    tbody(
-                        forEachItemIn("songs", Song.class,
-                            song -> tr(
-                                td(song.getTitle()),
-                                td(print("testParameter"))
+                    table(
+                        thead(
+                            tr(
+                                th(translate("song_title")),
+                                th(translate("song_artist")),
+                                th(translate("song_album")),
+                                th(translate("song_year")),
+                                th(translate("song_is_new")),
+                                th(translate("song_update")),
+                                th(translate("song_delete"))
+                            )
+                        ),
+                        tbody(
+                            forEachItemIn("songs", Song.class,
+                                song -> tr(
+                                    td(song.getTitle()),
+                                    td(print("testParameter"))
 //                                td(song.getBoolean("is_new") ? "✔" : "\uD83D\uDDD9"),
 //                                td(a(attrs(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
 //                                td(a(attrs(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
+                                )
                             )
                         )
+                    ),
+                    a(attrs(CLASS -> "button", href -> "/song/create"),
+                        translate("song_create")
                     )
-                ),
-                a(attrs(CLASS -> "button", href -> "/song/create"),
-                    translate("song_create")
                 )
             )
         )

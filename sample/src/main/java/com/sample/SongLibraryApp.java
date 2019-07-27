@@ -1,24 +1,21 @@
 package com.sample;
 
+import com.sample.base.DevEnvironment;
 import com.sample.data.SongRepository;
 import com.sample.flow.Controllers;
+import com.sample.flow.Forms;
+import com.sample.flow.Styles;
 import com.sample.flow.Views;
 import org.fluentness.Fluentness;
 import org.fluentness.base.Base;
-import org.fluentness.base.BaseBuilder;
-import org.fluentness.base.common.exception.BuildException;
-import org.fluentness.base.service.cacher.Cacher;
-import org.fluentness.base.service.cacher.DefaultCacher;
-import org.fluentness.base.service.config.Config;
-import org.fluentness.base.service.config.DefaultConfig;
-import org.fluentness.base.service.logger.DefaultLogger;
-import org.fluentness.base.service.logger.Logger;
-import org.fluentness.base.service.server.DefaultServer;
-import org.fluentness.base.service.server.Server;
+import org.fluentness.base.common.exception.DefinitionException;
+import org.fluentness.base.service.config.DefaultConfigService;
+import org.fluentness.base.service.logger.DefaultLoggerService;
+import org.fluentness.base.service.resourceHandler.DefaultResourceHandlerService;
+import org.fluentness.base.service.server.DefaultServerService;
+import org.fluentness.base.service.viewCache.DefaultViewCacheService;
 import org.fluentness.data.Data;
-import org.fluentness.data.DataBuilder;
 import org.fluentness.flow.Flow;
-import org.fluentness.flow.FlowBuilder;
 
 public class SongLibraryApp extends Fluentness {
 
@@ -31,28 +28,31 @@ public class SongLibraryApp extends Fluentness {
     }
 
     @Override
-    protected Base buildBase(BaseBuilder builder) throws BuildException {
-        return builder
-            .add(Config.class, new DefaultConfig())
-            .add(Logger.class, new DefaultLogger())
-            .add(Server.class, new DefaultServer())
-            .add(Cacher.class, new DefaultCacher())
-            .build();
+    protected void define(Base base) throws DefinitionException {
+        base
+            .add(new DefaultConfigService().within(new DevEnvironment()))
+            .add(new DefaultLoggerService())
+            .add(new DefaultServerService())
+            .add(new DefaultResourceHandlerService())
+            .add(new DefaultViewCacheService())
+        ;
+//            .add(new DefaultEntityManagerService());
     }
 
     @Override
-    protected Data buildData(DataBuilder builder) throws BuildException {
-        return builder
-            .add(SongRepository.class, new SongRepository())
-            .build();
+    protected void define(Data data) throws DefinitionException {
+        data
+            .add(new SongRepository());
     }
 
     @Override
-    protected Flow buildFlow(FlowBuilder builder) throws BuildException {
-        return builder
-            .add(Controllers.class, new Controllers())
-            .set(Views.class, new Views())
-            .build();
+    protected void define(Flow flow) throws DefinitionException {
+        flow
+            .add(new Styles())
+            .add(new Forms())
+            .add(new Views())
+            .add(new Controllers())
+        ;
     }
 
 }

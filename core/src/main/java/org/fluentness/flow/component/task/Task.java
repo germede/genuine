@@ -22,8 +22,11 @@ public class Task extends Component {
         return arguments;
     }
 
+    public String getCategory() {
+        return getName().split(":")[0];
+    }
+
     public void execute(String... arguments) {
         executable.execute(arguments);
     }
-
 }

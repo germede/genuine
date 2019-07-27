@@ -3,20 +3,20 @@ package org.fluentness.flow;
 import org.fluentness.base.common.Architecture;
 import org.fluentness.flow.provider.Provider;
 
-import java.util.Map;
-
 public class Flow extends Architecture<Provider> {
 
-    private static Flow instance;
+    static Flow instance;
 
-    Flow(Map<Class<Provider>, Provider> instances) {
-        super(instances);
+    public Flow() {
         instance = this;
     }
 
-    public interface Consumer {
-        static <P extends Provider> P provider(Class<P> provider) {
-            return (P) instance.instances.get(provider);
-        }
+    @Override
+    protected Class<? extends Provider>[] getKeysThatWillPointTo(Provider instance) {
+        return array(
+            instance.getComponentClass(),
+            (Class<? extends Provider>) instance.getClass().getSuperclass(),
+            instance.getClass()
+        );
     }
 }

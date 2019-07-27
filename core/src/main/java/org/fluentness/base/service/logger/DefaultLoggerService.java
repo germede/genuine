@@ -1,9 +1,8 @@
 package org.fluentness.base.service.logger;
 
 import org.fluentness.base.common.constant.PrivateDirectories;
-import org.fluentness.base.common.exception.BuildException;
-import org.fluentness.base.common.injection.InjectService;
-import org.fluentness.base.service.config.Config;
+import org.fluentness.base.common.exception.DefinitionException;
+import org.fluentness.base.service.config.ConfigService;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,27 +16,24 @@ import static org.fluentness.base.service.config.BooleanKey.ENABLE_LOG_TO_CONSOL
 import static org.fluentness.base.service.config.BooleanKey.ENABLE_LOG_TO_FILE;
 import static org.fluentness.base.service.config.StringKey.LOG_LEVEL;
 
-public class DefaultLogger implements Logger {
+public class DefaultLoggerService implements LoggerService {
 
-    @InjectService(Config.class)
-    Config config;
+    private java.util.logging.Logger internalLogger;
 
-    private final java.util.logging.Logger internalLogger;
-
-    public DefaultLogger() throws BuildException {
+    public DefaultLoggerService() throws DefinitionException {
 
         internalLogger = java.util.logging.Logger.getLogger(String.valueOf(System.currentTimeMillis()));
         internalLogger.setUseParentHandlers(false);
 
         String logLevel = "ALL";
-        if (config.has(LOG_LEVEL)) {
-            logLevel = config.get(LOG_LEVEL);
+        if (consumeService(ConfigService.class).has(LOG_LEVEL)) {
+            logLevel = consumeService(ConfigService.class).get(LOG_LEVEL);
         }
 
         internalLogger.setLevel(Level.parse(logLevel));
 
         // console logging
-        if (config.has(ENABLE_LOG_TO_CONSOLE) && config.get(ENABLE_LOG_TO_CONSOLE)) {
+        if (consumeService(ConfigService.class).has(ENABLE_LOG_TO_CONSOLE) && consumeService(ConfigService.class).get(ENABLE_LOG_TO_CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new ConsoleFormatter());
             consoleHandler.setLevel(Level.parse(logLevel));
@@ -46,7 +42,7 @@ public class DefaultLogger implements Logger {
 
         // file logging
         try {
-            if (config.has(ENABLE_LOG_TO_FILE) && config.get(ENABLE_LOG_TO_FILE)) {
+            if (consumeService(ConfigService.class).has(ENABLE_LOG_TO_FILE) && consumeService(ConfigService.class).get(ENABLE_LOG_TO_FILE)) {
                 new File(PrivateDirectories.LOG).mkdirs();
                 String logFilePath = PrivateDirectories.LOG + "/" +
                     new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
@@ -64,7 +60,7 @@ public class DefaultLogger implements Logger {
 
             }
         } catch (IOException e) {
-            throw new BuildException(e);
+            throw new DefinitionException(e);
         }
     }
 

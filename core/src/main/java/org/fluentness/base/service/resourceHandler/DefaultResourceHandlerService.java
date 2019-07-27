@@ -1,8 +1,9 @@
-package org.fluentness.base.service.server;
+package org.fluentness.base.service.resourceHandler;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import org.fluentness.Fluentness;
+import org.fluentness.base.service.logger.LoggerService;
+import org.fluentness.base.service.server.HttpResponse;
+import org.fluentness.base.service.server.ServerService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,13 +11,12 @@ import java.nio.file.Paths;
 
 import static org.fluentness.base.common.constant.HttpStatusCodes.*;
 
-public enum HttpResourceHandler implements HttpHandler {
-    instance;
+public class DefaultResourceHandlerService implements ResourceHandlerService {
 
     @Override
     public void handle(HttpExchange httpExchange) {
 
-        base(Logger.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
+        consumeService(LoggerService.class).fine(httpExchange.getRequestMethod() + " " + httpExchange.getRequestURI());
 
         String path = httpExchange.getRequestURI().getPath();
         try {
@@ -40,14 +40,14 @@ public enum HttpResourceHandler implements HttpHandler {
                     response.withHeader("Content-Type", "image/svg+xml");
                 }
 
-                base(Server.class).serve(httpExchange, response);
+                consumeService(ServerService.class).serve(httpExchange, response);
             } else {
-                base(Logger.class).warning("File " + path + " doesn't exists");
-                base(Server.class).serve(httpExchange, new HttpResponse(NOT_FOUND));
+                consumeService(LoggerService.class).warning("File " + path + " doesn't exists");
+                consumeService(ServerService.class).serve(httpExchange, new HttpResponse(NOT_FOUND));
             }
         } catch (IOException e) {
-            base(Logger.class).severe(e);
-            base(Server.class).serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
+            consumeService(LoggerService.class).severe(e);
+            consumeService(ServerService.class).serve(httpExchange, new HttpResponse(INTERNAL_SERVER_ERROR));
         }
     }
 }

@@ -1,9 +1,11 @@
 package org.fluentness.flow.provider;
 
-import org.fluentness.Fluentness;
-import org.fluentness.base.Base;
+import org.fluentness.base.BaseConsumer;
+import org.fluentness.base.common.ArchitectureElement;
 import org.fluentness.base.common.exception.ProviderException;
-import org.fluentness.base.service.logger.Logger;
+import org.fluentness.base.service.logger.LoggerService;
+import org.fluentness.data.DataConsumer;
+import org.fluentness.flow.FlowConsumer;
 import org.fluentness.flow.component.Component;
 import org.fluentness.flow.component.task.Task;
 
@@ -14,11 +16,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class Provider<C extends Component> implements Base.Consumer {
+public abstract class Provider<C extends Component> implements ArchitectureElement, BaseConsumer, DataConsumer, FlowConsumer {
 
     private List<C> components = new ArrayList<>();
 
-    public List<C> getComponents() {
+    public List<C> provideComponents() {
         if (components.isEmpty()) {
 
             try {
@@ -37,12 +39,12 @@ public abstract class Provider<C extends Component> implements Base.Consumer {
                         );
                     }
                     field.setAccessible(true);
-                    if (!getProducedComponentType().isAssignableFrom(field.get(this).getClass())) {
+                    if (!getComponentClass().isAssignableFrom(field.get(this).getClass())) {
                         throw new ProviderException(
                             "Provider %s should provide Components of type %s, use consumer interfaces for dependency injection instead",
                             this.getClass().getSimpleName(),
                             field.getName(),
-                            getProducedComponentType().getSimpleName()
+                            getComponentClass().getSimpleName()
                         );
                     }
                     C component = (C) field.get(this);
@@ -53,9 +55,9 @@ public abstract class Provider<C extends Component> implements Base.Consumer {
                     components.add(component);
                 }
             } catch (IllegalAccessException e) {
-                base(Logger.class).severe(e);
+                consumeService(LoggerService.class).severe(e);
             } catch (ProviderException e) {
-                base(Logger.class).severe(e.getMessage());
+                consumeService(LoggerService.class).severe(e.getMessage());
                 System.exit(1);
             }
         }
@@ -63,9 +65,8 @@ public abstract class Provider<C extends Component> implements Base.Consumer {
     }
 
     public C getComponent(String name) {
-        List<C> components = getComponents();
-        return components.stream().filter(component -> component.getName().equals(name)).findFirst().get();
+        return provideComponents().stream().filter(component -> component.getName().equals(name)).findFirst().get();
     }
 
-    public abstract Class<C> getProducedComponentType();
+    public abstract Class<C> getComponentClass();
 }

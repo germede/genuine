@@ -1,8 +1,10 @@
 package org.fluentness.flow.component.view;
 
-import org.fluentness.Fluentness;
+import org.fluentness.base.BaseConsumer;
 import org.fluentness.base.common.lambda.KeyValuePair;
+import org.fluentness.base.service.viewCache.ViewCacheService;
 import org.fluentness.base.service.server.HttpRequestRegister;
+import org.fluentness.flow.FlowConsumer;
 import org.fluentness.flow.component.Component;
 import org.fluentness.flow.component.localization.Localization;
 import org.fluentness.flow.provider.LocalizationProvider;
@@ -12,8 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-public abstract class View extends Component {
+// todo remove flowconsumer dependency?
+public abstract class View extends Component implements FlowConsumer, BaseConsumer {
 
     private static final Map<Thread, Map<String, Object>> parameters = new HashMap<>();
 
@@ -38,7 +40,7 @@ public abstract class View extends Component {
     }
 
     public String renderWithCache() {
-        return Fluentness.getBase().getCacher().cache(this);
+        return consumeService(ViewCacheService.class).cache(this);
     }
 
     @Override
@@ -49,7 +51,7 @@ public abstract class View extends Component {
     public abstract String render();
 
     private String localize(String text) {
-        Localization localeToApply = Fluentness.getFlow().getProvider(LocalizationProvider.class)
+        Localization localeToApply = consumeProvider(LocalizationProvider.class)
             .getComponent(HttpRequestRegister.instance.getCurrentLocale().toString());
 
         Matcher matcher = Pattern.compile("\\{\\{L:([A-Za-z1-9_]+)}}").matcher(text);

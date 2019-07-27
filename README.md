@@ -5,8 +5,8 @@ Fluentness is intended to be what JavaEE never was: an easy-to-learn, fully-inte
 
 So let's say you want a fancy application that just says Hello to someone. Just add this to your flow/Controllers.java
 ```java
-public class Controllers extends ControllerProducer {
-    Controller base = actions(
+public class Controllers extends ControllerProvider {
+    Controller main = actions(
         hello -> get("/hello", request -> response("Hello " + request.getGetParameter("name")))
     );
 }
@@ -18,11 +18,11 @@ Visit http://localhost:8000/hello?name=YourName
 >**F**orce your code to be compact, yet legible  
 >**L**oose coupling by splitting your application in base, data and flow: the Fluentness way  
 >**U**se flow class attributes as finished components and functions as helpers  
->**E**mbrace the consumer-producer, onion-layer-like flow architecture  
+>**E**mbrace the consumer-provider, onion-layer-like base-data-flow architecture  
 >**N**otice how unit tests may help you define and accept requirements  
 >**T**ry to avoid abusing of comments, singletons, statics and annotations  
 >**N**ame every component as if it were your child  
->**E**ndorse convention over configuration and dependency injection  
+>**E**ndorse convention over configuration and dependency definition over injection  
 >**S**ubstitute framework default implementation with your own when needed  
 >**S**tart applying SOLID, KISS and DRY principles
 

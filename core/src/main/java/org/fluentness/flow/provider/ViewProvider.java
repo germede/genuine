@@ -1,13 +1,18 @@
 package org.fluentness.flow.provider;
 
-import org.fluentness.flow.provider.view.View;
+import org.fluentness.flow.component.view.View;
+import org.fluentness.flow.component.view.ViewFactory;
 
-public abstract class ViewProvider extends Provider<View> {
+public abstract class ViewProvider extends Provider<View> implements ViewFactory {
 
     @Override
-    public Class<View> getProducedComponentType() {
-        return View.class;
+    public int getDefinitionPriority() {
+        return 2300;
     }
 
+    @Override
+    public Class<View> getComponentClass() {
+        return View.class;
+    }
 
 }

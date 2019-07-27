@@ -1,15 +1,12 @@
 package org.fluentness;
 
 import org.fluentness.base.Base;
-import org.fluentness.base.BaseBuilder;
-import org.fluentness.base.common.exception.BuildException;
+import org.fluentness.base.common.exception.DefinitionException;
 import org.fluentness.base.common.exception.TaskNotFoundException;
 import org.fluentness.base.common.exception.WrongUseOfTaskException;
 import org.fluentness.data.Data;
-import org.fluentness.data.DataBuilder;
 import org.fluentness.flow.Flow;
-import org.fluentness.flow.FlowBuilder;
-import org.fluentness.flow.component.task.DefaultTaskProvider;
+import org.fluentness.flow.provider.DefaultTaskProvider;
 import org.fluentness.flow.component.task.Task;
 import org.fluentness.flow.provider.Provider;
 
@@ -17,27 +14,27 @@ import java.util.concurrent.ExecutionException;
 
 public abstract class Fluentness {
 
-    private Base base;
-    private Data data;
-    private Flow flow;
+    private Base base = new Base();
+    private Data data = new Data();
+    private Flow flow = new Flow();
 
     public Fluentness(String[] args) {
         try {
-            base = buildBase(new BaseBuilder());
-            data = buildData(new DataBuilder());
-            flow = buildFlow(new FlowBuilder());
+            define(base);
+            define(data);
+            define(flow);
 
             execute(args);
-        } catch (BuildException | ExecutionException e) {
+        } catch (DefinitionException | ExecutionException e) {
             e.printStackTrace();
         }
     }
 
-    protected abstract Base buildBase(BaseBuilder builder) throws BuildException;
+    protected abstract void define(Base base) throws DefinitionException;
 
-    protected abstract Data buildData(DataBuilder builder) throws BuildException;
+    protected abstract void define(Data data) throws DefinitionException;
 
-    protected abstract Flow buildFlow(FlowBuilder builder) throws BuildException;
+    protected abstract void define(Flow flow) throws DefinitionException;
 
     private void execute(String[] args) throws ExecutionException {
         try {
@@ -51,7 +48,7 @@ public abstract class Fluentness {
             String taskName = args[0];
             Task taskToExecute = null;
             String[] declaredArguments = new String[0];
-            for (Task task : taskProvider.getComponents()) {
+            for (Task task : taskProvider.provideComponents()) {
                 if (taskName.equals(task.getName())) {
                     taskToExecute = task;
                     declaredArguments = task.getArguments();

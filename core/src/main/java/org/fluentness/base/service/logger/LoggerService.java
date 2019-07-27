@@ -2,7 +2,12 @@ package org.fluentness.base.service.logger;
 
 import org.fluentness.base.service.Service;
 
-public interface Logger extends Service {
+public interface LoggerService extends Service {
+
+    @Override
+    default int getDefinitionPriority() {
+        return 100;
+    }
 
     void fine(String message, Object... parameters);
 

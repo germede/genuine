@@ -7,11 +7,11 @@ import static org.fluentness.base.service.config.BooleanKey.*;
 import static org.fluentness.base.service.config.IntegerKey.APP_PORT;
 import static org.fluentness.base.service.config.StringKey.*;
 
-public class DefaultConfig implements Config {
+public class DefaultConfigService implements ConfigService {
 
     private Map<Key, Object> settings = new HashMap<>();
 
-    public DefaultConfig() {
+    public DefaultConfigService() {
         // default settings
         set(APP_PROTOCOL, "http");
         set(APP_HOST, "localhost");
@@ -21,6 +21,12 @@ public class DefaultConfig implements Config {
         set(ENABLE_LOG_TO_FILE, false);
         set(ENABLE_CACHE, true);
         set(ENABLE_STYLE_MINIFY, true);
+    }
+
+    @Override
+    public ConfigService within(Environment environment) {
+        environment.configure(this);
+        return this;
     }
 
     @Override

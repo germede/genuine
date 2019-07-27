@@ -1,13 +1,13 @@
 package com.sample.data;
 
-import org.fluentness.data.model.Repository;
+import org.fluentness.data.model.Model;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "song")
-public class Song implements Repository {
+public class Song implements Model {
 
     private int id;
     private String title;
