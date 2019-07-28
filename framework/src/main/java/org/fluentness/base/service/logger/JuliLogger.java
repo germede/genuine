@@ -17,31 +17,31 @@ import static org.fluentness.base.service.configuration.Key.Boolean.ENABLE_LOG_T
 import static org.fluentness.base.service.configuration.Key.Boolean.ENABLE_LOG_TO_FILE;
 import static org.fluentness.base.service.configuration.Key.LogLevel.LOG_LEVEL;
 
-public class JulLogger implements Logger<Level> {
+public class JuliLogger implements Logger<Level> {
 
-    private final java.util.logging.Logger internalLogger;
+    private final java.util.logging.Logger logger;
 
-    public JulLogger() throws DefinitionException {
+    public JuliLogger() throws DefinitionException {
 
         Level logLevel = service(Configuration.class).has(LOG_LEVEL) ?
             FluentnessLogLevelToOwnLogLevel(service(Configuration.class).get(LOG_LEVEL)) :
             Level.ALL;
 
-        internalLogger = java.util.logging.Logger.getLogger("");
-        internalLogger.setUseParentHandlers(false);
-        if (internalLogger.getHandlers().length > 0) {
-            Arrays.stream(internalLogger.getHandlers()).forEach(internalLogger::removeHandler);
+        logger = java.util.logging.Logger.getLogger("");
+        logger.setUseParentHandlers(false);
+        if (logger.getHandlers().length > 0) {
+            Arrays.stream(logger.getHandlers()).forEach(logger::removeHandler);
         }
-        internalLogger.setLevel(logLevel);
+        logger.setLevel(logLevel);
 
         // console logging
         if (service(Configuration.class).has(ENABLE_LOG_TO_CONSOLE) &&
             service(Configuration.class).get(ENABLE_LOG_TO_CONSOLE)) {
 
             ConsoleHandler consoleHandler = new ConsoleHandler();
-            consoleHandler.setFormatter(new JulFormatter(this));
+            consoleHandler.setFormatter(new JuliFormatter(this));
             consoleHandler.setLevel(logLevel);
-            internalLogger.addHandler(consoleHandler);
+            logger.addHandler(consoleHandler);
         }
 
         // file logging
@@ -60,9 +60,9 @@ public class JulLogger implements Logger<Level> {
                     file.createNewFile();
                     fileHandler = new FileHandler(logFilePath);
                 }
-                fileHandler.setFormatter(new JulFormatter(this));
+                fileHandler.setFormatter(new JuliFormatter(this));
                 fileHandler.setLevel(logLevel);
-                internalLogger.addHandler(fileHandler);
+                logger.addHandler(fileHandler);
             } catch (IOException e) {
                 throw new DefinitionException(e);
             }
@@ -74,22 +74,22 @@ public class JulLogger implements Logger<Level> {
 
     @Override
     public void debug(String message, Object... parameters) {
-        internalLogger.finest(format(message, parameters));
+        logger.finest(format(message, parameters));
     }
 
     @Override
     public void info(String message, Object... parameters) {
-        internalLogger.info(format(message, parameters));
+        logger.info(format(message, parameters));
     }
 
     @Override
     public void warn(String message, Object... parameters) {
-        internalLogger.warning(format(message, parameters));
+        logger.warning(format(message, parameters));
     }
 
     @Override
     public void error(String message, Object... parameters) {
-        internalLogger.severe(format(message, parameters));
+        logger.severe(format(message, parameters));
     }
 
     @Override

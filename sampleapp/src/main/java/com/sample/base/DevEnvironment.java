@@ -9,7 +9,8 @@ import org.fluentness.base.common.Environment;
 import org.fluentness.base.Base;
 import org.fluentness.base.common.exception.DefinitionException;
 import org.fluentness.base.service.configuration.BasicConfiguration;
-import org.fluentness.base.service.logger.JulLogger;
+import org.fluentness.base.service.logger.JuliLogger;
+import org.fluentness.base.service.persistence.OpenJpaPersistence;
 import org.fluentness.base.service.server.TomcatServer;
 import org.fluentness.data.Data;
 import org.fluentness.flow.Flow;
@@ -27,12 +28,15 @@ public class DevEnvironment implements Environment {
             .set(APP_HOSTNAME, "localhost")
             .set(PERSISTENCE_UNIT, "songLibraryPU")))
             .define(new TomcatServer())
-            .define(new JulLogger());
+            .define(new JuliLogger())
+            .define(new OpenJpaPersistence())
+        ;
     }
 
     @Override
     public void define(Data data) throws DefinitionException {
-        data.define(new SongRepository());
+        data.define(new SongRepository())
+        ;
     }
 
     @Override
@@ -40,6 +44,7 @@ public class DevEnvironment implements Environment {
         flow.define(new Styles())
             .define(new Forms())
             .define(new Views())
-            .define(new Controllers());
+            .define(new Controllers())
+        ;
     }
 }

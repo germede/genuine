@@ -25,8 +25,14 @@ public final class Fluentness {
             app.define(base);
             base.disallowDefinition();
 
-            app.define(Data.getInstance(proxy));
-            app.define(Flow.getInstance(proxy));
+            Data data = Data.getInstance(proxy);
+            app.define(data);
+            data.disallowDefinition();
+
+            Flow flow = Flow.getInstance(proxy);
+            app.define(flow);
+            flow.disallowDefinition();
+
             execute(args);
         } catch (DefinitionException | ExecutionException e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package org.fluentness.data.repository;
 
 import org.fluentness.base.Base;
-import org.fluentness.base.EntityManagerFactory;
+import org.fluentness.base.service.persistence.Persistence;
 import org.fluentness.base.common.annotation.DefinitionPriority;
 import org.fluentness.base.common.lambda.KeyValuePair;
 import org.fluentness.base.service.logger.Logger;
@@ -31,7 +31,7 @@ public interface Repository<M extends Model> extends Base.Consumer, Data.Consume
     }
 
     default EntityManager em() {
-        return EntityManagerFactory.instance.em();
+        return service(Persistence.class).em();
     }
 
     default boolean isTransactionActive() {

@@ -9,6 +9,8 @@ public class Styles extends StyleProvider {
 
     Style custom = css(
         select(".form-inline",
+
+            property()
             display -> "flex",
             flex_flow -> "row wrap",
             align_items -> "center"
