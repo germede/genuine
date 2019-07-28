@@ -26,7 +26,7 @@ class JulFormatter extends Formatter {
         df.setTimeZone(TimeZone.getDefault());
         builder.append(df.format(new Date(logRecord.getMillis())));
         builder.append(" | ");
-        switch (logger.ownLogLevelToStdLogLevel(logRecord.getLevel())) {
+        switch (logger.ownLogLevelToFluentnessLogLevel(logRecord.getLevel())) {
             case ERRO:
                 builder.append(ANSI_RED);
                 break;
@@ -40,7 +40,7 @@ class JulFormatter extends Formatter {
                 builder.append(ANSI_GREEN);
                 break;
         }
-        builder.append(logger.ownLogLevelToStdLogLevel(logRecord.getLevel()).toString());
+        builder.append(logger.ownLogLevelToFluentnessLogLevel(logRecord.getLevel()).toString());
         builder.append(ANSI_RESET);
         builder.append(ANSI_RESET);
         builder.append(" | ");

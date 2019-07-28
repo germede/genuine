@@ -1,8 +1,7 @@
 package org.fluentness.base.service;
 
-import org.fluentness.base.BaseConsumer;
-import org.fluentness.base.common.ArchitectureElement;
+import org.fluentness.base.Base;
 
-public interface Service extends ArchitectureElement, BaseConsumer {
+public interface Service extends Base.Consumer {
 
 }

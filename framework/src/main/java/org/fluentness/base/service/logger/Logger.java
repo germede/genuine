@@ -1,13 +1,10 @@
 package org.fluentness.base.service.logger;
 
+import org.fluentness.base.common.annotation.DefinitionPriority;
 import org.fluentness.base.service.Service;
 
+@DefinitionPriority(200)
 public interface Logger<OwnLogLevel> extends Service {
-
-    @Override
-    default int getDefinitionPriority() {
-        return 200;
-    }
 
     void debug(String message, Object... parameters);
 
@@ -19,9 +16,9 @@ public interface Logger<OwnLogLevel> extends Service {
 
     void error(Exception exception);
 
-    StdLogLevel ownLogLevelToStdLogLevel(OwnLogLevel level);
+    FluentnessLogLevel ownLogLevelToFluentnessLogLevel(OwnLogLevel level);
 
-    OwnLogLevel StdLogLevelToOwnLogLevel(StdLogLevel level);
+    OwnLogLevel FluentnessLogLevelToOwnLogLevel(FluentnessLogLevel level);
 
 }
 

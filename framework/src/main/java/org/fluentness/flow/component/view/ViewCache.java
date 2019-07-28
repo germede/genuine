@@ -1,6 +1,6 @@
 package org.fluentness.flow.component.view;
 
-import org.fluentness.base.BaseConsumer;
+import org.fluentness.base.Base;
 import org.fluentness.base.common.constant.PrivateDirectories;
 import org.fluentness.base.service.configuration.Configuration;
 import org.fluentness.base.service.logger.Logger;
@@ -13,7 +13,7 @@ import java.nio.file.StandardOpenOption;
 
 import static org.fluentness.base.service.configuration.Key.Boolean.ENABLE_CACHE;
 
-public enum ViewCache implements BaseConsumer {
+public enum ViewCache implements Base.Consumer {
     instance;
 
     private String getIdentifyingCacheFilePath(View view) {

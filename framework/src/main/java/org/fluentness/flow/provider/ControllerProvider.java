@@ -1,6 +1,7 @@
 package org.fluentness.flow.provider;
 
-import org.fluentness.base.BaseConsumer;
+import org.fluentness.base.Base;
+import org.fluentness.base.common.annotation.DefinitionPriority;
 import org.fluentness.base.service.logger.Logger;
 import org.fluentness.base.service.server.HttpHandler;
 import org.fluentness.flow.component.controller.Action;
@@ -11,12 +12,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class ControllerProvider extends Provider<Controller> implements ControllerFactory, BaseConsumer {
-
-    @Override
-    public int getDefinitionPriority() {
-        return 2400;
-    }
+@DefinitionPriority(2400)
+public abstract class ControllerProvider extends Provider<Controller> implements ControllerFactory, Base.Consumer {
 
     @Override
     public Class<Controller> getComponentClass() {

@@ -32,15 +32,6 @@ public abstract class AbstractException extends Exception {
         }
     }
 
-    public AbstractException(String message) {
-        this.message = message;
-    }
-
-    public AbstractException(String message, Exception exception) {
-        this.message = message;
-        this.exception = exception;
-    }
-
     public AbstractException(Exception exception) {
         this.exception = exception;
     }

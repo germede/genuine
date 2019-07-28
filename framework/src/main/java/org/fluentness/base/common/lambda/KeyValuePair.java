@@ -1,13 +1,13 @@
 package org.fluentness.base.common.lambda;
 
-import org.fluentness.base.BaseConsumer;
+import org.fluentness.base.Base;
 import org.fluentness.base.service.logger.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public interface KeyValuePair<T> extends BaseConsumer, MethodFinder, Function<String, T> {
+public interface KeyValuePair<T> extends Base.Consumer, MethodFinder, Function<String, T> {
 
     Map<String, String> keyCache = new HashMap<>();
 

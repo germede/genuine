@@ -1,11 +1,10 @@
 package org.fluentness.flow.provider;
 
-import org.fluentness.base.BaseConsumer;
-import org.fluentness.base.common.ArchitectureElement;
+import org.fluentness.base.Base;
 import org.fluentness.base.common.exception.ProviderException;
 import org.fluentness.base.service.logger.Logger;
-import org.fluentness.data.DataConsumer;
-import org.fluentness.flow.FlowConsumer;
+import org.fluentness.data.Data;
+import org.fluentness.flow.Flow;
 import org.fluentness.flow.component.Component;
 import org.fluentness.flow.component.task.Task;
 
@@ -16,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class Provider<C extends Component> implements ArchitectureElement, BaseConsumer, DataConsumer, FlowConsumer {
+public abstract class Provider<C extends Component> implements Base.Consumer, Data.Consumer, Flow.Consumer {
 
     private List<C> components = new ArrayList<>();
 

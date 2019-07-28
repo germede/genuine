@@ -3,24 +3,30 @@ package org.fluentness;
 import org.fluentness.base.Base;
 import org.fluentness.base.common.Environment;
 import org.fluentness.base.common.exception.DefinitionException;
+import org.fluentness.base.common.exception.ExecutionException;
 import org.fluentness.base.common.exception.TaskNotFoundException;
 import org.fluentness.base.common.exception.WrongUseOfTaskException;
 import org.fluentness.data.Data;
 import org.fluentness.flow.Flow;
-import org.fluentness.flow.provider.DefaultTaskProvider;
 import org.fluentness.flow.component.task.Task;
-import org.fluentness.flow.provider.Provider;
-
-import java.util.concurrent.ExecutionException;
+import org.fluentness.flow.provider.FluentnessTaskProvider;
 
 public final class Fluentness {
 
-    public static void bootstrap(Environment app, String[] args) {
-        try {
-            app.define(new Base());
-            app.define(new Data());
-            app.define(new Flow());
+    private Fluentness() {
+        // instances of the class Fluentness are only used as proxy, avoiding instantiations or illegal modification of
+        // base, data and flow
+    }
 
+    public static void bootstrap(Environment app, String[] args) {
+        Fluentness proxy = new Fluentness();
+        try {
+            Base base = Base.getInstance(proxy);
+            app.define(base);
+            base.disallowDefinition();
+
+            app.define(Data.getInstance(proxy));
+            app.define(Flow.getInstance(proxy));
             execute(args);
         } catch (DefinitionException | ExecutionException e) {
             e.printStackTrace();
@@ -29,7 +35,7 @@ public final class Fluentness {
 
     private static void execute(String[] args) throws ExecutionException {
         try {
-            Provider<Task> taskProvider = new DefaultTaskProvider();
+            FluentnessTaskProvider taskProvider = new FluentnessTaskProvider();
 
             if (args.length == 0) {
                 taskProvider.getComponent("help").execute(args);
@@ -39,7 +45,7 @@ public final class Fluentness {
             String taskName = args[0];
             Task taskToExecute = null;
             String[] declaredArguments = new String[0];
-            for (Task task : taskProvider.provideComponents()) {
+            for (Task task : taskProvider.getAllTasks()) {
                 if (taskName.equals(task.getName())) {
                     taskToExecute = task;
                     declaredArguments = task.getArguments();

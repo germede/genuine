@@ -1,11 +1,11 @@
 package org.fluentness.data.repository;
 
-import org.fluentness.base.BaseConsumer;
+import org.fluentness.base.Base;
 import org.fluentness.base.EntityManagerFactory;
-import org.fluentness.base.common.ArchitectureElement;
+import org.fluentness.base.common.annotation.DefinitionPriority;
 import org.fluentness.base.common.lambda.KeyValuePair;
 import org.fluentness.base.service.logger.Logger;
-import org.fluentness.data.DataConsumer;
+import org.fluentness.data.Data;
 import org.fluentness.data.model.Model;
 
 import javax.persistence.EntityManager;
@@ -13,12 +13,8 @@ import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.List;
 
-public interface Repository<M extends Model> extends ArchitectureElement, BaseConsumer, DataConsumer {
-
-    @Override
-    default int getDefinitionPriority() {
-        return 1000;
-    }
+@DefinitionPriority(1000)
+public interface Repository<M extends Model> extends Base.Consumer, Data.Consumer {
 
     default Class<M> getModelClass() {
         String modelClassName = this.getClass().getCanonicalName().replace("Repository", "");

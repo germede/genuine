@@ -5,7 +5,7 @@ import org.fluentness.base.common.constant.PrivateDirectories;
 import org.fluentness.base.common.constant.PublicDirectories;
 import org.fluentness.base.service.logger.Logger;
 import org.fluentness.base.service.server.Server;
-import org.fluentness.flow.FlowConsumer;
+import org.fluentness.flow.Flow;
 import org.fluentness.flow.component.task.Task;
 
 import java.io.File;
@@ -14,40 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class DefaultTaskProvider extends TaskProvider implements FlowConsumer {
-
-    private Map<String, List<Task>> getAllTasksGroupedByCategory() {
-        // default tasks
-        Map<String, List<Task>> categories = provideComponents().stream().collect(Collectors.groupingBy(Task::getCategory));
-
-        // custom tasks
-        if(canProviderBeConsumed(Task.class)) {
-            categories.putAll(
-                consumeProviderByComponent(Task.class).provideComponents().stream().collect(Collectors.groupingBy(Task::getCategory))
-            );
-        }
-        return categories;
-    }
-
-    private void deleteRecursively(File file) {
-        if (file.isDirectory()) {
-            File[] entries = file.listFiles();
-            if (entries != null) {
-                for (File entry : entries) {
-                    deleteRecursively(entry);
-                }
-            }
-        }
-        if (file.exists()) {
-            if (!file.delete()) {
-                service(Logger.class).warn("Cannot delete %s", file.getPath());
-            } else {
-                service(Logger.class).debug("Deleted file %s", file.getPath());
-            }
-        }
-    }
+public class FluentnessTaskProvider extends TaskProvider implements Flow.Consumer {
 
     // default tasks
+
     Task help = does("Prints all available commands",
         arguments -> {
             System.out.println("\n" +
@@ -78,7 +48,6 @@ public class DefaultTaskProvider extends TaskProvider implements FlowConsumer {
             }
         }
     );
-
     Task version = does("Prints current Fluentness version",
         // todo fix
         arguments -> System.out.println(Fluentness.class.getPackage().getImplementationVersion())
@@ -103,4 +72,34 @@ public class DefaultTaskProvider extends TaskProvider implements FlowConsumer {
     Task server_stop = does("Stops embedded HTTP server",
         arguments -> service(Server.class).stop()
     );
+
+    public List<Task> getAllTasks() {
+        List<Task> tasks = provideComponents();
+        if(canProviderBeConsumed(Task.class)) {
+            tasks.addAll(consumeProviderByComponent(Task.class).provideComponents());
+        }
+        return tasks;
+    }
+
+    private Map<String, List<Task>> getAllTasksGroupedByCategory() {
+        return getAllTasks().stream().collect(Collectors.groupingBy(Task::getCategory));
+    }
+
+    private void deleteRecursively(File file) {
+        if (file.isDirectory()) {
+            File[] entries = file.listFiles();
+            if (entries != null) {
+                for (File entry : entries) {
+                    deleteRecursively(entry);
+                }
+            }
+        }
+        if (file.exists()) {
+            if (!file.delete()) {
+                service(Logger.class).warn("Cannot delete %s", file.getPath());
+            } else {
+                service(Logger.class).debug("Deleted file %s", file.getPath());
+            }
+        }
+    }
 }

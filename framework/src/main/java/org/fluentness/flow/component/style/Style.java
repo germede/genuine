@@ -1,6 +1,6 @@
 package org.fluentness.flow.component.style;
 
-import org.fluentness.base.BaseConsumer;
+import org.fluentness.base.Base;
 import org.fluentness.base.service.logger.Logger;
 import org.fluentness.flow.component.Component;
 
@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public abstract class Style extends Component implements BaseConsumer {
+public abstract class Style extends Component implements Base.Consumer {
 
     public void writeToFile(String path) {
         try {

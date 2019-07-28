@@ -1,14 +1,28 @@
 package org.fluentness.data;
 
+import org.fluentness.Fluentness;
 import org.fluentness.base.common.Architecture;
+import org.fluentness.data.model.Model;
 import org.fluentness.data.repository.Repository;
 
-public class Data extends Architecture<Repository> {
+public final class Data extends Architecture<Repository> {
 
-    static Data instance;
+    // per definition a singleton, can only be accessed via consumer
+    private final static Data instance = new Data();
 
-    public Data() {
-        instance = this;
+    // public but safe, as fluentness instance is required, which has private constructor
+    public static Data getInstance(Fluentness proxy) {
+        return instance;
+    }
+
+    // avoids unintended instantiations
+    private Data() {
+
+    }
+
+    @Override
+    protected Class<Repository> getIClass() {
+        return Repository.class;
     }
 
     @Override
@@ -17,5 +31,20 @@ public class Data extends Architecture<Repository> {
             instance.getModelClass(),
             instance.getClass()
         );
+    }
+
+    public interface Consumer {
+
+        default boolean canRepositoryBeConsumed(Class<?> key) {
+            return instance.has(key);
+        }
+
+        default <R extends Repository> R repository(Class<R> repository) {
+            return (R) instance.get(repository);
+        }
+
+        default <M extends Model> Repository<M> consumeRepositoryByModel(Class<M> model) {
+            return instance.get(model);
+        }
     }
 }

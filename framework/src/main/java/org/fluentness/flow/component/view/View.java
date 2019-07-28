@@ -1,15 +1,15 @@
 package org.fluentness.flow.component.view;
 
-import org.fluentness.base.BaseConsumer;
+import org.fluentness.base.Base;
 import org.fluentness.base.common.lambda.KeyValuePair;
-import org.fluentness.flow.FlowConsumer;
+import org.fluentness.flow.Flow;
 import org.fluentness.flow.component.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 // todo remove flowconsumer dependency?
-public abstract class View extends Component implements FlowConsumer, BaseConsumer {
+public abstract class View extends Component implements Flow.Consumer, Base.Consumer {
 
     private static final Map<Thread, Map<String, Object>> parameters = new HashMap<>();
 
