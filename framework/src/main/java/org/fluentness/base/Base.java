@@ -18,28 +18,4 @@ public final class Base extends Architecture<Service> {
     private Base() {
 
     }
-
-    @Override
-    protected Class<Service> getIClass() {
-        return Service.class;
-    }
-
-    @Override
-    protected Class<? extends Service>[] getKeysThatWillPointTo(Service instance) {
-        return (Class<? extends Service>[]) array(
-            instance.getClass().getInterfaces()[0],
-            instance.getClass()
-        );
-    }
-
-    public interface Consumer {
-
-        default boolean canServiceBeConsumed(Class<? extends Service> service) {
-            return instance.has(service);
-        }
-
-        default <S extends Service> S service(Class<S> service) {
-            return (S) instance.get(service);
-        }
-    }
 }

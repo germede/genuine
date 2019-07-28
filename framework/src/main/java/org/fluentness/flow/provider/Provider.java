@@ -1,10 +1,8 @@
 package org.fluentness.flow.provider;
 
-import org.fluentness.base.Base;
+import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.base.common.exception.ProviderException;
 import org.fluentness.base.service.logger.Logger;
-import org.fluentness.data.Data;
-import org.fluentness.flow.Flow;
 import org.fluentness.flow.component.Component;
 import org.fluentness.flow.component.task.Task;
 
@@ -15,11 +13,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class Provider<C extends Component> implements Base.Consumer, Data.Consumer, Flow.Consumer {
+public abstract class Provider<C extends Component> {
 
-    private List<C> components = new ArrayList<>();
+    @Inject
+    protected Logger logger;
 
-    public List<C> provideComponents() {
+    private final List<C> components = new ArrayList<>();
+
+    public final List<C> provideComponents() {
         if (components.isEmpty()) {
 
             try {
@@ -54,16 +55,16 @@ public abstract class Provider<C extends Component> implements Base.Consumer, Da
                     components.add(component);
                 }
             } catch (IllegalAccessException e) {
-                service(Logger.class).error(e);
+                logger.error(e);
             } catch (ProviderException e) {
-                service(Logger.class).error(e.getMessage());
+                logger.error(e.getMessage());
                 System.exit(1);
             }
         }
         return components;
     }
 
-    public C getComponent(String name) {
+    public final C getComponent(String name) {
         return provideComponents().stream().filter(component -> component.getName().equals(name)).findFirst().get();
     }
 

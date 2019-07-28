@@ -1,18 +1,25 @@
 package com.sample.flow;
 
 import com.sample.data.Song;
+import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.flow.component.view.View;
 import org.fluentness.flow.provider.ViewProvider;
 
 public class Views extends ViewProvider {
 
-    View base(View toInclude) {
+    @Inject
+    Styles styles;
+
+    @Inject
+    Forms forms;
+
+    private View base(View toInclude) {
         return html(
             head(
                 title("A music archive made with love and Fluentness"),
                 meta(NAME -> "lang", CONTENT -> "en"),
                 meta(CHARSET -> "utf-8"),
-                style(provider(Styles.class).bundle),
+                style(styles.bundle),
                 includeJs("script.min.js")
             ),
             body(
@@ -28,7 +35,7 @@ public class Views extends ViewProvider {
         div(attrs(CLASS -> "row"),
             div(attrs(CLASS -> "column"),
                 h2(translate("song_create")),
-                provider(Forms.class).createSong
+                forms.createSong
             )
         )
     );
@@ -41,7 +48,7 @@ public class Views extends ViewProvider {
                         h2(translate("song_list"))
                     ),
                     div(attrs(CLASS -> "column column-50"),
-                        provider(Forms.class).searchSong
+                        forms.searchSong
                     ),
                     table(
                         thead(

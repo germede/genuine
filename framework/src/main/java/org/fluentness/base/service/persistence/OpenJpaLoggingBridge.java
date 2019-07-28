@@ -2,12 +2,13 @@ package org.fluentness.base.service.persistence;
 
 import org.apache.openjpa.lib.log.AbstractLog;
 import org.apache.openjpa.lib.log.Log;
-import org.fluentness.base.Base;
+import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.base.service.logger.Logger;
 
-class OpenJpaLoggingBridge extends AbstractLog implements Base.Consumer {
+class OpenJpaLoggingBridge extends AbstractLog {
 
-    private Logger logger = service(Logger.class);
+    @Inject
+    Logger logger;
 
     protected boolean isEnabled(short logLevel) {
         return true;

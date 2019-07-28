@@ -6,27 +6,12 @@ import org.fluentness.flow.provider.FormProvider;
 
 public class Forms extends FormProvider {
 
-    Field textField(String idString, String placeholderKey, String labelKey) {
+    private Field textField(String idString, String placeholderKey, String labelKey) {
         return text(
             required -> "true",
             id -> idString,
             placeholder -> translate(placeholderKey),
             maxlength -> "50"
-        ).precededBy(
-            label(attrs(FOR -> idString),
-                translate(labelKey)
-            )
-        );
-    }
-
-    Field yearField(String idString, String placeholderKey, String labelKey) {
-        return number(
-            required -> "true",
-            id -> idString,
-            placeholder -> translate(placeholderKey),
-            min -> "1900",
-            max -> "2099",
-            step -> "1"
         ).precededBy(
             label(attrs(FOR -> idString),
                 translate(labelKey)
@@ -42,7 +27,18 @@ public class Forms extends FormProvider {
 
         album -> textField("song_album_input", "song_album_placeholder", "song_album"),
 
-        year -> yearField("song_year_input","song_year_placeholder","song_year"),
+        year -> number(
+            required -> "true",
+            id -> "song_year_input",
+            placeholder -> translate("song_year_placeholder"),
+            min -> "1900",
+            max -> "2099",
+            step -> "1"
+        ).precededBy(
+            label(attrs(FOR -> "song_year_input"),
+                translate("song_year")
+            )
+        ),
 
         is_new -> checkbox(
             id -> "song_is_new_input"

@@ -4,7 +4,7 @@ import org.fluentness.base.common.constant.AnsiColors;
 
 public interface TaskFactory extends AnsiColors {
 
-    default Task does(String description, TaskExecutable executable, String... args) {
-        return new Task(description, executable, args);
+    default Task does(String description, TaskExecutable executable) {
+        return new Task(description, executable);
     }
 }

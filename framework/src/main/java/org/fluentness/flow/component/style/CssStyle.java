@@ -1,7 +1,5 @@
 package org.fluentness.flow.component.style;
 
-import org.fluentness.base.common.lambda.KeyValuePair;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,14 +13,13 @@ public class CssStyle extends Style {
     }
 
     private void compileInnerSelectors(CssSelector selector, List<CssSelector> result) {
-        for (KeyValuePair<String> rule : selector.rules) {
-            if (rule instanceof CssSelector) {
-                CssSelector inner = (CssSelector) rule;
-                inner.selector = String.format("%s %s", selector.selector, inner.selector);
-                result.add(inner);
-                compileInnerSelectors(inner, result);
-            }
-        }
+//        for (KeyValuePairImpl<String> rule : selector.rules) {
+//                CssSelector inner = rule;
+//                inner.selector = String.format("%s %s", selector.selector, inner.selector);
+//                result.add(inner);
+//                compileInnerSelectors(inner, result);
+//
+//        }
     }
 
     @Override

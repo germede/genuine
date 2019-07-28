@@ -8,7 +8,7 @@ import org.fluentness.flow.component.view.ViewFactory;
 public abstract class ViewProvider extends Provider<View> implements ViewFactory {
 
     @Override
-    public Class<View> getComponentClass() {
+    public final Class<View> getComponentClass() {
         return View.class;
     }
 

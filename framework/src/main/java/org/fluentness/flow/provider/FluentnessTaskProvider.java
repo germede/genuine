@@ -1,11 +1,11 @@
 package org.fluentness.flow.provider;
 
 import org.fluentness.Fluentness;
+import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.base.common.constant.PrivateDirectories;
 import org.fluentness.base.common.constant.PublicDirectories;
 import org.fluentness.base.service.logger.Logger;
 import org.fluentness.base.service.server.Server;
-import org.fluentness.flow.Flow;
 import org.fluentness.flow.component.task.Task;
 
 import java.io.File;
@@ -14,9 +14,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class FluentnessTaskProvider extends TaskProvider implements Flow.Consumer {
+public class FluentnessTaskProvider extends TaskProvider {
 
-    // default tasks
+    @Inject
+    Logger logger;
+
+    @Inject
+    Server server;
+
+    @Inject
+    TaskProvider taskProvider;
+
+    @Inject
+    ControllerProvider controllerProvider;
 
     Task help = does("Prints all available commands",
         arguments -> {
@@ -66,17 +76,17 @@ public class FluentnessTaskProvider extends TaskProvider implements Flow.Consume
     );
 
     Task server_start = does("Starts embedded HTTP server",
-        arguments -> service(Server.class).start(provider(ControllerProvider.class).getRouting())
+        arguments -> server.start(controllerProvider.getRouting())
     );
 
     Task server_stop = does("Stops embedded HTTP server",
-        arguments -> service(Server.class).stop()
+        arguments -> server.stop()
     );
 
     public List<Task> getAllTasks() {
         List<Task> tasks = provideComponents();
-        if(canProviderBeConsumed(Task.class)) {
-            tasks.addAll(consumeProviderByComponent(Task.class).provideComponents());
+        if(taskProvider != null) {
+            tasks.addAll(taskProvider.provideComponents());
         }
         return tasks;
     }
@@ -96,9 +106,9 @@ public class FluentnessTaskProvider extends TaskProvider implements Flow.Consume
         }
         if (file.exists()) {
             if (!file.delete()) {
-                service(Logger.class).warn("Cannot delete %s", file.getPath());
+                logger.warn("Cannot delete %s", file.getPath());
             } else {
-                service(Logger.class).debug("Deleted file %s", file.getPath());
+                logger.debug("Deleted file %s", file.getPath());
             }
         }
     }

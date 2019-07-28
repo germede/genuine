@@ -9,11 +9,11 @@ import java.util.logging.LogRecord;
 
 import static org.fluentness.base.common.constant.AnsiColors.*;
 
-class JuliFormatter extends Formatter {
+class JulFormatter extends Formatter {
 
-    protected JuliLogger logger;
+    protected JulLogger logger;
 
-    JuliFormatter(JuliLogger logger) {
+    JulFormatter(JulLogger logger) {
         this.logger = logger;
     }
 
@@ -52,7 +52,7 @@ class JuliFormatter extends Formatter {
                 break;
             }
 
-            if (stackTraceElement.getClassName().equals(JuliLogger.class.getName())) {
+            if (stackTraceElement.getClassName().equals(JulLogger.class.getName())) {
                 nextOne = true;
             }
         }

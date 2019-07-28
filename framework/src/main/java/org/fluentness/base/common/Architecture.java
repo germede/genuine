@@ -1,77 +1,142 @@
 package org.fluentness.base.common;
 
 import org.fluentness.base.common.annotation.DefinitionPriority;
+import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.base.common.exception.DefinitionException;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 public abstract class Architecture<I> {
 
     private static int lastDefinitionPriority = -1000;
-
-    private final Map<Class, I> instances = new LinkedHashMap<>();
+    private static final Map<Class, Object> instances = new LinkedHashMap<>();
     private boolean allowDefinition = true;
 
-    public Architecture<I> define(I instance) throws DefinitionException {
+    public void disallowDefinition() {
+        allowDefinition = false;
+    }
+
+    public Architecture<I> add(Class<? extends I> iClass) throws DefinitionException {
         if (allowDefinition) {
-            Class<?> instanceClass = instance.getClass();
-            Class<?> superclass = instanceClass.getSuperclass();
-            Class<?>[] interfaces = instanceClass.getInterfaces();
-            int definitionPriority =
-                instanceClass.isAnnotationPresent(DefinitionPriority.class) ?
-                    instanceClass.getAnnotation(DefinitionPriority.class).value() :
-                    superclass.isAnnotationPresent(DefinitionPriority.class) ?
-                        superclass.getAnnotation(DefinitionPriority.class).value() :
-                        interfaces.length > 0 &&
-                            getIClass().isAssignableFrom(interfaces[0]) &&
-                            interfaces[0].isAnnotationPresent(DefinitionPriority.class) ?
-                            interfaces[0].getAnnotation(DefinitionPriority.class).value() :
-                            -1000;
-
-            if (definitionPriority == -1000) {
-                throw new DefinitionException(
-                    "No definition priority annotation given for instance %s or its superclass or its first interface",
-                    instanceClass.getSimpleName()
-                );
-            }
-            if (definitionPriority < lastDefinitionPriority) {
-                throw new DefinitionException(
-                    "Instance %s has a definition priority of %s, last defined instance had %s, which is higher. ",
-                    instanceClass.getSimpleName(),
-                    definitionPriority,
-                    lastDefinitionPriority
-                );
-            }
-
-            Arrays.stream(getKeysThatWillPointTo(instance)).forEach(key ->
-                instances.put(key, instance)
-            );
-            lastDefinitionPriority = definitionPriority;
+            validateDefinition(iClass);
+            validateInstantiation(iClass);
+            instantiateWithDependencyInjection(iClass);
         } else {
             throw new DefinitionException("Definition is not allowed anymore");
         }
         return this;
     }
 
-    public void disallowDefinition() {
-        allowDefinition = false;
+    private void validateDefinition(Class<? extends I> iClass) throws DefinitionException {
+        int definitionPriority = getDefinitionPriority(iClass);
+        if (definitionPriority == -1000) {
+            throw new DefinitionException(
+                "No definition priority annotation defined for %s, its superclass or its first interface",
+                iClass.getSimpleName()
+            );
+        }
+        if (definitionPriority < lastDefinitionPriority) {
+            throw new DefinitionException(
+                "Class %s has a definition priority of %s, last defined instance had %s, which is higher",
+                iClass.getSimpleName(),
+                definitionPriority,
+                lastDefinitionPriority
+            );
+        }
+        lastDefinitionPriority = definitionPriority;
     }
 
-    protected boolean has(Class eClass) {
-        return instances.containsValue(eClass);
+    private int getDefinitionPriority(Class<?> clazz) {
+        if (clazz.isAnnotationPresent(DefinitionPriority.class)) {
+            return clazz.getAnnotation(DefinitionPriority.class).value();
+        }
+        if (clazz.getInterfaces().length > 0) {
+            for (Class<?> anInterface : clazz.getInterfaces()) {
+                int i = getDefinitionPriority(anInterface);
+                if (i != -1000) {
+                    return i;
+                }
+            }
+        }
+        if (!clazz.getSuperclass().equals(Object.class)) {
+            return getDefinitionPriority(clazz.getSuperclass());
+        }
+        return -1000;
     }
 
-    protected I get(Class key) {
-        return instances.get(key);
+    private void validateInstantiation(Class<? extends I> iClass) throws DefinitionException {
+        if (Modifier.isInterface(iClass.getModifiers())) {
+            throw new DefinitionException(
+                "%s cannot be an interface in order to be instantiated",
+                iClass.getSimpleName()
+            );
+        }
+        if (Modifier.isAbstract(iClass.getModifiers())) {
+            throw new DefinitionException(
+                "%s cannot be an abstract class in order to be instantiated",
+                iClass.getSimpleName()
+            );
+        }
+        if (!Modifier.isPublic(iClass.getModifiers())) {
+            throw new DefinitionException(
+                "%s must be public in order to be instantiated",
+                iClass.getSimpleName()
+            );
+        }
+        if (iClass.getConstructors().length > 1) {
+            throw new DefinitionException(
+                "%s may have only one public constructor without parameters, inject dependencies using @Inject",
+                iClass.getSimpleName()
+            );
+        }
+        try {
+            if (!Modifier.isPublic(iClass.getConstructor().getModifiers())) {
+                throw new DefinitionException(
+                    "%s may have only one public constructor without parameters, inject dependencies using @Inject",
+                    iClass.getSimpleName()
+                );
+            }
+        } catch (NoSuchMethodException e) {
+            throw new DefinitionException(
+                "%s may have only one public constructor without parameters, inject dependencies using @Inject",
+                iClass.getSimpleName()
+            );
+        }
+
     }
 
-    protected final <T> T[] array(T... varargs) {
-        return varargs;
+    private void instantiateWithDependencyInjection(Class<? extends I> iClass) throws DefinitionException {
+        try {
+            I instance = iClass.newInstance();
+            for (Field field : iClass.getFields()) {
+                if (field.isAnnotationPresent(Inject.class)) {
+                    // inject dependency
+                    field.set(instance, findDependencyToAssign(field));
+
+
+                }
+            }
+            instances.put(iClass, instance);
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new DefinitionException(e);
+        }
     }
 
-    protected abstract Class<I> getIClass();
+    private Object findDependencyToAssign(Field field) throws DefinitionException {
+        Class<?> type = field.getType();
+        if (instances.containsKey(type)) {
+            return instances.get(type);
+        }
+        return instances.values().stream()
+            .filter(instance -> type.isAssignableFrom(instance.getClass()))
+            .findAny()
+            .orElseThrow(() -> new DefinitionException(
+                "Cannot find suitable, previously defined dependency for field %s of class %s",
+                field.getName(),
+                field.getDeclaringClass().getSimpleName()
+            ));
+    }
 
-    protected abstract Class<? extends I>[] getKeysThatWillPointTo(I instance);
 }

@@ -2,6 +2,7 @@ package com.sample.flow;
 
 import com.sample.data.Song;
 import com.sample.data.SongRepository;
+import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.flow.component.controller.Controller;
 import org.fluentness.flow.provider.ControllerProvider;
 
@@ -9,42 +10,43 @@ import java.util.List;
 
 public class Controllers extends ControllerProvider {
 
+    @Inject
+    Views views;
+
+    @Inject
+    SongRepository songRepository;
+
+
     Controller base = actions(
-        index -> get("/", request -> redirect("/song/list")),
+        get("/", request -> redirect("/song/list")),
 
-        test -> get("/test", request -> {
-
-
+        get("/test", request -> {
             Song newSong = new Song();
             newSong.setTitle("Ein Lied");
-            repository(SongRepository.class).create(newSong);
+            songRepository.create(newSong);
             return response("yea");
         })
     );
 
     Controller song = actions("/song",
-        list -> get("/list", request -> {
-                List<Song> songList = repository(SongRepository.class).findAll();
-                return render(
-                    provider(Views.class).songList.assigning(
-                        songs -> songList,
-                        testBoolean -> true,
-                        testParameter -> 1234
-                    )
-                );
-            }
+        get("/list", request ->
+            render(
+                views.songList.assigning(
+                    songs -> songRepository.findAll(),
+                    testBoolean -> true,
+                    testParameter -> 1234
+                )
+            )
         ),
 
-        search -> get("/search", request -> {
-                List<Song> songList = repository(SongRepository.class)
+        get("/search", request -> {
+                List<Song> songList = songRepository
                     .findByTitle("%" + request.getParameter("title") + "%");
-                return render(provider(Views.class).songList.assigning(songs -> songList));
+                return render(views.songList.assigning(songs -> songList));
             }
         ),
-
-        create -> get("/create", request -> render(provider(Views.class).createSong)),
-
-        create_submit -> post("/create/submit", request ->
+        get("/create", request -> render(views.createSong)),
+        post("/create/submit", request ->
             {
 
 
@@ -61,11 +63,11 @@ public class Controllers extends ControllerProvider {
             }
         )
 
-//        update -> get("/update/{id}",
+//        get("/update/{id}",
 //            (request, response) -> render(Atoz.views.createSong, createSong -> new SongForm())
 //        ),
 //
-//        update_submit -> post("/create/submit",
+//        post("/create/submit",
 //            (request, response) -> {
 //                Entity<Models> song = new Entity(Models.class);
 //                song.set(
@@ -80,7 +82,7 @@ public class Controllers extends ControllerProvider {
 //            }
 //        ),
 //
-//        delete -> get("/delete/{id}",
+//        get("/delete/{id}",
 //            (request, response) -> render(Views.class, createSong -> new SongForm())
 //        ),
     );

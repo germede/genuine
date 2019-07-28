@@ -1,6 +1,5 @@
 package org.fluentness.flow.component.controller;
 
-import org.fluentness.base.common.lambda.KeyValuePair;
 import org.fluentness.flow.component.Component;
 
 public class Controller extends Component {
@@ -8,22 +7,14 @@ public class Controller extends Component {
     private String baseRoute;
     private Action[] actions;
 
-    Controller(String baseRoute, KeyValuePair<Action>[] actions) {
+    Controller(String baseRoute, Action[] actions) {
         this.baseRoute = baseRoute;
-        this.actions = new Action[actions.length];
-        for (int i = 0; i < actions.length; i++) {
-            this.actions[i] = actions[i].getValue();
-            this.actions[i].setName(actions[i].getKey());
-        }
+        this.actions = actions;
     }
 
-    Controller(KeyValuePair<Action>[] actions) {
+    Controller(Action[] actions) {
         this.baseRoute = "";
-        this.actions = new Action[actions.length];
-        for (int i = 0; i < actions.length; i++) {
-            this.actions[i] = actions[i].getValue();
-            this.actions[i].setName(actions[i].getKey());
-        }
+        this.actions = actions;
     }
 
     public String getBaseRoute() {

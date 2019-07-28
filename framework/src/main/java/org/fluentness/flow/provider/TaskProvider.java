@@ -9,7 +9,7 @@ import org.fluentness.flow.component.task.TaskFactory;
 public abstract class TaskProvider extends Provider<Task> implements TaskFactory {
 
     @Override
-    public Class<Task> getComponentClass() {
+    public final Class<Task> getComponentClass() {
         return Task.class;
     }
 

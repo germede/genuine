@@ -8,7 +8,7 @@ import org.fluentness.flow.component.form.FormFactory;
 public abstract class FormProvider extends Provider<Form> implements FormFactory {
 
     @Override
-    public Class<Form> getComponentClass() {
+    public final Class<Form> getComponentClass() {
         return Form.class;
     }
 

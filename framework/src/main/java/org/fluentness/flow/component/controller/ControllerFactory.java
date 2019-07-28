@@ -1,6 +1,5 @@
 package org.fluentness.flow.component.controller;
 
-import org.fluentness.base.common.lambda.KeyValuePair;
 import org.fluentness.base.service.server.FluentnessServlet;
 import org.fluentness.flow.component.view.View;
 
@@ -13,11 +12,11 @@ import static org.fluentness.base.common.constant.HttpStatusCodes.OK;
 
 public interface ControllerFactory {
 
-    default Controller actions(String baseRoute, KeyValuePair<Action>... actions) {
+    default Controller actions(String baseRoute, Action... actions) {
         return new Controller(baseRoute, actions);
     }
 
-    default Controller actions(KeyValuePair<Action>... actions) {
+    default Controller actions(Action... actions) {
         return new Controller(actions);
     }
 

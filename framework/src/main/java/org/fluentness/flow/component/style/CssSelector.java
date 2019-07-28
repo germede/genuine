@@ -1,15 +1,15 @@
 package org.fluentness.flow.component.style;
 
-import org.fluentness.base.common.lambda.KeyValuePair;
+import org.fluentness.base.common.lambda.KeyValuePairImpl;
 
 import java.util.Arrays;
 
 public class CssSelector {
 
     String selector;
-    KeyValuePair<String>[] rules;
+    KeyValuePairImpl<String>[] rules;
 
-    CssSelector(String selector, KeyValuePair<String>... rules) {
+    CssSelector(String selector, KeyValuePairImpl<String>... rules) {
         this.selector = selector;
         this.rules = rules;
     }
@@ -18,7 +18,6 @@ public class CssSelector {
     public String toString() {
         StringBuilder result = new StringBuilder(selector + " {");
         Arrays.stream(rules)
-                .filter(rule -> !(rule instanceof CssSelector))
                 .forEach(rule -> result
                         .append("\n    ")
                         .append(rule.getKey().replaceAll("_","-"))

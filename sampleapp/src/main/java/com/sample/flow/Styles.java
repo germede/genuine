@@ -3,25 +3,23 @@ package com.sample.flow;
 import org.fluentness.flow.component.style.Style;
 import org.fluentness.flow.provider.StyleProvider;
 
+import static org.fluentness.flow.component.style.CssProperty.*;
+
 public class Styles extends StyleProvider {
 
-    Style milligram = external("res/css/milligram.min.css");
+    private Style milligram = external("res/css/milligram.min.css");
 
-    Style custom = css(
+    private Style custom = css(
         select(".form-inline",
-
-            property()
-            display -> "flex",
-            flex_flow -> "row wrap",
-            align_items -> "center"
+            property(display, "flex"),
+            property(flex_flow, "row wrap"),
+            property(align_items, "center")
         ),
-
         select(".form-inline > input",
-            width -> "auto"
+            property(width, "auto")
         ),
-
         select(".form-inline > input:not(:first-child)",
-            margin_left -> "5px"
+            property(margin_left, "5px")
         )
     );
 

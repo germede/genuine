@@ -8,10 +8,9 @@ public class Task extends Component {
     private TaskExecutable executable;
     private String[] arguments;
 
-    Task(String description, TaskExecutable executable, String[] arguments) {
+    Task(String description, TaskExecutable executable) {
         this.description = description;
         this.executable = executable;
-        this.arguments = arguments;
     }
 
     public String getDescription() {
@@ -28,5 +27,10 @@ public class Task extends Component {
 
     public void execute(String... arguments) {
         executable.execute(arguments);
+    }
+
+    public Task withArguments(String... arguments) {
+        this.arguments = arguments;
+        return this;
     }
 }

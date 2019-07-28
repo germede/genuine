@@ -1,5 +1,6 @@
 package org.fluentness.base.service.logger;
 
+import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.base.common.constant.PrivateDirectories;
 import org.fluentness.base.common.exception.DefinitionException;
 import org.fluentness.base.service.configuration.Configuration;
@@ -13,18 +14,21 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
-import static org.fluentness.base.service.configuration.Key.Boolean.ENABLE_LOG_TO_CONSOLE;
-import static org.fluentness.base.service.configuration.Key.Boolean.ENABLE_LOG_TO_FILE;
-import static org.fluentness.base.service.configuration.Key.LogLevel.LOG_LEVEL;
+import static org.fluentness.base.service.configuration.Configuration.ENABLE_LOG_TO_CONSOLE;
+import static org.fluentness.base.service.configuration.Configuration.ENABLE_LOG_TO_FILE;
+import static org.fluentness.base.service.configuration.Configuration.LOG_LEVEL;
 
-public class JuliLogger implements Logger<Level> {
+public class JulLogger implements Logger<Level> {
 
     private final java.util.logging.Logger logger;
 
-    public JuliLogger() throws DefinitionException {
+    @Inject
+    Configuration configuration;
 
-        Level logLevel = service(Configuration.class).has(LOG_LEVEL) ?
-            FluentnessLogLevelToOwnLogLevel(service(Configuration.class).get(LOG_LEVEL)) :
+    public JulLogger() throws DefinitionException {
+
+        Level logLevel = configuration.has(LOG_LEVEL) ?
+            FluentnessLogLevelToOwnLogLevel(configuration.get(LOG_LEVEL)) :
             Level.ALL;
 
         logger = java.util.logging.Logger.getLogger("");
@@ -35,18 +39,18 @@ public class JuliLogger implements Logger<Level> {
         logger.setLevel(logLevel);
 
         // console logging
-        if (service(Configuration.class).has(ENABLE_LOG_TO_CONSOLE) &&
-            service(Configuration.class).get(ENABLE_LOG_TO_CONSOLE)) {
+        if (configuration.has(ENABLE_LOG_TO_CONSOLE) &&
+            configuration.get(ENABLE_LOG_TO_CONSOLE)) {
 
             ConsoleHandler consoleHandler = new ConsoleHandler();
-            consoleHandler.setFormatter(new JuliFormatter(this));
+            consoleHandler.setFormatter(new JulFormatter(this));
             consoleHandler.setLevel(logLevel);
             logger.addHandler(consoleHandler);
         }
 
         // file logging
-        if (service(Configuration.class).has(ENABLE_LOG_TO_FILE) &&
-            service(Configuration.class).get(ENABLE_LOG_TO_FILE)) {
+        if (configuration.has(ENABLE_LOG_TO_FILE) &&
+            configuration.get(ENABLE_LOG_TO_FILE)) {
 
             try {
                 new File(PrivateDirectories.LOG).mkdirs();
@@ -60,7 +64,7 @@ public class JuliLogger implements Logger<Level> {
                     file.createNewFile();
                     fileHandler = new FileHandler(logFilePath);
                 }
-                fileHandler.setFormatter(new JuliFormatter(this));
+                fileHandler.setFormatter(new JulFormatter(this));
                 fileHandler.setLevel(logLevel);
                 logger.addHandler(fileHandler);
             } catch (IOException e) {

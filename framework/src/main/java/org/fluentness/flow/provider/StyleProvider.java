@@ -8,7 +8,7 @@ import org.fluentness.flow.component.style.StyleFactory;
 public abstract class StyleProvider extends Provider<Style> implements StyleFactory {
 
     @Override
-    public Class<Style> getComponentClass() {
+    public final Class<Style> getComponentClass() {
         return Style.class;
     }
 

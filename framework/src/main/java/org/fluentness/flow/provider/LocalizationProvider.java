@@ -8,7 +8,7 @@ import org.fluentness.flow.component.localization.LocalizationFactory;
 public abstract class LocalizationProvider extends Provider<Localization> implements LocalizationFactory {
 
     @Override
-    public Class<Localization> getComponentClass() {
+    public final Class<Localization> getComponentClass() {
         return Localization.class;
     }
 
