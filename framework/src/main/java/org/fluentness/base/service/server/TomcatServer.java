@@ -3,23 +3,20 @@ package org.fluentness.base.service.server;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
-import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.base.common.exception.DefinitionException;
-import org.fluentness.base.service.logger.Logger;
 import org.fluentness.base.service.configuration.Configuration;
+import org.fluentness.base.service.logger.Logger;
 
 import java.io.File;
 import java.util.Map;
 
-import static org.fluentness.base.service.configuration.Configuration.APP_PORT;
 import static org.fluentness.base.service.configuration.Configuration.APP_HOSTNAME;
+import static org.fluentness.base.service.configuration.Configuration.APP_PORT;
 
 public class TomcatServer implements Server {
 
-    @Inject
     Configuration configuration;
 
-    @Inject
     Logger logger;
 
     private final String hostname;
@@ -27,7 +24,7 @@ public class TomcatServer implements Server {
 
     private final Tomcat tomcat;
 
-    public TomcatServer(@Dependency ) throws DefinitionException {
+    public TomcatServer(Configuration configuration) throws DefinitionException {
         hostname = configuration.get(APP_HOSTNAME);
         port = configuration.get(APP_PORT);
 

@@ -1,8 +1,6 @@
 package org.fluentness.flow.provider;
 
-import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.base.common.exception.ProviderException;
-import org.fluentness.base.service.logger.Logger;
 import org.fluentness.flow.component.Component;
 import org.fluentness.flow.component.task.Task;
 
@@ -14,9 +12,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public abstract class Provider<C extends Component> {
-
-    @Inject
-    protected Logger logger;
 
     private final List<C> components = new ArrayList<>();
 
@@ -55,10 +50,9 @@ public abstract class Provider<C extends Component> {
                     components.add(component);
                 }
             } catch (IllegalAccessException e) {
-                logger.error(e);
+                e.printStackTrace();
             } catch (ProviderException e) {
-                logger.error(e.getMessage());
-                System.exit(1);
+                e.printStackTrace();
             }
         }
         return components;
