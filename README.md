@@ -1,5 +1,8 @@
 ![Fluentness logo](core/art/logo.png?raw=true "Fluentness logo")
 
+>Innovative as per standard
+add badges
+
 ## Introduction
 Fluentness is intended to be an easy-to-learn, fully-integrated, Java-based, consistent and flexible web framework. 
 
@@ -76,7 +79,7 @@ Pull requests into the develop branch are also welcome.
 Fluentness is thought to be extendable, either within your application's base package or even developing standalone plugins. 
 
 ## Technologies
-This project is based on these technologies:
+This project is based on these open source technologies:
 - Java 8, specifically [OpenJDK](https://openjdk.java.net/)
 - JPA as ORM, implemented by [EclipseLink](https://www.eclipse.org/eclipselink/) 
 - [JUnit](https://junit.org/junit4/) and Mockito for unit testing

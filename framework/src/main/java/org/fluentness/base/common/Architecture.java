@@ -20,7 +20,7 @@ public abstract class Architecture<E extends ArchitectureElement> {
         return instances.get(key);
     }
 
-    public Architecture<E> add(E instance) throws DefinitionException {
+    public Architecture<E> define(E instance) throws DefinitionException {
         int definitionPriority = instance.getDefinitionPriority();
         if (definitionPriority < lastDefinitionPriority) {
             throw new DefinitionException(
@@ -30,7 +30,6 @@ public abstract class Architecture<E extends ArchitectureElement> {
                 lastDefinitionPriority
             );
         }
-
         Arrays.stream(getKeysThatWillPointTo(instance)).forEach(key ->
             instances.put(key, instance)
         );

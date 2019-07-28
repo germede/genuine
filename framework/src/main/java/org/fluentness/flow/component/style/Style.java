@@ -18,7 +18,7 @@ public abstract class Style extends Component implements BaseConsumer {
             new File(path).getParentFile().mkdirs();
             Files.write(Paths.get(path),render().getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            service(Logger.class).fatal(e);
+            service(Logger.class).error(e);
         }
     }
 

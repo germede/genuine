@@ -37,7 +37,7 @@ public class Controllers extends ControllerProvider {
 
         search -> get("/search", request -> {
                 List<Song> songList = repository(SongRepository.class)
-                    .findByTitle("%" + request.getGetParameter("title") + "%");
+                    .findByTitle("%" + request.getParameter("title") + "%");
                 return render(provider(Views.class).songList.assigning(songs -> songList));
             }
         ),

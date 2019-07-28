@@ -2,9 +2,8 @@ package org.fluentness.flow.component.view;
 
 import org.fluentness.base.BaseConsumer;
 import org.fluentness.base.common.constant.PrivateDirectories;
-import org.fluentness.base.service.config.Config;
+import org.fluentness.base.service.configuration.Configuration;
 import org.fluentness.base.service.logger.Logger;
-import org.fluentness.base.service.server.HttpRequestRegister;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,15 +11,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-import static org.fluentness.base.service.config.Key.BooleanKey.ENABLE_CACHE;
+import static org.fluentness.base.service.configuration.Key.Boolean.ENABLE_CACHE;
 
 public enum ViewCache implements BaseConsumer {
     instance;
 
     private String getIdentifyingCacheFilePath(View view) {
         return PrivateDirectories.VIEW_CACHE + "/" +
-            view.getName() + "." +
-            HttpRequestRegister.instance.getCurrentLocale().toString() + ".html";
+            view.getName() + ".html";
     }
 
     private boolean isCacheable(View view) {
@@ -29,12 +27,12 @@ public enum ViewCache implements BaseConsumer {
 
     public String cache(View view) {
         boolean cacheable = isCacheable(view);
-        if (service(Config.class).get(ENABLE_CACHE) && doesCacheFileExists(view) && cacheable) {
+        if (service(Configuration.class).get(ENABLE_CACHE) && doesCacheFileExists(view) && cacheable) {
             return retrieve(view);
         }
 
         String content = view.toString();
-        if (service(Config.class).get(ENABLE_CACHE) && cacheable) {
+        if (service(Configuration.class).get(ENABLE_CACHE) && cacheable) {
             store(view, content);
         }
         return content;
@@ -50,7 +48,7 @@ public enum ViewCache implements BaseConsumer {
             new File(getIdentifyingCacheFilePath(view)).getParentFile().mkdirs();
             Files.write(Paths.get(getIdentifyingCacheFilePath(view)), content.getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
-            service(Logger.class).fatal(e);
+            service(Logger.class).error(e);
         }
     }
 
@@ -59,7 +57,7 @@ public enum ViewCache implements BaseConsumer {
             service(Logger.class).debug("Retrieve cache record %s", getIdentifyingCacheFilePath(t));
             return new String(Files.readAllBytes(Paths.get(getIdentifyingCacheFilePath(t))));
         } catch (IOException e) {
-            service(Logger.class).fatal(e);
+            service(Logger.class).error(e);
             return "";
         }
     }

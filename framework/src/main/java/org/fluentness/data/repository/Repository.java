@@ -1,6 +1,7 @@
 package org.fluentness.data.repository;
 
 import org.fluentness.base.BaseConsumer;
+import org.fluentness.base.EntityManagerFactory;
 import org.fluentness.base.common.ArchitectureElement;
 import org.fluentness.base.common.lambda.KeyValuePair;
 import org.fluentness.base.service.logger.Logger;
@@ -24,7 +25,7 @@ public interface Repository<M extends Model> extends ArchitectureElement, BaseCo
         try {
             return (Class<M>) Class.forName(modelClassName);
         } catch (ClassNotFoundException | ClassCastException e) {
-            service(Logger.class).fatal(
+            service(Logger.class).error(
                 "Model class %s not found for repository %s. Please respect the class naming conventions",
                 this.getClass().getSimpleName().replace("Repository", ""),
                 this.getClass().getSimpleName()

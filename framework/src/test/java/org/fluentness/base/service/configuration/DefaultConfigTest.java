@@ -1,4 +1,4 @@
-package org.fluentness.base.service.config;
+package org.fluentness.base.service.configuration;
 
 public class DefaultConfigTest {
 

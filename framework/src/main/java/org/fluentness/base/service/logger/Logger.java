@@ -2,14 +2,12 @@ package org.fluentness.base.service.logger;
 
 import org.fluentness.base.service.Service;
 
-public interface Logger extends Service {
+public interface Logger<OwnLogLevel> extends Service {
 
     @Override
     default int getDefinitionPriority() {
-        return 100;
+        return 200;
     }
-
-    void trace(String message, Object... parameters);
 
     void debug(String message, Object... parameters);
 
@@ -19,23 +17,11 @@ public interface Logger extends Service {
 
     void error(String message, Object... parameters);
 
-    void fatal(String message, Object... parameters);
+    void error(Exception exception);
 
-    void fatal(Exception exception);
+    FluentnessLogLevel ownLogLevelToFluentnessLogLevel(OwnLogLevel level);
 
-    default String format(String message, Object... parameters) {
-        if (parameters != null && parameters.length > 0) {
-            return String.format(message, parameters);
-        }
-        return message;
-    }
+    OwnLogLevel fluentnessLogLevelToOwnLogLevel(FluentnessLogLevel level);
 
-    default String stackTraceToString(StackTraceElement[] stackTraceElements) {
-        StringBuilder res = new StringBuilder();
-        res.append("\n").append("Stacktrace:");
-        for (StackTraceElement stackTraceElement : stackTraceElements) {
-            res.append("\n    ").append(stackTraceElement.toString());
-        }
-        return res.toString();
-    }
 }
+

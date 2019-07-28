@@ -97,7 +97,7 @@ public class DefaultTaskProvider extends TaskProvider implements FlowConsumer {
     );
 
     Task server_start = does("Starts embedded HTTP server",
-        arguments -> service(Server.class).start(provider(ControllerProvider.class).getRouteHandlerMap())
+        arguments -> service(Server.class).start(provider(ControllerProvider.class).getRouting())
     );
 
     Task server_stop = does("Stops embedded HTTP server",
