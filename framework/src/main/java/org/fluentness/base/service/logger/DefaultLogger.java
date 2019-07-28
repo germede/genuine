@@ -1,12 +1,14 @@
 package org.fluentness.base.service.logger;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Level;
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.*;
 import org.fluentness.base.service.config.Config;
 
-import static org.fluentness.base.service.config.BooleanKey.ENABLE_LOG_TO_CONSOLE;
-import static org.fluentness.base.service.config.StringKey.LOG_LEVEL;
+import java.io.IOException;
+
+import static org.fluentness.base.service.config.Key.BooleanKey.ENABLE_LOG_TO_CONSOLE;
+import static org.fluentness.base.service.config.Key.BooleanKey.ENABLE_LOG_TO_FILE;
+import static org.fluentness.base.service.config.Key.LevelKey.LOG_LEVEL;
 
 public class DefaultLogger implements Logger {
 
@@ -15,21 +17,47 @@ public class DefaultLogger implements Logger {
     public DefaultLogger() {
 
         logger = org.apache.log4j.Logger.getLogger(this.getClass());
-        BasicConfigurator.configure();
 
         if (service(Config.class).has(LOG_LEVEL)) {
-            logger.setLevel(Level.toLevel(service(Config.class).get(LOG_LEVEL)));
+            logger.setLevel(service(Config.class).get(LOG_LEVEL));
         } else {
             logger.setLevel(Level.ALL);
         }
 
-        if (service(Config.class).is(ENABLE_LOG_TO_CONSOLE)) {
-            logger.addAppender(new ConsoleAppender());
-        }
+        Layout layout = new DefaultLayout();
 
         if (service(Config.class).is(ENABLE_LOG_TO_CONSOLE)) {
-            logger.addAppender(new FileAppender());
+            logger.removeAllAppenders();
+            logger.addAppender(new ConsoleAppender(layout));
         }
+
+        if (service(Config.class).is(ENABLE_LOG_TO_FILE)) {
+            try {
+                logger.addAppender(new FileAppender(layout,"out/log.txt"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        org.apache.log4j.Logger newl = org.apache.log4j.Logger.getLogger("CATALINA");
+        newl.trace("ASDF");
+
+        BasicConfigurator.configure();
+
+        logger.trace("asdf");
+//        String filePath = "mylog.log";
+//        PatternLayout layout = new PatternLayout("%-5p %d %m%n");
+//        RollingFileAppender appender = null;
+//        try {
+//            appender = new RollingFileAppender(layout, filePath);
+//            appender.setName("myFirstLog");
+//            appender.setMaxFileSize("1MB");
+//            appender.activateOptions();
+//            org.apache.log4j.Logger.getRootLogger().addAppender(appender);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override

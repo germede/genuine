@@ -12,10 +12,6 @@ public class Song implements Model {
     private int id;
     private String title;
 
-    public Song() {
-        int i = 0;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

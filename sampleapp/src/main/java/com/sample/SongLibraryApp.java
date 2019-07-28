@@ -8,5 +8,4 @@ public class SongLibraryApp {
     public static void main(String[] args) {
         Fluentness.bootstrap(new DevEnvironment(), args);
     }
-
 }

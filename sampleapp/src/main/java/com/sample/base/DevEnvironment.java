@@ -5,18 +5,18 @@ import com.sample.flow.Controllers;
 import com.sample.flow.Forms;
 import com.sample.flow.Styles;
 import com.sample.flow.Views;
-import org.fluentness.Environment;
+import org.fluentness.base.common.Environment;
 import org.fluentness.base.Base;
-import org.fluentness.base.DefaultServer;
 import org.fluentness.base.common.exception.DefinitionException;
 import org.fluentness.base.service.config.DefaultConfig;
 import org.fluentness.base.service.logger.DefaultLogger;
+import org.fluentness.base.service.server.DefaultServer;
 import org.fluentness.data.Data;
 import org.fluentness.flow.Flow;
 
-import static org.fluentness.base.service.config.IntegerKey.APP_PORT;
-import static org.fluentness.base.service.config.StringKey.APP_HOSTNAME;
-import static org.fluentness.base.service.config.StringKey.PERSISTENCE_UNIT;
+import static org.fluentness.base.service.config.Key.IntegerKey.APP_PORT;
+import static org.fluentness.base.service.config.Key.StringKey.APP_HOSTNAME;
+import static org.fluentness.base.service.config.Key.StringKey.PERSISTENCE_UNIT;
 
 public class DevEnvironment implements Environment {
 

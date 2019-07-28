@@ -1,6 +1,7 @@
 package org.fluentness;
 
 import org.fluentness.base.Base;
+import org.fluentness.base.common.Environment;
 import org.fluentness.base.common.exception.DefinitionException;
 import org.fluentness.base.common.exception.TaskNotFoundException;
 import org.fluentness.base.common.exception.WrongUseOfTaskException;

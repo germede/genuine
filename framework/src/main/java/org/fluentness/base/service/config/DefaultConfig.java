@@ -1,11 +1,15 @@
 package org.fluentness.base.service.config;
 
+import org.apache.log4j.Level;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.fluentness.base.service.config.BooleanKey.*;
-import static org.fluentness.base.service.config.IntegerKey.APP_PORT;
-import static org.fluentness.base.service.config.StringKey.*;
+import static org.fluentness.base.service.config.Key.BooleanKey.*;
+import static org.fluentness.base.service.config.Key.IntegerKey.APP_PORT;
+import static org.fluentness.base.service.config.Key.LevelKey.LOG_LEVEL;
+import static org.fluentness.base.service.config.Key.StringKey.APP_HOSTNAME;
+import static org.fluentness.base.service.config.Key.StringKey.APP_PROTOCOL;
 
 public class DefaultConfig implements Config {
 
@@ -16,7 +20,7 @@ public class DefaultConfig implements Config {
         set(APP_PROTOCOL, "http");
         set(APP_HOSTNAME, "localhost");
         set(APP_PORT, 8000);
-        set(LOG_LEVEL, "ALL");
+        set(LOG_LEVEL, Level.ALL);
         set(ENABLE_LOG_TO_CONSOLE, true);
         set(ENABLE_LOG_TO_FILE, false);
         set(ENABLE_CACHE, true);

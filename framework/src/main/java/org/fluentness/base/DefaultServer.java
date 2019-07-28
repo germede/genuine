@@ -14,9 +14,9 @@ import java.net.InetSocketAddress;
 import java.net.ProtocolException;
 import java.util.Map;
 
-import static org.fluentness.base.service.config.IntegerKey.APP_PORT;
-import static org.fluentness.base.service.config.StringKey.APP_HOSTNAME;
-import static org.fluentness.base.service.config.StringKey.APP_PROTOCOL;
+import static org.fluentness.base.service.config.Key.IntegerKey.APP_PORT;
+import static org.fluentness.base.service.config.Key.StringKey.APP_HOSTNAME;
+import static org.fluentness.base.service.config.Key.StringKey.APP_PROTOCOL;
 
 public class DefaultServer implements Server {
 

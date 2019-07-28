@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
-import static org.fluentness.base.service.config.StringKey.PERSISTENCE_UNIT;
+import static org.fluentness.base.service.config.Key.StringKey.PERSISTENCE_UNIT;
 
 public enum EntityManagerFactory implements BaseConsumer {
     instance;

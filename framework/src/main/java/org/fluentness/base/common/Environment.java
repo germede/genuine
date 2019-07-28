@@ -1,4 +1,4 @@
-package org.fluentness;
+package org.fluentness.base.common;
 
 import org.fluentness.base.Base;
 import org.fluentness.base.common.exception.DefinitionException;

@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-import static org.fluentness.base.service.config.BooleanKey.ENABLE_CACHE;
+import static org.fluentness.base.service.config.Key.BooleanKey.ENABLE_CACHE;
 
 public enum ViewCache implements BaseConsumer {
     instance;
