@@ -23,9 +23,9 @@ public class JulLogger implements Logger<Level> {
 
     public JulLogger() throws DefinitionException {
 
-        FluentnessLogLevel level = service(Configuration.class).get(LOG_LEVEL);
+        StdLogLevel level = service(Configuration.class).get(LOG_LEVEL);
         Level logLevel = service(Configuration.class).has(LOG_LEVEL) ?
-            fluentnessLogLevelToOwnLogLevel(level) :
+            StdLogLevelToOwnLogLevel(level) :
             Level.ALL;
 
         internalLogger = java.util.logging.Logger.getLogger("");
@@ -99,22 +99,22 @@ public class JulLogger implements Logger<Level> {
     }
 
     @Override
-    public FluentnessLogLevel ownLogLevelToFluentnessLogLevel(Level level) {
+    public StdLogLevel ownLogLevelToStdLogLevel(Level level) {
         return
-            level.equals(Level.ALL) || level.equals(Level.FINEST) || level.equals(Level.FINER) || level.equals(Level.FINE) ? FluentnessLogLevel.DBUG :
-                level.equals(Level.CONFIG) || level.equals(Level.INFO) ? FluentnessLogLevel.INFO :
-                    level.equals(Level.WARNING) ? FluentnessLogLevel.WARN :
-                        level.equals(Level.SEVERE) ? FluentnessLogLevel.ERRO :
-                            FluentnessLogLevel.NONE;
+            level.equals(Level.ALL) || level.equals(Level.FINEST) || level.equals(Level.FINER) || level.equals(Level.FINE) ? StdLogLevel.DBUG :
+                level.equals(Level.CONFIG) || level.equals(Level.INFO) ? StdLogLevel.INFO :
+                    level.equals(Level.WARNING) ? StdLogLevel.WARN :
+                        level.equals(Level.SEVERE) ? StdLogLevel.ERRO :
+                            StdLogLevel.NONE;
     }
 
     @Override
-    public Level fluentnessLogLevelToOwnLogLevel(FluentnessLogLevel level) {
+    public Level StdLogLevelToOwnLogLevel(StdLogLevel level) {
         return
-            level.equals(FluentnessLogLevel.DBUG) ? Level.ALL :
-                level.equals(FluentnessLogLevel.INFO) ? Level.INFO :
-                    level.equals(FluentnessLogLevel.WARN) ? Level.WARNING :
-                        level.equals(FluentnessLogLevel.ERRO) ? Level.SEVERE :
+            level.equals(StdLogLevel.DBUG) ? Level.ALL :
+                level.equals(StdLogLevel.INFO) ? Level.INFO :
+                    level.equals(StdLogLevel.WARN) ? Level.WARNING :
+                        level.equals(StdLogLevel.ERRO) ? Level.SEVERE :
                             Level.OFF;
     }
 

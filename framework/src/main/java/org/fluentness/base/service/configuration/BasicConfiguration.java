@@ -1,6 +1,6 @@
 package org.fluentness.base.service.configuration;
 
-import org.fluentness.base.service.logger.FluentnessLogLevel;
+import org.fluentness.base.service.logger.StdLogLevel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class BasicConfiguration implements Configuration {
         set(APP_PROTOCOL, "http");
         set(APP_HOSTNAME, "localhost");
         set(APP_PORT, 8000);
-        set(LOG_LEVEL, FluentnessLogLevel.INFO);
+        set(LOG_LEVEL, StdLogLevel.INFO);
         set(ENABLE_LOG_TO_CONSOLE, true);
         set(ENABLE_LOG_TO_FILE, false);
         set(ENABLE_CACHE, true);

@@ -1,6 +1,6 @@
 package org.fluentness.base.service.logger;
 
-public enum FluentnessLogLevel {
+public enum StdLogLevel {
     NONE,
     ERRO,
     WARN,

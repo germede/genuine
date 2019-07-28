@@ -19,9 +19,9 @@ public interface Logger<OwnLogLevel> extends Service {
 
     void error(Exception exception);
 
-    FluentnessLogLevel ownLogLevelToFluentnessLogLevel(OwnLogLevel level);
+    StdLogLevel ownLogLevelToStdLogLevel(OwnLogLevel level);
 
-    OwnLogLevel fluentnessLogLevelToOwnLogLevel(FluentnessLogLevel level);
+    OwnLogLevel StdLogLevelToOwnLogLevel(StdLogLevel level);
 
 }
 

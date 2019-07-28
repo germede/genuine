@@ -1,6 +1,6 @@
 package org.fluentness.base.service.configuration;
 
-import org.fluentness.base.service.logger.FluentnessLogLevel;
+import org.fluentness.base.service.logger.StdLogLevel;
 
 public interface Key<T> {
 
@@ -22,7 +22,7 @@ public interface Key<T> {
         ENABLE_STYLE_MINIFY
     }
 
-    enum LogLevel implements Key<FluentnessLogLevel> {
+    enum LogLevel implements Key<StdLogLevel> {
         LOG_LEVEL,
     }
 }
