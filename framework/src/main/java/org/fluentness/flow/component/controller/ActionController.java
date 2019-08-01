@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import static org.fluentness.base.common.constant.HttpMethods.*;
 import static org.fluentness.base.common.constant.HttpStatusCodes.OK;
 
-public interface ControllerFactory {
+public interface ActionController {
 
     default Controller actions(String baseRoute, Action... actions) {
         return new Controller(baseRoute, actions);

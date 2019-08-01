@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class FluentnessTaskProvider extends TaskProvider {
+public class FluentnessTaskProvider extends AbstractTaskProvider {
 
     @Inject
     Logger logger;
@@ -23,7 +23,7 @@ public class FluentnessTaskProvider extends TaskProvider {
     Server server;
 
     @Inject
-    TaskProvider taskProvider;
+    AbstractTaskProvider taskProvider;
 
     @Inject
     ControllerProvider controllerProvider;
@@ -76,7 +76,7 @@ public class FluentnessTaskProvider extends TaskProvider {
     );
 
     Task server_start = does("Starts embedded HTTP server",
-        arguments -> server.start(controllerProvider.getRouting())
+        arguments -> server.start(controllerProvider.getRoutes())
     );
 
     Task server_stop = does("Stops embedded HTTP server",

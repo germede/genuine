@@ -21,8 +21,8 @@ public abstract class Provider<C extends Component> {
             try {
                 Field[] fields = this.getClass().getDeclaredFields();
                 // todo: improve adding default tasks
-                if (this instanceof TaskProvider) {
-                    fields = Stream.concat(Arrays.stream(fields), Arrays.stream(TaskProvider.class.getDeclaredFields())).toArray(Field[]::new);
+                if (this instanceof AbstractTaskProvider) {
+                    fields = Stream.concat(Arrays.stream(fields), Arrays.stream(AbstractTaskProvider.class.getDeclaredFields())).toArray(Field[]::new);
                 }
                 for (Field field : fields) {
                     if (field.getModifiers() != 0) {
@@ -49,9 +49,7 @@ public abstract class Provider<C extends Component> {
                     }
                     components.add(component);
                 }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ProviderException e) {
+            } catch (IllegalAccessException | ProviderException e) {
                 e.printStackTrace();
             }
         }

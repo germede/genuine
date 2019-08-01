@@ -3,7 +3,7 @@ package org.fluentness.base.service.logger;
 import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.base.common.constant.PrivateDirectories;
 import org.fluentness.base.common.exception.DefinitionException;
-import org.fluentness.base.service.configuration.Configuration;
+import org.fluentness.base.service.configuration.ConfigurationService;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,16 +14,16 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
-import static org.fluentness.base.service.configuration.Configuration.ENABLE_LOG_TO_CONSOLE;
-import static org.fluentness.base.service.configuration.Configuration.ENABLE_LOG_TO_FILE;
-import static org.fluentness.base.service.configuration.Configuration.LOG_LEVEL;
+import static org.fluentness.base.service.configuration.ConfigurationService.ENABLE_LOG_TO_CONSOLE;
+import static org.fluentness.base.service.configuration.ConfigurationService.ENABLE_LOG_TO_FILE;
+import static org.fluentness.base.service.configuration.ConfigurationService.LOG_LEVEL;
 
 public class JulLogger implements Logger<Level> {
 
     private final java.util.logging.Logger logger;
 
     @Inject
-    Configuration configuration;
+    ConfigurationService configuration;
 
     public JulLogger() throws DefinitionException {
 

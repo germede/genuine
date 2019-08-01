@@ -1,6 +1,5 @@
-package org.fluentness.flow.component.localization;
+package org.fluentness.base.service.localization;
 
-import org.fluentness.flow.provider.LocalizationProvider;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -8,23 +7,23 @@ public class LocaleProviderTest {
 
     @Test
     public void getProvidedComponentType_always_LocaleIsReturned() {
-        LocalizationProvider localeProducer = new LocalizationProvider() {
+        LocalizationService localeProducer = new LocalizationService() {
         };
 
-        Assert.assertEquals(Localization.class, localeProducer.getComponentClass());
+        Assert.assertEquals(LocalizationService.class, localeProducer.getComponentClass());
     }
 
     @Test
     public void translations_translationsAreGiven_newLocaleIsReturned() {
-        LocalizationProvider localeProducer = new LocalizationProvider() {
+        LocalizationService localeProducer = new LocalizationService() {
         };
 
-        Localization expectedLocale = new Localization(
+        LocalizationService expectedLocale = new LocalizationService(
             test_message -> "Test Message",
             test_message2 -> "Test Message 2",
             test_message3 -> "Test Message 3"
         );
-        Localization actualLocale = localeProducer.translations(
+        LocalizationService actualLocale = localeProducer.translations(
             test_message -> "Test Message",
             test_message2 -> "Test Message 2",
             test_message3 -> "Test Message 3"

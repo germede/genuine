@@ -1,4 +1,4 @@
-package org.fluentness.quatsch;
+package org.fluentness.base.service.localization;
 
 public enum Language {
 

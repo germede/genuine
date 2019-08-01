@@ -1,9 +1,9 @@
-package org.fluentness.quatsch;
+package org.fluentness.base.service.localization;
 
 import java.lang.annotation.*;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Translates {
+@interface Translates {
     Translate[] value();
 }

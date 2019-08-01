@@ -1,9 +1,9 @@
-package sample.flow;
+package com.sample.flow;
 
 import org.fluentness.flow.component.task.Task;
-import org.fluentness.flow.provider.TaskProvider;
+import org.fluentness.flow.provider.AbstractTaskProvider;
 
-public class Tasks extends TaskProvider {
+public class TaskProvider extends AbstractTaskProvider {
 
     Task say_hello = does("Say hello to someone",
         arguments -> {

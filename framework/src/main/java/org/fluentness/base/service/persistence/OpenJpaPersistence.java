@@ -3,19 +3,19 @@ package org.fluentness.base.service.persistence;
 import org.apache.openjpa.lib.log.LogFactory;
 import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.base.common.exception.DefinitionException;
-import org.fluentness.base.service.configuration.Configuration;
+import org.fluentness.base.service.configuration.ConfigurationService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.fluentness.base.service.configuration.Configuration.PERSISTENCE_UNIT;
+import static org.fluentness.base.service.configuration.ConfigurationService.PERSISTENCE_UNIT;
 
 public class OpenJpaPersistence implements Persistence {
 
     @Inject
-    Configuration configuration;
+    ConfigurationService configuration;
     
     private final EntityManager entityManager;
 

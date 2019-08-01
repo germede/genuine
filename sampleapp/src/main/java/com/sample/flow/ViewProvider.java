@@ -1,33 +1,36 @@
-package sample.flow;
+package com.sample.flow;
 
+import com.sample.base.LocalizationService;
 import com.sample.data.Song;
-import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.flow.component.view.View;
-import org.fluentness.flow.provider.ViewProvider;
 
-public class Views extends ViewProvider {
+public class ViewProvider extends org.fluentness.flow.provider.ViewProvider {
 
-    @Inject
-    Styles styles;
+    StyleProvider styles;
+    FormProvider forms;
+    LocalizationService ls;
 
-    @Inject
-    Forms forms;
+    public ViewProvider(StyleProvider styles, FormProvider forms, LocalizationService ls) {
+        this.styles = styles;
+        this.forms = forms;
+        this.ls = ls;
+    }
 
     private View base(View toInclude) {
         return html(
-            head(
-                title("A music archive made with love and Fluentness"),
-                meta(NAME -> "lang", CONTENT -> "en"),
-                meta(CHARSET -> "utf-8"),
-                style(styles.bundle),
-                includeJs("script.min.js")
-            ),
-            body(
-                div(attrs(CLASS -> "container"),
-                    h1(translate("welcome_message")),
-                    toInclude
+                head(
+                        title("A music archive made with love and Fluentness"),
+                        meta(NAME -> "lang", CONTENT -> "en"),
+                        meta(CHARSET -> "utf-8"),
+                        style(styles.bundle),
+                        includeJs("script.min.js")
+                ),
+                body(
+                        div(attrs(CLASS -> "container"),
+                                h1(ls.translate(ls.welcomeMessage)),
+                                toInclude
+                        )
                 )
-            )
         );
     }
 

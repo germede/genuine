@@ -1,11 +1,11 @@
-package sample.flow;
+package com.sample.flow;
 
 import org.fluentness.flow.component.style.Style;
 import org.fluentness.flow.provider.StyleProvider;
 
 import static org.fluentness.flow.component.style.CssProperty.*;
 
-public class Styles extends StyleProvider {
+public class StyleProvider extends org.fluentness.flow.provider.StyleProvider {
 
     private Style milligram = external("res/css/milligram.min.css");
 

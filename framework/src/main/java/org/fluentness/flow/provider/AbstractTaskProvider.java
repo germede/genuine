@@ -6,7 +6,7 @@ import org.fluentness.flow.component.task.Task;
 import org.fluentness.flow.component.task.TaskFactory;
 
 @DefinitionPriority(2500)
-public abstract class TaskProvider extends Provider<Task> implements TaskFactory {
+public abstract class AbstractTaskProvider extends Provider<Task> implements TaskFactory {
 
     @Override
     public final Class<Task> getComponentClass() {

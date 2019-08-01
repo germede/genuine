@@ -1,6 +1,6 @@
 package org.fluentness.flow.component.view;
 
-import org.fluentness.base.common.lambda.KeyValuePair;
+import org.fluentness.base.common.lambda.KeyValuePairLambda;
 import org.fluentness.flow.component.Component;
 
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public abstract class View extends Component {
         return parameters.get(Thread.currentThread()).get(parameter);
     }
 
-    public View assigning(KeyValuePair<Object>... parameters) {
+    public View assigning(KeyValuePairLambda<Object>... parameters) {
         if (View.parameters.containsKey(Thread.currentThread())) {
             View.parameters.get(Thread.currentThread()).clear();
         } else {

@@ -1,6 +1,6 @@
 package org.fluentness.flow.component.view;
 
-import org.fluentness.flow.component.localization.Localizator;
+import org.fluentness.base.service.localization.Localizator;
 
 import java.util.function.Function;
 

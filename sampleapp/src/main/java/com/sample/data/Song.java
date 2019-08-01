@@ -1,4 +1,4 @@
-package sample.data;
+package com.sample.data;
 
 import org.fluentness.data.model.Model;
 

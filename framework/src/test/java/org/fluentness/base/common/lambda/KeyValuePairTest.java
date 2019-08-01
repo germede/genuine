@@ -15,7 +15,7 @@ public class KeyValuePairTest {
 
     @Test
     public void getters_keyArg0IsSet_nullIsReturned() {
-        KeyValuePair<String> stringKeyValuePair = arg0 -> "theValue";
+        KeyValuePairLambda<String> stringKeyValuePair = arg0 -> "theValue";
 
         Assert.assertNull(stringKeyValuePair.getKey());
         Assert.assertEquals("theValue", stringKeyValuePair.getValue());

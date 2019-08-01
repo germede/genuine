@@ -1,6 +1,6 @@
 package org.fluentness.flow.component.style;
 
-import org.fluentness.base.common.lambda.KeyValuePairImpl;
+import org.fluentness.base.common.lambda.KeyValuePair;
 
 public interface StyleFactory {
 
@@ -8,16 +8,16 @@ public interface StyleFactory {
         return new CssStyle(selectors);
     }
 
-    default CssSelector select(String selector, KeyValuePairImpl<String>... rules) {
+    default CssSelector select(String selector, KeyValuePair<String>... rules) {
         return new CssSelector(selector, rules);
     }
 
-    default KeyValuePairImpl<String> property(CssProperty key, String value) {
-        return new KeyValuePairImpl<>(key.toString(), value);
+    default KeyValuePair<String> property(CssProperty key, String value) {
+        return new KeyValuePair<>(key.toString(), value);
     }
 
-    default KeyValuePairImpl<String> property(String key, String value) {
-        return new KeyValuePairImpl<>(key, value);
+    default KeyValuePair<String> property(String key, String value) {
+        return new KeyValuePair<>(key, value);
     }
 
     default Style external(String path) {

@@ -1,4 +1,4 @@
-package org.fluentness.flow.component.localization;
+package org.fluentness.base.service.localization;
 
 import org.fluentness.flow.component.view.ViewPlaceholders;
 import org.junit.Assert;

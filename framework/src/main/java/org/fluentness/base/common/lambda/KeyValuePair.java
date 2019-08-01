@@ -1,30 +1,20 @@
 package org.fluentness.base.common.lambda;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
+public class KeyValuePair<T> {
 
-public interface KeyValuePair<T> extends MethodFinder, Function<String, T> {
+    private String key;
+    private T value;
 
-    Map<String, String> keyCache = new HashMap<>();
+    public KeyValuePair(String key, T value) {
+        this.key = key;
+        this.value = value;
+    }
 
-    default String getKey() {
-        String lambdaClassName = this.getClass().getName();
-        if (keyCache.containsKey(lambdaClassName)) {
-            return keyCache.get(lambdaClassName);
-        }
-//        if ("arg0".equals(parameter().getName())) {
-//            System.out.println(service(Logger.class)!= null);
-//            service(Logger.class).warn("You need to compile with javac -parameters for parameter reflection");
-//            return null;
-//        }
-//        service(Logger.class).warn("You need to compile with javac -parameters for parameter reflection");
-        String key = parameter().getName();
-        keyCache.put(lambdaClassName, key);
+    public String getKey() {
         return key;
     }
 
-    default T getValue() {
-        return apply(getKey());
+    public T getValue() {
+        return value;
     }
 }

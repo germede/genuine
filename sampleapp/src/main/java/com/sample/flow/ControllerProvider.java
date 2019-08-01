@@ -1,18 +1,18 @@
-package sample.flow;
+package com.sample.flow;
 
+import com.sample.data.SongRepository;
 import org.fluentness.flow.component.controller.Controller;
 import org.fluentness.flow.provider.ControllerProvider;
 import sample.data.Song;
-import sample.data.SongRepository;
 
 import java.util.List;
 
-public class Controllers extends ControllerProvider {
+public class ControllerProvider extends org.fluentness.flow.provider.ControllerProvider {
 
-    Views views;
+    ViewProvider views;
     SongRepository songRepository;
 
-    public Controllers(Views views, SongRepository songRepository) {
+    public ControllerProvider(ViewProvider views, SongRepository songRepository) {
         this.views = views;
         this.songRepository = songRepository;
     }

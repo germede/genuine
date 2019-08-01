@@ -1,10 +1,10 @@
 package org.fluentness.flow.component.view;
 
-import org.fluentness.base.common.lambda.KeyValuePair;
+import org.fluentness.base.common.lambda.KeyValuePairLambda;
 
 public class MarkupElementEmpty extends MarkupElement {
 
-    protected MarkupElementEmpty(String tag, KeyValuePair<String>... attributes) {
+    protected MarkupElementEmpty(String tag, KeyValuePairLambda<String>... attributes) {
         super(false);
         this.tag = tag;
         this.attributes = new MarkupAttributes(attributes);

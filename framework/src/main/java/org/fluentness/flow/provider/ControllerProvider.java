@@ -4,21 +4,21 @@ import org.fluentness.base.common.annotation.DefinitionPriority;
 import org.fluentness.base.service.server.HttpHandler;
 import org.fluentness.flow.component.controller.Action;
 import org.fluentness.flow.component.controller.Controller;
-import org.fluentness.flow.component.controller.ControllerFactory;
+import org.fluentness.flow.component.controller.ActionController;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @DefinitionPriority(2400)
-public abstract class ControllerProvider extends Provider<Controller> implements ControllerFactory {
+public abstract class ControllerProvider extends Provider<Controller> implements ActionController {
 
     @Override
     public final Class<Controller> getComponentClass() {
         return Controller.class;
     }
 
-    public Map<String, HttpHandler> getRouting() {
+    public Map<String, HttpHandler> getRoutes() {
         Map<String, HttpHandler> pathActionHandlerMap = new HashMap<>();
         for (Controller controller : provideComponents()) {
             for (Action action : controller.getActions()) {

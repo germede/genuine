@@ -1,14 +1,14 @@
 package org.fluentness.flow.component.form;
 
 
-import org.fluentness.base.common.lambda.KeyValuePair;
+import org.fluentness.base.common.lambda.KeyValuePairLambda;
 import org.fluentness.flow.component.view.MarkupElement;
 import org.fluentness.flow.component.view.MarkupElementEmpty;
 import org.fluentness.flow.component.view.View;
 
 public class Field extends MarkupElementEmpty {
 
-    Field(String fieldType, KeyValuePair<String>[] attributes) {
+    Field(String fieldType, KeyValuePairLambda<String>[] attributes) {
         super("input", attributes);
         this.attributes.add(type -> fieldType);
     }

@@ -1,8 +1,7 @@
 package org.fluentness.data.repository;
 
 import org.fluentness.base.common.annotation.DefinitionPriority;
-import org.fluentness.base.common.annotation.Inject;
-import org.fluentness.base.common.lambda.KeyValuePair;
+import org.fluentness.base.common.lambda.KeyValuePairLambda;
 import org.fluentness.base.service.logger.Logger;
 import org.fluentness.base.service.persistence.Persistence;
 import org.fluentness.data.model.Model;
@@ -15,12 +14,13 @@ import java.util.List;
 @DefinitionPriority(1000)
 public abstract class Repository<M extends Model> {
 
-    @Inject
     Persistence persistence;
-
-    @Inject
     Logger logger;
 
+    public Repository(Persistence persistence, Logger logger) {
+        this.persistence = persistence;
+        this.logger = logger;
+    }
 
     protected Class<M> getModelClass() {
         String modelClassName = this.getClass().getCanonicalName().replace("Repository", "");
@@ -64,12 +64,10 @@ public abstract class Repository<M extends Model> {
             em().persist(model);
             em().flush();
             commitTransaction();
-            logger
-                .debug("%s record created successfully", getModelClass().getSimpleName());
+            logger.debug("%s record created successfully", getModelClass().getSimpleName());
             return true;
         }
-        logger
-            .debug("%s record already exists, cannot create", getModelClass().getSimpleName());
+        logger.debug("%s record already exists, cannot create", getModelClass().getSimpleName());
         return false;
     }
 
@@ -116,7 +114,7 @@ public abstract class Repository<M extends Model> {
             em().find(getModelClass(), id);
     }
 
-    protected Query parametrizedQuery(Query query, KeyValuePair<Object>... parameters) {
+    protected Query parametrizedQuery(Query query, KeyValuePairLambda<Object>... parameters) {
         Arrays.stream(parameters).forEach(
             parameter -> query.setParameter(parameter.getKey(), parameter.getValue())
         );

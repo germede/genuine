@@ -1,4 +1,4 @@
-package org.fluentness.quatsch;
+package org.fluentness.base.service.localization;
 
 import java.lang.annotation.*;
 
