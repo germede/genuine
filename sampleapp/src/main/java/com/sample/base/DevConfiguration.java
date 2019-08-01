@@ -1,4 +1,4 @@
-package com.sample.base;
+package sample.base;
 
 import org.fluentness.base.service.configuration.AbstractConfiguration;
 

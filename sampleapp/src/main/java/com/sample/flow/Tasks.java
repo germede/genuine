@@ -1,4 +1,4 @@
-package com.sample.flow;
+package sample.flow;
 
 import org.fluentness.flow.component.task.Task;
 import org.fluentness.flow.provider.TaskProvider;

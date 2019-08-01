@@ -1,4 +1,4 @@
-package com.sample.flow;
+package sample.flow;
 
 import org.fluentness.flow.component.localization.Localization;
 import org.fluentness.flow.provider.LocalizationProvider;

@@ -1,13 +1,15 @@
 package org.fluentness;
 
 import org.fluentness.base.Base;
-import org.fluentness.base.common.Definer;
+import org.fluentness.base.BaseDefiner;
+import org.fluentness.data.DataDefiner;
 import org.fluentness.base.common.exception.DefinitionException;
-import org.fluentness.base.common.exception.ExecutionException;
+import org.fluentness.base.common.exception.InvocationException;
 import org.fluentness.base.common.exception.TaskNotFoundException;
 import org.fluentness.base.common.exception.WrongUseOfTaskException;
 import org.fluentness.data.Data;
 import org.fluentness.flow.Flow;
+import org.fluentness.flow.FlowDefiner;
 import org.fluentness.flow.component.task.Task;
 import org.fluentness.flow.provider.FluentnessTaskProvider;
 
@@ -16,23 +18,25 @@ public final class Fluentness {
     private static Fluentness proxy;
 
     private Fluentness() {
-        // instances of the class Fluentness are only used as proxy, avoiding instantiations or illegal modification of
-        // base, data and flow
+        // instance of the class Fluentness is only used as proxy, avoiding instantiations of base, data and flow
     }
 
-    public static void define(Definer definer) {
+    public static void define(BaseDefiner baseDefiner, DataDefiner dataDefiner, FlowDefiner flowDefiner) {
         proxy = new Fluentness();
         try {
             Base base = Base.getInstance(proxy);
-            Data data = Data.getInstance(proxy);
-            Flow flow = Flow.getInstance(proxy);
-
-            definer.define(base, data, flow);
-
+            baseDefiner.define(base);
             base.disallowDefinition();
-            data.disallowDefinition();
-            flow.disallowDefinition();
 
+
+            Data data = Data.getInstance(proxy);
+            dataDefiner.define(data);
+            data.disallowDefinition();
+
+            Flow flow = Flow.getInstance(proxy);
+            flowDefiner.define(flow);
+            flow.disallowDefinition();
+            
         } catch (DefinitionException e) {
             e.printStackTrace();
         }
@@ -76,9 +80,9 @@ public final class Fluentness {
                 taskToExecute.execute(arguments);
 
             } catch (TaskNotFoundException | WrongUseOfTaskException e) {
-                throw new ExecutionException(e);
+                throw new InvocationException(e);
             }
-        } catch (ExecutionException ex) {
+        } catch (InvocationException ex) {
             ex.printStackTrace();
         }
     }

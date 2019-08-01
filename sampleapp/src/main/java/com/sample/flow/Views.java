@@ -1,4 +1,4 @@
-package com.sample.flow;
+package sample.flow;
 
 import com.sample.data.Song;
 import org.fluentness.base.common.annotation.Inject;

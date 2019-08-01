@@ -1,21 +1,21 @@
-package com.sample.flow;
+package sample.flow;
 
-import com.sample.data.Song;
-import com.sample.data.SongRepository;
-import org.fluentness.base.common.annotation.Inject;
 import org.fluentness.flow.component.controller.Controller;
 import org.fluentness.flow.provider.ControllerProvider;
+import sample.data.Song;
+import sample.data.SongRepository;
 
 import java.util.List;
 
 public class Controllers extends ControllerProvider {
 
-    @Inject
     Views views;
-
-    @Inject
     SongRepository songRepository;
 
+    public Controllers(Views views, SongRepository songRepository) {
+        this.views = views;
+        this.songRepository = songRepository;
+    }
 
     Controller base = actions(
         get("/", request -> redirect("/song/list")),

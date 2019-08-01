@@ -1,4 +1,4 @@
-package com.sample.flow;
+package sample.flow;
 
 import org.fluentness.flow.component.style.Style;
 import org.fluentness.flow.provider.StyleProvider;
