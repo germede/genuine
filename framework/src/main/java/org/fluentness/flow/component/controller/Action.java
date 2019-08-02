@@ -1,13 +1,15 @@
 package org.fluentness.flow.component.controller;
 
+import org.fluentness.base.common.constant.HttpMethod;
+
 public class Action {
 
     private String name;
-    private String method;
+    private HttpMethod method;
     private String route;
-    private ActionHandler executor;
+    private Controlleri executor;
 
-    protected Action(String method, String route, ActionHandler executor) {
+    Action(HttpMethod method, String route, Controlleri executor) {
         this.method = method;
         this.route = route;
         this.executor = executor;
@@ -21,7 +23,7 @@ public class Action {
         this.name = name;
     }
 
-    public String getMethod() {
+    public HttpMethod getMethod() {
         return method;
     }
 
@@ -29,7 +31,7 @@ public class Action {
         return route;
     }
 
-    public ActionHandler getExecutor() {
+    public Controlleri getExecutor() {
         return executor;
     }
 }

@@ -2,9 +2,9 @@ package com.sample.flow;
 
 import org.fluentness.flow.component.form.Field;
 import org.fluentness.flow.component.form.Form;
-import org.fluentness.flow.provider.FormProvider;
+import org.fluentness.flow.provider.Provider;
 
-public class FormProvider extends org.fluentness.flow.provider.FormProvider {
+public class FormProvider implements Provider<Form> {
 
     private Field textField(String idString, String placeholderKey, String labelKey) {
         return text(

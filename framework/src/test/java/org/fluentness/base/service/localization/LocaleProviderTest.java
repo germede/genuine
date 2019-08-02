@@ -7,23 +7,23 @@ public class LocaleProviderTest {
 
     @Test
     public void getProvidedComponentType_always_LocaleIsReturned() {
-        LocalizationService localeProducer = new LocalizationService() {
+        Localization localeProducer = new Localization() {
         };
 
-        Assert.assertEquals(LocalizationService.class, localeProducer.getComponentClass());
+        Assert.assertEquals(Localization.class, localeProducer.getComponentClass());
     }
 
     @Test
     public void translations_translationsAreGiven_newLocaleIsReturned() {
-        LocalizationService localeProducer = new LocalizationService() {
+        Localization localeProducer = new Localization() {
         };
 
-        LocalizationService expectedLocale = new LocalizationService(
+        Localization expectedLocale = new Localization(
             test_message -> "Test Message",
             test_message2 -> "Test Message 2",
             test_message3 -> "Test Message 3"
         );
-        LocalizationService actualLocale = localeProducer.translations(
+        Localization actualLocale = localeProducer.translations(
             test_message -> "Test Message",
             test_message2 -> "Test Message 2",
             test_message3 -> "Test Message 3"

@@ -6,10 +6,10 @@ import java.util.Arrays;
 
 public class CssSelector {
 
-    String selector;
-    KeyValuePair<String>[] rules;
+    private String selector;
+    private KeyValuePair<String>[] rules;
 
-    CssSelector(String selector, KeyValuePair<String>... rules) {
+    CssSelector(String selector, String... rules) {
         this.selector = selector;
         this.rules = rules;
     }

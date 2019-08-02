@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public abstract class Style extends Component {
+public abstract class Style implements Component {
 
     public void writeToFile(String path) {
         try {

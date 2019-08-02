@@ -1,15 +1,17 @@
-package org.fluentness.flow.component.view;
+package org.fluentness.flow.component.view.control;
+
+import org.fluentness.flow.component.view.View;
 
 import java.util.Collection;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class ForEachView<T> extends View {
+public class IfElseView<T> extends View {
 
     private String parameter;
     private Function<T, View> function;
 
-    ForEachView(String parameter, Function<T, View> function) {
+    IfElseView(String condition, Function<T, View> function) {
         this.parameter = parameter;
         this.function = function;
     }

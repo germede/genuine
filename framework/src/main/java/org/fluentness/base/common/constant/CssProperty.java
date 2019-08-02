@@ -1,4 +1,4 @@
-package org.fluentness.flow.component.style;
+package org.fluentness.base.common.constant;
 
 public enum CssProperty {
     align_content,

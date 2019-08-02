@@ -1,21 +1,32 @@
 package com.sample.flow;
 
+import com.sample.data.Song;
 import com.sample.data.SongRepository;
+import org.fluentness.base.common.constant.HttpStatusCode;
 import org.fluentness.flow.component.controller.Controller;
-import org.fluentness.flow.provider.ControllerProvider;
-import sample.data.Song;
+import org.fluentness.flow.component.controller.Controlleri;
+import org.fluentness.flow.provider.Provider;
 
 import java.util.List;
 
-public class ControllerProvider extends org.fluentness.flow.provider.ControllerProvider {
+import static org.fluentness.flow.component.controller.ControllerFactory.*;
+import static org.fluentness.flow.component.controller.HttpServletResponseFactory.*;
 
-    ViewProvider views;
-    SongRepository songRepository;
+public class ControllerProvider implements Provider<Controller> {
 
-    public ControllerProvider(ViewProvider views, SongRepository songRepository) {
-        this.views = views;
+    private ViewProvider viewProvider;
+    private SongRepository songRepository;
+
+    public ControllerProvider(ViewProvider viewProvider, SongRepository songRepository) {
+        this.viewProvider = viewProvider;
         this.songRepository = songRepository;
     }
+
+    @Route("/test", method = )
+    Controlleri test = request -> response(HttpStatusCode.OK, "yea");
+
+    @Route("/", method = )
+    Controlleri index = request -> test.handle(request);
 
     Controller base = actions(
         get("/", request -> redirect("/song/list")),
@@ -31,8 +42,8 @@ public class ControllerProvider extends org.fluentness.flow.provider.ControllerP
     Controller song = actions("/song",
         get("/list", request ->
             render(
-                views.songList.assigning(
-                    songs -> songRepository.findAll(),
+                viewProvider.songList.assigning(
+                    songs -> this.songRepository.findAll(),
                     testBoolean -> true,
                     testParameter -> 1234
                 )
@@ -42,10 +53,10 @@ public class ControllerProvider extends org.fluentness.flow.provider.ControllerP
         get("/search", request -> {
                 List<Song> songList = songRepository
                     .findByTitle("%" + request.getParameter("title") + "%");
-                return render(views.songList.assigning(songs -> songList));
+                return render(viewProvider.songList.assigning(songs -> songList));
             }
         ),
-        get("/create", request -> render(views.createSong)),
+        get("/create", request -> render(viewProvider.createSong)),
         post("/create/submit", request ->
             {
 

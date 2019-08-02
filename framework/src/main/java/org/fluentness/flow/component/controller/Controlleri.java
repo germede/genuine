@@ -5,6 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @FunctionalInterface
-public interface ActionHandler {
+public interface Controlleri {
     HttpServletResponse handle(HttpServletRequest request) throws IOException;
 }

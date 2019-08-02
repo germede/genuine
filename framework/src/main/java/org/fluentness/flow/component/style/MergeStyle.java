@@ -2,11 +2,11 @@ package org.fluentness.flow.component.style;
 
 import java.util.Arrays;
 
-public class BundleStyle extends Style {
+public class MergeStyle extends Style {
 
     private Style[] styles;
 
-    BundleStyle(Style[] styles) {
+    MergeStyle(Style[] styles) {
         this.styles = styles;
     }
 

@@ -237,7 +237,8 @@ public enum Language {
         this.fullName = fullName;
     }
 
-    public String getFullName() {
+    @Override
+    public String toString() {
         return fullName;
     }
 }

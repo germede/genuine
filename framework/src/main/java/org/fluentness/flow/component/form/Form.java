@@ -1,5 +1,6 @@
 package org.fluentness.flow.component.form;
 
+import org.fluentness.base.common.constant.HttpMethod;
 import org.fluentness.base.common.lambda.KeyValuePairLambda;
 import org.fluentness.flow.component.view.MarkupAttributes;
 import org.fluentness.flow.component.view.MarkupElement;
@@ -8,9 +9,9 @@ import org.fluentness.flow.component.view.View;
 
 public class Form extends MarkupElementContainer {
 
-    Form(String methodValue, String actionValue, KeyValuePairLambda<Field>[] fields) {
+    Form(HttpMethod methodValue, String actionValue, KeyValuePairLambda<Field>[] fields) {
         super("form");
-        attributes = new MarkupAttributes(method -> methodValue, action -> actionValue);
+        attributes = new MarkupAttributes(method + methodValue, action -> actionValue);
         innerViews = new View[fields.length];
         for (int i = 0; i < fields.length; i++) {
             KeyValuePairLambda<Field> field = fields[i];
@@ -32,3 +33,8 @@ public class Form extends MarkupElementContainer {
         return (Form) super.followedBy(successors);
     }
 }
+
+
+Base -> Services
+Data -> Repositories -> Models
+Flow -> Providers -> Factories -> Components

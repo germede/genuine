@@ -32,11 +32,11 @@ public abstract class AbstractException extends Exception {
         }
     }
 
-    public AbstractException(Exception exception) {
+    AbstractException(Exception exception) {
         this.exception = exception;
     }
 
-    public AbstractException(String messageToFormat, Object... parameters) {
+    AbstractException(String messageToFormat, Object... parameters) {
         this.message = String.format(messageToFormat, parameters);
     }
 }

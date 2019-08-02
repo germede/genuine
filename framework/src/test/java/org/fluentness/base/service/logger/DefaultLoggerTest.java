@@ -29,7 +29,7 @@ public class DefaultLoggerTest {
 //        throws IOException {
 //
 //        Fluentness.getBase().getConfig().set(LOG_LEVEL, "OFF");
-//        Fluentness.getBase().getConfig().set(ENABLE_LOG_TO_CONSOLE, false);
+//        Fluentness.getBase().getConfig().set(LOG_TO_CONSOLE, false);
 //        Fluentness.getBase().getLogger().initialize();
 //
 //        Assert.assertEquals("OFF", internalLogger.getLevel().toString());
@@ -47,7 +47,7 @@ public class DefaultLoggerTest {
 //        throws IOException {
 //
 //        Fluentness.getBase().getConfig().set(LOG_LEVEL, "WARNING");
-//        Fluentness.getBase().getConfig().set(ENABLE_LOG_TO_FILE, true);
+//        Fluentness.getBase().getConfig().set(LOG_TO_FILE, true);
 //        Fluentness.getBase().getLogger().initialize();
 //
 //        Assert.assertEquals("WARNING", internalLogger.getLevel().toString());

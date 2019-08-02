@@ -1,8 +1,9 @@
-package org.fluentness.flow.component.view;
+package org.fluentness.flow.component.view.html;
 
 import org.fluentness.base.common.lambda.KeyValuePairLambda;
+import org.fluentness.flow.component.view.MarkupElementEmpty;
 
-interface HtmlFunctionsEmpty {
+interface EmptyHtmlViewFactory {
 
     default MarkupElementEmpty area(KeyValuePairLambda<String>... attributes) {
         return new MarkupElementEmpty("area", attributes);

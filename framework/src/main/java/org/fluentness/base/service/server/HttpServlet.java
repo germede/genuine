@@ -7,17 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-public class FluentnessServlet extends HttpServlet {
+public class HttpServlet extends javax.servlet.http.HttpServlet {
 
 
     public static HttpServletResponse response;
     private Map<String, HttpHandler> routing;
 
-    public FluentnessServlet(Map<String, HttpHandler> routing) {
+    HttpServlet(Map<String, HttpHandler> routing) {
         this.routing = routing;
-    }
-
-    public FluentnessServlet() {
     }
 
     @Override

@@ -1,12 +1,12 @@
-package org.fluentness.base.common.annotation;
+package org.fluentness.base.service.configuration;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Inject {
-
+@Retention(RetentionPolicy.RUNTIME)
+@interface Environments {
+    Environment[] value();
 }

@@ -1,30 +1,27 @@
 package com.sample.flow;
 
 import org.fluentness.flow.component.style.Style;
-import org.fluentness.flow.provider.StyleProvider;
+import org.fluentness.flow.provider.Provider;
 
-import static org.fluentness.flow.component.style.CssProperty.*;
+import static org.fluentness.base.common.constant.CssProperty.*;
+import static org.fluentness.flow.component.style.StyleFactory.*;
 
-public class StyleProvider extends org.fluentness.flow.provider.StyleProvider {
+public class StyleProvider implements Provider<Style> {
 
-    private Style milligram = external("res/css/milligram.min.css");
-
-    private Style custom = css(
-        select(".form-inline",
-            property(display, "flex"),
-            property(flex_flow, "row wrap"),
-            property(align_items, "center")
-        ),
-        select(".form-inline > input",
-            property(width, "auto")
-        ),
-        select(".form-inline > input:not(:first-child)",
-            property(margin_left, "5px")
-        )
-    );
-
-    Style bundle = bundle(
-        milligram,
-        custom
+    final Style bundle = merge(
+            external("res/css/milligram.min.css"),
+            css(
+                    select(".form-inline",
+                            display + "flex",
+                            flex_flow + "row wrap",
+                            align_items + "center"
+                    ),
+                    select(".form-inline > input",
+                            width + "auto"
+                    ),
+                    select(".form-inline > input:not(:first-child)",
+                            margin_left + "5px"
+                    )
+            )
     );
 }

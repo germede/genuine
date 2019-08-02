@@ -1,35 +1,34 @@
 package org.fluentness.base.service.configuration;
 
-import org.fluentness.base.service.logger.FluentnessLogLevel;
+import org.fluentness.base.service.logger.LogLevel;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractConfigurationService implements ConfigurationService {
 
-
-    protected Setting<String> app_protocol = new Setting<>("http");
-    protected Setting<String> app_hostname = new Setting<>("localhost");
-    protected Setting<Integer> app_port = new Setting<>(8000);
-    protected Setting<FluentnessLogLevel> log_level = new Setting<>(FluentnessLogLevel.INFO);
-    protected Setting<Boolean> enable_log_to_console = new Setting<>(true);
-    protected Setting<Boolean> enable_log_to_file = new Setting<>(false);
-    protected Setting<Boolean> enable_cache = new Setting<>(true);
-    protected Setting<Boolean> enable_style_minify = new Setting<>(true);
-
+    public static final Setting<String> APP_PROTOCOL = new Setting<>();
+    public static final Setting<String> APP_HOSTNAME = new Setting<>();
+    public static final Setting<Integer> APP_PORT = new Setting<>();
+    public static final Setting<String> PERSISTENCE_UNIT = new Setting<>();
+    public static final Setting<LogLevel> LOG_LEVEL = new Setting<>();
+    public static final Setting<Boolean> LOG_TO_CONSOLE = new Setting<>();
+    public static final Setting<String> LOG_TO_FILE = new Setting<>();
+    public static final Setting<String> VIEW_CACHE_DIRECTORY = new Setting<>();
+    public static final Setting<Boolean> COMPRESS_STYLES = new Setting<>();
 
     private Map<Setting, Object> settings = new HashMap<>();
 
-    {
+    public final String test = "asdf";
+
+    public AbstractConfigurationService() {
         // default settings
         set(APP_PROTOCOL, "http");
         set(APP_HOSTNAME, "localhost");
         set(APP_PORT, 8000);
-        set(LOG_LEVEL, FluentnessLogLevel.INFO);
-        set(ENABLE_LOG_TO_CONSOLE, true);
-        set(ENABLE_LOG_TO_FILE, false);
-        set(ENABLE_CACHE, true);
-        set(ENABLE_STYLE_MINIFY, true);
+        set(LOG_LEVEL, LogLevel.INFO);
+        set(LOG_TO_CONSOLE, true);
+        set(COMPRESS_STYLES, true);
 
         // custom settings
         configure();
@@ -45,8 +44,7 @@ public abstract class AbstractConfigurationService implements ConfigurationServi
         return (T) settings.get(key);
     }
 
-    @Override
-    public <T> ConfigurationService set(Setting<T> key, T value) {
+    protected <T> AbstractConfigurationService set(Setting<T> key, T value) {
         settings.put(key, value);
         return this;
     }

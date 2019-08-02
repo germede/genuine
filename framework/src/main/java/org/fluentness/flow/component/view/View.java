@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class View extends Component {
+public abstract class View implements Component {
 
     private static final Map<Thread, Map<String, Object>> parameters = new HashMap<>();
 

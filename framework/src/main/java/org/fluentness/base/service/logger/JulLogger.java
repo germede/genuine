@@ -1,7 +1,5 @@
 package org.fluentness.base.service.logger;
 
-import org.fluentness.base.common.annotation.Inject;
-import org.fluentness.base.common.constant.PrivateDirectories;
 import org.fluentness.base.common.exception.DefinitionException;
 import org.fluentness.base.service.configuration.ConfigurationService;
 
@@ -14,21 +12,20 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
-import static org.fluentness.base.service.configuration.ConfigurationService.ENABLE_LOG_TO_CONSOLE;
-import static org.fluentness.base.service.configuration.ConfigurationService.ENABLE_LOG_TO_FILE;
-import static org.fluentness.base.service.configuration.ConfigurationService.LOG_LEVEL;
-
 public class JulLogger implements Logger<Level> {
 
-    private final java.util.logging.Logger logger;
+    private ConfigurationService configurationService;
 
-    @Inject
-    ConfigurationService configuration;
+    private java.util.logging.Logger logger;
 
-    public JulLogger() throws DefinitionException {
+    public JulLogger(ConfigurationService configurationService) throws DefinitionException {
+        this.configurationService = configurationService;
+        init();
+    }
 
-        Level logLevel = configuration.has(LOG_LEVEL) ?
-            FluentnessLogLevelToOwnLogLevel(configuration.get(LOG_LEVEL)) :
+    private void init() throws DefinitionException {
+        Level logLevel = configurationService.has(LOG_LEVEL) ?
+            FluentnessLogLevelToOwnLogLevel(configurationService.get(LOG_LEVEL)) :
             Level.ALL;
 
         logger = java.util.logging.Logger.getLogger("");
@@ -39,8 +36,8 @@ public class JulLogger implements Logger<Level> {
         logger.setLevel(logLevel);
 
         // console logging
-        if (configuration.has(ENABLE_LOG_TO_CONSOLE) &&
-            configuration.get(ENABLE_LOG_TO_CONSOLE)) {
+        if (configurationService.has(LOG_TO_CONSOLE) &&
+            configurationService.get(LOG_TO_CONSOLE)) {
 
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new JulFormatter(this));
@@ -49,12 +46,11 @@ public class JulLogger implements Logger<Level> {
         }
 
         // file logging
-        if (configuration.has(ENABLE_LOG_TO_FILE) &&
-            configuration.get(ENABLE_LOG_TO_FILE)) {
+        if (configurationService.has(LOG_TO_FILE)) {
 
             try {
-                new File(PrivateDirectories.LOG).mkdirs();
-                String logFilePath = PrivateDirectories.LOG + "/" +
+                new File(configurationService.get(LOG_TO_FILE)).mkdirs();
+                String logFilePath = configurationService.get(LOG_TO_FILE) + "/" +
                     new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
                 File file = new File(logFilePath);
                 FileHandler fileHandler;
@@ -102,22 +98,22 @@ public class JulLogger implements Logger<Level> {
     }
 
     @Override
-    public FluentnessLogLevel ownLogLevelToFluentnessLogLevel(Level level) {
+    public LogLevel ownLogLevelToFluentnessLogLevel(Level level) {
         return
-            level.equals(Level.ALL) || level.equals(Level.FINEST) || level.equals(Level.FINER) || level.equals(Level.FINE) ? FluentnessLogLevel.DBUG :
-                level.equals(Level.CONFIG) || level.equals(Level.INFO) ? FluentnessLogLevel.INFO :
-                    level.equals(Level.WARNING) ? FluentnessLogLevel.WARN :
-                        level.equals(Level.SEVERE) ? FluentnessLogLevel.ERRO :
-                            FluentnessLogLevel.NONE;
+            level.equals(Level.ALL) || level.equals(Level.FINEST) || level.equals(Level.FINER) || level.equals(Level.FINE) ? LogLevel.DBUG :
+                level.equals(Level.CONFIG) || level.equals(Level.INFO) ? LogLevel.INFO :
+                    level.equals(Level.WARNING) ? LogLevel.WARN :
+                        level.equals(Level.SEVERE) ? LogLevel.ERRO :
+                            LogLevel.NONE;
     }
 
     @Override
-    public Level FluentnessLogLevelToOwnLogLevel(FluentnessLogLevel level) {
+    public Level FluentnessLogLevelToOwnLogLevel(LogLevel level) {
         return
-            level.equals(FluentnessLogLevel.DBUG) ? Level.ALL :
-                level.equals(FluentnessLogLevel.INFO) ? Level.INFO :
-                    level.equals(FluentnessLogLevel.WARN) ? Level.WARNING :
-                        level.equals(FluentnessLogLevel.ERRO) ? Level.SEVERE :
+            level.equals(LogLevel.DBUG) ? Level.ALL :
+                level.equals(LogLevel.INFO) ? Level.INFO :
+                    level.equals(LogLevel.WARN) ? Level.WARNING :
+                        level.equals(LogLevel.ERRO) ? Level.SEVERE :
                             Level.OFF;
     }
 

@@ -7,7 +7,7 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-import static org.fluentness.base.common.constant.AnsiColors.*;
+import static org.fluentness.base.common.constant.AnsiColor.*;
 
 class JulFormatter extends Formatter {
 

@@ -2,7 +2,7 @@ package org.fluentness.flow.component.controller;
 
 import org.fluentness.flow.component.Component;
 
-public class Controller extends Component {
+public class Controller implements Component {
 
     private String baseRoute;
     private Action[] actions;

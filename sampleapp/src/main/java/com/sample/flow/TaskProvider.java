@@ -1,10 +1,12 @@
 package com.sample.flow;
 
+import org.fluentness.flow.component.task.Args;
 import org.fluentness.flow.component.task.Task;
-import org.fluentness.flow.provider.AbstractTaskProvider;
+import org.fluentness.flow.provider.Provider;
 
-public class TaskProvider extends AbstractTaskProvider {
+public class TaskProvider implements Provider<Task> {
 
+    @Args({"name",""})
     Task say_hello = does("Say hello to someone",
         arguments -> {
             System.out.println(String.format("Hello %s", arguments[0]));
@@ -17,6 +19,6 @@ public class TaskProvider extends AbstractTaskProvider {
         arguments -> System.out.println("Good bye world")
     );
 
-    Task say = does("asdf", arguments -> System.out.println("tes"));
+    Task say = does(@Args({"name"}) "asdf", arguments -> System.out.println("tes"));
 
 }

@@ -15,34 +15,39 @@ import static org.fluentness.base.service.configuration.ConfigurationService.APP
 
 public class TomcatServer implements Server {
 
-    ConfigurationService configuration;
+    private ConfigurationService configurationService;
+    private Logger logger;
 
-    Logger logger;
+    private String hostname;
+    private int port;
+    private Tomcat server;
 
-    private final String hostname;
-    private final int port;
+    public TomcatServer(ConfigurationService configurationService, Logger logger) throws DefinitionException {
+        this.configurationService = configurationService;
+        this.logger = logger;
 
-    private final Tomcat tomcat;
+        init();
+    }
 
-    public TomcatServer(ConfigurationService configuration) throws DefinitionException {
-        hostname = configuration.get(APP_HOSTNAME);
-        port = configuration.get(APP_PORT);
+    private void init() {
+        hostname = configurationService.get(APP_HOSTNAME);
+        port = configurationService.get(APP_PORT);
 
-        tomcat = new Tomcat();
-        tomcat.setPort(port);
-        tomcat.getHost().setAppBase(".");
+        server = new Tomcat();
+        server.setPort(port);
+        server.getHost().setAppBase(".");
     }
 
     @Override
     public void start(Map<String, HttpHandler> routing) {
         try {
-            Context ctx = tomcat.addContext("/", new File(".").getAbsolutePath());
-            Tomcat.addServlet(ctx, "Fluentness", new FluentnessServlet(routing));
+            Context ctx = server.addContext("/", new File(".").getAbsolutePath());
+            Tomcat.addServlet(ctx, "Fluentness", new HttpServlet(routing));
             ctx.addServletMappingDecoded("/*", "Fluentness");
 
-            tomcat.start();
+            server.start();
             logger.info("Tomcat Server is listening, visit http://%s:%s/", hostname, port);
-            tomcat.getServer().await();
+            server.getServer().await();
         } catch (Exception e) {
             logger.error(e);
             e.printStackTrace();
@@ -52,7 +57,7 @@ public class TomcatServer implements Server {
     @Override
     public void stop() {
         try {
-            tomcat.stop();
+            server.stop();
         } catch (LifecycleException e) {
             logger.error(e);
         }

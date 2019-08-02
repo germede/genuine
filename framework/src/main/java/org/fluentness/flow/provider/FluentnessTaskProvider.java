@@ -26,7 +26,7 @@ public class FluentnessTaskProvider extends AbstractTaskProvider {
     AbstractTaskProvider taskProvider;
 
     @Inject
-    ControllerProvider controllerProvider;
+    AbstractControllerProvider controllerProvider;
 
     Task help = does("Prints all available commands",
         arguments -> {

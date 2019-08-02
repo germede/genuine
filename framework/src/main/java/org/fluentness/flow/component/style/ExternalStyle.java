@@ -15,7 +15,7 @@ public class ExternalStyle extends Style {
     @Override
     public String render() {
         try {
-            return Files.readAllLines(Paths.get(path)).stream().reduce("",String::concat);
+            return Files.readAllLines(Paths.get(path)).stream().reduce("", String::concat);
         } catch (IOException e) {
             e.printStackTrace();
         }

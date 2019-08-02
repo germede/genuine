@@ -1,7 +1,12 @@
 ![Fluentness logo](core/art/logo.png?raw=true "Fluentness logo")
 
->Innovative as per standard
-add badges
+>Slogan 
+
+badges
+
+Base -> Services  
+Data -> Repositories -> Models  
+Flow -> Providers -> Factories -> Components   
 
 ## Introduction
 Fluentness is intended to be an easy-to-learn, fully-integrated, Java-based, consistent and flexible web framework. 
