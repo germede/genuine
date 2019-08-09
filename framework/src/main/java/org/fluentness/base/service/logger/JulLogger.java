@@ -12,21 +12,14 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
-public class JulLogger implements Logger<Level> {
-
-    private ConfigurationService configurationService;
+public class JulLogger implements Logger {
 
     private java.util.logging.Logger logger;
 
     public JulLogger(ConfigurationService configurationService) throws DefinitionException {
-        this.configurationService = configurationService;
-        init();
-    }
-
-    private void init() throws DefinitionException {
-        Level logLevel = configurationService.has(LOG_LEVEL) ?
-            FluentnessLogLevelToOwnLogLevel(configurationService.get(LOG_LEVEL)) :
-            Level.ALL;
+        Level logLevel = configurationService.contains(LOG_LEVEL) ?
+                fluentnessLogLevelToOwnLogLevel(configurationService.get(LOG_LEVEL)) :
+                Level.ALL;
 
         logger = java.util.logging.Logger.getLogger("");
         logger.setUseParentHandlers(false);
@@ -36,8 +29,8 @@ public class JulLogger implements Logger<Level> {
         logger.setLevel(logLevel);
 
         // console logging
-        if (configurationService.has(LOG_TO_CONSOLE) &&
-            configurationService.get(LOG_TO_CONSOLE)) {
+        if (configurationService.contains(LOG_TO_CONSOLE) &&
+                configurationService.get(LOG_TO_CONSOLE)) {
 
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new JulFormatter(this));
@@ -46,12 +39,12 @@ public class JulLogger implements Logger<Level> {
         }
 
         // file logging
-        if (configurationService.has(LOG_TO_FILE)) {
+        if (configurationService.contains(LOG_TO_FILE)) {
 
             try {
                 new File(configurationService.get(LOG_TO_FILE)).mkdirs();
                 String logFilePath = configurationService.get(LOG_TO_FILE) + "/" +
-                    new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
+                        new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
                 File file = new File(logFilePath);
                 FileHandler fileHandler;
                 if (file.exists()) {
@@ -67,56 +60,33 @@ public class JulLogger implements Logger<Level> {
                 throw new DefinitionException(e);
             }
         }
-
-        info("I've been successfully defined");
-    }
-
-
-    @Override
-    public void debug(String message, Object... parameters) {
-        logger.finest(format(message, parameters));
     }
 
     @Override
-    public void info(String message, Object... parameters) {
-        logger.info(format(message, parameters));
+    public void log(LogLevel logLevel, String message, Object... parameters) {
+        logger.log(fluentnessLogLevelToOwnLogLevel(logLevel), format(message, parameters));
     }
 
     @Override
-    public void warn(String message, Object... parameters) {
-        logger.warning(format(message, parameters));
+    public void log(Exception exception) {
+        logger.log(fluentnessLogLevelToOwnLogLevel(LogLevel.ERRO), exceptionToMessage(exception));
     }
 
-    @Override
-    public void error(String message, Object... parameters) {
-        logger.severe(format(message, parameters));
-    }
-
-    @Override
-    public void error(Exception exception) {
-        error(exceptionToMessage(exception));
-    }
-
-    @Override
-    public LogLevel ownLogLevelToFluentnessLogLevel(Level level) {
-        return
-            level.equals(Level.ALL) || level.equals(Level.FINEST) || level.equals(Level.FINER) || level.equals(Level.FINE) ? LogLevel.DBUG :
+    LogLevel ownLogLevelToFluentnessLogLevel(Level level) {
+        return level.equals(Level.ALL) || level.equals(Level.FINEST) || level.equals(Level.FINER) || level.equals(Level.FINE) ? LogLevel.DBUG :
                 level.equals(Level.CONFIG) || level.equals(Level.INFO) ? LogLevel.INFO :
-                    level.equals(Level.WARNING) ? LogLevel.WARN :
-                        level.equals(Level.SEVERE) ? LogLevel.ERRO :
-                            LogLevel.NONE;
+                        level.equals(Level.WARNING) ? LogLevel.WARN :
+                                level.equals(Level.SEVERE) ? LogLevel.ERRO :
+                                        LogLevel.NONE;
     }
 
-    @Override
-    public Level FluentnessLogLevelToOwnLogLevel(LogLevel level) {
-        return
-            level.equals(LogLevel.DBUG) ? Level.ALL :
+    Level fluentnessLogLevelToOwnLogLevel(LogLevel level) {
+        return level.equals(LogLevel.DBUG) ? Level.ALL :
                 level.equals(LogLevel.INFO) ? Level.INFO :
-                    level.equals(LogLevel.WARN) ? Level.WARNING :
-                        level.equals(LogLevel.ERRO) ? Level.SEVERE :
-                            Level.OFF;
+                        level.equals(LogLevel.WARN) ? Level.WARNING :
+                                level.equals(LogLevel.ERRO) ? Level.SEVERE :
+                                        Level.OFF;
     }
-
 
     private String format(String message, Object... parameters) {
         if (parameters != null && parameters.length > 0) {
@@ -138,5 +108,4 @@ public class JulLogger implements Logger<Level> {
         }
         return res.toString();
     }
-
 }

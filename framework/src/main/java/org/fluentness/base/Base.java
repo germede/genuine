@@ -2,7 +2,6 @@ package org.fluentness.base;
 
 import org.fluentness.Fluentness;
 import org.fluentness.base.common.Architecture;
-import org.fluentness.base.service.Service;
 
 public final class Base extends Architecture<Service> {
 

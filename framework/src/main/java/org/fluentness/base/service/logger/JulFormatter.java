@@ -7,7 +7,7 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-import static org.fluentness.base.common.constant.AnsiColor.*;
+import static org.fluentness.flow.controller.AnsiColor.*;
 
 class JulFormatter extends Formatter {
 
@@ -52,7 +52,7 @@ class JulFormatter extends Formatter {
                 break;
             }
 
-            if (stackTraceElement.getClassName().equals(JulLogger.class.getName())) {
+            if (stackTraceElement.getClassName().equals(LoggerService.class.getName())) {
                 nextOne = true;
             }
         }

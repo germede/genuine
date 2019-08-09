@@ -4,27 +4,25 @@ import org.fluentness.base.service.Service;
 import org.fluentness.data.model.Model;
 
 import javax.persistence.EntityManager;
-import java.util.List;
+import javax.persistence.Query;
 
 public interface Persistence extends Service {
 
     EntityManager getEntityManager();
 
-    boolean isTransactionActive();
+    <M extends Model> M find(Class<M> modelClass, int id);
 
-    void beginTransaction();
+    Query rawQuery(String query);
 
-    void commitTransaction();
+    boolean persist(Model model);
 
-    void rollbackTransaction();
+    boolean remove(Model model);
 
-    boolean create(Model model);
+    boolean isActive();
 
-    boolean update(Model model);
+    void begin();
 
-    boolean delete(Model model);
+    void commit();
 
-    <M extends Model> List<M> findAll(Class<M> modelClass);
-
-    <M extends Model> M findById(Class<M> modelClass, int id);
+    void rollback();
 }

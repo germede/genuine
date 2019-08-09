@@ -1,16 +1,19 @@
 package com.sample.data;
 
-import org.fluentness.base.service.persistence.Persistence;
 import org.fluentness.data.repository.Repository;
 
-import javax.persistence.Query;
 import java.util.List;
 
 public class SongRepository implements Repository<Song> {
 
-    private Persistence persistenceService;
+    @Override
+    public Class<Song> getModelClass() {
+        return Song.class;
+    }
 
-    public SongRepository(Persistence persistenceService) {
+    private PersistenceService persistenceService;
+
+    public SongRepository(PersistenceService persistenceService) {
         this.persistenceService = persistenceService;
     }
 
@@ -27,16 +30,16 @@ public class SongRepository implements Repository<Song> {
     }
 
     public Song findById(int id) {
-        return persistenceService.findById(Song.class, id);
+        return persistenceService.findById(getModelClass(), id);
     }
 
     public List<Song> findAll() {
-        return persistenceService.findAll(Song.class);
+        return persistenceService.findAll(getModelClass());
     }
 
     public List<Song> findByTitle(String title) {
-        Query query = persistenceService.getEntityManager().createQuery("SELECT s FROM Song s WHERE s.title = :title");
-        query.setParameter("title", title);
-        return query.getResultList();
+        return persistenceService.query("SELECT s FROM Song s WHERE s.title = :title")
+                .setParameter("title", title)
+                .getResultList();
     }
 }

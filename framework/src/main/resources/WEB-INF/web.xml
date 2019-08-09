@@ -4,7 +4,7 @@
 
     <servlet>
         <servlet-name>Fluentness</servlet-name>
-        <servlet-class>org.fluentness.base.service.server.HttpServlet</servlet-class>
+        <servlet-class>org.fluentness.base.provider.server.HttpServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Fluentness</servlet-name>

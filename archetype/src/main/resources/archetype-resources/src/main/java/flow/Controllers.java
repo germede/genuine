@@ -1,7 +1,7 @@
 package ${package}.flow;
 
-import org.fluentness.flow.component.controller.Controller;
-import org.fluentness.flow.component.controller.ControllerProducer;
+import org.fluentness.flow.controller.Controller;
+import org.fluentness.flow.controller.ControllerProducer;
 
 public class Controllers extends ControllerProducer {
 

@@ -2,13 +2,13 @@ package org.fluentness.base.service.persistence;
 
 import org.apache.openjpa.lib.log.AbstractLog;
 import org.apache.openjpa.lib.log.Log;
-import org.fluentness.base.service.logger.Logger;
+import org.fluentness.base.service.logger.LoggerService;
 
 class OpenJpaLoggingBridge extends AbstractLog {
-    private Logger logger;
+    private LoggerService loggerService;
 
-    OpenJpaLoggingBridge(Logger logger) {
-        this.logger = logger;
+    OpenJpaLoggingBridge(LoggerService loggerService) {
+        this.loggerService = loggerService;
     }
 
     protected boolean isEnabled(short logLevel) {
@@ -19,16 +19,16 @@ class OpenJpaLoggingBridge extends AbstractLog {
         switch (type) {
             case Log.FATAL:
             case Log.ERROR:
-                logger.error(message);
+                loggerService.error(message);
                 break;
             case Log.WARN:
-                logger.warn(message);
+                loggerService.warn(message);
                 break;
             case Log.INFO:
-                logger.info(message);
+                loggerService.info(message);
                 break;
             case Log.TRACE:
-                logger.debug(message);
+                loggerService.debug(message);
                 break;
         }
     }

@@ -2,7 +2,6 @@ package org.fluentness.flow;
 
 import org.fluentness.Fluentness;
 import org.fluentness.base.common.Architecture;
-import org.fluentness.flow.provider.Provider;
 
 public final class Flow extends Architecture<Provider> {
 

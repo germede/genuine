@@ -14,6 +14,7 @@ public class Song implements Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Override
     @Column(name = "id")
     public int getId() {
         return id;
@@ -39,7 +40,7 @@ public class Song implements Model {
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
         return Objects.equals(id, song.id) &&
-            Objects.equals(title, song.title);
+                Objects.equals(title, song.title);
     }
 
     @Override

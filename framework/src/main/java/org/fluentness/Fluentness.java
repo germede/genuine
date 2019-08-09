@@ -10,8 +10,8 @@ import org.fluentness.base.common.exception.WrongUseOfTaskException;
 import org.fluentness.data.Data;
 import org.fluentness.flow.Flow;
 import org.fluentness.flow.FlowDefiner;
-import org.fluentness.flow.component.task.Task;
-import org.fluentness.flow.provider.FluentnessTaskProvider;
+import org.fluentness.flow.controller.task.Task;
+import org.fluentness.flow.controller.FluentnessController;
 
 public final class Fluentness {
 
@@ -45,7 +45,7 @@ public final class Fluentness {
     public static void invoke(String[] args) {
         try {
             try {
-                FluentnessTaskProvider taskProvider = new FluentnessTaskProvider();
+                FluentnessController taskProvider = new FluentnessController();
 
                 if (args.length == 0) {
                     taskProvider.getComponent("help").execute(args);
