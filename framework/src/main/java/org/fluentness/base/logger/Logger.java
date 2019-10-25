@@ -2,7 +2,7 @@ package org.fluentness.base.logger;
 
 import org.fluentness.base.Service;
 
-public interface Logger extends Service<S> {
+public interface Logger extends Service {
 
     void debug(String message, Object... parameters);
 

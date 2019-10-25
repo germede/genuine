@@ -6,7 +6,7 @@ import org.fluentness.data.Model;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-public interface Persistence extends Service<S> {
+public interface Persistence extends Service {
 
     EntityManager getEntityManager();
 
