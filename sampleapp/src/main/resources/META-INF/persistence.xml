@@ -2,7 +2,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="songLibraryPU">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
-        <class>com.sample.data.Book</class>
+        <class>com.sample.repository.Book</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/party?serverTimezone=UTC"/>
             <property name="javax.persistence.jdbc.user" value="party"/>

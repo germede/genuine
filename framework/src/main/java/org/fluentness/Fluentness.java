@@ -1,27 +1,30 @@
 package org.fluentness;
 
-import org.fluentness.base.exception.ConsoleActionNotFoundException;
-import org.fluentness.base.exception.DefinitionException;
-import org.fluentness.base.exception.InvocationException;
-import org.fluentness.base.exception.WrongUseOfConsoleActionException;
-import org.fluentness.flow.Controller;
-import org.fluentness.flow.console.Task;
+import org.fluentness.backbone.architecture.ControllerArchitecture;
+import org.fluentness.backbone.architecture.RepositoryArchitecture;
+import org.fluentness.backbone.architecture.ServiceArchitecture;
+import org.fluentness.backbone.exception.ConsoleActionNotFoundException;
+import org.fluentness.backbone.exception.DefinitionException;
+import org.fluentness.backbone.exception.InvocationException;
+import org.fluentness.backbone.exception.WrongUseOfConsoleActionException;
 
 public final class Fluentness {
 
-    public static void define(Base.Definer definer, Data.Definer dataDefiner, Flow.Definer flowDefiner) {
+    public static void define(ServiceArchitecture.Definer serviceDefiner,
+                              RepositoryArchitecture.Definer repositoryDefiner,
+                              ControllerArchitecture.Definer repositoryDefiner) {
         try {
-            Base base = Base.getInstance();
-            definer.define(base);
-            base.disallowDefinition();
+            ServiceArchitecture serviceArchitecture = ServiceArchitecture.getInstance();
+            serviceDefiner.define(serviceArchitecture);
+            serviceArchitecture.disallowDefinition();
 
-            Data data = Data.getInstance();
-            dataDefiner.define(data);
-            data.disallowDefinition();
+            RepositoryArchitecture repositoryArchitecture = RepositoryArchitecture.getInstance();
+            repositoryDefiner.define(repositoryArchitecture);
+            repositoryArchitecture.disallowDefinition();
 
-            Flow flow = Flow.getInstance();
-            flowDefiner.define(flow);
-            flow.disallowDefinition();
+            ControllerArchitecture controllerArchitecture = ControllerArchitecture.getInstance();
+            repositoryDefiner.define(controllerArchitecture);
+            controllerArchitecture.disallowDefinition();
         } catch (DefinitionException e) {
             e.printStackTrace();
         }
@@ -31,10 +34,10 @@ public final class Fluentness {
         try {
             try {
                 String name = args.length == 0 ? "help" : args[0];
-                for (Controller controller : Flow.getInstance().getControllers()) {
+                for (org.fluentness.controller.Controller controller : ControllerArchitecture.getInstance().getControllers()) {
                     String[] declaredArguments = new String[0];
 
-                    for (String consoleActionName: controller.getConsoleActions()) {
+                    for (String consoleActionName : controller.getConsoleActions()) {
                         if (consoleActionName.equals(name)) {
                             if (controller.getClass().getMethod()) {
 
