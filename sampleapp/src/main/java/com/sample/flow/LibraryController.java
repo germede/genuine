@@ -1,48 +1,54 @@
 package com.sample.flow;
 
-import com.sample.data.Song;
-import com.sample.data.SongRepository;
+import com.sample.data.Book;
+import com.sample.data.BookRepository;
 import org.fluentness.flow.controller.Controller;
-import org.fluentness.flow.controller.task.Args;
-import org.fluentness.flow.controller.task.Task;
+import org.fluentness.flow.controller.console.ConsoleAction;
+import org.fluentness.flow.controller.web.WebAction;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static org.fluentness.base.service.server.HttpMethod.GET;
 import static org.fluentness.flow.controller.ControllerFactory.*;
-import static org.fluentness.flow.controller.HttpServletResponseFactory.*;
+import static org.fluentness.flow.controller.web.HttpServletResponseFactory.*;
 
-public class LibraryController implements Controller<View> {
+public class LibraryController implements Controller {
 
-    private ViewProvider viewProvider;
-    private SongRepository songRepository;
+    private BookRepository bookRepository;
 
-    public LibraryController(ViewProvider viewProvider, SongRepository songRepository) {
-        this.viewProvider = viewProvider;
-        this.songRepository = songRepository;
+    private LibraryWebView webView;
+
+    public LibraryController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
+    @WebAction(path = "/test", method = GET)
     public String test(HttpServletRequest request) {
-        request.getParameter()
-
+        Book newBook = new Book();
+        newBook.setTitle("Ein Lied");
+        bookRepository.create(newBook);
+        return response("yea");
     }
 
-    Controller base = actions(
+    @WebAction(path = "/", method = GET)
+    public View index(HttpServletRequest request) {
+        return list(request);
+    }
+
+    Controller<L> base = actions(
         get("/", request -> redirect("/song/list")),
 
         get("/test", request -> {
-            Song newSong = new Song();
-            newSong.setTitle("Ein Lied");
-            songRepository.create(newSong);
-            return response("yea");
+
         })
     );
 
-    Controller song = actions("/song",
+    Controller<L> song = actions("/song",
         get("/list", request ->
             render(
                 viewProvider.songList.assigning(
-                    songs -> this.songRepository.findAll(),
+                    songs -> this.bookRepository.findAll(),
                     testBoolean -> true,
                     testParameter -> 1234
                 )
@@ -50,9 +56,9 @@ public class LibraryController implements Controller<View> {
         ),
 
         get("/search", request -> {
-                List<Song> songList = songRepository
+                List<Book> bookList = bookRepository
                     .findByTitle("%" + request.getParameter("title") + "%");
-                return render(viewProvider.songList.assigning(songs -> songList));
+                return render(viewProvider.songList.assigning(songs -> bookList));
             }
         ),
         get("/create", request -> render(viewProvider.createSong)),
@@ -97,19 +103,13 @@ public class LibraryController implements Controller<View> {
 //        ),
     );
 
+//    @DesktopAction(event = Event.ACTION_EVENT)
+//    public void doSomething(Event event) {
+//
+//    }
 
-    @Args({"name",""})
-    final Task say_hello = does("Say hello to someone",
-            arguments -> {
-                System.out.println(String.format("Hello %s", arguments[0]));
-                System.out.println("How are you?");
-            }
-    );
-
-
-    final Task say_bye = does("Say good bye to the world without using arguments",
-            arguments -> System.out.println("Good bye world")
-    );
-
-    final Task say = does(@Args({"name"}) "asdf", arguments -> System.out.println("tes"));
+    @ConsoleAction(description = "Print all books containing name", arguments = {"name"})
+    public void printAllBooksContainingName(String[] args) {
+        bookRepository.findByTitle(args[0]).stream().map(Object::toString).forEach(System.out::println);
+    }
 }

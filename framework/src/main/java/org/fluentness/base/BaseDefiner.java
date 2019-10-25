@@ -1,6 +1,6 @@
 package org.fluentness.base;
 
-import org.fluentness.base.common.exception.DefinitionException;
+import org.fluentness.base.exception.DefinitionException;
 
 @FunctionalInterface
 public interface BaseDefiner {

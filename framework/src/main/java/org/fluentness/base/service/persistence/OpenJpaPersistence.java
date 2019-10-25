@@ -1,10 +1,10 @@
 package org.fluentness.base.service.persistence;
 
 import org.apache.openjpa.lib.log.LogFactory;
-import org.fluentness.base.service.configuration.ConfigurationService;
-import org.fluentness.base.service.logger.LoggerService;
+import org.fluentness.base.exception.DefinitionException;
+import org.fluentness.base.service.configuration.Configuration;
+import org.fluentness.base.service.logger.Logger;
 import org.fluentness.data.model.Model;
-import org.fluentness.base.common.exception.DefinitionException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -12,26 +12,24 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.fluentness.base.service.configuration.FluentnessSettings.PERSISTENCE_UNIT;
-
 public class OpenJpaPersistence implements Persistence {
 
 
-    private final LoggerService loggerService;
-    
+    private final Logger logger;
+
     private EntityManager entityManager;
 
-    public OpenJpaPersistence(ConfigurationService configurationService, LoggerService loggerService) throws DefinitionException {
+    public OpenJpaPersistence(Configuration configuration, Logger logger) throws DefinitionException {
 
-        this.loggerService = loggerService;
-        
+        this.logger = logger;
+
         Map<String, Object> properties = new HashMap<>();
-        properties.put("openjpa.Log", (LogFactory) channel -> new OpenJpaLoggingBridge(loggerService));
+        properties.put("openjpa.log", (LogFactory) channel -> new OpenJpaLoggingBridge(logger));
 
         try {
-            if (configurationService.contains(PERSISTENCE_UNIT)) {
+            if (configuration.has("persistence_unit")) {
                 this.entityManager = javax.persistence.Persistence
-                        .createEntityManagerFactory(configurationService.get(PERSISTENCE_UNIT), properties)
+                        .createEntityManagerFactory(configuration.get("persistence_unit"), properties)
                         .createEntityManager();
             }
         } catch (PersistenceException e) {
@@ -53,10 +51,10 @@ public class OpenJpaPersistence implements Persistence {
             entityManager.persist(model);
             entityManager.flush();
             commit();
-            loggerService.debug("%s record created successfully", model.getClass().getSimpleName());
+            logger.debug("%s record created successfully", model.getClass().getSimpleName());
             return true;
         }
-        loggerService.debug("%s record already exists, cannot create", model.getClass().getSimpleName());
+        logger.debug("%s record already exists, cannot create", model.getClass().getSimpleName());
         return false;
     }
 
@@ -69,23 +67,22 @@ public class OpenJpaPersistence implements Persistence {
             entityManager.remove(model);
             entityManager.flush();
             commit();
-            loggerService.debug("%s record deleted successfully", model.getClass().getSimpleName());
+            logger.debug("%s record deleted successfully", model.getClass().getSimpleName());
             return true;
         }
-        loggerService.debug("%s record doesn't exists, cannot delete", model.getClass().getSimpleName());
+        logger.debug("%s record doesn't exists, cannot delete", model.getClass().getSimpleName());
         return false;
     }
 
     @Override
     public <M extends Model> M find(Class<M> modelClass, int id) {
-        loggerService.debug("Retrieving %s record by ID %s", modelClass.getSimpleName(), id);
-        return null;
+        logger.debug("Retrieving %s record by ID %s", modelClass.getSimpleName(), id);
+        return entityManager.find(modelClass, id);
     }
 
     @Override
-    public Query rawQuery(String query) {
-        loggerService.debug("Retrieving %s record by ID %s", modelClass.getSimpleName(), id);
-        return null;
+    public Query query(String query) {
+        return entityManager.createQuery(query);
     }
 
     @Override

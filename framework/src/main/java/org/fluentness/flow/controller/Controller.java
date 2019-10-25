@@ -1,27 +1,17 @@
 package org.fluentness.flow.controller;
 
-import org.fluentness.base.service.Service;
+import org.fluentness.flow.controller.console.ConsoleAction;
 
-public class Controller implements Service {
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
-    private String baseRoute;
-    private Action[] actions;
+public interface Controller {
 
-    Controller(String baseRoute, Action[] actions) {
-        this.baseRoute = baseRoute;
-        this.actions = actions;
+    default String[] getConsoleActions() {
+        return (String[]) Arrays.stream(getClass().getDeclaredMethods())
+                .filter(method -> method.isAnnotationPresent(ConsoleAction.class))
+                .map(Method::getName)
+                .toArray();
     }
 
-    Controller(Action[] actions) {
-        this.baseRoute = "";
-        this.actions = actions;
-    }
-
-    public String getBaseRoute() {
-        return baseRoute;
-    }
-
-    public Action[] getActions() {
-        return actions;
-    }
 }

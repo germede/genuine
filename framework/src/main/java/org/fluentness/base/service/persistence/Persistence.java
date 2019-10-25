@@ -12,7 +12,7 @@ public interface Persistence extends Service {
 
     <M extends Model> M find(Class<M> modelClass, int id);
 
-    Query rawQuery(String query);
+    Query query(String query);
 
     boolean persist(Model model);
 

@@ -1,7 +1,7 @@
 package org.fluentness.data;
 
 import org.fluentness.Fluentness;
-import org.fluentness.base.common.Architecture;
+import org.fluentness.backlog.Architecture;
 import org.fluentness.data.repository.Repository;
 
 public final class Data extends Architecture<Repository> {

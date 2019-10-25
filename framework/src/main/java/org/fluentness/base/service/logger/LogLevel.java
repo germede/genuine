@@ -2,8 +2,8 @@ package org.fluentness.base.service.logger;
 
 public enum LogLevel {
     NONE,
-    ERRO,
-    WARN,
+    ERROR,
+    WARNING,
     INFO,
-    DBUG
+    DEBUG
 }

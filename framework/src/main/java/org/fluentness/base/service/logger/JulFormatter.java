@@ -7,7 +7,7 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-import static org.fluentness.flow.controller.AnsiColor.*;
+import static org.fluentness.flow.controller.console.AnsiColor.*;
 
 class JulFormatter extends Formatter {
 
@@ -27,16 +27,16 @@ class JulFormatter extends Formatter {
         builder.append(df.format(new Date(logRecord.getMillis())));
         builder.append(" | ");
         switch (logger.ownLogLevelToFluentnessLogLevel(logRecord.getLevel())) {
-            case ERRO:
+            case ERROR:
                 builder.append(ANSI_RED);
                 break;
-            case WARN:
+            case WARNING:
                 builder.append(ANSI_YELLOW);
                 break;
             case INFO:
                 builder.append(ANSI_BLUE);
                 break;
-            case DBUG:
+            case DEBUG:
                 builder.append(ANSI_GREEN);
                 break;
         }
@@ -52,7 +52,7 @@ class JulFormatter extends Formatter {
                 break;
             }
 
-            if (stackTraceElement.getClassName().equals(LoggerService.class.getName())) {
+            if (stackTraceElement.getClassName().equals(Logger.class.getName())) {
                 nextOne = true;
             }
         }

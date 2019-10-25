@@ -1,7 +1,7 @@
 package org.fluentness.flow.controller;
 
-import org.fluentness.base.common.exception.ProviderException;
-import org.fluentness.flow.controller.task.Task;
+import org.fluentness.base.exception.ProviderException;
+import org.fluentness.flow.controller.console.Task;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
