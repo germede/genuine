@@ -1,6 +1,6 @@
 package com.sample.data;
 
-import org.fluentness.data.model.Model;
+import org.fluentness.data.Model;
 
 import javax.persistence.*;
 import java.util.Objects;

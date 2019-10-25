@@ -1,8 +1,8 @@
 package com.sample.base;
 
-import org.fluentness.base.service.configuration.Configuration;
-import org.fluentness.base.service.configuration.Environment;
-import org.fluentness.base.service.configuration.Settings;
+import org.fluentness.base.configuration.Configuration;
+import org.fluentness.base.configuration.Environment;
+import org.fluentness.base.configuration.Settings;
 
 public class ConfigurationService implements Configuration {
 

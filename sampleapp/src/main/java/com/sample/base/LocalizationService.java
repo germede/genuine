@@ -1,8 +1,8 @@
 package com.sample.base;
 
-import org.fluentness.base.service.localization.Language;
-import org.fluentness.base.service.localization.Localization;
-import org.fluentness.base.service.localization.Translations;
+import org.fluentness.base.localization.Language;
+import org.fluentness.base.localization.Localization;
+import org.fluentness.base.localization.Translations;
 
 public class LocalizationService implements Localization {
 

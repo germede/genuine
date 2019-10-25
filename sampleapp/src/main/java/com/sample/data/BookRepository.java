@@ -1,7 +1,7 @@
 package com.sample.data;
 
-import org.fluentness.base.service.persistence.Persistence;
-import org.fluentness.data.repository.CrudRepository;
+import org.fluentness.base.persistence.Persistence;
+import org.fluentness.data.CrudRepository;
 
 import java.util.List;
 

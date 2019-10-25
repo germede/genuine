@@ -1,41 +1,25 @@
 package org.fluentness;
 
-import org.fluentness.base.Base;
-import org.fluentness.base.BaseDefiner;
 import org.fluentness.base.exception.ConsoleActionNotFoundException;
 import org.fluentness.base.exception.DefinitionException;
 import org.fluentness.base.exception.InvocationException;
 import org.fluentness.base.exception.WrongUseOfConsoleActionException;
-import org.fluentness.data.Data;
-import org.fluentness.data.DataDefiner;
-import org.fluentness.flow.Flow;
-import org.fluentness.flow.FlowDefiner;
-import org.fluentness.flow.controller.Controller;
-import org.fluentness.flow.controller.DefaultController;
-import org.fluentness.flow.controller.console.Task;
-
-import java.util.List;
+import org.fluentness.flow.Controller;
+import org.fluentness.flow.console.Task;
 
 public final class Fluentness {
 
-    private static Fluentness proxy;
-
-    private Fluentness() {
-        // instance of the class Fluentness is only used as proxy, avoiding instantiations of base, data and flow
-    }
-
-    public static void define(BaseDefiner baseDefiner, DataDefiner dataDefiner, FlowDefiner flowDefiner) {
-        proxy = new Fluentness();
+    public static void define(Base.Definer definer, Data.Definer dataDefiner, Flow.Definer flowDefiner) {
         try {
-            Base base = Base.getInstance(proxy);
-            baseDefiner.define(base);
+            Base base = Base.getInstance();
+            definer.define(base);
             base.disallowDefinition();
 
-            Data data = Data.getInstance(proxy);
+            Data data = Data.getInstance();
             dataDefiner.define(data);
             data.disallowDefinition();
 
-            Flow flow = Flow.getInstance(proxy);
+            Flow flow = Flow.getInstance();
             flowDefiner.define(flow);
             flow.disallowDefinition();
         } catch (DefinitionException e) {
@@ -47,7 +31,7 @@ public final class Fluentness {
         try {
             try {
                 String name = args.length == 0 ? "help" : args[0];
-                for (Controller controller : Flow.getInstance(proxy).getControllers()) {
+                for (Controller controller : Flow.getInstance().getControllers()) {
                     String[] declaredArguments = new String[0];
 
                     for (String consoleActionName: controller.getConsoleActions()) {

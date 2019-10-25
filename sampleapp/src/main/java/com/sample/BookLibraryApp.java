@@ -2,7 +2,7 @@ package com.sample;
 
 import com.sample.base.LocalizationService;
 import com.sample.data.BookRepository;
-import com.sample.flow.LibraryController;
+import com.sample.flow.WebController;
 import org.fluentness.Fluentness;
 
 public class BookLibraryApp {
@@ -12,7 +12,7 @@ public class BookLibraryApp {
         Fluentness.define(
                 base -> base.add(LocalizationService.class),
                 data -> data.add(BookRepository.class),
-                flow -> flow.add(LibraryController.class)
+                flow -> flow.add(WebController.class)
         );
 
         Fluentness.invoke(args);
