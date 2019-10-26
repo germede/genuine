@@ -9,7 +9,7 @@ import org.fluentness.service.logger.LoggerService;
 import java.io.File;
 import java.util.Map;
 
-public class TomcatServer implements Server {
+public class TomcatServerService implements ServerService {
 
     private ConfigurationService configurationService;
     private LoggerService loggerService;
@@ -18,7 +18,7 @@ public class TomcatServer implements Server {
     private int port;
     private Tomcat server;
 
-    public TomcatServer(ConfigurationService configurationService, LoggerService loggerService) throws Exception {
+    public TomcatServerService(ConfigurationService configurationService, LoggerService loggerService) throws Exception {
         this.configurationService = configurationService;
         this.loggerService = loggerService;
 

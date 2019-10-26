@@ -3,7 +3,6 @@ package org.fluentness.service.logger;
 import org.fluentness.service.configuration.ConfigurationService;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,7 +11,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
 public class JulLoggerService implements LoggerService {
-
     private java.util.logging.Logger logger;
 
     public JulLoggerService(ConfigurationService configurationService) throws Exception {
@@ -67,7 +65,7 @@ public class JulLoggerService implements LoggerService {
     }
 
     @Override
-    public void warn(String message, Object... parameters) {
+    public void warning(String message, Object... parameters) {
         log(LogLevel.WARNING, message, parameters);
     }
 

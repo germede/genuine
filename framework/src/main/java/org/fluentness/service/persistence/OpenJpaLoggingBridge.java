@@ -22,7 +22,7 @@ class OpenJpaLoggingBridge extends AbstractLog {
                 loggerService.error(message);
                 break;
             case Log.WARN:
-                loggerService.warn(message);
+                loggerService.warning(message);
                 break;
             case Log.INFO:
                 loggerService.info(message);

@@ -9,11 +9,11 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-enum AutoLoader {
+public enum ClassLoader {
     does;
 
-    <T> Class<T>[] load(String packageName, Class<T> parent) throws ClassLoadingException {
-        List<Class<T>> result = new LinkedList<>();
+    public List<Class> load(String packageName, Class parent) throws AutoLoaderException {
+        List<Class> result = new LinkedList<>();
         try {
             String path = packageName.replace(".", "/");
             URL root = Thread.currentThread().getContextClassLoader().getResource(path);
@@ -27,7 +27,7 @@ enum AutoLoader {
                         Class<?> clazz = Class.forName(packageName + "." + className);
                         // find classes implementing parent
                         if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
-                            result.add((Class<T>) clazz);
+                            result.add(clazz);
                         }
                     }
                 }
@@ -43,26 +43,21 @@ enum AutoLoader {
                         Class<?> clazz = Class.forName(className);
                         // find classes implementing parent
                         if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
-                            result.add((Class<T>) clazz);
+                            result.add(clazz);
                         }
                     }
                 }
             }
 
         } catch (ClassNotFoundException | IOException | URISyntaxException e) {
-            throw new ClassLoadingException(e);
+            throw new AutoLoaderException(e);
         }
-        return result.toArray(new Class[0]);
+        return result;
     }
 
-    static class ClassLoadingException extends AbstractException {
-
-        ClassLoadingException(Exception exception) {
+    static class AutoLoaderException extends AbstractException {
+        AutoLoaderException(Exception exception) {
             super(exception);
-        }
-
-        ClassLoadingException(String messageToFormat, Object... parameters) {
-            super(messageToFormat, parameters);
         }
     }
 }

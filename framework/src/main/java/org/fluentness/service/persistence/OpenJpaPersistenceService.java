@@ -9,14 +9,12 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OpenJpaPersistence implements Persistence {
+public class OpenJpaPersistenceService implements PersistenceService {
 
-
-    private final LoggerService loggerService;
-
+    private LoggerService loggerService;
     private EntityManager entityManager;
 
-    public OpenJpaPersistence(ConfigurationService configurationService, LoggerService loggerService) throws Exception {
+    public OpenJpaPersistenceService(ConfigurationService configurationService, LoggerService loggerService) {
 
         this.loggerService = loggerService;
 

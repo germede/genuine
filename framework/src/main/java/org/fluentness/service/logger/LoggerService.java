@@ -8,7 +8,7 @@ public interface LoggerService extends Service {
 
     void info(String message, Object... parameters);
 
-    void warn(String message, Object... parameters);
+    void warning(String message, Object... parameters);
 
     void error(String message, Object... parameters);
 
