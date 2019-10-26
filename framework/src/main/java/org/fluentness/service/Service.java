@@ -1,5 +1,5 @@
 package org.fluentness.service;
 
-public interface Service<C extends Component> {
+public interface Service {
 
 }

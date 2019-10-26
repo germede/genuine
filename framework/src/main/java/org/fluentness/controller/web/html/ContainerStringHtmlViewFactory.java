@@ -1,7 +1,6 @@
 package org.fluentness.controller.web.html;
 
 import org.fluentness.controller.web.markup.MarkupElementContainer;
-import org.fluentness.controller.web.markup.MarkupElementEmpty;
 
 interface ContainerStringHtmlViewFactory {
 
@@ -206,8 +205,8 @@ interface ContainerStringHtmlViewFactory {
     }
 
     static MarkupElementContainer html(String innerText) {
-        return (MarkupElementContainer) new MarkupElementContainer("html", innerText)
-            .precededBy(new MarkupElementEmpty("!doctype", html -> null));
+        return (MarkupElementContainer) new MarkupElementContainer("html", innerText);
+//            .precededBy(new MarkupElementEmpty("!doctype", html -> null));
     }
 
     static MarkupElementContainer i(String innerText) {

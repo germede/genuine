@@ -3,7 +3,6 @@ package org.fluentness.service.server;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
-import org.fluentness.backbone.exception.DefinitionException;
 import org.fluentness.service.configuration.ConfigurationService;
 import org.fluentness.service.logger.LoggerService;
 
@@ -19,14 +18,10 @@ public class TomcatServer implements Server {
     private int port;
     private Tomcat server;
 
-    public TomcatServer(ConfigurationService configurationService, LoggerService loggerService) throws DefinitionException {
+    public TomcatServer(ConfigurationService configurationService, LoggerService loggerService) throws Exception {
         this.configurationService = configurationService;
         this.loggerService = loggerService;
 
-        init();
-    }
-
-    private void init() {
         hostname = configurationService.get("app_host");
         port = Integer.parseInt(configurationService.get("app_port"));
 

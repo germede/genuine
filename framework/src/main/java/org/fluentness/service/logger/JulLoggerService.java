@@ -1,6 +1,5 @@
 package org.fluentness.service.logger;
 
-import org.fluentness.backbone.exception.DefinitionException;
 import org.fluentness.service.configuration.ConfigurationService;
 
 import java.io.File;
@@ -16,7 +15,7 @@ public class JulLoggerService implements LoggerService {
 
     private java.util.logging.Logger logger;
 
-    public JulLoggerService(ConfigurationService configurationService) throws DefinitionException {
+    public JulLoggerService(ConfigurationService configurationService) throws Exception {
         Level logLevel = configurationService.has("log_level") ?
                 fluentnessLogLevelToOwnLogLevel(LogLevel.valueOf(configurationService.get("log_level"))) :
                 Level.ALL;
@@ -39,24 +38,21 @@ public class JulLoggerService implements LoggerService {
 
         // file logging
         if (configurationService.has("log_to_file")) {
-            try {
-                new File(configurationService.get("log_to_file")).mkdirs();
-                String logFilePath = configurationService.get("log_to_file") + "/" +
-                        new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
-                File file = new File(logFilePath);
-                FileHandler fileHandler;
-                if (file.exists()) {
-                    fileHandler = new FileHandler(logFilePath, true);
-                } else {
-                    file.createNewFile();
-                    fileHandler = new FileHandler(logFilePath);
-                }
-                fileHandler.setFormatter(new JulFormatter(this));
-                fileHandler.setLevel(logLevel);
-                logger.addHandler(fileHandler);
-            } catch (IOException e) {
-                throw new DefinitionException(e);
+            new File(configurationService.get("log_to_file")).mkdirs();
+            String logFilePath = configurationService.get("log_to_file") + "/" +
+                    new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
+            File file = new File(logFilePath);
+            FileHandler fileHandler;
+            if (file.exists()) {
+                fileHandler = new FileHandler(logFilePath, true);
+            } else {
+                file.createNewFile();
+                fileHandler = new FileHandler(logFilePath);
             }
+            fileHandler.setFormatter(new JulFormatter(this));
+            fileHandler.setLevel(logLevel);
+            logger.addHandler(fileHandler);
+
         }
     }
 

@@ -1,8 +1,7 @@
 package org.fluentness.controller.web.html;
 
-import org.fluentness.controller.web.markup.MarkupElementContainer;
-import org.fluentness.controller.web.markup.MarkupElementEmpty;
 import org.fluentness.controller.web.WebView;
+import org.fluentness.controller.web.markup.MarkupElementContainer;
 
 interface ContainerHtmlViewFactory {
 
@@ -207,8 +206,8 @@ interface ContainerHtmlViewFactory {
     }
 
     static MarkupElementContainer html(WebView... innerViews) {
-        return (MarkupElementContainer) new MarkupElementContainer("html", innerViews)
-            .precededBy(new MarkupElementEmpty("!doctype", html -> null));
+        return (MarkupElementContainer) new MarkupElementContainer("html", innerViews);
+//            .precededBy(new MarkupElementEmpty("!doctype", html -> null));
     }
 
     static MarkupElementContainer i(WebView... innerViews) {

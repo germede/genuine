@@ -1,9 +1,9 @@
-package org.fluentness.backbone.exception;
+package org.fluentness;
 
-public abstract class AbstractException extends java.lang.Exception {
+public abstract class AbstractException extends Exception {
 
     private String message;
-    private java.lang.Exception exception;
+    private Exception exception;
 
     @Override
     public String getMessage() {
@@ -32,11 +32,11 @@ public abstract class AbstractException extends java.lang.Exception {
         }
     }
 
-    AbstractException(java.lang.Exception exception) {
+    protected AbstractException(Exception exception) {
         this.exception = exception;
     }
 
-    AbstractException(String messageToFormat, Object... parameters) {
+    protected AbstractException(String messageToFormat, Object... parameters) {
         this.message = String.format(messageToFormat, parameters);
     }
 }

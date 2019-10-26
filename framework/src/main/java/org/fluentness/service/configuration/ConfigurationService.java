@@ -4,8 +4,13 @@ import org.fluentness.service.Service;
 
 public interface ConfigurationService extends Service {
 
-    Settings getSettings();
+    Environment getDefaultEnvironment();
 
-    Environment getEnvironment();
+    Environment getCurrentEnvironment();
 
+    String get(String key);
+
+    boolean is(String key);
+
+    boolean has(String key);
 }

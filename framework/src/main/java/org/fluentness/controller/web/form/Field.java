@@ -1,16 +1,16 @@
 package org.fluentness.controller.web.form;
 
 
-import org.fluentness.service.common.lambda.KeyValuePairLambda;
+import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.MarkupElement;
 import org.fluentness.controller.web.markup.MarkupElementEmpty;
-import org.fluentness.controller.web.WebView;
 
 public class Field extends MarkupElementEmpty {
 
-    Field(String fieldType, KeyValuePairLambda<String>[] attributes) {
+    Field(String fieldType, String[] attributes) {
         super("input", attributes);
-        this.attributes.add(type -> fieldType);
+//        this.attributes.add(type -> fieldType);
+        this.attributes.add("type -> fieldType");
     }
 
     public Field precededBy(WebView... predecessors) {

@@ -2,11 +2,9 @@ package org.fluentness.service.persistence;
 
 import org.apache.openjpa.lib.log.LogFactory;
 import org.fluentness.service.configuration.ConfigurationService;
-import org.fluentness.backbone.exception.DefinitionException;
 import org.fluentness.service.logger.LoggerService;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,21 +16,17 @@ public class OpenJpaPersistence implements Persistence {
 
     private EntityManager entityManager;
 
-    public OpenJpaPersistence(ConfigurationService configurationService, LoggerService loggerService) throws DefinitionException {
+    public OpenJpaPersistence(ConfigurationService configurationService, LoggerService loggerService) throws Exception {
 
         this.loggerService = loggerService;
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("openjpa.log", (LogFactory) channel -> new OpenJpaLoggingBridge(loggerService));
 
-        try {
-            if (configurationService.has("persistence_unit")) {
-                this.entityManager = javax.persistence.Persistence
-                        .createEntityManagerFactory(configurationService.get("persistence_unit"), properties)
-                        .createEntityManager();
-            }
-        } catch (PersistenceException e) {
-            throw new DefinitionException(e);
+        if (configurationService.has("persistence_unit")) {
+            this.entityManager = javax.persistence.Persistence
+                    .createEntityManagerFactory(configurationService.get("persistence_unit"), properties)
+                    .createEntityManager();
         }
     }
 

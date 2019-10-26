@@ -1,79 +1,112 @@
 package org.fluentness;
 
-import org.fluentness.backbone.architecture.ControllerArchitecture;
-import org.fluentness.backbone.architecture.RepositoryArchitecture;
-import org.fluentness.backbone.architecture.ServiceArchitecture;
-import org.fluentness.backbone.exception.ConsoleActionNotFoundException;
-import org.fluentness.backbone.exception.DefinitionException;
-import org.fluentness.backbone.exception.InvocationException;
-import org.fluentness.backbone.exception.WrongUseOfConsoleActionException;
+import org.fluentness.controller.Controller;
+import org.fluentness.controller.console.ConsoleController;
+import org.fluentness.repository.Repository;
+import org.fluentness.service.Service;
 
-public final class Fluentness {
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
-    public static void define(ServiceArchitecture.Definer serviceDefiner,
-                              RepositoryArchitecture.Definer repositoryDefiner,
-                              ControllerArchitecture.Definer repositoryDefiner) {
+import static org.fluentness.controller.console.AnsiColor.*;
+
+public enum Fluentness {
+    does;
+
+    public void inject(String packageName) {
         try {
-            ServiceArchitecture serviceArchitecture = ServiceArchitecture.getInstance();
-            serviceDefiner.define(serviceArchitecture);
-            serviceArchitecture.disallowDefinition();
-
-            RepositoryArchitecture repositoryArchitecture = RepositoryArchitecture.getInstance();
-            repositoryDefiner.define(repositoryArchitecture);
-            repositoryArchitecture.disallowDefinition();
-
-            ControllerArchitecture controllerArchitecture = ControllerArchitecture.getInstance();
-            repositoryDefiner.define(controllerArchitecture);
-            controllerArchitecture.disallowDefinition();
-        } catch (DefinitionException e) {
+            DependencyInjector.does.inject(AutoLoader.does.load(packageName + ".service", Service.class));
+            DependencyInjector.does.inject(AutoLoader.does.load(packageName + ".repository", Repository.class));
+            DependencyInjector.does.inject(AutoLoader.does.load(packageName + ".controller", Controller.class));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void invoke(String[] args) {
+    public void invoke(String[] args) {
         try {
-            try {
-                String name = args.length == 0 ? "help" : args[0];
-                for (org.fluentness.controller.Controller controller : ControllerArchitecture.getInstance().getControllers()) {
-                    String[] declaredArguments = new String[0];
-
-                    for (String consoleActionName : controller.getConsoleActions()) {
-                        if (consoleActionName.equals(name)) {
-                            if (controller.getClass().getMethod()) {
-
-                            }
-                        }
-                    }
-
-                    for (Task task : controller.getAllTasks()) {
-                        if (name.equals(task.getName())) {
-                            taskToExecute = task;
-                            declaredArguments = task.getArguments();
-                            break;
-                        }
-                    }
-
-                    if (taskToExecute == null) {
-                        throw new ConsoleActionNotFoundException("No console action %s found", name);
-                    }
-
-                    if (declaredArguments.length != args.length - 1) {
-                        throw new WrongUseOfConsoleActionException("Wrong use of console action %s, expected %s arguments, got %s",
-                                taskToExecute.getName(),
-                                declaredArguments.length,
-                                args.length - 1
-                        );
-                    }
-
-                    String[] arguments = new String[declaredArguments.length];
-                    System.arraycopy(args, 1, arguments, 0, args.length - 1);
-                    taskToExecute.execute(arguments);
+            if (args.length == 0 || args[0].equals("help")) {
+                printHelp(DependencyInjector.does.getInstances(ConsoleController.class));
+            } else {
+                String name = args[0];
+                for (ConsoleController controller : DependencyInjector.does.getInstances(ConsoleController.class)) {
+                    Method toExecute = Arrays.stream(controller.getActions())
+                            .filter(method -> method.getName().equals(name))
+                            .findFirst()
+                            .orElseThrow(() -> new ConsoleException("No console action %s found", name));
+                    toExecute.invoke(controller);
+//                if (declaredArguments.length != args.length - 1) {
+//                    throw new ConsoleException("Wrong use of console action %s, expected %s arguments, got %s",
+//                            taskToExecute.getName(),
+//                            declaredArguments.length,
+//                            args.length - 1
+//                    );
+//                }
                 }
-            } catch (ConsoleActionNotFoundException | WrongUseOfConsoleActionException e) {
-                throw new InvocationException(e);
             }
-        } catch (InvocationException ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void printHelp(ConsoleController[] consoleControllers) {
+
+        System.out.println("\n" +
+                " _______                                \n" +
+                "(  /  //             _/_                \n" +
+                " -/--// , , _  _ _   /  _ _   _  (   (  \n" +
+                "_/  (/_(_/_(/_/ / /_(__/ / /_(/_/_)_/_)_\n");
+
+        System.out.println(ANSI_GREEN + "Available console actions:\n" + ANSI_RESET);
+        System.out.println(Fluentness.class.getPackage().getImplementationVersion());
+
+        for (ConsoleController consoleController : consoleControllers) {
+            for (Method action : consoleController.getActions()) {
+                String[] arguments = consoleController.getArguments(action);
+                String inlineArguments = arguments.length > 0 ? " " + Arrays.toString(arguments) : "";
+                System.out.println(String.format(ANSI_PURPLE + "%-30s" + ANSI_RESET + "%s",
+                        "    " + action.getName() + inlineArguments,
+                        consoleController.getDescription(action)
+                ));
+
+            }
+        }
+//
+//        for (Task task : category.getValue()) {
+//            String args = task.getArguments().length > 0 ? " " + Arrays.toString(task.getArguments()) : "";
+//            System.out.println(String.format(ANSI_PURPLE + "%-30s" + ANSI_RESET + "%s",
+//                    "    " + task.getName() + args,
+//                    task.getDescription()
+//            ));
+//        }
+//
+//
+
+//        for (Map.Entry<String, List<Task>> category : getAllTasksGroupedByCategory().entrySet()) {
+//
+//            if (category.getValue().size() == 1) {
+//                Task task = category.getValue().get(0);
+//                String args = task.getArguments().length > 0 ? " " + Arrays.toString(task.getArguments()) : "";
+//                System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET + "%s",
+//                        task.getName() + args, task.getDescription()));
+//            } else {
+//                System.out.println(String.format(ANSI_BLUE + "%-30s" + ANSI_RESET, category.getKey()));
+//                for (Task task : category.getValue()) {
+//                    String args = task.getArguments().length > 0 ? " " + Arrays.toString(task.getArguments()) : "";
+//                    System.out.println(String.format(ANSI_PURPLE + "%-30s" + ANSI_RESET + "%s",
+//                            "    " + task.getName() + args,
+//                            task.getDescription()
+//                    ));
+//                }
+//            }
+//        }
+
+    }
+
+    static class ConsoleException extends AbstractException {
+
+        ConsoleException(String stringToFormat, Object... parameters) {
+            super(stringToFormat, parameters);
         }
     }
 }

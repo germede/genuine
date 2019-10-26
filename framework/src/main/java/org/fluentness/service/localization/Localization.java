@@ -5,429 +5,396 @@ import java.util.Map;
 
 import static org.fluentness.service.localization.Language.*;
 
-public class Translations {
-
-    private static Language defaultLanguage;
-    private static Map<String, Map<Language, String>> translationMap;
-
+public class Localization {
+    
     private Map<Language, String> translations = new HashMap<>();
-    private Translations next;
-    private String key;
 
-    public Translations(Language defaultLanguage) {
-        Translations.defaultLanguage = defaultLanguage;
+    public String get(Language currentLanguage) {
+        return translations.get(currentLanguage);
     }
 
-    private Translations(String key) {
-        this.key = key;
-    }
-
-    String translate(String key, Language language) {
-        if (translationMap == null) {
-            translationMap = new HashMap<>();
-            Translations current = this;
-            while (current.next != null) {
-                translationMap.put(current.key, current.translations);
-                current = current.next;
-            }
-        }
-        Map<Language, String> languageStringMap = translationMap.get(key);
-        if (languageStringMap != null) {
-            return languageStringMap.getOrDefault(language, key);
-        } else {
-            return key;
-        }
-    }
-
-    public Translations add(String key) {
-        Translations next = new Translations(key);
-        this.next = next;
-        return next;
-    }
-
-    public Translations af(String value) {
+    public Localization af(String value) {
         translations.put(AF, value);
         return this;
     }
 
-    public Translations ar(String value) {
+    public Localization ar(String value) {
         translations.put(AR, value);
         return this;
     }
 
-    public Translations az(String value) {
+    public Localization az(String value) {
         translations.put(AZ, value);
         return this;
     }
 
-    public Translations be(String value) {
+    public Localization be(String value) {
         translations.put(BE, value);
         return this;
     }
 
-    public Translations bg(String value) {
+    public Localization bg(String value) {
         translations.put(BG, value);
         return this;
     }
 
-    public Translations ca(String value) {
+    public Localization ca(String value) {
         translations.put(CA, value);
         return this;
     }
 
-    public Translations cs(String value) {
+    public Localization cs(String value) {
         translations.put(CS, value);
         return this;
     }
 
-    public Translations cy(String value) {
+    public Localization cy(String value) {
         translations.put(CY, value);
         return this;
     }
 
-    public Translations da(String value) {
+    public Localization da(String value) {
         translations.put(DA, value);
         return this;
     }
 
-    public Translations de(String value) {
+    public Localization de(String value) {
         translations.put(DE, value);
         return this;
     }
 
-    public Translations dv(String value) {
+    public Localization dv(String value) {
         translations.put(DV, value);
         return this;
     }
 
-    public Translations el(String value) {
+    public Localization el(String value) {
         translations.put(EL, value);
         return this;
     }
 
-    public Translations en(String value) {
+    public Localization en(String value) {
         translations.put(EN, value);
         return this;
     }
 
-    public Translations eo(String value) {
+    public Localization eo(String value) {
         translations.put(EO, value);
         return this;
     }
 
-    public Translations es(String value) {
+    public Localization es(String value) {
         translations.put(ES, value);
         return this;
     }
 
-    public Translations et(String value) {
+    public Localization et(String value) {
         translations.put(ET, value);
         return this;
     }
 
-    public Translations eu(String value) {
+    public Localization eu(String value) {
         translations.put(EU, value);
         return this;
     }
 
-    public Translations fa(String value) {
+    public Localization fa(String value) {
         translations.put(FA, value);
         return this;
     }
 
-    public Translations fi(String value) {
+    public Localization fi(String value) {
         translations.put(FI, value);
         return this;
     }
 
-    public Translations fo(String value) {
+    public Localization fo(String value) {
         translations.put(FO, value);
         return this;
     }
 
-    public Translations fr(String value) {
+    public Localization fr(String value) {
         translations.put(FR, value);
         return this;
     }
 
-    public Translations gl(String value) {
+    public Localization gl(String value) {
         translations.put(GL, value);
         return this;
     }
 
-    public Translations gu(String value) {
+    public Localization gu(String value) {
         translations.put(GU, value);
         return this;
     }
 
-    public Translations he(String value) {
+    public Localization he(String value) {
         translations.put(HE, value);
         return this;
     }
 
-    public Translations hi(String value) {
+    public Localization hi(String value) {
         translations.put(HI, value);
         return this;
     }
 
-    public Translations hr(String value) {
+    public Localization hr(String value) {
         translations.put(HR, value);
         return this;
     }
 
-    public Translations hu(String value) {
+    public Localization hu(String value) {
         translations.put(HU, value);
         return this;
     }
 
-    public Translations hy(String value) {
+    public Localization hy(String value) {
         translations.put(HY, value);
         return this;
     }
 
-    public Translations id(String value) {
+    public Localization id(String value) {
         translations.put(ID, value);
         return this;
     }
 
-    public Translations is(String value) {
+    public Localization is(String value) {
         translations.put(IS, value);
         return this;
     }
 
-    public Translations it(String value) {
+    public Localization it(String value) {
         translations.put(IT, value);
         return this;
     }
 
-    public Translations ja(String value) {
+    public Localization ja(String value) {
         translations.put(JA, value);
         return this;
     }
 
-    public Translations ka(String value) {
+    public Localization ka(String value) {
         translations.put(KA, value);
         return this;
     }
 
-    public Translations kk(String value) {
+    public Localization kk(String value) {
         translations.put(KK, value);
         return this;
     }
 
-    public Translations kn(String value) {
+    public Localization kn(String value) {
         translations.put(KN, value);
         return this;
     }
 
-    public Translations ko(String value) {
+    public Localization ko(String value) {
         translations.put(KO, value);
         return this;
     }
 
-    public Translations ky(String value) {
+    public Localization ky(String value) {
         translations.put(KY, value);
         return this;
     }
 
-    public Translations lt(String value) {
+    public Localization lt(String value) {
         translations.put(LT, value);
         return this;
     }
 
-    public Translations lv(String value) {
+    public Localization lv(String value) {
         translations.put(LV, value);
         return this;
     }
 
-    public Translations mi(String value) {
+    public Localization mi(String value) {
         translations.put(MI, value);
         return this;
     }
 
-    public Translations mk(String value) {
+    public Localization mk(String value) {
         translations.put(MK, value);
         return this;
     }
 
-    public Translations mn(String value) {
+    public Localization mn(String value) {
         translations.put(MN, value);
         return this;
     }
 
-    public Translations mr(String value) {
+    public Localization mr(String value) {
         translations.put(MR, value);
         return this;
     }
 
-    public Translations ms(String value) {
+    public Localization ms(String value) {
         translations.put(MS, value);
         return this;
     }
 
-    public Translations mt(String value) {
+    public Localization mt(String value) {
         translations.put(MT, value);
         return this;
     }
 
-    public Translations nb(String value) {
+    public Localization nb(String value) {
         translations.put(NB, value);
         return this;
     }
 
-    public Translations nl(String value) {
+    public Localization nl(String value) {
         translations.put(NL, value);
         return this;
     }
 
-    public Translations ns(String value) {
+    public Localization ns(String value) {
         translations.put(NS, value);
         return this;
     }
 
-    public Translations pa(String value) {
+    public Localization pa(String value) {
         translations.put(PA, value);
         return this;
     }
 
-    public Translations pl(String value) {
+    public Localization pl(String value) {
         translations.put(PL, value);
         return this;
     }
 
-    public Translations ps(String value) {
+    public Localization ps(String value) {
         translations.put(PS, value);
         return this;
     }
 
-    public Translations pt(String value) {
+    public Localization pt(String value) {
         translations.put(PT, value);
         return this;
     }
 
-    public Translations qu(String value) {
+    public Localization qu(String value) {
         translations.put(QU, value);
         return this;
     }
 
-    public Translations ro(String value) {
+    public Localization ro(String value) {
         translations.put(RO, value);
         return this;
     }
 
-    public Translations ru(String value) {
+    public Localization ru(String value) {
         translations.put(RU, value);
         return this;
     }
 
-    public Translations sa(String value) {
+    public Localization sa(String value) {
         translations.put(SA, value);
         return this;
     }
 
-    public Translations se(String value) {
+    public Localization se(String value) {
         translations.put(SE, value);
         return this;
     }
 
-    public Translations sk(String value) {
+    public Localization sk(String value) {
         translations.put(SK, value);
         return this;
     }
 
-    public Translations sl(String value) {
+    public Localization sl(String value) {
         translations.put(SL, value);
         return this;
     }
 
-    public Translations sq(String value) {
+    public Localization sq(String value) {
         translations.put(SQ, value);
         return this;
     }
 
-    public Translations sv(String value) {
+    public Localization sv(String value) {
         translations.put(SV, value);
         return this;
     }
 
-    public Translations sw(String value) {
+    public Localization sw(String value) {
         translations.put(SW, value);
         return this;
     }
 
-    public Translations ta(String value) {
+    public Localization ta(String value) {
         translations.put(TA, value);
         return this;
     }
 
-    public Translations te(String value) {
+    public Localization te(String value) {
         translations.put(TE, value);
         return this;
     }
 
-    public Translations th(String value) {
+    public Localization th(String value) {
         translations.put(TH, value);
         return this;
     }
 
-    public Translations tl(String value) {
+    public Localization tl(String value) {
         translations.put(TL, value);
         return this;
     }
 
-    public Translations tn(String value) {
+    public Localization tn(String value) {
         translations.put(TN, value);
         return this;
     }
 
-    public Translations tr(String value) {
+    public Localization tr(String value) {
         translations.put(TR, value);
         return this;
     }
 
-    public Translations tt(String value) {
+    public Localization tt(String value) {
         translations.put(TT, value);
         return this;
     }
 
-    public Translations ts(String value) {
+    public Localization ts(String value) {
         translations.put(TS, value);
         return this;
     }
 
-    public Translations uk(String value) {
+    public Localization uk(String value) {
         translations.put(UK, value);
         return this;
     }
 
-    public Translations ur(String value) {
+    public Localization ur(String value) {
         translations.put(UR, value);
         return this;
     }
 
-    public Translations uz(String value) {
+    public Localization uz(String value) {
         translations.put(UZ, value);
         return this;
     }
 
-    public Translations vi(String value) {
+    public Localization vi(String value) {
         translations.put(VI, value);
         return this;
     }
 
-    public Translations xh(String value) {
+    public Localization xh(String value) {
         translations.put(XH, value);
         return this;
     }
 
-    public Translations zh(String value) {
+    public Localization zh(String value) {
         translations.put(ZH, value);
         return this;
     }
 
-    public Translations zu(String value) {
+    public Localization zu(String value) {
         translations.put(ZU, value);
         return this;
     }
-
 }

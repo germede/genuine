@@ -1,4 +1,6 @@
-package org.fluentness.backbone.exception;
+package org.fluentness.controller.web;
+
+import org.fluentness.AbstractException;
 
 public class ProviderException extends AbstractException {
 

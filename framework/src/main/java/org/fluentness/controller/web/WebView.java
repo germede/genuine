@@ -1,8 +1,5 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.service.common.lambda.KeyValuePairLambda;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,17 +15,17 @@ public abstract class WebView {
         return parameters.get(Thread.currentThread()).get(parameter);
     }
 
-    public WebView assigning(KeyValuePairLambda<Object>... parameters) {
-        if (WebView.parameters.containsKey(Thread.currentThread())) {
-            WebView.parameters.get(Thread.currentThread()).clear();
-        } else {
-            WebView.parameters.put(Thread.currentThread(), new HashMap<>());
-        }
-        Arrays.stream(parameters).forEach(
-            parameter -> WebView.parameters.get(Thread.currentThread()).put(parameter.getKey(), parameter.getValue())
-        );
-        return this;
-    }
+//    public WebView assigning(KeyValuePairLambda<Object>... parameters) {
+//        if (WebView.parameters.containsKey(Thread.currentThread())) {
+//            WebView.parameters.get(Thread.currentThread()).clear();
+//        } else {
+//            WebView.parameters.put(Thread.currentThread(), new HashMap<>());
+//        }
+//        Arrays.stream(parameters).forEach(
+//            parameter -> WebView.parameters.get(Thread.currentThread()).put(parameter.getKey(), parameter.getValue())
+//        );
+//        return this;
+//    }
 
     public String renderWithCache() {
         return render();
