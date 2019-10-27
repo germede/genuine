@@ -1,6 +1,16 @@
 package com.sample.controller;
 
+import org.fluentness.controller.web.WebView;
+import org.fluentness.controller.web.text.RawView;
+
 public class Web {
+
+
+
+    WebView testView() {
+        return new RawView("Test raw view");
+    }
+
 //    private WebView songList = base(
 //            div(attrs(CLASS -> "row"),
 //                    div(attrs(CLASS -> "column"),

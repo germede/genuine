@@ -1,27 +1,52 @@
 package com.sample.controller;
 
 import com.sample.repository.BookRepository;
-import org.fluentness.controller.Controller;
+import org.fluentness.controller.web.AbstractWebController;
+import org.fluentness.controller.web.WebView;
+import org.fluentness.service.server.HttpStatusCode;
 
-import java.lang.reflect.Method;
+import javax.servlet.http.HttpServletResponse;
 
-public class WebController implements Controller {
+public class WebController extends AbstractWebController {
 
     private BookRepository bookRepository;
+    private Web web;
 
-    private Web webView;
-
-    public WebController(BookRepository bookRepository) {
+    public WebController(BookRepository bookRepository, Web web) {
         this.bookRepository = bookRepository;
+        this.web = web;
     }
-//
-//    @WebAction(path = "/test", method = GET)
-//    public String test(HttpServletRequest request) {
-//        Book newBook = new Book();
-//        newBook.setTitle("Ein Lied");
-//        bookRepository.create(newBook);
-//        return response("yea");
-//    }
+
+    @Action(path = "/testVoid")
+    public void testVoid() {
+        int result = 2 + 2;
+    }
+
+    @Action(path = "/testString")
+    public String testString() {
+        return "Hello world!";
+    }
+
+    @Action(path = "/testForbidden")
+    public int testForbidden() {
+        return 403;
+    }
+
+    @Action(path = "/testServerError")
+    public int testServerError() {
+        int outOfBounds = new int[]{}[1];
+        return 200;
+    }
+
+    @Action(path = "/testResponse")
+    public HttpServletResponse testResponse() {
+        return response(HttpStatusCode.OK, "Everything is fine");
+    }
+
+    @Action(path = "/testViewRender")
+    public WebView testRender() {
+        return web.testView();
+    }
 //
 //    @WebAction(path = "/")
 //    public View index(HttpServletRequest request) {
@@ -98,9 +123,4 @@ public class WebController implements Controller {
 //
 //    }
 
-
-    @Override
-    public Method[] getActions() {
-        return new Method[0];
-    }
 }
