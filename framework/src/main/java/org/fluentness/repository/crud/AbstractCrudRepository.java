@@ -32,7 +32,7 @@ public abstract class AbstractCrudRepository<M> implements Repository {
     }
 
     public List<M> findAll() {
-        return persistenceService.query("SELECT * FROM " + getModelClass().getSimpleName()).getResultList();
+        return persistenceService.query("SELECT e FROM " + getModelClass().getSimpleName() + " e").getResultList();
     }
 
 }

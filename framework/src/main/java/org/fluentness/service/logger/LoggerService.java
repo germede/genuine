@@ -12,7 +12,7 @@ public interface LoggerService extends Service {
 
     void error(String message, Object... parameters);
 
-    void error(Exception exception);
+    void error(Throwable throwable);
 
 }
 

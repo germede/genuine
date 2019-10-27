@@ -12,6 +12,7 @@ public class ConfigurationService extends AbstractConfigurationService {
         add("app_port").dev("8000").prod("80");
         add("log_level").dev("INFO").prod("ERRO");
         add("log_to_console").dev("true").prod("false");
+        add("persistence_unit").dev("bookLibraryPU").prod("bookLibraryPU");
         add("compress_styles").dev("false").prod("true");
     }
 

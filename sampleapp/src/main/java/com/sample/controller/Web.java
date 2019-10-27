@@ -1,8 +1,11 @@
 package com.sample.controller;
 
+import com.sample.repository.Book;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.MarkupAttributes;
 import org.fluentness.service.localization.LocalizationService;
+
+import java.util.List;
 
 import static org.fluentness.controller.web.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.html.HtmlViewFactory.*;
@@ -10,84 +13,78 @@ import static org.fluentness.controller.web.html.HtmlViewFactory.*;
 public class Web {
 
     private static final MarkupAttributes CONTAINER = attrs(CLASS + "container");
+    private static final MarkupAttributes ROW = attrs(CLASS + "row");
+    private static final MarkupAttributes COLUMN_50 = attrs(CLASS + "column column-50");
 
+    private LocalizationService l10n;
 
-    private LocalizationService localizationService;
-
-    public Web(LocalizationService localizationService) {
-        this.localizationService = localizationService;
+    public Web(LocalizationService l10n) {
+        this.l10n = l10n;
     }
 
 
     WebView testView() {
-        return base(raw("Test raw view"));
+        return base(
+            raw("Test raw view")
+        );
+    }
+
+    WebView listBooks(List<Book> books) {
+        return base(
+            div(ROW,
+                div(COLUMN_50,
+                    h2(l10n.translate("song_list"))
+                ),
+                div(COLUMN_50
+//                                formProvider.searchSong
+                ),
+                table(
+                    thead(
+                        tr(
+                            th(l10n.translate("song_title")),
+                            th(l10n.translate("song_artist")),
+                            th(l10n.translate("song_album")),
+                            th(l10n.translate("song_year")),
+                            th(l10n.translate("song_is_new")),
+                            th(l10n.translate("song_update")),
+                            th(l10n.translate("song_delete"))
+                        )
+                    ),
+                    tbody(
+                        books.stream().map(book ->
+                            tr(
+                                td(book.getTitle()),
+                                td(book.getTitle().length() > 1 ? "✔" : "\uD83D\uDDD9"),
+                                td(a(attrs(CLASS + "button", HREF + "/song/update/" + book.getId()), "\uD83D\uDD89")),
+                                td(a(attrs(CLASS + "button", HREF + "/song/delete/" + book.getId()), "\uD83D\uDDD1"))
+                            )
+                        ).toArray(WebView[]::new)
+                    )
+                ),
+                a(attrs(CLASS + "button", HREF + "/song/create"),
+                    l10n.translate("song_create")
+                )
+            )
+        );
     }
 
     private WebView base(WebView toInclude) {
         return html(
-                head(
-                        title("The book library made with Fluentness"),
-                        meta(NAME + "lang", CONTENT + "en"),
-                        meta(CHARSET + "utf-8"),
-                        link(REL + "stylesheet", TYPE + "text/css", HREF + "res/css/milligram.min.css"),
-                        script(attrs(SRC + "res/js/script.min.js"))
+            head(
+                title("The book library made with Fluentness"),
+                meta(NAME + "lang", CONTENT + "en"),
+                meta(CHARSET + "utf-8"),
+                link(REL + "stylesheet", TYPE + "text/css", HREF + "res/css/milligram.min.css"),
+                script(attrs(SRC + "res/js/script.min.js"))
+            ),
+            body(
+                div(CONTAINER,
+                    h1("asdf")
                 ),
-                body(
-                        div(CONTAINER, h1("asdf")),
-                        toInclude
-                )
+                toInclude
+            )
         );
     }
-
-
-//    private WebView songList = base(
-//            div(attrs(CLASS -> "row"),
-//                    div(attrs(CLASS -> "column"),
-//                            div(attrs(CLASS -> "row"),
-//                                    div(attrs(CLASS -> "column column-50"),
-//                                            h2(translate("song_list"))
-//                                    ),
-//                                    div(attrs(CLASS -> "column column-50"),
-//                                            formProvider.searchSong
-//                                    ),
-//                                    table(
-//                                            thead(
-//                                                    tr(
-//                                                            th(translate("song_title")),
-//                                                            th(translate("song_artist")),
-//                                                            th(translate("song_album")),
-//                                                            th(translate("song_year")),
-//                                                            th(translate("song_is_new")),
-//                                                            th(translate("song_update")),
-//                                                            th(translate("song_delete"))
-//                                                    )
-//                                            ),
-//                                            tbody(
-//                                                    forEachItemIn("songs", Book.class,
-//                                                            song -> tr(
-//                                                                    td(song.getTitle()),
-//                                                                    ContainerHtmlViewFactory.td(print("testParameter"))
-////                                td(song.getBoolean("is_new") ? "✔" : "\uD83D\uDDD9"),
-////                                td(a(attrs(CLASS -> "button", HREF -> "/song/update/" + song.getId()), "\uD83D\uDD89")),
-////                                td(a(attrs(CLASS -> "button", HREF -> "/song/delete/" + song.getId()), "\uD83D\uDDD1"))
-//                                                            )
-//                                                    )
-//                                            )
-//                                    ),
-//                                    a(attrs(CLASS -> "button", href -> "/song/create"),
-//                                            translate("song_create")
-//                                    )
-//                            )
-//                    )
-//            )
-//    );
-//
-//    private Localization localizations;
-//
-//
-//    public Web(Localization localizations) {
-//        this.localizations = localizations;
-//    }
 
 //
 //    private Field textField(String idString, String placeholderKey, String labelKey) {

@@ -45,13 +45,18 @@ public class WebController extends AbstractWebController {
     }
 
     @Action(path = "/testView")
-    public WebView testGetParameter() {
+    public WebView testView() {
         return web.testView();
     }
 
     @Action(path = "/testGetParameter", method = HttpMethod.GET)
     public String testGetParameter(String name) {
         return "Greetings, " + name;
+    }
+
+    @Action(path = "/listBooks")
+    public WebView listBooks() {
+        return web.listBooks(bookRepository.findAll());
     }
 //
 //    @WebAction(path = "/")

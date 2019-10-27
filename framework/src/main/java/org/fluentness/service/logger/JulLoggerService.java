@@ -15,8 +15,8 @@ public class JulLoggerService implements LoggerService {
 
     public JulLoggerService(ConfigurationService configurationService) throws Exception {
         Level logLevel = configurationService.has("log_level") ?
-                fluentnessLogLevelToOwnLogLevel(LogLevel.valueOf(configurationService.get("log_level"))) :
-                Level.ALL;
+            fluentnessLogLevelToOwnLogLevel(LogLevel.valueOf(configurationService.get("log_level"))) :
+            Level.ALL;
 
         logger = java.util.logging.Logger.getLogger("");
         logger.setUseParentHandlers(false);
@@ -38,7 +38,7 @@ public class JulLoggerService implements LoggerService {
         if (configurationService.has("log_to_file")) {
             new File(configurationService.get("log_to_file")).mkdirs();
             String logFilePath = configurationService.get("log_to_file") + "/" +
-                    new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
+                new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
             File file = new File(logFilePath);
             FileHandler fileHandler;
             if (file.exists()) {
@@ -75,32 +75,32 @@ public class JulLoggerService implements LoggerService {
     }
 
     @Override
-    public void error(Exception exception) {
-        log(exception);
+    public void error(Throwable throwable) {
+        log(throwable);
     }
 
     private void log(LogLevel logLevel, String message, Object... parameters) {
         logger.log(fluentnessLogLevelToOwnLogLevel(logLevel), format(message, parameters));
     }
 
-    private void log(Exception exception) {
-        logger.log(fluentnessLogLevelToOwnLogLevel(LogLevel.ERROR), exceptionToMessage(exception));
+    private void log(Throwable throwable) {
+        logger.log(fluentnessLogLevelToOwnLogLevel(LogLevel.ERROR), retrieveThrowableMessage(throwable));
     }
 
     LogLevel ownLogLevelToFluentnessLogLevel(Level level) {
         return level.equals(Level.ALL) || level.equals(Level.FINEST) || level.equals(Level.FINER) || level.equals(Level.FINE) ? LogLevel.DEBUG :
-                level.equals(Level.CONFIG) || level.equals(Level.INFO) ? LogLevel.INFO :
-                        level.equals(Level.WARNING) ? LogLevel.WARNING :
-                                level.equals(Level.SEVERE) ? LogLevel.ERROR :
-                                        LogLevel.NONE;
+            level.equals(Level.CONFIG) || level.equals(Level.INFO) ? LogLevel.INFO :
+                level.equals(Level.WARNING) ? LogLevel.WARNING :
+                    level.equals(Level.SEVERE) ? LogLevel.ERROR :
+                        LogLevel.NONE;
     }
 
     private Level fluentnessLogLevelToOwnLogLevel(LogLevel level) {
         return level.equals(LogLevel.DEBUG) ? Level.ALL :
-                level.equals(LogLevel.INFO) ? Level.INFO :
-                        level.equals(LogLevel.WARNING) ? Level.WARNING :
-                                level.equals(LogLevel.ERROR) ? Level.SEVERE :
-                                        Level.OFF;
+            level.equals(LogLevel.INFO) ? Level.INFO :
+                level.equals(LogLevel.WARNING) ? Level.WARNING :
+                    level.equals(LogLevel.ERROR) ? Level.SEVERE :
+                        Level.OFF;
     }
 
     private String format(String message, Object... parameters) {
@@ -110,17 +110,18 @@ public class JulLoggerService implements LoggerService {
         return message;
     }
 
-    private String exceptionToMessage(Exception exception) {
+    private String retrieveThrowableMessage(Throwable throwable) {
         StringBuilder res = new StringBuilder();
-        if (exception.getMessage() == null) {
-            res.append(exception.getClass().getSimpleName()).append(":");
+        if (throwable.getMessage() == null) {
+            res.append(throwable.getClass().getSimpleName()).append(":");
         } else {
-            res.append(exception.getClass().getSimpleName()).append(" ").append(exception.getMessage()).append(":");
+            res.append(throwable.getClass().getSimpleName()).append(" ").append(throwable.getMessage()).append(":");
         }
-        res.append("\nStacktrace:");
-        for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
+        for (StackTraceElement stackTraceElement : throwable.getStackTrace()) {
             res.append("\n    ").append(stackTraceElement.toString());
         }
-        return res.toString();
+        return throwable.getCause() != null ?
+            res.toString() + "\nCaused by " + retrieveThrowableMessage(throwable.getCause()) :
+            res.toString();
     }
 }

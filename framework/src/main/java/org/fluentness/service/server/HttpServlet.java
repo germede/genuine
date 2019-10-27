@@ -22,7 +22,7 @@ class HttpServlet extends javax.servlet.http.HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (routing.containsKey(request.getPathInfo())) {
             try {
-                routing.get(request.getPathInfo()).handle(request,response);
+                routing.get(request.getPathInfo()).handle(request, response);
             } catch (InvocationTargetException | IllegalAccessException e) {
                 loggerService.error(e);
             }

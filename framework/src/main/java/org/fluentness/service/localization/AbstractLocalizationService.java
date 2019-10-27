@@ -13,6 +13,7 @@ public abstract class AbstractLocalizationService implements LocalizationService
 
     @Override
     public String translate(String key) {
+        if (!localizationMap.containsKey(key)) return key;
         return localizationMap.get(key).get(getCurrentLanguage());
     }
 
