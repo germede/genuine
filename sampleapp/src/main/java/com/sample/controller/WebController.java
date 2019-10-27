@@ -15,12 +15,12 @@ public class WebController extends AbstractWebController {
         this.web = web;
     }
 
-    @Action(path = "/testVoid")
+    @Action(path = "/void")
     public void testVoid() {
         int result = 2 + 2;
     }
 
-    @Action(path = "/testString")
+    @Action(path = "/string")
     public String testString() {
         return "Hello world!";
     }
@@ -49,9 +49,9 @@ public class WebController extends AbstractWebController {
         return web.testView();
     }
 
-    @Action(path = "/testView", method = HttpMethod.GET)
+    @Action(path = "/testGetParameter", method = HttpMethod.GET)
     public String testGetParameter(String name) {
-        return "";
+        return "Greetings, " + name;
     }
 //
 //    @WebAction(path = "/")
