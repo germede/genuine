@@ -1,8 +1,8 @@
 package org.fluentness;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.console.ConsoleController;
-import org.fluentness.controller.console.DefaultConsoleController;
+import org.fluentness.controller.console.AbstractConsoleController;
+import org.fluentness.controller.console.DefaultAbstractConsoleController;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.logger.JulLoggerService;
@@ -30,7 +30,7 @@ public enum Fluentness {
 
             // controllers
             List<Class> cClasses = ClassLoader.does.load(appPackage + ".controller", Controller.class);
-            cClasses.add(DefaultConsoleController.class);
+            cClasses.add(DefaultAbstractConsoleController.class);
             ClassRegister.does.inject(cClasses);
 
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public enum Fluentness {
     public void invoke(String[] args) {
         try {
             String name = args.length == 0 ? "help" : args[0];
-            Method toExecute = Controller.getAllActions(ClassRegister.does.getInstances(ConsoleController.class))
+            Method toExecute = Controller.getAllActions(ClassRegister.does.getInstances(AbstractConsoleController.class))
                     .stream()
                     .filter(method -> method.getName().equals(name))
                     .findFirst()

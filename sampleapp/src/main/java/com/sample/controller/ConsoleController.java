@@ -1,8 +1,9 @@
 package com.sample.controller;
 
 import com.sample.repository.BookRepository;
+import org.fluentness.controller.console.AbstractConsoleController;
 
-public class ConsoleController extends org.fluentness.controller.console.ConsoleController {
+public class ConsoleController extends AbstractConsoleController {
 
     private BookRepository bookRepository;
 

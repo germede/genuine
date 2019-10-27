@@ -4,7 +4,7 @@ import org.fluentness.controller.Controller;
 
 import java.lang.reflect.Method;
 
-public abstract class DesktopController implements Controller {
+public abstract class AbstractDesktopController implements Controller {
 
     @Override
     public Method[] getActions() {

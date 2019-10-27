@@ -1,9 +1,9 @@
 package com.sample.service;
 
 import org.fluentness.service.configuration.Environment;
-import org.fluentness.service.configuration.MapConfigurationService;
+import org.fluentness.service.configuration.AbstractConfigurationService;
 
-public class ConfigurationService extends MapConfigurationService {
+public class ConfigurationService extends AbstractConfigurationService {
 
     @Override
     protected void configure() {

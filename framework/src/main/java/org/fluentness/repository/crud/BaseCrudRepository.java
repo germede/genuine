@@ -5,11 +5,11 @@ import org.fluentness.service.persistence.PersistenceService;
 
 import java.util.List;
 
-public abstract class CrudRepository<M> implements Repository {
+public abstract class BaseCrudRepository<M> implements Repository {
 
     protected PersistenceService persistenceService;
 
-    public CrudRepository(PersistenceService persistenceService) {
+    public BaseCrudRepository(PersistenceService persistenceService) {
         this.persistenceService = persistenceService;
     }
 

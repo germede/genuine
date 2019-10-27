@@ -3,11 +3,11 @@ package org.fluentness.service.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class MapConfigurationService implements ConfigurationService {
+public abstract class AbstractConfigurationService implements ConfigurationService {
 
     private Map<String, Configuration> configurationMap = new HashMap<>();
 
-    public MapConfigurationService() {
+    public AbstractConfigurationService() {
         configure();
     }
 

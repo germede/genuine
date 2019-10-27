@@ -3,11 +3,11 @@ package org.fluentness.service.localization;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class MapLocalizationService implements LocalizationService {
+public abstract class BaseLocalizationService implements LocalizationService {
 
     private Map<String, Localization> localizationMap = new HashMap<>();
 
-    public MapLocalizationService() {
+    public BaseLocalizationService() {
         configure();
     }
 

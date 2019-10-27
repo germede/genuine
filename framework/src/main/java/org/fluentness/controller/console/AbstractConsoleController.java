@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public abstract class ConsoleController implements Controller {
+public abstract class AbstractConsoleController implements Controller {
 
     @Override
     public Method[] getActions() {

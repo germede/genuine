@@ -1,6 +1,7 @@
 package org.fluentness.controller.console;
 
 import org.fluentness.ClassRegister;
+import org.fluentness.Fluentness;
 import org.fluentness.controller.Controller;
 import org.fluentness.service.logger.LoggerService;
 import org.fluentness.service.server.ServerService;
@@ -11,13 +12,13 @@ import java.util.*;
 
 import static org.fluentness.controller.console.AnsiColor.*;
 
-public class DefaultConsoleController extends ConsoleController {
+public class DefaultAbstractConsoleController extends AbstractConsoleController {
 
 
     private ServerService serverService;
     private LoggerService loggerService;
 
-    public DefaultConsoleController(ServerService serverService, LoggerService loggerService) {
+    public DefaultAbstractConsoleController(ServerService serverService, LoggerService loggerService) {
         this.serverService = serverService;
         this.loggerService = loggerService;
     }
@@ -35,24 +36,27 @@ public class DefaultConsoleController extends ConsoleController {
         System.out.println(ANSI_GREEN + "Available console actions:" + ANSI_RESET);
 
         Map<String, List<String>> categorizedConsoleActions = new HashMap<>();
-        for (Method action : Controller.getAllActions(ClassRegister.does.getInstances(ConsoleController.class))) {
+
+        // categorize console actions
+        for (Method action : Controller.getAllActions(ClassRegister.does.getInstances(AbstractConsoleController.class))) {
             String category = action.getAnnotation(Action.class).category();
             if (!categorizedConsoleActions.containsKey(category)) {
                 categorizedConsoleActions.put(category, new ArrayList<>());
             }
             String inLineParameters = action.getParameterCount() > 0 ?
-                    ANSI_WHITE + Arrays.stream(action.getParameters())
+                    Arrays.stream(action.getParameters())
                             .map(entry -> " [" + entry.getName() + ":" + entry.getType().getSimpleName() + "]")
                             .reduce(String::concat)
                             .get()
                     : "";
             String actionLine = String.format(ANSI_PURPLE + "    %-40s" + ANSI_RESET + "%s",
                     action.getName() + inLineParameters,
-                    action.getAnnotation(Action.class).description()
+                    " " + action.getAnnotation(Action.class).description()
             );
             categorizedConsoleActions.get(category).add(actionLine);
         }
 
+        // print console actions
         categorizedConsoleActions.forEach((key, value) -> {
             System.out.println(String.format(ANSI_BLUE + "%-40s" + ANSI_RESET, key + (!key.isEmpty() ? ":" : "")));
             value.forEach(System.out::println);
@@ -62,7 +66,8 @@ public class DefaultConsoleController extends ConsoleController {
 
     @Action(description = "Prints used framework version")
     public void version() {
-//        System.out.println(Fluentness.class.getPackage().getImplementationVersion());
+        // todo fix
+        System.out.println(Fluentness.class.getPackage().getImplementationVersion());
     }
 
     @Action(description = "Clears the view cache", category = "clear")

@@ -1,9 +1,9 @@
 package com.sample.service;
 
 import org.fluentness.service.localization.Language;
-import org.fluentness.service.localization.MapLocalizationService;
+import org.fluentness.service.localization.BaseLocalizationService;
 
-public class LocalizationService extends MapLocalizationService {
+public class LocalizationService extends BaseLocalizationService {
 
     @Override
     protected void configure() {
