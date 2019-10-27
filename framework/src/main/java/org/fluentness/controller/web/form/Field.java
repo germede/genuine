@@ -10,7 +10,7 @@ public class Field extends MarkupElementEmpty {
     Field(String fieldType, String[] attributes) {
         super("input", attributes);
 //        this.attributes.add(type -> fieldType);
-        this.attributes.add("type -> fieldType");
+//        this.attributes.add("type -> fieldType");
     }
 
     public Field precededBy(WebView... predecessors) {

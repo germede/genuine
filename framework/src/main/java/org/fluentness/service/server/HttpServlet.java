@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-public class HttpServlet extends javax.servlet.http.HttpServlet {
+class HttpServlet extends javax.servlet.http.HttpServlet {
 
     private LoggerService loggerService;
     private Map<String, HttpHandler> routing;

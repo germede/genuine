@@ -1,0 +1,87 @@
+package org.fluentness.controller.web.html;
+
+public enum CssProperty {
+    background("background"),
+    background_attachment("background_attachment"),
+    background_color("background_color"),
+    background_image("background_image"),
+    background_position("background_position"),
+    background_repeat("background_repeat"),
+    border("border"),
+    border_bottom("border_bottom"),
+    border_bottom_color("border_bottom_color"),
+    border_bottom_style("border_bottom_style"),
+    border_bottom_width("border_bottom_width"),
+    border_color("border_color"),
+    border_left("border_left"),
+    border_left_color("border_left_color"),
+    border_left_style("border_left_style"),
+    border_left_width("border_left_width"),
+    border_right("border_right"),
+    border_right_color("border_right_color"),
+    border_right_style("border_right_style"),
+    border_right_width("border_right_width"),
+    border_style("border_style"),
+    border_top("border_top"),
+    border_top_color("border_top_color"),
+    border_top_style("border_top_style"),
+    border_top_width("border_top_width"),
+    border_width("border_width"),
+    clear("clear"),
+    clip("clip"),
+    color("color"),
+    cursor("cursor"),
+    display("display"),
+    filter("filter"),
+    float_("float_"),
+    font("font"),
+    font_family("font_family"),
+    font_size("font_size"),
+    font_variant("font_variant"),
+    font_weight("font_weight"),
+    height("height"),
+    left("left"),
+    letter_spacing("letter_spacing"),
+    line_height("line_height"),
+    list_style("list_style"),
+    list_style_image("list_style_image"),
+    list_style_position("list_style_position"),
+    list_style_type("list_style_type"),
+    margin("margin"),
+    margin_bottom("margin_bottom"),
+    margin_left("margin_left"),
+    margin_right("margin_right"),
+    margin_top("margin_top"),
+    overflow("overflow"),
+    padding("padding"),
+    padding_bottom("padding_bottom"),
+    padding_left("padding_left"),
+    padding_right("padding_right"),
+    padding_top("padding_top"),
+    page_break_after("page_break_after"),
+    page_break_before("page_break_before"),
+    position("position"),
+    stroke_dasharray("stroke_dasharray"),
+    stroke_dashoffset("stroke_dashoffset"),
+    stroke_width("stroke_width"),
+    text_align("text_align"),
+    text_decoration("text_decoration"),
+    text_indent("text_indent"),
+    text_transform("text_transform"),
+    top("top"),
+    vertical_align("vertical_align"),
+    visibility("visibility"),
+    width("width"),
+    z_index("z_index");
+
+    private String name;
+
+    CssProperty(String name) {
+        this.name = name + "=";
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}

@@ -1,15 +1,44 @@
 package com.sample.controller;
 
 import org.fluentness.controller.web.WebView;
-import org.fluentness.controller.web.text.RawView;
+import org.fluentness.controller.web.markup.MarkupAttributes;
+import org.fluentness.service.localization.LocalizationService;
+
+import static org.fluentness.controller.web.html.HtmlAttribute.*;
+import static org.fluentness.controller.web.html.HtmlViewFactory.*;
 
 public class Web {
 
+    private static final MarkupAttributes CONTAINER = attrs(CLASS + "container");
+
+
+    private LocalizationService localizationService;
+
+    public Web(LocalizationService localizationService) {
+        this.localizationService = localizationService;
+    }
 
 
     WebView testView() {
-        return new RawView("Test raw view");
+        return base(raw("Test raw view"));
     }
+
+    private WebView base(WebView toInclude) {
+        return html(
+                head(
+                        title("The book library made with Fluentness"),
+                        meta(NAME + "lang", CONTENT + "en"),
+                        meta(CHARSET + "utf-8"),
+                        link(REL + "stylesheet", TYPE + "text/css", HREF + "res/css/milligram.min.css"),
+                        script(attrs(SRC + "res/js/script.min.js"))
+                ),
+                body(
+                        div(CONTAINER, h1("asdf")),
+                        toInclude
+                )
+        );
+    }
+
 
 //    private WebView songList = base(
 //            div(attrs(CLASS -> "row"),
@@ -59,8 +88,8 @@ public class Web {
 //    public Web(Localization localizations) {
 //        this.localizations = localizations;
 //    }
-//
 
+//
 //    private Field textField(String idString, String placeholderKey, String labelKey) {
 //        return text(
 //                required -> "true",
@@ -119,26 +148,9 @@ public class Web {
 //                    placeholder -> translate("song_title"),
 //                    maxlength -> "20"
 //            )
+
 //    );
 
-//
-//    private WebView base(WebView toInclude) {
-//        return html(
-//                head(
-//                        title("A music archive made with love and Fluentness"),
-//                        meta(NAME -> "lang", CONTENT -> "en"),
-//                        meta(CHARSET -> "utf-8"),
-//                        style(styleProvider.bundle),
-//                        includeJs("script.min.js")
-//                ),
-//                body(
-//                        div(attrs(CLASS -> "container"),
-//                                h1(localizations.translate(localizations.welcome_message)),
-//                                toInclude
-//                        )
-//                )
-//        );
-//    }
 //    public WebView createSong(){
 //        return base(
 //                div(attrs(CLASS -> "row"),

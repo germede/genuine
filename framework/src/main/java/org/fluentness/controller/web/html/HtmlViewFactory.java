@@ -1,18 +1,14 @@
 package org.fluentness.controller.web.html;
 
 import org.fluentness.controller.web.WebView;
+import org.fluentness.controller.web.markup.MarkupAttributes;
 import org.fluentness.controller.web.text.RawView;
 
-public final class HtmlViewFactory implements
-        EmptyHtmlViewFactory,
-        ContainerHtmlViewFactory,
-        ContainerStringHtmlViewFactory,
-        ContainerAttributesHtmlViewFactory,
-        ContainerAttributesStringHtmlViewFactory {
+public final class HtmlViewFactory extends HtmlViewFactory1 {
 
-//    public static MarkupAttributes attrs(KeyValuePairLambda<String>... attributes) {
-//        return new MarkupAttributes(attributes);
-//    }
+    public static MarkupAttributes attrs(String... attributes) {
+        return new MarkupAttributes(attributes);
+    }
 
     public static WebView raw(String raw) {
         return new RawView(raw);
