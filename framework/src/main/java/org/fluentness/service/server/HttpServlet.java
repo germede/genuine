@@ -1,29 +1,33 @@
 package org.fluentness.service.server;
 
-import javax.servlet.ServletException;
+import org.fluentness.service.logger.LoggerService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class HttpServlet extends javax.servlet.http.HttpServlet {
 
-
-    public static HttpServletResponse response;
+    private LoggerService loggerService;
     private Map<String, HttpHandler> routing;
 
-    HttpServlet(Map<String, HttpHandler> routing) {
+    HttpServlet(LoggerService loggerService, Map<String, HttpHandler> routing) {
+        this.loggerService = loggerService;
         this.routing = routing;
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        response = resp;
-        super.service(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (routing.containsKey(request.getPathInfo())) {
+            try {
+                routing.get(request.getPathInfo()).handle(request,response);
+            } catch (InvocationTargetException | IllegalAccessException e) {
+                loggerService.error(e);
+            }
+        }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("asdf");
-    }
+    //todo support other methods
 }

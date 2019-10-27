@@ -32,9 +32,13 @@ public enum ClassRegister {
 
     void inject(List<Class> classes) throws InjectionException {
         for (Class aClass : classes) {
-            validateInstantiation(aClass);
-            instantiate(aClass);
+            inject(aClass);
         }
+    }
+
+    private void inject(Class aClass) throws InjectionException {
+        validateInstantiation(aClass);
+        instantiate(aClass);
     }
 
     private void validateInstantiation(Class iClass) throws InjectionException {
@@ -76,7 +80,8 @@ public enum ClassRegister {
                     if (instances.containsKey(parameter.getType())) {
                         parametersToInject[i] = instances.get(parameter.getType());
                     } else {
-                        throw new InjectionException("No dependency %s found for %s", parameter.getName(), iClass.getName());
+                        inject(parameter.getType());
+                        i--;
                     }
                 }
                 instances.put(instanceKey, declaredConstructors[0].newInstance(parametersToInject));
@@ -87,10 +92,6 @@ public enum ClassRegister {
         }
     }
 
-    /**
-     * @param sClass service class
-     * @return first service interface found
-     */
     private Class getInterfaceForServiceClass(Class<? extends Service> sClass) {
         // service interface is directly implemented
         for (Class sClassInterface : sClass.getInterfaces()) {
@@ -115,7 +116,6 @@ public enum ClassRegister {
     }
 
     static class InjectionException extends AbstractException {
-
         InjectionException(Exception exception) {
             super(exception);
         }
@@ -123,6 +123,5 @@ public enum ClassRegister {
         InjectionException(String messageToFormat, Object... parameters) {
             super(messageToFormat, parameters);
         }
-
     }
 }

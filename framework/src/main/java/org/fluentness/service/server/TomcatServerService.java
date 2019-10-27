@@ -34,7 +34,7 @@ public class TomcatServerService implements ServerService {
     public void start(Map<String, HttpHandler> routing) {
         try {
             Context ctx = server.addContext("/", new File(".").getAbsolutePath());
-            Tomcat.addServlet(ctx, "Fluentness", new HttpServlet(routing));
+            Tomcat.addServlet(ctx, "Fluentness", new HttpServlet(loggerService, routing));
             ctx.addServletMappingDecoded("/*", "Fluentness");
 
             server.start();

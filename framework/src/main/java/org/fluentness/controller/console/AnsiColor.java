@@ -12,7 +12,6 @@ public enum AnsiColor {
     ANSI_CYAN("\u001B[36m"),
     ANSI_WHITE("\u001B[37m");
 
-
     private String string;
 
     AnsiColor(String string) {

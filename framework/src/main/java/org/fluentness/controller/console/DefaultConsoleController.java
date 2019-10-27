@@ -3,6 +3,7 @@ package org.fluentness.controller.console;
 import org.fluentness.ClassRegister;
 import org.fluentness.Fluentness;
 import org.fluentness.controller.Controller;
+import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.service.logger.LoggerService;
 import org.fluentness.service.server.ServerService;
 
@@ -12,13 +13,13 @@ import java.util.*;
 
 import static org.fluentness.controller.console.AnsiColor.*;
 
-public class DefaultAbstractConsoleController extends AbstractConsoleController {
+public class DefaultConsoleController extends AbstractConsoleController {
 
 
     private ServerService serverService;
     private LoggerService loggerService;
 
-    public DefaultAbstractConsoleController(ServerService serverService, LoggerService loggerService) {
+    public DefaultConsoleController(ServerService serverService, LoggerService loggerService) {
         this.serverService = serverService;
         this.loggerService = loggerService;
     }
@@ -35,7 +36,7 @@ public class DefaultAbstractConsoleController extends AbstractConsoleController 
 
         System.out.println(ANSI_GREEN + "Available console actions:" + ANSI_RESET);
 
-        Map<String, List<String>> categorizedConsoleActions = new HashMap<>();
+        Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         // categorize console actions
         for (Method action : Controller.getAllActions(ClassRegister.does.getInstances(AbstractConsoleController.class))) {
@@ -87,7 +88,7 @@ public class DefaultAbstractConsoleController extends AbstractConsoleController 
 
     @Action(description = "Starts embedded HTTP server", category = "server")
     public void server_start() {
-//        serverService.start(controllerProvider.getRoutes());
+        serverService.start(AbstractWebController.getRoutingMap(ClassRegister.does.getInstances(AbstractWebController.class)));
     }
 
     @Action(description = "Stops embedded HTTP server", category = "server")

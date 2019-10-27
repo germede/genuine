@@ -3,9 +3,7 @@ package com.sample.controller;
 import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
-import org.fluentness.service.server.HttpStatusCode;
-
-import javax.servlet.http.HttpServletResponse;
+import org.fluentness.service.server.HttpMethod;
 
 public class WebController extends AbstractWebController {
 
@@ -39,13 +37,21 @@ public class WebController extends AbstractWebController {
     }
 
     @Action(path = "/testResponse")
-    public HttpServletResponse testResponse() {
-        return response(HttpStatusCode.OK, "Everything is fine");
+    public Response testResponse() {
+        return response -> {
+            response.setStatus(404);
+            response.getWriter().println("Fuck you");
+        };
     }
 
-    @Action(path = "/testViewRender")
-    public WebView testRender() {
+    @Action(path = "/testView")
+    public WebView testGetParameter() {
         return web.testView();
+    }
+
+    @Action(path = "/testView", method = HttpMethod.GET)
+    public String testGetParameter(String name) {
+        return "";
     }
 //
 //    @WebAction(path = "/")

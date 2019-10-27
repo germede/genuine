@@ -2,7 +2,7 @@ package org.fluentness;
 
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.console.AbstractConsoleController;
-import org.fluentness.controller.console.DefaultAbstractConsoleController;
+import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.logger.JulLoggerService;
@@ -30,7 +30,7 @@ public enum Fluentness {
 
             // controllers
             List<Class> cClasses = ClassLoader.does.load(appPackage + ".controller", Controller.class);
-            cClasses.add(DefaultAbstractConsoleController.class);
+            cClasses.add(DefaultConsoleController.class);
             ClassRegister.does.inject(cClasses);
 
         } catch (Exception e) {
