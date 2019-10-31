@@ -12,8 +12,8 @@
     <entry key="book_delete">Buch entfernen</entry>
     <entry key="book_title">Titel</entry>
     <entry key="book_title_placeholder">z.B. Harry Potter</entry>
-    <entry key="book_autor">Author</entry>
-    <entry key="book_autor_placeholder">z.B. J.K. Rowling</entry>
+    <entry key="book_author">Author</entry>
+    <entry key="book_author_placeholder">z.B. J.K. Rowling</entry>
     <entry key="book_genre">Genre</entry>
     <entry key="book_genre_placeholder">z.B. Fantasy</entry>
     <entry key="book_year">Jahr</entry>

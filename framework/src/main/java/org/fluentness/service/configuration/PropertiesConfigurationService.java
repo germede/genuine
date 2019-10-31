@@ -11,7 +11,9 @@ public class PropertiesConfigurationService implements ConfigurationService {
 
     public PropertiesConfigurationService() throws IOException {
         properties = new Properties();
-        properties.loadFromXML(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("configuration" + getEnvironment() + ".xml")));
+        properties.loadFromXML(
+            Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("configuration" + getEnvironment() + ".xml"))
+        );
     }
 
     @Override

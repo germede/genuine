@@ -6,15 +6,15 @@ import java.util.ResourceBundle;
 public class PropertiesLocalizationService implements LocalizationService {
 
     private Locale currentLocale;
+    private XMLResourceBundleControl control;
 
-    @Override
-    public String translate(String key) {
-        return ResourceBundle.getBundle("localization", currentLocale).getString(key);
+    public PropertiesLocalizationService() {
+        control = new XMLResourceBundleControl();
     }
 
     @Override
-    public void setCurrentLocale(Locale locale) {
-        this.currentLocale = locale;
+    public String translate(String key) {
+        return ResourceBundle.getBundle("localization", control).getString(key);
     }
 
 }

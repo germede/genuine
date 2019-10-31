@@ -40,13 +40,13 @@ public class Web {
                 table(
                     thead(
                         tr(
-                            th(l10n.translate("song_title")),
-                            th(l10n.translate("song_artist")),
-                            th(l10n.translate("song_album")),
-                            th(l10n.translate("song_year")),
-                            th(l10n.translate("song_is_new")),
-                            th(l10n.translate("song_update")),
-                            th(l10n.translate("song_delete"))
+                            th(l10n.translate("book_title")),
+                            th(l10n.translate("book_author")),
+                            th(l10n.translate("book_genre")),
+                            th(l10n.translate("book_year")),
+                            th(l10n.translate("book_is_new")),
+                            th(l10n.translate("book_update")),
+                            th(l10n.translate("book_delete"))
                         )
                     ),
                     tbody(
@@ -54,14 +54,14 @@ public class Web {
                             tr(
                                 td(book.getTitle()),
                                 td(book.getTitle().length() > 1 ? "✔" : "\uD83D\uDDD9"),
-                                td(a(attrs(CLASS + "button", HREF + "/song/update/" + book.getId()), "\uD83D\uDD89")),
-                                td(a(attrs(CLASS + "button", HREF + "/song/delete/" + book.getId()), "\uD83D\uDDD1"))
+                                td(a(attrs(CLASS + "button", HREF + "/book/update/" + book.getId()), "\uD83D\uDD89")),
+                                td(a(attrs(CLASS + "button", HREF + "/book/delete/" + book.getId()), "\uD83D\uDDD1"))
                             )
                         ).toArray(WebView[]::new)
                     )
                 ),
-                a(attrs(CLASS + "button", HREF + "/song/create"),
-                    l10n.translate("song_create")
+                a(attrs(CLASS + "button", HREF + "/book/create"),
+                    l10n.translate("book_create")
                 )
             )
         );
