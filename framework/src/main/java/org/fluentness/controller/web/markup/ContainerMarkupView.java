@@ -59,7 +59,7 @@ public class ContainerMarkupView implements MarkupView {
         builder.append(">");
         if (innerViews != null) {
             for (MarkupView markupView : innerViews) {
-                builder.append(markupView.toString());
+                builder.append(markupView.render());
             }
         }
         if (innerText != null) {
