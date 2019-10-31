@@ -1,9 +1,8 @@
 package org.fluentness.controller.console;
 
-import org.fluentness.DependencyInjector;
+import org.fluentness.service.dependency.DefaultDependencyService;
 import org.fluentness.Fluentness;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.service.logger.LoggerService;
 import org.fluentness.service.server.ServerService;
 
@@ -39,7 +38,7 @@ public class DefaultConsoleController extends AbstractConsoleController {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         // categorize console actions
-        for (Method action : Controller.getAllActions(DependencyInjector.does.getInstances(AbstractConsoleController.class))) {
+        for (Method action : Controller.getAllActions(DefaultDependencyService.does.getInstances(AbstractConsoleController.class))) {
             String category = action.getAnnotation(Action.class).category();
             if (!categorizedConsoleActions.containsKey(category)) {
                 categorizedConsoleActions.put(category, new ArrayList<>());
@@ -88,7 +87,6 @@ public class DefaultConsoleController extends AbstractConsoleController {
 
     @Action(description = "Starts embedded HTTP server", category = "server")
     public void server_start() {
-        serverService.prepare(AbstractWebController.getRoutingMap(DependencyInjector.does.getInstances(AbstractWebController.class)));
         serverService.start();
     }
 

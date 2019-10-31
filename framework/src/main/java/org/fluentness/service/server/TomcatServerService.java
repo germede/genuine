@@ -5,35 +5,36 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.fluentness.service.configuration.ConfigurationService;
 import org.fluentness.service.logger.LoggerService;
+import org.fluentness.service.routing.RoutingService;
 
 import java.io.File;
-import java.util.Map;
 
 public class TomcatServerService implements ServerService {
 
     private ConfigurationService configurationService;
     private LoggerService loggerService;
+    private RoutingService routingService;
     private HttpServlet httpServlet;
 
     private String host;
     private int port;
     private Tomcat server;
 
-    public TomcatServerService(ConfigurationService configurationService, LoggerService loggerService, HttpServlet httpServlet) {
+    public TomcatServerService(ConfigurationService configurationService, LoggerService loggerService, RoutingService routingService, HttpServlet httpServlet) {
         this.configurationService = configurationService;
         this.loggerService = loggerService;
+        this.routingService = routingService;
         this.httpServlet = httpServlet;
+        prepare();
     }
 
-
-    @Override
-    public void prepare(Map<String, HttpHandler> routing) {
+    private void prepare() {
         host = configurationService.get("app_host");
         port = Integer.parseInt(configurationService.get("app_port"));
         server = new Tomcat();
         server.setPort(port);
         server.getHost().setAppBase(".");
-        httpServlet.setRouting(routing);
+        httpServlet.setRouting(routingService.getRoutingMap());
         Context ctx = server.addContext("/", new File(".").getAbsolutePath());
         Tomcat.addServlet(ctx, "Fluentness", httpServlet);
         ctx.addServletMappingDecoded("/*", "Fluentness");

@@ -1,4 +1,4 @@
-package org.fluentness;
+package org.fluentness.service.dependency;
 
 import org.fluentness.service.Service;
 
@@ -11,11 +11,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public enum DependencyInjector {
-    does;
+public class DefaultDependencyService implements DependencyService {
 
     private Map<Class, Object> instances = new LinkedHashMap<>();
 
+    public DefaultDependencyService() {
+        // add itself
+        instances.put(DependencyService.class, this);
+    }
+
+    @Override
     public <T> List<T> getInstances(Class<T> tClass) {
         List<T> result = new ArrayList<>();
         for (Object value : instances.values()) {
@@ -26,11 +31,13 @@ public enum DependencyInjector {
         return result;
     }
 
-    <T> T getInstance(Class<T> tClass) {
+    @Override
+    public <T> T getInstance(Class<T> tClass) {
         return (T) instances.get(tClass);
     }
 
-    <T> void inject(List<Class<? extends T>> classes) throws InjectionException {
+    @Override
+    public <T> void inject(List<Class<? extends T>> classes) throws InjectionException {
         for (Class aClass : classes) {
             inject(aClass);
         }
@@ -115,13 +122,4 @@ public enum DependencyInjector {
         return sClass;
     }
 
-    static class InjectionException extends AbstractException {
-        InjectionException(java.lang.Exception exception) {
-            super(exception);
-        }
-
-        InjectionException(String messageToFormat, Object... parameters) {
-            super(messageToFormat, parameters);
-        }
-    }
 }

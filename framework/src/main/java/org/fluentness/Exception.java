@@ -1,6 +1,6 @@
 package org.fluentness;
 
-public abstract class AbstractException extends java.lang.Exception {
+public abstract class Exception extends java.lang.Exception {
 
     private String message;
     private java.lang.Exception exception;
@@ -32,11 +32,11 @@ public abstract class AbstractException extends java.lang.Exception {
         }
     }
 
-    protected AbstractException(java.lang.Exception exception) {
+    protected Exception(java.lang.Exception exception) {
         this.exception = exception;
     }
 
-    protected AbstractException(String messageToFormat, Object... parameters) {
+    protected Exception(String messageToFormat, Object... parameters) {
         this.message = String.format(messageToFormat, parameters);
     }
 }

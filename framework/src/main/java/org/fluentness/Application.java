@@ -8,6 +8,7 @@ import org.fluentness.service.configuration.PropertiesConfigurationService;
 import org.fluentness.service.localization.PropertiesLocalizationService;
 import org.fluentness.service.logger.JulLoggerService;
 import org.fluentness.service.persistence.OpenJpaPersistenceService;
+import org.fluentness.service.routing.DefaultRoutingService;
 import org.fluentness.service.server.TomcatServerService;
 
 import java.io.File;
@@ -22,7 +23,7 @@ import java.util.zip.ZipInputStream;
 
 public interface Application {
 
-    static <T> List<Class<? extends T>> load(String packageName, Class<T> parent) throws AutoLoaderException {
+    static  <T> List<Class<? extends T>> loadClasses(String packageName, Class<T> parent) throws AutoLoaderException {
         List<Class<? extends T>> result = new LinkedList<>();
         try {
             String path = packageName.replace(".", "/");
@@ -66,27 +67,28 @@ public interface Application {
     }
 
     default List<Class<? extends Service>> getServices() throws AutoLoaderException {
-        List<Class<? extends Service>> sClasses = load(this.getClass().getPackage().getName() + ".service", Service.class);
+        List<Class<? extends Service>> sClasses = loadClasses(this.getClass().getPackage().getName() + ".service", Service.class);
         sClasses.add(PropertiesConfigurationService.class);
         sClasses.add(PropertiesLocalizationService.class);
         sClasses.add(JulLoggerService.class);
         sClasses.add(OpenJpaPersistenceService.class);
+        sClasses.add(DefaultRoutingService.class);
         sClasses.add(TomcatServerService.class);
         return sClasses;
     }
 
     default List<Class<? extends Repository>> getRepositories() throws AutoLoaderException {
-        return load(this.getClass().getPackage().getName() + ".repository", Repository.class);
+        return loadClasses(this.getClass().getPackage().getName() + ".repository", Repository.class);
     }
 
     default List<Class<? extends Controller>> getControllers() throws AutoLoaderException {
-        List<Class<? extends Controller>> cClasses = load(this.getClass().getPackage().getName() + ".controller", Controller.class);
+        List<Class<? extends Controller>> cClasses = loadClasses(this.getClass().getPackage().getName() + ".controller", Controller.class);
         cClasses.add(DefaultConsoleController.class);
         return cClasses;
     }
 
-    class AutoLoaderException extends AbstractException {
-        AutoLoaderException(Exception exception) {
+    class AutoLoaderException extends Exception {
+        AutoLoaderException(java.lang.Exception exception) {
             super(exception);
         }
     }
