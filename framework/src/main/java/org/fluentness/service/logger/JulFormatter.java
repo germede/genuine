@@ -29,6 +29,7 @@ class JulFormatter extends Formatter {
         builder.append(ANSI_RESET);
         builder.append(LogLevel.fromJulLevel(logRecord.getLevel()).getAnsiColor().toString());
         builder.append(LogLevel.fromJulLevel(logRecord.getLevel()).toString());
+        builder.append(ANSI_RESET);
         builder.append(ANSI_WHITE);
         builder.append(" | ");
         builder.append(logRecord.getMessage());
