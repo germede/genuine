@@ -1,4 +1,4 @@
-package org.fluentness.service.Provider.localization;
+package org.fluentness.service.localization;
 
 public class LocaleTest {
 //

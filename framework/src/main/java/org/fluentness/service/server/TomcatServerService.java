@@ -34,7 +34,6 @@ public class TomcatServerService implements ServerService {
         server = new Tomcat();
         server.setPort(port);
         server.getHost().setAppBase(".");
-        httpServlet.setRouting(routingService.getRoutingMap());
         Context ctx = server.addContext("/", new File(".").getAbsolutePath());
         Tomcat.addServlet(ctx, "Fluentness", httpServlet);
         ctx.addServletMappingDecoded("/*", "Fluentness");
@@ -42,6 +41,7 @@ public class TomcatServerService implements ServerService {
 
     @Override
     public void start() {
+        httpServlet.setRouting(routingService.getRoutingMap());
         try {
             server.start();
             loggerService.info("Tomcat Server is listening, visit http://%s:%s/", host, port);

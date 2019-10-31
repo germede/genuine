@@ -19,6 +19,7 @@ public abstract class AbstractWebController implements Controller<WebAction> {
         List<WebAction> result = new LinkedList<>();
         Arrays.stream(getClass().getDeclaredMethods())
             .filter(method -> method.isAnnotationPresent(Action.class))
+            .filter(method -> Modifier.isPublic(method.getModifiers()))
             .forEach(method -> result.add(
                 new WebAction(
                     method.getAnnotation(Action.class).path(),

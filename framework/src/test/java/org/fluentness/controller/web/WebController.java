@@ -8,11 +8,11 @@ import java.io.IOException;
 
 public class WebController extends AbstractWebController {
 
-    public void dummyMethodWhichIsNotAnAction() {
+    public void notAnActionBecauseNoActionAnnotation() {
     }
 
-    @Action(path = "/notAnAction")
-    void dummyActionWhichIsNotPublic() {
+    @Action(path = "/notAnActionBecauseItIsNotPublic")
+    void notAnActionBecauseItIsNotPublic() {
     }
 
     @Action(path = "/void")

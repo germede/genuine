@@ -3,7 +3,6 @@ package com.sample.controller;
 import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
-import org.fluentness.service.server.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,45 +14,6 @@ public class WebController extends AbstractWebController {
     public WebController(BookRepository bookRepository, Web web) {
         this.bookRepository = bookRepository;
         this.web = web;
-    }
-
-    @Action(path = "/void")
-    public void testVoid() {
-        int result = 2 + 2;
-    }
-
-    @Action(path = "/string")
-    public String testString() {
-        return "Hello world!";
-    }
-
-    @Action(path = "/testForbidden")
-    public int testForbidden() {
-        return 403;
-    }
-
-    @Action(path = "/testServerError")
-    public int testServerError() {
-        int outOfBounds = new int[]{}[1];
-        return 200;
-    }
-
-    @Action(path = "/testResponse")
-    public Response testResponse() {
-        return response -> {
-            response.setStatus(404);
-            response.getWriter().println("Not found");
-        };
-    }
-
-    @Action(path = "/testView")
-    public WebView testView() {
-        return web.testView();
-    }
-
-    @Action(path = "/testGetParameter", method = HttpMethod.GET)
-    public String testGetParameter(String name) {
-        return "Greetings, " + name;
     }
 
     @Action(path = "/listBooks")

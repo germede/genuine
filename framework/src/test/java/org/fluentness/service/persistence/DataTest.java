@@ -1,4 +1,4 @@
-package org.fluentness.repository;
+package org.fluentness.service.persistence;
 
 public class DataTest {
 //

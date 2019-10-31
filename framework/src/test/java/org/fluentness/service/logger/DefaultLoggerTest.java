@@ -1,4 +1,4 @@
-package org.fluentness.service.Provider.logger;
+package org.fluentness.service.logger;
 
 public class DefaultLoggerTest {
 //
