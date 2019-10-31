@@ -42,7 +42,7 @@ public class WebController extends AbstractWebController {
     public Response testResponse() {
         return response -> {
             response.setStatus(404);
-            response.getWriter().println("Fuck you");
+            response.getWriter().println("Not found");
         };
     }
 

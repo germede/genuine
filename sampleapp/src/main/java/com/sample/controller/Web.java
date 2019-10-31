@@ -2,19 +2,14 @@ package com.sample.controller;
 
 import com.sample.repository.Book;
 import org.fluentness.controller.web.WebView;
-import org.fluentness.controller.web.markup.MarkupAttributes;
+import org.fluentness.controller.web.markup.html.HtmlView;
 import org.fluentness.service.localization.LocalizationService;
 
 import java.util.List;
 
-import static org.fluentness.controller.web.html.HtmlAttribute.*;
-import static org.fluentness.controller.web.html.HtmlViewFactory.*;
+import static org.fluentness.controller.web.WebViewFactory.*;
 
 public class Web {
-
-    private static final MarkupAttributes CONTAINER = attrs(CLASS + "container");
-    private static final MarkupAttributes ROW = attrs(CLASS + "row");
-    private static final MarkupAttributes COLUMN_50 = attrs(CLASS + "column column-50");
 
     private LocalizationService l10n;
 
@@ -23,20 +18,16 @@ public class Web {
     }
 
     WebView testView() {
-        return base(
-            raw("Test raw view")
-        );
+        return raw("Test raw view");
     }
 
     WebView listBooks(List<Book> books) {
         return base(
-            div(ROW,
-                div(COLUMN_50,
-                    h2(l10n.translate("welcome_message", "Person"))
-                ),
-                div(COLUMN_50
-//                                formProvider.searchSong
-                ),
+            div(
+                div(h2(l10n.translate("welcome_message", "Person"))).class_("column column-50"),
+                a(l10n.translate("book_create")).class_("button").href("/book/create")
+            ).class_("row"),
+            div(
                 table(
                     thead(
                         tr(
@@ -50,37 +41,31 @@ public class Web {
                         )
                     ),
                     tbody(
-                        books.stream().map(book ->
+                        forEach(books, book ->
                             tr(
                                 td(book.getTitle()),
                                 td(book.getTitle().length() > 1 ? "✔" : "\uD83D\uDDD9"),
-                                td(a(attrs(CLASS + "button", HREF + "/book/update/" + book.getId()), "\uD83D\uDD89")),
-                                td(a(attrs(CLASS + "button", HREF + "/book/delete/" + book.getId()), "\uD83D\uDDD1"))
+                                td(a("\uD83D\uDD89").class_("button").href("/book/update/" + book.getId())),
+                                td(a("\uD83D\uDDD1").class_("button").href("/book/delete/" + book.getId()))
                             )
-                        ).toArray(WebView[]::new)
+                        )
                     )
-                ),
-                a(attrs(CLASS + "button", HREF + "/book/create"),
-                    l10n.translate("book_create")
                 )
-            )
+            ).class_("row")
         );
     }
 
-    private WebView base(WebView toInclude) {
+    private WebView base(HtmlView... toInclude) {
         return html(
             head(
                 title("The book library made with Fluentness"),
-                meta(NAME + "lang", CONTENT + "en"),
-                meta(CHARSET + "utf-8"),
-                link(REL + "stylesheet", TYPE + "text/css", HREF + "res/css/milligram.min.css"),
-                script(attrs(SRC + "res/js/script.min.js"))
+                meta().name("lang").content("en"),
+                meta().charset("utf-8"),
+                link().rel("stylesheet").type("text/css").href("/resources/css/milligram.min.css"),
+                script().src("/resources/js/script.min.js")
             ),
             body(
-                div(CONTAINER,
-                    h1("asdf")
-                ),
-                toInclude
+                div(toInclude).class_("container")
             )
         );
     }
