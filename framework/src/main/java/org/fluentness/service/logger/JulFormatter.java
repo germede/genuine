@@ -21,7 +21,7 @@ class JulFormatter extends Formatter {
     @Override
     public String format(LogRecord logRecord) {
         StringBuilder builder = new StringBuilder();
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd | HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
         builder.append(ANSI_WHITE);
         df.setTimeZone(TimeZone.getDefault());
         builder.append(df.format(new Date(logRecord.getMillis())));
