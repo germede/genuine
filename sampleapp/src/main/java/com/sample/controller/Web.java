@@ -32,7 +32,7 @@ public class Web {
         return base(
             div(ROW,
                 div(COLUMN_50,
-                    h2(l10n.translate("welcome_message"))
+                    h2(l10n.translate("welcome_message", "Person"))
                 ),
                 div(COLUMN_50
 //                                formProvider.searchSong

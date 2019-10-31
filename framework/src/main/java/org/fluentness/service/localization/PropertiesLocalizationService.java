@@ -13,8 +13,8 @@ public class PropertiesLocalizationService implements LocalizationService {
     }
 
     @Override
-    public String translate(String key) {
-        return ResourceBundle.getBundle("localization", control).getString(key);
+    public String translate(String key, String... parameters) {
+        return String.format(ResourceBundle.getBundle("localization", control).getString(key), parameters);
     }
 
 }

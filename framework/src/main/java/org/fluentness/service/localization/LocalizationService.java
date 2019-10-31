@@ -4,6 +4,6 @@ import org.fluentness.service.Service;
 
 public interface LocalizationService extends Service {
 
-    String translate(String key);
+    String translate(String key, String... parameters);
 
 }
