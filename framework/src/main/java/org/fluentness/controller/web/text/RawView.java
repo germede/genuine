@@ -2,7 +2,7 @@ package org.fluentness.controller.web.text;
 
 import org.fluentness.controller.web.WebView;
 
-public class RawView extends WebView {
+public class RawView implements WebView {
     private String raw;
 
     public RawView(String raw) {

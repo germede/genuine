@@ -15,7 +15,7 @@ public final class WebViewFactory {
         return new RawView(raw);
     }
 
-    public static <T, V extends MarkupView> V[] forEach(Iterable<T> iterable, Function<T, V> function) {
+    public static <T, V> V[] forEach(Iterable<T> iterable, Function<T, V> function) {
         List<V> result = new LinkedList<>();
         iterable.forEach(t -> result.add(function.apply(t)));
         return result.toArray((V[]) new MarkupView[0]);

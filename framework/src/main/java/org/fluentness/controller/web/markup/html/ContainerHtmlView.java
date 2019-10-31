@@ -13,9 +13,4 @@ public class ContainerHtmlView extends ContainerMarkupView implements HtmlView {
         super(tag,inner);
     }
 
-    @Override
-    public HtmlView attr(String key, String value) {
-        attributes.put(key,value);
-        return this;
-    }
 }

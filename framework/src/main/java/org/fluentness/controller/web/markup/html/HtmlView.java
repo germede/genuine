@@ -159,11 +159,6 @@ public interface HtmlView extends MarkupView {
         return this;
     }
 
-    default HtmlView data(String key, String value) {
-        attr("data-"+key, value);
-        return this;
-    }
-
     default HtmlView datetime(String value) {
         attr("datetime", value);
         return this;
