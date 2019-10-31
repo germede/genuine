@@ -1,5 +1,7 @@
 package org.fluentness.controller.web.markup;
 
-public interface MarkupView {
+import org.fluentness.controller.web.WebView;
+
+public interface MarkupView extends WebView {
     MarkupView attr(String key, String value);
 }

@@ -1,4 +1,4 @@
-package org.fluentness.controller;
+package org.fluentness.controller.console;
 
 import org.fluentness.Exception;
 

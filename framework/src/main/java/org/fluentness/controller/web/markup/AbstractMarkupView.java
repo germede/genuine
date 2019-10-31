@@ -1,12 +1,10 @@
 package org.fluentness.controller.web.markup;
 
-import org.fluentness.controller.web.WebView;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class AbstractMarkupView extends WebView implements MarkupView {
+public abstract class AbstractMarkupView implements MarkupView {
 
     protected String tag;
     protected Map<String, String> attributes = new HashMap<>();
@@ -43,4 +41,19 @@ public abstract class AbstractMarkupView extends WebView implements MarkupView {
         return builder.toString();
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public MarkupView[] getInnerViews() {
+        return innerViews;
+    }
+
+    public String getInnerText() {
+        return innerText;
+    }
 }

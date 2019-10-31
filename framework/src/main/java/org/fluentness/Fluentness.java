@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.controller.ConsoleException;
+import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.console.AbstractConsoleController;
 import org.fluentness.service.dependency.DefaultDependencyService;
