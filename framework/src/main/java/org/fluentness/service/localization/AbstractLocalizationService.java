@@ -5,7 +5,7 @@ import java.util.Map;
 
 public abstract class AbstractLocalizationService implements LocalizationService {
 
-    private Map<String, Localization> localizationMap = new HashMap<>();
+    private Map<String, Translation> localizationMap = new HashMap<>();
 
     public AbstractLocalizationService() {
         configure();
@@ -17,8 +17,8 @@ public abstract class AbstractLocalizationService implements LocalizationService
         return localizationMap.get(key).get(getCurrentLanguage());
     }
 
-    protected Localization add(String key) {
-        Localization localization = new Localization();
+    protected Translation is(String key) {
+        Translation localization = new Translation();
         localizationMap.put(key, localization);
         return localization;
     }

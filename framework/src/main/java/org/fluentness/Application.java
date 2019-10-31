@@ -1,19 +1,28 @@
 package org.fluentness;
 
+import org.fluentness.controller.Controller;
+import org.fluentness.controller.console.DefaultConsoleController;
+import org.fluentness.repository.Repository;
+import org.fluentness.service.Service;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.logger.JulLoggerService;
+import org.fluentness.service.persistence.OpenJpaPersistenceService;
+import org.fluentness.service.server.TomcatServerService;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public enum ClassLoader {
-    does;
+public interface Application {
 
-    public List<Class> load(String packageName, Class parent) throws AutoLoaderException {
-        List<Class> result = new LinkedList<>();
+    static <T> List<Class<? extends T>> load(String packageName, Class<T> parent) throws AutoLoaderException {
+        List<Class<? extends T>> result = new LinkedList<>();
         try {
             String path = packageName.replace(".", "/");
             URL root = Thread.currentThread().getContextClassLoader().getResource(path);
@@ -27,7 +36,7 @@ public enum ClassLoader {
                         Class<?> clazz = Class.forName(packageName + "." + className);
                         // find classes implementing parent
                         if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
-                            result.add(clazz);
+                            result.add((Class<T>) clazz);
                         }
                     }
                 }
@@ -43,7 +52,7 @@ public enum ClassLoader {
                         Class<?> clazz = Class.forName(className);
                         // find classes implementing parent
                         if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
-                            result.add(clazz);
+                            result.add((Class<T>) clazz);
                         }
                     }
                 }
@@ -55,7 +64,30 @@ public enum ClassLoader {
         return result;
     }
 
-    static class AutoLoaderException extends AbstractException {
+
+    default void configure(Configuration configuration) {
+
+    }
+
+    default List<Class<? extends Service>> getServices() throws AutoLoaderException {
+        List<Class<? extends Service>> sClasses = load(this.getClass().getPackage().getName() + ".service", Service.class);
+        sClasses.add(JulLoggerService.class);
+        sClasses.add(OpenJpaPersistenceService.class);
+        sClasses.add(TomcatServerService.class);
+        return sClasses;
+    }
+
+    default List<Class<? extends Repository>> getRepositories() throws AutoLoaderException {
+        return load(this.getClass().getPackage().getName() + ".repository", Repository.class);
+    }
+
+    default List<Class<? extends Controller>> getControllers() throws AutoLoaderException {
+        List<Class<? extends Controller>> cClasses = load(this.getClass().getPackage().getName() + ".controller", Controller.class);
+        cClasses.add(DefaultConsoleController.class);
+        return cClasses;
+    }
+
+    class AutoLoaderException extends AbstractException {
         AutoLoaderException(Exception exception) {
             super(exception);
         }

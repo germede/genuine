@@ -2,51 +2,27 @@ package org.fluentness;
 
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.console.AbstractConsoleController;
-import org.fluentness.controller.console.DefaultConsoleController;
-import org.fluentness.repository.Repository;
-import org.fluentness.service.Service;
-import org.fluentness.service.logger.JulLoggerService;
-import org.fluentness.service.persistence.OpenJpaPersistenceService;
-import org.fluentness.service.server.TomcatServerService;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
-public enum Fluentness {
-    does;
+public final class Fluentness {
 
-    public void inject(String appPackage) {
-        try {
-            // services
-            List<Class> sClasses = ClassLoader.does.load(appPackage + ".service", Service.class);
-            sClasses.add(JulLoggerService.class);
-            sClasses.add(OpenJpaPersistenceService.class);
-            sClasses.add(TomcatServerService.class);
-            ClassRegister.does.inject(sClasses);
+    private Fluentness() {
 
-            // repositories
-            List<Class> rClasses = ClassLoader.does.load(appPackage + ".repository", Repository.class);
-            ClassRegister.does.inject(rClasses);
-
-            // controllers
-            List<Class> cClasses = ClassLoader.does.load(appPackage + ".controller", Controller.class);
-            cClasses.add(DefaultConsoleController.class);
-            ClassRegister.does.inject(cClasses);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void invoke(String[] args) {
+    public static void bootstrap(Application application, String[] args) {
         try {
+            DependencyInjector.does.inject(application.getServices());
+            DependencyInjector.does.inject(application.getRepositories());
+            DependencyInjector.does.inject(application.getControllers());
             String name = args.length == 0 ? "help" : args[0];
-            Method toExecute = Controller.getAllActions(ClassRegister.does.getInstances(AbstractConsoleController.class))
+            Method toExecute = Controller.getAllActions(DependencyInjector.does.getInstances(AbstractConsoleController.class))
                     .stream()
                     .filter(method -> method.getName().equals(name))
                     .findFirst()
                     .orElseThrow(() -> new ConsoleException("No such command with name %s found", name));
-            toExecute.invoke(ClassRegister.does.getInstance(toExecute.getDeclaringClass()));
+            toExecute.invoke(DependencyInjector.does.getInstance(toExecute.getDeclaringClass()));
         } catch (Exception e) {
             e.printStackTrace();
         }

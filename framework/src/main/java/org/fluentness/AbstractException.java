@@ -1,9 +1,9 @@
 package org.fluentness;
 
-public abstract class AbstractException extends Exception {
+public abstract class AbstractException extends java.lang.Exception {
 
     private String message;
-    private Exception exception;
+    private java.lang.Exception exception;
 
     @Override
     public String getMessage() {
@@ -32,7 +32,7 @@ public abstract class AbstractException extends Exception {
         }
     }
 
-    protected AbstractException(Exception exception) {
+    protected AbstractException(java.lang.Exception exception) {
         this.exception = exception;
     }
 

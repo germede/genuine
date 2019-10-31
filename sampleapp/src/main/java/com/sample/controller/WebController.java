@@ -5,6 +5,8 @@ import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.service.server.HttpMethod;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class WebController extends AbstractWebController {
 
     private BookRepository bookRepository;
@@ -55,7 +57,7 @@ public class WebController extends AbstractWebController {
     }
 
     @Action(path = "/listBooks")
-    public WebView listBooks() {
+    public WebView listBooks(HttpServletRequest request) {
         return web.listBooks(bookRepository.findAll());
     }
 //

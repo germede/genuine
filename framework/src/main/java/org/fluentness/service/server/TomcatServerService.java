@@ -13,36 +13,40 @@ public class TomcatServerService implements ServerService {
 
     private ConfigurationService configurationService;
     private LoggerService loggerService;
+    private HttpServlet httpServlet;
 
     private String hostname;
     private int port;
     private Tomcat server;
 
-    public TomcatServerService(ConfigurationService configurationService, LoggerService loggerService) throws Exception {
+    public TomcatServerService(ConfigurationService configurationService, LoggerService loggerService, HttpServlet httpServlet) {
         this.configurationService = configurationService;
         this.loggerService = loggerService;
+        this.httpServlet = httpServlet;
+    }
 
+
+    @Override
+    public void prepare(Map<String, HttpHandler> routing) {
         hostname = configurationService.get("app_host");
         port = Integer.parseInt(configurationService.get("app_port"));
-
         server = new Tomcat();
         server.setPort(port);
         server.getHost().setAppBase(".");
+        httpServlet.setRouting(routing);
+        Context ctx = server.addContext("/", new File(".").getAbsolutePath());
+        Tomcat.addServlet(ctx, "Fluentness", httpServlet);
+        ctx.addServletMappingDecoded("/*", "Fluentness");
     }
 
     @Override
-    public void start(Map<String, HttpHandler> routing) {
+    public void start() {
         try {
-            Context ctx = server.addContext("/", new File(".").getAbsolutePath());
-            Tomcat.addServlet(ctx, "Fluentness", new HttpServlet(loggerService, routing));
-            ctx.addServletMappingDecoded("/*", "Fluentness");
-
             server.start();
             loggerService.info("Tomcat Server is listening, visit http://%s:%s/", hostname, port);
             server.getServer().await();
         } catch (Exception e) {
             loggerService.error(e);
-            e.printStackTrace();
         }
     }
 

@@ -6,7 +6,9 @@ import java.util.Map;
 
 public interface ServerService extends Service {
 
-    void start(Map<String, HttpHandler> routing);
+    void prepare(Map<String, HttpHandler> routing);
+
+    void start();
 
     void stop();
 }

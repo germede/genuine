@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public enum ClassRegister {
+public enum DependencyInjector {
     does;
 
     private Map<Class, Object> instances = new LinkedHashMap<>();
@@ -26,11 +26,11 @@ public enum ClassRegister {
         return result;
     }
 
-    public <T> T getInstance(Class<T> tClass) {
+    <T> T getInstance(Class<T> tClass) {
         return (T) instances.get(tClass);
     }
 
-    void inject(List<Class> classes) throws InjectionException {
+    <T> void inject(List<Class<? extends T>> classes) throws InjectionException {
         for (Class aClass : classes) {
             inject(aClass);
         }
@@ -116,7 +116,7 @@ public enum ClassRegister {
     }
 
     static class InjectionException extends AbstractException {
-        InjectionException(Exception exception) {
+        InjectionException(java.lang.Exception exception) {
             super(exception);
         }
 
