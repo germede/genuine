@@ -13,16 +13,16 @@ public class TomcatServerService implements ServerService {
 
     private ConfigurationService configurationService;
     private LoggerService loggerService;
-    private HttpServlet httpServlet;
+    private DispatcherServlet dispatcherServlet;
 
     private String hostname;
     private int port;
     private Tomcat server;
 
-    public TomcatServerService(ConfigurationService configurationService, LoggerService loggerService, HttpServlet httpServlet) {
+    public TomcatServerService(ConfigurationService configurationService, LoggerService loggerService, DispatcherServlet dispatcherServlet) {
         this.configurationService = configurationService;
         this.loggerService = loggerService;
-        this.httpServlet = httpServlet;
+        this.dispatcherServlet = dispatcherServlet;
     }
 
 
@@ -33,9 +33,9 @@ public class TomcatServerService implements ServerService {
         server = new Tomcat();
         server.setPort(port);
         server.getHost().setAppBase(".");
-        httpServlet.setRouting(routing);
+        dispatcherServlet.setRouting(routing);
         Context ctx = server.addContext("/", new File(".").getAbsolutePath());
-        Tomcat.addServlet(ctx, "Fluentness", httpServlet);
+        Tomcat.addServlet(ctx, "Fluentness", dispatcherServlet);
         ctx.addServletMappingDecoded("/*", "Fluentness");
     }
 

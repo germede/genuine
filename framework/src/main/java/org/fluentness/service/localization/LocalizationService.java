@@ -2,27 +2,12 @@ package org.fluentness.service.localization;
 
 import org.fluentness.service.Service;
 
-import java.lang.annotation.*;
+import java.util.Locale;
 
 public interface LocalizationService extends Service {
 
-    Language getDefaultLanguage();
-
-    Language getCurrentLanguage();
-
     String translate(String key);
 
-    @Target(ElementType.FIELD)
-    @Retention(RetentionPolicy.RUNTIME)
-    @Repeatable(Translates.class)
-    @interface Translate {
-        Language to();
-        String as();
-    }
+    void setCurrentLocale(Locale locale);
 
-    @Target(ElementType.FIELD)
-    @Retention(RetentionPolicy.RUNTIME)
-    @interface Translates {
-        Translate[] value();
-    }
 }

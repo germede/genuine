@@ -4,7 +4,8 @@ import org.fluentness.controller.Controller;
 import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
-import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configuration.PropertiesConfigurationService;
+import org.fluentness.service.localization.PropertiesLocalizationService;
 import org.fluentness.service.logger.JulLoggerService;
 import org.fluentness.service.persistence.OpenJpaPersistenceService;
 import org.fluentness.service.server.TomcatServerService;
@@ -64,13 +65,10 @@ public interface Application {
         return result;
     }
 
-
-    default void configure(Configuration configuration) {
-
-    }
-
     default List<Class<? extends Service>> getServices() throws AutoLoaderException {
         List<Class<? extends Service>> sClasses = load(this.getClass().getPackage().getName() + ".service", Service.class);
+        sClasses.add(PropertiesConfigurationService.class);
+        sClasses.add(PropertiesLocalizationService.class);
         sClasses.add(JulLoggerService.class);
         sClasses.add(OpenJpaPersistenceService.class);
         sClasses.add(TomcatServerService.class);

@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-class HttpServlet extends javax.servlet.http.HttpServlet {
+class DispatcherServlet extends javax.servlet.http.HttpServlet {
 
     private LoggerService loggerService;
     private LocalizationService localizationService;
     
     private Map<String, HttpHandler> routing;
 
-    HttpServlet(LoggerService loggerService, LocalizationService localizationService) {
+    DispatcherServlet(LoggerService loggerService, LocalizationService localizationService) {
         this.loggerService = loggerService;
         this.localizationService = localizationService;
     }

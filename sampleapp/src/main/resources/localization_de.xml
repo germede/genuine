@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="welcome_message">Willkommen, %s</entry>
+    <entry key="submit">Enviar</entry>
+    <entry key="action">Aktion</entry>
+    <entry key="search">Suchen</entry>
+    <entry key="cancel">Abbrechen</entry>
+    <entry key="book_list">Buchliste</entry>
+    <entry key="book_create">Buch erstellen</entry>
+    <entry key="book_update">Buch editieren</entry>
+    <entry key="book_delete">Buch entfernen</entry>
+    <entry key="book_title">Titel</entry>
+    <entry key="book_title_placeholder">z.B. Harry Potter</entry>
+    <entry key="book_autor">Author</entry>
+    <entry key="book_autor_placeholder">z.B. J.K. Rowling</entry>
+    <entry key="book_genre">Genre</entry>
+    <entry key="book_genre_placeholder">z.B. Fantasy</entry>
+    <entry key="book_year">Jahr</entry>
+    <entry key="book_year_placeholder">z.B. 1997</entry>
+    <entry key="book_is_new">Ist neu</entry>
+</properties>

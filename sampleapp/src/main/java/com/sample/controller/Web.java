@@ -1,14 +1,12 @@
 package com.sample.controller;
 
 import com.sample.repository.Book;
-import com.sample.service.Localization;
-import com.sample.service.LocalizationEnum;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.MarkupAttributes;
+import org.fluentness.service.localization.LocalizationService;
 
 import java.util.List;
 
-import static com.sample.service.LocalizationEnum.*;
 import static org.fluentness.controller.web.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.html.HtmlViewFactory.*;
 
@@ -18,12 +16,11 @@ public class Web {
     private static final MarkupAttributes ROW = attrs(CLASS + "row");
     private static final MarkupAttributes COLUMN_50 = attrs(CLASS + "column column-50");
 
-    private Localization l10n;
+    private LocalizationService l10n;
 
-    public Web(Localization l10n) {
+    public Web(LocalizationService l10n) {
         this.l10n = l10n;
     }
-
 
     WebView testView() {
         return base(
@@ -35,9 +32,7 @@ public class Web {
         return base(
             div(ROW,
                 div(COLUMN_50,
-                    h2(WELCOME_MESSAGE.translate())
-                    h2(l10n.welcome_message.translate())
-                    h2(l10n.translate(l10n.welcome_message))
+                    h2(l10n.translate("welcome_message"))
                 ),
                 div(COLUMN_50
 //                                formProvider.searchSong
