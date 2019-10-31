@@ -1,15 +1,16 @@
 package org.fluentness.service.routing;
 
 import org.fluentness.controller.web.AbstractWebController;
+import org.fluentness.controller.web.WebAction;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.service.dependency.DependencyService;
 import org.fluentness.service.server.HttpHandler;
+import org.fluentness.service.server.HttpStatusCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class DefaultRoutingService implements RoutingService {
 
     private DependencyService dependencyService;
+    private Method function;
 
     public DefaultRoutingService(DependencyService dependencyService) {
         this.dependencyService = dependencyService;
@@ -27,27 +29,31 @@ public class DefaultRoutingService implements RoutingService {
         List<AbstractWebController> webControllers = dependencyService.getInstances(AbstractWebController.class);
         Map<String, HttpHandler> result = new HashMap<>();
         webControllers.forEach(controller -> {
-            Arrays.stream(controller.getActions()).forEach(action -> {
-                result.put(controller.getActionPath(action), getHttpHandlerForAction(controller, action));
+            controller.getActions().forEach(action -> {
+                result.put(action.getPath(), getHttpHandlerForAction(controller, action));
             });
         });
         return result;
     }
 
-    private HttpHandler getHttpHandlerForAction(AbstractWebController controller, Method action) {
-        Class<?> returnType = action.getReturnType();
+    private HttpHandler getHttpHandlerForAction(AbstractWebController controller, WebAction action) {
+        function = action.getMethod();
+        Class<?> returnType = function.getReturnType();
         if (returnType.equals(String.class)) {
-            return (request, response) -> response.getWriter().write((String) action.invoke(controller, mapParameters(action, request, response)));
+            return (request, response) -> response.getWriter().write((String) function.invoke(controller, mapParameters(function, request, response)));
         } else if (returnType.equals(Integer.class) || returnType.equals(Integer.TYPE)) {
-            return (request, response) -> response.setStatus((Integer) action.invoke(controller, mapParameters(action, request, response)));
+            return (request, response) -> response.setStatus((Integer) function.invoke(controller, mapParameters(function, request, response)));
+        } else if (returnType.equals(HttpStatusCode.class)) {
+            return (request, response) -> response.setStatus(((HttpStatusCode) function.invoke(controller, mapParameters(function, request, response))).toInt());
         } else if (returnType.equals(WebView.class)) {
-            return (request, response) -> response.getWriter().write(((WebView) action.invoke(controller, mapParameters(action, request, response))).render());
+            return (request, response) -> response.getWriter().write(((WebView) function.invoke(controller, mapParameters(function, request, response))).render());
         }
-        return (request, response) -> action.invoke(controller);
+        // ignore return value
+        return (request, response) -> function.invoke(controller, mapParameters(function, request, response));
     }
 
-    private Object[] mapParameters(Method action, HttpServletRequest request, HttpServletResponse response) {
-        Parameter[] actionParameters = action.getParameters();
+    private Object[] mapParameters(Method function, HttpServletRequest request, HttpServletResponse response) {
+        Parameter[] actionParameters = function.getParameters();
         Object[] result = new Object[actionParameters.length];
         switch (request.getMethod()) {
 

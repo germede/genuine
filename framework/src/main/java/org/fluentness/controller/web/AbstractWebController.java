@@ -1,33 +1,32 @@
 package org.fluentness.controller.web;
 
 import org.fluentness.controller.Controller;
+import org.fluentness.service.server.HttpMethod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
-public abstract class AbstractWebController implements Controller {
+public abstract class AbstractWebController implements Controller<WebAction> {
 
     @Override
-    public Method[] getActions() {
-        return Arrays.stream(getClass().getDeclaredMethods())
+    public List<WebAction> getActions() {
+        List<WebAction> result = new LinkedList<>();
+        Arrays.stream(getClass().getDeclaredMethods())
             .filter(method -> method.isAnnotationPresent(Action.class))
-            .toArray(Method[]::new);
-    }
-
-    public String getActionPath(Method action) {
-        return action.isAnnotationPresent(Action.class) ?
-            action.getAnnotation(Action.class).path() :
-            "";
-    }
-
-    public String getActionMethod(Method action) {
-        return action.isAnnotationPresent(Action.class) ?
-            action.getAnnotation(Action.class).method() :
-            "";
+            .forEach(method -> result.add(
+                new WebAction(
+                    method.getAnnotation(Action.class).path(),
+                    method.getAnnotation(Action.class).method(),
+                    method
+                ))
+            );
+        return result;
     }
 
     @Target(ElementType.METHOD)
@@ -35,7 +34,7 @@ public abstract class AbstractWebController implements Controller {
     protected @interface Action {
         String path();
 
-        String method() default "GET";
+        HttpMethod method() default HttpMethod.GET;
     }
 
 }

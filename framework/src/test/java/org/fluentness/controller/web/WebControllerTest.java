@@ -1,7 +1,13 @@
 package org.fluentness.controller.web;
 
+import org.fluentness.service.server.HttpMethod;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public class WebControllerTest {
 
@@ -12,9 +18,21 @@ public class WebControllerTest {
         webController = new WebController();
     }
 
-    @Test
-    public void routing_200IsReturned() {
-        webController.getActions();
+    @Test(expected = IOException.class)
+    public void getActions() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        List<WebAction> actions = webController.getActions();
+
+        Assert.assertEquals(actions.size(), 8);
+
+        Assert.assertEquals(HttpMethod.GET, actions.get(1).getHttpMethod());
+        Assert.assertEquals("/void", actions.get(1).getPath());
+        Assert.assertEquals(webController.getClass().getMethod("testVoid"), actions.get(1).getMethod());
+
+        Assert.assertEquals(HttpMethod.POST, actions.get(7).getHttpMethod());
+        Assert.assertEquals("/testPostParameter", actions.get(7).getPath());
+        Assert.assertEquals(webController.getClass().getMethod("testPostParameter"), actions.get(7).getMethod());
+
+        actions.get(4).getMethod().invoke(webController);
     }
 
 //    @Test(expected = NullPointerException.class)

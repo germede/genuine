@@ -1,6 +1,19 @@
 package org.fluentness.controller.web;
 
+import org.fluentness.service.server.HttpMethod;
+import org.fluentness.service.server.HttpStatusCode;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 public class WebController extends AbstractWebController {
+
+    public void dummyMethodWhichIsNotAnAction() {
+    }
+
+    @Action(path = "/notAnAction")
+    void dummyActionWhichIsNotPublic() {
+    }
 
     @Action(path = "/void")
     public void testVoid() {
@@ -17,6 +30,11 @@ public class WebController extends AbstractWebController {
         return 403;
     }
 
+    @Action(path = "/testHttpStatusCode")
+    public HttpStatusCode testHttpStatusCode() {
+        return HttpStatusCode.FORBIDDEN;
+    }
+
     @Action(path = "/testServerError")
     public int testServerError() {
         int outOfBounds = new int[]{}[1];
@@ -24,11 +42,9 @@ public class WebController extends AbstractWebController {
     }
 
     @Action(path = "/testResponse")
-    public Response testResponse() {
-        return response -> {
-            response.setStatus(404);
-            response.getWriter().println("Not found");
-        };
+    public void testResponse(HttpServletResponse response) throws IOException {
+        response.setStatus(404);
+        response.getWriter().println("Not found");
     }
 
     @Action(path = "/testView")
@@ -41,8 +57,13 @@ public class WebController extends AbstractWebController {
         };
     }
 
-    @Action(path = "/testGetParameter", method = "GET")
+    @Action(path = "/testGetParameter")
     public String testGetParameter(String name) {
+        return "Greetings, " + name;
+    }
+
+    @Action(path = "/testPostParameter", method = HttpMethod.POST)
+    public String testPostParameter(String name) {
         return "Greetings, " + name;
     }
 

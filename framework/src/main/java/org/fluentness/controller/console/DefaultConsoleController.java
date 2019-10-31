@@ -1,8 +1,8 @@
 package org.fluentness.controller.console;
 
-import org.fluentness.service.dependency.DefaultDependencyService;
 import org.fluentness.Fluentness;
 import org.fluentness.controller.Controller;
+import org.fluentness.service.dependency.DependencyService;
 import org.fluentness.service.logger.LoggerService;
 import org.fluentness.service.server.ServerService;
 
@@ -15,10 +15,12 @@ import static org.fluentness.service.logger.AnsiColor.*;
 public class DefaultConsoleController extends AbstractConsoleController {
 
 
+    private DependencyService dependencyService;
     private ServerService serverService;
     private LoggerService loggerService;
 
-    public DefaultConsoleController(ServerService serverService, LoggerService loggerService) {
+    public DefaultConsoleController(DependencyService dependencyService, ServerService serverService, LoggerService loggerService) {
+        this.dependencyService = dependencyService;
         this.serverService = serverService;
         this.loggerService = loggerService;
     }
@@ -27,31 +29,36 @@ public class DefaultConsoleController extends AbstractConsoleController {
     public void help() {
 
         System.out.println("\n"
-                + " _______                                \n"
-                + "(  /  //             _/_                \n"
-                + " -/--// , , _  _ _   /  _ _   _  (   (  \n"
-                + "_/  (/_(_/_(/_/ / /_(__/ / /_(/_/_)_/_)_\n"
+            + " _______                                \n"
+            + "(  /  //             _/_                \n"
+            + " -/--// , , _  _ _   /  _ _   _  (   (  \n"
+            + "_/  (/_(_/_(/_/ / /_(__/ / /_(/_/_)_/_)_\n"
         );
 
         System.out.println(ANSI_GREEN + "Available console actions:" + ANSI_RESET);
 
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
+        List<Controller.Action> actions = new LinkedList<>();
+        dependencyService.getInstances(AbstractConsoleController.class)
+            .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
+
         // categorize console actions
-        for (Method action : Controller.getAllActions(DefaultDependencyService.does.getInstances(AbstractConsoleController.class))) {
-            String category = action.getAnnotation(Action.class).category();
+        for (Controller.Action action : actions) {
+            Method method = action.getMethod();
+            String category = method.getAnnotation(Action.class).category();
             if (!categorizedConsoleActions.containsKey(category)) {
                 categorizedConsoleActions.put(category, new ArrayList<>());
             }
-            String inLineParameters = action.getParameterCount() > 0 ?
-                    Arrays.stream(action.getParameters())
-                            .map(entry -> " [" + entry.getName() + ":" + entry.getType().getSimpleName() + "]")
-                            .reduce(String::concat)
-                            .get()
-                    : "";
+            String inLineParameters = method.getParameterCount() > 0 ?
+                Arrays.stream(method.getParameters())
+                    .map(entry -> " [" + entry.getName() + ":" + entry.getType().getSimpleName() + "]")
+                    .reduce(String::concat)
+                    .get()
+                : "";
             String actionLine = String.format(ANSI_PURPLE + "    %-40s" + ANSI_RESET + "%s",
-                    action.getName() + inLineParameters,
-                    " " + action.getAnnotation(Action.class).description()
+                method.getName() + inLineParameters,
+                " " + method.getAnnotation(Action.class).description()
             );
             categorizedConsoleActions.get(category).add(actionLine);
         }
