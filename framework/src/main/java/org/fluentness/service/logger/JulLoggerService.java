@@ -6,19 +6,26 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
+import java.util.Enumeration;
+import java.util.logging.*;
 
 public class JulLoggerService implements LoggerService {
     private java.util.logging.Logger logger;
 
     public JulLoggerService(ConfigurationService configurationService) throws Exception {
+        // retrieve log level
         Level logLevel = configurationService.has("log_level") ?
-            fluentnessLogLevelToOwnLogLevel(LogLevel.valueOf(configurationService.get("log_level"))) :
+            LogLevel.valueOf(configurationService.get("log_level")).toJulLevel() :
             Level.ALL;
 
-        logger = java.util.logging.Logger.getLogger("");
+        // disable annoying tomcat logs
+        Enumeration<String> loggerNames = LogManager.getLogManager().getLoggerNames();
+        while (loggerNames.hasMoreElements()) {
+            Logger.getLogger(loggerNames.nextElement()).setLevel(Level.OFF);
+        }
+
+        // init jul logger
+        logger = java.util.logging.Logger.getGlobal();
         logger.setUseParentHandlers(false);
         if (logger.getHandlers().length > 0) {
             Arrays.stream(logger.getHandlers()).forEach(logger::removeHandler);
@@ -80,27 +87,11 @@ public class JulLoggerService implements LoggerService {
     }
 
     private void log(LogLevel logLevel, String message, Object... parameters) {
-        logger.log(fluentnessLogLevelToOwnLogLevel(logLevel), format(message, parameters));
+        logger.log(logLevel.toJulLevel(), format(message, parameters));
     }
 
     private void log(Throwable throwable) {
-        logger.log(fluentnessLogLevelToOwnLogLevel(LogLevel.ERROR), retrieveThrowableMessage(throwable));
-    }
-
-    LogLevel ownLogLevelToFluentnessLogLevel(Level level) {
-        return level.equals(Level.ALL) || level.equals(Level.FINEST) || level.equals(Level.FINER) || level.equals(Level.FINE) ? LogLevel.DEBUG :
-            level.equals(Level.CONFIG) || level.equals(Level.INFO) ? LogLevel.INFO :
-                level.equals(Level.WARNING) ? LogLevel.WARNING :
-                    level.equals(Level.SEVERE) ? LogLevel.ERROR :
-                        LogLevel.NONE;
-    }
-
-    private Level fluentnessLogLevelToOwnLogLevel(LogLevel level) {
-        return level.equals(LogLevel.DEBUG) ? Level.ALL :
-            level.equals(LogLevel.INFO) ? Level.INFO :
-                level.equals(LogLevel.WARNING) ? Level.WARNING :
-                    level.equals(LogLevel.ERROR) ? Level.SEVERE :
-                        Level.OFF;
+        logger.log(LogLevel.ERROR.toJulLevel(), retrieveThrowableMessage(throwable));
     }
 
     private String format(String message, Object... parameters) {

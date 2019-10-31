@@ -11,7 +11,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import static org.fluentness.controller.console.AnsiColor.*;
+import static org.fluentness.service.logger.AnsiColor.*;
 
 public class DefaultConsoleController extends AbstractConsoleController {
 

@@ -1,12 +1,22 @@
 package org.fluentness.service.configuration;
 
-import java.util.ResourceBundle;
+import java.io.IOException;
+import java.util.Objects;
+import java.util.Properties;
 
 public class PropertiesConfigurationService implements ConfigurationService {
 
+
+    private final Properties properties;
+
+    public PropertiesConfigurationService() throws IOException {
+        properties = new Properties();
+        properties.loadFromXML(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("configuration" + getEnvironment() + ".xml")));
+    }
+
     @Override
     public String get(String key) {
-        return ResourceBundle.getBundle("configuration" + getEnvironment()).getString(key);
+        return properties.getProperty(key);
     }
 
     @Override
@@ -16,11 +26,14 @@ public class PropertiesConfigurationService implements ConfigurationService {
 
     @Override
     public boolean has(String key) {
-        return ResourceBundle.getBundle("configuration" + getEnvironment()).containsKey(key);
+        return properties.containsKey(key);
     }
 
     private Environment getEnvironment() {
-        return Environment.valueOf(System.getProperty("environment"));
+        String environment = System.getProperty("environment");
+        return environment == null || environment.isEmpty() ?
+            Environment.DEV :
+            Environment.valueOf(environment);
     }
 
 }

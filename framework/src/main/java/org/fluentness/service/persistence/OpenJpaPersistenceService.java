@@ -19,7 +19,7 @@ public class OpenJpaPersistenceService implements PersistenceService {
         this.loggerService = loggerService;
 
         Map<String, Object> properties = new HashMap<>();
-        properties.put("openjpa.log", (LogFactory) channel -> new OpenJpaLoggingBridge(loggerService));
+        properties.put("openjpa.Log", (LogFactory) channel -> new OpenJpaLoggingBridge(loggerService));
 
         if (configurationService.has("persistence_unit")) {
             this.entityManager = javax.persistence.Persistence

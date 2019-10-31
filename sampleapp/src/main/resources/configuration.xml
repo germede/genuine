@@ -4,7 +4,7 @@
     <entry key="app_protocol">http</entry>
     <entry key="app_host">localhost</entry>
     <entry key="app_port">8000</entry>
-    <entry key="log_level">INFO</entry>
+    <entry key="log_level">DEBUG</entry>
     <entry key="log_to_console">true</entry>
     <entry key="persistence_unit">bookLibraryPU</entry>
 </properties>

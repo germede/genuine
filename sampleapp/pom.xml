@@ -12,7 +12,6 @@
 
     <artifactId>sampleapp</artifactId>
 
-
     <packaging>jar</packaging>
 
     <dependencies>

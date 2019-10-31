@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-class DispatcherServlet extends javax.servlet.http.HttpServlet {
+public class HttpServlet extends javax.servlet.http.HttpServlet {
 
     private LoggerService loggerService;
     private LocalizationService localizationService;
-    
+
     private Map<String, HttpHandler> routing;
 
-    DispatcherServlet(LoggerService loggerService, LocalizationService localizationService) {
+    public HttpServlet(LoggerService loggerService, LocalizationService localizationService) {
         this.loggerService = loggerService;
         this.localizationService = localizationService;
     }
@@ -28,7 +28,8 @@ class DispatcherServlet extends javax.servlet.http.HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        loggerService.debug(req.getMethod() + " " + req.getPathInfo());
+        localizationService.setCurrentLocale(req.getLocale());
         super.service(req, resp);
     }
 

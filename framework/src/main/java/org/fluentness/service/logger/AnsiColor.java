@@ -1,4 +1,4 @@
-package org.fluentness.controller.console;
+package org.fluentness.service.logger;
 
 public enum AnsiColor {
 
