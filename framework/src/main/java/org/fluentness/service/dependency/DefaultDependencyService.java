@@ -1,15 +1,20 @@
 package org.fluentness.service.dependency;
 
+import org.fluentness.Fluentness;
 import org.fluentness.service.Service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class DefaultDependencyService implements DependencyService {
 
@@ -21,10 +26,10 @@ public class DefaultDependencyService implements DependencyService {
     }
 
     @Override
-    public <T> List<T> getInstances(Class<T> tClass) {
+    public <T> List<T> getInstances(Class<T> parent) {
         List<T> result = new ArrayList<>();
         for (Object value : instances.values()) {
-            if (tClass.isAssignableFrom(value.getClass())) {
+            if (parent.isAssignableFrom(value.getClass())) {
                 result.add((T) value);
             }
         }
@@ -41,6 +46,50 @@ public class DefaultDependencyService implements DependencyService {
         for (Class aClass : classes) {
             inject(aClass);
         }
+    }
+
+    @Override
+    public <T> List<Class<? extends T>> loadClasses(String packageName, Class<T> parent) throws ClassLoadingException {
+        List<Class<? extends T>> result = new LinkedList<>();
+        try {
+            String path = packageName.replace(".", "/");
+            URL root = Thread.currentThread().getContextClassLoader().getResource(path);
+
+            // filter .class files in project directory
+            if (root != null) {
+                File[] files = new File(root.getFile()).listFiles((dir, name) -> name.endsWith(".class"));
+                if (files != null) {
+                    for (File file : files) {
+                        String className = file.getName().replaceAll(".class$", "");
+                        Class<?> clazz = Class.forName(packageName + "." + className);
+                        // find classes implementing parent
+                        if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
+                            result.add((Class<T>) clazz);
+                        }
+                    }
+                }
+            }
+
+            // filter .class files in jar file
+            String jarPath = new File(Fluentness.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+            if (jarPath.endsWith(".jar")) {
+                ZipInputStream zip = new ZipInputStream(new FileInputStream(jarPath));
+                for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
+                    if (!entry.isDirectory() && entry.getName().endsWith(".class") && entry.getName().startsWith(path)) {
+                        String className = entry.getName().replace('/', '.').replaceAll(".class$", "");
+                        Class<?> clazz = Class.forName(className);
+                        // find classes implementing parent
+                        if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
+                            result.add((Class<T>) clazz);
+                        }
+                    }
+                }
+            }
+
+        } catch (ClassNotFoundException | IOException | URISyntaxException e) {
+            throw new ClassLoadingException(e);
+        }
+        return result;
     }
 
     private void inject(Class aClass) throws InjectionException {

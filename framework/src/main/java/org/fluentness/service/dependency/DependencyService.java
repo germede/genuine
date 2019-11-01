@@ -10,4 +10,6 @@ public interface DependencyService extends Service {
     <T> T getInstance(Class<T> tClass);
 
     <T> void inject(List<Class<? extends T>> classes) throws InjectionException;
+
+    <T> List<Class<? extends T>> loadClasses(String packageName, Class<T> parent) throws ClassLoadingException;
 }

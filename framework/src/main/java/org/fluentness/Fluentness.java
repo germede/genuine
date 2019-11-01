@@ -3,8 +3,16 @@ package org.fluentness;
 import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.console.AbstractConsoleController;
+import org.fluentness.controller.console.DefaultConsoleController;
+import org.fluentness.service.Service;
+import org.fluentness.service.configuration.PropertiesConfigurationService;
 import org.fluentness.service.dependency.DefaultDependencyService;
 import org.fluentness.service.dependency.DependencyService;
+import org.fluentness.service.localization.PropertiesLocalizationService;
+import org.fluentness.service.logger.JulLoggerService;
+import org.fluentness.service.persistence.OpenJpaPersistenceService;
+import org.fluentness.service.routing.DefaultRoutingService;
+import org.fluentness.service.server.TomcatServerService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -22,9 +30,22 @@ public final class Fluentness {
     public static void bootstrap(Application application, String[] args) {
         try {
             dependencyService = new DefaultDependencyService();
-            dependencyService.inject(application.getServices());
-            dependencyService.inject(application.getRepositories());
-            dependencyService.inject(application.getControllers());
+
+            List<Class<? extends Service>> services = application.getServices(dependencyService);
+            services.add(PropertiesConfigurationService.class);
+            services.add(PropertiesLocalizationService.class);
+            services.add(JulLoggerService.class);
+            services.add(OpenJpaPersistenceService.class);
+            services.add(DefaultRoutingService.class);
+            services.add(TomcatServerService.class);
+            dependencyService.inject(services);
+
+            dependencyService.inject(application.getRepositories(dependencyService));
+
+            List<Class<? extends Controller>> controllers = application.getControllers(dependencyService);
+            controllers.add(DefaultConsoleController.class);
+            dependencyService.inject(controllers);
+
             execute(args);
         } catch (java.lang.Exception e) {
             e.printStackTrace();
