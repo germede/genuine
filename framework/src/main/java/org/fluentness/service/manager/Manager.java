@@ -1,10 +1,10 @@
-package org.fluentness.service.dependency;
+package org.fluentness.service.manager;
 
 import org.fluentness.service.Service;
 
 import java.util.List;
 
-public interface DependencyService extends Service {
+public interface Manager extends Service {
     <T> List<T> getInstances(Class<T> tClass);
 
     <T> T getInstance(Class<T> tClass);

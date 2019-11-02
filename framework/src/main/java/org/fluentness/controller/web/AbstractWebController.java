@@ -1,7 +1,7 @@
 package org.fluentness.controller.web;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.service.server.HttpMethod;
+import org.fluentness.service.router.HttpMethod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

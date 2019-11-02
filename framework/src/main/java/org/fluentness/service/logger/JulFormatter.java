@@ -11,9 +11,9 @@ import static org.fluentness.service.logger.AnsiColor.*;
 
 class JulFormatter extends Formatter {
 
-    protected JulLoggerService logger;
+    protected JulLogger logger;
 
-    JulFormatter(JulLoggerService logger) {
+    JulFormatter(JulLogger logger) {
         this.logger = logger;
     }
 

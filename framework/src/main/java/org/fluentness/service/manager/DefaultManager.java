@@ -1,4 +1,4 @@
-package org.fluentness.service.dependency;
+package org.fluentness.service.manager;
 
 import org.fluentness.Fluentness;
 import org.fluentness.service.Service;
@@ -16,13 +16,13 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class DefaultDependencyService implements DependencyService {
+public class DefaultManager implements Manager {
 
     private Map<Class, Object> instances = new LinkedHashMap<>();
 
-    public DefaultDependencyService() {
-        // add itself
-        instances.put(DependencyService.class, this);
+    public DefaultManager() {
+        // add itself as first dependency for other classes
+        instances.put(Manager.class, this);
     }
 
     @Override

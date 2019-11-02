@@ -1,14 +1,14 @@
 package com.sample.repository;
 
-import org.fluentness.service.persistence.PersistenceService;
+import org.fluentness.service.persistence.Persistence;
 import org.fluentness.repository.crud.AbstractCrudRepository;
 
 import java.util.List;
 
 public class BookRepository extends AbstractCrudRepository<Book> {
 
-    public BookRepository(PersistenceService persistenceService) {
-        super(persistenceService);
+    public BookRepository(Persistence persistence) {
+        super(persistence);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class BookRepository extends AbstractCrudRepository<Book> {
     }
 
     public List<Book> findByTitle(String title) {
-        return persistenceService.query("SELECT s FROM Song s WHERE s.title = :title")
+        return persistence.query("SELECT s FROM Song s WHERE s.title = :title")
                 .setParameter("title", title)
                 .getResultList();
     }

@@ -2,7 +2,7 @@ package org.fluentness;
 
 import org.fluentness.controller.console.AbstractConsoleController;
 import org.fluentness.controller.console.ConsoleException;
-import org.fluentness.service.dependency.DependencyService;
+import org.fluentness.service.manager.Manager;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,12 +29,12 @@ public class FluentnessTest {
         };
 
         dummyConsoleController = spy(new DummyConsoleController());
-        DependencyService dependencyService = mock(DependencyService.class);
-        when(dependencyService.getInstances(AbstractConsoleController.class))
+        Manager manager = mock(Manager.class);
+        when(manager.getInstances(AbstractConsoleController.class))
             .thenReturn(Collections.singletonList(dummyConsoleController));
-        when(dependencyService.getInstance(any())).thenReturn(dummyConsoleController);
+        when(manager.getInstance(any())).thenReturn(dummyConsoleController);
 
-        Fluentness.instance = new Fluentness(dependencyService);
+        Fluentness.instance = new Fluentness(manager);
     }
 
     @Test(expected = FluentnessException.class)

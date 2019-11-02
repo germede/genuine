@@ -8,12 +8,12 @@ public class ConsoleAction implements Controller.Action {
 
     private String description;
     private String category;
-    private Method function;
+    private Method method;
 
-    ConsoleAction(String description, String category, Method function) {
+    ConsoleAction(String description, String category, Method method) {
         this.description = description;
         this.category = category;
-        this.function = function;
+        this.method = method;
     }
 
     public String getDescription() {
@@ -26,6 +26,6 @@ public class ConsoleAction implements Controller.Action {
 
     @Override
     public Method getMethod() {
-        return function;
+        return method;
     }
 }

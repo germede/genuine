@@ -1,28 +1,29 @@
 package org.fluentness.service.logger;
 
-import org.fluentness.service.configuration.ConfigurationService;
+import org.fluentness.service.configuration.Configuration;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 
-public class JulLoggerService implements LoggerService {
+public class JulLogger implements Logger {
     private java.util.logging.Logger logger;
 
-    public JulLoggerService(ConfigurationService configurationService) throws Exception {
+    public JulLogger(Configuration configuration) throws Exception {
         // retrieve log level
-        Level logLevel = configurationService.has("log_level") ?
-            LogLevel.valueOf(configurationService.get("log_level")).toJulLevel() :
+        Level logLevel = configuration.has("logger_level") ?
+            LogLevel.valueOf(configuration.get("logger_level")).toJulLevel() :
             Level.ALL;
 
         // disable annoying tomcat logs
-        Enumeration<String> loggerNames = LogManager.getLogManager().getLoggerNames();
-        while (loggerNames.hasMoreElements()) {
-            Logger.getLogger(loggerNames.nextElement()).setLevel(Level.OFF);
-        }
+//        Enumeration<String> loggerNames = LogManager.getLogManager().getLoggerNames();
+//        while (loggerNames.hasMoreElements()) {
+//            Logger.getLogger(loggerNames.nextElement()).setLevel(Level.OFF);
+//        }
 
         // init jul logger
         logger = java.util.logging.Logger.getGlobal();
@@ -33,7 +34,7 @@ public class JulLoggerService implements LoggerService {
         logger.setLevel(logLevel);
 
         // console logging
-        if (configurationService.is("log_to_console")) {
+        if (configuration.is("logger_console")) {
 
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new JulFormatter(this));
@@ -42,9 +43,9 @@ public class JulLoggerService implements LoggerService {
         }
 
         // file logging
-        if (configurationService.has("log_to_file")) {
-            new File(configurationService.get("log_to_file")).mkdirs();
-            String logFilePath = configurationService.get("log_to_file") + "/" +
+        if (configuration.has("logger_file")) {
+            new File(configuration.get("log_to_file")).mkdirs();
+            String logFilePath = configuration.get("log_to_file") + "/" +
                 new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
             File file = new File(logFilePath);
             FileHandler fileHandler;

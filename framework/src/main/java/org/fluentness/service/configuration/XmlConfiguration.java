@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 
-public class XmlConfigurationService implements ConfigurationService {
+public class XmlConfiguration implements Configuration {
 
 
     private final Properties properties;
 
-    public XmlConfigurationService() throws IOException {
+    public XmlConfiguration() throws IOException {
         properties = new Properties();
         properties.loadFromXML(
             Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("configuration" + getEnvironment() + ".xml"))

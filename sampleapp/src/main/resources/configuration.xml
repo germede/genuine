@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="app_protocol">http</entry>
-    <entry key="app_host">localhost</entry>
-    <entry key="app_port">8000</entry>
-    <entry key="log_level">DEBUG</entry>
-    <entry key="log_to_console">true</entry>
+    <entry key="server_port">8000</entry>
+    <entry key="logger_level">INFO</entry>
+    <entry key="logger_console">true</entry>
     <entry key="persistence_unit">bookLibraryPU</entry>
 </properties>

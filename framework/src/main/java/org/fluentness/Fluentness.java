@@ -3,18 +3,10 @@ package org.fluentness;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.console.AbstractConsoleController;
 import org.fluentness.controller.console.ConsoleException;
-import org.fluentness.controller.console.DefaultConsoleController;
-import org.fluentness.service.Service;
-import org.fluentness.service.configuration.XmlConfigurationService;
-import org.fluentness.service.dependency.ClassLoadingException;
-import org.fluentness.service.dependency.DefaultDependencyService;
-import org.fluentness.service.dependency.DependencyService;
-import org.fluentness.service.dependency.InjectionException;
-import org.fluentness.service.localization.XmlLocalizationService;
-import org.fluentness.service.logger.JulLoggerService;
-import org.fluentness.service.persistence.OpenJpaPersistenceService;
-import org.fluentness.service.routing.DefaultRoutingService;
-import org.fluentness.service.server.TomcatServerService;
+import org.fluentness.service.manager.ClassLoadingException;
+import org.fluentness.service.manager.DefaultManager;
+import org.fluentness.service.manager.InjectionException;
+import org.fluentness.service.manager.Manager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,7 +19,7 @@ public final class Fluentness {
 
     public static void bootstrap(Application application, String[] args) throws FluentnessException {
         if (instance == null) {
-            instance = new Fluentness(new DefaultDependencyService());
+            instance = new Fluentness(new DefaultManager());
         }
         if (application == null) {
             throw new FluentnessException("Passed application was null");
@@ -35,29 +27,17 @@ public final class Fluentness {
         instance.initialize(application, args);
     }
 
-    private DependencyService dependencyService;
+    private Manager manager;
 
-    Fluentness(DependencyService dependencyService) {
-        this.dependencyService = dependencyService;
+    Fluentness(Manager manager) {
+        this.manager = manager;
     }
 
     private void initialize(Application application, String[] args) throws FluentnessException {
         try {
-            List<Class<? extends Service>> services = application.getServices(dependencyService);
-            services.add(XmlConfigurationService.class);
-            services.add(XmlLocalizationService.class);
-            services.add(JulLoggerService.class);
-            services.add(OpenJpaPersistenceService.class);
-            services.add(DefaultRoutingService.class);
-            services.add(TomcatServerService.class);
-            dependencyService.inject(services);
-
-            dependencyService.inject(application.getRepositories(dependencyService));
-
-            List<Class<? extends Controller>> controllers = application.getControllers(dependencyService);
-            controllers.add(DefaultConsoleController.class);
-            dependencyService.inject(controllers);
-
+            application.injectServices(manager);
+            application.injectRepositories(manager);
+            application.injectControllers(manager);
             execute(args);
         } catch (InvocationTargetException | ClassLoadingException | IllegalAccessException | InjectionException | ConsoleException e) {
             throw new FluentnessException(e);
@@ -70,7 +50,7 @@ public final class Fluentness {
         }
         String name = args.length == 0 ? "help" : args[0];
         List<Controller.Action> actions = new LinkedList<>();
-        dependencyService.getInstances(AbstractConsoleController.class)
+        manager.getInstances(AbstractConsoleController.class)
             .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
         Method toExecute = actions
             .stream()
@@ -78,6 +58,6 @@ public final class Fluentness {
             .map(Controller.Action::getMethod)
             .findFirst()
             .orElseThrow(() -> new ConsoleException("No such command with name %s found", name));
-        toExecute.invoke(dependencyService.getInstance(toExecute.getDeclaringClass()));
+        toExecute.invoke(manager.getInstance(toExecute.getDeclaringClass()));
     }
 }

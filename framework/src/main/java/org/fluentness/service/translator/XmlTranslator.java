@@ -1,14 +1,14 @@
-package org.fluentness.service.localization;
+package org.fluentness.service.translator;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class XmlLocalizationService implements LocalizationService {
+public class XmlTranslator implements Translator {
 
     private Locale currentLocale;
     private XmlResourceBundleControl control;
 
-    public XmlLocalizationService() {
+    public XmlTranslator() {
         control = new XmlResourceBundleControl();
     }
 

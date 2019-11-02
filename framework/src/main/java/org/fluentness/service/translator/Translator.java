@@ -1,8 +1,8 @@
-package org.fluentness.service.localization;
+package org.fluentness.service.translator;
 
 import org.fluentness.service.Service;
 
-public interface LocalizationService extends Service {
+public interface Translator extends Service {
 
     String translate(String key, String... parameters);
 

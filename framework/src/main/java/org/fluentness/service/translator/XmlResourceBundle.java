@@ -1,4 +1,4 @@
-package org.fluentness.service.localization;
+package org.fluentness.service.translator;
 
 import java.io.IOException;
 import java.io.InputStream;

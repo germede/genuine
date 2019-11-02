@@ -1,9 +1,10 @@
 package org.fluentness.service.server;
 
-import org.fluentness.service.localization.LocalizationService;
-import org.fluentness.service.logger.LoggerService;
+import org.fluentness.service.logger.Logger;
+import org.fluentness.service.router.Router;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -11,25 +12,20 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
-import java.util.Map;
 
-public class HttpServlet extends javax.servlet.http.HttpServlet {
+public class DispatcherServlet extends HttpServlet {
 
-    private LoggerService loggerService;
+    private Logger logger;
+    private Router router;
 
-    private Map<String, HttpHandler> routing;
-
-    public HttpServlet(LoggerService loggerService, LocalizationService localizationService) {
-        this.loggerService = loggerService;
-    }
-
-    public void setRouting(Map<String, HttpHandler> routing) {
-        this.routing = routing;
+    public DispatcherServlet(Logger logger, Router router) {
+        this.logger = logger;
+        this.router = router;
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        loggerService.debug(req.getMethod() + " " + req.getPathInfo());
+        logger.debug(req.getMethod() + " " + req.getPathInfo());
         Locale.setDefault(req.getLocale());
         super.service(req, resp);
     }
@@ -38,17 +34,17 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if (req.getPathInfo().startsWith("/resources")) {
             handleStaticResource(req, resp);
-        } else if (routing.containsKey(req.getPathInfo())) {
+        } else if (router.getRoutingMap().containsKey(req.getPathInfo())) {
             try {
-                routing.get(req.getPathInfo()).handle(req, resp);
+                router.getRoutingMap().get(req.getPathInfo()).handle(req, resp);
             } catch (InvocationTargetException | IllegalAccessException e) {
-                loggerService.error(e);
+                logger.error(e);
                 resp.setStatus(500);
             }
         } else {
             resp.setStatus(404);
         }
-        loggerService.debug(resp.getStatus()+"");
+        logger.debug(resp.getStatus()+"");
     }
 
     //todo support other methods
@@ -70,7 +66,7 @@ public class HttpServlet extends javax.servlet.http.HttpServlet {
                     out.write(buffer, 0, numBytesRead);
                 }
             } catch (Exception e) {
-                loggerService.error(e);
+                logger.error(e);
             }
         }
     }

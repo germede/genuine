@@ -3,7 +3,7 @@ package com.sample.controller;
 import com.sample.repository.Book;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.html.HtmlView;
-import org.fluentness.service.localization.LocalizationService;
+import org.fluentness.service.translator.Translator;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import static org.fluentness.controller.web.WebViewFactory.*;
 
 public class Web {
 
-    private LocalizationService l10n;
+    private Translator l10n;
 
-    public Web(LocalizationService l10n) {
+    public Web(Translator l10n) {
         this.l10n = l10n;
     }
 

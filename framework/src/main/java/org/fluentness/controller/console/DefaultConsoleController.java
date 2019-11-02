@@ -2,9 +2,9 @@ package org.fluentness.controller.console;
 
 import org.fluentness.Fluentness;
 import org.fluentness.controller.Controller;
-import org.fluentness.service.dependency.DependencyService;
-import org.fluentness.service.logger.LoggerService;
-import org.fluentness.service.server.ServerService;
+import org.fluentness.service.manager.Manager;
+import org.fluentness.service.logger.Logger;
+import org.fluentness.service.server.Server;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -15,14 +15,14 @@ import static org.fluentness.service.logger.AnsiColor.*;
 public class DefaultConsoleController extends AbstractConsoleController {
 
 
-    private DependencyService dependencyService;
-    private ServerService serverService;
-    private LoggerService loggerService;
+    private Manager manager;
+    private Server server;
+    private Logger logger;
 
-    public DefaultConsoleController(DependencyService dependencyService, ServerService serverService, LoggerService loggerService) {
-        this.dependencyService = dependencyService;
-        this.serverService = serverService;
-        this.loggerService = loggerService;
+    public DefaultConsoleController(Manager manager, Server server, Logger logger) {
+        this.manager = manager;
+        this.server = server;
+        this.logger = logger;
     }
 
     @Action(description = "Prints all available console actions")
@@ -40,7 +40,7 @@ public class DefaultConsoleController extends AbstractConsoleController {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         List<Controller.Action> actions = new LinkedList<>();
-        dependencyService.getInstances(AbstractConsoleController.class)
+        manager.getInstances(AbstractConsoleController.class)
             .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
 
         // categorize console actions
@@ -93,13 +93,13 @@ public class DefaultConsoleController extends AbstractConsoleController {
     }
 
     @Action(description = "Starts embedded HTTP server", category = "server")
-    public void server_start() {
-        serverService.start();
+    public void server_start() throws Exception {
+        server.start();
     }
 
     @Action(description = "Stops embedded HTTP server", category = "server")
     public void server_stop() {
-        serverService.stop();
+        server.stop();
     }
 
     private void deleteRecursively(String path) {
@@ -117,9 +117,9 @@ public class DefaultConsoleController extends AbstractConsoleController {
         }
         if (file.exists()) {
             if (!file.delete()) {
-                loggerService.warning("Cannot delete %s", file.getPath());
+                logger.warning("Cannot delete %s", file.getPath());
             } else {
-                loggerService.debug("Deleted file %s", file.getPath());
+                logger.debug("Deleted file %s", file.getPath());
             }
         }
     }

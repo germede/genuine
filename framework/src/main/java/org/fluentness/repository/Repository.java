@@ -1,5 +1,5 @@
 package org.fluentness.repository;
 
-public interface Repository {
+public interface Repository<M> {
 
 }
