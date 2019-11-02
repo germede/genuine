@@ -1,12 +1,67 @@
 package org.fluentness;
 
+import org.fluentness.controller.console.AbstractConsoleController;
+import org.fluentness.controller.console.ConsoleException;
+import org.fluentness.service.dependency.DependencyService;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.Collections;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
+
 public class FluentnessTest {
 
-//    @Test
-//    public void staticFields_noneIsDone_baseDataAndFlowAreAlreadyStaticallySet() {
-//        Assert.assertNotNull(Fluentness.getBase());
-//        Assert.assertNotNull(Fluentness.getData());
-//        Assert.assertNotNull(Fluentness.getFlow());
-//    }
+    private Application application;
+    private DummyConsoleController dummyConsoleController;
 
+    private static class DummyConsoleController extends AbstractConsoleController {
+        @Action(category = "", description = "Dummy help command")
+        public void help() {
+        }
+    }
+
+    @Before
+    public void setUp() {
+        application = new Application() {
+        };
+
+        dummyConsoleController = spy(new DummyConsoleController());
+        DependencyService dependencyService = mock(DependencyService.class);
+        when(dependencyService.getInstances(AbstractConsoleController.class))
+            .thenReturn(Collections.singletonList(dummyConsoleController));
+        when(dependencyService.getInstance(any())).thenReturn(dummyConsoleController);
+
+        Fluentness.instance = new Fluentness(dependencyService);
+    }
+
+    @Test(expected = FluentnessException.class)
+    public void bootstrapIsCalledWithNullApplication_fluentnessExceptionIsThrown() throws FluentnessException {
+        Fluentness.bootstrap(null, null);
+    }
+
+    @Test(expected = FluentnessException.class)
+    public void bootstrapIsCalledWithNullArgs_fluentnessExceptionIsThrown() throws FluentnessException {
+        Fluentness.bootstrap(application, null);
+    }
+
+    @Test
+    public void bootstrapIsCalledWithEmptyArgs_helpCommandIsExecuted() throws FluentnessException {
+        Fluentness.bootstrap(application, new String[0]);
+        verify(dummyConsoleController, times(1)).help();
+    }
+
+    @Test
+    public void bootstrapIsCalledWithAbsentAction_consoleExceptionIsThrown() {
+        boolean exceptionWasThrown = false;
+        try {
+            Fluentness.bootstrap(application, new String[]{"absentAction"});
+        } catch (FluentnessException e) {
+            assertEquals(ConsoleException.class, e.getCause().getClass());
+            exceptionWasThrown = true;
+        }
+        assertTrue(exceptionWasThrown);
+    }
 }

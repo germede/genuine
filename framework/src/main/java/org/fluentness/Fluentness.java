@@ -1,13 +1,15 @@
 package org.fluentness;
 
-import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.console.AbstractConsoleController;
+import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.PropertiesConfigurationService;
+import org.fluentness.service.dependency.ClassLoadingException;
 import org.fluentness.service.dependency.DefaultDependencyService;
 import org.fluentness.service.dependency.DependencyService;
+import org.fluentness.service.dependency.InjectionException;
 import org.fluentness.service.localization.PropertiesLocalizationService;
 import org.fluentness.service.logger.JulLoggerService;
 import org.fluentness.service.persistence.OpenJpaPersistenceService;
@@ -21,16 +23,26 @@ import java.util.List;
 
 public final class Fluentness {
 
-    private static DependencyService dependencyService;
+    static Fluentness instance;
 
-    private Fluentness() {
-
+    public static void bootstrap(Application application, String[] args) throws FluentnessException {
+        if (instance == null) {
+            instance = new Fluentness(new DefaultDependencyService());
+        }
+        if (application == null) {
+            throw new FluentnessException("Passed application was null");
+        }
+        instance.initialize(application, args);
     }
 
-    public static void bootstrap(Application application, String[] args) {
-        try {
-            dependencyService = new DefaultDependencyService();
+    private DependencyService dependencyService;
 
+    Fluentness(DependencyService dependencyService) {
+        this.dependencyService = dependencyService;
+    }
+
+    private void initialize(Application application, String[] args) throws FluentnessException {
+        try {
             List<Class<? extends Service>> services = application.getServices(dependencyService);
             services.add(PropertiesConfigurationService.class);
             services.add(PropertiesLocalizationService.class);
@@ -47,12 +59,15 @@ public final class Fluentness {
             dependencyService.inject(controllers);
 
             execute(args);
-        } catch (java.lang.Exception e) {
-            e.printStackTrace();
+        } catch (InvocationTargetException | ClassLoadingException | IllegalAccessException | InjectionException | ConsoleException e) {
+            throw new FluentnessException(e);
         }
     }
 
-    private static void execute(String[] args) throws ConsoleException, IllegalAccessException, InvocationTargetException {
+    private void execute(String[] args) throws ConsoleException, IllegalAccessException, InvocationTargetException {
+        if (args == null) {
+            throw new ConsoleException("Passed args was null");
+        }
         String name = args.length == 0 ? "help" : args[0];
         List<Controller.Action> actions = new LinkedList<>();
         dependencyService.getInstances(AbstractConsoleController.class)
@@ -65,5 +80,4 @@ public final class Fluentness {
             .orElseThrow(() -> new ConsoleException("No such command with name %s found", name));
         toExecute.invoke(dependencyService.getInstance(toExecute.getDeclaringClass()));
     }
-
 }

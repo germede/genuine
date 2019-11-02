@@ -2,24 +2,87 @@ package org.fluentness.controller.web;
 
 import org.fluentness.controller.Controller;
 import org.fluentness.service.server.HttpMethod;
-import org.junit.Assert;
+import org.fluentness.service.server.HttpStatusCode;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+
+import static org.junit.Assert.*;
 
 public class WebControllerTest {
 
-    private WebController webController;
+    private AbstractWebController webController;
 
     @Before
     public void setUp() {
-        webController = new WebController();
+        webController = new AbstractWebController(){
+            public void notAnActionBecauseNoActionAnnotation() {
+            }
+
+            @Action(path = "/notAnActionBecauseItIsNotPublic")
+            void notAnActionBecauseItIsNotPublic() {
+            }
+
+            @Action(path = "/void")
+            public void testVoid() {
+                int result = 2 + 2;
+            }
+
+            @Action(path = "/string")
+            public String testString() {
+                return "Hello world!";
+            }
+
+            @Action(path = "/testForbidden")
+            public int testForbidden() {
+                return 403;
+            }
+
+            @Action(path = "/testHttpStatusCode")
+            public HttpStatusCode testHttpStatusCode() {
+                return HttpStatusCode.FORBIDDEN;
+            }
+
+            @Action(path = "/testServerError")
+            public int testServerError() {
+                int outOfBounds = new int[]{}[1];
+                return 200;
+            }
+
+            @Action(path = "/testResponse")
+            public void testResponse(HttpServletResponse response) throws IOException {
+                response.setStatus(404);
+                response.getWriter().println("Not found");
+            }
+
+            @Action(path = "/testView")
+            public WebView testView() {
+                return new WebView() {
+                    @Override
+                    public String render() {
+                        return "Test web view";
+                    }
+                };
+            }
+
+            @Action(path = "/testGetParameter")
+            public String testGetParameter(String name) {
+                return "Greetings, " + name;
+            }
+
+            @Action(path = "/testPostParameter", method = HttpMethod.POST)
+            public String testPostParameter(String name) {
+                return "Greetings, " + name;
+            }
+        };
     }
 
     @Test
     public void getActions_numberOfActionsIsCorrect() {
-        Assert.assertEquals(9, webController.getActions().size());
+        assertEquals(9, webController.getActions().size());
     }
 
     @Test
@@ -27,11 +90,11 @@ public class WebControllerTest {
 
         for (WebAction webAction : webController.getActions()) {
             if (webAction.getMethod().equals(webController.getClass().getMethod("testVoid"))) {
-                Assert.assertEquals(HttpMethod.GET, webAction.getHttpMethod());
-                Assert.assertEquals("/void", webAction.getPath());
+                assertEquals(HttpMethod.GET, webAction.getHttpMethod());
+                assertEquals("/void", webAction.getPath());
             } else if (webAction.getMethod().equals(webController.getClass().getMethod("testPostParameter", String.class))) {
-                Assert.assertEquals(HttpMethod.POST, webAction.getHttpMethod());
-                Assert.assertEquals("/testPostParameter", webAction.getPath());
+                assertEquals(HttpMethod.POST, webAction.getHttpMethod());
+                assertEquals("/testPostParameter", webAction.getPath());
             }
         }
     }
@@ -51,9 +114,9 @@ public class WebControllerTest {
                 testServerError = webAction;
             }
         }
-        Assert.assertNotNull(testVoid);
-        Assert.assertNotNull(testPostParameter);
-        Assert.assertNotNull(testServerError);
+        assertNotNull(testVoid);
+        assertNotNull(testPostParameter);
+        assertNotNull(testServerError);
     }
 
     @Test(expected = InvocationTargetException.class)

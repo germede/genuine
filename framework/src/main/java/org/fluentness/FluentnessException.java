@@ -1,9 +1,9 @@
 package org.fluentness;
 
-public abstract class Exception extends java.lang.Exception {
+public class FluentnessException extends Exception {
 
     private String message;
-    private java.lang.Exception exception;
+    private Exception exception;
 
     @Override
     public String getMessage() {
@@ -32,11 +32,11 @@ public abstract class Exception extends java.lang.Exception {
         }
     }
 
-    protected Exception(java.lang.Exception exception) {
+    protected FluentnessException(Exception exception) {
         this.exception = exception;
     }
 
-    protected Exception(String messageToFormat, Object... parameters) {
+    protected FluentnessException(String messageToFormat, Object... parameters) {
         this.message = String.format(messageToFormat, parameters);
     }
 }

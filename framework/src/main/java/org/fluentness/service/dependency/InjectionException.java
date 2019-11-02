@@ -1,8 +1,8 @@
 package org.fluentness.service.dependency;
 
-import org.fluentness.Exception;
+import org.fluentness.FluentnessException;
 
-class InjectionException extends Exception {
+public class InjectionException extends FluentnessException {
     InjectionException(java.lang.Exception exception) {
         super(exception);
     }

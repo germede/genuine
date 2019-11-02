@@ -4,11 +4,12 @@ import org.fluentness.controller.web.markup.MarkupView;
 import org.fluentness.controller.web.markup.html.ContainerHtmlView;
 import org.fluentness.controller.web.markup.html.EmptyHtmlView;
 import org.fluentness.controller.web.markup.html.HtmlView;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import static org.junit.Assert.*;
 
 public class WebViewFactoryTest {
 
@@ -18,16 +19,16 @@ public class WebViewFactoryTest {
         for (Method method : WebViewFactory.class.getMethods()) {
             if (method.getReturnType().equals(ContainerHtmlView.class) && method.getParameters()[0].getType().equals(String.class)) {
                 ContainerHtmlView test = (ContainerHtmlView) method.invoke(null, "testInner");
-                Assert.assertEquals(method.getName(), test.getTag());
-                Assert.assertNull(test.getInnerViews());
-                Assert.assertEquals("testInner", test.getInnerText());
-                Assert.assertTrue(test.getAttributes().isEmpty());
+                assertEquals(method.getName(), test.getTag());
+                assertNull(test.getInnerViews());
+                assertEquals("testInner", test.getInnerText());
+                assertTrue(test.getAttributes().isEmpty());
                 test.href("testHref");
-                Assert.assertEquals("testHref", test.getAttributes().get("href"));
+                assertEquals("testHref", test.getAttributes().get("href"));
                 i++;
             }
         }
-        Assert.assertEquals(108, i);
+        assertEquals(108, i);
     }
 
     @Test
@@ -43,16 +44,16 @@ public class WebViewFactoryTest {
                         }
                     }
                 );
-                Assert.assertEquals(method.getName(), testWithInner.getTag());
-                Assert.assertEquals(2, testWithInner.getInnerViews().length);
-                Assert.assertNull(testWithInner.getInnerText());
-                Assert.assertTrue(testWithInner.getAttributes().isEmpty());
+                assertEquals(method.getName(), testWithInner.getTag());
+                assertEquals(2, testWithInner.getInnerViews().length);
+                assertNull(testWithInner.getInnerText());
+                assertTrue(testWithInner.getAttributes().isEmpty());
                 testWithInner.href("testHref");
-                Assert.assertEquals("testHref", testWithInner.getAttributes().get("href"));
+                assertEquals("testHref", testWithInner.getAttributes().get("href"));
                 i++;
             }
         }
-        Assert.assertEquals(108, i);
+        assertEquals(108, i);
     }
 
     @Test
@@ -61,14 +62,14 @@ public class WebViewFactoryTest {
         for (Method method : WebViewFactory.class.getMethods()) {
             if (method.getReturnType().equals(EmptyHtmlView.class)) {
                 EmptyHtmlView test = (EmptyHtmlView) method.invoke(null);
-                Assert.assertEquals(method.getName(), test.getTag());
-                Assert.assertTrue(test.getAttributes().isEmpty());
+                assertEquals(method.getName(), test.getTag());
+                assertTrue(test.getAttributes().isEmpty());
                 test.href("testHref");
-                Assert.assertEquals("testHref", test.getAttributes().get("href"));
+                assertEquals("testHref", test.getAttributes().get("href"));
                 i++;
             }
         }
-        Assert.assertEquals(14, i);
+        assertEquals(14, i);
     }
 
     @Test
@@ -81,10 +82,10 @@ public class WebViewFactoryTest {
             String methodName = name.charAt(name.length() - 1) == '_' ?
                 name.replace("_", "") :
                 name.replace("_", "-");
-            Assert.assertEquals("testValue", test.getAttributes().get(methodName));
+            assertEquals("testValue", test.getAttributes().get(methodName));
             i++;
         }
-        Assert.assertEquals(115, i);
+        assertEquals(115, i);
     }
 
 }
