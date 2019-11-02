@@ -12,7 +12,7 @@ public class XmlConfiguration implements Configuration {
     public XmlConfiguration() throws IOException {
         properties = new Properties();
         properties.loadFromXML(
-            Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("configuration" + getEnvironment() + ".xml"))
+            Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("settings" + getEnvironment() + ".xml"))
         );
     }
 
