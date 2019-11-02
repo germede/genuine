@@ -9,4 +9,6 @@ public interface ConfigurationService extends Service {
     boolean is(String key);
 
     boolean has(String key);
+
+    Environment getEnvironment();
 }

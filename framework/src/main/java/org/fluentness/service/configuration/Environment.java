@@ -8,6 +8,6 @@ public enum Environment {
 
     @Override
     public String toString() {
-        return this.equals(DEV) ? "" : "_" + super.toString();
+        return this.equals(DEV) ? "" : "_" + super.toString().toLowerCase();
     }
 }

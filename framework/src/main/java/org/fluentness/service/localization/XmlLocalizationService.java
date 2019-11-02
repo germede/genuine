@@ -3,13 +3,13 @@ package org.fluentness.service.localization;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class PropertiesLocalizationService implements LocalizationService {
+public class XmlLocalizationService implements LocalizationService {
 
     private Locale currentLocale;
-    private XMLResourceBundleControl control;
+    private XmlResourceBundleControl control;
 
-    public PropertiesLocalizationService() {
-        control = new XMLResourceBundleControl();
+    public XmlLocalizationService() {
+        control = new XmlResourceBundleControl();
     }
 
     @Override

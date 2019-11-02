@@ -3,7 +3,6 @@ package org.fluentness.controller.web;
 import org.fluentness.controller.web.markup.MarkupView;
 import org.fluentness.controller.web.markup.html.ContainerHtmlView;
 import org.fluentness.controller.web.markup.html.EmptyHtmlView;
-import org.fluentness.controller.web.markup.html.HtmlView;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,7 +13,7 @@ import static org.junit.Assert.*;
 public class WebViewFactoryTest {
 
     @Test
-    public void stringContainerHtmlViews_markupElementIsCreatedCorrectly() throws InvocationTargetException, IllegalAccessException {
+    public void stringContainerHtmlViewMethods_areCalled_markupElementAreCreated() throws InvocationTargetException, IllegalAccessException {
         int i = 0;
         for (Method method : WebViewFactory.class.getMethods()) {
             if (method.getReturnType().equals(ContainerHtmlView.class) && method.getParameters()[0].getType().equals(String.class)) {
@@ -32,7 +31,7 @@ public class WebViewFactoryTest {
     }
 
     @Test
-    public void viewContainerHtmlViews_markupElementIsCreatedCorrectly() throws InvocationTargetException, IllegalAccessException {
+    public void viewContainerHtmlViewMethods_areCalled_markupElementAreCreated() throws InvocationTargetException, IllegalAccessException {
         int i = 0;
         for (Method method : WebViewFactory.class.getMethods()) {
             if (method.getReturnType().equals(ContainerHtmlView.class) && method.getParameters()[0].isVarArgs()) {
@@ -57,7 +56,7 @@ public class WebViewFactoryTest {
     }
 
     @Test
-    public void emptyHtmlViews_markupElementIsCreatedCorrectly() throws InvocationTargetException, IllegalAccessException {
+    public void emptyHtmlViewMethods_areCalled_markupElementAreCreated() throws InvocationTargetException, IllegalAccessException {
         int i = 0;
         for (Method method : WebViewFactory.class.getMethods()) {
             if (method.getReturnType().equals(EmptyHtmlView.class)) {
@@ -72,20 +71,5 @@ public class WebViewFactoryTest {
         assertEquals(14, i);
     }
 
-    @Test
-    public void htmlViews_htmlAttributesAreAddedCorrectly() throws InvocationTargetException, IllegalAccessException {
-        MarkupView test = WebViewFactory.p("test");
-        int i = 0;
-        for (Method method : HtmlView.class.getDeclaredMethods()) {
-            test = (MarkupView) method.invoke(test, "testValue");
-            String name = method.getName();
-            String methodName = name.charAt(name.length() - 1) == '_' ?
-                name.replace("_", "") :
-                name.replace("_", "-");
-            assertEquals("testValue", test.getAttributes().get(methodName));
-            i++;
-        }
-        assertEquals(115, i);
-    }
 
 }

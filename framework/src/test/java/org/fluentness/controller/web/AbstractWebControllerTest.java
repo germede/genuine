@@ -8,11 +8,10 @@ import org.junit.Test;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.Assert.*;
 
-public class WebControllerTest {
+public class AbstractWebControllerTest {
 
     private AbstractWebController webController;
 
@@ -81,12 +80,12 @@ public class WebControllerTest {
     }
 
     @Test
-    public void getActions_numberOfActionsIsCorrect() {
+    public void getActions_sizeIsCalled_numberOfActionsIsCorrect() {
         assertEquals(9, webController.getActions().size());
     }
 
     @Test
-    public void getActions_actionDescriptorsAreSet() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void getActions_descriptorsAreSet_descriptorsCanBeRetrieved() throws NoSuchMethodException {
 
         for (WebAction webAction : webController.getActions()) {
             if (webAction.getMethod().equals(webController.getClass().getMethod("testVoid"))) {
@@ -100,11 +99,12 @@ public class WebControllerTest {
     }
 
     @Test
-    public void getActions_actionsCanBeFound() throws NoSuchMethodException {
+    public void getActions_actionsAreGiven_actionsAreFound() throws NoSuchMethodException {
 
         Controller.Action testVoid = null;
         Controller.Action testPostParameter = null;
         Controller.Action testServerError = null;
+        Controller.Action notAnActionBecauseNoActionAnnotation = null;
         for (WebAction webAction : webController.getActions()) {
             if (webAction.getMethod().equals(webController.getClass().getMethod("testVoid"))) {
                 testVoid = webAction;
@@ -112,16 +112,13 @@ public class WebControllerTest {
                 testPostParameter = webAction;
             } else if (webAction.getMethod().equals(webController.getClass().getMethod("testServerError"))) {
                 testServerError = webAction;
+            } else if (webAction.getMethod().equals(webController.getClass().getMethod("notAnActionBecauseNoActionAnnotation"))) {
+                notAnActionBecauseNoActionAnnotation = webAction;
             }
         }
         assertNotNull(testVoid);
         assertNotNull(testPostParameter);
         assertNotNull(testServerError);
+        assertNull(notAnActionBecauseNoActionAnnotation);
     }
-
-    @Test(expected = InvocationTargetException.class)
-    public void callServerErrorAction_exceptionIsThrown() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-        webController.getClass().getMethod("testServerError").invoke(webController);
-    }
-
 }

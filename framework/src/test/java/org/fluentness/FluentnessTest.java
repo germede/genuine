@@ -38,23 +38,23 @@ public class FluentnessTest {
     }
 
     @Test(expected = FluentnessException.class)
-    public void bootstrapIsCalledWithNullApplication_fluentnessExceptionIsThrown() throws FluentnessException {
+    public void bootstrap_nullApplication_fluentnessExceptionIsThrown() throws FluentnessException {
         Fluentness.bootstrap(null, null);
     }
 
     @Test(expected = FluentnessException.class)
-    public void bootstrapIsCalledWithNullArgs_fluentnessExceptionIsThrown() throws FluentnessException {
+    public void bootstrap_nullArgs_fluentnessExceptionIsThrown() throws FluentnessException {
         Fluentness.bootstrap(application, null);
     }
 
     @Test
-    public void bootstrapIsCalledWithEmptyArgs_helpCommandIsExecuted() throws FluentnessException {
+    public void bootstrap_emptyArgs_helpCommandIsExecuted() throws FluentnessException {
         Fluentness.bootstrap(application, new String[0]);
         verify(dummyConsoleController, times(1)).help();
     }
 
     @Test
-    public void bootstrapIsCalledWithAbsentAction_consoleExceptionIsThrown() {
+    public void bootstrap_absentAction_consoleExceptionIsThrown() {
         boolean exceptionWasThrown = false;
         try {
             Fluentness.bootstrap(application, new String[]{"absentAction"});

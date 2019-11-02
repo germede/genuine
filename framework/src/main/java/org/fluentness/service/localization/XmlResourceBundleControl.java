@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-class XMLResourceBundleControl extends ResourceBundle.Control {
+class XmlResourceBundleControl extends ResourceBundle.Control {
 
     public List<String> getFormats(String baseName) {
         return Collections.singletonList("xml");
@@ -17,7 +17,7 @@ class XMLResourceBundleControl extends ResourceBundle.Control {
                                     String format,
                                     ClassLoader loader,
                                     boolean reload) throws IOException {
-        return new XMLResourceBundle(
+        return new XmlResourceBundle(
             getClass().getClassLoader().getResourceAsStream(
                 toResourceName(
                     toBundleName(baseName, locale),

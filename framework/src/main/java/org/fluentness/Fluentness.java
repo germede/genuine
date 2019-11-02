@@ -5,12 +5,12 @@ import org.fluentness.controller.console.AbstractConsoleController;
 import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.service.Service;
-import org.fluentness.service.configuration.PropertiesConfigurationService;
+import org.fluentness.service.configuration.XmlConfigurationService;
 import org.fluentness.service.dependency.ClassLoadingException;
 import org.fluentness.service.dependency.DefaultDependencyService;
 import org.fluentness.service.dependency.DependencyService;
 import org.fluentness.service.dependency.InjectionException;
-import org.fluentness.service.localization.PropertiesLocalizationService;
+import org.fluentness.service.localization.XmlLocalizationService;
 import org.fluentness.service.logger.JulLoggerService;
 import org.fluentness.service.persistence.OpenJpaPersistenceService;
 import org.fluentness.service.routing.DefaultRoutingService;
@@ -44,8 +44,8 @@ public final class Fluentness {
     private void initialize(Application application, String[] args) throws FluentnessException {
         try {
             List<Class<? extends Service>> services = application.getServices(dependencyService);
-            services.add(PropertiesConfigurationService.class);
-            services.add(PropertiesLocalizationService.class);
+            services.add(XmlConfigurationService.class);
+            services.add(XmlLocalizationService.class);
             services.add(JulLoggerService.class);
             services.add(OpenJpaPersistenceService.class);
             services.add(DefaultRoutingService.class);

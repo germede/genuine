@@ -7,11 +7,11 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-class XMLResourceBundle extends ResourceBundle {
+class XmlResourceBundle extends ResourceBundle {
 
     private Properties props;
 
-    XMLResourceBundle(InputStream stream) throws IOException {
+    XmlResourceBundle(InputStream stream) throws IOException {
         props = new Properties();
         props.loadFromXML(stream);
     }

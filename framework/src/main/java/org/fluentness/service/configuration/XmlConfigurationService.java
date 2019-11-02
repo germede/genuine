@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 
-public class PropertiesConfigurationService implements ConfigurationService {
+public class XmlConfigurationService implements ConfigurationService {
 
 
     private final Properties properties;
 
-    public PropertiesConfigurationService() throws IOException {
+    public XmlConfigurationService() throws IOException {
         properties = new Properties();
         properties.loadFromXML(
             Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("configuration" + getEnvironment() + ".xml"))
@@ -31,11 +31,12 @@ public class PropertiesConfigurationService implements ConfigurationService {
         return properties.containsKey(key);
     }
 
-    private Environment getEnvironment() {
+    @Override
+    public Environment getEnvironment() {
         String environment = System.getProperty("environment");
         return environment == null || environment.isEmpty() ?
             Environment.DEV :
-            Environment.valueOf(environment);
+            Environment.valueOf(environment.toUpperCase());
     }
 
 }
