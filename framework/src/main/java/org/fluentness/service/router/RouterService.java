@@ -4,7 +4,7 @@ import org.fluentness.service.Service;
 
 import java.util.Map;
 
-public interface Router extends Service {
+public interface RouterService extends Service {
 
     Map<String, HttpHandler> getRoutingMap();
 

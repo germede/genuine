@@ -4,6 +4,8 @@ import org.fluentness.service.Service;
 
 public interface Logger extends Service {
 
+    void log(LogLevel logLevel, String message, Object... parameters);
+
     void debug(String message, Object... parameters);
 
     void info(String message, Object... parameters);
@@ -13,6 +15,5 @@ public interface Logger extends Service {
     void error(String message, Object... parameters);
 
     void error(Throwable throwable);
-
 }
 

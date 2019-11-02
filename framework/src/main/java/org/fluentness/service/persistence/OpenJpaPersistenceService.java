@@ -1,7 +1,9 @@
 package org.fluentness.service.persistence;
 
+import org.apache.openjpa.lib.log.AbstractLog;
+import org.apache.openjpa.lib.log.Log;
 import org.apache.openjpa.lib.log.LogFactory;
-import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configuration.ConfigurationService;
 import org.fluentness.service.logger.Logger;
 
 import javax.persistence.EntityManager;
@@ -9,23 +11,44 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OpenJpaPersistence implements Persistence {
+public class OpenJpaPersistenceService implements PersistenceService {
 
     private Logger logger;
     private EntityManager entityManager;
 
-    public OpenJpaPersistence(Configuration configuration, Logger logger) {
-
+    public OpenJpaPersistenceService(ConfigurationService configuration, Logger logger) {
         this.logger = logger;
 
         Map<String, Object> properties = new HashMap<>();
-        properties.put("openjpa.Log", (LogFactory) channel -> new OpenJpaLoggingBridge(logger));
+        properties.put("openjpa.Log", (LogFactory) channel -> new AbstractLog() {
+            protected boolean isEnabled(short logLevel) {
+                return true;
+            }
+
+            protected void log(short type, String message, Throwable t) {
+                switch (type) {
+                    case Log.FATAL:
+                    case Log.ERROR:
+                        logger.error(message);
+                        break;
+                    case Log.WARN:
+                        logger.warning(message);
+                        break;
+                    case Log.INFO:
+                        logger.info(message);
+                        break;
+                    case Log.TRACE:
+                        logger.debug(message);
+                }
+            }
+        });
 
         if (configuration.has("persistence_unit")) {
             this.entityManager = javax.persistence.Persistence
-                    .createEntityManagerFactory(configuration.get("persistence_unit"), properties)
-                    .createEntityManager();
+                .createEntityManagerFactory(configuration.get("persistence_unit"), properties)
+                .createEntityManager();
         }
+
     }
 
     @Override

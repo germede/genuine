@@ -1,4 +1,4 @@
-package org.fluentness.service.manager;
+package org.fluentness.service.dependency;
 
 import org.fluentness.FluentnessException;
 

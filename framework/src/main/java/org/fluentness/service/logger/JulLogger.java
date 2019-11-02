@@ -1,25 +1,30 @@
 package org.fluentness.service.logger;
 
-import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configuration.ConfigurationService;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
+import java.util.logging.*;
 
 public class JulLogger implements Logger {
     private java.util.logging.Logger logger;
 
-    public JulLogger(Configuration configuration) throws Exception {
+    public JulLogger(ConfigurationService configuration) throws Exception {
         // retrieve log level
         Level logLevel = configuration.has("logger_level") ?
             LogLevel.valueOf(configuration.get("logger_level")).toJulLevel() :
             Level.ALL;
 
         // disable annoying tomcat logs
+        java.util.logging.Logger.getLogger("").setFilter(new Filter() {
+            @Override
+            public boolean isLoggable(LogRecord logRecord) {
+                System.out.println("HHAHAHAHHA");
+                return false;
+            }
+        });
 //        Enumeration<String> loggerNames = LogManager.getLogManager().getLoggerNames();
 //        while (loggerNames.hasMoreElements()) {
 //            Logger.getLogger(loggerNames.nextElement()).setLevel(Level.OFF);
@@ -28,16 +33,14 @@ public class JulLogger implements Logger {
         // init jul logger
         logger = java.util.logging.Logger.getGlobal();
         logger.setUseParentHandlers(false);
-        if (logger.getHandlers().length > 0) {
-            Arrays.stream(logger.getHandlers()).forEach(logger::removeHandler);
-        }
+        Arrays.stream(logger.getHandlers()).forEach(logger::removeHandler);
         logger.setLevel(logLevel);
 
         // console logging
         if (configuration.is("logger_console")) {
 
             ConsoleHandler consoleHandler = new ConsoleHandler();
-            consoleHandler.setFormatter(new JulFormatter(this));
+            consoleHandler.setFormatter(new JulFormatter());
             consoleHandler.setLevel(logLevel);
             logger.addHandler(consoleHandler);
         }
@@ -55,7 +58,7 @@ public class JulLogger implements Logger {
                 file.createNewFile();
                 fileHandler = new FileHandler(logFilePath);
             }
-            fileHandler.setFormatter(new JulFormatter(this));
+            fileHandler.setFormatter(new JulFormatter());
             fileHandler.setLevel(logLevel);
             logger.addHandler(fileHandler);
 
@@ -84,15 +87,12 @@ public class JulLogger implements Logger {
 
     @Override
     public void error(Throwable throwable) {
-        log(throwable);
-    }
-
-    private void log(LogLevel logLevel, String message, Object... parameters) {
-        logger.log(logLevel.toJulLevel(), format(message, parameters));
-    }
-
-    private void log(Throwable throwable) {
         logger.log(LogLevel.ERROR.toJulLevel(), retrieveThrowableMessage(throwable));
+    }
+
+    @Override
+    public void log(LogLevel logLevel, String message, Object... parameters) {
+        logger.log(logLevel.toJulLevel(), format(message, parameters));
     }
 
     private String format(String message, Object... parameters) {

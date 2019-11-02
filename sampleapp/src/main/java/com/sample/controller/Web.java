@@ -3,7 +3,7 @@ package com.sample.controller;
 import com.sample.repository.Book;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.html.HtmlView;
-import org.fluentness.service.translator.Translator;
+import org.fluentness.service.translator.TranslatorService;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import static org.fluentness.controller.web.WebViewFactory.*;
 
 public class Web {
 
-    private Translator l10n;
+    private TranslatorService i18n;
 
-    public Web(Translator l10n) {
-        this.l10n = l10n;
+    public Web(TranslatorService i18n) {
+        this.i18n = i18n;
     }
 
     WebView testView() {
@@ -24,20 +24,20 @@ public class Web {
     WebView listBooks(List<Book> books) {
         return base(
             div(
-                div(h2(l10n.translate("welcome_message", "Person"))).class_("column column-50"),
-                a(l10n.translate("book_create")).class_("button").href("/book/create")
+                div(h2(i18n.translate("welcome_message", "Person"))).class_("column column-50"),
+                a(i18n.translate("book_create")).class_("button").href("/book/create")
             ).class_("row"),
             div(
                 table(
                     thead(
                         tr(
-                            th(l10n.translate("book_title")),
-                            th(l10n.translate("book_author")),
-                            th(l10n.translate("book_genre")),
-                            th(l10n.translate("book_year")),
-                            th(l10n.translate("book_is_new")),
-                            th(l10n.translate("book_update")),
-                            th(l10n.translate("book_delete"))
+                            th(i18n.translate("book_title")),
+                            th(i18n.translate("book_author")),
+                            th(i18n.translate("book_genre")),
+                            th(i18n.translate("book_year")),
+                            th(i18n.translate("book_is_new")),
+                            th(i18n.translate("book_update")),
+                            th(i18n.translate("book_delete"))
                         )
                     ),
                     tbody(

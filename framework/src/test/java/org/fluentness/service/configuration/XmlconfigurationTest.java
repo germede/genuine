@@ -16,12 +16,12 @@ public class XmlconfigurationTest {
     @Test(expected = IllegalArgumentException.class)
     public void get_absentEnvironmentIsSet_illegalArgumentExceptionIsThrown() throws IOException {
         System.setProperty("environment", "dummy");
-        Configuration configuration = new XmlConfiguration();
+        ConfigurationService configuration = new XmlConfigurationService();
     }
 
     @Test
     public void get_noEnvironmentIsSet_devConfigurationsAreGot() throws IOException {
-        Configuration configuration = new XmlConfiguration();
+        ConfigurationService configuration = new XmlConfigurationService();
         Assert.assertEquals("value1", configuration.get("key1"));
         Assert.assertEquals("value2", configuration.get("key2"));
         Assert.assertEquals("true", configuration.get("key3"));
@@ -31,7 +31,7 @@ public class XmlconfigurationTest {
     @Test
     public void get_devEnvironmentIsSet_devConfigurationsAreGot() throws IOException {
         System.setProperty("environment", "dev");
-        Configuration configuration = new XmlConfiguration();
+        ConfigurationService configuration = new XmlConfigurationService();
         Assert.assertEquals("value1", configuration.get("key1"));
         Assert.assertEquals("value2", configuration.get("key2"));
         Assert.assertEquals("true", configuration.get("key3"));
@@ -41,7 +41,7 @@ public class XmlconfigurationTest {
     @Test
     public void get_prodEnvironmentIsSet_prodConfigurationsAreGot() throws IOException {
         System.setProperty("environment", "prod");
-        Configuration configuration = new XmlConfiguration();
+        ConfigurationService configuration = new XmlConfigurationService();
         Assert.assertEquals("value1-prod", configuration.get("key1"));
         Assert.assertNull(configuration.get("key2"));
         Assert.assertNull(configuration.get("key3"));
@@ -51,7 +51,7 @@ public class XmlconfigurationTest {
     @Test
     public void is_devEnvironmentIsSet_devConfigurationsAreTrue() throws IOException {
         System.setProperty("environment", "dev");
-        Configuration configuration = new XmlConfiguration();
+        ConfigurationService configuration = new XmlConfigurationService();
         Assert.assertFalse(configuration.is("key1"));
         Assert.assertFalse(configuration.is("key2"));
         Assert.assertTrue(configuration.is("key3"));
@@ -61,7 +61,7 @@ public class XmlconfigurationTest {
     @Test
     public void has_devEnvironmentIsSet_devConfigurationsArePresent() throws IOException {
         System.setProperty("environment", "dev");
-        Configuration configuration = new XmlConfiguration();
+        ConfigurationService configuration = new XmlConfigurationService();
         Assert.assertTrue(configuration.has("key1"));
         Assert.assertTrue(configuration.has("key2"));
         Assert.assertTrue(configuration.has("key3"));
@@ -72,7 +72,7 @@ public class XmlconfigurationTest {
     @Test
     public void has_prodEnvironmentIsSet_prodConfigurationsArePresent() throws IOException {
         System.setProperty("environment", "pROd");
-        Configuration configuration = new XmlConfiguration();
+        ConfigurationService configuration = new XmlConfigurationService();
         Assert.assertTrue(configuration.has("key1"));
         Assert.assertFalse(configuration.has("key2"));
         Assert.assertFalse(configuration.has("key3"));
@@ -82,7 +82,7 @@ public class XmlconfigurationTest {
 
     @Test
     public void getEnvironment_environmentsAreSet_environmentsAreGot() throws IOException {
-        Configuration configuration = new XmlConfiguration();
+        ConfigurationService configuration = new XmlConfigurationService();
         Assert.assertEquals(Environment.DEV, configuration.getEnvironment());
         System.setProperty("environment", "PROD");
         Assert.assertEquals(Environment.PROD, configuration.getEnvironment());
@@ -97,7 +97,7 @@ public class XmlconfigurationTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void getEnvironment_invalidEnvironmentsIsSet_illegalArgumentExceptionIsThrown() throws IOException {
-        Configuration configuration = new XmlConfiguration();
+        ConfigurationService configuration = new XmlConfigurationService();
         System.setProperty("environment", "illegal");
         configuration.getEnvironment();
     }

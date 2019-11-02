@@ -2,9 +2,9 @@ package org.fluentness.controller.console;
 
 import org.fluentness.Fluentness;
 import org.fluentness.controller.Controller;
-import org.fluentness.service.manager.Manager;
+import org.fluentness.service.dependency.DependencyService;
 import org.fluentness.service.logger.Logger;
-import org.fluentness.service.server.Server;
+import org.fluentness.service.server.ServerService;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -15,11 +15,11 @@ import static org.fluentness.service.logger.AnsiColor.*;
 public class DefaultConsoleController extends AbstractConsoleController {
 
 
-    private Manager manager;
-    private Server server;
+    private DependencyService manager;
+    private ServerService server;
     private Logger logger;
 
-    public DefaultConsoleController(Manager manager, Server server, Logger logger) {
+    public DefaultConsoleController(DependencyService manager, ServerService server, Logger logger) {
         this.manager = manager;
         this.server = server;
         this.logger = logger;

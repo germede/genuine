@@ -3,7 +3,7 @@ package org.fluentness.service.router;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebAction;
 import org.fluentness.controller.web.WebView;
-import org.fluentness.service.manager.Manager;
+import org.fluentness.service.dependency.DependencyService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,11 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DefaultRouter implements Router {
+public class DefaultRouterService implements RouterService {
 
-    private Manager manager;
+    private DependencyService manager;
 
-    public DefaultRouter(Manager manager) {
+    public DefaultRouterService(DependencyService manager) {
         this.manager = manager;
     }
 

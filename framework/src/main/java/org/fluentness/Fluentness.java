@@ -3,10 +3,10 @@ package org.fluentness;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.console.AbstractConsoleController;
 import org.fluentness.controller.console.ConsoleException;
-import org.fluentness.service.manager.ClassLoadingException;
-import org.fluentness.service.manager.DefaultManager;
-import org.fluentness.service.manager.InjectionException;
-import org.fluentness.service.manager.Manager;
+import org.fluentness.service.dependency.ClassLoadingException;
+import org.fluentness.service.dependency.DefaultDependencyService;
+import org.fluentness.service.dependency.InjectionException;
+import org.fluentness.service.dependency.DependencyService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,7 +19,7 @@ public final class Fluentness {
 
     public static void bootstrap(Application application, String[] args) throws FluentnessException {
         if (instance == null) {
-            instance = new Fluentness(new DefaultManager());
+            instance = new Fluentness(new DefaultDependencyService());
         }
         if (application == null) {
             throw new FluentnessException("Passed application was null");
@@ -27,17 +27,17 @@ public final class Fluentness {
         instance.initialize(application, args);
     }
 
-    private Manager manager;
+    private DependencyService dependencyService;
 
-    Fluentness(Manager manager) {
-        this.manager = manager;
+    Fluentness(DependencyService dependencyService) {
+        this.dependencyService = dependencyService;
     }
 
     private void initialize(Application application, String[] args) throws FluentnessException {
         try {
-            application.injectServices(manager);
-            application.injectRepositories(manager);
-            application.injectControllers(manager);
+            application.injectServices(dependencyService);
+            application.injectRepositories(dependencyService);
+            application.injectControllers(dependencyService);
             execute(args);
         } catch (InvocationTargetException | ClassLoadingException | IllegalAccessException | InjectionException | ConsoleException e) {
             throw new FluentnessException(e);
@@ -50,7 +50,7 @@ public final class Fluentness {
         }
         String name = args.length == 0 ? "help" : args[0];
         List<Controller.Action> actions = new LinkedList<>();
-        manager.getInstances(AbstractConsoleController.class)
+        dependencyService.getInstances(AbstractConsoleController.class)
             .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
         Method toExecute = actions
             .stream()
@@ -58,6 +58,6 @@ public final class Fluentness {
             .map(Controller.Action::getMethod)
             .findFirst()
             .orElseThrow(() -> new ConsoleException("No such command with name %s found", name));
-        toExecute.invoke(manager.getInstance(toExecute.getDeclaringClass()));
+        toExecute.invoke(dependencyService.getInstance(toExecute.getDeclaringClass()));
     }
 }

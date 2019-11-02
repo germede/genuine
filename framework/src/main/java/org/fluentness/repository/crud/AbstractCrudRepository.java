@@ -1,19 +1,15 @@
 package org.fluentness.repository.crud;
 
 import org.fluentness.repository.Repository;
-import org.fluentness.service.persistence.Persistence;
-
-import java.util.List;
+import org.fluentness.service.persistence.PersistenceService;
 
 public abstract class AbstractCrudRepository<M> implements Repository<M> {
 
-    protected Persistence persistence;
+    protected PersistenceService persistence;
 
-    public AbstractCrudRepository(Persistence persistence) {
+    public AbstractCrudRepository(PersistenceService persistence) {
         this.persistence = persistence;
     }
-
-    protected abstract Class<M> getModelClass();
 
     public void create(M book) {
         persistence.persist(book);
@@ -27,12 +23,9 @@ public abstract class AbstractCrudRepository<M> implements Repository<M> {
         persistence.remove(book);
     }
 
-    public M findById(int id) {
-        return persistence.find(getModelClass(), id);
+    public M find(Class<M> mClass, int id) {
+        return persistence.find(mClass, id);
     }
 
-    public List<M> findAll() {
-        return persistence.query("SELECT e FROM " + getModelClass().getSimpleName() + " e").getResultList();
-    }
 
 }

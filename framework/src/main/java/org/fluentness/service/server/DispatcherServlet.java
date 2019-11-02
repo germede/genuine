@@ -1,7 +1,7 @@
 package org.fluentness.service.server;
 
 import org.fluentness.service.logger.Logger;
-import org.fluentness.service.router.Router;
+import org.fluentness.service.router.RouterService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,18 +16,18 @@ import java.util.Locale;
 public class DispatcherServlet extends HttpServlet {
 
     private Logger logger;
-    private Router router;
+    private RouterService router;
 
-    public DispatcherServlet(Logger logger, Router router) {
+    public DispatcherServlet(Logger logger, RouterService router) {
         this.logger = logger;
         this.router = router;
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.debug(req.getMethod() + " " + req.getPathInfo());
         Locale.setDefault(req.getLocale());
         super.service(req, resp);
+        logger.debug(req.getMethod() + " " + req.getPathInfo() + " -> " + resp.getStatus());
     }
 
     @Override
@@ -44,7 +44,6 @@ public class DispatcherServlet extends HttpServlet {
         } else {
             resp.setStatus(404);
         }
-        logger.debug(resp.getStatus()+"");
     }
 
     //todo support other methods
