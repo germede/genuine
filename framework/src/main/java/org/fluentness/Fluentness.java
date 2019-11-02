@@ -15,25 +15,12 @@ import java.util.List;
 
 public final class Fluentness {
 
-    static Fluentness instance;
+    private static DependencyService dependencyService = new DefaultDependencyService();
 
     public static void bootstrap(Application application, String[] args) throws FluentnessException {
-        if (instance == null) {
-            instance = new Fluentness(new DefaultDependencyService());
-        }
         if (application == null) {
             throw new FluentnessException("Passed application was null");
         }
-        instance.initialize(application, args);
-    }
-
-    private DependencyService dependencyService;
-
-    Fluentness(DependencyService dependencyService) {
-        this.dependencyService = dependencyService;
-    }
-
-    private void initialize(Application application, String[] args) throws FluentnessException {
         try {
             application.injectServices(dependencyService);
             application.injectRepositories(dependencyService);
@@ -44,7 +31,7 @@ public final class Fluentness {
         }
     }
 
-    private void execute(String[] args) throws ConsoleException, IllegalAccessException, InvocationTargetException {
+    private static void execute(String[] args) throws ConsoleException, IllegalAccessException, InvocationTargetException {
         if (args == null) {
             throw new ConsoleException("Passed args was null");
         }

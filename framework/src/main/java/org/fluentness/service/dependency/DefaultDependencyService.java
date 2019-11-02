@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public final class DefaultDependencyService implements DependencyService {
+public class DefaultDependencyService implements DependencyService {
 
     private Map<Class, Object> instances = new LinkedHashMap<>();
 

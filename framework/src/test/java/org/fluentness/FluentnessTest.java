@@ -34,7 +34,6 @@ public class FluentnessTest {
             .thenReturn(Collections.singletonList(dummyConsoleController));
         when(manager.getInstance(any())).thenReturn(dummyConsoleController);
 
-        Fluentness.instance = new Fluentness(manager);
     }
 
     @Test(expected = FluentnessException.class)
