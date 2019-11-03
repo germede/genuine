@@ -5,7 +5,7 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.fluentness.service.configuration.ConfigurationService;
 import org.fluentness.service.logger.LogLevel;
-import org.fluentness.service.logger.Logger;
+import org.fluentness.service.logger.LoggerService;
 
 import java.io.File;
 import java.util.Arrays;
@@ -15,13 +15,13 @@ import java.util.logging.LogRecord;
 public class TomcatServerService implements ServerService {
 
     private ConfigurationService configuration;
-    private Logger logger;
+    private LoggerService logger;
     private DispatcherServlet dispatcherServlet;
 
     private final Tomcat server;
     private final int port;
 
-    public TomcatServerService(ConfigurationService configuration, Logger logger, DispatcherServlet dispatcherServlet) {
+    public TomcatServerService(ConfigurationService configuration, LoggerService logger, DispatcherServlet dispatcherServlet) {
         this.configuration = configuration;
         this.logger = logger;
         this.dispatcherServlet = dispatcherServlet;

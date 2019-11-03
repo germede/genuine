@@ -5,7 +5,7 @@ import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.XmlConfigurationService;
-import org.fluentness.service.logger.JulLogger;
+import org.fluentness.service.logger.JulLoggerService;
 import org.fluentness.service.dependency.ClassLoadingException;
 import org.fluentness.service.dependency.InjectionException;
 import org.fluentness.service.dependency.DependencyService;
@@ -24,7 +24,7 @@ public interface Application {
         );
         services.add(XmlConfigurationService.class);
         services.add(XmlTranslatorService.class);
-        services.add(JulLogger.class);
+        services.add(JulLoggerService.class);
         services.add(OpenJpaPersistenceService.class);
         services.add(DefaultRouterService.class);
         services.add(TomcatServerService.class);

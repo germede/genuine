@@ -5,11 +5,11 @@ import java.awt.*;
 
 public class SwingLabel implements SwingComponent{
 
-    JLabel label;
+    JLabel label = new JLabel();
 
-    public SwingLabel(String title) {
-        label = new JLabel(title);
-        label.setVisible(true);
+    public SwingLabel text(String text) {
+        label.setText(text);
+        return this;
     }
 
     @Override

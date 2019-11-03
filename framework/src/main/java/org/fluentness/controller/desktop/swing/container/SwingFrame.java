@@ -7,14 +7,12 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class SwingFrame implements SwingContainer {
 
-    JFrame frame;
+    JFrame frame = new JFrame();
 
     public SwingFrame(SwingContainer swingContainer) {
-        frame = new JFrame();
         frame.setContentPane(swingContainer.getContainer());
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.pack();
-        frame.setVisible(true);
     }
 
     @Override

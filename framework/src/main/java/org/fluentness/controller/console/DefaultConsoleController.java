@@ -2,8 +2,12 @@ package org.fluentness.controller.console;
 
 import org.fluentness.Fluentness;
 import org.fluentness.controller.Controller;
+import org.fluentness.controller.desktop.AbstractDesktopController;
+import org.fluentness.controller.desktop.DesktopAction;
+import org.fluentness.controller.desktop.DesktopEvent;
+import org.fluentness.controller.desktop.DesktopView;
 import org.fluentness.service.dependency.DependencyService;
-import org.fluentness.service.logger.Logger;
+import org.fluentness.service.logger.LoggerService;
 import org.fluentness.service.server.ServerService;
 
 import java.io.File;
@@ -15,12 +19,12 @@ import static org.fluentness.service.logger.AnsiColor.*;
 public class DefaultConsoleController extends AbstractConsoleController {
 
 
-    private DependencyService manager;
+    private DependencyService dependency;
     private ServerService server;
-    private Logger logger;
+    private LoggerService logger;
 
-    public DefaultConsoleController(DependencyService manager, ServerService server, Logger logger) {
-        this.manager = manager;
+    public DefaultConsoleController(DependencyService dependency, ServerService server, LoggerService logger) {
+        this.dependency = dependency;
         this.server = server;
         this.logger = logger;
     }
@@ -40,7 +44,7 @@ public class DefaultConsoleController extends AbstractConsoleController {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         List<Controller.Action> actions = new LinkedList<>();
-        manager.getInstances(AbstractConsoleController.class)
+        dependency.getInstances(AbstractConsoleController.class)
             .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
 
         // categorize console actions
@@ -92,13 +96,28 @@ public class DefaultConsoleController extends AbstractConsoleController {
 //        deleteRecursively(PrivateDirectories.LOG);
     }
 
-    @Action(description = "Starts embedded HTTP server", category = "server")
-    public void server_start() throws Exception {
+    @Action(description = "Starts desktop application", category = "desktop")
+    public void desktop_start() throws Exception {
+        for (AbstractDesktopController controller : dependency.getInstances(AbstractDesktopController.class)) {
+            for (DesktopAction action : controller.getActions()) {
+                if (action.getTrigger().equals(DesktopEvent.START)) {
+                    if (DesktopView.class.isAssignableFrom(action.getMethod().getReturnType())) {
+                        ((DesktopView)action.getMethod().invoke(controller)).render();
+                    } else {
+                        action.getMethod().invoke(controller);
+                    }
+                }
+            }
+        }
+    }
+
+    @Action(description = "Starts embedded HTTP web server", category = "web")
+    public void web_start() throws Exception {
         server.start();
     }
 
-    @Action(description = "Stops embedded HTTP server", category = "server")
-    public void server_stop() {
+    @Action(description = "Stops embedded HTTP web server", category = "web")
+    public void web_stop() {
         server.stop();
     }
 

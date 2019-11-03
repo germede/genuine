@@ -7,15 +7,13 @@ import java.awt.*;
 
 public class SwingPanel implements SwingContainer {
 
-    private JPanel panel;
+    private JPanel panel = new JPanel();
 
     public SwingPanel(SwingComponent... swingComponents) {
-        panel = new JPanel();
         panel.setLayout(new BorderLayout());
         for (SwingComponent component : swingComponents) {
             panel.add(component.getComponent());
         }
-        panel.setVisible(true);
     }
 
     @Override

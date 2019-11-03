@@ -21,13 +21,10 @@ public class Desktop {
     SwingFrame main() {
         return frame(
             panel(
-                label("this is a test text")
-//                button("title").border(BorderFactory.createEmptyBorder(20,20,20,20))
+//                label("this is a test text")
+                button("test_button").text("Test button").border(BorderFactory.createEmptyBorder(20, 20, 20, 20))
             ).layout(new BorderLayout())
-        ).title("Fluentness rocks").bounds(0, 0, 800, 600).center().minimumSize(300,300).preferredSize(800,600);
+        ).title("Fluentness rocks").bounds(0, 0, 800, 600).center().minimumSize(300, 300).preferredSize(800, 600);
     }
 
-    public static void main(String[] args) {
-        new Desktop().main();
-    }
 }

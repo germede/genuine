@@ -4,7 +4,7 @@ import org.apache.openjpa.lib.log.AbstractLog;
 import org.apache.openjpa.lib.log.Log;
 import org.apache.openjpa.lib.log.LogFactory;
 import org.fluentness.service.configuration.ConfigurationService;
-import org.fluentness.service.logger.Logger;
+import org.fluentness.service.logger.LoggerService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -13,10 +13,10 @@ import java.util.Map;
 
 public class OpenJpaPersistenceService implements PersistenceService {
 
-    private Logger logger;
+    private LoggerService logger;
     private EntityManager entityManager;
 
-    public OpenJpaPersistenceService(ConfigurationService configuration, Logger logger) {
+    public OpenJpaPersistenceService(ConfigurationService configuration, LoggerService logger) {
         this.logger = logger;
 
         Map<String, Object> properties = new HashMap<>();

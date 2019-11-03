@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.*;
 
-public class JulLogger implements Logger {
+public class JulLoggerService implements LoggerService {
     private java.util.logging.Logger logger;
 
-    public JulLogger(ConfigurationService configuration) throws Exception {
+    public JulLoggerService(ConfigurationService configuration) throws Exception {
         // retrieve log level
         Level logLevel = configuration.has("logger_level") ?
             LogLevel.valueOf(configuration.get("logger_level")).toJulLevel() :

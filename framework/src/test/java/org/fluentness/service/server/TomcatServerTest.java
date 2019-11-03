@@ -1,7 +1,7 @@
 package org.fluentness.service.server;
 
 import org.fluentness.service.configuration.ConfigurationService;
-import org.fluentness.service.logger.Logger;
+import org.fluentness.service.logger.LoggerService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import java.net.URL;
 public class TomcatServerTest {
 
     private ConfigurationService configuration;
-    private Logger logger;
+    private LoggerService logger;
     private DispatcherServlet dispatcherServlet;
 
     private ServerService server;
@@ -21,7 +21,7 @@ public class TomcatServerTest {
     @Before
     public void setUp() {
         configuration = Mockito.mock(ConfigurationService.class);
-        logger = Mockito.mock(Logger.class);
+        logger = Mockito.mock(LoggerService.class);
         dispatcherServlet = Mockito.mock(DispatcherServlet.class);
     }
 
