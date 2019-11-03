@@ -1,4 +1,4 @@
-package org.backlog;
+package org.fluentness.controller.desktop.swing;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MainPanelBackground extends JPanel {
+public class SwingBackgroundPanel extends JPanel {
 
     private static final String IMAGE_PATH = "art/logo.png";
 
@@ -29,7 +29,7 @@ public class MainPanelBackground extends JPanel {
         }
     });
 
-    public MainPanelBackground() throws IOException {
+    public SwingBackgroundPanel() throws IOException {
         setBorder(new EmptyBorder(250, 250, 250, 250));
         setPreferredSize(new Dimension(1000,500));
         setVisible(true);
