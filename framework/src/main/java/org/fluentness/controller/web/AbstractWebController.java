@@ -7,7 +7,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +18,6 @@ public abstract class AbstractWebController implements Controller<WebAction> {
         List<WebAction> result = new LinkedList<>();
         Arrays.stream(getClass().getDeclaredMethods())
             .filter(method -> method.isAnnotationPresent(Action.class))
-            .filter(method -> Modifier.isPublic(method.getModifiers()))
             .forEach(method -> result.add(
                 new WebAction(
                     method.getAnnotation(Action.class).path(),

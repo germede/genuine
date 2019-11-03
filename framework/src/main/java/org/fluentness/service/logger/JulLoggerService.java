@@ -17,19 +17,6 @@ public class JulLoggerService implements LoggerService {
             LogLevel.valueOf(configuration.get("logger_level")).toJulLevel() :
             Level.ALL;
 
-        // disable annoying tomcat logs
-        java.util.logging.Logger.getLogger("").setFilter(new Filter() {
-            @Override
-            public boolean isLoggable(LogRecord logRecord) {
-                System.out.println("HHAHAHAHHA");
-                return false;
-            }
-        });
-//        Enumeration<String> loggerNames = LogManager.getLogManager().getLoggerNames();
-//        while (loggerNames.hasMoreElements()) {
-//            Logger.getLogger(loggerNames.nextElement()).setLevel(Level.OFF);
-//        }
-
         // init jul logger
         logger = java.util.logging.Logger.getGlobal();
         logger.setUseParentHandlers(false);

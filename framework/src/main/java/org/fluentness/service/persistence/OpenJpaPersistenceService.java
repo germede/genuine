@@ -18,32 +18,31 @@ public class OpenJpaPersistenceService implements PersistenceService {
 
     public OpenJpaPersistenceService(ConfigurationService configuration, LoggerService logger) {
         this.logger = logger;
-
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("openjpa.Log", (LogFactory) channel -> new AbstractLog() {
-            protected boolean isEnabled(short logLevel) {
-                return true;
-            }
-
-            protected void log(short type, String message, Throwable t) {
-                switch (type) {
-                    case Log.FATAL:
-                    case Log.ERROR:
-                        logger.error(message);
-                        break;
-                    case Log.WARN:
-                        logger.warning(message);
-                        break;
-                    case Log.INFO:
-                        logger.info(message);
-                        break;
-                    case Log.TRACE:
-                        logger.debug(message);
-                }
-            }
-        });
-
         if (configuration.has("persistence_unit")) {
+            Map<String, Object> properties = new HashMap<>();
+            // redirect OpenJPA log to Fluentness log
+            properties.put("openjpa.Log", (LogFactory) channel -> new AbstractLog() {
+                protected boolean isEnabled(short logLevel) {
+                    return true;
+                }
+
+                protected void log(short type, String message, Throwable t) {
+                    switch (type) {
+                        case Log.FATAL:
+                        case Log.ERROR:
+                            logger.error(message);
+                            break;
+                        case Log.WARN:
+                            logger.warning(message);
+                            break;
+                        case Log.INFO:
+                            logger.info(message);
+                            break;
+                        case Log.TRACE:
+                            logger.debug(message);
+                    }
+                }
+            });
             this.entityManager = javax.persistence.Persistence
                 .createEntityManagerFactory(configuration.get("persistence_unit"), properties)
                 .createEntityManager();

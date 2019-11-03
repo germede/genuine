@@ -1,12 +1,10 @@
 package org.fluentness.controller;
 
-import java.lang.reflect.Method;
+import org.fluentness.ApplicationComponent;
+
 import java.util.List;
 
-public interface Controller<A extends Controller.Action> {
+public interface Controller<A extends Action> extends ApplicationComponent {
     List<A> getActions();
 
-    interface Action {
-        Method getMethod();
-    }
 }

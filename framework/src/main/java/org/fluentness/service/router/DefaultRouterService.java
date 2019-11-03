@@ -39,28 +39,29 @@ public class DefaultRouterService implements RouterService {
     }
 
     private HttpHandler getHttpHandlerForAction(AbstractWebController controller, WebAction action) {
-        Method function = action.getMethod();
-        Class<?> returnType = function.getReturnType();
+        Method method = action.getMethod();
+        method.setAccessible(true);
+        Class<?> returnType = method.getReturnType();
         if (returnType.equals(String.class)) {
             return (request, response) -> response.getWriter().write(
-                (String) function.invoke(controller, mapParameters(function, request, response))
+                (String) method.invoke(controller, mapParameters(method, request, response))
             );
 
         } else if (returnType.equals(Integer.class) || returnType.equals(Integer.TYPE)) {
             return (request, response) -> response.setStatus(
-                (Integer) function.invoke(controller, mapParameters(function, request, response))
+                (Integer) method.invoke(controller, mapParameters(method, request, response))
             );
 
         } else if (returnType.equals(HttpStatusCode.class)) {
             return (request, response) -> response.setStatus(
-                ((HttpStatusCode) function.invoke(controller, mapParameters(function, request, response))).toInt()
+                ((HttpStatusCode) method.invoke(controller, mapParameters(method, request, response))).toInt()
             );
         } else if (returnType.equals(WebView.class)) {
             return (request, response) -> response.getWriter().write(
-                ((WebView) function.invoke(controller, mapParameters(function, request, response))).render()
+                ((WebView) method.invoke(controller, mapParameters(method, request, response))).render()
             );
         }
-        return (request, response) -> function.invoke(controller, mapParameters(function, request, response));
+        return (request, response) -> method.invoke(controller, mapParameters(method, request, response));
     }
 
     private Object[] mapParameters(Method function, HttpServletRequest request, HttpServletResponse response) {

@@ -1,11 +1,7 @@
 package org.fluentness.controller.console;
 
 import org.fluentness.Fluentness;
-import org.fluentness.controller.Controller;
 import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.controller.desktop.DesktopAction;
-import org.fluentness.controller.desktop.DesktopEvent;
-import org.fluentness.controller.desktop.DesktopView;
 import org.fluentness.service.dependency.DependencyService;
 import org.fluentness.service.logger.LoggerService;
 import org.fluentness.service.server.ServerService;
@@ -43,12 +39,12 @@ public class DefaultConsoleController extends AbstractConsoleController {
 
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
-        List<Controller.Action> actions = new LinkedList<>();
+        List<org.fluentness.controller.Action> actions = new LinkedList<>();
         dependency.getInstances(AbstractConsoleController.class)
             .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
 
         // categorize console actions
-        for (Controller.Action action : actions) {
+        for (org.fluentness.controller.Action action : actions) {
             Method method = action.getMethod();
             String category = method.getAnnotation(Action.class).category();
             if (!categorizedConsoleActions.containsKey(category)) {
@@ -97,28 +93,13 @@ public class DefaultConsoleController extends AbstractConsoleController {
     }
 
     @Action(description = "Starts desktop application", category = "desktop")
-    public void desktop_start() throws Exception {
-        for (AbstractDesktopController controller : dependency.getInstances(AbstractDesktopController.class)) {
-            for (DesktopAction action : controller.getActions()) {
-                if (action.getTrigger().equals(DesktopEvent.START)) {
-                    if (DesktopView.class.isAssignableFrom(action.getMethod().getReturnType())) {
-                        ((DesktopView)action.getMethod().invoke(controller)).render();
-                    } else {
-                        action.getMethod().invoke(controller);
-                    }
-                }
-            }
-        }
+    public void desktop() {
+        dependency.getInstances(AbstractDesktopController.class).forEach(controller -> controller.getDesktopView().render());
     }
 
     @Action(description = "Starts embedded HTTP web server", category = "web")
-    public void web_start() throws Exception {
+    public void web() throws Exception {
         server.start();
-    }
-
-    @Action(description = "Stops embedded HTTP web server", category = "web")
-    public void web_stop() {
-        server.stop();
     }
 
     private void deleteRecursively(String path) {

@@ -1,5 +1,6 @@
 package org.fluentness.service.dependency;
 
+import org.fluentness.ApplicationComponent;
 import org.fluentness.Fluentness;
 import org.fluentness.service.Service;
 
@@ -26,7 +27,7 @@ public class DefaultDependencyService implements DependencyService {
     }
 
     @Override
-    public <T> List<T> getInstances(Class<T> parent) {
+    public <T extends ApplicationComponent> List<T> getInstances(Class<T> parent) {
         List<T> result = new ArrayList<>();
         for (Object value : instances.values()) {
             if (parent.isAssignableFrom(value.getClass())) {
@@ -37,19 +38,19 @@ public class DefaultDependencyService implements DependencyService {
     }
 
     @Override
-    public <T> T getInstance(Class<T> tClass) {
+    public <T extends ApplicationComponent> T getInstance(Class<T> tClass) {
         return (T) instances.get(tClass);
     }
 
     @Override
-    public <T> void inject(List<Class<? extends T>> classes) throws InjectionException {
+    public <T extends ApplicationComponent> void inject(List<Class<? extends T>> classes) throws InjectionException {
         for (Class aClass : classes) {
             inject(aClass);
         }
     }
 
     @Override
-    public <T> List<Class<? extends T>> loadClasses(String packageName, Class<T> parent) throws ClassLoadingException {
+    public <T extends ApplicationComponent> List<Class<? extends T>> loadClasses(String packageName, Class<T> parent) throws ClassLoadingException {
         List<Class<? extends T>> result = new LinkedList<>();
         try {
             String path = packageName.replace(".", "/");

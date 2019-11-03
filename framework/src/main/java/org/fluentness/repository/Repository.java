@@ -1,5 +1,7 @@
 package org.fluentness.repository;
 
-public interface Repository<M> {
+import org.fluentness.ApplicationComponent;
+
+public interface Repository<M> extends ApplicationComponent {
 
 }

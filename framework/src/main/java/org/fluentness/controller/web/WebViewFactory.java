@@ -3,6 +3,7 @@ package org.fluentness.controller.web;
 import org.fluentness.controller.web.markup.MarkupView;
 import org.fluentness.controller.web.markup.html.ContainerHtmlView;
 import org.fluentness.controller.web.markup.html.EmptyHtmlView;
+import org.fluentness.controller.web.markup.html.HtmlView;
 import org.fluentness.controller.web.text.RawView;
 
 import java.util.LinkedList;
@@ -10,6 +11,14 @@ import java.util.List;
 import java.util.function.Function;
 
 public final class WebViewFactory {
+
+    public static HtmlView action(WebActionWithoutRequest action, String inner) {
+        return a(inner).href(action.getPath());
+    }
+
+    public static HtmlView action(WebActionWithRequest action, String inner) {
+        return a(inner).href(action.getPath());
+    }
 
     public static WebView raw(String raw) {
         return new RawView(raw);
@@ -20,6 +29,8 @@ public final class WebViewFactory {
         iterable.forEach(t -> result.add(function.apply(t)));
         return result.toArray((V[]) new MarkupView[0]);
     }
+
+    // View container html views
 
     public static ContainerHtmlView a(MarkupView... inner) {
         return new ContainerHtmlView("a", inner);
@@ -453,6 +464,7 @@ public final class WebViewFactory {
         return new ContainerHtmlView("video", inner);
     }
 
+    // String container html views
 
     public static ContainerHtmlView a(String inner) {
         return new ContainerHtmlView("a", inner);
@@ -885,6 +897,8 @@ public final class WebViewFactory {
     public static ContainerHtmlView video(String inner) {
         return new ContainerHtmlView("video", inner);
     }
+
+    // Empty html views
 
     public static EmptyHtmlView area() {
         return new EmptyHtmlView("area");

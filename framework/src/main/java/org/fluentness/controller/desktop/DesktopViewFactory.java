@@ -14,8 +14,8 @@ public final class DesktopViewFactory {
 
     private static final Map<String, DesktopView> ID_MAP = new HashMap<>();
 
-    public static Map<String, DesktopView> getIdMap() {
-        return ID_MAP;
+    public static <D extends DesktopView> D getView(Class<D> dClass, String id) {
+        return (D) ID_MAP.get(id);
     }
 
     private static <D extends DesktopView> D createWithId(String id, D desktopView) {

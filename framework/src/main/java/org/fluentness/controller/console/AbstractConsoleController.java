@@ -18,7 +18,6 @@ public abstract class AbstractConsoleController implements Controller<ConsoleAct
         List<ConsoleAction> result = new LinkedList<>();
         Arrays.stream(getClass().getDeclaredMethods())
             .filter(method -> method.isAnnotationPresent(Action.class))
-            .filter(method -> Modifier.isPublic(method.getModifiers()))
             .forEach(method -> result.add(
                 new ConsoleAction(
                     method.getAnnotation(Action.class).description(),

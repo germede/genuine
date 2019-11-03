@@ -1,7 +1,9 @@
 package org.fluentness.service.server;
 
 import org.fluentness.service.configuration.ConfigurationService;
+import org.fluentness.service.dependency.DependencyService;
 import org.fluentness.service.logger.LoggerService;
+import org.fluentness.service.router.RouterService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +16,7 @@ public class TomcatServerTest {
 
     private ConfigurationService configuration;
     private LoggerService logger;
-    private DispatcherServlet dispatcherServlet;
+    private RouterService router;
 
     private ServerService server;
 
@@ -22,12 +24,12 @@ public class TomcatServerTest {
     public void setUp() {
         configuration = Mockito.mock(ConfigurationService.class);
         logger = Mockito.mock(LoggerService.class);
-        dispatcherServlet = Mockito.mock(DispatcherServlet.class);
+        router = Mockito.mock(RouterService.class);
     }
 
     @Test(timeout = 3000)
     public void start_noConfigurationIsSet_serverCanBeStartedAndStopped() throws Exception {
-        server = new TomcatServerService(configuration, logger, dispatcherServlet);
+        server = new TomcatServerService(configuration, logger, router);
         server.start();
 
         Mockito.verify(logger, Mockito.times(1)).info(Mockito.any(), Mockito.any(), Mockito.any());
@@ -36,7 +38,7 @@ public class TomcatServerTest {
 
     @Test(timeout = 3000)
     public void start_rootPathIsRequestedToLocalhost8000_statusCode200IsResponded() throws Exception {
-        server = new TomcatServerService(configuration, logger, dispatcherServlet);
+        server = new TomcatServerService(configuration, logger, router);
         server.start();
         HttpURLConnection connection = (HttpURLConnection) new URL("http://127.0.0.1:8000").openConnection();
         connection.setRequestMethod("GET");
@@ -50,14 +52,14 @@ public class TomcatServerTest {
         Mockito.when(configuration.has("server_port")).thenReturn(true);
         Mockito.when(configuration.get("server_port")).thenReturn("notAnInteger");
 
-        server = new TomcatServerService(configuration, logger, dispatcherServlet);
+        server = new TomcatServerService(configuration, logger, router);
         server.start();
         server.stop();
     }
 
     @Test(timeout = 3000)
     public void stop_serverWasNotStarted_infoIsLogged() {
-        server = new TomcatServerService(configuration, logger, dispatcherServlet);
+        server = new TomcatServerService(configuration, logger, router);
         server.stop();
 
         Mockito.verify(logger, Mockito.times(1)).info(Mockito.any());

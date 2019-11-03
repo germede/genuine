@@ -1,27 +1,28 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.controller.Controller;
+import org.fluentness.controller.Action;
 
 import java.lang.reflect.Method;
+import java.util.EventListener;
 
-public class DesktopAction implements Controller.Action {
+public class DesktopAction implements Action {
 
-    private DesktopEvent trigger;
-    private String on;
+    private Class<? extends EventListener> listener;
+    private String id;
     private Method method;
 
-    DesktopAction(DesktopEvent trigger, String on, Method method) {
-        this.trigger = trigger;
-        this.on = on;
+    public DesktopAction(Class<? extends EventListener> listener, String id, Method method) {
+        this.listener = listener;
+        this.id = id;
         this.method = method;
     }
 
-    public DesktopEvent getTrigger() {
-        return trigger;
+    public Class<? extends EventListener> getListener() {
+        return listener;
     }
 
-    public String getOn() {
-        return on;
+    public String getId() {
+        return id;
     }
 
     @Override
