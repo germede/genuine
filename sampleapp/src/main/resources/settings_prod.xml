@@ -4,5 +4,4 @@
     <entry key="server_port">80</entry>
     <entry key="logger_level">INFO</entry>
     <entry key="logger_console">false</entry>
-    <entry key="persistence_unit">bookLibraryPU</entry>
 </properties>

@@ -3,21 +3,31 @@ package com.sample.controller;
 import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
+import org.fluentness.service.translator.TranslatorService;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class WebController extends AbstractWebController {
 
     private BookRepository bookRepository;
+    private TranslatorService translatorService;
+
     private Web web;
 
-    public WebController(BookRepository bookRepository, Web web) {
+    public WebController(BookRepository bookRepository, TranslatorService translatorService) {
         this.bookRepository = bookRepository;
-        this.web = web;
+        this.translatorService = translatorService;
+
+        web = new Web(this, translatorService);
     }
 
     @Action(path = "/listBooks")
     public WebView listBooks(HttpServletRequest request) {
+        return web.listBooks(bookRepository.findAll());
+    }
+
+    @Action(path = "/asdfasdf")
+    public WebView asdf(HttpServletRequest request) {
         return web.listBooks(bookRepository.findAll());
     }
 //

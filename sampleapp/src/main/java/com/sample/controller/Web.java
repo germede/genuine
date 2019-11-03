@@ -9,23 +9,21 @@ import java.util.List;
 
 import static org.fluentness.controller.web.WebViewFactory.*;
 
-public class Web {
+class Web {
 
+    private WebController webController;
     private TranslatorService i18n;
 
-    public Web(TranslatorService i18n) {
+    Web(WebController webController, TranslatorService i18n) {
+        this.webController = webController;
         this.i18n = i18n;
-    }
-
-    WebView testView() {
-        return raw("Test raw view");
     }
 
     WebView listBooks(List<Book> books) {
         return base(
             div(
                 div(h2(i18n.translate("welcome_message", "Person"))).class_("column column-50"),
-                a(i18n.translate("book_create")).class_("button").href("/book/create")
+                action(webController::asdf, i18n.translate("book_create")).class_("button")
             ).class_("row"),
             div(
                 table(

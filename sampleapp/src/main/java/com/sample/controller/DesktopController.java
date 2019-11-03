@@ -1,25 +1,24 @@
 package com.sample.controller;
 
 import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.controller.desktop.DesktopEvent;
 import org.fluentness.controller.desktop.DesktopView;
+import org.fluentness.controller.desktop.DesktopViewFactory;
+import org.fluentness.controller.desktop.swing.component.SwingButton;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DesktopController extends AbstractDesktopController {
 
-    private Desktop desktop;
-
-    public DesktopController(Desktop desktop) {
-        this.desktop = desktop;
+    @Override
+    public DesktopView getDesktopView() {
+        return new Desktop(this).main();
     }
 
-    @Action(trigger = DesktopEvent.START)
-    public DesktopView start() {
-        return desktop.main();
-    }
-
+    @Action(id = "test_button", listener = ActionListener.class)
     public void showInfoMessage(ActionEvent event) {
-
+        SwingButton test_button = DesktopViewFactory.getView(SwingButton.class, "test_button");
+        JOptionPane.showMessageDialog(null, "asdf");
     }
 }
