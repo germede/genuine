@@ -12,11 +12,21 @@ import java.util.function.Function;
 
 public final class WebViewFactory {
 
-    public static HtmlView action(WebActionWithoutRequest action, String inner) {
+    // special web views
+
+    public static HtmlView action(WebActionReference action, String inner) {
         return a(inner).href(action.getPath());
     }
 
-    public static HtmlView action(WebActionWithRequest action, String inner) {
+    public static HtmlView action(WebActionReferenceWithRequest action, String inner) {
+        return a(inner).href(action.getPath());
+    }
+
+    public static HtmlView action(WebActionReference action, MarkupView... inner) {
+        return a(inner).href(action.getPath());
+    }
+
+    public static HtmlView action(WebActionReferenceWithRequest action, MarkupView... inner) {
         return a(inner).href(action.getPath());
     }
 

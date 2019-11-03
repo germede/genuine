@@ -1,13 +1,15 @@
 package org.fluentness.controller.web;
 
+import org.fluentness.controller.web.AbstractWebController.Request;
+
 import java.io.Serializable;
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Method;
 
 @FunctionalInterface
-public interface WebActionWithRequest extends Serializable {
+public interface WebActionReferenceWithRequest extends Serializable {
 
-    Object execute();
+    Object execute(Request request);
 
     default String getPath() {
         try {
@@ -21,7 +23,7 @@ public interface WebActionWithRequest extends Serializable {
             Method[] methods = l.getCapturedArg(0).getClass().getMethods();
             return  l.getCapturedArg(0)
                 .getClass()
-                .getMethod(l.getImplMethodName())
+                .getMethod(l.getImplMethodName(), Request.class)
                 .getAnnotation(AbstractWebController.Action.class)
                 .path();
         } catch (Exception e) {

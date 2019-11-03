@@ -3,6 +3,9 @@ package org.fluentness.controller.web;
 import org.fluentness.controller.Controller;
 import org.fluentness.service.router.HttpMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -34,6 +37,17 @@ public abstract class AbstractWebController implements Controller<WebAction> {
         String path();
 
         HttpMethod method() default HttpMethod.GET;
+    }
+
+    public class Request extends HttpServletRequestWrapper {
+        public Request(HttpServletRequest request) {
+            super(request);
+        }
+    }
+
+    @FunctionalInterface
+    protected interface Response {
+        void response(HttpServletResponse response);
     }
 
 }

@@ -1,10 +1,10 @@
 package org.fluentness.controller.console;
 
-import org.fluentness.controller.Action;
+import org.fluentness.controller.Controller;
 
 import java.lang.reflect.Method;
 
-public class ConsoleAction implements Action {
+public class ConsoleAction implements Controller.Action {
 
     private String description;
     private String category;

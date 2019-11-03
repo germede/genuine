@@ -4,5 +4,4 @@
     <entry key="server_port">8000</entry>
     <entry key="logger_level">DEBUG</entry>
     <entry key="logger_console">true</entry>
-    <entry key="persistence_unit">bookLibraryPU</entry>
 </properties>

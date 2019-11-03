@@ -1,16 +1,17 @@
 package org.fluentness.service.dependency;
 
 import org.fluentness.ApplicationComponent;
+import org.fluentness.Fluentness;
 import org.fluentness.service.Service;
 
 import java.util.List;
 
 public interface DependencyService extends Service {
-    <T extends ApplicationComponent> List<T> getInstances(Class<T> tClass);
+    <A extends ApplicationComponent> List<A> getInstances(Class<A> tClass);
 
-    <T extends ApplicationComponent> T getInstance(Class<T> tClass);
+    <A extends ApplicationComponent> A getInstance(Class<A> tClass);
 
-    <T extends ApplicationComponent> void inject(List<Class<? extends T>> classes) throws InjectionException;
+    <A extends ApplicationComponent> void inject(Fluentness proxy, List<Class<? extends A>> classes) throws InjectionException;
 
-    <T extends ApplicationComponent> List<Class<? extends T>> loadClasses(String packageName, Class<T> parent) throws ClassLoadingException;
+    <A extends ApplicationComponent> List<Class<? extends A>> loadClasses(String packageName, Class<A> parent) throws ClassLoadingException;
 }

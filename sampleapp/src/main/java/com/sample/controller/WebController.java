@@ -5,6 +5,7 @@ import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.service.translator.TranslatorService;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 public class WebController extends AbstractWebController {
@@ -22,13 +23,19 @@ public class WebController extends AbstractWebController {
     }
 
     @Action(path = "/listBooks")
-    public WebView listBooks(HttpServletRequest request) {
+    public WebView listBooks(Request request) {
+        request.getParameter("");
         return web.listBooks(bookRepository.findAll());
     }
 
     @Action(path = "/asdfasdf")
-    public WebView asdf(HttpServletRequest request) {
+    public WebView asdf() {
         return web.listBooks(bookRepository.findAll());
+    }
+
+    @Action(path = "/testResponse")
+    public Response testCookie(Request request) {
+        return response -> response.addCookie(new Cookie("asdf","asdf"));
     }
 //
 //    @WebAction(path = "/")

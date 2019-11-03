@@ -18,33 +18,16 @@ import java.util.List;
 
 public interface Application {
 
-    default void injectServices(DependencyService dependencyService) throws ClassLoadingException, InjectionException {
-        List<Class<? extends Service>> services = dependencyService.loadClasses(
-            this.getClass().getPackage().getName() + ".service", Service.class
-        );
-        services.add(XmlConfigurationService.class);
-        services.add(XmlTranslatorService.class);
-        services.add(JulLoggerService.class);
-        services.add(OpenJpaPersistenceService.class);
-        services.add(DefaultRouterService.class);
-        services.add(TomcatServerService.class);
-        dependencyService.inject(services);
+    default List<Class<? extends Service>> getServices(DependencyService dependencyService) throws ClassLoadingException {
+        return dependencyService.loadClasses(this.getClass().getPackage().getName() + ".service", Service.class);
     }
 
-    default void injectRepositories(DependencyService dependencyService) throws ClassLoadingException, InjectionException {
-        dependencyService.inject(
-            dependencyService.loadClasses(
-                this.getClass().getPackage().getName() + ".repository", Repository.class
-            )
-        );
+    default List<Class<? extends Repository>> getRepositories(DependencyService dependencyService) throws ClassLoadingException {
+        return dependencyService.loadClasses(this.getClass().getPackage().getName() + ".repository", Repository.class);
     }
 
-    default void injectControllers(DependencyService dependencyService) throws ClassLoadingException, InjectionException {
-        List<Class<? extends Controller>> controllers = dependencyService.loadClasses(
-            this.getClass().getPackage().getName() + ".controller", Controller.class
-        );
-        controllers.add(DefaultConsoleController.class);
-        dependencyService.inject(controllers);
+    default List<Class<? extends Controller>> getControllers(DependencyService dependencyService) throws ClassLoadingException {
+        return dependencyService.loadClasses(this.getClass().getPackage().getName() + ".controller", Controller.class);
     }
 
 }
