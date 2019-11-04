@@ -1,8 +1,11 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.controller.desktop.swing.component.SwingButton;
-import org.fluentness.controller.desktop.swing.component.SwingComponent;
-import org.fluentness.controller.desktop.swing.component.SwingLabel;
+import org.fluentness.controller.desktop.swing.JMenuBarBuilder;
+import org.fluentness.controller.desktop.swing.button.JButtonBuilder;
+import org.fluentness.controller.desktop.swing.JComponentBuilder;
+import org.fluentness.controller.desktop.swing.JLabelBuilder;
+import org.fluentness.controller.desktop.swing.button.JMenuBuilder;
+import org.fluentness.controller.desktop.swing.button.JMenuItemBuilder;
 import org.fluentness.controller.desktop.swing.container.SwingContainer;
 import org.fluentness.controller.desktop.swing.container.SwingFrame;
 import org.fluentness.controller.desktop.swing.container.SwingPanel;
@@ -31,28 +34,41 @@ public final class DesktopViewFactory {
         return new SwingFrame(swingContainer);
     }
 
-    public static SwingPanel panel(String id, SwingComponent... swingComponents) {
-        return createWithId(id, new SwingPanel(swingComponents));
+    public static SwingPanel panel(String id, JComponentBuilder... JComponentBuilders) {
+        return createWithId(id, new SwingPanel(JComponentBuilders));
     }
 
-    public static SwingPanel panel(SwingComponent... swingComponents) {
-        return new SwingPanel(swingComponents);
+    public static SwingPanel panel(JComponentBuilder... JComponentBuilders) {
+        return new SwingPanel(JComponentBuilders);
     }
 
-    public static SwingButton button(String id) {
-        return createWithId(id, new SwingButton());
+    public static JButtonBuilder button(String id) {
+        return createWithId(id, new JButtonBuilder());
     }
 
-    public static SwingButton button() {
-        return new SwingButton();
+    public static JButtonBuilder button() {
+        return new JButtonBuilder();
     }
 
-    public static SwingLabel label(String id) {
-        return createWithId(id, new SwingLabel());
+    public static JLabelBuilder label(String id) {
+        return createWithId(id, new JLabelBuilder());
     }
 
-    public static SwingLabel label() {
-        return new SwingLabel();
+    public static JLabelBuilder label() {
+        return new JLabelBuilder();
+    }
+
+
+    public static JMenuBarBuilder menuBar(JMenuBuilder... menus) {
+        return new JMenuBarBuilder(menus);
+    }
+
+    public static JMenuBuilder menu(String text, JMenuItemBuilder... menuItems) {
+        return new JMenuBuilder(menuItems).text(text);
+    }
+
+    public static JMenuItemBuilder menuItem(String text) {
+        return new JMenuItemBuilder().text(text);
     }
 
 }

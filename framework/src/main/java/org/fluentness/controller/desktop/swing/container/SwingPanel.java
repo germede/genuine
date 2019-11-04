@@ -1,6 +1,6 @@
 package org.fluentness.controller.desktop.swing.container;
 
-import org.fluentness.controller.desktop.swing.component.SwingComponent;
+import org.fluentness.controller.desktop.swing.JComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +9,9 @@ public class SwingPanel implements SwingContainer {
 
     private JPanel panel = new JPanel();
 
-    public SwingPanel(SwingComponent... swingComponents) {
-        panel.setLayout(new BorderLayout());
-        for (SwingComponent component : swingComponents) {
-            panel.add(component.getComponent());
+    public SwingPanel(JComponentBuilder... JComponentBuilders) {
+        for (JComponentBuilder component : JComponentBuilders) {
+            panel.add(component.getJComponent());
         }
     }
 
@@ -22,7 +21,7 @@ public class SwingPanel implements SwingContainer {
     }
 
     public SwingPanel layout(LayoutManager layout) {
-//        panel.setLayout(layout);
+        panel.setLayout(layout);
         return this;
     }
 

@@ -1,5 +1,6 @@
 package com.sample.controller;
 
+import org.fluentness.controller.desktop.swing.JMenuBarBuilder;
 import org.fluentness.controller.desktop.swing.container.SwingFrame;
 
 import javax.swing.*;
@@ -19,13 +20,35 @@ public class Desktop {
     SwingFrame main() {
         return frame(
             panel(
-//                label("this is a test text")
-                button("test_button")
+                topBar(),
+                label("test_label")
+                    .text("Test 1234")
+                    .toolTipText("Creates a new book"),
+                button()
                     .text("Test button")
-                    .border(BorderFactory.createEmptyBorder(20, 20, 20, 20))
-                    .action(desktopController::showInfoMessage)
-            ).layout(new BorderLayout())
-        ).title("Fluentness rocks").bounds(0, 0, 800, 600).center().minimumSize(300, 300).preferredSize(800, 600);
+                    .maximumSize(20, 20)
+                //.actionLi(desktopController::showInfoMessage)
+            ).layout(new FlowLayout())
+        ).title("Fluentness rocks").bounds(0, 0, 800, 600).center().minimumSize(300, 300);
+    }
+
+    private JMenuBarBuilder topBar() {
+        return menuBar(
+            menu("File",
+                menuItem("Load").accelerator(KeyStroke.getKeyStroke('C')),
+                menuItem("Save"),
+                menuItem("Close")
+            ),
+            menu("Edit",
+                menuItem("Cut"),
+                menuItem("Copy"),
+                menuItem("Paste")
+            ),
+            menu("Help",
+                menuItem("Manual"),
+                menuItem("About")
+            )
+        );
     }
 
 }

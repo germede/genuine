@@ -58,7 +58,7 @@ class Web {
             head(
                 title("The book library made with Fluentness"),
                 meta().name("lang").content("en"),
-                meta().charset("utf-8"),
+                meta().charset("UTF-8"),
                 link().rel("stylesheet").type("text/css").href("/resources/css/milligram.min.css"),
                 script().src("/resources/js/script.min.js")
             ),

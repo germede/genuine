@@ -43,7 +43,7 @@ public class DefaultDependencyService implements DependencyService {
     }
 
     @Override
-    public <T extends ApplicationComponent> void inject(List<Class<? extends T>> classes) throws InjectionException {
+    public <T extends ApplicationComponent> void inject(Fluentness proxy, List<Class<? extends T>> classes) throws InjectionException {
         for (Class aClass : classes) {
             inject(aClass);
         }
