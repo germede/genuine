@@ -1,4 +1,4 @@
-package org.fluentness.controller.desktop.swing;
+package org.fluentness.controller.desktop.swing.component;
 
 import javax.swing.*;
 import javax.swing.plaf.LabelUI;
@@ -9,7 +9,7 @@ public class JLabelBuilder implements JComponentBuilder<JLabelBuilder, JLabel> {
     private JLabel jLabel = new JLabel();
 
     @Override
-    public JLabel getJComponent() {
+    public JLabel getView() {
         return jLabel;
     }
 

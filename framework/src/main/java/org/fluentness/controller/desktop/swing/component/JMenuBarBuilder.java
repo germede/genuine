@@ -1,6 +1,6 @@
-package org.fluentness.controller.desktop.swing;
+package org.fluentness.controller.desktop.swing.component;
 
-import org.fluentness.controller.desktop.swing.button.JMenuBuilder;
+import org.fluentness.controller.desktop.swing.component.button.JMenuBuilder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,12 +11,12 @@ public class JMenuBarBuilder implements JComponentBuilder<JMenuBarBuilder, JMenu
 
     public JMenuBarBuilder(JMenuBuilder... menus) {
         for (JMenuBuilder menu : menus) {
-            jMenuBar.add(menu.getJComponent());
+            jMenuBar.add(menu.getView());
         }
     }
 
     @Override
-    public JMenuBar getJComponent() {
+    public JMenuBar getView() {
         return jMenuBar;
     }
 

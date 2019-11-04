@@ -1,14 +1,14 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.controller.desktop.swing.JMenuBarBuilder;
-import org.fluentness.controller.desktop.swing.button.JButtonBuilder;
-import org.fluentness.controller.desktop.swing.JComponentBuilder;
-import org.fluentness.controller.desktop.swing.JLabelBuilder;
-import org.fluentness.controller.desktop.swing.button.JMenuBuilder;
-import org.fluentness.controller.desktop.swing.button.JMenuItemBuilder;
-import org.fluentness.controller.desktop.swing.container.SwingContainer;
-import org.fluentness.controller.desktop.swing.container.SwingFrame;
-import org.fluentness.controller.desktop.swing.container.SwingPanel;
+import org.fluentness.controller.desktop.swing.SwingBuilder;
+import org.fluentness.controller.desktop.swing.component.JMenuBarBuilder;
+import org.fluentness.controller.desktop.swing.component.button.JButtonBuilder;
+import org.fluentness.controller.desktop.swing.component.JComponentBuilder;
+import org.fluentness.controller.desktop.swing.component.JLabelBuilder;
+import org.fluentness.controller.desktop.swing.component.button.JMenuBuilder;
+import org.fluentness.controller.desktop.swing.component.button.JMenuItemBuilder;
+import org.fluentness.controller.desktop.swing.container.JFrameBuilder;
+import org.fluentness.controller.desktop.swing.component.JPanelBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,20 +26,20 @@ public final class DesktopViewFactory {
         return desktopView;
     }
 
-    public static SwingFrame frame(String id, SwingContainer swingContainer) {
-        return createWithId(id, new SwingFrame(swingContainer));
+    public static JFrameBuilder frame(String id, SwingBuilder swingContainer) {
+        return createWithId(id, new JFrameBuilder(swingContainer));
     }
 
-    public static SwingFrame frame(SwingContainer swingContainer) {
-        return new SwingFrame(swingContainer);
+    public static JFrameBuilder frame(SwingBuilder swingContainer) {
+        return new JFrameBuilder(swingContainer);
     }
 
-    public static SwingPanel panel(String id, JComponentBuilder... JComponentBuilders) {
-        return createWithId(id, new SwingPanel(JComponentBuilders));
+    public static JPanelBuilder panel(String id, JComponentBuilder... JComponentBuilders) {
+        return createWithId(id, new JPanelBuilder(JComponentBuilders));
     }
 
-    public static SwingPanel panel(JComponentBuilder... JComponentBuilders) {
-        return new SwingPanel(JComponentBuilders);
+    public static JPanelBuilder panel(JComponentBuilder... JComponentBuilders) {
+        return new JPanelBuilder(JComponentBuilders);
     }
 
     public static JButtonBuilder button(String id) {

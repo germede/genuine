@@ -1,4 +1,4 @@
-package org.fluentness.controller.desktop.swing.button;
+package org.fluentness.controller.desktop.swing.component.button;
 
 import javax.swing.*;
 import javax.swing.plaf.MenuItemUI;
@@ -8,7 +8,7 @@ public class JMenuItemBuilder implements AbstractButtonBuilder<JMenuItemBuilder,
     private JMenuItem jMenuItem = new JMenuItem();
 
     @Override
-    public JMenuItem getJComponent() {
+    public JMenuItem getView() {
         return jMenuItem;
     }
 

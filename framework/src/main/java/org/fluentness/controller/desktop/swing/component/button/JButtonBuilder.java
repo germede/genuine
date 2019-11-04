@@ -1,9 +1,6 @@
-package org.fluentness.controller.desktop.swing.button;
-
-import org.fluentness.controller.desktop.swing.JComponentBuilder;
+package org.fluentness.controller.desktop.swing.component.button;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.event.ActionListener;
 
 public class JButtonBuilder implements AbstractButtonBuilder<JButtonBuilder, JButton> {
@@ -11,7 +8,7 @@ public class JButtonBuilder implements AbstractButtonBuilder<JButtonBuilder, JBu
     JButton jButton = new JButton();
 
     @Override
-    public JButton getJComponent() {
+    public JButton getView() {
         return jButton;
     }
 

@@ -1,7 +1,6 @@
-package org.fluentness.controller.desktop.swing;
+package org.fluentness.controller.desktop.swing.component;
 
 import javax.swing.*;
-import javax.swing.plaf.LabelUI;
 import javax.swing.plaf.ListUI;
 import java.awt.*;
 import java.util.Vector;
@@ -15,7 +14,7 @@ public class JListBuilder<E> implements JComponentBuilder<JListBuilder, JList> {
     }
 
     @Override
-    public JList getJComponent() {
+    public JList getView() {
         return jList;
     }
 

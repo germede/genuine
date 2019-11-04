@@ -3,8 +3,7 @@ package com.sample.controller;
 import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.DesktopView;
 import org.fluentness.controller.desktop.DesktopViewFactory;
-import org.fluentness.controller.desktop.swing.button.JButtonBuilder;
-import org.fluentness.controller.desktop.swing.container.SwingFrame;
+import org.fluentness.controller.desktop.swing.component.button.JButtonBuilder;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,6 +1,6 @@
-package org.fluentness.controller.desktop.swing.button;
+package org.fluentness.controller.desktop.swing.component.button;
 
-import org.fluentness.controller.desktop.swing.JComponentBuilder;
+import org.fluentness.controller.desktop.swing.component.JComponentBuilder;
 
 import javax.swing.*;
 import javax.swing.plaf.ButtonUI;
@@ -10,147 +10,147 @@ public interface AbstractButtonBuilder<A extends AbstractButtonBuilder, AB exten
     extends JComponentBuilder<A, AB> {
 
     default A action(Action a) {
-        getJComponent().setAction(a);
+        getView().setAction(a);
         return (A) this;
     }
 
     default A actionCommand(String actionCommand) {
-        getJComponent().setActionCommand(actionCommand);
+        getView().setActionCommand(actionCommand);
         return (A) this;
     }
 
     default A borderPainted(boolean b) {
-        getJComponent().setBorderPainted(b);
+        getView().setBorderPainted(b);
         return (A) this;
     }
 
     default A contentAreaFilled(boolean b) {
-        getJComponent().setContentAreaFilled(b);
+        getView().setContentAreaFilled(b);
         return (A) this;
     }
 
     default A disabledIcon(Icon disabledIcon) {
-        getJComponent().setDisabledIcon(disabledIcon);
+        getView().setDisabledIcon(disabledIcon);
         return (A) this;
     }
 
     default A disabledSelectedIcon(Icon disabledSelectedIcon) {
-        getJComponent().setDisabledSelectedIcon(disabledSelectedIcon);
+        getView().setDisabledSelectedIcon(disabledSelectedIcon);
         return (A) this;
     }
 
     default A displayedMnemonicIndex(int index) {
-        getJComponent().setDisplayedMnemonicIndex(index);
+        getView().setDisplayedMnemonicIndex(index);
         return (A) this;
     }
 
     default A focusPainted(boolean b) {
-        getJComponent().setFocusPainted(b);
+        getView().setFocusPainted(b);
         return (A) this;
     }
 
     default A hideActionText(boolean hideActionText) {
-        getJComponent().setHideActionText(hideActionText);
+        getView().setHideActionText(hideActionText);
         return (A) this;
     }
 
     default A horizontalAlignment(int alignment) {
-        getJComponent().setHorizontalAlignment(alignment);
+        getView().setHorizontalAlignment(alignment);
         return (A) this;
     }
 
     default A horizontalTextPosition(int textPosition) {
-        getJComponent().setHorizontalTextPosition(textPosition);
+        getView().setHorizontalTextPosition(textPosition);
         return (A) this;
     }
 
     default A icon(Icon defaultIcon) {
-        getJComponent().setIcon(defaultIcon);
+        getView().setIcon(defaultIcon);
         return (A) this;
     }
 
     default A iconTextGap(int iconTextGap) {
-        getJComponent().setIconTextGap(iconTextGap);
+        getView().setIconTextGap(iconTextGap);
         return (A) this;
     }
 
     default A layout(LayoutManager mgr) {
-        getJComponent().setLayout(mgr);
+        getView().setLayout(mgr);
         return (A) this;
     }
 
     default A margin(Insets m) {
-        getJComponent().setMargin(m);
+        getView().setMargin(m);
         return (A) this;
     }
 
     default A mnemonic(char mnemonic) {
-        getJComponent().setMnemonic(mnemonic);
+        getView().setMnemonic(mnemonic);
         return (A) this;
     }
 
     default A mnemonic(int mnemonic) {
-        getJComponent().setMnemonic(mnemonic);
+        getView().setMnemonic(mnemonic);
         return (A) this;
     }
 
     default A model(ButtonModel newModel) {
-        getJComponent().setModel(newModel);
+        getView().setModel(newModel);
         return (A) this;
     }
 
     default A multiClickThreshhold(long threshhold) {
-        getJComponent().setMultiClickThreshhold(threshhold);
+        getView().setMultiClickThreshhold(threshhold);
         return (A) this;
     }
 
     default A pressedIcon(Icon pressedIcon) {
-        getJComponent().setPressedIcon(pressedIcon);
+        getView().setPressedIcon(pressedIcon);
         return (A) this;
     }
 
     default A rolloverEnabled(boolean b) {
-        getJComponent().setRolloverEnabled(b);
+        getView().setRolloverEnabled(b);
         return (A) this;
     }
 
     default A rolloverIcon(Icon rolloverIcon) {
-        getJComponent().setRolloverIcon(rolloverIcon);
+        getView().setRolloverIcon(rolloverIcon);
         return (A) this;
     }
 
     default A rolloverSelectedIcon(Icon rolloverSelectedIcon) {
-        getJComponent().setRolloverSelectedIcon(rolloverSelectedIcon);
+        getView().setRolloverSelectedIcon(rolloverSelectedIcon);
         return (A) this;
     }
 
     default A selected(boolean b) {
-        getJComponent().setSelected(b);
+        getView().setSelected(b);
         return (A) this;
     }
 
     default A selectedIcon(Icon selectedIcon) {
-        getJComponent().setSelectedIcon(selectedIcon);
+        getView().setSelectedIcon(selectedIcon);
         return (A) this;
     }
 
     default A text(String text) {
-        getJComponent().setText(text);
+        getView().setText(text);
         return (A) this;
     }
 
     default A uI(ButtonUI ui) {
-        getJComponent().setUI(ui);
+        getView().setUI(ui);
         return (A) this;
     }
 
     default A verticalAlignment(int alignment) {
-        getJComponent().setVerticalAlignment(alignment);
+        getView().setVerticalAlignment(alignment);
         return (A) this;
     }
 
     default A verticalTextPosition(int textPosition) {
-        getJComponent().setVerticalTextPosition(textPosition);
+        getView().setVerticalTextPosition(textPosition);
         return (A) this;
     }
 }
