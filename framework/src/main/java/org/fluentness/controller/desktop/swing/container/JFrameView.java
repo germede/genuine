@@ -1,18 +1,18 @@
 package org.fluentness.controller.desktop.swing.container;
 
-import org.fluentness.controller.desktop.swing.SwingBuilder;
+import org.fluentness.controller.desktop.swing.SwingView;
 
 import javax.swing.*;
 import java.awt.*;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class JFrameBuilder implements SwingBuilder<JFrame> {
+public class JFrameView implements SwingView<JFrame> {
 
     JFrame jFrame = new JFrame();
 
-    public JFrameBuilder(SwingBuilder swingBuilder) {
-        jFrame.setContentPane(swingBuilder.getView());
+    public JFrameView(SwingView swingView) {
+        jFrame.setContentPane(swingView.getView());
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jFrame.pack();
     }
@@ -22,17 +22,17 @@ public class JFrameBuilder implements SwingBuilder<JFrame> {
         return jFrame;
     }
 
-    public JFrameBuilder title(String title) {
+    public JFrameView title(String title) {
         jFrame.setTitle(title);
         return this;
     }
 
-    public JFrameBuilder bounds(int x, int y, int width, int height) {
+    public JFrameView bounds(int x, int y, int width, int height) {
         jFrame.setBounds(x, y, width, height);
         return this;
     }
 
-    public JFrameBuilder center() {
+    public JFrameView center() {
 //        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 //        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
 //        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
@@ -41,12 +41,12 @@ public class JFrameBuilder implements SwingBuilder<JFrame> {
         return this;
     }
 
-    public JFrameBuilder minimumSize(int x, int y) {
+    public JFrameView minimumSize(int x, int y) {
         jFrame.setMinimumSize(new Dimension(x,y));
         return this;
     }
 
-    public JFrameBuilder preferredSize(int x, int y) {
+    public JFrameView preferredSize(int x, int y) {
         jFrame.setPreferredSize(new Dimension(x,y));
         return this;
     }

@@ -1,16 +1,16 @@
 package org.fluentness.controller.desktop.swing.component;
 
-import org.fluentness.controller.desktop.swing.component.button.JMenuBuilder;
+import org.fluentness.controller.desktop.swing.component.button.JMenuView;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class JMenuBarBuilder implements JComponentBuilder<JMenuBarBuilder, JMenuBar> {
+public class JMenuBarView implements JComponentView<JMenuBarView, JMenuBar> {
 
     private JMenuBar jMenuBar = new JMenuBar();
 
-    public JMenuBarBuilder(JMenuBuilder... menus) {
-        for (JMenuBuilder menu : menus) {
+    public JMenuBarView(JMenuView... menus) {
+        for (JMenuView menu : menus) {
             jMenuBar.add(menu.getView());
         }
     }
@@ -21,20 +21,20 @@ public class JMenuBarBuilder implements JComponentBuilder<JMenuBarBuilder, JMenu
     }
 
 
-    public JMenuBarBuilder borderPainted(boolean b) {
+    public JMenuBarView borderPainted(boolean b) {
         jMenuBar.setBorderPainted(b);
         return this;
     }
 
-    public JMenuBarBuilder margin(Insets m) {
+    public JMenuBarView margin(Insets m) {
         jMenuBar.setMargin(m);
         return this;
     }
-    public JMenuBarBuilder selected(Component sel) {
+    public JMenuBarView selected(Component sel) {
         jMenuBar.setSelected(sel);
         return this;
     }
-    public JMenuBarBuilder selectionModel(SingleSelectionModel model) {
+    public JMenuBarView selectionModel(SingleSelectionModel model) {
         jMenuBar.setSelectionModel(model);
         return this;
     }

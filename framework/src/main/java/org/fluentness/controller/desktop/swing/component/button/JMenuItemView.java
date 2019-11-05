@@ -3,7 +3,7 @@ package org.fluentness.controller.desktop.swing.component.button;
 import javax.swing.*;
 import javax.swing.plaf.MenuItemUI;
 
-public class JMenuItemBuilder implements AbstractButtonBuilder<JMenuItemBuilder, JMenuItem> {
+public class JMenuItemView implements AbstractButtonView<JMenuItemView, JMenuItem> {
 
     private JMenuItem jMenuItem = new JMenuItem();
 
@@ -12,27 +12,27 @@ public class JMenuItemBuilder implements AbstractButtonBuilder<JMenuItemBuilder,
         return jMenuItem;
     }
 
-    public JMenuItemBuilder	accelerator(KeyStroke keyStroke) {
+    public JMenuItemView accelerator(KeyStroke keyStroke) {
         jMenuItem.setAccelerator(keyStroke);
         return this;
     }
 
-    public JMenuItemBuilder	armed(boolean b) {
+    public JMenuItemView armed(boolean b) {
         jMenuItem.setArmed(b);
         return this;
     }
 
-    public JMenuItemBuilder	enabled(boolean b) {
+    public JMenuItemView enabled(boolean b) {
         jMenuItem.setEnabled(b);
         return this;
     }
 
-    public JMenuItemBuilder	model(ButtonModel newModel) {
+    public JMenuItemView model(ButtonModel newModel) {
         jMenuItem.setModel(newModel);
         return this;
     }
 
-    public JMenuItemBuilder	uI(MenuItemUI ui) {
+    public JMenuItemView uI(MenuItemUI ui) {
         jMenuItem.setUI(ui);
         return this;
     }

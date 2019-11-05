@@ -1,16 +1,16 @@
 package org.fluentness.controller.desktop.swing.component;
 
-import org.fluentness.controller.desktop.swing.SwingBuilder;
+import org.fluentness.controller.desktop.swing.SwingView;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class JPanelBuilder implements JComponentBuilder<JPanelBuilder, JPanel> {
+public class JPanelView implements JComponentView<JPanelView, JPanel> {
 
     private JPanel jPanel = new JPanel();
 
-    public JPanelBuilder(JComponentBuilder... JComponentBuilders) {
-        for (JComponentBuilder component : JComponentBuilders) {
+    public JPanelView(JComponentView... JComponentBuilders) {
+        for (JComponentView component : JComponentBuilders) {
             jPanel.add(component.getView());
         }
     }
@@ -20,17 +20,17 @@ public class JPanelBuilder implements JComponentBuilder<JPanelBuilder, JPanel> {
         return jPanel;
     }
 
-    public JPanelBuilder layout(LayoutManager layout) {
+    public JPanelView layout(LayoutManager layout) {
         jPanel.setLayout(layout);
         return this;
     }
 
-    public JPanelBuilder arrangements(String... arrangements) {
+    public JPanelView arrangements(String... arrangements) {
 
         return this;
     }
 
-    public SwingBuilder borderLayout(String... arrangements) {
+    public SwingView borderLayout(String... arrangements) {
         jPanel.setLayout(new BorderLayout());
         for (int i = 0; i < jPanel.getComponentCount() && i < arrangements.length; i++) {
             Component component = jPanel.getComponent(i);

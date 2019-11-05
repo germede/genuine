@@ -4,12 +4,12 @@ import javax.swing.*;
 import javax.swing.plaf.MenuItemUI;
 import java.awt.*;
 
-public class JMenuBuilder implements AbstractButtonBuilder<JMenuBuilder, JMenu> {
+public class JMenuView implements AbstractButtonView<JMenuView, JMenu> {
 
     private JMenu jMenu = new JMenu();
 
-    public JMenuBuilder(JMenuItemBuilder... menuItems) {
-        for (JMenuItemBuilder menuItem : menuItems) {
+    public JMenuView(JMenuItemView... menuItems) {
+        for (JMenuItemView menuItem : menuItems) {
             jMenu.add(menuItem.getView());
         }
     }
@@ -19,52 +19,52 @@ public class JMenuBuilder implements AbstractButtonBuilder<JMenuBuilder, JMenu> 
         return jMenu;
     }
 
-    public JMenuBuilder accelerator(KeyStroke keyStroke) {
+    public JMenuView accelerator(KeyStroke keyStroke) {
         jMenu.setAccelerator(keyStroke);
         return this;
     }
 
-    public JMenuBuilder	armed(boolean b) {
+    public JMenuView armed(boolean b) {
         jMenu.setArmed(b);
         return this;
     }
 
-    public JMenuBuilder componentOrientation(ComponentOrientation componentOrientation) {
+    public JMenuView componentOrientation(ComponentOrientation componentOrientation) {
         jMenu.setComponentOrientation(componentOrientation);
         return this;
     }
 
-    public JMenuBuilder delay(int d) {
+    public JMenuView delay(int d) {
         jMenu.setDelay(d);
         return this;
     }
 
-    public JMenuBuilder	enabled(boolean b) {
+    public JMenuView enabled(boolean b) {
         jMenu.setEnabled(b);
         return this;
     }
 
-    public JMenuBuilder menuLocation(int x, int y) {
+    public JMenuView menuLocation(int x, int y) {
         jMenu.setMenuLocation(x, y);
         return this;
     }
 
-    public JMenuBuilder model(ButtonModel newModel) {
+    public JMenuView model(ButtonModel newModel) {
         jMenu.setModel(newModel);
         return this;
     }
 
-    public JMenuBuilder popupMenuVisible(boolean b) {
+    public JMenuView popupMenuVisible(boolean b) {
         jMenu.setPopupMenuVisible(b);
         return this;
     }
 
-    public JMenuBuilder selected(boolean b) {
+    public JMenuView selected(boolean b) {
         jMenu.setSelected(b);
         return this;
     }
 
-    public JMenuBuilder	uI(MenuItemUI ui) {
+    public JMenuView uI(MenuItemUI ui) {
         jMenu.setUI(ui);
         return this;
     }

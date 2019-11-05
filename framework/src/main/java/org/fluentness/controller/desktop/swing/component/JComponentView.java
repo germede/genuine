@@ -1,16 +1,14 @@
 package org.fluentness.controller.desktop.swing.component;
 
-import org.fluentness.controller.desktop.swing.SwingBuilder;
+import org.fluentness.controller.desktop.swing.SwingView;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
-public interface JComponentBuilder<Self extends JComponentBuilder, J extends JComponent> extends SwingBuilder<J> {
+public interface JComponentView<Self extends JComponentView, J extends JComponent> extends SwingView<J> {
 
     @Override
     default void render() {

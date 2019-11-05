@@ -1,14 +1,14 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.controller.desktop.swing.SwingBuilder;
-import org.fluentness.controller.desktop.swing.component.JMenuBarBuilder;
-import org.fluentness.controller.desktop.swing.component.button.JButtonBuilder;
-import org.fluentness.controller.desktop.swing.component.JComponentBuilder;
-import org.fluentness.controller.desktop.swing.component.JLabelBuilder;
-import org.fluentness.controller.desktop.swing.component.button.JMenuBuilder;
-import org.fluentness.controller.desktop.swing.component.button.JMenuItemBuilder;
-import org.fluentness.controller.desktop.swing.container.JFrameBuilder;
-import org.fluentness.controller.desktop.swing.component.JPanelBuilder;
+import org.fluentness.controller.desktop.swing.SwingView;
+import org.fluentness.controller.desktop.swing.component.JMenuBarView;
+import org.fluentness.controller.desktop.swing.component.button.JButtonView;
+import org.fluentness.controller.desktop.swing.component.JComponentView;
+import org.fluentness.controller.desktop.swing.component.JLabelView;
+import org.fluentness.controller.desktop.swing.component.button.JMenuView;
+import org.fluentness.controller.desktop.swing.component.button.JMenuItemView;
+import org.fluentness.controller.desktop.swing.container.JFrameView;
+import org.fluentness.controller.desktop.swing.component.JPanelView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,49 +26,49 @@ public final class DesktopViewFactory {
         return desktopView;
     }
 
-    public static JFrameBuilder frame(String id, SwingBuilder swingContainer) {
-        return createWithId(id, new JFrameBuilder(swingContainer));
+    public static JFrameView frame(String id, SwingView swingContainer) {
+        return createWithId(id, new JFrameView(swingContainer));
     }
 
-    public static JFrameBuilder frame(SwingBuilder swingContainer) {
-        return new JFrameBuilder(swingContainer);
+    public static JFrameView frame(SwingView swingContainer) {
+        return new JFrameView(swingContainer);
     }
 
-    public static JPanelBuilder panel(String id, JComponentBuilder... JComponentBuilders) {
-        return createWithId(id, new JPanelBuilder(JComponentBuilders));
+    public static JPanelView panel(String id, JComponentView... JComponentBuilders) {
+        return createWithId(id, new JPanelView(JComponentBuilders));
     }
 
-    public static JPanelBuilder panel(JComponentBuilder... JComponentBuilders) {
-        return new JPanelBuilder(JComponentBuilders);
+    public static JPanelView panel(JComponentView... JComponentBuilders) {
+        return new JPanelView(JComponentBuilders);
     }
 
-    public static JButtonBuilder button(String id) {
-        return createWithId(id, new JButtonBuilder());
+    public static JButtonView button(String id) {
+        return createWithId(id, new JButtonView());
     }
 
-    public static JButtonBuilder button() {
-        return new JButtonBuilder();
+    public static JButtonView button() {
+        return new JButtonView();
     }
 
-    public static JLabelBuilder label(String id) {
-        return createWithId(id, new JLabelBuilder());
+    public static JLabelView label(String id) {
+        return createWithId(id, new JLabelView());
     }
 
-    public static JLabelBuilder label() {
-        return new JLabelBuilder();
+    public static JLabelView label() {
+        return new JLabelView();
     }
 
 
-    public static JMenuBarBuilder menuBar(JMenuBuilder... menus) {
-        return new JMenuBarBuilder(menus);
+    public static JMenuBarView menuBar(JMenuView... menus) {
+        return new JMenuBarView(menus);
     }
 
-    public static JMenuBuilder menu(String text, JMenuItemBuilder... menuItems) {
-        return new JMenuBuilder(menuItems).text(text);
+    public static JMenuView menu(String text, JMenuItemView... menuItems) {
+        return new JMenuView(menuItems).text(text);
     }
 
-    public static JMenuItemBuilder menuItem(String text) {
-        return new JMenuItemBuilder().text(text);
+    public static JMenuItemView menuItem(String text) {
+        return new JMenuItemView().text(text);
     }
 
 }
