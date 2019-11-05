@@ -13,7 +13,6 @@ import java.util.function.Function;
 public final class WebViewFactory {
 
     // special web views
-
     public static HtmlView action(WebActionReference action, String inner) {
         return a(inner).href(action.getPath());
     }
@@ -40,8 +39,7 @@ public final class WebViewFactory {
         return result.toArray((V[]) new MarkupView[0]);
     }
 
-    // View container html views
-
+    // view container html views
     public static ContainerHtmlView a(MarkupView... inner) {
         return new ContainerHtmlView("a", inner);
     }
@@ -474,8 +472,7 @@ public final class WebViewFactory {
         return new ContainerHtmlView("video", inner);
     }
 
-    // String container html views
-
+    // string container html views
     public static ContainerHtmlView a(String inner) {
         return new ContainerHtmlView("a", inner);
     }
@@ -908,8 +905,7 @@ public final class WebViewFactory {
         return new ContainerHtmlView("video", inner);
     }
 
-    // Empty html views
-
+    // empty html views
     public static EmptyHtmlView area() {
         return new EmptyHtmlView("area");
     }

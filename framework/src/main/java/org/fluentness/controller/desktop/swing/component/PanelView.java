@@ -32,10 +32,10 @@ public class PanelView implements ComponentView<PanelView, JPanel> {
 
     public SwingView borderLayout(String... arrangements) {
         jPanel.setLayout(new BorderLayout());
-        for (int i = 0; i < jPanel.getComponentCount() && i < arrangements.length; i++) {
-            Component component = jPanel.getComponent(i);
-            jPanel.remove(component);
-            jPanel.add(component,arrangements[i]);
+        Component[] components = jPanel.getComponents();
+        jPanel.removeAll();
+        for (int i = 0; i < components.length && i < arrangements.length; i++) {
+            jPanel.add(components[i],arrangements[i]);
         }
         return this;
     }

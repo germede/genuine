@@ -1,15 +1,14 @@
-package org.fluentness.controller.desktop.swing.component.button;
+package org.fluentness.controller.desktop.swing.component.button.menu;
 
 import javax.swing.*;
-import javax.swing.plaf.MenuItemUI;
 import java.awt.*;
 
-public class MenuView implements AbstractButtonView<MenuView, JMenu> {
+public class MenuView implements AbstractMenuItemView<MenuView, JMenu> {
 
     private JMenu jMenu = new JMenu();
 
-    public MenuView(MenuItemView... menuItems) {
-        for (MenuItemView menuItem : menuItems) {
+    public MenuView(AbstractMenuItemView... menuItems) {
+        for (AbstractMenuItemView menuItem : menuItems) {
             jMenu.add(menuItem.getView());
         }
     }
@@ -17,16 +16,6 @@ public class MenuView implements AbstractButtonView<MenuView, JMenu> {
     @Override
     public JMenu getView() {
         return jMenu;
-    }
-
-    public MenuView accelerator(KeyStroke keyStroke) {
-        jMenu.setAccelerator(keyStroke);
-        return this;
-    }
-
-    public MenuView armed(boolean b) {
-        jMenu.setArmed(b);
-        return this;
     }
 
     public MenuView componentOrientation(ComponentOrientation componentOrientation) {
@@ -39,18 +28,8 @@ public class MenuView implements AbstractButtonView<MenuView, JMenu> {
         return this;
     }
 
-    public MenuView enabled(boolean b) {
-        jMenu.setEnabled(b);
-        return this;
-    }
-
     public MenuView menuLocation(int x, int y) {
         jMenu.setMenuLocation(x, y);
-        return this;
-    }
-
-    public MenuView model(ButtonModel newModel) {
-        jMenu.setModel(newModel);
         return this;
     }
 
@@ -61,11 +40,6 @@ public class MenuView implements AbstractButtonView<MenuView, JMenu> {
 
     public MenuView selected(boolean b) {
         jMenu.setSelected(b);
-        return this;
-    }
-
-    public MenuView uI(MenuItemUI ui) {
-        jMenu.setUI(ui);
         return this;
     }
 

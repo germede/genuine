@@ -1,74 +1,73 @@
 package org.fluentness.controller.desktop;
 
 import org.fluentness.controller.desktop.swing.SwingView;
-import org.fluentness.controller.desktop.swing.component.MenuBarView;
-import org.fluentness.controller.desktop.swing.component.button.ButtonView;
 import org.fluentness.controller.desktop.swing.component.ComponentView;
 import org.fluentness.controller.desktop.swing.component.LabelView;
-import org.fluentness.controller.desktop.swing.component.button.MenuView;
-import org.fluentness.controller.desktop.swing.component.button.MenuItemView;
-import org.fluentness.controller.desktop.swing.container.JFrameView;
+import org.fluentness.controller.desktop.swing.component.MenuBarView;
 import org.fluentness.controller.desktop.swing.component.PanelView;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.fluentness.controller.desktop.swing.component.button.ButtonView;
+import org.fluentness.controller.desktop.swing.component.button.menu.*;
+import org.fluentness.controller.desktop.swing.component.button.toggle.CheckBoxView;
+import org.fluentness.controller.desktop.swing.component.button.toggle.RadioButtonView;
+import org.fluentness.controller.desktop.swing.component.button.toggle.ToggleButtonView;
+import org.fluentness.controller.desktop.swing.container.JFrameView;
 
 public final class DesktopViewFactory {
 
-    private static final Map<String, DesktopView> ID_MAP = new HashMap<>();
-
-    public static <D extends DesktopView> D getView(Class<D> dClass, String id) {
-        return (D) ID_MAP.get(id);
-    }
-
-    private static <D extends DesktopView> D createWithId(String id, D desktopView) {
-        ID_MAP.put(id, desktopView);
-        return desktopView;
-    }
-
-    public static JFrameView frame(String id, SwingView swingContainer) {
-        return createWithId(id, new JFrameView(swingContainer));
-    }
-
+    // containers
     public static JFrameView frame(SwingView swingContainer) {
         return new JFrameView(swingContainer);
     }
 
-    public static PanelView panel(String id, ComponentView... JComponentBuilders) {
-        return createWithId(id, new PanelView(JComponentBuilders));
-    }
 
+    // components
     public static PanelView panel(ComponentView... JComponentBuilders) {
         return new PanelView(JComponentBuilders);
     }
 
-    public static ButtonView button(String id) {
-        return createWithId(id, new ButtonView());
+    public static LabelView label(String text) {
+        return new LabelView().text(text);
     }
-
-    public static ButtonView button() {
-        return new ButtonView();
-    }
-
-    public static LabelView label(String id) {
-        return createWithId(id, new LabelView());
-    }
-
-    public static LabelView label() {
-        return new LabelView();
-    }
-
 
     public static MenuBarView menuBar(MenuView... menus) {
         return new MenuBarView(menus);
     }
 
-    public static MenuView menu(String text, MenuItemView... menuItems) {
+
+    // buttons
+    public static ButtonView button(String text) {
+        return new ButtonView().text(text);
+    }
+
+    // menus
+    public static MenuView menu(String text, AbstractMenuItemView... menuItems) {
         return new MenuView(menuItems).text(text);
     }
 
     public static MenuItemView menuItem(String text) {
         return new MenuItemView().text(text);
     }
+
+    public static RadioButtonMenuItemView radioButtonMenuItem(String text) {
+        return new RadioButtonMenuItemView().text(text);
+    }
+
+    public static CheckBoxMenuItemView checkBoxMenuItem(String text) {
+        return new CheckBoxMenuItemView().text(text);
+    }
+
+    // toggle
+    public static ToggleButtonView toggleButton(String text) {
+        return new ToggleButtonView().text(text);
+    }
+
+    public static RadioButtonView radioButton(String text) {
+        return new RadioButtonView().text(text);
+    }
+
+    public static CheckBoxView checkBox(String text) {
+        return new CheckBoxView().text(text);
+    }
+
 
 }

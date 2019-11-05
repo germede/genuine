@@ -18,7 +18,6 @@
         <dependency>
             <groupId>org.fluentness</groupId>
             <artifactId>framework</artifactId>
-            <!-- todo change version at one place-->
             <version>0.1.0</version>
         </dependency>
 
@@ -27,6 +26,15 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
+        </dependency>
+
+        <!--Nice look and feel-->
+        <dependency>
+            <groupId>com.bulenkov</groupId>
+            <artifactId>darcula</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/darcula.jar</systemPath>
         </dependency>
     </dependencies>
 

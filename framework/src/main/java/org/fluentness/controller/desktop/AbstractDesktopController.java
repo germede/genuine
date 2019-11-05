@@ -2,11 +2,11 @@ package org.fluentness.controller.desktop;
 
 import org.fluentness.controller.Controller;
 
+import javax.swing.*;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.EventListener;
 import java.util.LinkedList;
@@ -36,6 +36,14 @@ public abstract class AbstractDesktopController implements Controller<DesktopAct
         String id();
         Class<? extends EventListener> listener();
 
+    }
+
+    public void setLookAndFeel() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
     }
 
     public abstract DesktopView getDesktopView();

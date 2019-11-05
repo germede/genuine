@@ -1,6 +1,6 @@
 package org.fluentness.controller.desktop.swing.component;
 
-import org.fluentness.controller.desktop.swing.component.button.MenuView;
+import org.fluentness.controller.desktop.swing.component.button.menu.MenuView;
 
 import javax.swing.*;
 import java.awt.*;

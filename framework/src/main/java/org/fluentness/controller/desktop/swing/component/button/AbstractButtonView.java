@@ -6,151 +6,150 @@ import javax.swing.*;
 import javax.swing.plaf.ButtonUI;
 import java.awt.*;
 
-public interface AbstractButtonView<A extends AbstractButtonView, AB extends AbstractButton>
-    extends ComponentView<A, AB> {
+public interface AbstractButtonView<Self extends AbstractButtonView, A extends AbstractButton> extends ComponentView<Self, A> {
 
-    default A action(Action a) {
+    default Self action(Action a) {
         getView().setAction(a);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A actionCommand(String actionCommand) {
+    default Self actionCommand(String actionCommand) {
         getView().setActionCommand(actionCommand);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A borderPainted(boolean b) {
+    default Self borderPainted(boolean b) {
         getView().setBorderPainted(b);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A contentAreaFilled(boolean b) {
+    default Self contentAreaFilled(boolean b) {
         getView().setContentAreaFilled(b);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A disabledIcon(Icon disabledIcon) {
+    default Self disabledIcon(Icon disabledIcon) {
         getView().setDisabledIcon(disabledIcon);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A disabledSelectedIcon(Icon disabledSelectedIcon) {
+    default Self disabledSelectedIcon(Icon disabledSelectedIcon) {
         getView().setDisabledSelectedIcon(disabledSelectedIcon);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A displayedMnemonicIndex(int index) {
+    default Self displayedMnemonicIndex(int index) {
         getView().setDisplayedMnemonicIndex(index);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A focusPainted(boolean b) {
+    default Self focusPainted(boolean b) {
         getView().setFocusPainted(b);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A hideActionText(boolean hideActionText) {
+    default Self hideActionText(boolean hideActionText) {
         getView().setHideActionText(hideActionText);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A horizontalAlignment(int alignment) {
+    default Self horizontalAlignment(int alignment) {
         getView().setHorizontalAlignment(alignment);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A horizontalTextPosition(int textPosition) {
+    default Self horizontalTextPosition(int textPosition) {
         getView().setHorizontalTextPosition(textPosition);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A icon(Icon defaultIcon) {
+    default Self icon(Icon defaultIcon) {
         getView().setIcon(defaultIcon);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A iconTextGap(int iconTextGap) {
+    default Self iconTextGap(int iconTextGap) {
         getView().setIconTextGap(iconTextGap);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A layout(LayoutManager mgr) {
+    default Self layout(LayoutManager mgr) {
         getView().setLayout(mgr);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A margin(Insets m) {
+    default Self margin(Insets m) {
         getView().setMargin(m);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A mnemonic(char mnemonic) {
+    default Self mnemonic(char mnemonic) {
         getView().setMnemonic(mnemonic);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A mnemonic(int mnemonic) {
+    default Self mnemonic(int mnemonic) {
         getView().setMnemonic(mnemonic);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A model(ButtonModel newModel) {
+    default Self model(ButtonModel newModel) {
         getView().setModel(newModel);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A multiClickThreshhold(long threshhold) {
+    default Self multiClickThreshhold(long threshhold) {
         getView().setMultiClickThreshhold(threshhold);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A pressedIcon(Icon pressedIcon) {
+    default Self pressedIcon(Icon pressedIcon) {
         getView().setPressedIcon(pressedIcon);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A rolloverEnabled(boolean b) {
+    default Self rolloverEnabled(boolean b) {
         getView().setRolloverEnabled(b);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A rolloverIcon(Icon rolloverIcon) {
+    default Self rolloverIcon(Icon rolloverIcon) {
         getView().setRolloverIcon(rolloverIcon);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A rolloverSelectedIcon(Icon rolloverSelectedIcon) {
+    default Self rolloverSelectedIcon(Icon rolloverSelectedIcon) {
         getView().setRolloverSelectedIcon(rolloverSelectedIcon);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A selected(boolean b) {
+    default Self selected(boolean b) {
         getView().setSelected(b);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A selectedIcon(Icon selectedIcon) {
+    default Self selectedIcon(Icon selectedIcon) {
         getView().setSelectedIcon(selectedIcon);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A text(String text) {
+    default Self text(String text) {
         getView().setText(text);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A uI(ButtonUI ui) {
+    default Self uI(ButtonUI ui) {
         getView().setUI(ui);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A verticalAlignment(int alignment) {
+    default Self verticalAlignment(int alignment) {
         getView().setVerticalAlignment(alignment);
-        return (A) this;
+        return (Self) this;
     }
 
-    default A verticalTextPosition(int textPosition) {
+    default Self verticalTextPosition(int textPosition) {
         getView().setVerticalTextPosition(textPosition);
-        return (A) this;
+        return (Self) this;
     }
 }

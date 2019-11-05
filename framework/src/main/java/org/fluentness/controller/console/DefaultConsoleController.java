@@ -95,7 +95,10 @@ public class DefaultConsoleController extends AbstractConsoleController {
 
     @Action(description = "Starts desktop application", category = "desktop")
     public void desktop() {
-        dependency.getInstances(AbstractDesktopController.class).forEach(controller -> controller.getDesktopView().render());
+        dependency.getInstances(AbstractDesktopController.class).forEach(controller -> {
+            controller.setLookAndFeel();
+            controller.getDesktopView().render();
+        });
     }
 
     @Action(description = "Starts embedded HTTP web server", category = "web")
