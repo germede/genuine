@@ -3,7 +3,7 @@ package org.fluentness.controller.desktop.swing.component.button;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public class JButtonView implements AbstractButtonView<JButtonView, JButton> {
+public class ButtonView implements AbstractButtonView<ButtonView, JButton> {
 
     JButton jButton = new JButton();
 
@@ -12,7 +12,7 @@ public class JButtonView implements AbstractButtonView<JButtonView, JButton> {
         return jButton;
     }
 
-    public JButtonView action(ActionListener actionListener) {
+    public ButtonView action(ActionListener actionListener) {
         jButton.addActionListener(actionListener);
         return this;
     }

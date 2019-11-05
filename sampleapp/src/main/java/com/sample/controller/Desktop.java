@@ -1,8 +1,8 @@
 package com.sample.controller;
 
-import org.fluentness.controller.desktop.swing.component.JMenuBarView;
+import org.fluentness.controller.desktop.swing.component.MenuBarView;
 import org.fluentness.controller.desktop.swing.container.JFrameView;
-import org.fluentness.controller.desktop.swing.component.JPanelView;
+import org.fluentness.controller.desktop.swing.component.PanelView;
 
 import javax.swing.*;
 
@@ -27,7 +27,7 @@ public class Desktop {
         ).title("Fluentness rocks").bounds(0, 0, 800, 600).center().minimumSize(300, 300);
     }
 
-    private JPanelView mainPanel() {
+    private PanelView mainPanel() {
         return panel(
             label("test_label")
                 .text("Test 1234")
@@ -39,7 +39,7 @@ public class Desktop {
         ).layout(new FlowLayout());
     }
 
-    private JMenuBarView topBar() {
+    private MenuBarView topBar() {
         return menuBar(
             menu("File",
                 menuItem("Load").accelerator(KeyStroke.getKeyStroke('C')),

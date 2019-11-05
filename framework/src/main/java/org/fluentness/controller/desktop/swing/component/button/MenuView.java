@@ -4,12 +4,12 @@ import javax.swing.*;
 import javax.swing.plaf.MenuItemUI;
 import java.awt.*;
 
-public class JMenuView implements AbstractButtonView<JMenuView, JMenu> {
+public class MenuView implements AbstractButtonView<MenuView, JMenu> {
 
     private JMenu jMenu = new JMenu();
 
-    public JMenuView(JMenuItemView... menuItems) {
-        for (JMenuItemView menuItem : menuItems) {
+    public MenuView(MenuItemView... menuItems) {
+        for (MenuItemView menuItem : menuItems) {
             jMenu.add(menuItem.getView());
         }
     }
@@ -19,52 +19,52 @@ public class JMenuView implements AbstractButtonView<JMenuView, JMenu> {
         return jMenu;
     }
 
-    public JMenuView accelerator(KeyStroke keyStroke) {
+    public MenuView accelerator(KeyStroke keyStroke) {
         jMenu.setAccelerator(keyStroke);
         return this;
     }
 
-    public JMenuView armed(boolean b) {
+    public MenuView armed(boolean b) {
         jMenu.setArmed(b);
         return this;
     }
 
-    public JMenuView componentOrientation(ComponentOrientation componentOrientation) {
+    public MenuView componentOrientation(ComponentOrientation componentOrientation) {
         jMenu.setComponentOrientation(componentOrientation);
         return this;
     }
 
-    public JMenuView delay(int d) {
+    public MenuView delay(int d) {
         jMenu.setDelay(d);
         return this;
     }
 
-    public JMenuView enabled(boolean b) {
+    public MenuView enabled(boolean b) {
         jMenu.setEnabled(b);
         return this;
     }
 
-    public JMenuView menuLocation(int x, int y) {
+    public MenuView menuLocation(int x, int y) {
         jMenu.setMenuLocation(x, y);
         return this;
     }
 
-    public JMenuView model(ButtonModel newModel) {
+    public MenuView model(ButtonModel newModel) {
         jMenu.setModel(newModel);
         return this;
     }
 
-    public JMenuView popupMenuVisible(boolean b) {
+    public MenuView popupMenuVisible(boolean b) {
         jMenu.setPopupMenuVisible(b);
         return this;
     }
 
-    public JMenuView selected(boolean b) {
+    public MenuView selected(boolean b) {
         jMenu.setSelected(b);
         return this;
     }
 
-    public JMenuView uI(MenuItemUI ui) {
+    public MenuView uI(MenuItemUI ui) {
         jMenu.setUI(ui);
         return this;
     }

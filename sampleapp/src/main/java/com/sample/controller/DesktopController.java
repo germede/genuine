@@ -3,7 +3,7 @@ package com.sample.controller;
 import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.DesktopView;
 import org.fluentness.controller.desktop.DesktopViewFactory;
-import org.fluentness.controller.desktop.swing.component.button.JButtonView;
+import org.fluentness.controller.desktop.swing.component.button.ButtonView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +18,7 @@ public class DesktopController extends AbstractDesktopController {
 
     @Action(id = "test_button", listener = ActionListener.class)
     public void showInfoMessage(ActionEvent event) {
-        JButtonView test_button = DesktopViewFactory.getView(JButtonView.class, "test_button");
+        ButtonView test_button = DesktopViewFactory.getView(ButtonView.class, "test_button");
         JOptionPane.showMessageDialog(null, "asdf");
     }
 }

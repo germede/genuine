@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.plaf.LabelUI;
 import java.awt.*;
 
-public class JLabelView implements JComponentView<JLabelView, JLabel> {
+public class LabelView implements ComponentView<LabelView, JLabel> {
 
     private JLabel jLabel = new JLabel();
 
@@ -13,67 +13,67 @@ public class JLabelView implements JComponentView<JLabelView, JLabel> {
         return jLabel;
     }
 
-    public JLabelView disabledIcon(Icon disabledIcon) {
+    public LabelView disabledIcon(Icon disabledIcon) {
         jLabel.setDisabledIcon(disabledIcon);
         return this;
     }
 
-    public JLabelView displayedMnemonic(char aChar) {
+    public LabelView displayedMnemonic(char aChar) {
         jLabel.setDisplayedMnemonic(aChar);
         return this;
     }
 
-    public JLabelView displayedMnemonic(int key) {
+    public LabelView displayedMnemonic(int key) {
         jLabel.setDisplayedMnemonic(key);
         return this;
     }
 
-    public JLabelView displayedMnemonicIndex(int index) {
+    public LabelView displayedMnemonicIndex(int index) {
         jLabel.setDisplayedMnemonicIndex(index);
         return this;
     }
 
-    public JLabelView horizontalAlignment(int alignment) {
+    public LabelView horizontalAlignment(int alignment) {
         jLabel.setHorizontalAlignment(alignment);
         return this;
     }
 
-    public JLabelView horizontalTextPosition(int textPosition) {
+    public LabelView horizontalTextPosition(int textPosition) {
         jLabel.setHorizontalTextPosition(textPosition);
         return this;
     }
 
-    public JLabelView icon(Icon icon) {
+    public LabelView icon(Icon icon) {
         jLabel.setIcon(icon);
         return this;
     }
 
-    public JLabelView iconTextGap(int iconTextGap) {
+    public LabelView iconTextGap(int iconTextGap) {
         jLabel.setIconTextGap(iconTextGap);
         return this;
     }
 
-    public JLabelView labelFor(Component c) {
+    public LabelView labelFor(Component c) {
         jLabel.setLabelFor(c);
         return this;
     }
 
-    public JLabelView text(String text) {
+    public LabelView text(String text) {
         jLabel.setText(text);
         return this;
     }
 
-    public JLabelView uI(LabelUI ui) {
+    public LabelView uI(LabelUI ui) {
         jLabel.setUI(ui);
         return this;
     }
 
-    public JLabelView verticalAlignment(int alignment) {
+    public LabelView verticalAlignment(int alignment) {
         jLabel.setVerticalAlignment(alignment);
         return this;
     }
 
-    public JLabelView verticalTextPosition(int textPosition) {
+    public LabelView verticalTextPosition(int textPosition) {
         jLabel.setVerticalTextPosition(textPosition);
         return this;
     }

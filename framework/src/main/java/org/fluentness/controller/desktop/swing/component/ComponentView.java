@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Locale;
 import java.util.Set;
 
-public interface JComponentView<Self extends JComponentView, J extends JComponent> extends SwingView<J> {
+public interface ComponentView<Self extends ComponentView, J extends JComponent> extends SwingView<J> {
 
     @Override
     default void render() {

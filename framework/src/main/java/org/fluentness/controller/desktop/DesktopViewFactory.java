@@ -1,14 +1,14 @@
 package org.fluentness.controller.desktop;
 
 import org.fluentness.controller.desktop.swing.SwingView;
-import org.fluentness.controller.desktop.swing.component.JMenuBarView;
-import org.fluentness.controller.desktop.swing.component.button.JButtonView;
-import org.fluentness.controller.desktop.swing.component.JComponentView;
-import org.fluentness.controller.desktop.swing.component.JLabelView;
-import org.fluentness.controller.desktop.swing.component.button.JMenuView;
-import org.fluentness.controller.desktop.swing.component.button.JMenuItemView;
+import org.fluentness.controller.desktop.swing.component.MenuBarView;
+import org.fluentness.controller.desktop.swing.component.button.ButtonView;
+import org.fluentness.controller.desktop.swing.component.ComponentView;
+import org.fluentness.controller.desktop.swing.component.LabelView;
+import org.fluentness.controller.desktop.swing.component.button.MenuView;
+import org.fluentness.controller.desktop.swing.component.button.MenuItemView;
 import org.fluentness.controller.desktop.swing.container.JFrameView;
-import org.fluentness.controller.desktop.swing.component.JPanelView;
+import org.fluentness.controller.desktop.swing.component.PanelView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,41 +34,41 @@ public final class DesktopViewFactory {
         return new JFrameView(swingContainer);
     }
 
-    public static JPanelView panel(String id, JComponentView... JComponentBuilders) {
-        return createWithId(id, new JPanelView(JComponentBuilders));
+    public static PanelView panel(String id, ComponentView... JComponentBuilders) {
+        return createWithId(id, new PanelView(JComponentBuilders));
     }
 
-    public static JPanelView panel(JComponentView... JComponentBuilders) {
-        return new JPanelView(JComponentBuilders);
+    public static PanelView panel(ComponentView... JComponentBuilders) {
+        return new PanelView(JComponentBuilders);
     }
 
-    public static JButtonView button(String id) {
-        return createWithId(id, new JButtonView());
+    public static ButtonView button(String id) {
+        return createWithId(id, new ButtonView());
     }
 
-    public static JButtonView button() {
-        return new JButtonView();
+    public static ButtonView button() {
+        return new ButtonView();
     }
 
-    public static JLabelView label(String id) {
-        return createWithId(id, new JLabelView());
+    public static LabelView label(String id) {
+        return createWithId(id, new LabelView());
     }
 
-    public static JLabelView label() {
-        return new JLabelView();
+    public static LabelView label() {
+        return new LabelView();
     }
 
 
-    public static JMenuBarView menuBar(JMenuView... menus) {
-        return new JMenuBarView(menus);
+    public static MenuBarView menuBar(MenuView... menus) {
+        return new MenuBarView(menus);
     }
 
-    public static JMenuView menu(String text, JMenuItemView... menuItems) {
-        return new JMenuView(menuItems).text(text);
+    public static MenuView menu(String text, MenuItemView... menuItems) {
+        return new MenuView(menuItems).text(text);
     }
 
-    public static JMenuItemView menuItem(String text) {
-        return new JMenuItemView().text(text);
+    public static MenuItemView menuItem(String text) {
+        return new MenuItemView().text(text);
     }
 
 }

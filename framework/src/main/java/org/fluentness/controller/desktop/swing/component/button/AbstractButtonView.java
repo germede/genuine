@@ -1,13 +1,13 @@
 package org.fluentness.controller.desktop.swing.component.button;
 
-import org.fluentness.controller.desktop.swing.component.JComponentView;
+import org.fluentness.controller.desktop.swing.component.ComponentView;
 
 import javax.swing.*;
 import javax.swing.plaf.ButtonUI;
 import java.awt.*;
 
 public interface AbstractButtonView<A extends AbstractButtonView, AB extends AbstractButton>
-    extends JComponentView<A, AB> {
+    extends ComponentView<A, AB> {
 
     default A action(Action a) {
         getView().setAction(a);

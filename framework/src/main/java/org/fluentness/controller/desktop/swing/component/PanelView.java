@@ -5,12 +5,12 @@ import org.fluentness.controller.desktop.swing.SwingView;
 import javax.swing.*;
 import java.awt.*;
 
-public class JPanelView implements JComponentView<JPanelView, JPanel> {
+public class PanelView implements ComponentView<PanelView, JPanel> {
 
     private JPanel jPanel = new JPanel();
 
-    public JPanelView(JComponentView... JComponentBuilders) {
-        for (JComponentView component : JComponentBuilders) {
+    public PanelView(ComponentView... JComponentBuilders) {
+        for (ComponentView component : JComponentBuilders) {
             jPanel.add(component.getView());
         }
     }
@@ -20,12 +20,12 @@ public class JPanelView implements JComponentView<JPanelView, JPanel> {
         return jPanel;
     }
 
-    public JPanelView layout(LayoutManager layout) {
+    public PanelView layout(LayoutManager layout) {
         jPanel.setLayout(layout);
         return this;
     }
 
-    public JPanelView arrangements(String... arrangements) {
+    public PanelView arrangements(String... arrangements) {
 
         return this;
     }

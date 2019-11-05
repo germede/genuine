@@ -5,11 +5,11 @@ import javax.swing.plaf.ListUI;
 import java.awt.*;
 import java.util.Vector;
 
-public class JListView<E> implements JComponentView<JListView, JList> {
+public class ListView<E> implements ComponentView<ListView, JList> {
 
     private JList<E> jList = new JList<>();
 
-    public JListView(Class<E> listType) {
+    public ListView(Class<E> listType) {
 
     }
 
@@ -18,107 +18,107 @@ public class JListView<E> implements JComponentView<JListView, JList> {
         return jList;
     }
 
-    public JListView cellRenderer(ListCellRenderer<? super E> cellRenderer) {
+    public ListView cellRenderer(ListCellRenderer<? super E> cellRenderer) {
         jList.setCellRenderer(cellRenderer);
         return this;
     }
 
-    public JListView dragEnabled(boolean b) {
+    public ListView dragEnabled(boolean b) {
         jList.setDragEnabled(b);
         return this;
     }
 
-    public JListView dropMode(DropMode dropMode) {
+    public ListView dropMode(DropMode dropMode) {
         jList.setDropMode(dropMode);
         return this;
     }
 
-    public JListView fixedCellHeight(int height) {
+    public ListView fixedCellHeight(int height) {
         jList.setFixedCellHeight(height);
         return this;
     }
 
-    public JListView fixedCellWidth(int width) {
+    public ListView fixedCellWidth(int width) {
         jList.setFixedCellWidth(width);
         return this;
     }
 
-    public JListView layoutOrientation(int layoutOrientation) {
+    public ListView layoutOrientation(int layoutOrientation) {
         jList.setLayoutOrientation(layoutOrientation);
         return this;
     }
 
-    public JListView listData(E[] listData) {
+    public ListView listData(E[] listData) {
         jList.setListData(listData);
         return this;
     }
 
-    public JListView listData(Vector<? extends E> listData) {
+    public ListView listData(Vector<? extends E> listData) {
         jList.setListData(listData);
         return this;
     }
 
-    public JListView model(ListModel<E> model) {
+    public ListView model(ListModel<E> model) {
         jList.setModel(model);
         return this;
     }
 
-    public JListView prototypeCellValue(E prototypeCellValue) {
+    public ListView prototypeCellValue(E prototypeCellValue) {
         jList.setPrototypeCellValue(prototypeCellValue);
         return this;
     }
 
-    public JListView selectedIndex(int index) {
+    public ListView selectedIndex(int index) {
         jList.setSelectedIndex(index);
         return this;
     }
 
-    public JListView selectedIndices(int[] indices) {
+    public ListView selectedIndices(int[] indices) {
         jList.setSelectedIndices(indices);
         return this;
     }
 
-    public JListView selectedValue(Object object, boolean shouldScroll) {
+    public ListView selectedValue(Object object, boolean shouldScroll) {
         jList.setSelectedValue(object, shouldScroll);
         return this;
     }
 
-    public JListView selectionBackground(Color selectionBackground) {
+    public ListView selectionBackground(Color selectionBackground) {
         jList.setSelectionBackground(selectionBackground);
         return this;
     }
 
-    public JListView selectionForeground(Color selectionForeground) {
+    public ListView selectionForeground(Color selectionForeground) {
         jList.setSelectionForeground(selectionForeground);
         return this;
     }
 
-    public JListView selectionInterval(int anchor, int lead) {
+    public ListView selectionInterval(int anchor, int lead) {
         jList.setSelectionInterval(anchor, lead);
         return this;
     }
 
-    public JListView selectionMode(int selectionMode) {
+    public ListView selectionMode(int selectionMode) {
         jList.setSelectionMode(selectionMode);
         return this;
     }
 
-    public JListView selectionModel(ListSelectionModel selectionModel) {
+    public ListView selectionModel(ListSelectionModel selectionModel) {
         jList.setSelectionModel(selectionModel);
         return this;
     }
 
-    public JListView uI(ListUI ui) {
+    public ListView uI(ListUI ui) {
         jList.setUI(ui);
         return this;
     }
 
-    public JListView valueIsAdjusting(boolean b) {
+    public ListView valueIsAdjusting(boolean b) {
         jList.setValueIsAdjusting(b);
         return this;
     }
 
-    public JListView visibleRowCount(int visibleRowCount) {
+    public ListView visibleRowCount(int visibleRowCount) {
         jList.setVisibleRowCount(visibleRowCount);
         return this;
     }
