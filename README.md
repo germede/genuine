@@ -4,12 +4,18 @@
 
 badges
 
-Base -> Services  
-Data -> Repositories -> Models  
-Flow -> Providers -> Factories -> Components   
+Controllers === Views
+||
+||
+||
+Repositories === Models
+||
+||
+||
+Services
 
 ## Introduction
-Fluentness is intended to be an easy-to-learn, fully-integrated, Java-based, consistent and flexible web framework. 
+Fluentness is intended to be an easy-to-learn, fully-integrated, Java-based, consistent and flexible web and desktop development framework. 
 
 So let's say you want a fancy application that just says Hello to someone. Just add this to your flow/Controllers.java
 ```java
@@ -23,7 +29,7 @@ Visit http://localhost:8000/hello?name=YourName
 
 ## Decalogue
 
->**F**orce your code to be compact, yet legible  
+>**F**orce your code to be compact, yet legible Flent APIS 
 >**L**oose coupling by splitting your application in base, data and flow: the Fluentness way  
 >**U**se class attributes as finished components and functions as helpers  
 >**E**mbrace the consumer-provider, onion-layer-like base-data-flow architecture  
@@ -96,4 +102,4 @@ This project is based on these open source technologies:
 ## License
 Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
-Copyright © 2019 Gerardo Medina
+Copyright © 2020 Gerardo Medina

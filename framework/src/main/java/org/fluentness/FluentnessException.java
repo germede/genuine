@@ -7,29 +7,17 @@ public class FluentnessException extends Exception {
 
     @Override
     public String getMessage() {
-        if (message != null) {
-            return message;
-        } else {
-            return super.getMessage();
-        }
+        return message != null ? message : super.getMessage();
     }
 
     @Override
     public StackTraceElement[] getStackTrace() {
-        if (message != null) {
-            return exception.getStackTrace();
-        } else {
-            return super.getStackTrace();
-        }
+        return message != null ? exception.getStackTrace() : super.getStackTrace();
     }
 
     @Override
     public synchronized Throwable getCause() {
-        if (exception != null) {
-            return exception;
-        } else {
-            return super.getCause();
-        }
+        return exception != null ? exception : super.getCause();
     }
 
     protected FluentnessException(Exception exception) {

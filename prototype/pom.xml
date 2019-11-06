@@ -34,7 +34,7 @@
             <artifactId>darcula</artifactId>
             <version>1.0.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/darcula.jar</systemPath>
+            <systemPath>src/main/resources/darcula.jar</systemPath>
         </dependency>
     </dependencies>
 
@@ -96,7 +96,7 @@
                 <version>3.1.1</version>
             </plugin>
 
-            <!--Needed for enhancement at build time, see https://openjpa.apache.org/entity-enhancement.html-->
+            <!--todo remove this. Needed for enhancement at build time, see https://openjpa.apache.org/entity-enhancement.html-->
             <plugin>
                 <groupId>org.apache.openjpa</groupId>
                 <artifactId>openjpa-maven-plugin</artifactId>
