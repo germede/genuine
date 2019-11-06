@@ -1,11 +1,11 @@
 package com.sample.controller;
 
 import org.fluentness.controller.desktop.swing.component.MenuBarView;
-import org.fluentness.controller.desktop.swing.container.JFrameView;
 import org.fluentness.controller.desktop.swing.component.PanelView;
+import org.fluentness.controller.desktop.swing.component.button.toggle.CheckBoxView;
+import org.fluentness.controller.desktop.swing.container.FrameView;
 
 import javax.swing.*;
-
 import java.awt.*;
 
 import static org.fluentness.controller.desktop.DesktopViewFactory.*;
@@ -18,7 +18,7 @@ public class Desktop {
         this.desktopController = desktopController;
     }
 
-    JFrameView main() {
+    FrameView main() {
         return frame(
             panel(
                 topBar(),
@@ -28,12 +28,22 @@ public class Desktop {
     }
 
     private PanelView mainPanel() {
+        CheckBoxView yes = checkBox("Yes");
+        CheckBoxView yes1 = checkBox("Yes1");
+        CheckBoxView yes2 = checkBox("Yes2");
+        buttonGroup(yes,yes1,yes2);
         return panel(
+            yes,yes1,yes2,
+            buttonGroup(
+                radioButton("No"),
+                radioButton("Maybe")
+            ).boxLayout(BoxLayout.X_AXIS),
+            textArea().rows(5).columns(10).text("Lorem ipsum").caretColor(new Color(0, 255, 255)),
             label("Test label")
                 .toolTipText("Creates a new book"),
             button("Test button").maximumSize(20, 20)
             //.actionLi(desktopController::showInfoMessage)
-        ).layout(new FlowLayout());
+        ).boxLayout(BoxLayout.Y_AXIS);
     }
 
     private MenuBarView topBar() {

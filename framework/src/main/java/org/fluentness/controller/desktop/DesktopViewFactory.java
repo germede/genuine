@@ -5,22 +5,25 @@ import org.fluentness.controller.desktop.swing.component.ComponentView;
 import org.fluentness.controller.desktop.swing.component.LabelView;
 import org.fluentness.controller.desktop.swing.component.MenuBarView;
 import org.fluentness.controller.desktop.swing.component.PanelView;
+import org.fluentness.controller.desktop.swing.component.button.AbstractButtonView;
+import org.fluentness.controller.desktop.swing.component.button.ButtonGroupView;
 import org.fluentness.controller.desktop.swing.component.button.ButtonView;
 import org.fluentness.controller.desktop.swing.component.button.menu.*;
 import org.fluentness.controller.desktop.swing.component.button.toggle.CheckBoxView;
 import org.fluentness.controller.desktop.swing.component.button.toggle.RadioButtonView;
 import org.fluentness.controller.desktop.swing.component.button.toggle.ToggleButtonView;
-import org.fluentness.controller.desktop.swing.container.JFrameView;
+import org.fluentness.controller.desktop.swing.component.text.TextAreaView;
+import org.fluentness.controller.desktop.swing.container.FrameView;
 
 public final class DesktopViewFactory {
 
-    // containers
-    public static JFrameView frame(SwingView swingContainer) {
-        return new JFrameView(swingContainer);
+    //==== container
+    public static FrameView frame(SwingView swingContainer) {
+        return new FrameView(swingContainer);
     }
 
 
-    // components
+    //==== component
     public static PanelView panel(ComponentView... JComponentBuilders) {
         return new PanelView(JComponentBuilders);
     }
@@ -34,12 +37,16 @@ public final class DesktopViewFactory {
     }
 
 
-    // buttons
+    //==== button
     public static ButtonView button(String text) {
         return new ButtonView().text(text);
     }
 
-    // menus
+    public static ButtonGroupView buttonGroup(AbstractButtonView... buttons) {
+        return new ButtonGroupView(buttons);
+    }
+
+    //======== menu
     public static MenuView menu(String text, AbstractMenuItemView... menuItems) {
         return new MenuView(menuItems).text(text);
     }
@@ -56,7 +63,7 @@ public final class DesktopViewFactory {
         return new CheckBoxMenuItemView().text(text);
     }
 
-    // toggle
+    //======== toggle
     public static ToggleButtonView toggleButton(String text) {
         return new ToggleButtonView().text(text);
     }
@@ -69,5 +76,9 @@ public final class DesktopViewFactory {
         return new CheckBoxView().text(text);
     }
 
+    //==== text
+    public static TextAreaView textArea() {
+        return new TextAreaView();
+    }
 
 }

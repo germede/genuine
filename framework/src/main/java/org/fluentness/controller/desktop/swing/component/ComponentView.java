@@ -11,6 +11,9 @@ import java.util.Set;
 public interface ComponentView<Self extends ComponentView, J extends JComponent> extends SwingView<J> {
 
     @Override
+    J getView();
+
+    @Override
     default void render() {
         getView().setVisible(true);
     }

@@ -6,7 +6,10 @@ import javax.swing.*;
 import javax.swing.plaf.ButtonUI;
 import java.awt.*;
 
-public interface AbstractButtonView<Self extends AbstractButtonView, A extends AbstractButton> extends ComponentView<Self, A> {
+public interface AbstractButtonView<Self extends AbstractButtonView, B extends AbstractButton> extends ComponentView<Self, B> {
+
+    @Override
+    B getView();
 
     default Self action(Action a) {
         getView().setAction(a);

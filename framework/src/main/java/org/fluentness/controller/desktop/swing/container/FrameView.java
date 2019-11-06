@@ -7,11 +7,11 @@ import java.awt.*;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class JFrameView implements SwingView<JFrame> {
+public class FrameView implements SwingView<JFrame> {
 
     JFrame jFrame = new JFrame();
 
-    public JFrameView(SwingView swingView) {
+    public FrameView(SwingView swingView) {
         jFrame.setContentPane(swingView.getView());
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jFrame.pack();
@@ -22,17 +22,17 @@ public class JFrameView implements SwingView<JFrame> {
         return jFrame;
     }
 
-    public JFrameView title(String title) {
+    public FrameView title(String title) {
         jFrame.setTitle(title);
         return this;
     }
 
-    public JFrameView bounds(int x, int y, int width, int height) {
+    public FrameView bounds(int x, int y, int width, int height) {
         jFrame.setBounds(x, y, width, height);
         return this;
     }
 
-    public JFrameView center() {
+    public FrameView center() {
 //        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 //        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
 //        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
@@ -41,12 +41,12 @@ public class JFrameView implements SwingView<JFrame> {
         return this;
     }
 
-    public JFrameView minimumSize(int x, int y) {
+    public FrameView minimumSize(int x, int y) {
         jFrame.setMinimumSize(new Dimension(x,y));
         return this;
     }
 
-    public JFrameView preferredSize(int x, int y) {
+    public FrameView preferredSize(int x, int y) {
         jFrame.setPreferredSize(new Dimension(x,y));
         return this;
     }
