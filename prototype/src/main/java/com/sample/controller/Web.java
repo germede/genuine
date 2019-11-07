@@ -3,18 +3,19 @@ package com.sample.controller;
 import com.sample.repository.Book;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.html.HtmlView;
-import org.fluentness.service.translator.TranslatorService;
+import org.fluentness.service.translation.TranslationService;
 
 import java.util.List;
 
+import static com.sample.service.TranslationService.*;
 import static org.fluentness.controller.web.WebViewFactory.*;
 
 class Web {
 
     private WebController webController;
-    private TranslatorService i18n;
+    private TranslationService i18n;
 
-    Web(WebController webController, TranslatorService i18n) {
+    Web(WebController webController, TranslationService i18n) {
         this.webController = webController;
         this.i18n = i18n;
     }
@@ -22,20 +23,20 @@ class Web {
     WebView listBooks(List<Book> books) {
         return base(
             div(
-                div(h2(i18n.translate("welcome_message", "Person"))).class_("column column-50"),
-                action(webController::asdf, i18n.translate("book_create")).class_("button")
+                div(h2(i18n.translate(welcome_message, "Person"))).class_("column column-50"),
+                action(webController::asdf, i18n.translate(book_create)).class_("button")
             ).class_("row"),
             div(
                 table(
                     thead(
                         tr(
-                            th(i18n.translate("book_title")),
-                            th(i18n.translate("book_author")),
-                            th(i18n.translate("book_genre")),
-                            th(i18n.translate("book_year")),
-                            th(i18n.translate("book_is_new")),
-                            th(i18n.translate("book_update")),
-                            th(i18n.translate("book_delete"))
+                            th(i18n.translate(book_title)),
+                            th(i18n.translate(book_author)),
+                            th(i18n.translate(book_genre)),
+                            th(i18n.translate(book_year)),
+                            th(i18n.translate(book_is_new)),
+                            th(i18n.translate(book_update)),
+                            th(i18n.translate(book_delete))
                         )
                     ),
                     tbody(

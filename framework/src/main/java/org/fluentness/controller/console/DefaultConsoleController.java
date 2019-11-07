@@ -2,8 +2,7 @@ package org.fluentness.controller.console;
 
 import org.fluentness.Fluentness;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.service.dependency.DependencyService;
+import org.fluentness.service.injection.InjectionService;
 import org.fluentness.service.logger.LoggerService;
 import org.fluentness.service.server.ServerService;
 
@@ -16,12 +15,12 @@ import static org.fluentness.service.logger.AnsiColor.*;
 public class DefaultConsoleController extends AbstractConsoleController {
 
 
-    private DependencyService dependency;
+    private InjectionService injection;
     private ServerService server;
     private LoggerService logger;
 
-    public DefaultConsoleController(DependencyService dependency, ServerService server, LoggerService logger) {
-        this.dependency = dependency;
+    public DefaultConsoleController(InjectionService injection, ServerService server, LoggerService logger) {
+        this.injection = injection;
         this.server = server;
         this.logger = logger;
     }
@@ -41,7 +40,7 @@ public class DefaultConsoleController extends AbstractConsoleController {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         List<Controller.Action> actions = new LinkedList<>();
-        dependency.getInstances(AbstractConsoleController.class)
+        injection.getInstances(AbstractConsoleController.class)
             .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
 
         // categorize console actions
@@ -91,19 +90,6 @@ public class DefaultConsoleController extends AbstractConsoleController {
     @Action(description = "Clears the logger files", category = "clear")
     public void clear_logs() {
 //        deleteRecursively(PrivateDirectories.LOG);
-    }
-
-    @Action(description = "Starts desktop application", category = "desktop")
-    public void desktop() {
-        dependency.getInstances(AbstractDesktopController.class).forEach(controller -> {
-            controller.setLookAndFeel();
-            controller.getDesktopView().render();
-        });
-    }
-
-    @Action(description = "Starts embedded HTTP web server", category = "web")
-    public void web() throws Exception {
-        server.start();
     }
 
     private void deleteRecursively(String path) {

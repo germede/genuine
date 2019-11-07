@@ -39,14 +39,14 @@ public abstract class AbstractWebController implements Controller<WebAction> {
         HttpMethod method() default HttpMethod.GET;
     }
 
-    public class Request extends HttpServletRequestWrapper {
+    public static class Request extends HttpServletRequestWrapper {
         public Request(HttpServletRequest request) {
             super(request);
         }
     }
 
     @FunctionalInterface
-    protected interface Response {
+    public interface Response {
         void response(HttpServletResponse response);
     }
 

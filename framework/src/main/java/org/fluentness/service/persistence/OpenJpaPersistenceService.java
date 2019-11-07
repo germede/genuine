@@ -11,6 +11,8 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.fluentness.service.configuration.ConfigurationService.persistence_unit;
+
 public class OpenJpaPersistenceService implements PersistenceService {
 
     private LoggerService logger;
@@ -18,7 +20,7 @@ public class OpenJpaPersistenceService implements PersistenceService {
 
     public OpenJpaPersistenceService(ConfigurationService configuration, LoggerService logger) {
         this.logger = logger;
-        if (configuration.has("persistence_unit")) {
+        if (configuration.has(persistence_unit)) {
             Map<String, Object> properties = new HashMap<>();
             // redirect OpenJPA log to Fluentness log
             properties.put("openjpa.Log", (LogFactory) channel -> new AbstractLog() {
@@ -44,7 +46,7 @@ public class OpenJpaPersistenceService implements PersistenceService {
                 }
             });
             this.entityManager = javax.persistence.Persistence
-                .createEntityManagerFactory(configuration.get("persistence_unit"), properties)
+                .createEntityManagerFactory(configuration.get(persistence_unit), properties)
                 .createEntityManager();
         }
 

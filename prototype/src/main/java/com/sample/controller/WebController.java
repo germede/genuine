@@ -3,19 +3,18 @@ package com.sample.controller;
 import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
-import org.fluentness.service.translator.TranslatorService;
+import org.fluentness.service.translation.TranslationService;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 
 public class WebController extends AbstractWebController {
 
     private BookRepository bookRepository;
-    private TranslatorService translatorService;
+    private TranslationService translatorService;
 
     private Web web;
 
-    public WebController(BookRepository bookRepository, TranslatorService translatorService) {
+    public WebController(BookRepository bookRepository, TranslationService translatorService) {
         this.bookRepository = bookRepository;
         this.translatorService = translatorService;
 

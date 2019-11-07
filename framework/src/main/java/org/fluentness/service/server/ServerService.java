@@ -4,7 +4,7 @@ import org.fluentness.service.Service;
 
 public interface ServerService extends Service {
 
-    void start() throws Exception;
+    void start() throws ServerException;
 
     void stop();
 }

@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
+import static org.fluentness.service.configuration.ConfigurationService.server_context;
+import static org.fluentness.service.configuration.ConfigurationService.server_port;
+
 public class TomcatServerService implements ServerService {
 
     private ConfigurationService configuration;
@@ -28,16 +31,16 @@ public class TomcatServerService implements ServerService {
     private Tomcat server;
 
     @Override
-    public void start() throws LifecycleException {
-        String context = configuration.has("server_context") ? configuration.get("server_context") : "";
-        int port = configuration.has("server_port") ? Integer.parseInt(configuration.get("server_port")) : 8000;
+    public void start() throws ServerException {
+        String context = configuration.has(server_context) ? configuration.get(server_context) : "";
+        int port = configuration.has(server_port) ? configuration.get(server_port) : 8000;
 
         // init server
         server = new Tomcat();
         server.setPort(port);
         server.getHost().setAppBase(".");
         Context ctx = server.addContext(context, new File(".").getAbsolutePath());
-        Tomcat.addServlet(ctx, "Fluentness", new DispatcherServlet(logger,routerService));
+        Tomcat.addServlet(ctx, "Fluentness", new DispatcherServlet(logger, routerService));
         ctx.addServletMappingDecoded("/*", "Fluentness");
 
         // redirect logging to own logger
@@ -61,9 +64,13 @@ public class TomcatServerService implements ServerService {
         });
 
         // start server
-        server.start();
-        logger.info("Tomcat Server is listening, visit http://%s:%s/", server.getServer().getAddress(), port);
-        new Thread(() -> server.getServer().await()).start();
+        try {
+            server.start();
+            logger.info("Tomcat Server is listening, visit http://%s:%s/", server.getServer().getAddress(), port);
+            new Thread(() -> server.getServer().await()).start();
+        } catch (LifecycleException e) {
+            throw new ServerException(e);
+        }
     }
 
     @Override

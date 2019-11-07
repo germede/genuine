@@ -6,15 +6,20 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+
+import static org.fluentness.service.configuration.ConfigurationService.*;
 
 public class JulLoggerService implements LoggerService {
+
     private java.util.logging.Logger logger;
 
     public JulLoggerService(ConfigurationService configuration) throws Exception {
         // retrieve log level
-        Level logLevel = configuration.has("logger_level") ?
-            LogLevel.valueOf(configuration.get("logger_level")).toJulLevel() :
+        Level logLevel = configuration.has(logger_level) ?
+            configuration.get(logger_level).toJulLevel() :
             Level.ALL;
 
         // init jul logger
@@ -24,8 +29,7 @@ public class JulLoggerService implements LoggerService {
         logger.setLevel(logLevel);
 
         // console logging
-        if (configuration.is("logger_console")) {
-
+        if (configuration.has(logger_console) && configuration.get(logger_console)) {
             ConsoleHandler consoleHandler = new ConsoleHandler();
             consoleHandler.setFormatter(new JulFormatter());
             consoleHandler.setLevel(logLevel);
@@ -33,9 +37,9 @@ public class JulLoggerService implements LoggerService {
         }
 
         // file logging
-        if (configuration.has("logger_file")) {
-            new File(configuration.get("log_to_file")).mkdirs();
-            String logFilePath = configuration.get("log_to_file") + "/" +
+        if (configuration.has(logger_file)) {
+            new File(configuration.get(logger_file)).mkdirs();
+            String logFilePath = configuration.get(logger_file) + "/" +
                 new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
             File file = new File(logFilePath);
             FileHandler fileHandler;

@@ -11,7 +11,7 @@
     <modules>
         <module>archetype</module>
         <module>framework</module>
-        <module>sampleapp</module>
+        <module>prototype</module>
     </modules>
 
     <packaging>pom</packaging>

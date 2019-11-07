@@ -1,7 +1,6 @@
 package org.fluentness.service.server;
 
 import org.fluentness.service.configuration.ConfigurationService;
-import org.fluentness.service.dependency.DependencyService;
 import org.fluentness.service.logger.LoggerService;
 import org.fluentness.service.router.RouterService;
 import org.junit.Assert;
@@ -11,6 +10,8 @@ import org.mockito.Mockito;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static org.fluentness.service.configuration.ConfigurationService.server_port;
 
 public class TomcatServerTest {
 
@@ -49,8 +50,8 @@ public class TomcatServerTest {
 
     @Test(timeout = 3000, expected = NumberFormatException.class)
     public void start_invalidPortIsSet_lifecycleExceptionIsThrown() throws Exception {
-        Mockito.when(configuration.has("server_port")).thenReturn(true);
-        Mockito.when(configuration.get("server_port")).thenReturn("notAnInteger");
+        Mockito.when(configuration.has(server_port)).thenReturn(true);
+        Mockito.when(configuration.get(server_port)).thenReturn(-10);
 
         server = new TomcatServerService(configuration, logger, router);
         server.start();
