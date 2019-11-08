@@ -1,10 +1,7 @@
 package org.fluentness.controller.desktop;
 
 import org.fluentness.controller.desktop.swing.SwingView;
-import org.fluentness.controller.desktop.swing.component.AbstractComponentView;
-import org.fluentness.controller.desktop.swing.component.LabelView;
-import org.fluentness.controller.desktop.swing.component.MenuBarView;
-import org.fluentness.controller.desktop.swing.component.PanelView;
+import org.fluentness.controller.desktop.swing.component.*;
 import org.fluentness.controller.desktop.swing.component.button.AbstractButtonView;
 import org.fluentness.controller.desktop.swing.component.button.ButtonGroupView;
 import org.fluentness.controller.desktop.swing.component.button.ButtonView;
@@ -35,6 +32,11 @@ public final class DesktopViewFactory {
     public static MenuBarView menuBar(MenuView... menus) {
         return new MenuBarView(menus);
     }
+
+    public static ColorChooserView colorChooser() {
+        return new ColorChooserView();
+    }
+
 
 
     //==== button

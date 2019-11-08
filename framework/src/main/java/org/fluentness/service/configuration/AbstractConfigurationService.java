@@ -1,5 +1,8 @@
 package org.fluentness.service.configuration;
 
+import org.fluentness.Application;
+import org.fluentness.Fluentness;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +11,7 @@ public abstract class AbstractConfigurationService implements ConfigurationServi
     private final Map<Key, Object> settings = new HashMap<>();
 
     public AbstractConfigurationService() {
-        configure(getEnvironment());
+        configure(Fluentness.getApplication().getEnvironment());
     }
 
     @Override
@@ -25,5 +28,5 @@ public abstract class AbstractConfigurationService implements ConfigurationServi
         settings.put(key, value);
     }
 
-    protected abstract void configure(Environment environment);
+    protected abstract void configure(Application.Environment environment);
 }

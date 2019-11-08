@@ -38,6 +38,7 @@ public class Desktop {
                 radioButton("No"),
                 radioButton("Maybe")
             ),
+            colorChooser().color(200,200,200),
             textArea().rows(5).columns(10).text("Lorem ipsum").caretColor(new Color(0, 255, 255)),
             label("Test label")
                 .toolTipText("Creates a new book"),

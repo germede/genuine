@@ -3,7 +3,7 @@ package org.fluentness.controller.desktop.swing.component.button.menu;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuView implements AbstractMenuItemView<MenuView, JMenu> {
+public class MenuView extends AbstractMenuItemView<MenuView, JMenu> {
 
     private JMenu jMenu = new JMenu();
 

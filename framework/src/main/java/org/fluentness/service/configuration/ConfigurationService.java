@@ -9,6 +9,7 @@ public interface ConfigurationService extends Service {
     Key<Boolean> logger_console = new Key<>();
     Key<String> logger_file = new Key<>();
     Key<String> persistence_unit = new Key<>();
+    Key<String> router_encoding = new Key<>();
     Key<String> server_context = new Key<>();
     Key<Integer> server_port = new Key<>();
 
@@ -16,12 +17,4 @@ public interface ConfigurationService extends Service {
     <T> T get(Key<T> key);
 
     boolean has(Key key);
-
-    default Environment getEnvironment() {
-        String environment = System.getProperty("environment");
-        return environment == null || environment.isEmpty() ?
-            Environment.DEV :
-            Environment.valueOf(environment.toUpperCase());
-
-    }
 }

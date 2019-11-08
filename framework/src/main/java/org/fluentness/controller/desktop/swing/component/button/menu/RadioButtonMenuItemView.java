@@ -2,7 +2,7 @@ package org.fluentness.controller.desktop.swing.component.button.menu;
 
 import javax.swing.*;
 
-public class RadioButtonMenuItemView implements AbstractMenuItemView<RadioButtonMenuItemView, JRadioButtonMenuItem> {
+public class RadioButtonMenuItemView extends AbstractMenuItemView<RadioButtonMenuItemView, JRadioButtonMenuItem> {
 
     JRadioButtonMenuItem jRadioButtonMenuItem = new JRadioButtonMenuItem();
 

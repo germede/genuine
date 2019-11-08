@@ -14,7 +14,8 @@ public class Translation {
     }
 
     String get(Locale locale) {
-        return map.getOrDefault(locale.getDisplayLanguage(), defaultTranslation);
+        String displayLanguage = locale.getLanguage();
+        return map.getOrDefault(displayLanguage, defaultTranslation);
     }
 
     public Translation af(String translation) {

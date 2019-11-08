@@ -3,7 +3,7 @@ package org.fluentness.controller.desktop.swing.component.text;
 import javax.swing.*;
 import java.awt.*;
 
-public class TextAreaView implements AbstractTextView<TextAreaView,JTextArea> {
+public class TextAreaView extends AbstractTextView<TextAreaView,JTextArea> {
 
     JTextArea jTextArea = new JTextArea();
 
