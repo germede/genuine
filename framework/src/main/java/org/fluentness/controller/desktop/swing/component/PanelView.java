@@ -3,12 +3,12 @@ package org.fluentness.controller.desktop.swing.component;
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelView implements ComponentView<PanelView, JPanel> {
+public class PanelView extends AbstractComponentView<PanelView, JPanel> {
 
     protected JPanel jPanel = new JPanel();
 
-    public PanelView(ComponentView... JComponentBuilders) {
-        for (ComponentView component : JComponentBuilders) {
+    public PanelView(AbstractComponentView... JComponentBuilders) {
+        for (AbstractComponentView component : JComponentBuilders) {
             jPanel.add(component.getView());
         }
     }

@@ -37,7 +37,7 @@ public class Desktop {
             buttonGroup(
                 radioButton("No"),
                 radioButton("Maybe")
-            ).boxLayout(BoxLayout.X_AXIS),
+            ),
             textArea().rows(5).columns(10).text("Lorem ipsum").caretColor(new Color(0, 255, 255)),
             label("Test label")
                 .toolTipText("Creates a new book"),

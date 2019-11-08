@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.plaf.LabelUI;
 import java.awt.*;
 
-public class LabelView implements ComponentView<LabelView, JLabel> {
+public class LabelView extends AbstractComponentView<LabelView, JLabel> {
 
     private JLabel jLabel = new JLabel();
 

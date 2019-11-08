@@ -5,32 +5,32 @@ import org.fluentness.controller.desktop.swing.component.button.AbstractButtonVi
 import javax.swing.*;
 import javax.swing.plaf.MenuItemUI;
 
-public interface AbstractMenuItemView<Self extends AbstractMenuItemView, M extends JMenuItem> extends AbstractButtonView<Self, M> {
+public abstract class AbstractMenuItemView<Self extends AbstractMenuItemView, T extends JMenuItem> extends AbstractButtonView<Self, T> {
 
     @Override
-    M getView();
+    public abstract T getView();
 
-    default Self accelerator(KeyStroke keyStroke) {
+    public Self accelerator(KeyStroke keyStroke) {
         getView().setAccelerator(keyStroke);
         return (Self) this;
     }
 
-    default Self armed(boolean b) {
+    public Self armed(boolean b) {
         getView().setArmed(b);
         return (Self) this;
     }
 
-    default Self enabled(boolean b) {
+    public Self enabled(boolean b) {
         getView().setEnabled(b);
         return (Self) this;
     }
 
-    default Self model(ButtonModel newModel) {
+    public Self model(ButtonModel newModel) {
         getView().setModel(newModel);
         return (Self) this;
     }
 
-    default Self uI(MenuItemUI ui) {
+    public Self uI(MenuItemUI ui) {
         getView().setUI(ui);
         return (Self) this;
     }

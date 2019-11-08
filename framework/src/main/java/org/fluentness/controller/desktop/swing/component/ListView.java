@@ -5,7 +5,7 @@ import javax.swing.plaf.ListUI;
 import java.awt.*;
 import java.util.Vector;
 
-public class ListView<E> implements ComponentView<ListView, JList> {
+public class ListView<E> extends AbstractComponentView<ListView, JList> {
 
     private JList<E> jList = new JList<>();
 

@@ -5,7 +5,7 @@ import org.fluentness.controller.desktop.swing.component.button.menu.MenuView;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuBarView implements ComponentView<MenuBarView, JMenuBar> {
+public class MenuBarView extends AbstractComponentView<MenuBarView, JMenuBar> {
 
     private JMenuBar jMenuBar = new JMenuBar();
 

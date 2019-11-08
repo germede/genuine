@@ -6,4 +6,9 @@ import java.awt.*;
 
 public interface SwingView<View extends Container> extends DesktopView {
     View getView();
+
+    @Override
+    default void render() {
+        getView().setVisible(true);
+    }
 }

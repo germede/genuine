@@ -1,10 +1,8 @@
 package org.fluentness.controller.desktop.swing.component.button.toggle;
 
-import org.fluentness.controller.desktop.swing.component.button.AbstractButtonView;
-
 import javax.swing.*;
 
-public class CheckBoxView implements AbstractButtonView<CheckBoxView, JCheckBox> {
+public class CheckBoxView extends AbstractToggleButtonView<CheckBoxView, JCheckBox> {
 
     JCheckBox jCheckBox = new JCheckBox();
 

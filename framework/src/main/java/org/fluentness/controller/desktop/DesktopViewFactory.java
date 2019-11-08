@@ -1,7 +1,7 @@
 package org.fluentness.controller.desktop;
 
 import org.fluentness.controller.desktop.swing.SwingView;
-import org.fluentness.controller.desktop.swing.component.ComponentView;
+import org.fluentness.controller.desktop.swing.component.AbstractComponentView;
 import org.fluentness.controller.desktop.swing.component.LabelView;
 import org.fluentness.controller.desktop.swing.component.MenuBarView;
 import org.fluentness.controller.desktop.swing.component.PanelView;
@@ -24,7 +24,7 @@ public final class DesktopViewFactory {
 
 
     //==== component
-    public static PanelView panel(ComponentView... JComponentBuilders) {
+    public static PanelView panel(AbstractComponentView... JComponentBuilders) {
         return new PanelView(JComponentBuilders);
     }
 
