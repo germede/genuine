@@ -2,6 +2,7 @@ package org.fluentness.controller.desktop.swing;
 
 import org.fluentness.controller.desktop.DesktopView;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.dnd.DropTarget;
 import java.awt.event.*;
@@ -17,6 +18,33 @@ public abstract class AbstractSwingView<Self extends AbstractSwingView, View ext
     public void render() {
         getSwingView().setVisible(true);
     }
+
+    // ==== instead of layout()
+    public Self borderLayout(String... arrangements) {
+        getSwingView().setLayout(new BorderLayout());
+        Component[] components = getSwingView().getComponents();
+        getSwingView().removeAll();
+        for (int i = 0; i < components.length && i < arrangements.length; i++) {
+            getSwingView().add(components[i], arrangements[i]);
+        }
+        return (Self) this;
+    }
+
+    public Self boxLayout(int align) {
+        getSwingView().setLayout(new BoxLayout(getSwingView(), align));
+        Component[] components = getSwingView().getComponents();
+        getSwingView().removeAll();
+        for (Component component : components) {
+            getSwingView().add(component, Component.CENTER_ALIGNMENT);
+        }
+        return (Self) this;
+    }
+
+    public Self flowLayout() {
+        getSwingView().setLayout(new FlowLayout());
+        return (Self) this;
+    }
+
 
     // ==== from java.awt.Component
     public Self componentListener(ComponentListener l) {
@@ -134,13 +162,13 @@ public abstract class AbstractSwingView<Self extends AbstractSwingView, View ext
         return (Self) this;
     }
 
-    public Self maximumSize(Dimension maximumSize) {
-        getSwingView().setMaximumSize(maximumSize);
+    public Self maximumSize(int x, int y) {
+        getSwingView().setMaximumSize(new Dimension(x, y));
         return (Self) this;
     }
 
-    public Self minimumSize(Dimension minimumSize) {
-        getSwingView().setMinimumSize(minimumSize);
+    public Self minimumSize(int x, int y) {
+        getSwingView().setMinimumSize(new Dimension(x, y));
         return (Self) this;
     }
 
@@ -150,8 +178,8 @@ public abstract class AbstractSwingView<Self extends AbstractSwingView, View ext
         return (Self) this;
     }
 
-    public Self preferredSize(Dimension preferredSize) {
-        getSwingView().setPreferredSize(preferredSize);
+    public Self preferredSize(int x, int y) {
+        getSwingView().setPreferredSize(new Dimension(x, y));
         return (Self) this;
     }
 

@@ -1,8 +1,10 @@
 package org.fluentness.controller.desktop;
 
 import org.fluentness.controller.Controller;
+import org.fluentness.controller.desktop.swing.SwingViewRegistry;
 
 import javax.swing.*;
+import java.awt.*;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -44,6 +46,10 @@ public abstract class AbstractDesktopController implements Controller<DesktopAct
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+    }
+
+    protected <View extends Container> View getViewByName(Class<View> viewClass, String name) {
+        return SwingViewRegistry.getByName(viewClass, name);
     }
 
     public abstract DesktopView getDesktopView();

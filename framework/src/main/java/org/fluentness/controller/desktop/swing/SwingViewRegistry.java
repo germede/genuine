@@ -7,7 +7,7 @@ import java.util.Map;
 public final class SwingViewRegistry {
     private static Map<String, Container> register = new HashMap<>();
 
-    public static <View extends Container> View get(Class<View> viewClass, String name) {
+    public static <View extends Container> View getByName(Class<View> viewClass, String name) {
         return (View) register.get(name);
     }
 
