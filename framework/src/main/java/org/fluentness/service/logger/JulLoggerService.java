@@ -14,7 +14,7 @@ import static org.fluentness.service.configuration.ConfigurationService.*;
 
 public class JulLoggerService implements LoggerService {
 
-    private java.util.logging.Logger logger;
+    protected final java.util.logging.Logger logger;
 
     public JulLoggerService(ConfigurationService configuration) throws Exception {
         // retrieve log level

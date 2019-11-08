@@ -10,6 +10,10 @@ import java.util.List;
 
 public interface Application {
 
+    default String getName() {
+        return this.getClass().getSimpleName().replace("Application","");
+    }
+
     default List<Class<? extends Controller>> getControllers(LoaderService loader) throws LoaderException {
         return loader.load(this.getClass().getPackage().getName() + ".controller", Controller.class);
     }

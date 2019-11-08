@@ -40,7 +40,6 @@ public class DesktopController extends AbstractDesktopController {
                     label("Test label")
                         .toolTipText("Creates a new book"),
                     button("Test button").maximumSize(20, 20)
-                    //.actionLi(desktopController::showInfoMessage)
                 ).flowLayout()
             ).borderLayout(BorderLayout.NORTH, BorderLayout.SOUTH)
         ).title("Fluentness rocks").bounds(0, 0, 800, 600).center().minimumSize(300, 300).menuBar(topBar());

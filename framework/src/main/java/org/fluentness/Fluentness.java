@@ -7,6 +7,7 @@ import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
+import org.fluentness.service.authentication.BasicAuthenticationService;
 import org.fluentness.service.configuration.DefaultConfigurationService;
 import org.fluentness.service.injection.DefaultInjectionService;
 import org.fluentness.service.injection.InjectionService;
@@ -59,6 +60,7 @@ public final class Fluentness {
         List<Class<? extends Service>> services = application.getServices(loaderService);
         services.add(DefaultLoaderService.class);
         services.add(DefaultConfigurationService.class);
+        services.add(BasicAuthenticationService.class);
         services.add(JulLoggerService.class);
         services.add(OpenJpaPersistenceService.class);
         services.add(DefaultRouterService.class);

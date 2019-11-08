@@ -3,13 +3,11 @@ package org.fluentness.service.router;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebAction;
 import org.fluentness.controller.web.WebView;
+import org.fluentness.service.authentication.AuthenticationService;
 import org.fluentness.service.configuration.ConfigurationService;
 import org.fluentness.service.injection.InjectionService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +16,14 @@ import static org.fluentness.service.configuration.ConfigurationService.router_e
 
 public class DefaultRouterService implements RouterService {
 
-    private InjectionService injectionService;
-    private ConfigurationService configurationService;
+    private final InjectionService injectionService;
+    private final ConfigurationService configurationService;
+    private final AuthenticationService authenticationService;
 
-    public DefaultRouterService(InjectionService injectionService, ConfigurationService configurationService) {
+    public DefaultRouterService(InjectionService injectionService, ConfigurationService configurationService, AuthenticationService authenticationService) {
         this.injectionService = injectionService;
         this.configurationService = configurationService;
+        this.authenticationService = authenticationService;
     }
 
     private Map<String, HttpHandler> routingMap;
@@ -44,60 +44,38 @@ public class DefaultRouterService implements RouterService {
     }
 
     private HttpHandler getHttpHandlerForAction(AbstractWebController controller, WebAction action) {
-        Method method = action.getMethod();
+        final Method method = action.getMethod();
         method.setAccessible(true);
-        Class<?> returnType = method.getReturnType();
-        if (returnType.equals(String.class)) {
-            return (request, response) -> {
-                prepareResponse(response);
-                response.getWriter().write(
-                    (String) method.invoke(controller, mapParameters(method, request))
-                );
-            };
-        } else if (returnType.equals(Integer.class) || returnType.equals(Integer.TYPE)) {
-            return (request, response) -> {
-                prepareResponse(response);
-                response.setStatus(
-                    (Integer) method.invoke(controller, mapParameters(method, request))
-                );
-            };
-
-        } else if (returnType.equals(HttpStatusCode.class)) {
-            return (request, response) -> {
-                prepareResponse(response);
-                response.setStatus(
-                    ((HttpStatusCode) method.invoke(controller, mapParameters(method, request))).toInt()
-                );
-            };
-        } else if (returnType.equals(WebView.class)) {
-            return (request, response) -> {
-                prepareResponse(response);
-                response.getWriter().write(
-                    ((WebView) method.invoke(controller, mapParameters(method, request))).render()
-                );
-            };
-        } else if (returnType.equals(AbstractWebController.Response.class)) {
-            return (request, response) -> {
-                prepareResponse(response);
-                ((AbstractWebController.Response) method.invoke(controller, mapParameters(method, request))).response(response);
-            };
-        }
         return (request, response) -> {
-            prepareResponse(response);
-            method.invoke(controller, mapParameters(method, request));
+            if (!request.getMethod().equals(action.getHttpMethod().toString())) {
+                response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.toInt());
+            } else if (authenticationService.authenticate(request, response)) {
+                response.setCharacterEncoding(
+                    configurationService.has(router_encoding) ? configurationService.get(router_encoding) : "UTF-8"
+                );
+
+                boolean hasRequestParameter = (action.getMethod().getParameters().length > 0 &&
+                    action.getMethod().getParameters()[0].getType().equals(AbstractWebController.Request.class)
+                );
+                Object returnValue = method.invoke(controller, hasRequestParameter ?
+                    new Object[]{new AbstractWebController.Request(request)} :
+                    null
+                );
+
+                if (returnValue instanceof String) {
+                    response.getWriter().write((String) returnValue);
+                } else if (returnValue instanceof Integer) {
+                    response.setStatus((Integer) returnValue);
+                } else if (returnValue instanceof HttpStatusCode) {
+                    response.setStatus(((HttpStatusCode) returnValue).toInt());
+                } else if (returnValue instanceof WebView) {
+                    response.getWriter().write(((WebView) returnValue).render());
+                } else if (returnValue instanceof AbstractWebController.Response) {
+                    ((AbstractWebController.Response) returnValue).response(response);
+                }
+            }
         };
     }
 
-    private void prepareResponse(HttpServletResponse response) {
-        response.setCharacterEncoding(configurationService.has(router_encoding) ? configurationService.get(router_encoding) : "UTF-8");
-    }
 
-    private Object[] mapParameters(Method function, HttpServletRequest request) {
-        Parameter[] actionParameters = function.getParameters();
-        Object[] result = new Object[actionParameters.length];
-        if (actionParameters.length > 0 && actionParameters[0].getType().equals(AbstractWebController.Request.class)) {
-            result[0] = new AbstractWebController.Request(request);
-        }
-        return result;
-    }
 }

@@ -27,7 +27,7 @@ public class WebController extends AbstractWebController {
         return listBooks(request);
     }
 
-    @Action(path = "/listBooks")
+    @Action(path = "/listBooks", authentication = true)
     public WebView listBooks(Request request) {
         return base(
             div(

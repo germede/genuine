@@ -9,12 +9,14 @@ public class WebAction implements Controller.Action {
 
     private String path;
     private HttpMethod httpMethod;
-    private Method function;
+    private boolean authentication;
+    private Method method;
 
-    WebAction(String path, HttpMethod httpMethod, Method function) {
+    WebAction(String path, HttpMethod httpMethod, boolean authentication, Method method) {
         this.path = path;
         this.httpMethod = httpMethod;
-        this.function = function;
+        this.authentication = authentication;
+        this.method = method;
     }
 
     public String getPath() {
@@ -25,8 +27,12 @@ public class WebAction implements Controller.Action {
         return httpMethod;
     }
 
+    public boolean isAuthentication() {
+        return authentication;
+    }
+
     @Override
     public Method getMethod() {
-        return function;
+        return method;
     }
 }

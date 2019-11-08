@@ -18,29 +18,24 @@ import static org.fluentness.service.configuration.ConfigurationService.server_p
 
 public class TomcatServerService implements ServerService {
 
-    private ConfigurationService configuration;
-    private LoggerService logger;
-    private RouterService routerService;
+    private final ConfigurationService configurationService;
+    private final LoggerService loggerService;
+    private final RouterService routerService;
 
-    public TomcatServerService(ConfigurationService configuration, LoggerService logger, RouterService routerService) {
-        this.configuration = configuration;
-        this.logger = logger;
+    public TomcatServerService(ConfigurationService configurationService, LoggerService loggerService, RouterService routerService) {
+        this.configurationService = configurationService;
+        this.loggerService = loggerService;
         this.routerService = routerService;
-    }
 
-    private Tomcat server;
-
-    @Override
-    public void start() throws ServerException {
-        String context = configuration.has(server_context) ? configuration.get(server_context) : "";
-        int port = configuration.has(server_port) ? configuration.get(server_port) : 8000;
+        String context = configurationService.has(server_context) ? configurationService.get(server_context) : "";
+        int port = configurationService.has(server_port) ? configurationService.get(server_port) : 8000;
 
         // init server
         server = new Tomcat();
         server.setPort(port);
         server.getHost().setAppBase(".");
         Context ctx = server.addContext(context, new File(".").getAbsolutePath());
-        Tomcat.addServlet(ctx, "Fluentness", new DispatcherServlet(logger, routerService));
+        Tomcat.addServlet(ctx, "Fluentness", new DispatcherServlet(loggerService, routerService));
         ctx.addServletMappingDecoded("/*", "Fluentness");
 
         // redirect logging to own logger
@@ -49,7 +44,7 @@ public class TomcatServerService implements ServerService {
         tomcatLogger.addHandler(new Handler() {
             @Override
             public void publish(LogRecord logRecord) {
-                logger.log(LogLevel.fromJulLevel(logRecord.getLevel()), logRecord.getMessage());
+                loggerService.log(LogLevel.fromJulLevel(logRecord.getLevel()), logRecord.getMessage());
             }
 
             @Override
@@ -62,11 +57,15 @@ public class TomcatServerService implements ServerService {
 
             }
         });
+    }
 
-        // start server
+    protected Tomcat server;
+
+    @Override
+    public void start() throws ServerException {
         try {
             server.start();
-            logger.info("Tomcat Server is listening, visit http://%s:%s/", server.getServer().getAddress(), port);
+            loggerService.info("Tomcat Server is listening, visit http://%s:%s/", server.getServer().getAddress(), server.getServer().getPort());
             new Thread(() -> server.getServer().await()).start();
         } catch (LifecycleException e) {
             throw new ServerException(e);
@@ -79,10 +78,10 @@ public class TomcatServerService implements ServerService {
             try {
                 server.stop();
             } catch (LifecycleException e) {
-                logger.error(e);
+                loggerService.error(e);
             }
         } else {
-            logger.info("Server was stopped without being started");
+            loggerService.info("Server was stopped without being started");
         }
     }
 }

@@ -25,6 +25,7 @@ public abstract class AbstractWebController implements Controller<WebAction> {
                 new WebAction(
                     method.getAnnotation(Action.class).path(),
                     method.getAnnotation(Action.class).method(),
+                    method.getAnnotation(Action.class).authentication(),
                     method
                 ))
             );
@@ -37,6 +38,8 @@ public abstract class AbstractWebController implements Controller<WebAction> {
         String path();
 
         HttpMethod method() default HttpMethod.GET;
+
+        boolean authentication() default false;
     }
 
     public static class Request extends HttpServletRequestWrapper {

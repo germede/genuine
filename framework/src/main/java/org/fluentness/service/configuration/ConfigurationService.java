@@ -5,6 +5,8 @@ import org.fluentness.service.logger.LogLevel;
 
 public interface ConfigurationService extends Service {
 
+    Key<String> authentication_username = new Key<>();
+    Key<String> authentication_password = new Key<>();
     Key<LogLevel> logger_level = new Key<>();
     Key<Boolean> logger_console = new Key<>();
     Key<String> logger_file = new Key<>();

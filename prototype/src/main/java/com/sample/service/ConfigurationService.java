@@ -13,6 +13,8 @@ public class ConfigurationService extends AbstractConfigurationService {
             set(logger_level, LogLevel.DEBUG);
             set(logger_console, true);
             set(persistence_unit, "bookLibraryPU");
+            set(authentication_username, "admin");
+            set(authentication_password, "admin");
         }
 
         if (environment.equals(Application.Environment.PROD)) {
