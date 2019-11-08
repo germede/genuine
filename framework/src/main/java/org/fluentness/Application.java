@@ -10,20 +10,6 @@ import java.util.List;
 
 public interface Application {
 
-    enum Platform {
-        CONSOLE,
-        DESKTOP,
-        MOBILE,
-        WEB,
-    }
-
-    enum Environment {
-        DEV,
-        TEST,
-        STAGE,
-        PROD,
-    }
-
     default List<Class<? extends Controller>> getControllers(LoaderService loader) throws LoaderException {
         return loader.load(this.getClass().getPackage().getName() + ".controller", Controller.class);
     }
@@ -36,7 +22,19 @@ public interface Application {
         return loader.load(this.getClass().getPackage().getName() + ".service", Service.class);
     }
 
+    enum Platform {
+        CONSOLE,
+        DESKTOP,
+        WEB,
+    }
+
     Platform getPlatform();
+
+    enum Environment {
+        DEV,
+        TEST,
+        PROD,
+    }
 
     Environment getEnvironment();
 }

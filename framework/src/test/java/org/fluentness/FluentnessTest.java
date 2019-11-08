@@ -22,6 +22,15 @@ public class FluentnessTest {
     @Before
     public void setUp() {
         application = new Application() {
+            @Override
+            public Platform getPlatform() {
+                return null;
+            }
+
+            @Override
+            public Environment getEnvironment() {
+                return null;
+            }
         };
 
         dummyConsoleController = spy(new DummyConsoleController());
