@@ -26,7 +26,7 @@ public class DesktopController extends AbstractDesktopController {
     }
 
     @Override
-    public DesktopView getDesktopView() {
+    public DesktopView getMainView() {
         return frame(
             panel(
                 panel(

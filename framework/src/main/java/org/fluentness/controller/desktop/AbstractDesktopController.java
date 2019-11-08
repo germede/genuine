@@ -52,5 +52,5 @@ public abstract class AbstractDesktopController implements Controller<DesktopAct
         return SwingViewRegistry.getByName(viewClass, name);
     }
 
-    public abstract DesktopView getDesktopView();
+    public abstract DesktopView getMainView();
 }

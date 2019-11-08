@@ -102,7 +102,7 @@ public final class Fluentness {
     private static void desktop(Application application) throws FluentnessException {
         injectionService.getInstances(AbstractDesktopController.class).forEach(controller -> {
             controller.setLookAndFeel();
-            controller.getDesktopView().render();
+            controller.getMainView().render();
         });
     }
 
