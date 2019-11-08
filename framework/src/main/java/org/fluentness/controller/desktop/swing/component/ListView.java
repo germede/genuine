@@ -9,12 +9,8 @@ public class ListView<E> extends AbstractComponentView<ListView, JList> {
 
     private JList<E> jList = new JList<>();
 
-    public ListView(Class<E> listType) {
-
-    }
-
     @Override
-    public JList getView() {
+    public JList getSwingView() {
         return jList;
     }
 

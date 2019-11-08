@@ -1,20 +1,14 @@
 package org.fluentness.controller.desktop.swing.component.button;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 public class ButtonView extends AbstractButtonView<ButtonView, JButton> {
 
-    JButton jButton = new JButton();
+    private JButton jButton = new JButton();
 
     @Override
-    public JButton getView() {
+    public JButton getSwingView() {
         return jButton;
-    }
-
-    public ButtonView action(ActionListener actionListener) {
-        jButton.addActionListener(actionListener);
-        return this;
     }
 
 }

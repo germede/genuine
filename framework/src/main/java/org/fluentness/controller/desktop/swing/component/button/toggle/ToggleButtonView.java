@@ -4,10 +4,10 @@ import javax.swing.*;
 
 public class ToggleButtonView extends AbstractToggleButtonView<ToggleButtonView, JToggleButton> {
 
-    JToggleButton jToggleButton = new JToggleButton();
+    private JToggleButton jToggleButton = new JToggleButton();
 
     @Override
-    public JToggleButton getView() {
+    public JToggleButton getSwingView() {
         return jToggleButton;
     }
 

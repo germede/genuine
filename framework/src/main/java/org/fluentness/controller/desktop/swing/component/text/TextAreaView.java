@@ -1,24 +1,18 @@
 package org.fluentness.controller.desktop.swing.component.text;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class TextAreaView extends AbstractTextView<TextAreaView,JTextArea> {
 
-    JTextArea jTextArea = new JTextArea();
+    private JTextArea jTextArea = new JTextArea();
 
     @Override
-    public JTextArea getView() {
+    public JTextArea getSwingView() {
         return jTextArea;
     }
 
     public TextAreaView columns(int columns) {
         jTextArea.setColumns(columns);
-        return this;
-    }
-
-    public TextAreaView font(Font f) {
-        jTextArea.setFont(f);
         return this;
     }
 

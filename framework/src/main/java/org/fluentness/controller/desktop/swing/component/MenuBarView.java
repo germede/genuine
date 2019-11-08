@@ -11,12 +11,12 @@ public class MenuBarView extends AbstractComponentView<MenuBarView, JMenuBar> {
 
     public MenuBarView(MenuView... menus) {
         for (MenuView menu : menus) {
-            jMenuBar.add(menu.getView());
+            jMenuBar.add(menu.getSwingView());
         }
     }
 
     @Override
-    public JMenuBar getView() {
+    public JMenuBar getSwingView() {
         return jMenuBar;
     }
 

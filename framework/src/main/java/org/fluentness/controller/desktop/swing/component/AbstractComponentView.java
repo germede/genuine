@@ -1,142 +1,110 @@
 package org.fluentness.controller.desktop.swing.component;
 
-import org.fluentness.controller.desktop.swing.SwingView;
+import org.fluentness.controller.desktop.swing.AbstractSwingView;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.AncestorListener;
 import java.awt.*;
-import java.util.Locale;
-import java.util.Set;
+import java.beans.VetoableChangeListener;
 
-public abstract class AbstractComponentView<Self extends AbstractComponentView, J extends JComponent> implements SwingView<J> {
+public abstract class AbstractComponentView<Self extends AbstractComponentView, T extends JComponent> extends AbstractSwingView<Self, T> {
 
-    public Self actionMap(ActionMap am) {
-        getView().setActionMap(am);
+    @Override
+    public abstract T getSwingView();
+
+    public Self ancestorListener(AncestorListener listener) {
+        getSwingView().addAncestorListener(listener);
+        return (Self) this;
+    }
+
+    public Self vetoableChangeListener(VetoableChangeListener listener) {
+        getSwingView().addVetoableChangeListener(listener);
         return (Self) this;
     }
 
     public Self alignmentX(float alignmentX) {
-        getView().setAlignmentX(alignmentX);
+        getSwingView().setAlignmentX(alignmentX);
         return (Self) this;
     }
 
     public Self alignmentY(float alignmentY) {
-        getView().setAlignmentY(alignmentY);
+        getSwingView().setAlignmentY(alignmentY);
         return (Self) this;
     }
 
     public Self autoscrolls(boolean autoscrolls) {
-        getView().setAutoscrolls(autoscrolls);
-        return (Self) this;
-    }
-
-    public Self background(Color bg) {
-        getView().setBackground(bg);
+        getSwingView().setAutoscrolls(autoscrolls);
         return (Self) this;
     }
 
     public Self border(Border border) {
-        getView().setBorder(border);
+        getSwingView().setBorder(border);
         return (Self) this;
     }
 
     public Self componentPopupMenu(JPopupMenu popup) {
-        getView().setComponentPopupMenu(popup);
+        getSwingView().setComponentPopupMenu(popup);
         return (Self) this;
     }
 
     public Self debugGraphicsOptions(int debugOptions) {
-        getView().setDebugGraphicsOptions(debugOptions);
-        return (Self) this;
-    }
-
-    public Self locale(Locale l) {
-        getView().setLocale(l);
+        getSwingView().setDebugGraphicsOptions(debugOptions);
         return (Self) this;
     }
 
     public Self doubleBuffered(boolean aFlag) {
-        getView().setDoubleBuffered(aFlag);
-        return (Self) this;
-    }
-
-    public Self enabled(boolean enabled) {
-        getView().setEnabled(enabled);
-        return (Self) this;
-    }
-
-    public Self focusTraversalKeys(int id, Set<? extends AWTKeyStroke> keystrokes) {
-        getView().setFocusTraversalKeys(id, keystrokes);
-        return (Self) this;
-    }
-
-    public Self font(Font font) {
-        getView().setFont(font);
-        return (Self) this;
-    }
-
-    public Self foreground(Color fg) {
-        getView().setForeground(fg);
+        getSwingView().setDoubleBuffered(aFlag);
         return (Self) this;
     }
 
     public Self inheritsPopupMenu(boolean value) {
-        getView().setInheritsPopupMenu(value);
+        getSwingView().setInheritsPopupMenu(value);
         return (Self) this;
     }
 
     public Self inputMap(int condition, InputMap map) {
-        getView().setInputMap(condition, map);
+        getSwingView().setInputMap(condition, map);
         return (Self) this;
     }
 
     public Self inputVerifier(InputVerifier inputVerifier) {
-        getView().setInputVerifier(inputVerifier);
+        getSwingView().setInputVerifier(inputVerifier);
         return (Self) this;
     }
 
     public Self maximumSize(int x, int y) {
-        getView().setMaximumSize(new Dimension(x, y));
+        getSwingView().setMaximumSize(new Dimension(x, y));
         return (Self) this;
     }
 
     public Self minimumSize(int x, int y) {
-        getView().setMinimumSize(new Dimension(x, y));
+        getSwingView().setMinimumSize(new Dimension(x, y));
         return (Self) this;
     }
 
     public Self opaque(boolean isOpaque) {
-        getView().setOpaque(isOpaque);
-        return (Self) this;
-    }
-
-    public Self preferredSize(Dimension preferredSize) {
-        getView().setPreferredSize(preferredSize);
+        getSwingView().setOpaque(isOpaque);
         return (Self) this;
     }
 
     public Self requestFocusEnabled(boolean requestFocusEnabled) {
-        getView().setRequestFocusEnabled(requestFocusEnabled);
+        getSwingView().setRequestFocusEnabled(requestFocusEnabled);
         return (Self) this;
     }
 
     public Self toolTipText(String text) {
-        getView().setToolTipText(text);
+        getSwingView().setToolTipText(text);
         return (Self) this;
     }
 
     public Self transferHandler(TransferHandler newHandler) {
-        getView().setTransferHandler(newHandler);
+        getSwingView().setTransferHandler(newHandler);
         return (Self) this;
     }
 
     public Self verifyInputWhenFocusTarget(boolean verifyInputWhenFocusTarget) {
-        getView().setVerifyInputWhenFocusTarget(verifyInputWhenFocusTarget);
-        return (Self) this;
-    }
-
-    public Self visible(boolean aFlag) {
-        getView().setVisible(aFlag);
+        getSwingView().setVerifyInputWhenFocusTarget(verifyInputWhenFocusTarget);
         return (Self) this;
     }
 

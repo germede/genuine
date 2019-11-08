@@ -1,7 +1,6 @@
 package org.fluentness.controller.desktop.swing.component.button.menu;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MenuView extends AbstractMenuItemView<MenuView, JMenu> {
 
@@ -9,18 +8,13 @@ public class MenuView extends AbstractMenuItemView<MenuView, JMenu> {
 
     public MenuView(AbstractMenuItemView... menuItems) {
         for (AbstractMenuItemView menuItem : menuItems) {
-            jMenu.add(menuItem.getView());
+            jMenu.add(menuItem.getSwingView());
         }
     }
 
     @Override
-    public JMenu getView() {
+    public JMenu getSwingView() {
         return jMenu;
-    }
-
-    public MenuView componentOrientation(ComponentOrientation componentOrientation) {
-        jMenu.setComponentOrientation(componentOrientation);
-        return this;
     }
 
     public MenuView delay(int d) {
@@ -35,11 +29,6 @@ public class MenuView extends AbstractMenuItemView<MenuView, JMenu> {
 
     public MenuView popupMenuVisible(boolean b) {
         jMenu.setPopupMenuVisible(b);
-        return this;
-    }
-
-    public MenuView selected(boolean b) {
-        jMenu.setSelected(b);
         return this;
     }
 

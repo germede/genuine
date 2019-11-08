@@ -22,13 +22,15 @@ public interface Application {
         return loader.load(this.getClass().getPackage().getName() + ".service", Service.class);
     }
 
+    Platform getPlatform();
+
+    Environment getEnvironment();
+
     enum Platform {
         CONSOLE,
         DESKTOP,
         WEB,
     }
-
-    Platform getPlatform();
 
     enum Environment {
         DEV,
@@ -36,5 +38,4 @@ public interface Application {
         PROD,
     }
 
-    Environment getEnvironment();
 }

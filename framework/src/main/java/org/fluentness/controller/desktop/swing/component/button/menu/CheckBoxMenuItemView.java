@@ -4,10 +4,10 @@ import javax.swing.*;
 
 public class CheckBoxMenuItemView extends AbstractMenuItemView<CheckBoxMenuItemView, JCheckBoxMenuItem> {
 
-    JCheckBoxMenuItem jCheckBoxMenuItem = new JCheckBoxMenuItem();
+    private JCheckBoxMenuItem jCheckBoxMenuItem = new JCheckBoxMenuItem();
 
     @Override
-    public JCheckBoxMenuItem getView() {
+    public JCheckBoxMenuItem getSwingView() {
         return jCheckBoxMenuItem;
     }
 

@@ -34,7 +34,7 @@
             <artifactId>darcula</artifactId>
             <version>1.0.0</version>
             <scope>system</scope>
-            <systemPath>src/main/resources/darcula.jar</systemPath>
+            <systemPath>/home/germede/Schreibtisch/Fluentness/prototype/src/main/resources/darcula.jar</systemPath>
         </dependency>
     </dependencies>
 

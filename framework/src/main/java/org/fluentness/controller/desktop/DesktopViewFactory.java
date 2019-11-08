@@ -1,6 +1,6 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.controller.desktop.swing.SwingView;
+import org.fluentness.controller.desktop.swing.AbstractSwingView;
 import org.fluentness.controller.desktop.swing.component.*;
 import org.fluentness.controller.desktop.swing.component.button.AbstractButtonView;
 import org.fluentness.controller.desktop.swing.component.button.ButtonGroupView;
@@ -14,13 +14,13 @@ import org.fluentness.controller.desktop.swing.container.FrameView;
 
 public final class DesktopViewFactory {
 
-    //==== container
-    public static FrameView frame(SwingView swingContainer) {
-        return new FrameView(swingContainer);
+    // ==== container
+    public static FrameView frame(AbstractSwingView contentPane) {
+        return new FrameView(contentPane);
     }
 
 
-    //==== component
+    // ==== component
     public static PanelView panel(AbstractComponentView... JComponentBuilders) {
         return new PanelView(JComponentBuilders);
     }
@@ -39,7 +39,7 @@ public final class DesktopViewFactory {
 
 
 
-    //==== button
+    // ==== button
     public static ButtonView button(String text) {
         return new ButtonView().text(text);
     }
@@ -48,7 +48,7 @@ public final class DesktopViewFactory {
         return new ButtonGroupView(buttons);
     }
 
-    //======== menu
+    // ======== menu
     public static MenuView menu(String text, AbstractMenuItemView... menuItems) {
         return new MenuView(menuItems).text(text);
     }
@@ -65,7 +65,7 @@ public final class DesktopViewFactory {
         return new CheckBoxMenuItemView().text(text);
     }
 
-    //======== toggle
+    // ======== toggle
     public static ToggleButtonView toggleButton(String text) {
         return new ToggleButtonView().text(text);
     }
@@ -78,7 +78,7 @@ public final class DesktopViewFactory {
         return new CheckBoxView().text(text);
     }
 
-    //==== text
+    // ==== text
     public static TextAreaView textArea() {
         return new TextAreaView();
     }

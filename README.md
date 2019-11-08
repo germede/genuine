@@ -14,8 +14,13 @@ Repositories === Models
 ||
 Services
 
+3 billion devices run java
+Java SE & EE revamp
+Java rethought
+Fluentness: The Friendly face of Java SE & EE 
+
 ## Introduction
-Fluentness is intended to be an easy-to-learn, fully-integrated, Java-based, consistent and flexible web and desktop development framework. 
+Fluentness is intended to be an easy-to-learn, fully-integrated, Java-based, consistent and flexible (mobile, ) web and desktop development framework. 
 
 So let's say you want a fancy application that just says Hello to someone. Just add this to your flow/Controllers.java
 ```java

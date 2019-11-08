@@ -11,11 +11,11 @@ public class ColorChooserView extends AbstractComponentView<ColorChooserView, JC
     private JColorChooser jColorChooser = new JColorChooser();
 
     @Override
-    public JColorChooser getView() {
+    public JColorChooser getSwingView() {
         return jColorChooser;
     }
 
-    public ColorChooserView chooserPanels(AbstractColorChooserPanel[] panels) {
+    public ColorChooserView chooserPanels(AbstractColorChooserPanel... panels) {
         jColorChooser.setChooserPanels(panels);
         return this;
     }

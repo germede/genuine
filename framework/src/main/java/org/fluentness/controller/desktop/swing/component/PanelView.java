@@ -9,12 +9,12 @@ public class PanelView extends AbstractComponentView<PanelView, JPanel> {
 
     public PanelView(AbstractComponentView... JComponentBuilders) {
         for (AbstractComponentView component : JComponentBuilders) {
-            jPanel.add(component.getView());
+            jPanel.add(component.getSwingView());
         }
     }
 
     @Override
-    public JPanel getView() {
+    public JPanel getSwingView() {
         return jPanel;
     }
 
@@ -34,7 +34,7 @@ public class PanelView extends AbstractComponentView<PanelView, JPanel> {
     }
 
     public PanelView boxLayout(int align) {
-        jPanel.setLayout(new BoxLayout(getView(), align));
+        jPanel.setLayout(new BoxLayout(getSwingView(), align));
         Component[] components = jPanel.getComponents();
         jPanel.removeAll();
         for (int i = 0; i < components.length; i++) {

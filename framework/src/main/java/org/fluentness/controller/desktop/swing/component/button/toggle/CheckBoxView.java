@@ -4,10 +4,10 @@ import javax.swing.*;
 
 public class CheckBoxView extends AbstractToggleButtonView<CheckBoxView, JCheckBox> {
 
-    JCheckBox jCheckBox = new JCheckBox();
+    private JCheckBox jCheckBox = new JCheckBox();
 
     @Override
-    public JCheckBox getView() {
+    public JCheckBox getSwingView() {
         return jCheckBox;
     }
 

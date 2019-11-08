@@ -7,6 +7,6 @@ import javax.swing.*;
 public abstract class AbstractToggleButtonView<Self extends AbstractToggleButtonView, T extends JToggleButton> extends AbstractButtonView<Self, T> {
 
     @Override
-    public abstract T getView();
+    public abstract T getSwingView();
 
 }

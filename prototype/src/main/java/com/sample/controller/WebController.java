@@ -23,7 +23,7 @@ public class WebController extends AbstractWebController {
 
     @Action(path = "/")
     public WebView index(Request request) {
-        return listBooks(request);
+        return listBooks(request  );
     }
 
     @Action(path = "/listBooks")

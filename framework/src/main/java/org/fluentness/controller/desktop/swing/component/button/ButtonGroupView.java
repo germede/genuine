@@ -9,12 +9,11 @@ import javax.swing.*;
  */
 public class ButtonGroupView extends PanelView {
 
-    ButtonGroup buttonGroup = new ButtonGroup();
-
     public ButtonGroupView(AbstractButtonView... abstractButtonViews) {
+        ButtonGroup buttonGroup = new ButtonGroup();
         for (AbstractButtonView abstractButtonView : abstractButtonViews) {
-            buttonGroup.add(abstractButtonView.getView());
-            jPanel.add(abstractButtonView.getView());
+            buttonGroup.add(abstractButtonView.getSwingView());
+            jPanel.add(abstractButtonView.getSwingView());
         }
     }
 }

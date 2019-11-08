@@ -9,7 +9,7 @@ public class LabelView extends AbstractComponentView<LabelView, JLabel> {
     private JLabel jLabel = new JLabel();
 
     @Override
-    public JLabel getView() {
+    public JLabel getSwingView() {
         return jLabel;
     }
 

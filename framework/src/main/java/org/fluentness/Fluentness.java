@@ -107,4 +107,5 @@ public final class Fluentness {
     private static void web(Application application) throws FluentnessException {
         injectionService.getInstance(ServerService.class).start();
     }
+
 }

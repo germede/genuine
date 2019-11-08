@@ -7,7 +7,7 @@ public class MenuItemView extends AbstractMenuItemView<MenuItemView, JMenuItem> 
     private JMenuItem jMenuItem = new JMenuItem();
 
     @Override
-    public JMenuItem getView() {
+    public JMenuItem getSwingView() {
         return jMenuItem;
     }
 
