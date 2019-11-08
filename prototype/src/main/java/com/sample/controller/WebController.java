@@ -21,6 +21,11 @@ public class WebController extends AbstractWebController {
         web = new Web(this, translatorService);
     }
 
+    @Action(path = "/")
+    public WebView index(Request request) {
+        return listBooks(request);
+    }
+
     @Action(path = "/listBooks")
     public WebView listBooks(Request request) {
         request.getParameter("");

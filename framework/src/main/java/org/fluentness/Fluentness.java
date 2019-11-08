@@ -42,7 +42,6 @@ public final class Fluentness {
         init(application);
         switch (application.getPlatform()) {
             case DESKTOP:
-            case MOBILE:
                 desktop(application);
                 break;
             case WEB:
