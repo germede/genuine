@@ -3,7 +3,7 @@ package org.fluentness.repository.crud;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.persistence.PersistenceService;
 
-public abstract class AbstractCrudRepository<M> implements Repository<M> {
+public abstract class AbstractCrudRepository<M> implements Repository {
 
     protected PersistenceService persistence;
 

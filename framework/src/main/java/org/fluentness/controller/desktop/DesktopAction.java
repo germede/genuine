@@ -1,11 +1,9 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.controller.Controller;
-
 import java.lang.reflect.Method;
 import java.util.EventListener;
 
-public class DesktopAction implements Controller.Action {
+public class DesktopAction {
 
     private Class<? extends EventListener> listener;
     private String id;
@@ -25,7 +23,6 @@ public class DesktopAction implements Controller.Action {
         return id;
     }
 
-    @Override
     public Method getMethod() {
         return method;
     }

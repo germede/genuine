@@ -1,10 +1,8 @@
 package org.fluentness.controller.console;
 
-import org.fluentness.controller.Controller;
-
 import java.lang.reflect.Method;
 
-public class ConsoleAction implements Controller.Action {
+public class ConsoleAction {
 
     private String description;
     private String category;
@@ -24,7 +22,6 @@ public class ConsoleAction implements Controller.Action {
         return category;
     }
 
-    @Override
     public Method getMethod() {
         return method;
     }

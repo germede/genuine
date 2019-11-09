@@ -1,6 +1,5 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.controller.Controller;
 import org.fluentness.service.router.HttpMethod;
 import org.fluentness.service.router.HttpStatusCode;
 import org.junit.Before;
@@ -101,10 +100,10 @@ public class AbstractWebControllerTest {
     @Test
     public void getActions_actionsAreGiven_actionsAreFound() throws NoSuchMethodException {
 
-        Controller.Action testVoid = null;
-        Controller.Action testPostParameter = null;
-        Controller.Action testServerError = null;
-        Controller.Action notAnActionBecauseNoActionAnnotation = null;
+        WebAction testVoid = null;
+        WebAction testPostParameter = null;
+        WebAction testServerError = null;
+        WebAction notAnActionBecauseNoActionAnnotation = null;
         for (WebAction webAction : webController.getActions()) {
             if (webAction.getMethod().equals(webController.getClass().getMethod("testVoid"))) {
                 testVoid = webAction;

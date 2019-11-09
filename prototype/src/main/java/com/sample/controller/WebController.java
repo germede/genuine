@@ -6,8 +6,6 @@ import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.html.HtmlView;
 import org.fluentness.service.translation.TranslationService;
 
-import javax.servlet.http.Cookie;
-
 import static com.sample.service.TranslationService.*;
 import static org.fluentness.controller.web.WebViewFactory.action;
 import static org.fluentness.controller.web.WebViewFactory.*;
@@ -61,12 +59,6 @@ public class WebController extends AbstractWebController {
             ).class_("row")
         );
     }
-
-    @Action(path = "/testResponse")
-    public Response testCookie(Request request) {
-        return response -> response.addCookie(new Cookie("asdf", "asdf"));
-    }
-
 
     private WebView base(HtmlView... toInclude) {
         return html(

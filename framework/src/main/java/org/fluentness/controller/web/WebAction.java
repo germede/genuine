@@ -1,11 +1,10 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.controller.Controller;
 import org.fluentness.service.router.HttpMethod;
 
 import java.lang.reflect.Method;
 
-public class WebAction implements Controller.Action {
+public class WebAction {
 
     private String path;
     private HttpMethod httpMethod;
@@ -37,7 +36,6 @@ public class WebAction implements Controller.Action {
         return cache;
     }
 
-    @Override
     public Method getMethod() {
         return method;
     }

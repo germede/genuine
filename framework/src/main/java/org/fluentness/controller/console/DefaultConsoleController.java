@@ -1,7 +1,6 @@
 package org.fluentness.controller.console;
 
 import org.fluentness.Fluentness;
-import org.fluentness.controller.Controller;
 import org.fluentness.service.injection.InjectionService;
 import org.fluentness.service.logger.LoggerService;
 import org.fluentness.service.server.ServerService;
@@ -39,12 +38,12 @@ public class DefaultConsoleController extends AbstractConsoleController {
 
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
-        List<Controller.Action> actions = new LinkedList<>();
+        List<ConsoleAction> actions = new LinkedList<>();
         injection.getInstances(AbstractConsoleController.class)
             .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
 
         // categorize console actions
-        for (Controller.Action action : actions) {
+        for (ConsoleAction action : actions) {
             Method method = action.getMethod();
             String category = method.getAnnotation(Action.class).category();
             if (!categorizedConsoleActions.containsKey(category)) {

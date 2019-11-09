@@ -6,14 +6,12 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractConsoleController implements Controller<ConsoleAction> {
+public abstract class AbstractConsoleController implements Controller {
 
-    @Override
     public List<ConsoleAction> getActions() {
         List<ConsoleAction> result = new LinkedList<>();
         Arrays.stream(getClass().getDeclaredMethods())
