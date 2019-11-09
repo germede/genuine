@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class MenuItemView extends AbstractMenuItemView<MenuItemView, JMenuItem> {
 
-    private JMenuItem jMenuItem = new JMenuItem();
+    private final JMenuItem jMenuItem = new JMenuItem();
 
     @Override
     public JMenuItem getSwingView() {

@@ -7,7 +7,7 @@ import java.util.Vector;
 
 public class ListView<E> extends AbstractComponentView<ListView, JList> {
 
-    private JList<E> jList = new JList<>();
+    private final JList<E> jList = new JList<>();
 
     @Override
     public JList getSwingView() {
@@ -51,11 +51,6 @@ public class ListView<E> extends AbstractComponentView<ListView, JList> {
 
     public ListView listData(Vector<? extends E> listData) {
         jList.setListData(listData);
-        return this;
-    }
-
-    public ListView model(ListModel<E> model) {
-        jList.setModel(model);
         return this;
     }
 

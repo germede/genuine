@@ -5,7 +5,6 @@ import org.fluentness.controller.desktop.swing.AbstractSwingView;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.AncestorListener;
-import java.awt.*;
 import java.beans.VetoableChangeListener;
 
 public abstract class AbstractComponentView<Self extends AbstractComponentView, T extends JComponent> extends AbstractSwingView<Self, T> {
@@ -70,16 +69,6 @@ public abstract class AbstractComponentView<Self extends AbstractComponentView, 
 
     public Self inputVerifier(InputVerifier inputVerifier) {
         getSwingView().setInputVerifier(inputVerifier);
-        return (Self) this;
-    }
-
-    public Self maximumSize(int x, int y) {
-        getSwingView().setMaximumSize(new Dimension(x, y));
-        return (Self) this;
-    }
-
-    public Self minimumSize(int x, int y) {
-        getSwingView().setMinimumSize(new Dimension(x, y));
         return (Self) this;
     }
 

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class RadioButtonView extends AbstractToggleButtonView<RadioButtonView, JRadioButton> {
 
-    private JRadioButton jRadioButton = new JRadioButton();
+    private final JRadioButton jRadioButton = new JRadioButton();
 
     @Override
     public JRadioButton getSwingView() {

@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class ColorChooserView extends AbstractComponentView<ColorChooserView, JColorChooser> {
 
-    private JColorChooser jColorChooser = new JColorChooser();
+    private final JColorChooser jColorChooser = new JColorChooser();
 
     @Override
     public JColorChooser getSwingView() {

@@ -8,7 +8,7 @@ import java.awt.event.ItemListener;
 
 public class ComboBoxView<E> extends AbstractComponentView<ComboBoxView, JComboBox> {
 
-    private JComboBox<E> jComboBox = new JComboBox<>();
+    private final JComboBox<E> jComboBox = new JComboBox<>();
 
     public ComboBoxView(E... items) {
         for (E item : items) {
@@ -53,11 +53,6 @@ public class ComboBoxView<E> extends AbstractComponentView<ComboBoxView, JComboB
 
     public ComboBoxView<E> maximumRowCount(int count) {
         jComboBox.setMaximumRowCount(count);
-        return this;
-    }
-
-    public ComboBoxView<E> model(ComboBoxModel<E> aModel) {
-        jComboBox.setModel(aModel);
         return this;
     }
 

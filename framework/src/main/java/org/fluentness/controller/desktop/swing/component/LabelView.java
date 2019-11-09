@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class LabelView extends AbstractComponentView<LabelView, JLabel> {
 
-    private JLabel jLabel = new JLabel();
+    private final JLabel jLabel = new JLabel();
 
     @Override
     public JLabel getSwingView() {

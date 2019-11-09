@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class PopupMenuView extends AbstractComponentView<PopupMenuView, JPopupMenu> {
 
-    private JPopupMenu jPopupMenu = new JPopupMenu();
+    private final JPopupMenu jPopupMenu = new JPopupMenu();
 
     @Override
     public JPopupMenu getSwingView() {
@@ -45,11 +45,6 @@ public class PopupMenuView extends AbstractComponentView<PopupMenuView, JPopupMe
 
     public PopupMenuView selected(Component sel) {
         jPopupMenu.setSelected(sel);
-        return this;
-    }
-
-    public PopupMenuView selectionModel(SingleSelectionModel model) {
-        jPopupMenu.setSelectionModel(model);
         return this;
     }
 

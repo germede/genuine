@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class RadioButtonMenuItemView extends AbstractMenuItemView<RadioButtonMenuItemView, JRadioButtonMenuItem> {
 
-    private JRadioButtonMenuItem jRadioButtonMenuItem = new JRadioButtonMenuItem();
+    private final JRadioButtonMenuItem jRadioButtonMenuItem = new JRadioButtonMenuItem();
 
     @Override
     public JRadioButtonMenuItem getSwingView() {

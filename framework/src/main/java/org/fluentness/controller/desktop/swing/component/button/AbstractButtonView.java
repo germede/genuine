@@ -99,11 +99,6 @@ public abstract class AbstractButtonView<Self extends AbstractButtonView, T exte
         return (Self) this;
     }
 
-    public Self model(ButtonModel newModel) {
-        getSwingView().setModel(newModel);
-        return (Self) this;
-    }
-
     public Self multiClickThreshold(long threshold) {
         getSwingView().setMultiClickThreshhold(threshold);
         return (Self) this;

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class TextAreaView extends AbstractTextView<TextAreaView,JTextArea> {
 
-    private JTextArea jTextArea = new JTextArea();
+    private final JTextArea jTextArea = new JTextArea();
 
     @Override
     public JTextArea getSwingView() {

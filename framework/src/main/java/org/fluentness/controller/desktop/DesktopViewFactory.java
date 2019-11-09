@@ -3,7 +3,6 @@ package org.fluentness.controller.desktop;
 import org.fluentness.controller.desktop.swing.AbstractSwingView;
 import org.fluentness.controller.desktop.swing.component.*;
 import org.fluentness.controller.desktop.swing.component.button.AbstractButtonView;
-import org.fluentness.controller.desktop.swing.component.button.ButtonGroupView;
 import org.fluentness.controller.desktop.swing.component.button.ButtonView;
 import org.fluentness.controller.desktop.swing.component.button.menu.*;
 import org.fluentness.controller.desktop.swing.component.button.toggle.CheckBoxView;
@@ -39,6 +38,17 @@ public final class DesktopViewFactory {
         return new ColorChooserView();
     }
 
+    public static TableView table(String[] header, Object[]... rows) {
+        return new TableView(header, rows);
+    }
+
+    public static String[] header(String... columnTitles) {
+        return columnTitles;
+    }
+
+    public static Object[] row(Object... cells) {
+        return cells;
+    }
 
 
     // ======== button
@@ -46,8 +56,12 @@ public final class DesktopViewFactory {
         return new ButtonView().text(text);
     }
 
-    public static ButtonGroupView buttonGroup(AbstractButtonView... buttons) {
-        return new ButtonGroupView(buttons);
+    public static AbstractButtonView[] buttonGroup(AbstractButtonView... buttons) {
+        ButtonGroup buttonGroup = new ButtonGroup();
+        for (AbstractButtonView button : buttons) {
+            buttonGroup.add(button.getSwingView());
+        }
+        return buttons;
     }
 
     public static AbstractMenuItemView[] buttonGroupInMenu(AbstractMenuItemView... buttons) {

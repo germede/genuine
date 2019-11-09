@@ -3,7 +3,6 @@ package org.fluentness.controller.console;
 import org.fluentness.Fluentness;
 import org.fluentness.service.injection.InjectionService;
 import org.fluentness.service.logging.LoggingService;
-import org.fluentness.service.serving.ServingService;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -15,12 +14,10 @@ public class DefaultConsoleController extends AbstractConsoleController {
 
 
     private InjectionService injection;
-    private ServingService server;
     private LoggingService logger;
 
-    public DefaultConsoleController(InjectionService injection, ServingService server, LoggingService logger) {
+    public DefaultConsoleController(InjectionService injection, LoggingService logger) {
         this.injection = injection;
-        this.server = server;
         this.logger = logger;
     }
 

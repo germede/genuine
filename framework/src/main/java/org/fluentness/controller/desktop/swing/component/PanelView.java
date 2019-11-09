@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class PanelView extends AbstractComponentView<PanelView, JPanel> {
 
-    protected JPanel jPanel = new JPanel();
+    private final JPanel jPanel = new JPanel();
 
     public PanelView(AbstractComponentView... JComponentBuilders) {
         for (AbstractComponentView component : JComponentBuilders) {

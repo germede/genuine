@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class FormattedTextFieldView extends AbstractTextFieldView<FormattedTextFieldView, JFormattedTextField> {
 
-    private JFormattedTextField jFormattedTextField = new JFormattedTextField();
+    private final JFormattedTextField jFormattedTextField = new JFormattedTextField();
 
     @Override
     public JFormattedTextField getSwingView() {

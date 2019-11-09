@@ -6,7 +6,7 @@ public class LibraryApplication implements Application {
 
     @Override
     public Platform getPlatform() {
-        return Platform.WEB;
+        return Platform.DESKTOP;
     }
 
     @Override

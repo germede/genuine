@@ -30,16 +30,39 @@ public class DesktopController extends AbstractDesktopController {
         return frame(
             panel(
                 panel(
-                    checkBox("Yes"), checkBox("Yes1"), checkBox("Yes2").name("checkbox_2"),
-                    buttonGroup(
-                        radioButton("No"),
-                        radioButton("Maybe")
-                    ),
-                    colorChooser().color(200,200,200),
-                    textArea().rows(5).columns(10).caretListener(this::test),
-                    label("Test label")
-                        .toolTipText("Creates a new book"),
-                    button("Test button").maximumSize(20, 20)
+                    table(
+                        header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
+                        row(1, "John", 40.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(3, "Zorro", 60.0, true)
+                    ).cellSelectionEnabled(false),
+                    button("Test button").maximumSize(20, 20).toolTipText("Creates a new book")
                 ).flowLayout()
             ).borderLayout(BorderLayout.NORTH, BorderLayout.SOUTH)
         ).title("Fluentness rocks").bounds(0, 0, 800, 600).center().minimumSize(300, 300).menuBar(topBar());
@@ -77,7 +100,7 @@ public class DesktopController extends AbstractDesktopController {
 
     public void test(CaretEvent caretEvent) {
         JCheckBox checkbox_2 = getViewByName(JCheckBox.class, "checkbox_2");
-        checkbox_2.setText(checkbox_2.getText()+"HAHA");
+        checkbox_2.setText(checkbox_2.getText() + "HAHA");
     }
 
     public void cutPresed(ActionEvent event) {

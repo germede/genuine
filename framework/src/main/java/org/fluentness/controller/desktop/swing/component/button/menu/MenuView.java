@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class MenuView extends AbstractMenuItemView<MenuView, JMenu> {
 
-    private JMenu jMenu = new JMenu();
+    private final JMenu jMenu = new JMenu();
 
     public MenuView(AbstractMenuItemView... menuItems) {
         for (AbstractMenuItemView menuItem : menuItems) {

@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class MenuBarView extends AbstractComponentView<MenuBarView, JMenuBar> {
 
-    private JMenuBar jMenuBar = new JMenuBar();
+    private final JMenuBar jMenuBar = new JMenuBar();
 
     public MenuBarView(MenuView... menus) {
         for (MenuView menu : menus) {
@@ -30,12 +30,9 @@ public class MenuBarView extends AbstractComponentView<MenuBarView, JMenuBar> {
         jMenuBar.setMargin(m);
         return this;
     }
+
     public MenuBarView selected(Component sel) {
         jMenuBar.setSelected(sel);
-        return this;
-    }
-    public MenuBarView selectionModel(SingleSelectionModel model) {
-        jMenuBar.setSelectionModel(model);
         return this;
     }
 }
