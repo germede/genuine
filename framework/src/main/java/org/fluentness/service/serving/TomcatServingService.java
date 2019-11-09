@@ -28,8 +28,8 @@ public class TomcatServingService implements ServingService {
         this.loggingService = loggingService;
         this.routingService = routingService;
 
-        String context = configurationService.has(server_context) ? configurationService.get(server_context) : "";
-        int port = configurationService.has(server_port) ? configurationService.get(server_port) : 8000;
+        String context = configurationService.getOrDefault(server_context, "");
+        int port = configurationService.getOrDefault(server_port, 8000);
 
         // init server
         server = new Tomcat();

@@ -5,7 +5,10 @@ import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.html.HtmlView;
+import org.fluentness.service.mailing.MailingService;
 import org.fluentness.service.translation.TranslationService;
+
+import javax.mail.MessagingException;
 
 import static com.sample.service.TranslationService.*;
 import static org.fluentness.controller.web.WebViewFactory.action;
@@ -15,19 +18,23 @@ public class WebController extends AbstractWebController {
 
     private BookRepository bookRepository;
     private TranslationService i18n;
+    private MailingService mailingService;
 
-    public WebController(BookRepository bookRepository, TranslationService translationService) {
+    public WebController(BookRepository bookRepository,
+                         TranslationService translationService,
+                         MailingService mailingService) {
         this.bookRepository = bookRepository;
         this.i18n = translationService;
+        this.mailingService = mailingService;
     }
 
     @Action(path = "/")
-    public WebView index(Request request) {
-        return listBooks(request);
+    public WebView index() {
+        return listBooks();
     }
 
     @Action(path = "/listBooks", authentication = true)
-    public WebView listBooks(Request request) {
+    public WebView listBooks() {
         return base(
             div(
                 div(h2(i18n.translate(welcome_message, "Person"))).class_("column column-50"),
@@ -61,14 +68,25 @@ public class WebController extends AbstractWebController {
         );
     }
 
+    @Action(path = "/testmail")
+    public void testmail() throws MessagingException {
+        mailingService.mail("example@example.com")
+            .from("example@example.com")
+            .subject("hey")
+            .content(listBooks(), "/home/germede/test")
+            .send();
+    }
+
     private WebView base(HtmlView... toInclude) {
         return html(
             head(
                 title("The book library made with Fluentness"),
                 meta().name("lang").content("en"),
                 meta().charset("UTF-8"),
-                link().rel("stylesheet").type("text/css").href("/resources/css/milligram.min.css"),
-                script().src("/resources/js/script.min.js")
+//                link().rel("stylesheet").type("text/css").href("/resources/css/milligram.min.css"),
+                link().rel("stylesheet").type("text/css").href("https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css"),
+                script().src("/resources/js/script.min.js"),
+                style("*{color: red;}")
             ),
             body(
                 div(toInclude).class_("container")

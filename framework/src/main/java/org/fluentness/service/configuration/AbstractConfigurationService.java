@@ -15,13 +15,18 @@ public abstract class AbstractConfigurationService implements ConfigurationServi
     }
 
     @Override
+    public boolean has(Key key) {
+        return settings.containsKey(key);
+    }
+
+    @Override
     public <T> T get(Key<T> key) {
         return (T) settings.get(key);
     }
 
     @Override
-    public boolean has(Key key) {
-        return settings.containsKey(key);
+    public <T> T getOrDefault(Key<T> key, T fallback) {
+        return (T) settings.getOrDefault(key, fallback);
     }
 
     protected <T> void set(Key<T> key, T value) {

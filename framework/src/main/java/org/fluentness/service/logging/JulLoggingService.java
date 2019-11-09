@@ -19,9 +19,7 @@ public class JulLoggingService implements LoggingService {
 
     public JulLoggingService(ConfigurationService configuration) throws Exception {
         // retrieve log level
-        Level logLevel = configuration.has(logger_level) ?
-            configuration.get(logger_level).toJulLevel() :
-            Level.ALL;
+        Level logLevel = configuration.getOrDefault(logger_level, LogLevel.DEBUG).toJulLevel();
 
         // init jul logger
         logger = java.util.logging.Logger.getGlobal();
@@ -30,7 +28,7 @@ public class JulLoggingService implements LoggingService {
         logger.setLevel(logLevel);
 
         // console logging
-        if (configuration.has(logger_console) && configuration.get(logger_console)) {
+        if (configuration.getOrDefault(logger_console, true)) {
             ConsoleHandler consoleHandler = new ConsoleHandler(){
                 @Override
                 protected synchronized void setOutputStream(OutputStream outputStream) throws SecurityException {

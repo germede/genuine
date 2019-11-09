@@ -55,9 +55,7 @@ public class DefaultRoutingService implements RoutingService {
                 response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.toInt());
             } else if (!action.isAuthentication() || authenticationService.authenticate(request, response)) {
 
-                response.setCharacterEncoding(
-                    configurationService.has(router_encoding) ? configurationService.get(router_encoding) : "UTF-8"
-                );
+                response.setCharacterEncoding(configurationService.getOrDefault(router_encoding, "UTF-8"));
 
                 Object[] parameters = (action.getMethod().getParameters().length > 0 &&
                     action.getMethod().getParameters()[0].getType().equals(AbstractWebController.Request.class)) ?

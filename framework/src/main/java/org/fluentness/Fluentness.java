@@ -16,6 +16,7 @@ import org.fluentness.service.injection.InjectionService;
 import org.fluentness.service.loading.DefaultLoadingService;
 import org.fluentness.service.loading.LoadingService;
 import org.fluentness.service.logging.JulLoggingService;
+import org.fluentness.service.mailing.JavaxMailingService;
 import org.fluentness.service.persistence.OpenJpaPersistenceService;
 import org.fluentness.service.routing.DefaultRoutingService;
 import org.fluentness.service.serving.ServingService;
@@ -64,6 +65,7 @@ public final class Fluentness {
         services.add(DefaultConfigurationService.class);
         services.add(JulLoggingService.class);
         services.add(OpenJpaPersistenceService.class);
+        services.add(JavaxMailingService.class);
         if (application.getPlatform() == Application.Platform.WEB) {
             services.add(MemoryCachingService.class);
             services.add(BasicAuthenticationService.class);

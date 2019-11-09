@@ -33,12 +33,12 @@ public class DispatcherServlet extends HttpServlet {
             } else {
                 response.setStatus(404);
             }
-            String query = request.getQueryString() == null ? "" : ("?" + request.getQueryString());
-            logger.debug("%s %s%s -> %s", request.getMethod(), request.getRequestURI(), query, response.getStatus());
         } catch (Exception e) {
             logger.error(e);
             response.setStatus(500);
         }
+        String query = request.getQueryString() == null ? "" : ("?" + request.getQueryString());
+        logger.debug("%s %s%s -> %s", request.getMethod(), request.getRequestURI(), query, response.getStatus());
     }
 
     private void handleStaticResource(HttpServletRequest request, HttpServletResponse response) throws IOException {
