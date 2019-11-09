@@ -9,7 +9,9 @@ import org.fluentness.controller.desktop.swing.component.button.toggle.CheckBoxV
 import org.fluentness.controller.desktop.swing.component.button.toggle.RadioButtonView;
 import org.fluentness.controller.desktop.swing.component.button.toggle.ToggleButtonView;
 import org.fluentness.controller.desktop.swing.component.text.TextAreaView;
+import org.fluentness.controller.desktop.swing.container.DialogView;
 import org.fluentness.controller.desktop.swing.container.FrameView;
+import org.fluentness.controller.desktop.swing.container.WindowView;
 
 import javax.swing.*;
 
@@ -18,6 +20,14 @@ public final class DesktopViewFactory {
     // ==== container
     public static FrameView frame(AbstractSwingView contentPane) {
         return new FrameView(contentPane);
+    }
+
+    public static WindowView window(AbstractSwingView contentPane) {
+        return new WindowView(contentPane);
+    }
+
+    public static DialogView dialog(AbstractSwingView contentPane) {
+        return new DialogView(contentPane);
     }
 
 

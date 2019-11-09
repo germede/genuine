@@ -6,15 +6,15 @@ import org.fluentness.controller.desktop.swing.component.MenuBarView;
 import javax.swing.*;
 import java.awt.*;
 
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class DialogView extends AbstractWindowView<DialogView, JDialog> {
 
-    JDialog jDialog = new JDialog();
+    private final JDialog jDialog = new JDialog();
 
     public DialogView(AbstractSwingView contentPane) {
         jDialog.setContentPane(contentPane.getSwingView());
-        jDialog.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        jDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         jDialog.pack();
     }
 
