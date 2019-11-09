@@ -10,12 +10,14 @@ public class WebAction implements Controller.Action {
     private String path;
     private HttpMethod httpMethod;
     private boolean authentication;
+    private boolean cache;
     private Method method;
 
-    WebAction(String path, HttpMethod httpMethod, boolean authentication, Method method) {
+    WebAction(String path, HttpMethod httpMethod, boolean authentication, boolean cache, Method method) {
         this.path = path;
         this.httpMethod = httpMethod;
         this.authentication = authentication;
+        this.cache = cache;
         this.method = method;
     }
 
@@ -29,6 +31,10 @@ public class WebAction implements Controller.Action {
 
     public boolean isAuthentication() {
         return authentication;
+    }
+
+    public boolean isCache() {
+        return cache;
     }
 
     @Override

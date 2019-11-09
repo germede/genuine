@@ -7,7 +7,7 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-import static org.fluentness.service.logger.AnsiColor.*;
+import static org.fluentness.service.logger.AnsiColor.ANSI_RESET;
 
 public class JulFormatter extends Formatter {
 
@@ -17,12 +17,11 @@ public class JulFormatter extends Formatter {
         StringBuilder builder = new StringBuilder();
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
         df.setTimeZone(TimeZone.getDefault());
-        builder.append(ANSI_WHITE);
         builder.append(df.format(new Date(logRecord.getMillis())));
         builder.append(" | ");
         builder.append(logLevel.getAnsiColor().toString());
         builder.append(logLevel.toString());
-        builder.append(ANSI_WHITE);
+        builder.append(ANSI_RESET);
         builder.append(" | ");
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         for (StackTraceElement stackTraceElement : stackTrace) {
@@ -34,7 +33,6 @@ public class JulFormatter extends Formatter {
                 break;
             }
         }
-        builder.append(logLevel.equals(LogLevel.ERROR) ? ANSI_RED : ANSI_WHITE);
         builder.append(logRecord.getMessage());
         builder.append("\n");
         return builder.toString();

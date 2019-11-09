@@ -22,6 +22,8 @@ public class TomcatServerService implements ServerService {
     private final LoggerService loggerService;
     private final RouterService routerService;
 
+    private final Tomcat server;
+
     public TomcatServerService(ConfigurationService configurationService, LoggerService loggerService, RouterService routerService) {
         this.configurationService = configurationService;
         this.loggerService = loggerService;
@@ -49,23 +51,23 @@ public class TomcatServerService implements ServerService {
 
             @Override
             public void flush() {
-
             }
 
             @Override
             public void close() throws SecurityException {
-
             }
         });
     }
-
-    protected Tomcat server;
 
     @Override
     public void start() throws ServerException {
         try {
             server.start();
-            loggerService.info("Tomcat Server is listening, visit http://%s:%s/", server.getServer().getAddress(), server.getServer().getPort());
+            loggerService.info(
+                "Tomcat Server is listening, visit http://%s:%s/",
+                server.getHost().getName(),
+                server.getConnector().getPort()
+            );
             new Thread(() -> server.getServer().await()).start();
         } catch (LifecycleException e) {
             throw new ServerException(e);

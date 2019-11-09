@@ -38,13 +38,9 @@ public class DefaultInjectionService implements InjectionService {
     @Override
     public <T extends ApplicationComponent> void inject(Fluentness proxy, List<Class<? extends T>> classes) throws InjectionException {
         for (Class aClass : classes) {
-            inject(aClass);
+            validateInstantiation(aClass);
+            instantiate(aClass);
         }
-    }
-
-    private void inject(Class aClass) throws InjectionException {
-        validateInstantiation(aClass);
-        instantiate(aClass);
     }
 
     private void validateInstantiation(Class iClass) throws InjectionException {
@@ -82,12 +78,23 @@ public class DefaultInjectionService implements InjectionService {
                 Parameter[] parameters = declaredConstructors[0].getParameters();
                 Object[] parametersToInject = new Object[parameters.length];
                 for (int i = 0; i < parameters.length; i++) {
-                    Parameter parameter = parameters[i];
-                    if (instances.containsKey(parameter.getType())) {
-                        parametersToInject[i] = instances.get(parameter.getType());
+                    Class<?> type = parameters[i].getType();
+                    if (instances.containsKey(type)) {
+                        parametersToInject[i] = instances.get(type);
                     } else {
-                        inject(parameter.getType());
-                        i--;
+                        if (ApplicationComponent.class.isAssignableFrom(type)) {
+                            throw new InjectionException(
+                                "Could not resolve dependencies correctly. Ensure that:\n" +
+                                    "    a) %s is added after %s or\n" +
+                                    "    b) %s doesn't depend on %s\n",
+                                iClass.getSimpleName(),
+                                type.getSimpleName(),
+                                iClass.getSimpleName(),
+                                type.getSimpleName()
+                            );
+                        } else {
+                            throw new InjectionException("%s is not an application component", type.getSimpleName());
+                        }
                     }
                 }
                 instances.put(instanceKey, declaredConstructors[0].newInstance(parametersToInject));

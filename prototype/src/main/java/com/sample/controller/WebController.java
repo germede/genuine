@@ -32,7 +32,7 @@ public class WebController extends AbstractWebController {
         return base(
             div(
                 div(h2(i18n.translate(welcome_message, "Person"))).class_("column column-50"),
-                action(this::index, i18n.translate(book_create)).class_("button")
+                action(this::index, i18n.translate(book_create) + System.currentTimeMillis()).class_("button")
             ).class_("row"),
             div(
                 table(

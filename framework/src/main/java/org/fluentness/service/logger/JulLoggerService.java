@@ -3,6 +3,7 @@ package org.fluentness.service.logger;
 import org.fluentness.service.configuration.ConfigurationService;
 
 import java.io.File;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,7 +31,12 @@ public class JulLoggerService implements LoggerService {
 
         // console logging
         if (configuration.has(logger_console) && configuration.get(logger_console)) {
-            ConsoleHandler consoleHandler = new ConsoleHandler();
+            ConsoleHandler consoleHandler = new ConsoleHandler(){
+                @Override
+                protected synchronized void setOutputStream(OutputStream outputStream) throws SecurityException {
+                    super.setOutputStream(System.out);
+                }
+            };
             consoleHandler.setFormatter(new JulFormatter());
             consoleHandler.setLevel(logLevel);
             logger.addHandler(consoleHandler);

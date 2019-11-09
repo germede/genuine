@@ -13,8 +13,8 @@ import static org.fluentness.service.configuration.ConfigurationService.authenti
 
 public class BasicAuthenticationService implements AuthenticationService {
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String AUTHENTICATE_HEADER = "WWW-Authenticate";
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String AUTHENTICATE_HEADER = "WWW-Authenticate";
 
     private ConfigurationService configurationService;
 

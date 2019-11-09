@@ -23,33 +23,34 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            logger.debug(req.getMethod() + " " + req.getPathInfo() + " -> " + resp.getStatus());
-            Locale.setDefault(req.getLocale());
-            if (req.getPathInfo().startsWith("/resources")) {
-                handleStaticResource(req, resp);
-            } else if (router.getRoutingMap().containsKey(req.getPathInfo())) {
-                router.getRoutingMap().get(req.getPathInfo()).handle(req, resp);
+            Locale.setDefault(request.getLocale());
+            if (request.getPathInfo().startsWith("/resources")) {
+                handleStaticResource(request, response);
+            } else if (router.getRoutingMap().containsKey(request.getPathInfo())) {
+                router.getRoutingMap().get(request.getPathInfo()).handle(request, response);
             } else {
-                resp.setStatus(404);
+                response.setStatus(404);
             }
+            String query = request.getQueryString() == null ? "" : ("?" + request.getQueryString());
+            logger.debug("%s %s%s -> %s", request.getMethod(), request.getRequestURI(), query, response.getStatus());
         } catch (Exception e) {
             logger.error(e);
-            resp.setStatus(500);
+            response.setStatus(500);
         }
     }
 
-    private void handleStaticResource(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void handleStaticResource(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String resourcePath = req.getPathInfo().substring(req.getPathInfo().indexOf("/resources") + 11);
+        String resourcePath = request.getPathInfo().substring(request.getPathInfo().indexOf("/resources") + 11);
         if (resourcePath.startsWith("js") || resourcePath.startsWith("css")) {
             InputStream in = getClass().getClassLoader().getResourceAsStream(resourcePath);
             if (in == null) {
-                resp.setStatus(404);
+                response.setStatus(404);
                 return;
             }
-            try (OutputStream out = resp.getOutputStream()) {
+            try (OutputStream out = response.getOutputStream()) {
                 byte[] buffer = new byte[100];
                 int numBytesRead;
                 while ((numBytesRead = in.read(buffer)) > 0) {
