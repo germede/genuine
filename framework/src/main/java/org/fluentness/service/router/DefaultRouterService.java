@@ -41,16 +41,14 @@ public class DefaultRouterService implements RouterService {
         }
         routingMap = new HashMap<>();
         List<AbstractWebController> webControllers = injectionService.getInstances(AbstractWebController.class);
-        webControllers.forEach(controller -> {
-            controller.getActions().forEach(action -> {
-                routingMap.put(action.getPath(), getHttpHandlerForAction(controller, action));
-            });
-        });
+        webControllers.forEach(controller ->
+            controller.getActions().forEach(action ->
+                routingMap.put(action.getPath(), getHttpHandlerForAction(controller, action))));
         return routingMap;
     }
 
     private HttpHandler getHttpHandlerForAction(AbstractWebController controller, WebAction action) {
-        final Method method = action.getMethod();
+        Method method = action.getMethod();
         method.setAccessible(true);
         return (request, response) -> {
             if (!request.getMethod().equals(action.getHttpMethod().toString())) {
