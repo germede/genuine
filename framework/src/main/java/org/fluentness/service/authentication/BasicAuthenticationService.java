@@ -2,7 +2,7 @@ package org.fluentness.service.authentication;
 
 import org.fluentness.Fluentness;
 import org.fluentness.service.configuration.ConfigurationService;
-import org.fluentness.service.router.HttpStatusCode;
+import org.fluentness.service.routing.HttpStatusCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

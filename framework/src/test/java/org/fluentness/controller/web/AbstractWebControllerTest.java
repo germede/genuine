@@ -1,7 +1,7 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.service.router.HttpMethod;
-import org.fluentness.service.router.HttpStatusCode;
+import org.fluentness.service.routing.HttpMethod;
+import org.fluentness.service.routing.HttpStatusCode;
 import org.junit.Before;
 import org.junit.Test;
 

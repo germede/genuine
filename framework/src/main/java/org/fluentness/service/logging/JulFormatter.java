@@ -1,4 +1,4 @@
-package org.fluentness.service.logger;
+package org.fluentness.service.logging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -7,7 +7,7 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-import static org.fluentness.service.logger.AnsiColor.ANSI_RESET;
+import static org.fluentness.service.logging.AnsiColor.ANSI_RESET;
 
 public class JulFormatter extends Formatter {
 
@@ -27,7 +27,7 @@ public class JulFormatter extends Formatter {
         for (StackTraceElement stackTraceElement : stackTrace) {
             if (!stackTraceElement.getClassName().startsWith("java.lang.Thread") &&
                 !stackTraceElement.getClassName().startsWith("java.util.logging") &&
-                !stackTraceElement.getClassName().startsWith("org.fluentness.service.logger")) {
+                !stackTraceElement.getClassName().startsWith(getClass().getPackage().getName())) {
                 builder.append(stackTraceElement.getClassName().replaceAll(".*\\.", ""));
                 builder.append(": ");
                 break;

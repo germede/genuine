@@ -1,5 +1,6 @@
 package com.sample.controller;
 
+import com.sample.repository.Book;
 import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
@@ -46,7 +47,7 @@ public class WebController extends AbstractWebController {
                         )
                     ),
                     tbody(
-                        forEach(bookRepository.findAll(), book ->
+                        forEach(bookRepository.findAll(Book.class), book ->
                             tr(
                                 td(book.getTitle()),
                                 td(book.getTitle().length() > 1 ? "✔" : "\uD83D\uDDD9"),

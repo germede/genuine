@@ -1,20 +1,20 @@
-package org.fluentness.service.cache;
+package org.fluentness.service.caching;
 
-import org.fluentness.service.logger.LoggerService;
+import org.fluentness.service.logging.LoggingService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MemoryCacheService implements CacheService {
+public class MemoryCachingService implements CachingService {
 
-    private final LoggerService loggerService;
+    private final LoggingService loggingService;
 
     private final Map<String, String> cache = new HashMap<>();
 
-    public MemoryCacheService(LoggerService loggerService) {
-        this.loggerService = loggerService;
+    public MemoryCachingService(LoggingService loggingService) {
+        this.loggingService = loggingService;
     }
 
     @Override
@@ -23,13 +23,13 @@ public class MemoryCacheService implements CacheService {
         String query = request.getQueryString() == null ? "" : ("?" + request.getQueryString());
         String hash = request.getMethod() + " " + request.getRequestURI() + query;
         if (cache.containsKey(hash)) {
-            loggerService.debug("Cache hit for %s", hash);
+            loggingService.debug("Cache hit for %s", hash);
             return cache.get(hash);
         }
 
         String render = inMissCase.provide().render();
         cache.put(hash, render);
-        loggerService.debug("Cache miss for %s", hash);
+        loggingService.debug("Cache miss for %s", hash);
         return render;
     }
 

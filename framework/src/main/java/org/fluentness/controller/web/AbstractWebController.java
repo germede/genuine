@@ -1,7 +1,7 @@
 package org.fluentness.controller.web;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.service.router.HttpMethod;
+import org.fluentness.service.routing.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

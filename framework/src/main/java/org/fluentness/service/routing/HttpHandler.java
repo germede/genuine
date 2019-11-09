@@ -1,4 +1,4 @@
-package org.fluentness.service.router;
+package org.fluentness.service.routing;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

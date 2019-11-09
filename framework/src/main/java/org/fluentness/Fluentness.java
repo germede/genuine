@@ -9,17 +9,17 @@ import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.authentication.BasicAuthenticationService;
-import org.fluentness.service.cache.MemoryCacheService;
+import org.fluentness.service.caching.MemoryCachingService;
 import org.fluentness.service.configuration.DefaultConfigurationService;
 import org.fluentness.service.injection.DefaultInjectionService;
 import org.fluentness.service.injection.InjectionService;
-import org.fluentness.service.loader.DefaultLoaderService;
-import org.fluentness.service.loader.LoaderService;
-import org.fluentness.service.logger.JulLoggerService;
+import org.fluentness.service.loading.DefaultLoadingService;
+import org.fluentness.service.loading.LoadingService;
+import org.fluentness.service.logging.JulLoggingService;
 import org.fluentness.service.persistence.OpenJpaPersistenceService;
-import org.fluentness.service.router.DefaultRouterService;
-import org.fluentness.service.server.ServerService;
-import org.fluentness.service.server.TomcatServerService;
+import org.fluentness.service.routing.DefaultRoutingService;
+import org.fluentness.service.serving.ServingService;
+import org.fluentness.service.serving.TomcatServingService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -29,7 +29,7 @@ import java.util.List;
 public final class Fluentness {
 
     private static final InjectionService injectionService = new DefaultInjectionService();
-    private static final LoaderService loaderService = new DefaultLoaderService();
+    private static final LoadingService LOADING_SERVICE = new DefaultLoadingService();
     private static final Fluentness proxy = new Fluentness();
     private static Application application;
 
@@ -59,23 +59,23 @@ public final class Fluentness {
         if (application == null) {
             throw new FluentnessException("Passed application was null");
         }
-        List<Class<? extends Service>> services = application.getServices(loaderService);
-        services.add(DefaultLoaderService.class);
+        List<Class<? extends Service>> services = application.getServices(LOADING_SERVICE);
+        services.add(DefaultLoadingService.class);
         services.add(DefaultConfigurationService.class);
-        services.add(JulLoggerService.class);
+        services.add(JulLoggingService.class);
         services.add(OpenJpaPersistenceService.class);
         if (application.getPlatform() == Application.Platform.WEB) {
-            services.add(MemoryCacheService.class);
+            services.add(MemoryCachingService.class);
             services.add(BasicAuthenticationService.class);
-            services.add(DefaultRouterService.class);
-            services.add(TomcatServerService.class);
+            services.add(DefaultRoutingService.class);
+            services.add(TomcatServingService.class);
         }
         injectionService.inject(proxy, services);
 
-        List<Class<? extends Repository>> repositories = application.getRepositories(loaderService);
+        List<Class<? extends Repository>> repositories = application.getRepositories(LOADING_SERVICE);
         injectionService.inject(proxy, repositories);
 
-        List<Class<? extends Controller>> controllers = application.getControllers(loaderService);
+        List<Class<? extends Controller>> controllers = application.getControllers(LOADING_SERVICE);
         controllers.add(DefaultConsoleController.class);
         injectionService.inject(proxy, controllers);
 
@@ -112,7 +112,7 @@ public final class Fluentness {
     }
 
     private static void web(Application application) throws FluentnessException {
-        injectionService.getInstance(ServerService.class).start();
+        injectionService.getInstance(ServingService.class).start();
     }
 
 }

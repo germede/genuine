@@ -1,8 +1,8 @@
-package org.fluentness.service.logger;
+package org.fluentness.service.logging;
 
 import java.util.logging.Level;
 
-import static org.fluentness.service.logger.AnsiColor.*;
+import static org.fluentness.service.logging.AnsiColor.*;
 
 public enum LogLevel {
     NONE(null),

@@ -1,4 +1,4 @@
-package org.fluentness.service.router;
+package org.fluentness.service.routing;
 
 public enum HttpStatusCode {
     CONTINUE(100),

@@ -1,4 +1,4 @@
-package org.fluentness.service.cache;
+package org.fluentness.service.caching;
 
 import org.fluentness.controller.web.WebView;
 

@@ -1,4 +1,4 @@
-package org.fluentness.service.logger;
+package org.fluentness.service.logging;
 
 import org.fluentness.service.configuration.ConfigurationService;
 
@@ -13,11 +13,11 @@ import java.util.logging.Level;
 
 import static org.fluentness.service.configuration.ConfigurationService.*;
 
-public class JulLoggerService implements LoggerService {
+public class JulLoggingService implements LoggingService {
 
     protected final java.util.logging.Logger logger;
 
-    public JulLoggerService(ConfigurationService configuration) throws Exception {
+    public JulLoggingService(ConfigurationService configuration) throws Exception {
         // retrieve log level
         Level logLevel = configuration.has(logger_level) ?
             configuration.get(logger_level).toJulLevel() :

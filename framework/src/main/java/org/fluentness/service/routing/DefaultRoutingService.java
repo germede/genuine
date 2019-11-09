@@ -1,10 +1,10 @@
-package org.fluentness.service.router;
+package org.fluentness.service.routing;
 
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebAction;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.service.authentication.AuthenticationService;
-import org.fluentness.service.cache.CacheService;
+import org.fluentness.service.caching.CachingService;
 import org.fluentness.service.configuration.ConfigurationService;
 import org.fluentness.service.injection.InjectionService;
 
@@ -15,21 +15,21 @@ import java.util.Map;
 
 import static org.fluentness.service.configuration.ConfigurationService.router_encoding;
 
-public class DefaultRouterService implements RouterService {
+public class DefaultRoutingService implements RoutingService {
 
     private final InjectionService injectionService;
     private final ConfigurationService configurationService;
     private final AuthenticationService authenticationService;
-    private final CacheService cacheService;
+    private final CachingService cachingService;
 
-    public DefaultRouterService(InjectionService injectionService,
-                                ConfigurationService configurationService,
-                                AuthenticationService authenticationService,
-                                CacheService cacheService) {
+    public DefaultRoutingService(InjectionService injectionService,
+                                 ConfigurationService configurationService,
+                                 AuthenticationService authenticationService,
+                                 CachingService cachingService) {
         this.injectionService = injectionService;
         this.configurationService = configurationService;
         this.authenticationService = authenticationService;
-        this.cacheService = cacheService;
+        this.cachingService = cachingService;
     }
 
     private Map<String, HttpHandler> routingMap;
@@ -67,7 +67,7 @@ public class DefaultRouterService implements RouterService {
                 if (method.getReturnType().equals(WebView.class)) {
                     if (action.isCache()) {
                         response.getWriter().write(
-                            cacheService.cache(request, () -> (WebView) method.invoke(controller, parameters))
+                            cachingService.cache(request, () -> (WebView) method.invoke(controller, parameters))
                         );
                     } else {
                         response.getWriter().write(

@@ -2,7 +2,7 @@ package com.sample.service;
 
 import org.fluentness.Application;
 import org.fluentness.service.configuration.AbstractConfigurationService;
-import org.fluentness.service.logger.LogLevel;
+import org.fluentness.service.logging.LogLevel;
 
 public class ConfigurationService extends AbstractConfigurationService {
 

@@ -1,7 +1,7 @@
 package org.fluentness.service.configuration;
 
 import org.fluentness.service.Service;
-import org.fluentness.service.logger.LogLevel;
+import org.fluentness.service.logging.LogLevel;
 
 public interface ConfigurationService extends Service {
 

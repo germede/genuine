@@ -1,7 +1,7 @@
-package org.fluentness.service.server;
+package org.fluentness.service.serving;
 
-import org.fluentness.service.logger.LoggerService;
-import org.fluentness.service.router.RouterService;
+import org.fluentness.service.logging.LoggingService;
+import org.fluentness.service.routing.RoutingService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,10 +14,10 @@ import java.util.Locale;
 
 public class DispatcherServlet extends HttpServlet {
 
-    private LoggerService logger;
-    private RouterService router;
+    private LoggingService logger;
+    private RoutingService router;
 
-    public DispatcherServlet(LoggerService logger, RouterService router) {
+    public DispatcherServlet(LoggingService logger, RoutingService router) {
         this.logger = logger;
         this.router = router;
     }

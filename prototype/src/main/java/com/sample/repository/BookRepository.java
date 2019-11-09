@@ -11,10 +11,6 @@ public class BookRepository extends AbstractCrudRepository<Book> {
         super(persistence);
     }
 
-    public List<Book> findAll() {
-        return persistence.query("SELECT s FROM Book s").getResultList();
-    }
-
     public List<Book> findByTitle(String title) {
         return persistence.query("SELECT s FROM Book s WHERE s.title = :title")
             .setParameter("title", title)

@@ -2,23 +2,23 @@ package org.fluentness.controller.console;
 
 import org.fluentness.Fluentness;
 import org.fluentness.service.injection.InjectionService;
-import org.fluentness.service.logger.LoggerService;
-import org.fluentness.service.server.ServerService;
+import org.fluentness.service.logging.LoggingService;
+import org.fluentness.service.serving.ServingService;
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import static org.fluentness.service.logger.AnsiColor.*;
+import static org.fluentness.service.logging.AnsiColor.*;
 
 public class DefaultConsoleController extends AbstractConsoleController {
 
 
     private InjectionService injection;
-    private ServerService server;
-    private LoggerService logger;
+    private ServingService server;
+    private LoggingService logger;
 
-    public DefaultConsoleController(InjectionService injection, ServerService server, LoggerService logger) {
+    public DefaultConsoleController(InjectionService injection, ServingService server, LoggingService logger) {
         this.injection = injection;
         this.server = server;
         this.logger = logger;

@@ -1,10 +1,7 @@
 package org.fluentness.service.persistence;
 
-import org.apache.openjpa.lib.log.AbstractLog;
-import org.apache.openjpa.lib.log.Log;
-import org.apache.openjpa.lib.log.LogFactory;
 import org.fluentness.service.configuration.ConfigurationService;
-import org.fluentness.service.logger.LoggerService;
+import org.fluentness.service.logging.LoggingService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -15,36 +12,15 @@ import static org.fluentness.service.configuration.ConfigurationService.persiste
 
 public class OpenJpaPersistenceService implements PersistenceService {
 
-    private final LoggerService loggerService;
+    private final LoggingService loggingService;
     protected EntityManager entityManager;
 
-    public OpenJpaPersistenceService(ConfigurationService configuration, LoggerService loggerService) {
-        this.loggerService = loggerService;
+    public OpenJpaPersistenceService(ConfigurationService configuration, LoggingService loggingService) {
+        this.loggingService = loggingService;
         if (configuration.has(persistence_unit)) {
             Map<String, Object> properties = new HashMap<>();
             // redirect OpenJPA log to Fluentness log
-            properties.put("openjpa.Log", (LogFactory) channel -> new AbstractLog() {
-                protected boolean isEnabled(short logLevel) {
-                    return true;
-                }
-
-                protected void log(short type, String message, Throwable t) {
-                    switch (type) {
-                        case Log.FATAL:
-                        case Log.ERROR:
-                            loggerService.error(message);
-                            break;
-                        case Log.WARN:
-                            loggerService.warning(message);
-                            break;
-                        case Log.INFO:
-                            loggerService.info(message);
-                            break;
-                        case Log.TRACE:
-                            loggerService.debug(message);
-                    }
-                }
-            });
+            properties.put("openjpa.Log", new OpenJpaLoggingBridge(loggingService));
             this.entityManager = javax.persistence.Persistence
                 .createEntityManagerFactory(configuration.get(persistence_unit), properties)
                 .createEntityManager();
@@ -66,10 +42,10 @@ public class OpenJpaPersistenceService implements PersistenceService {
             entityManager.persist(model);
             entityManager.flush();
             commit();
-            loggerService.debug("%s record created successfully", model.getClass().getSimpleName());
+            loggingService.debug("%s record created successfully", model.getClass().getSimpleName());
             return true;
         }
-        loggerService.debug("%s record already exists, cannot create", model.getClass().getSimpleName());
+        loggingService.debug("%s record already exists, cannot create", model.getClass().getSimpleName());
         return false;
     }
 
@@ -82,16 +58,16 @@ public class OpenJpaPersistenceService implements PersistenceService {
             entityManager.remove(model);
             entityManager.flush();
             commit();
-            loggerService.debug("%s record deleted successfully", model.getClass().getSimpleName());
+            loggingService.debug("%s record deleted successfully", model.getClass().getSimpleName());
             return true;
         }
-        loggerService.debug("%s record doesn't exists, cannot delete", model.getClass().getSimpleName());
+        loggingService.debug("%s record doesn't exists, cannot delete", model.getClass().getSimpleName());
         return false;
     }
 
     @Override
     public <M> M find(Class<M> modelClass, int id) {
-        loggerService.debug("Retrieving %s record by ID %s", modelClass.getSimpleName(), id);
+        loggingService.debug("Retrieving %s record by ID %s", modelClass.getSimpleName(), id);
         return entityManager.find(modelClass, id);
     }
 

@@ -1,4 +1,4 @@
-package org.fluentness.service.loader;
+package org.fluentness.service.loading;
 
 import org.fluentness.ApplicationComponent;
 import org.fluentness.Fluentness;
@@ -13,16 +13,16 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class DefaultLoaderService implements LoaderService {
+public class DefaultLoadingService implements LoadingService {
 
     @Override
-    public <T extends ApplicationComponent> List<Class<? extends T>> load(String packageName, Class<T> parent) throws LoaderException {
+    public <T extends ApplicationComponent> List<Class<? extends T>> load(String packageName, Class<T> parent) throws LoadingException {
         List<Class<? extends T>> result = loadClassFilesInDirectory(packageName, parent);
         result.addAll(loadClassesInJarFile(packageName, parent));
         return result;
     }
 
-    private <T> List<Class<? extends T>> loadClassFilesInDirectory(String packageName, Class<T> parent) throws LoaderException {
+    private <T> List<Class<? extends T>> loadClassFilesInDirectory(String packageName, Class<T> parent) throws LoadingException {
 
         List<Class<? extends T>> result = new LinkedList<>();
         URL root = Thread.currentThread().getContextClassLoader().getResource(packageName.replace(".", "/"));
@@ -37,7 +37,7 @@ public class DefaultLoaderService implements LoaderService {
                             result.add((Class<T>) clazz);
                         }
                     } catch (ClassNotFoundException e) {
-                        throw new LoaderException(e);
+                        throw new LoadingException(e);
                     }
                 }
             }
@@ -45,7 +45,7 @@ public class DefaultLoaderService implements LoaderService {
         return result;
     }
 
-    private <T> List<Class<? extends T>> loadClassesInJarFile(String packageName, Class<T> parent) throws LoaderException {
+    private <T> List<Class<? extends T>> loadClassesInJarFile(String packageName, Class<T> parent) throws LoadingException {
 
         List<Class<? extends T>> result = new LinkedList<>();
         try {
@@ -64,7 +64,7 @@ public class DefaultLoaderService implements LoaderService {
                 }
             }
         } catch (IOException | ClassNotFoundException | URISyntaxException e) {
-            throw new LoaderException(e);
+            throw new LoadingException(e);
         }
         return result;
     }

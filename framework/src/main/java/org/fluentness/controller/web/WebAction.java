@@ -1,6 +1,6 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.service.router.HttpMethod;
+import org.fluentness.service.routing.HttpMethod;
 
 import java.lang.reflect.Method;
 

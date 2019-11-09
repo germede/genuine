@@ -2,7 +2,7 @@ package org.fluentness.service.configuration;
 
 import org.fluentness.Application;
 
-import static org.fluentness.service.logger.LogLevel.DEBUG;
+import static org.fluentness.service.logging.LogLevel.DEBUG;
 
 public class DefaultConfigurationService extends AbstractConfigurationService {
 
