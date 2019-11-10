@@ -6,6 +6,10 @@ public class ToggleButtonView extends AbstractToggleButtonView<ToggleButtonView,
 
     private final JToggleButton jToggleButton = new JToggleButton();
 
+    public ToggleButtonView(String text) {
+        text(text);
+    }
+
     @Override
     public JToggleButton getSwingView() {
         return jToggleButton;

@@ -1,5 +1,7 @@
 package org.fluentness.controller.desktop.swing.component;
 
+import org.fluentness.controller.desktop.swing.component.button.menu.AbstractMenuItemView;
+
 import javax.swing.*;
 import javax.swing.plaf.PopupMenuUI;
 import java.awt.*;
@@ -7,6 +9,12 @@ import java.awt.*;
 public class PopupMenuView extends AbstractComponentView<PopupMenuView, JPopupMenu> {
 
     private final JPopupMenu jPopupMenu = new JPopupMenu();
+
+    public PopupMenuView(AbstractMenuItemView... menuItems) {
+        for (AbstractMenuItemView menuItem : menuItems) {
+            jPopupMenu.add(menuItem.getSwingView());
+        }
+    }
 
     @Override
     public JPopupMenu getSwingView() {
@@ -30,11 +38,6 @@ public class PopupMenuView extends AbstractComponentView<PopupMenuView, JPopupMe
 
     public PopupMenuView lightWeightPopupEnabled(boolean aFlag) {
         jPopupMenu.setLightWeightPopupEnabled(aFlag);
-        return this;
-    }
-
-    public PopupMenuView popupSize(Dimension d) {
-        jPopupMenu.setPopupSize(d);
         return this;
     }
 

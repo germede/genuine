@@ -14,6 +14,10 @@ public abstract class AbstractSwingView<Self extends AbstractSwingView, View ext
 
     public abstract View getSwingView();
 
+    protected AbstractSwingView(Class<Self> selfClass) {
+        //apply default styles
+    }
+
     @Override
     public void render() {
         getSwingView().setVisible(true);
@@ -48,17 +52,57 @@ public abstract class AbstractSwingView<Self extends AbstractSwingView, View ext
 
     // ==== from java.awt.Component
     public Self componentListener(ComponentListener l) {
-        getSwingView().addComponentListener(l);
+        getSwingView().addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent componentEvent) {
+
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent componentEvent) {
+
+            }
+
+            @Override
+            public void componentShown(ComponentEvent componentEvent) {
+
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent componentEvent) {
+
+            }
+        });
         return (Self) this;
     }
 
     public Self focusListener(FocusListener l) {
-        getSwingView().addFocusListener(l);
+        getSwingView().addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent focusEvent) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent focusEvent) {
+
+            }
+        });
         return (Self) this;
     }
 
     public Self hierarchyBoundsListener(HierarchyBoundsListener l) {
-        getSwingView().addHierarchyBoundsListener(l);
+        getSwingView().addHierarchyBoundsListener(new HierarchyBoundsListener() {
+            @Override
+            public void ancestorMoved(HierarchyEvent hierarchyEvent) {
+
+            }
+
+            @Override
+            public void ancestorResized(HierarchyEvent hierarchyEvent) {
+
+            }
+        });
         return (Self) this;
     }
 
@@ -68,22 +112,82 @@ public abstract class AbstractSwingView<Self extends AbstractSwingView, View ext
     }
 
     public Self inputMethodListener(InputMethodListener l) {
-        getSwingView().addInputMethodListener(l);
+        getSwingView().addInputMethodListener(new InputMethodListener() {
+            @Override
+            public void inputMethodTextChanged(InputMethodEvent inputMethodEvent) {
+
+            }
+
+            @Override
+            public void caretPositionChanged(InputMethodEvent inputMethodEvent) {
+
+            }
+        });
         return (Self) this;
     }
 
     public Self keyListener(KeyListener l) {
-        getSwingView().addKeyListener(l);
+        getSwingView().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+
+            }
+        });
         return (Self) this;
     }
 
     public Self mouseListener(MouseListener l) {
-        getSwingView().addMouseListener(l);
+        getSwingView().addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent mouseEvent) {
+
+            }
+        });
         return (Self) this;
     }
 
     public Self mouseMotionListener(MouseMotionListener l) {
-        getSwingView().addMouseMotionListener(l);
+        getSwingView().addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent mouseEvent) {
+
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent mouseEvent) {
+
+            }
+        });
         return (Self) this;
     }
 
@@ -157,11 +261,6 @@ public abstract class AbstractSwingView<Self extends AbstractSwingView, View ext
         return (Self) this;
     }
 
-    public Self location(Point p) {
-        getSwingView().setLocation(p);
-        return (Self) this;
-    }
-
     public Self maximumSize(int x, int y) {
         getSwingView().setMaximumSize(new Dimension(x, y));
         return (Self) this;
@@ -180,11 +279,6 @@ public abstract class AbstractSwingView<Self extends AbstractSwingView, View ext
 
     public Self preferredSize(int x, int y) {
         getSwingView().setPreferredSize(new Dimension(x, y));
-        return (Self) this;
-    }
-
-    public Self size(Dimension d) {
-        getSwingView().setSize(d);
         return (Self) this;
     }
 

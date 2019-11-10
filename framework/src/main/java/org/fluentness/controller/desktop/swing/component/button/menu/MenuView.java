@@ -6,7 +6,8 @@ public class MenuView extends AbstractMenuItemView<MenuView, JMenu> {
 
     private final JMenu jMenu = new JMenu();
 
-    public MenuView(AbstractMenuItemView... menuItems) {
+    public MenuView(String text, AbstractMenuItemView... menuItems) {
+        text(text);
         for (AbstractMenuItemView menuItem : menuItems) {
             jMenu.add(menuItem.getSwingView());
         }

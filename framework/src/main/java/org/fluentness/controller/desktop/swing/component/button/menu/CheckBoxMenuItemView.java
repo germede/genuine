@@ -6,6 +6,10 @@ public class CheckBoxMenuItemView extends AbstractMenuItemView<CheckBoxMenuItemV
 
     private final JCheckBoxMenuItem jCheckBoxMenuItem = new JCheckBoxMenuItem();
 
+    public CheckBoxMenuItemView(String text) {
+        text(text);
+    }
+
     @Override
     public JCheckBoxMenuItem getSwingView() {
         return jCheckBoxMenuItem;

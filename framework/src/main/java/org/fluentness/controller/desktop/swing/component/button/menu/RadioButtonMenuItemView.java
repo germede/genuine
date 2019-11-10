@@ -6,6 +6,10 @@ public class RadioButtonMenuItemView extends AbstractMenuItemView<RadioButtonMen
 
     private final JRadioButtonMenuItem jRadioButtonMenuItem = new JRadioButtonMenuItem();
 
+    public RadioButtonMenuItemView(String text) {
+        text(text);
+    }
+
     @Override
     public JRadioButtonMenuItem getSwingView() {
         return jRadioButtonMenuItem;

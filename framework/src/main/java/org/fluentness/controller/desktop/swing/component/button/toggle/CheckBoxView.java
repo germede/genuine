@@ -6,6 +6,10 @@ public class CheckBoxView extends AbstractToggleButtonView<CheckBoxView, JCheckB
 
     private final JCheckBox jCheckBox = new JCheckBox();
 
+    public CheckBoxView(String text) {
+        text(text);
+    }
+
     @Override
     public JCheckBox getSwingView() {
         return jCheckBox;

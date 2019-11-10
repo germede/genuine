@@ -6,6 +6,10 @@ public class RadioButtonView extends AbstractToggleButtonView<RadioButtonView, J
 
     private final JRadioButton jRadioButton = new JRadioButton();
 
+    public RadioButtonView(String text) {
+        text(text);
+    }
+
     @Override
     public JRadioButton getSwingView() {
         return jRadioButton;

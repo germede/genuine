@@ -9,6 +9,10 @@ import java.beans.VetoableChangeListener;
 
 public abstract class AbstractComponentView<Self extends AbstractComponentView, T extends JComponent> extends AbstractSwingView<Self, T> {
 
+    protected AbstractComponentView(Class<Self> selfClass) {
+        super(selfClass);
+    }
+
     @Override
     public abstract T getSwingView();
 
@@ -42,8 +46,8 @@ public abstract class AbstractComponentView<Self extends AbstractComponentView, 
         return (Self) this;
     }
 
-    public Self componentPopupMenu(JPopupMenu popup) {
-        getSwingView().setComponentPopupMenu(popup);
+    public Self popupMenu(PopupMenuView popup) {
+        getSwingView().setComponentPopupMenu(popup.getSwingView());
         return (Self) this;
     }
 

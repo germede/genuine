@@ -14,8 +14,18 @@ import org.fluentness.controller.desktop.swing.container.FrameView;
 import org.fluentness.controller.desktop.swing.container.WindowView;
 
 import javax.swing.*;
+import java.awt.*;
 
 public final class DesktopViewFactory {
+    // default styles
+    // todo make default styles as function in controller:
+    // public abstract getGlobalStyles () {
+    //      add(ButtonView.class, buttonView -> buttonView.setPreferredSize(30,30))
+    //      add(LabelView.class, labelView -> set
+    public static int DEFAULT_MENU_ITEM_WIDTH = 50;
+    public static int DEFAULT_MENU_ITEM_HEIGHT = 30;
+    public static Color DEFAULT_MENU_ITEM_BACKGROUND = new Color(48, 48, 48);
+
 
     // ==== container
     public static FrameView frame(AbstractSwingView contentPane) {
@@ -41,13 +51,19 @@ public final class DesktopViewFactory {
     }
 
     public static MenuBarView menuBar(MenuView... menus) {
-        return new MenuBarView(menus);
+        return new MenuBarView(menus).background(new Color(48, 48, 48));
     }
 
     public static ColorChooserView colorChooser() {
         return new ColorChooserView();
     }
 
+    public static PopupMenuView popupMenu(AbstractMenuItemView... menuItems) {
+        return new PopupMenuView(menuItems);
+    }
+
+
+    // ======== table
     public static TableView table(String[] header, Object[]... rows) {
         return new TableView(header, rows);
     }
@@ -59,7 +75,6 @@ public final class DesktopViewFactory {
     public static Object[] row(Object... cells) {
         return cells;
     }
-
 
     // ======== button
     public static ButtonView button(String text) {
@@ -84,32 +99,40 @@ public final class DesktopViewFactory {
 
     // ============ menu
     public static MenuView menu(String text, AbstractMenuItemView... menuItems) {
-        return new MenuView(menuItems).text(text);
+        return new MenuView(text, menuItems)
+            .background(DEFAULT_MENU_ITEM_BACKGROUND)
+            .preferredSize(DEFAULT_MENU_ITEM_WIDTH, DEFAULT_MENU_ITEM_HEIGHT);
     }
 
     public static MenuItemView menuItem(String text) {
-        return new MenuItemView().text(text);
+        return new MenuItemView(text)
+            .background(DEFAULT_MENU_ITEM_BACKGROUND)
+            .preferredSize(DEFAULT_MENU_ITEM_WIDTH, DEFAULT_MENU_ITEM_HEIGHT);
     }
 
     public static RadioButtonMenuItemView radioButtonMenuItem(String text) {
-        return new RadioButtonMenuItemView().text(text);
+        return new RadioButtonMenuItemView(text)
+            .background(DEFAULT_MENU_ITEM_BACKGROUND)
+            .preferredSize(DEFAULT_MENU_ITEM_WIDTH, DEFAULT_MENU_ITEM_HEIGHT);
     }
 
     public static CheckBoxMenuItemView checkBoxMenuItem(String text) {
-        return new CheckBoxMenuItemView().text(text);
+        return new CheckBoxMenuItemView(text)
+            .background(DEFAULT_MENU_ITEM_BACKGROUND)
+            .preferredSize(DEFAULT_MENU_ITEM_WIDTH, DEFAULT_MENU_ITEM_HEIGHT);
     }
 
     // ============ toggle
     public static ToggleButtonView toggleButton(String text) {
-        return new ToggleButtonView().text(text);
+        return new ToggleButtonView(text);
     }
 
     public static RadioButtonView radioButton(String text) {
-        return new RadioButtonView().text(text);
+        return new RadioButtonView(text);
     }
 
     public static CheckBoxView checkBox(String text) {
-        return new CheckBoxView().text(text);
+        return new CheckBoxView(text);
     }
 
     // ======== text
