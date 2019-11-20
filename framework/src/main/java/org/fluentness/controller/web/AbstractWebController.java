@@ -1,7 +1,6 @@
 package org.fluentness.controller.web;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.service.routing.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -33,12 +32,26 @@ public abstract class AbstractWebController implements Controller<WebAction, Web
         return result;
     }
 
+    protected Response redirect(WebActionReference webActionReference) {
+        return response -> {
+            response.setStatus(301);
+            response.setHeader("Location", webActionReference.getPath());
+        };
+    }
+
+    protected Response redirect(String url) {
+        return response -> {
+            response.setStatus(301);
+            response.setHeader("Location", url);
+        };
+    }
+
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     protected @interface Action {
         String path();
 
-        HttpMethod method() default HttpMethod.GET;
+        String method() default "GET";
 
         boolean authentication() default false;
 

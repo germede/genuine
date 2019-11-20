@@ -1,7 +1,5 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.service.routing.HttpMethod;
-import org.fluentness.service.routing.HttpStatusCode;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,11 +39,6 @@ public class AbstractWebControllerTest {
                 return 403;
             }
 
-            @Action(path = "/testHttpStatusCode")
-            public HttpStatusCode testHttpStatusCode() {
-                return HttpStatusCode.FORBIDDEN;
-            }
-
             @Action(path = "/testServerError")
             public int testServerError() {
                 int outOfBounds = new int[]{}[1];
@@ -73,7 +66,7 @@ public class AbstractWebControllerTest {
                 return "Greetings, " + name;
             }
 
-            @Action(path = "/testPostParameter", method = HttpMethod.POST)
+            @Action(path = "/testPostParameter", method = "POST")
             public String testPostParameter(String name) {
                 return "Greetings, " + name;
             }
@@ -91,10 +84,10 @@ public class AbstractWebControllerTest {
         List<WebAction> actions = webController.getActions();
         for (WebAction webAction : actions) {
             if (webAction.getMethod().equals(webController.getClass().getMethod("testVoid"))) {
-                assertEquals(HttpMethod.GET, webAction.getHttpMethod());
+                assertEquals("GET", webAction.getHttpMethod());
                 assertEquals("/void", webAction.getPath());
             } else if (webAction.getMethod().equals(webController.getClass().getMethod("testPostParameter", String.class))) {
-                assertEquals(HttpMethod.POST, webAction.getHttpMethod());
+                assertEquals("POST", webAction.getHttpMethod());
                 assertEquals("/testPostParameter", webAction.getPath());
             }
         }

@@ -2,7 +2,6 @@ package org.fluentness.service.authentication;
 
 import org.fluentness.Fluentness;
 import org.fluentness.service.configuration.ConfigurationService;
-import org.fluentness.service.routing.HttpStatusCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +38,7 @@ public class BasicAuthenticationService implements AuthenticationService {
         }
 
         response.setHeader(AUTHENTICATE_HEADER, "Basic realm=\"" + Fluentness.getApplication().getName() + "\"");
-        response.setStatus(HttpStatusCode.UNAUTHORIZED.toInt());
+        response.setStatus(401);
         return false;
     }
 

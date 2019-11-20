@@ -4,11 +4,15 @@ import org.fluentness.repository.Model;
 
 import javax.persistence.*;
 
+import static org.fluentness.repository.Model.Type.*;
+
 @Entity
-@Table(name = "song")
+@Table(name = "book")
 public class Book implements Model {
 
     private int id;
+
+    @Field(type = TEXT, label = "book_title")
     private String title;
 
     @Id

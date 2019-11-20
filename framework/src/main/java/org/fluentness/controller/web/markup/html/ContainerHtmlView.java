@@ -9,8 +9,4 @@ public class ContainerHtmlView extends ContainerMarkupView implements HtmlView {
         super(tag, inner);
     }
 
-    public ContainerHtmlView(String tag, String inner) {
-        super(tag,inner);
-    }
-
 }

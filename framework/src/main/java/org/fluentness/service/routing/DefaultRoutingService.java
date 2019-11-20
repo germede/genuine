@@ -52,40 +52,24 @@ public class DefaultRoutingService implements RoutingService {
         Method method = action.getMethod();
         method.setAccessible(true);
         return (request, response) -> {
-            if (!request.getMethod().equals(action.getHttpMethod().toString())) {
-                response.setStatus(HttpStatusCode.METHOD_NOT_ALLOWED.toInt());
+            if (!request.getMethod().equals(action.getHttpMethod())) {
+                response.setStatus(405);
             } else if (!action.isAuthentication() || authenticationService.authenticate(request, response)) {
 
                 response.setCharacterEncoding(configurationService.getOrDefault(router_encoding, "UTF-8"));
-
-                Object[] parameters = (action.getMethod().getParameters().length > 0 &&
-                    action.getMethod().getParameters()[0].getType().equals(AbstractWebController.Request.class)) ?
-                    new Object[]{new AbstractWebController.Request(request)} :
-                    null;
-
-                if (method.getReturnType().equals(WebView.class)) {
-                    if (action.isCache()) {
-                        response.getWriter().write(
-                            cachingService.cache(request, () -> (WebView) method.invoke(controller, parameters))
-                        );
-                    } else {
-                        response.getWriter().write(
-                            ((WebView) method.invoke(controller, parameters)).render()
-                        );
-                    }
-                } else {
-                    Object returnValue = method.invoke(controller, parameters);
-                    if (returnValue instanceof String) {
-                        response.getWriter().write((String) returnValue);
-                    } else if (returnValue instanceof Integer) {
-                        response.setStatus((Integer) returnValue);
-                    } else if (returnValue instanceof HttpStatusCode) {
-                        response.setStatus(((HttpStatusCode) returnValue).toInt());
-                    } else if (returnValue instanceof AbstractWebController.Response) {
-                        ((AbstractWebController.Response) returnValue).response(response);
-                    }
+                // todo cache
+                Object returnValue = method.invoke(controller, new AbstractWebController.Request(request));
+                if (returnValue instanceof String) {
+                    response.getWriter().write((String) returnValue);
+                } else if (returnValue instanceof WebView) {
+                    response.getWriter().write(((WebView) returnValue).render());
+                } else if (returnValue instanceof Integer) {
+                    response.setStatus((Integer) returnValue);
+                } else if (returnValue instanceof AbstractWebController.Response) {
+                    ((AbstractWebController.Response) returnValue).response(response);
                 }
             }
+
         };
     }
 

@@ -14,20 +14,20 @@ public abstract class AbstractCrudRepository<M extends Model> implements Reposit
         this.persistence = persistence;
     }
 
-    public void create(M book) {
-        persistence.persist(book);
+    public void create(M model) {
+        persistence.persist(model);
     }
 
-    public void update(M book) {
-        persistence.persist(book);
+    public void update(M model) {
+        persistence.persist(model);
     }
 
-    public void delete(M book) {
-        persistence.remove(book);
+    public void delete(M model) {
+        persistence.remove(model);
     }
 
-    public M find(Class<M> mClass, int id) {
-        return persistence.find(mClass, id);
+    public M find(Class<M> modelClass, int id) {
+        return persistence.find(modelClass, id);
     }
 
     public List<M> findAll(Class<M> mClass) {

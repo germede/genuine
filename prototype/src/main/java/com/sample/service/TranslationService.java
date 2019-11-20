@@ -11,10 +11,10 @@ public class TranslationService extends AbstractTranslationService {
         action = msg("Action").de("Aktion").es("Acción"),
         search = msg("Search").de("Suchen").es("Buscar"),
         cancel = msg("Cancel").de("Abbrechen").es("Cancelar"),
-        book_list = msg("Book list").de("Buchliste").es("Lista de libros"),
-        book_create = msg("Create book").de("Buch erstellen").es("Crear libro"),
-        book_update = msg("Update book").de("Buch editieren").es("Editar libro"),
-        book_delete = msg("Delete book").de("Buch entfernen").es("Eliminar libro"),
+        create = msg("Create").de("Erstellen").es("Crear"),
+        update = msg("Update").de("Editieren").es("Editar"),
+        delete = msg("Delete").de("Entfernen").es("Eliminar"),
+        books = msg("Books").de("Bucher").es("Libros"),
         book_title = msg("Title").de("Titel").es("Título"),
         book_title_placeholder = msg("e.g. Harry Potter").de("z.B. Harry Potter").es("p.ej. Harry Potter"),
         book_author = msg("Author").de("Author").es("Autor"),
@@ -23,6 +23,13 @@ public class TranslationService extends AbstractTranslationService {
         book_genre_placeholder = msg("e.g. Fantasy").de("z.B. Fantasy").es("p.ej. Fantasy"),
         book_year = msg("Year").de("Jahr").es("Año"),
         book_year_placeholder = msg("e.g. 1997").de("z.B. 1997").es("p.ej. 1997"),
-        book_is_new = msg("Is new").de("Ist neu").es("Es nuevo");
+        book_cover = msg("Cover").de("Deckblatt").es("Portada"),
+        book_is_new = msg("Is new").de("Ist neu").es("Es nuevo"),
+        authors = msg("Authors").de("Autoren").es("Autores"),
+        author_name = msg("Name").de("Name").es("Nombre"),
+        author_biography = msg("Biography").de("Biografie").es("Biografia"),
+        users = msg("Users").de("Benutzer").es("Usuarios"),
+        user_username = msg("Username").de("Benutzername").es("Nombre de usuario"),
+        user_password = msg("Password").de("Passwort").es("Contraseña");
 
 }

@@ -3,6 +3,7 @@
     <persistence-unit name="bookLibraryPU">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <class>com.sample.repository.Book</class>
+        <class>com.sample.repository.User</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/party?serverTimezone=UTC"/>
             <property name="javax.persistence.jdbc.user" value="party"/>
