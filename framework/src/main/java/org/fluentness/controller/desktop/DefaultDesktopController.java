@@ -1,4 +1,4 @@
 package org.fluentness.controller.desktop;
 
-public class DEFAULTDESKTOPCONTROLLER {
+public class DefaultDesktopController {
 }

@@ -11,7 +11,7 @@ import javax.swing.event.CaretEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-import static org.fluentness.controller.desktop.DesktopViewFactory.*;
+import static org.fluentness.controller.desktop.swing.SwingViewFactory.*;
 
 public class DesktopController extends AbstractDesktopController {
 

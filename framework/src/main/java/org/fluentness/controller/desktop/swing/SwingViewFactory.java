@@ -1,6 +1,5 @@
-package org.fluentness.controller.desktop;
+package org.fluentness.controller.desktop.swing;
 
-import org.fluentness.controller.desktop.swing.AbstractSwingView;
 import org.fluentness.controller.desktop.swing.component.*;
 import org.fluentness.controller.desktop.swing.component.button.AbstractButtonView;
 import org.fluentness.controller.desktop.swing.component.button.ButtonView;
@@ -16,7 +15,7 @@ import org.fluentness.controller.desktop.swing.container.WindowView;
 import javax.swing.*;
 import java.awt.*;
 
-public final class DesktopViewFactory {
+public final class SwingViewFactory {
     // default styles
     // todo make default styles as function in controller:
     // public abstract getGlobalStyles () {
