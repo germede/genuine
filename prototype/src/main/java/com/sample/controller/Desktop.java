@@ -1,9 +1,9 @@
 package com.sample.controller;
 
 import com.bulenkov.darcula.DarculaLaf;
-import org.fluentness.controller.desktop.DesktopStyles;
+import org.fluentness.controller.desktop.DesktopStyleBuilder;
 import org.fluentness.controller.desktop.DesktopView;
-import org.fluentness.controller.desktop.DesktopViews;
+import org.fluentness.controller.desktop.DesktopViewHolder;
 import org.fluentness.controller.desktop.swing.component.MenuBarView;
 import org.fluentness.controller.desktop.swing.component.PopupMenuView;
 import org.fluentness.controller.desktop.swing.component.button.menu.MenuItemView;
@@ -13,7 +13,7 @@ import java.awt.*;
 
 import static org.fluentness.controller.desktop.swing.SwingViewFactory.*;
 
-public class Desktop implements DesktopViews {
+public class Desktop implements DesktopViewHolder {
 
     private DesktopController desktopController;
 
@@ -33,7 +33,7 @@ public class Desktop implements DesktopViews {
     }
 
     @Override
-    public void setGlobalStyles(DesktopStyles styles) {
+    public void setGlobalStyles(DesktopStyleBuilder styles) {
         styles
             .set(MenuItemView.class, menuItemView -> {
                     menuItemView.border(BorderFactory.createLineBorder(new Color(237, 78, 0)));

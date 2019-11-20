@@ -1,4 +1,4 @@
 package org.fluentness.controller.web;
 
-public interface WebViews {
+public interface WebViewHolder {
 }

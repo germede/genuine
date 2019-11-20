@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractWebController<V extends WebViews> implements Controller {
+public abstract class AbstractWebController<V extends WebViewHolder> implements Controller {
 
     protected V web;
 

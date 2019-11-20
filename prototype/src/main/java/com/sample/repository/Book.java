@@ -1,10 +1,12 @@
 package com.sample.repository;
 
+import org.fluentness.repository.crud.Model;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "song")
-public class Book {
+public class Book implements Model {
 
     private int id;
     private String title;

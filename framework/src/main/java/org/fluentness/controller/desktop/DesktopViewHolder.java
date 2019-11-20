@@ -2,7 +2,7 @@ package org.fluentness.controller.desktop;
 
 import javax.swing.*;
 
-public interface DesktopViews {
+public interface DesktopViewHolder {
 
     default void setLookAndFeel() {
         try {
@@ -13,7 +13,7 @@ public interface DesktopViews {
         }
     }
 
-    default void setGlobalStyles(DesktopStyles style) {
+    default void setGlobalStyles(DesktopStyleBuilder style) {
 
     }
 

@@ -1,7 +1,7 @@
 package com.sample.controller;
 
 import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.controller.desktop.DesktopViews;
+import org.fluentness.controller.desktop.DesktopViewHolder;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 public class DesktopController extends AbstractDesktopController {
 
     @Override
-    protected DesktopViews initViews() {
+    protected DesktopViewHolder initViews() {
         return new Desktop(this);
     }
 

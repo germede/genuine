@@ -5,7 +5,7 @@ import org.fluentness.service.persistence.PersistenceService;
 
 import java.util.List;
 
-public abstract class AbstractCrudRepository<M> implements Repository {
+public abstract class AbstractCrudRepository<M extends Model> implements Repository {
 
     protected PersistenceService persistence;
 

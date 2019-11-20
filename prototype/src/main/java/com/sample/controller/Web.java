@@ -2,7 +2,7 @@ package com.sample.controller;
 
 import com.sample.repository.Book;
 import org.fluentness.controller.web.WebView;
-import org.fluentness.controller.web.WebViews;
+import org.fluentness.controller.web.WebViewHolder;
 import org.fluentness.controller.web.markup.html.HtmlView;
 import org.fluentness.service.translation.TranslationService;
 
@@ -12,7 +12,7 @@ import static com.sample.service.TranslationService.*;
 import static org.fluentness.controller.web.markup.html.HtmlViewFactory.action;
 import static org.fluentness.controller.web.markup.html.HtmlViewFactory.*;
 
-public class Web implements WebViews {
+public class Web implements WebViewHolder {
 
     private final WebController webController;
     private final TranslationService i18n;

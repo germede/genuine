@@ -5,7 +5,7 @@ import org.fluentness.controller.desktop.swing.SwingViewRegistry;
 
 import java.awt.*;
 
-public abstract class AbstractDesktopController<V extends DesktopViews> implements Controller {
+public abstract class AbstractDesktopController<V extends DesktopViewHolder> implements Controller {
 
     protected V desktop;
 
