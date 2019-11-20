@@ -10,10 +10,10 @@ public abstract class AbstractDesktopController<V extends DesktopViewHolder> imp
     protected V desktop;
 
     protected AbstractDesktopController() {
-        desktop = initViews();
+        desktop = initViewHolder();
     }
 
-    protected abstract V initViews();
+    protected abstract V initViewHolder();
 
     protected <SwingView extends Container> SwingView getSwingViewByName(Class<SwingView> viewClass, String name) {
         return SwingViewRegistry.getByName(viewClass, name);

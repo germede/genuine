@@ -19,7 +19,7 @@ public abstract class AbstractWebController<V extends WebViewHolder> implements 
     protected V web;
 
     protected AbstractWebController() {
-        web = initViews();
+        web = initViewHolder();
     }
 
     public List<WebAction> getActions() {
@@ -38,7 +38,7 @@ public abstract class AbstractWebController<V extends WebViewHolder> implements 
         return result;
     }
 
-    protected abstract V initViews();
+    protected abstract V initViewHolder();
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 public class DesktopController extends AbstractDesktopController {
 
     @Override
-    protected DesktopViewHolder initViews() {
+    protected DesktopViewHolder initViewHolder() {
         return new Desktop(this);
     }
 

@@ -12,18 +12,22 @@ import javax.mail.MessagingException;
 public class WebController extends AbstractWebController<Web> {
 
     private BookRepository bookRepository;
-    private TranslationService i18n;
+    private TranslationService translationService;
     private MailingService mailingService;
 
-    public WebController(BookRepository bookRepository, TranslationService i18n, MailingService mailingService) {
+    public WebController(
+        BookRepository bookRepository,
+        TranslationService translationService,
+        MailingService mailingService
+    ) {
         this.bookRepository = bookRepository;
-        this.i18n = i18n;
+        this.translationService = translationService;
         this.mailingService = mailingService;
     }
 
     @Override
-    protected Web initViews() {
-        return new Web(this, i18n);
+    protected Web initViewHolder() {
+        return new Web(this, translationService);
     }
 
     @Action(path = "/")

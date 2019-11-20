@@ -17,7 +17,7 @@ public class Web implements WebViewHolder {
     private final WebController webController;
     private final TranslationService i18n;
 
-    public Web(WebController webController, TranslationService i18n) {
+    Web(WebController webController, TranslationService i18n) {
         this.webController = webController;
         this.i18n = i18n;
     }
