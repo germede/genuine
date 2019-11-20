@@ -19,7 +19,7 @@ public class AbstractWebControllerTest {
     public void setUp() {
         webController = new AbstractWebController(){
             @Override
-            protected WebViewHolder initViewHolder() {
+            protected WebViewHolder getWeb() {
                 return null;
             }
 

@@ -26,7 +26,7 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Override
-    protected Web initViewHolder() {
+    protected Web getWeb() {
         return new Web(this, translationService);
     }
 
