@@ -1,6 +1,8 @@
 package com.sample;
 
-import org.fluentness.*;
+import org.fluentness.Application;
+import org.fluentness.Fluentness;
+import org.fluentness.FluentnessException;
 
 public class LibraryApplication implements Application {
 

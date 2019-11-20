@@ -1,16 +1,16 @@
 package com.sample.controller;
 
-import com.bulenkov.darcula.DarculaLaf;
-import org.fluentness.controller.desktop.DesktopStyleBuilder;
+import org.fluentness.controller.desktop.DesktopStyle;
 import org.fluentness.controller.desktop.DesktopView;
 import org.fluentness.controller.desktop.DesktopViewHolder;
 import org.fluentness.controller.desktop.swing.component.MenuBarView;
-import org.fluentness.controller.desktop.swing.component.PopupMenuView;
-import org.fluentness.controller.desktop.swing.component.button.menu.MenuItemView;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
 
+import static org.fluentness.controller.desktop.DesktopStyleFactory.style;
 import static org.fluentness.controller.desktop.swing.SwingViewFactory.*;
 
 public class Desktop implements DesktopViewHolder {
@@ -22,26 +22,38 @@ public class Desktop implements DesktopViewHolder {
     }
 
     @Override
-    public void setLookAndFeel() {
-        // Set custom look and feel instead of default system one
-        try {
-            UIManager.put("swing.boldMetal", Boolean.FALSE);
-            UIManager.setLookAndFeel(new DarculaLaf());
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-    }
+    public DesktopStyle getGlobalStyle() {
+        Dimension menuItemSize = new Dimension(100,30);
 
-    @Override
-    public void setGlobalStyles(DesktopStyleBuilder styles) {
-        styles
-            .set(MenuItemView.class, menuItemView -> {
-                    menuItemView.border(BorderFactory.createLineBorder(new Color(237, 78, 0)));
-                    menuItemView.margin(new Insets(20,20,20,20));
-                    menuItemView.text("1234");
-                }
-            )
-        ;
+        return style()
+            .set(JMenuItem.class, view -> {
+                view.setPreferredSize(menuItemSize);
+                view.setOpaque(true);
+                view.setMnemonic(view.getText().isEmpty() ? 0 : view.getText().charAt(0));
+            })
+            .set(JMenu.class, view -> {
+                view.setPreferredSize(menuItemSize);
+                view.setBorder(BorderFactory.createMatteBorder(0,0,5,0,new Color(0,0,0,0)));
+                view.addMenuListener(new MenuListener() {
+                    @Override
+                    public void menuSelected(MenuEvent menuEvent) {
+                        view.setBorder(BorderFactory.createMatteBorder(0,0,5,0,Color.orange));
+                    }
+
+                    @Override
+                    public void menuDeselected(MenuEvent menuEvent) {
+                        view.setBorder(null);
+                    }
+
+                    @Override
+                    public void menuCanceled(MenuEvent menuEvent) {
+                        view.setBorder(null);
+                    }
+                });
+
+                view.setBorderPainted(true);
+                view.setMnemonic(view.getText().isEmpty() ? 0 : view.getText().charAt(0));
+            });
     }
 
     @Override
@@ -50,7 +62,6 @@ public class Desktop implements DesktopViewHolder {
             panel(
                 panel(
                     colorChooser(),
-
                     table(
                         header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
                         row(1, "John", 40.0, false),
@@ -69,28 +80,27 @@ public class Desktop implements DesktopViewHolder {
     }
 
     private MenuBarView topBar() {
-        new PopupMenuView().label("asf").getSwingView().setVisible(true);
         return menuBar(
             menu("File",
                 menuItem("Load").accelerator(KeyStroke.getKeyStroke('C')),
                 menuItem("Save"),
                 menuItem("Close")
-            ).mnemonic('F'),
+            ),
             menu("Edit",
                 menuItem("Cut").actionListener(desktopController::cutPresed),
                 menuItem("Copy"),
                 menuItem("Paste")
-            ).mnemonic('E'),
+            ),
             menu("RadioButtons",
                 buttonGroupInMenu(
                     radioButtonMenuItem("Radio 1"),
                     radioButtonMenuItem("Radio 2")
                 )
-            ).mnemonic('R'),
+            ),
             menu("CheckBoxes",
                 checkBoxMenuItem("CheckBox 1"),
                 checkBoxMenuItem("CheckBox 2")
-            ).mnemonic('C'),
+            ),
             menu("Help",
                 menuItem("Manual"),
                 menuItem("About")
