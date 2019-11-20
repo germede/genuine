@@ -14,14 +14,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractWebController<Web extends WebViewHolder> implements Controller {
+public abstract class AbstractWebController implements Controller<WebAction, WebView> {
 
-    protected Web web;
-
-    protected AbstractWebController() {
-        web = getWeb();
-    }
-
+    @Override
     public List<WebAction> getActions() {
         List<WebAction> result = new LinkedList<>();
         Arrays.stream(getClass().getDeclaredMethods())
@@ -37,8 +32,6 @@ public abstract class AbstractWebController<Web extends WebViewHolder> implement
             );
         return result;
     }
-
-    protected abstract Web getWeb();
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

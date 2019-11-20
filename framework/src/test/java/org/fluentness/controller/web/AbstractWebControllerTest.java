@@ -18,10 +18,6 @@ public class AbstractWebControllerTest {
     @Before
     public void setUp() {
         webController = new AbstractWebController(){
-            @Override
-            protected WebViewHolder getWeb() {
-                return null;
-            }
 
             public void notAnActionBecauseNoActionAnnotation() {
             }

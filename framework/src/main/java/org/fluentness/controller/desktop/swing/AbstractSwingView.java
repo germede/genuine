@@ -10,7 +10,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Locale;
 import java.util.Set;
 
-public abstract class AbstractSwingView<Self extends AbstractSwingView, View extends Container> extends DesktopView<View> {
+public abstract class AbstractSwingView<Self extends AbstractSwingView, View extends Container> extends DesktopView {
 
     protected View view;
 

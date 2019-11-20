@@ -1,6 +1,6 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.Model;
+import org.fluentness.repository.Model;
 
 import javax.persistence.*;
 

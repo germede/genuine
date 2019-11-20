@@ -1,6 +1,7 @@
 package org.fluentness.controller.console;
 
 import org.fluentness.controller.Controller;
+import org.fluentness.controller.View;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractConsoleController implements Controller {
+public abstract class AbstractConsoleController implements Controller<ConsoleAction, View> {
 
     public List<ConsoleAction> getActions() {
         List<ConsoleAction> result = new LinkedList<>();

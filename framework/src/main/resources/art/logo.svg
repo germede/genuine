@@ -24,7 +24,7 @@
        id="linearGradient2390"
        osb:paint="solid">
       <stop
-         style="stop-color:#808080;stop-opacity:1;"
+         desktopStyle="stop-color:#808080;stop-opacity:1;"
          offset="0"
          id="stop2388" />
     </linearGradient>
@@ -32,11 +32,11 @@
        inkscape:collect="always"
        id="linearGradient832">
       <stop
-         style="stop-color:#000080;stop-opacity:1"
+         desktopStyle="stop-color:#000080;stop-opacity:1"
          offset="0"
          id="stop828" />
       <stop
-         style="stop-color:#008080;stop-opacity:1"
+         desktopStyle="stop-color:#008080;stop-opacity:1"
          offset="1"
          id="stop830" />
     </linearGradient>
@@ -44,7 +44,7 @@
        id="linearGradient2553"
        osb:paint="solid">
       <stop
-         style="stop-color:#020000;stop-opacity:1;"
+         desktopStyle="stop-color:#020000;stop-opacity:1;"
          offset="0"
          id="stop2551" />
     </linearGradient>
@@ -52,7 +52,7 @@
        id="linearGradient2429"
        osb:paint="solid">
       <stop
-         style="stop-color:#000000;stop-opacity:1;"
+         desktopStyle="stop-color:#000000;stop-opacity:1;"
          offset="0"
          id="stop2427" />
     </linearGradient>
@@ -125,14 +125,14 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+       desktopStyle="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
        id="rect865"
        width="87.294395"
        height="50"
        x="60.834816"
        y="69.927231" />
     <rect
-       style="opacity:1;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.63985682;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+       desktopStyle="opacity:1;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.63985682;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
        id="rect968-3"
        width="87.294395"
        height="0.53853595"
@@ -140,7 +140,7 @@
        y="101.1638" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient869);fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient869);fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="72.972252"
        y="99.656189"
        id="text2587"><tspan
@@ -148,11 +148,11 @@
          id="tspan2585"
          x="72.972252"
          y="99.656189"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'Scriptina Pro';-inkscape-font-specification:'Scriptina Pro';letter-spacing:0.07143751px;fill:url(#linearGradient869);fill-opacity:1;stroke-width:0.26458332"
+         desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'Scriptina Pro';-inkscape-font-specification:'Scriptina Pro';letter-spacing:0.07143751px;fill:url(#linearGradient869);fill-opacity:1;stroke-width:0.26458332"
          rotate="0 0 0 0 0 0 0 0 0 0 0 0">Fluentness </tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="71.439331"
        y="104.70095"
        id="text825"><tspan
@@ -160,6 +160,6 @@
          id="tspan823"
          x="71.439331"
          y="104.70095"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:Furore;-inkscape-font-specification:Furore;letter-spacing:0.21695833px;fill:#1a1a1a;stroke-width:0.26458332">Framework</tspan></text>
+         desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:Furore;-inkscape-font-specification:Furore;letter-spacing:0.21695833px;fill:#1a1a1a;stroke-width:0.26458332">Framework</tspan></text>
   </g>
 </svg>

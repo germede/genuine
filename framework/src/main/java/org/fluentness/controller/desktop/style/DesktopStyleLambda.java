@@ -1,6 +1,6 @@
 package org.fluentness.controller.desktop.style;
 
 @FunctionalInterface
-public interface StyleLambda<View> {
+public interface DesktopStyleLambda<View> {
     void style(View view);
 }

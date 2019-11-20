@@ -8,7 +8,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
 
-public class UbuntuStyle extends Style {
+public class UbuntuDesktopStyle extends DesktopStyle {
 
     protected static final Color BACKGROUND = new Color(245, 246, 247);
     protected static final Color ORANGE = new Color(237, 78, 0);
@@ -21,7 +21,7 @@ public class UbuntuStyle extends Style {
     protected static final Border INACTIVE_BORDER = BorderFactory.createEmptyBorder(6, 5, 4, 5);
     protected static final Font UBUNTU_FONT = new Font("Ubuntu", Font.PLAIN, 14);
 
-    UbuntuStyle() {
+    UbuntuDesktopStyle() {
         super(new GTKLookAndFeel());
         panel();
         menuItem();

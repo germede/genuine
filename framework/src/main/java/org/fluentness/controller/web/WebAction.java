@@ -1,10 +1,11 @@
 package org.fluentness.controller.web;
 
+import org.fluentness.controller.Action;
 import org.fluentness.service.routing.HttpMethod;
 
 import java.lang.reflect.Method;
 
-public class WebAction {
+public class WebAction implements Action {
 
     private String path;
     private HttpMethod httpMethod;

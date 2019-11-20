@@ -1,16 +1,20 @@
 package org.fluentness.controller.desktop;
 
+import org.fluentness.controller.Action;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.desktop.swing.SwingViewRegistry;
+import org.fluentness.controller.desktop.style.DesktopStyle;
 
-import java.awt.*;
+import java.util.List;
 
-public abstract class AbstractDesktopController<Desktop extends DesktopViewHolder> implements Controller {
+public abstract class AbstractDesktopController implements Controller<Action, DesktopView> {
 
-    public abstract Desktop getDesktop();
-
-    protected <SwingView extends Container> SwingView getSwingViewByName(Class<SwingView> viewClass, String name) {
-        return SwingViewRegistry.getByName(viewClass, name);
+    @Override
+    public List<Action> getActions() {
+        return null;
     }
+
+    public abstract DesktopStyle getGlobalStyle();
+
+    public abstract DesktopView getMainView();
 
 }

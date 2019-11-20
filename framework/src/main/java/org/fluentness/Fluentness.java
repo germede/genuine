@@ -7,7 +7,6 @@ import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.DesktopView;
-import org.fluentness.controller.desktop.DesktopViewHolder;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.authentication.BasicAuthenticationService;
@@ -24,7 +23,6 @@ import org.fluentness.service.routing.DefaultRoutingService;
 import org.fluentness.service.serving.ServingService;
 import org.fluentness.service.serving.TomcatServingService;
 
-import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
@@ -110,9 +108,8 @@ public final class Fluentness {
     private static void desktop(Application application) throws FluentnessException {
         try {
             for (AbstractDesktopController controller : INJECTION_SERVICE.getInstances(AbstractDesktopController.class)) {
-                DesktopViewHolder desktop = controller.getDesktop();
-                DesktopView.setGlobalStyle(desktop.getGlobalStyle());
-                desktop.getMainView().render();
+                DesktopView.setGlobalStyle(controller.getGlobalStyle());
+                controller.getMainView().render();
             }
         } catch (Exception e) {
             throw new FluentnessException(e);
