@@ -1,8 +1,10 @@
 package org.fluentness.controller.desktop;
 
+import org.fluentness.controller.desktop.style.Style;
+
 public interface DesktopViewHolder {
 
-    DesktopStyle getGlobalStyle();
+    Style getGlobalStyle();
 
     DesktopView getMainView();
 
