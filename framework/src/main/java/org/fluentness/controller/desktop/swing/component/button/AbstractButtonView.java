@@ -9,148 +9,149 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
-public abstract class AbstractButtonView<Self extends AbstractButtonView, T extends AbstractButton> extends AbstractComponentView<Self, T> {
+public abstract class AbstractButtonView<Self extends AbstractButtonView, View extends AbstractButton> extends AbstractComponentView<Self, View> {
 
-    @Override
-    public abstract T getSwingView();
+    public AbstractButtonView(View view) {
+        super(view);
+    }
 
     public Self actionListener(ActionListener l) {
-        getSwingView().addActionListener(l);
+        view.addActionListener(l);
         return (Self) this;
     }
 
     public Self borderPainted(boolean b) {
-        getSwingView().setBorderPainted(b);
+        view.setBorderPainted(b);
         return (Self) this;
     }
 
     public Self changeListener(ChangeListener l) {
-        getSwingView().addChangeListener(l);
+        view.addChangeListener(l);
         return (Self) this;
     }
 
     public Self contentAreaFilled(boolean b) {
-        getSwingView().setContentAreaFilled(b);
+        view.setContentAreaFilled(b);
         return (Self) this;
     }
 
     public Self disabledIcon(Icon disabledIcon) {
-        getSwingView().setDisabledIcon(disabledIcon);
+        view.setDisabledIcon(disabledIcon);
         return (Self) this;
     }
 
     public Self disabledSelectedIcon(Icon disabledSelectedIcon) {
-        getSwingView().setDisabledSelectedIcon(disabledSelectedIcon);
+        view.setDisabledSelectedIcon(disabledSelectedIcon);
         return (Self) this;
     }
 
     public Self displayedMnemonicIndex(int index) {
-        getSwingView().setDisplayedMnemonicIndex(index);
+        view.setDisplayedMnemonicIndex(index);
         return (Self) this;
     }
 
     public Self focusPainted(boolean b) {
-        getSwingView().setFocusPainted(b);
+        view.setFocusPainted(b);
         return (Self) this;
     }
 
     public Self hideActionText(boolean hideActionText) {
-        getSwingView().setHideActionText(hideActionText);
+        view.setHideActionText(hideActionText);
         return (Self) this;
     }
 
     public Self horizontalAlignment(int alignment) {
-        getSwingView().setHorizontalAlignment(alignment);
+        view.setHorizontalAlignment(alignment);
         return (Self) this;
     }
 
     public Self horizontalTextPosition(int textPosition) {
-        getSwingView().setHorizontalTextPosition(textPosition);
+        view.setHorizontalTextPosition(textPosition);
         return (Self) this;
     }
 
     public Self icon(Icon icon) {
-        getSwingView().setIcon(icon);
+        view.setIcon(icon);
         return (Self) this;
     }
 
     public Self iconTextGap(int iconTextGap) {
-        getSwingView().setIconTextGap(iconTextGap);
+        view.setIconTextGap(iconTextGap);
         return (Self) this;
     }
 
     public Self itemListener(ItemListener l) {
-        getSwingView().addItemListener(l);
+        view.addItemListener(l);
         return (Self) this;
     }
 
     public Self margin(Insets m) {
-        getSwingView().setMargin(m);
+        view.setMargin(m);
         return (Self) this;
     }
 
     public Self mnemonic(char mnemonic) {
-        getSwingView().setMnemonic(mnemonic);
+        view.setMnemonic(mnemonic);
         return (Self) this;
     }
 
     public Self mnemonic(int mnemonic) {
-        getSwingView().setMnemonic(mnemonic);
+        view.setMnemonic(mnemonic);
         return (Self) this;
     }
 
     public Self multiClickThreshold(long threshold) {
-        getSwingView().setMultiClickThreshhold(threshold);
+        view.setMultiClickThreshhold(threshold);
         return (Self) this;
     }
 
     public Self pressedIcon(Icon pressedIcon) {
-        getSwingView().setPressedIcon(pressedIcon);
+        view.setPressedIcon(pressedIcon);
         return (Self) this;
     }
 
     public Self rolloverEnabled(boolean b) {
-        getSwingView().setRolloverEnabled(b);
+        view.setRolloverEnabled(b);
         return (Self) this;
     }
 
     public Self rolloverIcon(Icon rolloverIcon) {
-        getSwingView().setRolloverIcon(rolloverIcon);
+        view.setRolloverIcon(rolloverIcon);
         return (Self) this;
     }
 
     public Self rolloverSelectedIcon(Icon rolloverSelectedIcon) {
-        getSwingView().setRolloverSelectedIcon(rolloverSelectedIcon);
+        view.setRolloverSelectedIcon(rolloverSelectedIcon);
         return (Self) this;
     }
 
     public Self selected(boolean b) {
-        getSwingView().setSelected(b);
+        view.setSelected(b);
         return (Self) this;
     }
 
     public Self selectedIcon(Icon selectedIcon) {
-        getSwingView().setSelectedIcon(selectedIcon);
+        view.setSelectedIcon(selectedIcon);
         return (Self) this;
     }
 
     public Self text(String text) {
-        getSwingView().setText(text);
+        view.setText(text);
         return (Self) this;
     }
 
     public Self uI(ButtonUI ui) {
-        getSwingView().setUI(ui);
+        view.setUI(ui);
         return (Self) this;
     }
 
     public Self verticalAlignment(int alignment) {
-        getSwingView().setVerticalAlignment(alignment);
+        view.setVerticalAlignment(alignment);
         return (Self) this;
     }
 
     public Self verticalTextPosition(int textPosition) {
-        getSwingView().setVerticalTextPosition(textPosition);
+        view.setVerticalTextPosition(textPosition);
         return (Self) this;
     }
 }

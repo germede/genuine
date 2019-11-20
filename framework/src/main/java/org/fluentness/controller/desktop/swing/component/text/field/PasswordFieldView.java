@@ -4,15 +4,12 @@ import javax.swing.*;
 
 public class PasswordFieldView extends AbstractTextFieldView<PasswordFieldView,JPasswordField> {
 
-    private final JPasswordField jPasswordField = new JPasswordField();
-
-    @Override
-    public JPasswordField getSwingView() {
-        return jPasswordField;
+    public PasswordFieldView() {
+        super(new JPasswordField());
     }
 
     public PasswordFieldView echoChar(char c) {
-        jPasswordField.setEchoChar(c);
+        view.setEchoChar(c);
         return this;
     }
 }

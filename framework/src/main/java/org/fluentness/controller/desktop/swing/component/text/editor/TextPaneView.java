@@ -7,30 +7,27 @@ import javax.swing.text.StyledDocument;
 
 public class TextPaneView extends AbstractTextEditorView<TextPaneView, JTextPane> {
 
-    private final JTextPane jTextPane = new JTextPane();
-
-    @Override
-    public JTextPane getSwingView() {
-        return jTextPane;
+    public TextPaneView() {
+        super(new JTextPane());
     }
 
     public TextPaneView characterAttributes(AttributeSet attr, boolean replace) {
-        jTextPane.setCharacterAttributes(attr, replace);
+        view.setCharacterAttributes(attr, replace);
         return this;
     }
 
     public TextPaneView logicalStyle(Style s) {
-        jTextPane.setLogicalStyle(s);
+        view.setLogicalStyle(s);
         return this;
     }
 
     public TextPaneView paragraphAttributes(AttributeSet attr, boolean replace) {
-        jTextPane.setParagraphAttributes(attr, replace);
+        view.setParagraphAttributes(attr, replace);
         return this;
     }
 
     public TextPaneView styledDocument(StyledDocument doc) {
-        jTextPane.setStyledDocument(doc);
+        view.setStyledDocument(doc);
         return this;
     }
 }

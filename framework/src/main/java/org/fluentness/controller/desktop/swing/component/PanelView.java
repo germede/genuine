@@ -4,17 +4,11 @@ import javax.swing.*;
 
 public class PanelView extends AbstractComponentView<PanelView, JPanel> {
 
-    private final JPanel jPanel = new JPanel();
-
     public PanelView(AbstractComponentView... JComponentBuilders) {
+        super(new JPanel());
         for (AbstractComponentView component : JComponentBuilders) {
-            jPanel.add(component.getSwingView());
+            view.add(component.getView());
         }
-    }
-
-    @Override
-    public JPanel getSwingView() {
-        return jPanel;
     }
 
 }

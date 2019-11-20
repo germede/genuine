@@ -7,32 +7,25 @@ import java.awt.*;
 
 public class MenuBarView extends AbstractComponentView<MenuBarView, JMenuBar> {
 
-    private final JMenuBar jMenuBar = new JMenuBar();
-
     public MenuBarView(MenuView... menus) {
+        super(new JMenuBar());
         for (MenuView menu : menus) {
-            jMenuBar.add(menu.getSwingView());
+            view.add(menu.getView());
         }
     }
 
-    @Override
-    public JMenuBar getSwingView() {
-        return jMenuBar;
-    }
-
-
     public MenuBarView borderPainted(boolean b) {
-        jMenuBar.setBorderPainted(b);
+        view.setBorderPainted(b);
         return this;
     }
 
     public MenuBarView margin(Insets m) {
-        jMenuBar.setMargin(m);
+        view.setMargin(m);
         return this;
     }
 
     public MenuBarView selected(Component sel) {
-        jMenuBar.setSelected(sel);
+        view.setSelected(sel);
         return this;
     }
 }

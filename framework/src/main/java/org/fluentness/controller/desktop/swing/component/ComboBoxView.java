@@ -8,86 +8,80 @@ import java.awt.event.ItemListener;
 
 public class ComboBoxView<E> extends AbstractComponentView<ComboBoxView, JComboBox> {
 
-    private final JComboBox<E> jComboBox = new JComboBox<>();
-
     public ComboBoxView(E... items) {
+        super(new JComboBox());
         for (E item : items) {
-            jComboBox.addItem(item);
+            view.addItem(item);
         }
     }
 
-    @Override
-    public JComboBox getSwingView() {
-        return jComboBox;
-    }
-
     public ComboBoxView<E> actionListener(ActionListener l){
-        jComboBox.addActionListener(l);
+        view.addActionListener(l);
         return this;
     }
 
     public ComboBoxView<E> editable(boolean aFlag) {
-        jComboBox.setEditable(aFlag);
+        view.setEditable(aFlag);
         return this;
     }
 
     public ComboBoxView<E> editor(ComboBoxEditor anEditor) {
-        jComboBox.setEditor(anEditor);
+        view.setEditor(anEditor);
         return this;
     }
 
     public ComboBoxView<E> itemListener(ItemListener aListener){
-        jComboBox.addItemListener(aListener);
+        view.addItemListener(aListener);
         return this;
     }
 
     public ComboBoxView<E> keySelectionManager(JComboBox.KeySelectionManager aManager) {
-        jComboBox.setKeySelectionManager(aManager);
+        view.setKeySelectionManager(aManager);
         return this;
     }
 
     public ComboBoxView<E> lightWeightPopupEnabled(boolean aFlag) {
-        jComboBox.setLightWeightPopupEnabled(aFlag);
+        view.setLightWeightPopupEnabled(aFlag);
         return this;
     }
 
     public ComboBoxView<E> maximumRowCount(int count) {
-        jComboBox.setMaximumRowCount(count);
+        view.setMaximumRowCount(count);
         return this;
     }
 
     public ComboBoxView<E> popupMenuListener(PopupMenuListener l){
-        jComboBox.addPopupMenuListener(l);
+        view.addPopupMenuListener(l);
         return this;
     }
 
     public ComboBoxView<E> popupVisible(boolean v) {
-        jComboBox.setPopupVisible(v);
+        view.setPopupVisible(v);
         return this;
     }
 
     public ComboBoxView<E> prototypeDisplayValue(E prototypeDisplayValue) {
-        jComboBox.setPrototypeDisplayValue(prototypeDisplayValue);
+        view.setPrototypeDisplayValue(prototypeDisplayValue);
         return this;
     }
 
     public ComboBoxView<E> renderer(ListCellRenderer<? super E> aRenderer) {
-        jComboBox.setRenderer(aRenderer);
+        view.setRenderer(aRenderer);
         return this;
     }
 
     public ComboBoxView<E> selectedIndex(int anIndex) {
-        jComboBox.setSelectedIndex(anIndex);
+        view.setSelectedIndex(anIndex);
         return this;
     }
 
     public ComboBoxView<E> selectedItem(Object anObject) {
-        jComboBox.setSelectedItem(anObject);
+        view.setSelectedItem(anObject);
         return this;
     }
 
     public ComboBoxView<E> uI(ComboBoxUI ui) {
-        jComboBox.setUI(ui);
+        view.setUI(ui);
         return this;
     }
 }

@@ -4,25 +4,22 @@ import javax.swing.*;
 
 public class FormattedTextFieldView extends AbstractTextFieldView<FormattedTextFieldView, JFormattedTextField> {
 
-    private final JFormattedTextField jFormattedTextField = new JFormattedTextField();
-
-    @Override
-    public JFormattedTextField getSwingView() {
-        return jFormattedTextField;
+    public FormattedTextFieldView() {
+        super(new JFormattedTextField());
     }
 
     public FormattedTextFieldView focusLostBehavior(int behavior) {
-        jFormattedTextField.setFocusLostBehavior(behavior);
+        view.setFocusLostBehavior(behavior);
         return this;
     }
 
     public FormattedTextFieldView formatterFactory(JFormattedTextField.AbstractFormatterFactory tf) {
-        jFormattedTextField.setFormatterFactory(tf);
+        view.setFormatterFactory(tf);
         return this;
     }
 
     public FormattedTextFieldView value(Object value) {
-        jFormattedTextField.setValue(value);
+        view.setValue(value);
         return this;
     }
 }

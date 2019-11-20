@@ -14,9 +14,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractWebController<V extends WebViewHolder> implements Controller {
+public abstract class AbstractWebController<Web extends WebViewHolder> implements Controller {
 
-    protected V web;
+    protected Web web;
 
     protected AbstractWebController() {
         web = initViewHolder();
@@ -38,7 +38,7 @@ public abstract class AbstractWebController<V extends WebViewHolder> implements 
         return result;
     }
 
-    protected abstract V initViewHolder();
+    protected abstract Web initViewHolder();
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

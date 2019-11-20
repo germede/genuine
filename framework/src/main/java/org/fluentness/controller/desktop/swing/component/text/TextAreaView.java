@@ -4,35 +4,32 @@ import javax.swing.*;
 
 public class TextAreaView extends AbstractTextView<TextAreaView,JTextArea> {
 
-    private final JTextArea jTextArea = new JTextArea();
-
-    @Override
-    public JTextArea getSwingView() {
-        return jTextArea;
+    public TextAreaView() {
+        super(new JTextArea());
     }
 
     public TextAreaView columns(int columns) {
-        jTextArea.setColumns(columns);
+        view.setColumns(columns);
         return this;
     }
 
     public TextAreaView lineWrap(boolean wrap) {
-        jTextArea.setLineWrap(wrap);
+        view.setLineWrap(wrap);
         return this;
     }
 
     public TextAreaView rows(int rows) {
-        jTextArea.setRows(rows);
+        view.setRows(rows);
         return this;
     }
 
     public TextAreaView tabSize(int size) {
-        jTextArea.setTabSize(size);
+        view.setTabSize(size);
         return this;
     }
 
     public TextAreaView wrapStyleWord(boolean word) {
-        jTextArea.setWrapStyleWord(word);
+        view.setWrapStyleWord(word);
         return this;
     }
 

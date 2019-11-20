@@ -4,32 +4,25 @@ import javax.swing.*;
 
 public class MenuView extends AbstractMenuItemView<MenuView, JMenu> {
 
-    private final JMenu jMenu = new JMenu();
-
     public MenuView(String text, AbstractMenuItemView... menuItems) {
-        text(text);
+        super(new JMenu(text));
         for (AbstractMenuItemView menuItem : menuItems) {
-            jMenu.add(menuItem.getSwingView());
+            view.add(menuItem.getView());
         }
     }
 
-    @Override
-    public JMenu getSwingView() {
-        return jMenu;
-    }
-
     public MenuView delay(int d) {
-        jMenu.setDelay(d);
+        view.setDelay(d);
         return this;
     }
 
     public MenuView menuLocation(int x, int y) {
-        jMenu.setMenuLocation(x, y);
+        view.setMenuLocation(x, y);
         return this;
     }
 
     public MenuView popupMenuVisible(boolean b) {
-        jMenu.setPopupMenuVisible(b);
+        view.setPopupMenuVisible(b);
         return this;
     }
 

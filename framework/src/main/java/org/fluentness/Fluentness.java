@@ -6,6 +6,8 @@ import org.fluentness.controller.console.ConsoleAction;
 import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.controller.desktop.AbstractDesktopController;
+import org.fluentness.controller.desktop.DesktopView;
+import org.fluentness.controller.desktop.DesktopViewHolder;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.authentication.BasicAuthenticationService;
@@ -22,6 +24,7 @@ import org.fluentness.service.routing.DefaultRoutingService;
 import org.fluentness.service.serving.ServingService;
 import org.fluentness.service.serving.TomcatServingService;
 
+import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
@@ -70,14 +73,14 @@ public final class Fluentness {
             services.add(DefaultRoutingService.class);
             services.add(TomcatServingService.class);
         }
-        INJECTION_SERVICE.inject(PROXY, services);
+        INJECTION_SERVICE.inject(services);
 
         List<Class<? extends Repository>> repositories = application.getRepositories(LOADING_SERVICE);
-        INJECTION_SERVICE.inject(PROXY, repositories);
+        INJECTION_SERVICE.inject(repositories);
 
         List<Class<? extends Controller>> controllers = application.getControllers(LOADING_SERVICE);
         controllers.add(DefaultConsoleController.class);
-        INJECTION_SERVICE.inject(PROXY, controllers);
+        INJECTION_SERVICE.inject(controllers);
 
     }
 
@@ -104,11 +107,16 @@ public final class Fluentness {
         }
     }
 
-    private static void desktop(Application application) {
-        INJECTION_SERVICE.getInstances(AbstractDesktopController.class).forEach(controller -> {
-            controller.getDesktop().setLookAndFeel();
-            controller.getDesktop().getMainView().render();
-        });
+    private static void desktop(Application application) throws FluentnessException {
+        try {
+            for (AbstractDesktopController controller : INJECTION_SERVICE.getInstances(AbstractDesktopController.class)) {
+                DesktopViewHolder desktop = controller.getDesktop();
+                DesktopView.setGlobalStyle(desktop.getGlobalStyle());
+                desktop.getMainView().render();
+            }
+        } catch (Exception e) {
+            throw new FluentnessException(e);
+        }
     }
 
     private static void web(Application application) throws FluentnessException {

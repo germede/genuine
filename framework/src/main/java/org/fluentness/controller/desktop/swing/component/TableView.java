@@ -5,179 +5,170 @@ import javax.swing.plaf.TableUI;
 import javax.swing.table.*;
 import java.awt.*;
 
-public class TableView extends AbstractComponentView<TableView, JScrollPane> {
+public class TableView extends AbstractComponentView<TableView, JTable> {
 
-    private final JTable jTable;
-    private final JScrollPane jScrollPane;
 
     public TableView(String[] header, Object[]... rows) {
-        jTable = new JTable(rows, header);
-        jScrollPane = new JScrollPane(jTable);
+        super(new JTable(rows, header));
     }
-
-    @Override
-    public JScrollPane getSwingView() {
-        return jScrollPane;
-    }
-
 
     public TableView autoCreateRowSorter(boolean autoCreateRowSorter) {
-        jTable.setAutoCreateRowSorter(autoCreateRowSorter);
+        view.setAutoCreateRowSorter(autoCreateRowSorter);
         return this;
     }
 
     public TableView autoResizeMode(int mode) {
-        jTable.setAutoResizeMode(mode);
+        view.setAutoResizeMode(mode);
         return this;
     }
 
     public TableView cellEditor(TableCellEditor anEditor) {
-        jTable.setCellEditor(anEditor);
+        view.setCellEditor(anEditor);
         return this;
     }
 
     public TableView cellSelectionEnabled(boolean cellSelectionEnabled) {
-        jTable.setCellSelectionEnabled(cellSelectionEnabled);
+        view.setCellSelectionEnabled(cellSelectionEnabled);
         return this;
     }
 
     public TableView columnModel(TableColumnModel columnModel) {
-        jTable.setColumnModel(columnModel);
+        view.setColumnModel(columnModel);
         return this;
     }
 
     public TableView columnSelectionAllowed(boolean columnSelectionAllowed) {
-        jTable.setColumnSelectionAllowed(columnSelectionAllowed);
+        view.setColumnSelectionAllowed(columnSelectionAllowed);
         return this;
     }
 
     public TableView columnSelectionInterval(int index0, int index1) {
-        jTable.setColumnSelectionInterval(index0, index1);
+        view.setColumnSelectionInterval(index0, index1);
         return this;
     }
 
     public TableView defaultEditor(Class<?> columnClass, TableCellEditor editor) {
-        jTable.setDefaultEditor(columnClass, editor);
+        view.setDefaultEditor(columnClass, editor);
         return this;
     }
 
     public TableView defaultRenderer(Class<?> columnClass, TableCellRenderer renderer) {
-        jTable.setDefaultRenderer(columnClass, renderer);
+        view.setDefaultRenderer(columnClass, renderer);
         return this;
     }
 
     public TableView dragEnabled(boolean b) {
-        jTable.setDragEnabled(b);
+        view.setDragEnabled(b);
         return this;
     }
 
     public TableView dropMode(DropMode dropMode) {
-        jTable.setDropMode(dropMode);
+        view.setDropMode(dropMode);
         return this;
     }
 
     public TableView editingColumn(int aColumn) {
-        jTable.setEditingColumn(aColumn);
+        view.setEditingColumn(aColumn);
         return this;
     }
 
     public TableView editingRow(int aRow) {
-        jTable.setEditingRow(aRow);
+        view.setEditingRow(aRow);
         return this;
     }
 
     public TableView fillsViewportHeight(boolean fillsViewportHeight) {
-        jTable.setFillsViewportHeight(fillsViewportHeight);
+        view.setFillsViewportHeight(fillsViewportHeight);
         return this;
     }
 
     public TableView gridColor(Color gridColor) {
-        jTable.setGridColor(gridColor);
+        view.setGridColor(gridColor);
         return this;
     }
 
     public TableView intercellSpacing(int x, int y) {
-        jTable.setIntercellSpacing(new Dimension(x, y));
+        view.setIntercellSpacing(new Dimension(x, y));
         return this;
     }
 
     public TableView preferredScrollableViewportSize(Dimension size) {
-        jTable.setPreferredScrollableViewportSize(size);
+        view.setPreferredScrollableViewportSize(size);
         return this;
     }
 
     public TableView rowHeight(int rowHeight) {
-        jTable.setRowHeight(rowHeight);
+        view.setRowHeight(rowHeight);
         return this;
     }
 
     public TableView rowHeight(int row, int rowHeight) {
-        jTable.setRowHeight(row, rowHeight);
+        view.setRowHeight(row, rowHeight);
         return this;
     }
 
     public TableView rowMargin(int rowMargin) {
-        jTable.setRowMargin(rowMargin);
+        view.setRowMargin(rowMargin);
         return this;
     }
 
     public TableView rowSelectionAllowed(boolean rowSelectionAllowed) {
-        jTable.setRowSelectionAllowed(rowSelectionAllowed);
+        view.setRowSelectionAllowed(rowSelectionAllowed);
         return this;
     }
 
     public TableView rowSelectionInterval(int index0, int index1) {
-        jTable.setRowSelectionInterval(index0, index1);
+        view.setRowSelectionInterval(index0, index1);
         return this;
     }
 
     public TableView rowSorter(RowSorter<? extends TableModel> sorter) {
-        jTable.setRowSorter(sorter);
+        view.setRowSorter(sorter);
         return this;
     }
 
     public TableView selectionBackground(Color selectionBackground) {
-        jTable.setSelectionBackground(selectionBackground);
+        view.setSelectionBackground(selectionBackground);
         return this;
     }
 
     public TableView selectionForeground(Color selectionForeground) {
-        jTable.setSelectionForeground(selectionForeground);
+        view.setSelectionForeground(selectionForeground);
         return this;
     }
 
     public TableView selectionMode(int selectionMode) {
-        jTable.setSelectionMode(selectionMode);
+        view.setSelectionMode(selectionMode);
         return this;
     }
 
     public TableView showGrid(boolean showGrid) {
-        jTable.setShowGrid(showGrid);
+        view.setShowGrid(showGrid);
         return this;
     }
 
     public TableView showHorizontalLines(boolean showHorizontalLines) {
-        jTable.setShowHorizontalLines(showHorizontalLines);
+        view.setShowHorizontalLines(showHorizontalLines);
         return this;
     }
 
     public TableView showVerticalLines(boolean showVerticalLines) {
-        jTable.setShowVerticalLines(showVerticalLines);
+        view.setShowVerticalLines(showVerticalLines);
         return this;
     }
 
     public TableView surrendersFocusOnKeystroke(boolean surrendersFocusOnKeystroke) {
-        jTable.setSurrendersFocusOnKeystroke(surrendersFocusOnKeystroke);
+        view.setSurrendersFocusOnKeystroke(surrendersFocusOnKeystroke);
         return this;
     }
 
     public TableView uI(TableUI ui) {
-        jTable.setUI(ui);
+        view.setUI(ui);
         return this;
     }
 
     public TableView updateSelectionOnSort(boolean update) {
-        jTable.setUpdateSelectionOnSort(update);
+        view.setUpdateSelectionOnSort(update);
         return this;
     }
 

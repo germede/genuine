@@ -10,74 +10,68 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class FrameView extends AbstractWindowView<FrameView, JFrame> {
 
-    JFrame jFrame = new JFrame();
-
     public FrameView(AbstractSwingView contentPane) {
-        jFrame.setContentPane(contentPane.getSwingView());
-        jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        jFrame.pack();
-    }
-
-    @Override
-    public JFrame getSwingView() {
-        return jFrame;
+        super(new JFrame());
+        view.setContentPane(contentPane.getView());
+        view.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        view.pack();
     }
 
     // ==== from java.awt.Frame
     public FrameView extendedState(int state) {
-        jFrame.setExtendedState(state);
+        view.setExtendedState(state);
         return this;
     }
 
     public FrameView maximizedBounds(Rectangle bounds) {
-        jFrame.setMaximizedBounds(bounds);
+        view.setMaximizedBounds(bounds);
         return this;
     }
 
     public FrameView resizable(boolean resizable) {
-        jFrame.setResizable(resizable);
+        view.setResizable(resizable);
         return this;
     }
 
     public FrameView state(int state) {
-        jFrame.setState(state);
+        view.setState(state);
         return this;
     }
 
     public FrameView title(String title) {
-        jFrame.setTitle(title);
+        view.setTitle(title);
         return this;
     }
 
     public FrameView undecorated(boolean undecorated) {
-        jFrame.setUndecorated(undecorated);
+        view.setUndecorated(undecorated);
         return this;
     }
 
 
     // ==== from javax.swing.JFrame
     public FrameView defaultCloseOperation(int operation) {
-        jFrame.setDefaultCloseOperation(operation);
+        view.setDefaultCloseOperation(operation);
         return this;
     }
 
     public FrameView glassPane(Component glassPane) {
-        jFrame.setGlassPane(glassPane);
+        view.setGlassPane(glassPane);
         return this;
     }
 
     public FrameView menuBar(MenuBarView menuBar) {
-        jFrame.setJMenuBar(menuBar.getSwingView());
+        view.setJMenuBar(menuBar.getView());
         return this;
     }
 
     public FrameView layeredPane(JLayeredPane layeredPane) {
-        jFrame.setLayeredPane(layeredPane);
+        view.setLayeredPane(layeredPane);
         return this;
     }
 
     public FrameView transferHandler(TransferHandler newHandler) {
-        jFrame.setTransferHandler(newHandler);
+        view.setTransferHandler(newHandler);
         return this;
     }
 }

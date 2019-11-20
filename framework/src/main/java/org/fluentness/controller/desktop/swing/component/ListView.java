@@ -7,110 +7,107 @@ import java.util.Vector;
 
 public class ListView<E> extends AbstractComponentView<ListView, JList> {
 
-    private final JList<E> jList = new JList<>();
-
-    @Override
-    public JList getSwingView() {
-        return jList;
+    public ListView() {
+        super(new JList());
     }
 
     public ListView cellRenderer(ListCellRenderer<? super E> cellRenderer) {
-        jList.setCellRenderer(cellRenderer);
+        view.setCellRenderer(cellRenderer);
         return this;
     }
 
     public ListView dragEnabled(boolean b) {
-        jList.setDragEnabled(b);
+        view.setDragEnabled(b);
         return this;
     }
 
     public ListView dropMode(DropMode dropMode) {
-        jList.setDropMode(dropMode);
+        view.setDropMode(dropMode);
         return this;
     }
 
     public ListView fixedCellHeight(int height) {
-        jList.setFixedCellHeight(height);
+        view.setFixedCellHeight(height);
         return this;
     }
 
     public ListView fixedCellWidth(int width) {
-        jList.setFixedCellWidth(width);
+        view.setFixedCellWidth(width);
         return this;
     }
 
     public ListView layoutOrientation(int layoutOrientation) {
-        jList.setLayoutOrientation(layoutOrientation);
+        view.setLayoutOrientation(layoutOrientation);
         return this;
     }
 
     public ListView listData(E[] listData) {
-        jList.setListData(listData);
+        view.setListData(listData);
         return this;
     }
 
     public ListView listData(Vector<? extends E> listData) {
-        jList.setListData(listData);
+        view.setListData(listData);
         return this;
     }
 
     public ListView prototypeCellValue(E prototypeCellValue) {
-        jList.setPrototypeCellValue(prototypeCellValue);
+        view.setPrototypeCellValue(prototypeCellValue);
         return this;
     }
 
     public ListView selectedIndex(int index) {
-        jList.setSelectedIndex(index);
+        view.setSelectedIndex(index);
         return this;
     }
 
     public ListView selectedIndices(int[] indices) {
-        jList.setSelectedIndices(indices);
+        view.setSelectedIndices(indices);
         return this;
     }
 
     public ListView selectedValue(Object object, boolean shouldScroll) {
-        jList.setSelectedValue(object, shouldScroll);
+        view.setSelectedValue(object, shouldScroll);
         return this;
     }
 
     public ListView selectionBackground(Color selectionBackground) {
-        jList.setSelectionBackground(selectionBackground);
+        view.setSelectionBackground(selectionBackground);
         return this;
     }
 
     public ListView selectionForeground(Color selectionForeground) {
-        jList.setSelectionForeground(selectionForeground);
+        view.setSelectionForeground(selectionForeground);
         return this;
     }
 
     public ListView selectionInterval(int anchor, int lead) {
-        jList.setSelectionInterval(anchor, lead);
+        view.setSelectionInterval(anchor, lead);
         return this;
     }
 
     public ListView selectionMode(int selectionMode) {
-        jList.setSelectionMode(selectionMode);
+        view.setSelectionMode(selectionMode);
         return this;
     }
 
     public ListView selectionModel(ListSelectionModel selectionModel) {
-        jList.setSelectionModel(selectionModel);
+        view.setSelectionModel(selectionModel);
         return this;
     }
 
     public ListView uI(ListUI ui) {
-        jList.setUI(ui);
+        view.setUI(ui);
         return this;
     }
 
     public ListView valueIsAdjusting(boolean b) {
-        jList.setValueIsAdjusting(b);
+        view.setValueIsAdjusting(b);
         return this;
     }
 
     public ListView visibleRowCount(int visibleRowCount) {
-        jList.setVisibleRowCount(visibleRowCount);
+        view.setVisibleRowCount(visibleRowCount);
         return this;
     }
 }

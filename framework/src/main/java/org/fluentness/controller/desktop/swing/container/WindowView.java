@@ -7,30 +7,24 @@ import java.awt.*;
 
 public class WindowView extends AbstractWindowView<WindowView, JWindow> {
 
-    private final JWindow jWindow = new JWindow();
-
     public WindowView(AbstractSwingView contentPane) {
-        jWindow.setContentPane(contentPane.getSwingView());
-        jWindow.pack();
-    }
-
-    @Override
-    public JWindow getSwingView() {
-        return jWindow;
+        super(new JWindow());
+        view.setContentPane(contentPane.getView());
+        view.pack();
     }
 
     public WindowView glassPane(Component glassPane) {
-        jWindow.setGlassPane(glassPane);
+        view.setGlassPane(glassPane);
         return this;
     }
 
     public WindowView layeredPane(JLayeredPane layeredPane) {
-        jWindow.setLayeredPane(layeredPane);
+        view.setLayeredPane(layeredPane);
         return this;
     }
 
     public WindowView transferHandler(TransferHandler newHandler) {
-        jWindow.setTransferHandler(newHandler);
+        view.setTransferHandler(newHandler);
         return this;
     }
 }

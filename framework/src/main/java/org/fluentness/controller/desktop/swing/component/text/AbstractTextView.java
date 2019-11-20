@@ -8,108 +8,109 @@ import javax.swing.plaf.TextUI;
 import javax.swing.text.*;
 import java.awt.*;
 
-public abstract class AbstractTextView<Self extends AbstractTextView, T extends JTextComponent> extends AbstractComponentView<Self, T> {
+public abstract class AbstractTextView<Self extends AbstractTextView, View extends JTextComponent> extends AbstractComponentView<Self, View> {
 
-    @Override
-    public abstract T getSwingView();
+    public AbstractTextView(View view) {
+        super(view);
+    }
 
     public Self caretListener(CaretListener listener) {
-        getSwingView().addCaretListener(listener);
+        view.addCaretListener(listener);
         return (Self) this;
     }
 
     public Self caret(Caret c) {
-        getSwingView().setCaret(c);
+        view.setCaret(c);
         return (Self) this;
     }
 
     public Self caretColor(Color c) {
-        getSwingView().setCaretColor(c);
+        view.setCaretColor(c);
         return (Self) this;
     }
 
     public Self caretPosition(int position) {
-        getSwingView().setCaretPosition(position);
+        view.setCaretPosition(position);
         return (Self) this;
     }
 
     public Self disabledTextColor(Color c) {
-        getSwingView().setDisabledTextColor(c);
+        view.setDisabledTextColor(c);
         return (Self) this;
     }
 
     public Self document(Document doc) {
-        getSwingView().setDocument(doc);
+        view.setDocument(doc);
         return (Self) this;
     }
 
     public Self dragEnabled(boolean b) {
-        getSwingView().setDragEnabled(b);
+        view.setDragEnabled(b);
         return (Self) this;
     }
 
     public Self dropMode(DropMode dropMode) {
-        getSwingView().setDropMode(dropMode);
+        view.setDropMode(dropMode);
         return (Self) this;
     }
 
     public Self editable(boolean b) {
-        getSwingView().setEditable(b);
+        view.setEditable(b);
         return (Self) this;
     }
 
     public Self focusAccelerator(char aKey) {
-        getSwingView().setFocusAccelerator(aKey);
+        view.setFocusAccelerator(aKey);
         return (Self) this;
     }
 
     public Self highlighter(Highlighter h) {
-        getSwingView().setHighlighter(h);
+        view.setHighlighter(h);
         return (Self) this;
     }
 
     public Self keymap(Keymap map) {
-        getSwingView().setKeymap(map);
+        view.setKeymap(map);
         return (Self) this;
     }
 
     public Self margin(Insets m) {
-        getSwingView().setMargin(m);
+        view.setMargin(m);
         return (Self) this;
     }
 
     public Self navigationFilter(NavigationFilter filter) {
-        getSwingView().setNavigationFilter(filter);
+        view.setNavigationFilter(filter);
         return (Self) this;
     }
 
     public Self selectedTextColor(Color c) {
-        getSwingView().setSelectedTextColor(c);
+        view.setSelectedTextColor(c);
         return (Self) this;
     }
 
     public Self selectionColor(Color c) {
-        getSwingView().setSelectionColor(c);
+        view.setSelectionColor(c);
         return (Self) this;
     }
 
     public Self selectionEnd(int selectionEnd) {
-        getSwingView().setSelectionEnd(selectionEnd);
+        view.setSelectionEnd(selectionEnd);
         return (Self) this;
     }
 
     public Self selectionStart(int selectionStart) {
-        getSwingView().setSelectionStart(selectionStart);
+        view.setSelectionStart(selectionStart);
         return (Self) this;
     }
 
     public Self text(String t) {
-        getSwingView().setText(t);
+        view.setText(t);
         return (Self) this;
     }
 
     public Self uI(TextUI ui) {
-        getSwingView().setUI(ui);
+        view.setUI(ui);
         return (Self) this;
     }
 

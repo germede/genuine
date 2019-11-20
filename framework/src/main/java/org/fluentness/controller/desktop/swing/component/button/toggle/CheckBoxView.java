@@ -4,19 +4,12 @@ import javax.swing.*;
 
 public class CheckBoxView extends AbstractToggleButtonView<CheckBoxView, JCheckBox> {
 
-    private final JCheckBox jCheckBox = new JCheckBox();
-
     public CheckBoxView(String text) {
-        text(text);
-    }
-
-    @Override
-    public JCheckBox getSwingView() {
-        return jCheckBox;
+        super(new JCheckBox(text));
     }
 
     public CheckBoxView borderPaintedFlat(boolean b) {
-        jCheckBox.setBorderPaintedFlat(b);
+        view.setBorderPaintedFlat(b);
         return this;
     }
 }

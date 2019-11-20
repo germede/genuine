@@ -7,33 +7,34 @@ import javax.swing.event.MenuDragMouseListener;
 import javax.swing.event.MenuKeyListener;
 import javax.swing.plaf.MenuItemUI;
 
-public abstract class AbstractMenuItemView<Self extends AbstractMenuItemView, T extends JMenuItem> extends AbstractButtonView<Self, T> {
+public abstract class AbstractMenuItemView<Self extends AbstractMenuItemView, View extends JMenuItem> extends AbstractButtonView<Self, View> {
 
-    @Override
-    public abstract T getSwingView();
+    public AbstractMenuItemView(View view) {
+        super(view);
+    }
 
     public Self accelerator(KeyStroke keyStroke) {
-        getSwingView().setAccelerator(keyStroke);
+        view.setAccelerator(keyStroke);
         return (Self) this;
     }
 
     public Self armed(boolean b) {
-        getSwingView().setArmed(b);
+        view.setArmed(b);
         return (Self) this;
     }
 
     public Self menuDragMouseListener(MenuDragMouseListener l) {
-        getSwingView().addMenuDragMouseListener(l);
+        view.addMenuDragMouseListener(l);
         return (Self) this;
     }
 
     public Self menuKeyListener(MenuKeyListener l) {
-        getSwingView().addMenuKeyListener(l);
+        view.addMenuKeyListener(l);
         return (Self) this;
     }
 
     public Self uI(MenuItemUI ui) {
-        getSwingView().setUI(ui);
+        view.setUI(ui);
         return (Self) this;
     }
 }

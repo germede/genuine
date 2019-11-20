@@ -4,11 +4,8 @@ import javax.swing.*;
 
 public class ButtonView extends AbstractButtonView<ButtonView, JButton> {
 
-    private final JButton jButton = new JButton();
-
-    @Override
-    public JButton getSwingView() {
-        return jButton;
+    public ButtonView(String text) {
+        super(new JButton(text));
     }
 
 }

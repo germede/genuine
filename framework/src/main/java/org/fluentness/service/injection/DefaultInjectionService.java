@@ -1,14 +1,16 @@
 package org.fluentness.service.injection;
 
 import org.fluentness.ApplicationComponent;
-import org.fluentness.Fluentness;
 import org.fluentness.service.Service;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DefaultInjectionService implements InjectionService {
 
@@ -36,10 +38,12 @@ public class DefaultInjectionService implements InjectionService {
     }
 
     @Override
-    public <T extends ApplicationComponent> void inject(Fluentness proxy, List<Class<? extends T>> classes) throws InjectionException {
-        for (Class aClass : classes) {
-            validateInstantiation(aClass);
-            instantiate(aClass);
+    public <T extends ApplicationComponent> void inject(List<Class<? extends T>> classes) throws InjectionException {
+        if (classes != null) {
+            for (Class aClass : classes) {
+                validateInstantiation(aClass);
+                instantiate(aClass);
+            }
         }
     }
 

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -17,6 +18,11 @@ public class AbstractWebControllerTest {
     @Before
     public void setUp() {
         webController = new AbstractWebController(){
+            @Override
+            protected WebViewHolder initViewHolder() {
+                return null;
+            }
+
             public void notAnActionBecauseNoActionAnnotation() {
             }
 
@@ -86,7 +92,8 @@ public class AbstractWebControllerTest {
     @Test
     public void getActions_descriptorsAreSet_descriptorsCanBeRetrieved() throws NoSuchMethodException {
 
-        for (WebAction webAction : webController.getActions()) {
+        List<WebAction> actions = webController.getActions();
+        for (WebAction webAction : actions) {
             if (webAction.getMethod().equals(webController.getClass().getMethod("testVoid"))) {
                 assertEquals(HttpMethod.GET, webAction.getHttpMethod());
                 assertEquals("/void", webAction.getPath());
@@ -104,7 +111,8 @@ public class AbstractWebControllerTest {
         WebAction testPostParameter = null;
         WebAction testServerError = null;
         WebAction notAnActionBecauseNoActionAnnotation = null;
-        for (WebAction webAction : webController.getActions()) {
+        List<WebAction> actions = webController.getActions();
+        for (WebAction webAction : actions) {
             if (webAction.getMethod().equals(webController.getClass().getMethod("testVoid"))) {
                 testVoid = webAction;
             } else if (webAction.getMethod().equals(webController.getClass().getMethod("testPostParameter", String.class))) {

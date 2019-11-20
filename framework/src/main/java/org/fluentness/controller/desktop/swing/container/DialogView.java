@@ -9,65 +9,59 @@ import java.awt.*;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class DialogView extends AbstractWindowView<DialogView, JDialog> {
-
-    private final JDialog jDialog = new JDialog();
-
+    
     public DialogView(AbstractSwingView contentPane) {
-        jDialog.setContentPane(contentPane.getSwingView());
-        jDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        jDialog.pack();
-    }
-
-    @Override
-    public JDialog getSwingView() {
-        return jDialog;
+        super(new JDialog());
+        view.setContentPane(contentPane.getView());
+        view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        view.pack();
     }
 
     // ==== from java.awt.Dialog
     public DialogView modal(boolean modal) {
-        jDialog.setModal(modal);
+        view.setModal(modal);
         return this;
     }
 
     public DialogView resizable(boolean resizable) {
-        jDialog.setResizable(resizable);
+        view.setResizable(resizable);
         return this;
     }
 
     public DialogView title(String title) {
-        jDialog.setTitle(title);
+        view.setTitle(title);
         return this;
     }
 
     public DialogView undecorated(boolean undecorated) {
-        jDialog.setUndecorated(undecorated);
+        view.setUndecorated(undecorated);
         return this;
     }
 
 
     // ==== from javax.swing.JFrame
     public DialogView defaultCloseOperation(int operation) {
-        jDialog.setDefaultCloseOperation(operation);
+        view.setDefaultCloseOperation(operation);
         return this;
     }
 
     public DialogView glassPane(Component glassPane) {
-        jDialog.setGlassPane(glassPane);
+        view.setGlassPane(glassPane);
         return this;
     }
 
     public DialogView menuBar(MenuBarView menuBar) {
-        jDialog.setJMenuBar(menuBar.getSwingView());
+        view.setJMenuBar(menuBar.getView());
         return this;
     }
 
     public DialogView layeredPane(JLayeredPane layeredPane) {
-        jDialog.setLayeredPane(layeredPane);
+        view.setLayeredPane(layeredPane);
         return this;
     }
 
     public DialogView transferHandler(TransferHandler newHandler) {
-        jDialog.setTransferHandler(newHandler);
+        view.setTransferHandler(newHandler);
         return this;
     }
 }

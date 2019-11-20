@@ -7,33 +7,34 @@ import javax.swing.text.EditorKit;
 import java.io.IOException;
 import java.net.URL;
 
-public abstract class AbstractTextEditorView<Self extends AbstractTextEditorView, T extends JEditorPane> extends AbstractTextView<Self, T> {
+public abstract class AbstractTextEditorView<Self extends AbstractTextEditorView, View extends JEditorPane> extends AbstractTextView<Self, View> {
 
-    @Override
-    public abstract T getSwingView();
+    public AbstractTextEditorView(View view) {
+        super(view);
+    }
 
     public Self contentType(String type) {
-        getSwingView().setContentType(type);
+        view.setContentType(type);
         return (Self) this;
     }
 
     public Self editorKit(EditorKit kit) {
-        getSwingView().setEditorKit(kit);
+        view.setEditorKit(kit);
         return (Self) this;
     }
 
     public Self editorKitForContentType(String type, EditorKit k) {
-        getSwingView().setEditorKitForContentType(type, k);
+        view.setEditorKitForContentType(type, k);
         return (Self) this;
     }
 
     public Self page(String url) throws IOException {
-        getSwingView().setPage(url);
+        view.setPage(url);
         return (Self) this;
     }
 
     public Self page(URL page) throws IOException {
-        getSwingView().setPage(page);
+        view.setPage(page);
         return (Self) this;
     }
 }

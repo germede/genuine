@@ -5,28 +5,29 @@ import org.fluentness.controller.desktop.swing.component.text.AbstractTextView;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public abstract class AbstractTextFieldView<Self extends AbstractTextFieldView, T extends JTextField> extends AbstractTextView<Self, T> {
+public abstract class AbstractTextFieldView<Self extends AbstractTextFieldView, View extends JTextField> extends AbstractTextView<Self, View> {
 
-    @Override
-    public abstract T getSwingView();
+    public AbstractTextFieldView(View view) {
+        super(view);
+    }
 
     public Self actionListener(ActionListener l) {
-        getSwingView().addActionListener(l);
+        view.addActionListener(l);
         return (Self) this;
     }
 
     public Self columns(int columns) {
-        getSwingView().setColumns(columns);
+        view.setColumns(columns);
         return (Self) this;
     }
 
     public Self horizontalAlignment(int alignment) {
-        getSwingView().setHorizontalAlignment(alignment);
+        view.setHorizontalAlignment(alignment);
         return (Self) this;
     }
 
     public Self scrollOffset(int scrollOffset) {
-        getSwingView().setScrollOffset(scrollOffset);
+        view.setScrollOffset(scrollOffset);
         return (Self) this;
     }
 }

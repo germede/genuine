@@ -4,9 +4,10 @@ import org.fluentness.controller.desktop.swing.component.button.AbstractButtonVi
 
 import javax.swing.*;
 
-public abstract class AbstractToggleButtonView<Self extends AbstractToggleButtonView, T extends JToggleButton> extends AbstractButtonView<Self, T> {
+public abstract class AbstractToggleButtonView<Self extends AbstractToggleButtonView, View extends JToggleButton> extends AbstractButtonView<Self, View> {
 
-    @Override
-    public abstract T getSwingView();
+    public AbstractToggleButtonView(View view) {
+        super(view);
+    }
 
 }

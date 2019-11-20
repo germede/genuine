@@ -4,10 +4,8 @@ import javax.swing.*;
 
 public class TextFieldView extends AbstractTextFieldView<TextFieldView,JTextField> {
 
-    private final JTextField jTextField = new JTextField();
-
-    @Override
-    public JTextField getSwingView() {
-        return jTextField;
+    public TextFieldView() {
+        super(new JTextField());
     }
+
 }

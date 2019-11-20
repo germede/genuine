@@ -8,51 +8,45 @@ import java.awt.*;
 
 public class PopupMenuView extends AbstractComponentView<PopupMenuView, JPopupMenu> {
 
-    private final JPopupMenu jPopupMenu = new JPopupMenu();
-
     public PopupMenuView(AbstractMenuItemView... menuItems) {
+        super(new JPopupMenu());
         for (AbstractMenuItemView menuItem : menuItems) {
-            jPopupMenu.add(menuItem.getSwingView());
+            view.add(menuItem.getView());
         }
     }
 
-    @Override
-    public JPopupMenu getSwingView() {
-        return jPopupMenu;
-    }
-
     public PopupMenuView borderPainted(boolean b) {
-        jPopupMenu.setBorderPainted(b);
+        view.setBorderPainted(b);
         return this;
     }
 
     public PopupMenuView invoker(Component invoker) {
-        jPopupMenu.setInvoker(invoker);
+        view.setInvoker(invoker);
         return this;
     }
 
     public PopupMenuView label(String label) {
-        jPopupMenu.setLabel(label);
+        view.setLabel(label);
         return this;
     }
 
     public PopupMenuView lightWeightPopupEnabled(boolean aFlag) {
-        jPopupMenu.setLightWeightPopupEnabled(aFlag);
+        view.setLightWeightPopupEnabled(aFlag);
         return this;
     }
 
     public PopupMenuView popupSize(int width, int height) {
-        jPopupMenu.setPopupSize(width, height);
+        view.setPopupSize(width, height);
         return this;
     }
 
     public PopupMenuView selected(Component sel) {
-        jPopupMenu.setSelected(sel);
+        view.setSelected(sel);
         return this;
     }
 
     public PopupMenuView uI(PopupMenuUI ui) {
-        jPopupMenu.setUI(ui);
+        view.setUI(ui);
         return this;
     }
 }
