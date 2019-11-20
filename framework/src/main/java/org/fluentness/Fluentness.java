@@ -29,13 +29,11 @@ import java.util.List;
 
 public final class Fluentness {
 
-    private static final InjectionService injectionService = new DefaultInjectionService();
+    private static final InjectionService INJECTION_SERVICE = new DefaultInjectionService();
     private static final LoadingService LOADING_SERVICE = new DefaultLoadingService();
-    private static final Fluentness proxy = new Fluentness();
-    private static Application application;
+    private static final Fluentness PROXY = new Fluentness();
 
-    private Fluentness() {
-    }
+    private static Application application;
 
     public static Application getApplication() {
         return application;
@@ -72,14 +70,14 @@ public final class Fluentness {
             services.add(DefaultRoutingService.class);
             services.add(TomcatServingService.class);
         }
-        injectionService.inject(proxy, services);
+        INJECTION_SERVICE.inject(PROXY, services);
 
         List<Class<? extends Repository>> repositories = application.getRepositories(LOADING_SERVICE);
-        injectionService.inject(proxy, repositories);
+        INJECTION_SERVICE.inject(PROXY, repositories);
 
         List<Class<? extends Controller>> controllers = application.getControllers(LOADING_SERVICE);
         controllers.add(DefaultConsoleController.class);
-        injectionService.inject(proxy, controllers);
+        INJECTION_SERVICE.inject(PROXY, controllers);
 
     }
 
@@ -90,7 +88,7 @@ public final class Fluentness {
             }
             String name = args.length == 0 ? "help" : args[0];
             List<ConsoleAction> actions = new LinkedList<>();
-            injectionService.getInstances(AbstractConsoleController.class)
+            INJECTION_SERVICE.getInstances(AbstractConsoleController.class)
                 .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
             Method toExecute = actions
                 .stream()
@@ -100,21 +98,24 @@ public final class Fluentness {
                 .orElseThrow(() -> new ConsoleException("No such command with name %s found", name));
             Class<? extends Controller> declaringClass = (Class<? extends Controller>) toExecute.getDeclaringClass();
             toExecute.setAccessible(true);
-            toExecute.invoke(injectionService.getInstance(declaringClass));
+            toExecute.invoke(INJECTION_SERVICE.getInstance(declaringClass));
         } catch (ConsoleException | IllegalAccessException | InvocationTargetException e) {
             throw new FluentnessException(e);
         }
     }
 
-    private static void desktop(Application application) throws FluentnessException {
-        injectionService.getInstances(AbstractDesktopController.class).forEach(controller -> {
-            controller.setLookAndFeel();
-            controller.getMainView().render();
+    private static void desktop(Application application) {
+        INJECTION_SERVICE.getInstances(AbstractDesktopController.class).forEach(controller -> {
+            controller.getDesktop().setLookAndFeel();
+            controller.getDesktop().getMainView().render();
         });
     }
 
     private static void web(Application application) throws FluentnessException {
-        injectionService.getInstance(ServingService.class).start();
+        INJECTION_SERVICE.getInstance(ServingService.class).start();
     }
 
+
+    private Fluentness() {
+    }
 }

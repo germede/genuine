@@ -3,23 +3,20 @@ package org.fluentness.controller.desktop;
 import org.fluentness.controller.Controller;
 import org.fluentness.controller.desktop.swing.SwingViewRegistry;
 
-import javax.swing.*;
 import java.awt.*;
 
-public abstract class AbstractDesktopController implements Controller {
+public abstract class AbstractDesktopController<V extends DesktopViews> implements Controller {
 
-    public void setLookAndFeel() {
-        try {
-            String systemLookAndFeelClassName = UIManager.getSystemLookAndFeelClassName();
-            UIManager.setLookAndFeel(systemLookAndFeelClassName);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
+    protected V desktop;
+
+    protected AbstractDesktopController() {
+        desktop = initViews();
     }
 
-    protected <View extends Container> View getViewByName(Class<View> viewClass, String name) {
+    protected abstract V initViews();
+
+    protected <SwingView extends Container> SwingView getSwingViewByName(Class<SwingView> viewClass, String name) {
         return SwingViewRegistry.getByName(viewClass, name);
     }
 
-    public abstract DesktopView getMainView();
 }

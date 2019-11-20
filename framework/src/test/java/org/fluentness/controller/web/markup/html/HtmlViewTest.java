@@ -1,6 +1,5 @@
 package org.fluentness.controller.web.markup.html;
 
-import org.fluentness.controller.web.WebViewFactory;
 import org.fluentness.controller.web.markup.MarkupView;
 import org.junit.Test;
 
@@ -13,7 +12,7 @@ public class HtmlViewTest {
 
     @Test
     public void htmlView_allMethodsAreCalled_allHtmlAttributes() throws InvocationTargetException, IllegalAccessException {
-        MarkupView test = WebViewFactory.p("test");
+        MarkupView test = HtmlViewFactory.p("test");
         int i = 0;
         for (Method method : HtmlView.class.getDeclaredMethods()) {
             test = (MarkupView) method.invoke(test, "testValue");

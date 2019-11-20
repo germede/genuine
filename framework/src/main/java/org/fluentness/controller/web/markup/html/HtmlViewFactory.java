@@ -1,16 +1,16 @@
-package org.fluentness.controller.web;
+package org.fluentness.controller.web.markup.html;
 
+import org.fluentness.controller.web.WebActionReference;
+import org.fluentness.controller.web.WebActionReferenceWithRequest;
+import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.MarkupView;
-import org.fluentness.controller.web.markup.html.ContainerHtmlView;
-import org.fluentness.controller.web.markup.html.EmptyHtmlView;
-import org.fluentness.controller.web.markup.html.HtmlView;
 import org.fluentness.controller.web.text.RawView;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public final class WebViewFactory {
+public final class HtmlViewFactory {
 
     // special web views
     public static HtmlView action(WebActionReference action, String inner) {

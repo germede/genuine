@@ -14,7 +14,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractWebController implements Controller {
+public abstract class AbstractWebController<V extends WebViews> implements Controller {
+
+    protected V web;
+
+    protected AbstractWebController() {
+        web = initViews();
+    }
 
     public List<WebAction> getActions() {
         List<WebAction> result = new LinkedList<>();
@@ -31,6 +37,8 @@ public abstract class AbstractWebController implements Controller {
             );
         return result;
     }
+
+    protected abstract V initViews();
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
