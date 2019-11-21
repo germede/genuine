@@ -1,5 +1,6 @@
 package org.fluentness.controller.web;
 
+import org.fluentness.controller.web.markup.html.HtmlView;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +17,11 @@ public class AbstractWebControllerTest {
     @Before
     public void setUp() {
         webController = new AbstractWebController(){
+
+            @Override
+            protected WebView base(HtmlView... toInclude) {
+                return null;
+            }
 
             public void notAnActionBecauseNoActionAnnotation() {
             }

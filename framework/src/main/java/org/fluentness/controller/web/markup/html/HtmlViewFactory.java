@@ -5,7 +5,6 @@ import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.AttributeMarkupView;
 import org.fluentness.controller.web.markup.MarkupView;
 import org.fluentness.controller.web.text.RawView;
-import org.fluentness.repository.Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,12 +22,12 @@ public final class HtmlViewFactory {
         return a(result.toArray(new MarkupView[0]));
     }
 
-    public static FormHtmlView form(Model model, WebActionReference submitAction) {
+    public static FormHtmlView form(Object model, WebActionReference submitAction) {
         return new FormHtmlView(model, submitAction);
     }
 
-    public static TableHtmlView table(List<? extends Model> modelList, String... headers) {
-        return new TableHtmlView(modelList, headers);
+    public static TableHtmlView table(List modelList) {
+        return new TableHtmlView(modelList);
     }
 
     public static WebView raw(String raw) {

@@ -1,7 +1,6 @@
 package org.fluentness.controller.console;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.View;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,9 +10,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractConsoleController implements Controller<ConsoleAction, View> {
+public abstract class AbstractConsoleController implements Controller {
 
-    public List<ConsoleAction> getActions() {
+    public final List<ConsoleAction> getActions() {
         List<ConsoleAction> result = new LinkedList<>();
         Arrays.stream(getClass().getDeclaredMethods())
             .filter(method -> method.isAnnotationPresent(Action.class))

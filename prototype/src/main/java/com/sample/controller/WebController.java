@@ -72,9 +72,7 @@ public class WebController extends AbstractWebController {
     public WebView books(Request request) {
         return base(
             div(_class("row"),
-                table(bookRepository.findAll(Book.class),
-                    i18n.translate(book_title)
-                )
+                table(bookRepository.findAll(Book.class))
             ),
             div(_class("row"),
                 action(this::booksCreate, _class("button column"), () -> i18n.translate(create))
@@ -98,10 +96,7 @@ public class WebController extends AbstractWebController {
     public WebView users(Request request) {
         return base(
             div(_class("row"),
-                table(userRepository.findAll(User.class),
-                    i18n.translate(user_username),
-                    i18n.translate(user_password)
-                )
+                table(userRepository.findAll(User.class))
             ),
             div(_class("row"),
                 action(this::usersCreate, _class("button column"), () -> i18n.translate(create))
@@ -132,8 +127,15 @@ public class WebController extends AbstractWebController {
     }
 
     @Action(path = "/authors")
-    private Object authors(Request request) {
-        return null;
+    public WebView authors(Request request) {
+        return base(
+            div(_class("row"),
+                table(authorRepository.findAll(Author.class))
+            ),
+            div(_class("row"),
+                action(this::usersCreate, _class("button column"), () -> i18n.translate(create))
+            )
+        );
     }
 
 }

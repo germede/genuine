@@ -14,10 +14,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractWebController implements Controller<WebAction, WebView> {
+public abstract class AbstractWebController implements Controller {
 
-    @Override
-    public List<WebAction> getActions() {
+    public final List<WebAction> getActions() {
         List<WebAction> result = new LinkedList<>();
         Arrays.stream(getClass().getDeclaredMethods())
             .filter(method -> method.isAnnotationPresent(Action.class))

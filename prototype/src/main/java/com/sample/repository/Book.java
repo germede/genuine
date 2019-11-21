@@ -1,19 +1,17 @@
 package com.sample.repository;
 
-import org.fluentness.repository.Model;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Book implements Model {
+public class Book {
     private int id;
     private String title;
     private String cover;
     private String genre;
     private String synopsis;
+    private int year;
+    private boolean bestseller;
+    private Author author;
 
     @Id
     @Column(name = "id")
@@ -63,6 +61,36 @@ public class Book implements Model {
 
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
+    }
+
+    @Basic
+    @Column(name = "year")
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    @Basic
+    @Column(name = "bestseller")
+    public boolean isBestseller() {
+        return bestseller;
+    }
+
+    public void setBestseller(boolean bestseller) {
+        this.bestseller = bestseller;
+    }
+
+    @ManyToOne
+    @Column(name = "author_id")
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
 }

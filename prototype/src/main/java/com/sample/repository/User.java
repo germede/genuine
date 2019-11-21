@@ -1,14 +1,12 @@
 package com.sample.repository;
 
-import org.fluentness.repository.Model;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class User implements Model {
+public class User {
     private int id;
     private String username;
     private String password;

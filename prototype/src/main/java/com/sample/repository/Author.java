@@ -1,7 +1,5 @@
 package com.sample.repository;
 
-import org.fluentness.repository.Model;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +7,8 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity
-public class Author implements Model {
+public class Author {
+
     private int id;
     private String name;
     private String surname;

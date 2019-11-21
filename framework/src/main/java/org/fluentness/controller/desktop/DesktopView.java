@@ -1,12 +1,11 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.controller.View;
 import org.fluentness.controller.desktop.style.DesktopStyle;
 import org.fluentness.controller.desktop.style.DesktopStyleLambda;
 
 import java.util.Map;
 
-public abstract class DesktopView implements View {
+public abstract class DesktopView {
 
     private static Map<Class, DesktopStyleLambda> styleMap;
 
