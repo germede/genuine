@@ -22,12 +22,12 @@ public final class HtmlViewFactory {
         return a(result.toArray(new MarkupView[0]));
     }
 
-    public static FormHtmlView form(Object model, WebActionReference submitAction) {
-        return new FormHtmlView(model, submitAction);
+    public static <T> FormHtmlView<T> form(Object model, WebActionReference submitAction) {
+        return new FormHtmlView<>(model, submitAction);
     }
 
-    public static TableHtmlView table(List modelList) {
-        return new TableHtmlView(modelList);
+    public static <T> TableHtmlView<T> table(List<T> modelList) {
+        return new TableHtmlView<>(modelList);
     }
 
     public static WebView raw(String raw) {

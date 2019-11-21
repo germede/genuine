@@ -55,7 +55,6 @@ public class DefaultRoutingService implements RoutingService {
             if (!request.getMethod().equals(action.getHttpMethod())) {
                 response.setStatus(405);
             } else if (!action.isAuthentication() || authenticationService.authenticate(request, response)) {
-
                 response.setCharacterEncoding(configurationService.getOrDefault(router_encoding, "UTF-8"));
                 // todo cache
                 Object returnValue = method.invoke(controller, new AbstractWebController.Request(request));
@@ -72,6 +71,4 @@ public class DefaultRoutingService implements RoutingService {
 
         };
     }
-
-
 }

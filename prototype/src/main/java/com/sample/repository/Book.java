@@ -1,16 +1,35 @@
 package com.sample.repository;
 
+import org.fluentness.repository.field.Field;
+
 import javax.persistence.*;
+
+import static org.fluentness.repository.field.Type.*;
 
 @Entity
 public class Book {
+
     private int id;
+
+    @Field(TEXT)
     private String title;
+
+    @Field(FILE)
     private String cover;
+
+    @Field(TEXT)
     private String genre;
+
+    @Field(TEXT)
     private String synopsis;
+
+    @Field(NUMBER)
     private int year;
+
+    @Field(CHECKBOX)
     private boolean bestseller;
+
+    @Field(SELECT)
     private Author author;
 
     @Id

@@ -1,19 +1,33 @@
 package com.sample.repository;
 
+import org.fluentness.repository.field.Field;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
 
+import static org.fluentness.repository.field.Type.*;
+
 @Entity
 public class Author {
 
     private int id;
+
+    @Field(TEXT)
     private String name;
+
+    @Field(TEXT)
     private String surname;
+
+    @Field(DATE)
     private Date birthday;
+
+    @Field(FILE)
     private String picture;
+
+    @Field(TEXT)
     private String biography;
 
     @Id

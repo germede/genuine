@@ -14,12 +14,12 @@ import java.util.Locale;
 
 public class DispatcherServlet extends HttpServlet {
 
-    private LoggingService logger;
-    private RoutingService router;
+    private LoggingService loggingService;
+    private RoutingService routingService;
 
-    public DispatcherServlet(LoggingService logger, RoutingService router) {
-        this.logger = logger;
-        this.router = router;
+    public DispatcherServlet(LoggingService loggingService, RoutingService routingService) {
+        this.loggingService = loggingService;
+        this.routingService = routingService;
     }
 
     @Override
@@ -28,17 +28,20 @@ public class DispatcherServlet extends HttpServlet {
             Locale.setDefault(request.getLocale());
             if (request.getPathInfo().startsWith("/resources")) {
                 handleStaticResource(request, response);
-            } else if (router.getRoutingMap().containsKey(request.getPathInfo())) {
-                router.getRoutingMap().get(request.getPathInfo()).handle(request, response);
+            } else if (routingService.getRoutingMap().containsKey(request.getPathInfo())) {
+                routingService.getRoutingMap().get(request.getPathInfo()).handle(request, response);
             } else {
                 response.setStatus(404);
             }
+            if (response.getStatus() < 200 || response.getStatus() >= 300) {
+                if (routingService.getRoutingMap().containsKey("/"+response.getStatus())) {
+                    routingService.getRoutingMap().get("/"+response.getStatus()).handle(request,response);
+                }
+            }
         } catch (Exception e) {
-            logger.error(e);
+            loggingService.error(e);
             response.setStatus(500);
         }
-        String query = request.getQueryString() == null ? "" : ("?" + request.getQueryString());
-        logger.debug("%s %s%s -> %s", request.getMethod(), request.getRequestURI(), query, response.getStatus());
     }
 
     private void handleStaticResource(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -50,14 +53,11 @@ public class DispatcherServlet extends HttpServlet {
                 response.setStatus(404);
                 return;
             }
-            try (OutputStream out = response.getOutputStream()) {
-                byte[] buffer = new byte[100];
-                int numBytesRead;
-                while ((numBytesRead = in.read(buffer)) > 0) {
-                    out.write(buffer, 0, numBytesRead);
-                }
-            } catch (Exception e) {
-                logger.error(e);
+            OutputStream out = response.getOutputStream();
+            byte[] buffer = new byte[100];
+            int numBytesRead;
+            while ((numBytesRead = in.read(buffer)) > 0) {
+                out.write(buffer, 0, numBytesRead);
             }
         }
     }
