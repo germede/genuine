@@ -1,9 +1,6 @@
 package com.sample.controller;
 
-import com.sample.repository.Book;
-import com.sample.repository.BookRepository;
-import com.sample.repository.User;
-import com.sample.repository.UserRepository;
+import com.sample.repository.*;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.html.HtmlView;
@@ -16,17 +13,54 @@ import static org.fluentness.controller.web.markup.html.HtmlViewFactory.*;
 public class WebController extends AbstractWebController {
 
     private BookRepository bookRepository;
+    private AuthorRepository authorRepository;
     private UserRepository userRepository;
     private TranslationService i18n;
 
     public WebController(
         BookRepository bookRepository,
+        AuthorRepository authorRepository,
         UserRepository userRepository,
         TranslationService translationService
     ) {
         this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
         this.userRepository = userRepository;
         this.i18n = translationService;
+    }
+
+    @Override
+    protected WebView base(HtmlView... toInclude) {
+        return html(
+                head(
+                        title(() -> "The book library made with Fluentness"),
+                        meta(_name("lang"), _content("en")),
+                        meta(_charset("UTF-8")),
+//                link().rel("stylesheet").type("text/css").href("/resources/css/milligram.min.css"),
+                        link(_rel("stylesheet"), _type("text/css"), _href("https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css")),
+                        link(_rel("stylesheet"), _type("text/css"), _href("/resources/css/styles.css")),
+                        script(_src("/resources/js/script.min.js"))
+                ),
+                body(
+                        div(_class("container"),
+                                h2(_class("text_center"), () -> i18n.translate(welcome_message, "Person")),
+                                nav(
+                                        ul(_class("navigation_list"),
+                                                li(_class("navigation_item"),
+                                                        action(this::books, () -> i18n.translate(books))
+                                                ),
+                                                li(_class("navigation_item"),
+                                                        action(this::authors, () -> i18n.translate(authors))
+                                                ),
+                                                li(_class("navigation_item"),
+                                                        action(this::users, () -> i18n.translate(users))
+                                                )
+                                        )
+                                ),
+                                div(toInclude)
+                        )
+                )
+        );
     }
 
     @Action(path = "/")
@@ -100,39 +134,6 @@ public class WebController extends AbstractWebController {
     @Action(path = "/authors")
     private Object authors(Request request) {
         return null;
-    }
-
-    private WebView base(HtmlView... toInclude) {
-        return html(
-            head(
-                title(() -> "The book library made with Fluentness"),
-                meta(_name("lang"), _content("en")),
-                meta(_charset("UTF-8")),
-//                link().rel("stylesheet").type("text/css").href("/resources/css/milligram.min.css"),
-                link(_rel("stylesheet"), _type("text/css"), _href("https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css")),
-                link(_rel("stylesheet"), _type("text/css"), _href("/resources/css/styles.css")),
-                script(_src("/resources/js/script.min.js"))
-            ),
-            body(
-                div(_class("container"),
-                    h2(_class("text_center"), () -> i18n.translate(welcome_message, "Person")),
-                    nav(
-                        ul(_class("navigation_list"),
-                            li(_class("navigation_item"),
-                                action(this::books, () -> i18n.translate(books))
-                            ),
-                            li(_class("navigation_item"),
-                                action(this::authors, () -> i18n.translate(authors))
-                            ),
-                            li(_class("navigation_item"),
-                                action(this::users, () -> i18n.translate(users))
-                            )
-                        )
-                    ),
-                    div(toInclude)
-                )
-            )
-        );
     }
 
 }

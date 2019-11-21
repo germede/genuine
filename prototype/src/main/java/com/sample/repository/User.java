@@ -2,24 +2,18 @@ package com.sample.repository;
 
 import org.fluentness.repository.Model;
 
-import javax.persistence.*;
-
-import static org.fluentness.repository.Model.Type.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "user")
 public class User implements Model {
-
     private int id;
-
-    @Field(type = TEXT, label = "user_username")
     private String username;
-
-    @Field(type = PASSWORD, label = "user_password")
     private String password;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -48,4 +42,5 @@ public class User implements Model {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

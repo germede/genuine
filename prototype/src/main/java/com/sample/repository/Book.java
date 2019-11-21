@@ -2,21 +2,20 @@ package com.sample.repository;
 
 import org.fluentness.repository.Model;
 
-import javax.persistence.*;
-
-import static org.fluentness.repository.Model.Type.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "book")
 public class Book implements Model {
-
     private int id;
-
-    @Field(type = TEXT, label = "book_title")
     private String title;
+    private String cover;
+    private String genre;
+    private String synopsis;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -32,8 +31,38 @@ public class Book implements Model {
         return title;
     }
 
-    public void setTitle(String name) {
-        this.title = name;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Basic
+    @Column(name = "cover")
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    @Basic
+    @Column(name = "genre")
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    @Basic
+    @Column(name = "synopsis")
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
 }

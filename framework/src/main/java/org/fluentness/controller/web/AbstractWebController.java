@@ -1,6 +1,7 @@
 package org.fluentness.controller.web;
 
 import org.fluentness.controller.Controller;
+import org.fluentness.controller.web.markup.html.HtmlView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -45,6 +46,8 @@ public abstract class AbstractWebController implements Controller<WebAction, Web
             response.setHeader("Location", url);
         };
     }
+
+    protected abstract WebView base(HtmlView... toInclude);
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

@@ -4,6 +4,7 @@
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <class>com.sample.repository.Book</class>
         <class>com.sample.repository.User</class>
+        <class>com.sample.repository.Author</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/party?serverTimezone=UTC"/>
             <property name="javax.persistence.jdbc.user" value="party"/>
@@ -13,6 +14,8 @@
             <property name="openjpa.jdbc.DBDictionary" value="org.apache.openjpa.jdbc.sql.MySQLDictionary"/>
             <property name="openjpa.DataCache" value="true"/>
             <property name="openjpa.QueryCache" value="true"/>
+            <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306" />
+            <property name="openjpa.ConnectionDriverName" value="com.mysql.cj.jdbc.Driver" />
         </properties>
     </persistence-unit>
 </persistence>
