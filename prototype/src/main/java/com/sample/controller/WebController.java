@@ -6,7 +6,6 @@ import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.markup.html.HtmlView;
 
 import static com.sample.service.TranslationService.*;
-import static org.fluentness.controller.web.markup.html.HtmlViewFactory.action;
 import static org.fluentness.controller.web.markup.html.HtmlViewFactory.*;
 
 public class WebController extends AbstractWebController {
