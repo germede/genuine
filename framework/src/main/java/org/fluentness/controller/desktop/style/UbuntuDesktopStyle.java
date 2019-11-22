@@ -8,6 +8,8 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
 
+import static org.fluentness.controller.desktop.style.DesktopStyleFactory.byClass;
+
 public class UbuntuDesktopStyle extends DesktopStyle {
 
     protected static final Color BACKGROUND = new Color(245, 246, 247);
@@ -21,30 +23,30 @@ public class UbuntuDesktopStyle extends DesktopStyle {
     protected static final Border INACTIVE_BORDER = BorderFactory.createEmptyBorder(6, 5, 4, 5);
     protected static final Font UBUNTU_FONT = new Font("Ubuntu", Font.PLAIN, 14);
 
-    UbuntuDesktopStyle() {
+    protected UbuntuDesktopStyle(Style[] extraStyles) {
         super(new GTKLookAndFeel());
-        panel();
-        menuItem();
-        menu();
-        menuBar();
+        styles.add(panel());
+        styles.add(menuItem());
+        styles.add(menu());
+        styles.add(menuBar());
     }
 
-    private void panel() {
-        set(JPanel.class, jPanel -> {
+    private Style panel() {
+        return byClass(JPanel.class, jPanel -> {
             Color background = jPanel.getBackground();
         });
     }
 
-    private void menuItem() {
-        set(JMenuItem.class, view -> {
+    private Style menuItem() {
+        return byClass(JMenuItem.class, view -> {
             view.setOpaque(true);
             view.setMnemonic(view.getText().isEmpty() ? 0 : view.getText().charAt(0));
             view.setFont(UBUNTU_FONT);
         });
     }
 
-    private void menu() {
-        set(JMenu.class, view -> {
+    private Style menu() {
+        return byClass(JMenu.class, view -> {
             view.setBackground(BACKGROUND);
             view.setBorder(INACTIVE_BORDER);
             view.addMenuListener(new MenuListener() {
@@ -70,8 +72,8 @@ public class UbuntuDesktopStyle extends DesktopStyle {
         });
     }
 
-    private void menuBar() {
-        set(JMenuBar.class, view -> {
+    private Style menuBar() {
+        return byClass(JMenuBar.class, view -> {
             view.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
             view.setBackground(BACKGROUND);
         });

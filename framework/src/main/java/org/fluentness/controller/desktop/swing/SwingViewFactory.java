@@ -21,6 +21,12 @@ public final class SwingViewFactory {
         return new FrameView(contentPane);
     }
 
+    public static FrameView frame(String id, AbstractSwingView contentPane) {
+        FrameView frameView = new FrameView(contentPane);
+        SwingViewRegistry.add(id, frameView.getView());
+        return frameView;
+    }
+
     public static WindowView window(AbstractSwingView contentPane) {
         return new WindowView(contentPane);
     }

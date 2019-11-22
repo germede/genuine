@@ -1,7 +1,7 @@
 package org.fluentness;
 
 import org.fluentness.controller.console.AbstractConsoleController;
-import org.fluentness.service.injection.InjectionService;
+import org.fluentness.service.injector.Injector;
 import org.junit.Before;
 
 import java.util.Collections;
@@ -34,7 +34,7 @@ public class FluentnessTest {
         };
 
         dummyConsoleController = spy(new DummyConsoleController());
-        InjectionService manager = mock(InjectionService.class);
+        Injector manager = mock(Injector.class);
         when(manager.getInstances(AbstractConsoleController.class))
             .thenReturn(Collections.singletonList(dummyConsoleController));
         when(manager.getInstance(any())).thenReturn(dummyConsoleController);

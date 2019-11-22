@@ -1,17 +1,16 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.controller.web.html.Html;
-import org.fluentness.controller.web.html.HtmlStyler;
+import org.fluentness.controller.web.style.WebStyle;
 
 public abstract class AbstractWeb<C extends AbstractWebController> {
 
-    protected C webController;
+    protected C controller;
 
-    void setController(C webController) {
-        this.webController = webController;
+    void setController(C controller) {
+        this.controller = controller;
     }
 
-    protected abstract void setStyles(HtmlStyler styler);
+    protected abstract WebStyle style();
 
-    protected abstract Html main(Html... toInclude);
+    protected abstract WebView view(WebView... toInclude);
 }

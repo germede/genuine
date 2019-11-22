@@ -1,12 +1,15 @@
 package org.fluentness.controller.desktop;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.desktop.style.DesktopStyle;
 
-public abstract class AbstractDesktopController implements Controller {
+public abstract class AbstractDesktopController<D extends AbstractDesktop> implements Controller {
 
-    public abstract DesktopStyle getGlobalStyle();
+    protected final D desktop;
 
-    public abstract DesktopView getMainView();
+    protected AbstractDesktopController(D desktop) {
+        this.desktop = desktop;
+        desktop.setController(this);
+    }
+
 
 }

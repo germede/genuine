@@ -1,13 +1,13 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.AbstractCrudRepository;
-import org.fluentness.service.persistence.PersistenceService;
+import com.sample.controller.WebController;
+import org.fluentness.service.persistence.Persistence;
 
 import java.util.List;
 
-public class AuthorRepository extends AbstractCrudRepository<Author> {
+public class AuthorRepository extends WebController {
 
-    public AuthorRepository(PersistenceService persistence) {
+    public AuthorRepository(Persistence persistence) {
         super(persistence);
     }
 

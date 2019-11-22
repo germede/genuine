@@ -1,13 +1,13 @@
 package com.sample.repository;
 
-import org.fluentness.repository.field.Field;
+import org.fluentness.repository.Model;
 
 import javax.persistence.*;
 
-import static org.fluentness.repository.field.Type.*;
+import static org.fluentness.repository.Model.Type.*;
 
 @Entity
-public class Book {
+public class Book implements Model {
 
     private int id;
 

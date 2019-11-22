@@ -41,7 +41,7 @@ Visit http://localhost:8000/hello?name=YourName
 >**N**otice how unit tests may help you define and accept requirements  
 >**T**ry to avoid abusing of comments, singletons, statics and annotations  
 >**N**ame every component as if it were your child  
->**E**ndorse convention over configuration and dependency definition over injection  
+>**E**ndorse convention over configurator and dependency definition over injection  
 >**S**ubstitute framework default implementation with your own when needed  
 >**S**tart applying SOLID, KISS and DRY principles
 

@@ -1,15 +1,15 @@
 package org.fluentness.repository.crud;
 
 import org.fluentness.repository.Repository;
-import org.fluentness.service.persistence.PersistenceService;
+import org.fluentness.service.persistence.Persistence;
 
 import java.util.List;
 
 public abstract class AbstractCrudRepository<M> implements Repository {
 
-    protected PersistenceService persistence;
+    protected Persistence persistence;
 
-    public AbstractCrudRepository(PersistenceService persistence) {
+    public AbstractCrudRepository(Persistence persistence) {
         this.persistence = persistence;
     }
 

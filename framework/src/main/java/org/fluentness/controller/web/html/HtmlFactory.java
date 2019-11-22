@@ -11,19 +11,19 @@ import java.util.function.Function;
 public final class HtmlFactory {
 
     // special web views
-    public static ContainerHtml action(WebActionReference action, Html... inner) {
+    public static HtmlContainer action(WebActionReference action, Html... inner) {
         List<Html> result = new ArrayList<>();
         result.add(_href(action.getPath()));
         result.addAll(Arrays.asList(inner));
         return a(result.toArray(new Html[0]));
     }
 
-    public static <T> FormHtml<T> form(Object model, WebActionReference submitAction) {
-        return new FormHtml<>(model, submitAction);
+    public static <T> HtmlForm<T> form(Object model, WebActionReference submitAction) {
+        return new HtmlForm<>(model, submitAction);
     }
 
-    public static <T> TableHtml<T> table(List<T> modelList) {
-        return new TableHtml<>(modelList);
+    public static <T> HtmlTable<T> table(List<T> modelList) {
+        return new HtmlTable<>(modelList);
     }
 
     public static <T, V> V[] forEach(Iterable<T> iterable, Function<T, V> function) {
@@ -33,950 +33,954 @@ public final class HtmlFactory {
     }
 
     // attributes markup views
-    public static Attribute _accept(String value) {
-        return new Attribute("accept", value);
+    public static HtmlAttribute _attr(String key, String value) {
+        return new HtmlAttribute(key, value);
     }
 
-    public static Attribute _accept_charset(String value) {
-        return new Attribute("accept-charset", value);
+    public static HtmlAttribute _accept(String value) {
+        return new HtmlAttribute("accept", value);
     }
 
-    public static Attribute _accesskey(String value) {
-        return new Attribute("accesskey", value);
+    public static HtmlAttribute _accept_charset(String value) {
+        return new HtmlAttribute("accept-charset", value);
     }
 
-    public static Attribute _action(String value) {
-        return new Attribute("action", value);
+    public static HtmlAttribute _accesskey(String value) {
+        return new HtmlAttribute("accesskey", value);
     }
 
-    public static Attribute _align(String value) {
-        return new Attribute("align", value);
+    public static HtmlAttribute _action(String value) {
+        return new HtmlAttribute("action", value);
     }
 
-    public static Attribute _alt(String value) {
-        return new Attribute("alt", value);
+    public static HtmlAttribute _align(String value) {
+        return new HtmlAttribute("align", value);
     }
 
-    public static Attribute _async(String value) {
-        return new Attribute("async", value);
+    public static HtmlAttribute _alt(String value) {
+        return new HtmlAttribute("alt", value);
     }
 
-    public static Attribute _autocomplete(String value) {
-        return new Attribute("autocomplete", value);
+    public static HtmlAttribute _async(String value) {
+        return new HtmlAttribute("async", value);
     }
 
-    public static Attribute _autofocus(String value) {
-        return new Attribute("autofocus", value);
+    public static HtmlAttribute _autocomplete(String value) {
+        return new HtmlAttribute("autocomplete", value);
     }
 
-    public static Attribute _autoplay(String value) {
-        return new Attribute("autoplay", value);
+    public static HtmlAttribute _autofocus(String value) {
+        return new HtmlAttribute("autofocus", value);
     }
 
-    public static Attribute _autosave(String value) {
-        return new Attribute("autosave", value);
+    public static HtmlAttribute _autoplay(String value) {
+        return new HtmlAttribute("autoplay", value);
     }
 
-    public static Attribute _bgcolor(String value) {
-        return new Attribute("bgcolor", value);
+    public static HtmlAttribute _autosave(String value) {
+        return new HtmlAttribute("autosave", value);
     }
 
-    public static Attribute _border(String value) {
-        return new Attribute("border", value);
+    public static HtmlAttribute _bgcolor(String value) {
+        return new HtmlAttribute("bgcolor", value);
     }
 
-    public static Attribute _buffered(String value) {
-        return new Attribute("buffered", value);
+    public static HtmlAttribute _border(String value) {
+        return new HtmlAttribute("border", value);
     }
 
-    public static Attribute _challenge(String value) {
-        return new Attribute("challenge", value);
+    public static HtmlAttribute _buffered(String value) {
+        return new HtmlAttribute("buffered", value);
     }
 
-    public static Attribute _charset(String value) {
-        return new Attribute("charset", value);
+    public static HtmlAttribute _challenge(String value) {
+        return new HtmlAttribute("challenge", value);
     }
 
-    public static Attribute _checked(String value) {
-        return new Attribute("checked", value);
+    public static HtmlAttribute _charset(String value) {
+        return new HtmlAttribute("charset", value);
     }
 
-    public static Attribute _cite(String value) {
-        return new Attribute("cite", value);
+    public static HtmlAttribute _checked(String value) {
+        return new HtmlAttribute("checked", value);
     }
 
-    public static Attribute _class(String value) {
-        return new Attribute("class", value);
+    public static HtmlAttribute _cite(String value) {
+        return new HtmlAttribute("cite", value);
     }
 
-    public static Attribute _code(String value) {
-        return new Attribute("code", value);
+    public static HtmlAttribute _class(String value) {
+        return new HtmlAttribute("class", value);
     }
 
-    public static Attribute _codebase(String value) {
-        return new Attribute("codebase", value);
+    public static HtmlAttribute _code(String value) {
+        return new HtmlAttribute("code", value);
     }
 
-    public static Attribute _color(String value) {
-        return new Attribute("color", value);
+    public static HtmlAttribute _codebase(String value) {
+        return new HtmlAttribute("codebase", value);
     }
 
-    public static Attribute _cols(String value) {
-        return new Attribute("cols", value);
+    public static HtmlAttribute _color(String value) {
+        return new HtmlAttribute("color", value);
     }
 
-    public static Attribute _colspan(String value) {
-        return new Attribute("colspan", value);
+    public static HtmlAttribute _cols(String value) {
+        return new HtmlAttribute("cols", value);
     }
 
-    public static Attribute _content(String value) {
-        return new Attribute("content", value);
+    public static HtmlAttribute _colspan(String value) {
+        return new HtmlAttribute("colspan", value);
     }
 
-    public static Attribute _contenteditable(String value) {
-        return new Attribute("contenteditable", value);
+    public static HtmlAttribute _content(String value) {
+        return new HtmlAttribute("content", value);
     }
 
-    public static Attribute _contextmenu(String value) {
-        return new Attribute("contextmenu", value);
+    public static HtmlAttribute _contenteditable(String value) {
+        return new HtmlAttribute("contenteditable", value);
     }
 
-    public static Attribute _controls(String value) {
-        return new Attribute("controls", value);
+    public static HtmlAttribute _contextmenu(String value) {
+        return new HtmlAttribute("contextmenu", value);
     }
 
-    public static Attribute _coords(String value) {
-        return new Attribute("coords", value);
+    public static HtmlAttribute _controls(String value) {
+        return new HtmlAttribute("controls", value);
     }
 
-    public static Attribute _crossorigin(String value) {
-        return new Attribute("crossorigin", value);
+    public static HtmlAttribute _coords(String value) {
+        return new HtmlAttribute("coords", value);
     }
 
-    public static Attribute _data(String value) {
-        return new Attribute("data", value);
+    public static HtmlAttribute _crossorigin(String value) {
+        return new HtmlAttribute("crossorigin", value);
     }
 
-    public static Attribute _datetime(String value) {
-        return new Attribute("datetime", value);
+    public static HtmlAttribute _data(String value) {
+        return new HtmlAttribute("data", value);
     }
 
-    public static Attribute _default(String value) {
-        return new Attribute("default", value);
+    public static HtmlAttribute _datetime(String value) {
+        return new HtmlAttribute("datetime", value);
     }
 
-    public static Attribute _dir(String value) {
-        return new Attribute("dir", value);
+    public static HtmlAttribute _default(String value) {
+        return new HtmlAttribute("default", value);
     }
 
-    public static Attribute _dirname(String value) {
-        return new Attribute("dirname", value);
+    public static HtmlAttribute _dir(String value) {
+        return new HtmlAttribute("dir", value);
     }
 
-    public static Attribute _disabled(String value) {
-        return new Attribute("disabled", value);
+    public static HtmlAttribute _dirname(String value) {
+        return new HtmlAttribute("dirname", value);
     }
 
-    public static Attribute _download(String value) {
-        return new Attribute("download", value);
+    public static HtmlAttribute _disabled(String value) {
+        return new HtmlAttribute("disabled", value);
     }
 
-    public static Attribute _draggable(String value) {
-        return new Attribute("draggable", value);
+    public static HtmlAttribute _download(String value) {
+        return new HtmlAttribute("download", value);
     }
 
-    public static Attribute _dropzone(String value) {
-        return new Attribute("dropzone", value);
+    public static HtmlAttribute _draggable(String value) {
+        return new HtmlAttribute("draggable", value);
     }
 
-    public static Attribute _enctype(String value) {
-        return new Attribute("enctype", value);
+    public static HtmlAttribute _dropzone(String value) {
+        return new HtmlAttribute("dropzone", value);
     }
 
-    public static Attribute _for_(String value) {
-        return new Attribute("for", value);
+    public static HtmlAttribute _enctype(String value) {
+        return new HtmlAttribute("enctype", value);
     }
 
-    public static Attribute _form(String value) {
-        return new Attribute("form", value);
+    public static HtmlAttribute _for_(String value) {
+        return new HtmlAttribute("for", value);
     }
 
-    public static Attribute _formaction(String value) {
-        return new Attribute("formaction", value);
+    public static HtmlAttribute _form(String value) {
+        return new HtmlAttribute("form", value);
     }
 
-    public static Attribute _headers(String value) {
-        return new Attribute("headers", value);
+    public static HtmlAttribute _formaction(String value) {
+        return new HtmlAttribute("formaction", value);
     }
 
-    public static Attribute _height(String value) {
-        return new Attribute("height", value);
+    public static HtmlAttribute _headers(String value) {
+        return new HtmlAttribute("headers", value);
     }
 
-    public static Attribute _hidden(String value) {
-        return new Attribute("hidden", value);
+    public static HtmlAttribute _height(String value) {
+        return new HtmlAttribute("height", value);
     }
 
-    public static Attribute _high(String value) {
-        return new Attribute("high", value);
+    public static HtmlAttribute _hidden(String value) {
+        return new HtmlAttribute("hidden", value);
     }
 
-    public static Attribute _href(String value) {
-        return new Attribute("href", value);
+    public static HtmlAttribute _high(String value) {
+        return new HtmlAttribute("high", value);
     }
 
-    public static Attribute _hreflang(String value) {
-        return new Attribute("hreflang", value);
+    public static HtmlAttribute _href(String value) {
+        return new HtmlAttribute("href", value);
     }
 
-    public static Attribute _http_equiv(String value) {
-        return new Attribute("http-equiv", value);
+    public static HtmlAttribute _hreflang(String value) {
+        return new HtmlAttribute("hreflang", value);
     }
 
-    public static Attribute _icon(String value) {
-        return new Attribute("icon", value);
+    public static HtmlAttribute _http_equiv(String value) {
+        return new HtmlAttribute("http-equiv", value);
     }
 
-    public static Attribute _id(String value) {
-        return new Attribute("id", value);
+    public static HtmlAttribute _icon(String value) {
+        return new HtmlAttribute("icon", value);
     }
 
-    public static Attribute _integrity(String value) {
-        return new Attribute("integrity", value);
+    public static HtmlAttribute _id(String value) {
+        return new HtmlAttribute("id", value);
     }
 
-    public static Attribute _ismap(String value) {
-        return new Attribute("ismap", value);
+    public static HtmlAttribute _integrity(String value) {
+        return new HtmlAttribute("integrity", value);
     }
 
-    public static Attribute _itemprop(String value) {
-        return new Attribute("itemprop", value);
+    public static HtmlAttribute _ismap(String value) {
+        return new HtmlAttribute("ismap", value);
     }
 
-    public static Attribute _keytype(String value) {
-        return new Attribute("keytype", value);
+    public static HtmlAttribute _itemprop(String value) {
+        return new HtmlAttribute("itemprop", value);
     }
 
-    public static Attribute _kind(String value) {
-        return new Attribute("kind", value);
+    public static HtmlAttribute _keytype(String value) {
+        return new HtmlAttribute("keytype", value);
     }
 
-    public static Attribute _label(String value) {
-        return new Attribute("label", value);
+    public static HtmlAttribute _kind(String value) {
+        return new HtmlAttribute("kind", value);
     }
 
-    public static Attribute _lang(String value) {
-        return new Attribute("lang", value);
+    public static HtmlAttribute _label(String value) {
+        return new HtmlAttribute("label", value);
     }
 
-    public static Attribute _language(String value) {
-        return new Attribute("language", value);
+    public static HtmlAttribute _lang(String value) {
+        return new HtmlAttribute("lang", value);
     }
 
-    public static Attribute _list(String value) {
-        return new Attribute("list", value);
+    public static HtmlAttribute _language(String value) {
+        return new HtmlAttribute("language", value);
     }
 
-    public static Attribute _loop(String value) {
-        return new Attribute("loop", value);
+    public static HtmlAttribute _list(String value) {
+        return new HtmlAttribute("list", value);
     }
 
-    public static Attribute _low(String value) {
-        return new Attribute("low", value);
+    public static HtmlAttribute _loop(String value) {
+        return new HtmlAttribute("loop", value);
     }
 
-    public static Attribute _manifest(String value) {
-        return new Attribute("manifest", value);
+    public static HtmlAttribute _low(String value) {
+        return new HtmlAttribute("low", value);
     }
 
-    public static Attribute _max(String value) {
-        return new Attribute("max", value);
+    public static HtmlAttribute _manifest(String value) {
+        return new HtmlAttribute("manifest", value);
     }
 
-    public static Attribute _maxlength(String value) {
-        return new Attribute("maxlength", value);
+    public static HtmlAttribute _max(String value) {
+        return new HtmlAttribute("max", value);
     }
 
-    public static Attribute _media(String value) {
-        return new Attribute("media", value);
+    public static HtmlAttribute _maxlength(String value) {
+        return new HtmlAttribute("maxlength", value);
     }
 
-    public static Attribute _method(String value) {
-        return new Attribute("method", value);
+    public static HtmlAttribute _media(String value) {
+        return new HtmlAttribute("media", value);
     }
 
-    public static Attribute _min(String value) {
-        return new Attribute("min", value);
+    public static HtmlAttribute _method(String value) {
+        return new HtmlAttribute("method", value);
     }
 
-    public static Attribute _multiple(String value) {
-        return new Attribute("multiple", value);
+    public static HtmlAttribute _min(String value) {
+        return new HtmlAttribute("min", value);
     }
 
-    public static Attribute _muted(String value) {
-        return new Attribute("muted", value);
+    public static HtmlAttribute _multiple(String value) {
+        return new HtmlAttribute("multiple", value);
     }
 
-    public static Attribute _name(String value) {
-        return new Attribute("name", value);
+    public static HtmlAttribute _muted(String value) {
+        return new HtmlAttribute("muted", value);
     }
 
-    public static Attribute _novalidate(String value) {
-        return new Attribute("novalidate", value);
+    public static HtmlAttribute _name(String value) {
+        return new HtmlAttribute("name", value);
     }
 
-    public static Attribute _open(String value) {
-        return new Attribute("open", value);
+    public static HtmlAttribute _novalidate(String value) {
+        return new HtmlAttribute("novalidate", value);
     }
 
-    public static Attribute _optimum(String value) {
-        return new Attribute("optimum", value);
+    public static HtmlAttribute _open(String value) {
+        return new HtmlAttribute("open", value);
     }
 
-    public static Attribute _pattern(String value) {
-        return new Attribute("pattern", value);
+    public static HtmlAttribute _optimum(String value) {
+        return new HtmlAttribute("optimum", value);
     }
 
-    public static Attribute _ping(String value) {
-        return new Attribute("ping", value);
+    public static HtmlAttribute _pattern(String value) {
+        return new HtmlAttribute("pattern", value);
     }
 
-    public static Attribute _placeholder(String value) {
-        return new Attribute("placeholder", value);
+    public static HtmlAttribute _ping(String value) {
+        return new HtmlAttribute("ping", value);
     }
 
-    public static Attribute _poster(String value) {
-        return new Attribute("poster", value);
+    public static HtmlAttribute _placeholder(String value) {
+        return new HtmlAttribute("placeholder", value);
     }
 
-    public static Attribute _preload(String value) {
-        return new Attribute("preload", value);
+    public static HtmlAttribute _poster(String value) {
+        return new HtmlAttribute("poster", value);
     }
 
-    public static Attribute _radiogroup(String value) {
-        return new Attribute("radiogroup", value);
+    public static HtmlAttribute _preload(String value) {
+        return new HtmlAttribute("preload", value);
     }
 
-    public static Attribute _readonly(String value) {
-        return new Attribute("readonly", value);
+    public static HtmlAttribute _radiogroup(String value) {
+        return new HtmlAttribute("radiogroup", value);
     }
 
-    public static Attribute _rel(String value) {
-        return new Attribute("rel", value);
+    public static HtmlAttribute _readonly(String value) {
+        return new HtmlAttribute("readonly", value);
     }
 
-    public static Attribute _required(String value) {
-        return new Attribute("required", value);
+    public static HtmlAttribute _rel(String value) {
+        return new HtmlAttribute("rel", value);
     }
 
-    public static Attribute _reversed(String value) {
-        return new Attribute("reversed", value);
+    public static HtmlAttribute _required(String value) {
+        return new HtmlAttribute("required", value);
     }
 
-    public static Attribute _rows(String value) {
-        return new Attribute("rows", value);
+    public static HtmlAttribute _reversed(String value) {
+        return new HtmlAttribute("reversed", value);
     }
 
-    public static Attribute _rowspan(String value) {
-        return new Attribute("rowspan", value);
+    public static HtmlAttribute _rows(String value) {
+        return new HtmlAttribute("rows", value);
     }
 
-    public static Attribute _sandbox(String value) {
-        return new Attribute("sandbox", value);
+    public static HtmlAttribute _rowspan(String value) {
+        return new HtmlAttribute("rowspan", value);
     }
 
-    public static Attribute _scope(String value) {
-        return new Attribute("scope", value);
+    public static HtmlAttribute _sandbox(String value) {
+        return new HtmlAttribute("sandbox", value);
     }
 
-    public static Attribute _scoped(String value) {
-        return new Attribute("scoped", value);
+    public static HtmlAttribute _scope(String value) {
+        return new HtmlAttribute("scope", value);
     }
 
-    public static Attribute _seamless(String value) {
-        return new Attribute("seamless", value);
+    public static HtmlAttribute _scoped(String value) {
+        return new HtmlAttribute("scoped", value);
     }
 
-    public static Attribute _selected(String value) {
-        return new Attribute("selected", value);
+    public static HtmlAttribute _seamless(String value) {
+        return new HtmlAttribute("seamless", value);
     }
 
-    public static Attribute _shape(String value) {
-        return new Attribute("shape", value);
+    public static HtmlAttribute _selected(String value) {
+        return new HtmlAttribute("selected", value);
     }
 
-    public static Attribute _size(String value) {
-        return new Attribute("size", value);
+    public static HtmlAttribute _shape(String value) {
+        return new HtmlAttribute("shape", value);
     }
 
-    public static Attribute _sizes(String value) {
-        return new Attribute("sizes", value);
+    public static HtmlAttribute _size(String value) {
+        return new HtmlAttribute("size", value);
     }
 
-    public static Attribute _slot(String value) {
-        return new Attribute("slot", value);
+    public static HtmlAttribute _sizes(String value) {
+        return new HtmlAttribute("sizes", value);
     }
 
-    public static Attribute _span(String value) {
-        return new Attribute("span", value);
+    public static HtmlAttribute _slot(String value) {
+        return new HtmlAttribute("slot", value);
     }
 
-    public static Attribute _spellcheck(String value) {
-        return new Attribute("spellcheck", value);
+    public static HtmlAttribute _span(String value) {
+        return new HtmlAttribute("span", value);
     }
 
-    public static Attribute _src(String value) {
-        return new Attribute("src", value);
+    public static HtmlAttribute _spellcheck(String value) {
+        return new HtmlAttribute("spellcheck", value);
     }
 
-    public static Attribute _srcdoc(String value) {
-        return new Attribute("srcdoc", value);
+    public static HtmlAttribute _src(String value) {
+        return new HtmlAttribute("src", value);
     }
 
-    public static Attribute _srclang(String value) {
-        return new Attribute("srclang", value);
+    public static HtmlAttribute _srcdoc(String value) {
+        return new HtmlAttribute("srcdoc", value);
     }
 
-    public static Attribute _srcset(String value) {
-        return new Attribute("srcset", value);
+    public static HtmlAttribute _srclang(String value) {
+        return new HtmlAttribute("srclang", value);
     }
 
-    public static Attribute _start(String value) {
-        return new Attribute("start", value);
+    public static HtmlAttribute _srcset(String value) {
+        return new HtmlAttribute("srcset", value);
     }
 
-    public static Attribute _step(String value) {
-        return new Attribute("step", value);
+    public static HtmlAttribute _start(String value) {
+        return new HtmlAttribute("start", value);
     }
 
-    public static Attribute _style(String value) {
-        return new Attribute("style", value);
+    public static HtmlAttribute _step(String value) {
+        return new HtmlAttribute("step", value);
     }
 
-    public static Attribute _summary(String value) {
-        return new Attribute("summary", value);
+    public static HtmlAttribute _style(String value) {
+        return new HtmlAttribute("style", value);
     }
 
-    public static Attribute _tabindex(String value) {
-        return new Attribute("tabindex", value);
+    public static HtmlAttribute _summary(String value) {
+        return new HtmlAttribute("summary", value);
     }
 
-    public static Attribute _target(String value) {
-        return new Attribute("target", value);
+    public static HtmlAttribute _tabindex(String value) {
+        return new HtmlAttribute("tabindex", value);
     }
 
-    public static Attribute _title(String value) {
-        return new Attribute("title", value);
+    public static HtmlAttribute _target(String value) {
+        return new HtmlAttribute("target", value);
     }
 
-    public static Attribute _type(String value) {
-        return new Attribute("type", value);
+    public static HtmlAttribute _title(String value) {
+        return new HtmlAttribute("title", value);
     }
 
-    public static Attribute _usemap(String value) {
-        return new Attribute("usemap", value);
+    public static HtmlAttribute _type(String value) {
+        return new HtmlAttribute("type", value);
     }
 
-    public static Attribute _value(String value) {
-        return new Attribute("value", value);
+    public static HtmlAttribute _usemap(String value) {
+        return new HtmlAttribute("usemap", value);
     }
 
-    public static Attribute _width(String value) {
-        return new Attribute("width", value);
+    public static HtmlAttribute _value(String value) {
+        return new HtmlAttribute("value", value);
     }
 
-    public static Attribute _wrap(String value) {
-        return new Attribute("wrap", value);
+    public static HtmlAttribute _width(String value) {
+        return new HtmlAttribute("width", value);
+    }
+
+    public static HtmlAttribute _wrap(String value) {
+        return new HtmlAttribute("wrap", value);
     }
 
     // container html views
-    public static ContainerHtml a(Html... inner) {
-        return new ContainerHtml("a", inner);
+    public static HtmlContainer a(Html... inner) {
+        return new HtmlContainer("a", inner);
     }
 
-    public static ContainerHtml abbr(Html... inner) {
-        return new ContainerHtml("abbr", inner);
+    public static HtmlContainer abbr(Html... inner) {
+        return new HtmlContainer("abbr", inner);
     }
 
-    public static ContainerHtml acronym(Html... inner) {
-        return new ContainerHtml("acronym", inner);
+    public static HtmlContainer acronym(Html... inner) {
+        return new HtmlContainer("acronym", inner);
     }
 
-    public static ContainerHtml address(Html... inner) {
-        return new ContainerHtml("address", inner);
+    public static HtmlContainer address(Html... inner) {
+        return new HtmlContainer("address", inner);
     }
 
-    public static ContainerHtml applet(Html... inner) {
-        return new ContainerHtml("applet", inner);
+    public static HtmlContainer applet(Html... inner) {
+        return new HtmlContainer("applet", inner);
     }
 
-    public static ContainerHtml article(Html... inner) {
-        return new ContainerHtml("article", inner);
+    public static HtmlContainer article(Html... inner) {
+        return new HtmlContainer("article", inner);
     }
 
-    public static ContainerHtml aside(Html... inner) {
-        return new ContainerHtml("aside", inner);
+    public static HtmlContainer aside(Html... inner) {
+        return new HtmlContainer("aside", inner);
     }
 
-    public static ContainerHtml audio(Html... inner) {
-        return new ContainerHtml("audio", inner);
+    public static HtmlContainer audio(Html... inner) {
+        return new HtmlContainer("audio", inner);
     }
 
-    public static ContainerHtml b(Html... inner) {
-        return new ContainerHtml("b", inner);
+    public static HtmlContainer b(Html... inner) {
+        return new HtmlContainer("b", inner);
     }
 
-    public static ContainerHtml basefont(Html... inner) {
-        return new ContainerHtml("basefont", inner);
+    public static HtmlContainer basefont(Html... inner) {
+        return new HtmlContainer("basefont", inner);
     }
 
-    public static ContainerHtml bdi(Html... inner) {
-        return new ContainerHtml("bdi", inner);
+    public static HtmlContainer bdi(Html... inner) {
+        return new HtmlContainer("bdi", inner);
     }
 
-    public static ContainerHtml bdo(Html... inner) {
-        return new ContainerHtml("bdo", inner);
+    public static HtmlContainer bdo(Html... inner) {
+        return new HtmlContainer("bdo", inner);
     }
 
-    public static ContainerHtml big(Html... inner) {
-        return new ContainerHtml("big", inner);
+    public static HtmlContainer big(Html... inner) {
+        return new HtmlContainer("big", inner);
     }
 
-    public static ContainerHtml blockquote(Html... inner) {
-        return new ContainerHtml("blockquote", inner);
+    public static HtmlContainer blockquote(Html... inner) {
+        return new HtmlContainer("blockquote", inner);
     }
 
-    public static ContainerHtml body(Html... inner) {
-        return new ContainerHtml("body", inner);
+    public static HtmlContainer body(Html... inner) {
+        return new HtmlContainer("body", inner);
     }
 
-    public static ContainerHtml button(Html... inner) {
-        return new ContainerHtml("button", inner);
+    public static HtmlContainer button(Html... inner) {
+        return new HtmlContainer("button", inner);
     }
 
-    public static ContainerHtml canvas(Html... inner) {
-        return new ContainerHtml("canvas", inner);
+    public static HtmlContainer canvas(Html... inner) {
+        return new HtmlContainer("canvas", inner);
     }
 
-    public static ContainerHtml caption(Html... inner) {
-        return new ContainerHtml("caption", inner);
+    public static HtmlContainer caption(Html... inner) {
+        return new HtmlContainer("caption", inner);
     }
 
-    public static ContainerHtml center(Html... inner) {
-        return new ContainerHtml("center", inner);
+    public static HtmlContainer center(Html... inner) {
+        return new HtmlContainer("center", inner);
     }
 
-    public static ContainerHtml cite(Html... inner) {
-        return new ContainerHtml("cite", inner);
+    public static HtmlContainer cite(Html... inner) {
+        return new HtmlContainer("cite", inner);
     }
 
-    public static ContainerHtml code(Html... inner) {
-        return new ContainerHtml("code", inner);
+    public static HtmlContainer code(Html... inner) {
+        return new HtmlContainer("code", inner);
     }
 
-    public static ContainerHtml colgroup(Html... inner) {
-        return new ContainerHtml("colgroup", inner);
+    public static HtmlContainer colgroup(Html... inner) {
+        return new HtmlContainer("colgroup", inner);
     }
 
-    public static ContainerHtml data(Html... inner) {
-        return new ContainerHtml("data", inner);
+    public static HtmlContainer data(Html... inner) {
+        return new HtmlContainer("data", inner);
     }
 
-    public static ContainerHtml datalist(Html... inner) {
-        return new ContainerHtml("datalist", inner);
+    public static HtmlContainer datalist(Html... inner) {
+        return new HtmlContainer("datalist", inner);
     }
 
-    public static ContainerHtml dd(Html... inner) {
-        return new ContainerHtml("dd", inner);
+    public static HtmlContainer dd(Html... inner) {
+        return new HtmlContainer("dd", inner);
     }
 
-    public static ContainerHtml del(Html... inner) {
-        return new ContainerHtml("del", inner);
+    public static HtmlContainer del(Html... inner) {
+        return new HtmlContainer("del", inner);
     }
 
-    public static ContainerHtml details(Html... inner) {
-        return new ContainerHtml("details", inner);
+    public static HtmlContainer details(Html... inner) {
+        return new HtmlContainer("details", inner);
     }
 
-    public static ContainerHtml dfn(Html... inner) {
-        return new ContainerHtml("dfn", inner);
+    public static HtmlContainer dfn(Html... inner) {
+        return new HtmlContainer("dfn", inner);
     }
 
-    public static ContainerHtml dialog(Html... inner) {
-        return new ContainerHtml("dialog", inner);
+    public static HtmlContainer dialog(Html... inner) {
+        return new HtmlContainer("dialog", inner);
     }
 
-    public static ContainerHtml dir(Html... inner) {
-        return new ContainerHtml("dir", inner);
+    public static HtmlContainer dir(Html... inner) {
+        return new HtmlContainer("dir", inner);
     }
 
-    public static ContainerHtml div(Html... inner) {
-        return new ContainerHtml("div", inner);
+    public static HtmlContainer div(Html... inner) {
+        return new HtmlContainer("div", inner);
     }
 
-    public static ContainerHtml dl(Html... inner) {
-        return new ContainerHtml("dl", inner);
+    public static HtmlContainer dl(Html... inner) {
+        return new HtmlContainer("dl", inner);
     }
 
-    public static ContainerHtml dt(Html... inner) {
-        return new ContainerHtml("dt", inner);
+    public static HtmlContainer dt(Html... inner) {
+        return new HtmlContainer("dt", inner);
     }
 
-    public static ContainerHtml em(Html... inner) {
-        return new ContainerHtml("em", inner);
+    public static HtmlContainer em(Html... inner) {
+        return new HtmlContainer("em", inner);
     }
 
-    public static ContainerHtml fieldset(Html... inner) {
-        return new ContainerHtml("fieldset", inner);
+    public static HtmlContainer fieldset(Html... inner) {
+        return new HtmlContainer("fieldset", inner);
     }
 
-    public static ContainerHtml figcaption(Html... inner) {
-        return new ContainerHtml("figcaption", inner);
+    public static HtmlContainer figcaption(Html... inner) {
+        return new HtmlContainer("figcaption", inner);
     }
 
-    public static ContainerHtml figure(Html... inner) {
-        return new ContainerHtml("figure", inner);
+    public static HtmlContainer figure(Html... inner) {
+        return new HtmlContainer("figure", inner);
     }
 
-    public static ContainerHtml font(Html... inner) {
-        return new ContainerHtml("font", inner);
+    public static HtmlContainer font(Html... inner) {
+        return new HtmlContainer("font", inner);
     }
 
-    public static ContainerHtml footer(Html... inner) {
-        return new ContainerHtml("footer", inner);
+    public static HtmlContainer footer(Html... inner) {
+        return new HtmlContainer("footer", inner);
     }
 
-    public static ContainerHtml form(Html... inner) {
-        return new ContainerHtml("form", inner);
+    public static HtmlContainer form(Html... inner) {
+        return new HtmlContainer("form", inner);
     }
 
-    public static ContainerHtml frame(Html... inner) {
-        return new ContainerHtml("frame", inner);
+    public static HtmlContainer frame(Html... inner) {
+        return new HtmlContainer("frame", inner);
     }
 
-    public static ContainerHtml frameset(Html... inner) {
-        return new ContainerHtml("frameset", inner);
+    public static HtmlContainer frameset(Html... inner) {
+        return new HtmlContainer("frameset", inner);
     }
 
-    public static ContainerHtml h1(Html... inner) {
-        return new ContainerHtml("h1", inner);
+    public static HtmlContainer h1(Html... inner) {
+        return new HtmlContainer("h1", inner);
     }
 
-    public static ContainerHtml h2(Html... inner) {
-        return new ContainerHtml("h2", inner);
+    public static HtmlContainer h2(Html... inner) {
+        return new HtmlContainer("h2", inner);
     }
 
-    public static ContainerHtml h3(Html... inner) {
-        return new ContainerHtml("h3", inner);
+    public static HtmlContainer h3(Html... inner) {
+        return new HtmlContainer("h3", inner);
     }
 
-    public static ContainerHtml h4(Html... inner) {
-        return new ContainerHtml("h4", inner);
+    public static HtmlContainer h4(Html... inner) {
+        return new HtmlContainer("h4", inner);
     }
 
-    public static ContainerHtml h5(Html... inner) {
-        return new ContainerHtml("h5", inner);
+    public static HtmlContainer h5(Html... inner) {
+        return new HtmlContainer("h5", inner);
     }
 
-    public static ContainerHtml h6(Html... inner) {
-        return new ContainerHtml("h6", inner);
+    public static HtmlContainer h6(Html... inner) {
+        return new HtmlContainer("h6", inner);
     }
 
-    public static ContainerHtml head(Html... inner) {
-        return new ContainerHtml("head", inner);
+    public static HtmlContainer head(Html... inner) {
+        return new HtmlContainer("head", inner);
     }
 
-    public static ContainerHtml header(Html... inner) {
-        return new ContainerHtml("header", inner);
+    public static HtmlContainer header(Html... inner) {
+        return new HtmlContainer("header", inner);
     }
 
-    public static ContainerHtml html(Html... inner) {
-        return new ContainerHtml("html", inner);
+    public static HtmlContainer html(Html... inner) {
+        return new HtmlContainer("html", inner);
     }
 
-    public static ContainerHtml i(Html... inner) {
-        return new ContainerHtml("i", inner);
+    public static HtmlContainer i(Html... inner) {
+        return new HtmlContainer("i", inner);
     }
 
-    public static ContainerHtml iframe(Html... inner) {
-        return new ContainerHtml("iframe", inner);
+    public static HtmlContainer iframe(Html... inner) {
+        return new HtmlContainer("iframe", inner);
     }
 
-    public static ContainerHtml ins(Html... inner) {
-        return new ContainerHtml("ins", inner);
+    public static HtmlContainer ins(Html... inner) {
+        return new HtmlContainer("ins", inner);
     }
 
-    public static ContainerHtml kbd(Html... inner) {
-        return new ContainerHtml("kbd", inner);
+    public static HtmlContainer kbd(Html... inner) {
+        return new HtmlContainer("kbd", inner);
     }
 
-    public static ContainerHtml label(Html... inner) {
-        return new ContainerHtml("label", inner);
+    public static HtmlContainer label(Html... inner) {
+        return new HtmlContainer("label", inner);
     }
 
-    public static ContainerHtml legend(Html... inner) {
-        return new ContainerHtml("legend", inner);
+    public static HtmlContainer legend(Html... inner) {
+        return new HtmlContainer("legend", inner);
     }
 
-    public static ContainerHtml li(Html... inner) {
-        return new ContainerHtml("li", inner);
+    public static HtmlContainer li(Html... inner) {
+        return new HtmlContainer("li", inner);
     }
 
-    public static ContainerHtml main(Html... inner) {
-        return new ContainerHtml("main", inner);
+    public static HtmlContainer main(Html... inner) {
+        return new HtmlContainer("main", inner);
     }
 
-    public static ContainerHtml map(Html... inner) {
-        return new ContainerHtml("map", inner);
+    public static HtmlContainer map(Html... inner) {
+        return new HtmlContainer("map", inner);
     }
 
-    public static ContainerHtml mark(Html... inner) {
-        return new ContainerHtml("mark", inner);
+    public static HtmlContainer mark(Html... inner) {
+        return new HtmlContainer("mark", inner);
     }
 
-    public static ContainerHtml meter(Html... inner) {
-        return new ContainerHtml("meter", inner);
+    public static HtmlContainer meter(Html... inner) {
+        return new HtmlContainer("meter", inner);
     }
 
-    public static ContainerHtml nav(Html... inner) {
-        return new ContainerHtml("nav", inner);
+    public static HtmlContainer nav(Html... inner) {
+        return new HtmlContainer("nav", inner);
     }
 
-    public static ContainerHtml noframes(Html... inner) {
-        return new ContainerHtml("noframes", inner);
+    public static HtmlContainer noframes(Html... inner) {
+        return new HtmlContainer("noframes", inner);
     }
 
-    public static ContainerHtml noscript(Html... inner) {
-        return new ContainerHtml("noscript", inner);
+    public static HtmlContainer noscript(Html... inner) {
+        return new HtmlContainer("noscript", inner);
     }
 
-    public static ContainerHtml object(Html... inner) {
-        return new ContainerHtml("object", inner);
+    public static HtmlContainer object(Html... inner) {
+        return new HtmlContainer("object", inner);
     }
 
-    public static ContainerHtml ol(Html... inner) {
-        return new ContainerHtml("ol", inner);
+    public static HtmlContainer ol(Html... inner) {
+        return new HtmlContainer("ol", inner);
     }
 
-    public static ContainerHtml optgroup(Html... inner) {
-        return new ContainerHtml("optgroup", inner);
+    public static HtmlContainer optgroup(Html... inner) {
+        return new HtmlContainer("optgroup", inner);
     }
 
-    public static ContainerHtml option(Html... inner) {
-        return new ContainerHtml("option", inner);
+    public static HtmlContainer option(Html... inner) {
+        return new HtmlContainer("option", inner);
     }
 
-    public static ContainerHtml output(Html... inner) {
-        return new ContainerHtml("output", inner);
+    public static HtmlContainer output(Html... inner) {
+        return new HtmlContainer("output", inner);
     }
 
-    public static ContainerHtml p(Html... inner) {
-        return new ContainerHtml("p", inner);
+    public static HtmlContainer p(Html... inner) {
+        return new HtmlContainer("p", inner);
     }
 
-    public static ContainerHtml picture(Html... inner) {
-        return new ContainerHtml("picture", inner);
+    public static HtmlContainer picture(Html... inner) {
+        return new HtmlContainer("picture", inner);
     }
 
-    public static ContainerHtml pre(Html... inner) {
-        return new ContainerHtml("pre", inner);
+    public static HtmlContainer pre(Html... inner) {
+        return new HtmlContainer("pre", inner);
     }
 
-    public static ContainerHtml progress(Html... inner) {
-        return new ContainerHtml("progress", inner);
+    public static HtmlContainer progress(Html... inner) {
+        return new HtmlContainer("progress", inner);
     }
 
-    public static ContainerHtml q(Html... inner) {
-        return new ContainerHtml("q", inner);
+    public static HtmlContainer q(Html... inner) {
+        return new HtmlContainer("q", inner);
     }
 
-    public static ContainerHtml rp(Html... inner) {
-        return new ContainerHtml("rp", inner);
+    public static HtmlContainer rp(Html... inner) {
+        return new HtmlContainer("rp", inner);
     }
 
-    public static ContainerHtml rt(Html... inner) {
-        return new ContainerHtml("rt", inner);
+    public static HtmlContainer rt(Html... inner) {
+        return new HtmlContainer("rt", inner);
     }
 
-    public static ContainerHtml ruby(Html... inner) {
-        return new ContainerHtml("ruby", inner);
+    public static HtmlContainer ruby(Html... inner) {
+        return new HtmlContainer("ruby", inner);
     }
 
-    public static ContainerHtml s(Html... inner) {
-        return new ContainerHtml("s", inner);
+    public static HtmlContainer s(Html... inner) {
+        return new HtmlContainer("s", inner);
     }
 
-    public static ContainerHtml samp(Html... inner) {
-        return new ContainerHtml("samp", inner);
+    public static HtmlContainer samp(Html... inner) {
+        return new HtmlContainer("samp", inner);
     }
 
-    public static ContainerHtml script(Html... inner) {
-        return new ContainerHtml("script", inner);
+    public static HtmlContainer script(Html... inner) {
+        return new HtmlContainer("script", inner);
     }
 
-    public static ContainerHtml section(Html... inner) {
-        return new ContainerHtml("section", inner);
+    public static HtmlContainer section(Html... inner) {
+        return new HtmlContainer("section", inner);
     }
 
-    public static ContainerHtml select(Html... inner) {
-        return new ContainerHtml("select", inner);
+    public static HtmlContainer select(Html... inner) {
+        return new HtmlContainer("select", inner);
     }
 
-    public static ContainerHtml small(Html... inner) {
-        return new ContainerHtml("small", inner);
+    public static HtmlContainer small(Html... inner) {
+        return new HtmlContainer("small", inner);
     }
 
-    public static ContainerHtml span(Html... inner) {
-        return new ContainerHtml("span", inner);
+    public static HtmlContainer span(Html... inner) {
+        return new HtmlContainer("span", inner);
     }
 
-    public static ContainerHtml strike(Html... inner) {
-        return new ContainerHtml("strike", inner);
+    public static HtmlContainer strike(Html... inner) {
+        return new HtmlContainer("strike", inner);
     }
 
-    public static ContainerHtml strong(Html... inner) {
-        return new ContainerHtml("strong", inner);
+    public static HtmlContainer strong(Html... inner) {
+        return new HtmlContainer("strong", inner);
     }
 
-    public static ContainerHtml style(Html... inner) {
-        return new ContainerHtml("style", inner);
+    public static HtmlContainer style(Html... inner) {
+        return new HtmlContainer("style", inner);
     }
 
-    public static ContainerHtml sub(Html... inner) {
-        return new ContainerHtml("sub", inner);
+    public static HtmlContainer sub(Html... inner) {
+        return new HtmlContainer("sub", inner);
     }
 
-    public static ContainerHtml summary(Html... inner) {
-        return new ContainerHtml("summary", inner);
+    public static HtmlContainer summary(Html... inner) {
+        return new HtmlContainer("summary", inner);
     }
 
-    public static ContainerHtml sup(Html... inner) {
-        return new ContainerHtml("sup", inner);
+    public static HtmlContainer sup(Html... inner) {
+        return new HtmlContainer("sup", inner);
     }
 
-    public static ContainerHtml svg(Html... inner) {
-        return new ContainerHtml("svg", inner);
+    public static HtmlContainer svg(Html... inner) {
+        return new HtmlContainer("svg", inner);
     }
 
-    public static ContainerHtml table(Html... inner) {
-        return new ContainerHtml("table", inner);
+    public static HtmlContainer table(Html... inner) {
+        return new HtmlContainer("table", inner);
     }
 
-    public static ContainerHtml tbody(Html... inner) {
-        return new ContainerHtml("tbody", inner);
+    public static HtmlContainer tbody(Html... inner) {
+        return new HtmlContainer("tbody", inner);
     }
 
-    public static ContainerHtml td(Html... inner) {
-        return new ContainerHtml("td", inner);
+    public static HtmlContainer td(Html... inner) {
+        return new HtmlContainer("td", inner);
     }
 
-    public static ContainerHtml template(Html... inner) {
-        return new ContainerHtml("template", inner);
+    public static HtmlContainer template(Html... inner) {
+        return new HtmlContainer("template", inner);
     }
 
-    public static ContainerHtml textarea(Html... inner) {
-        return new ContainerHtml("textarea", inner);
+    public static HtmlContainer textarea(Html... inner) {
+        return new HtmlContainer("textarea", inner);
     }
 
-    public static ContainerHtml tfoot(Html... inner) {
-        return new ContainerHtml("tfoot", inner);
+    public static HtmlContainer tfoot(Html... inner) {
+        return new HtmlContainer("tfoot", inner);
     }
 
-    public static ContainerHtml th(Html... inner) {
-        return new ContainerHtml("th", inner);
+    public static HtmlContainer th(Html... inner) {
+        return new HtmlContainer("th", inner);
     }
 
-    public static ContainerHtml thead(Html... inner) {
-        return new ContainerHtml("thead", inner);
+    public static HtmlContainer thead(Html... inner) {
+        return new HtmlContainer("thead", inner);
     }
 
-    public static ContainerHtml time(Html... inner) {
-        return new ContainerHtml("time", inner);
+    public static HtmlContainer time(Html... inner) {
+        return new HtmlContainer("time", inner);
     }
 
-    public static ContainerHtml title(Html... inner) {
-        return new ContainerHtml("title", inner);
+    public static HtmlContainer title(Html... inner) {
+        return new HtmlContainer("title", inner);
     }
 
-    public static ContainerHtml tr(Html... inner) {
-        return new ContainerHtml("tr", inner);
+    public static HtmlContainer tr(Html... inner) {
+        return new HtmlContainer("tr", inner);
     }
 
-    public static ContainerHtml tt(Html... inner) {
-        return new ContainerHtml("tt", inner);
+    public static HtmlContainer tt(Html... inner) {
+        return new HtmlContainer("tt", inner);
     }
 
-    public static ContainerHtml u(Html... inner) {
-        return new ContainerHtml("u", inner);
+    public static HtmlContainer u(Html... inner) {
+        return new HtmlContainer("u", inner);
     }
 
-    public static ContainerHtml ul(Html... inner) {
-        return new ContainerHtml("ul", inner);
+    public static HtmlContainer ul(Html... inner) {
+        return new HtmlContainer("ul", inner);
     }
 
-    public static ContainerHtml var(Html... inner) {
-        return new ContainerHtml("var", inner);
+    public static HtmlContainer var(Html... inner) {
+        return new HtmlContainer("var", inner);
     }
 
-    public static ContainerHtml video(Html... inner) {
-        return new ContainerHtml("video", inner);
+    public static HtmlContainer video(Html... inner) {
+        return new HtmlContainer("video", inner);
     }
 
     // empty html views
-    public static EmptyHtml area(Attribute... attributes) {
-        return new EmptyHtml("area", attributes);
+    public static HtmlEmpty area(HtmlAttribute... attributes) {
+        return new HtmlEmpty("area", attributes);
     }
 
-    public static EmptyHtml base(Attribute... attributes) {
-        return new EmptyHtml("base", attributes);
+    public static HtmlEmpty base(HtmlAttribute... attributes) {
+        return new HtmlEmpty("base", attributes);
     }
 
-    public static EmptyHtml br(Attribute... attributes) {
-        return new EmptyHtml("br", attributes);
+    public static HtmlEmpty br(HtmlAttribute... attributes) {
+        return new HtmlEmpty("br", attributes);
     }
 
-    public static EmptyHtml col(Attribute... attributes) {
-        return new EmptyHtml("col", attributes);
+    public static HtmlEmpty col(HtmlAttribute... attributes) {
+        return new HtmlEmpty("col", attributes);
     }
 
-    public static EmptyHtml embed(Attribute... attributes) {
-        return new EmptyHtml("embed", attributes);
+    public static HtmlEmpty embed(HtmlAttribute... attributes) {
+        return new HtmlEmpty("embed", attributes);
     }
 
-    public static EmptyHtml hr(Attribute... attributes) {
-        return new EmptyHtml("hr", attributes);
+    public static HtmlEmpty hr(HtmlAttribute... attributes) {
+        return new HtmlEmpty("hr", attributes);
     }
 
-    public static EmptyHtml img(Attribute... attributes) {
-        return new EmptyHtml("img", attributes);
+    public static HtmlEmpty img(HtmlAttribute... attributes) {
+        return new HtmlEmpty("img", attributes);
     }
 
-    public static EmptyHtml input(Attribute... attributes) {
-        return new EmptyHtml("input", attributes);
+    public static HtmlEmpty input(HtmlAttribute... attributes) {
+        return new HtmlEmpty("input", attributes);
     }
 
-    public static EmptyHtml link(Attribute... attributes) {
-        return new EmptyHtml("link", attributes);
+    public static HtmlEmpty link(HtmlAttribute... attributes) {
+        return new HtmlEmpty("link", attributes);
     }
 
-    public static EmptyHtml meta(Attribute... attributes) {
-        return new EmptyHtml("meta", attributes);
+    public static HtmlEmpty meta(HtmlAttribute... attributes) {
+        return new HtmlEmpty("meta", attributes);
     }
 
-    public static EmptyHtml param(Attribute... attributes) {
-        return new EmptyHtml("param", attributes);
+    public static HtmlEmpty param(HtmlAttribute... attributes) {
+        return new HtmlEmpty("param", attributes);
     }
 
-    public static EmptyHtml source(Attribute... attributes) {
-        return new EmptyHtml("source", attributes);
+    public static HtmlEmpty source(HtmlAttribute... attributes) {
+        return new HtmlEmpty("source", attributes);
     }
 
-    public static EmptyHtml track(Attribute... attributes) {
-        return new EmptyHtml("track", attributes);
+    public static HtmlEmpty track(HtmlAttribute... attributes) {
+        return new HtmlEmpty("track", attributes);
     }
 
-    public static EmptyHtml wbr(Attribute... attributes) {
-        return new EmptyHtml("wbr", attributes);
+    public static HtmlEmpty wbr(HtmlAttribute... attributes) {
+        return new HtmlEmpty("wbr", attributes);
     }
 
 }

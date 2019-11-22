@@ -1,14 +1,15 @@
 package org.fluentness.controller.desktop.style;
 
 import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DesktopStyle {
 
-    private Map<Class, DesktopStyleLambda> styleMap = new HashMap<>();
+    protected List<Style> styles = new LinkedList<>();
 
-    DesktopStyle(LookAndFeel lookAndFeel) {
+    public DesktopStyle(LookAndFeel lookAndFeel) {
         try {
             UIManager.setLookAndFeel(lookAndFeel);
         } catch (UnsupportedLookAndFeelException e) {
@@ -16,13 +17,12 @@ public class DesktopStyle {
         }
     }
 
-    public <View> DesktopStyle set(Class<View> desktopViewClass, DesktopStyleLambda<View> desktopStyleLambda) {
-        styleMap.put(desktopViewClass, desktopStyleLambda);
-        return this;
+    protected DesktopStyle(LookAndFeel lookAndFeel, Style[] styles) {
+        this(lookAndFeel);
+        this.styles = Arrays.asList(styles);
     }
 
-    public Map<Class, DesktopStyleLambda> getStyleMap() {
-        return styleMap;
+    public List<Style> getStyles() {
+        return styles;
     }
-
 }

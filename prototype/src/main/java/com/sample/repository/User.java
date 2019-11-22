@@ -1,17 +1,17 @@
 package com.sample.repository;
 
-import org.fluentness.repository.field.Field;
+import org.fluentness.repository.Model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import static org.fluentness.repository.field.Type.PASSWORD;
-import static org.fluentness.repository.field.Type.TEXT;
+import static org.fluentness.repository.Model.Type.PASSWORD;
+import static org.fluentness.repository.Model.Type.TEXT;
 
 @Entity
-public class User {
+public class User implements Model {
 
     private int id;
 

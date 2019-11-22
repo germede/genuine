@@ -1,28 +1,28 @@
 package com.sample.controller;
 
-import org.fluentness.controller.desktop.AbstractDesktopController;
+import org.fluentness.controller.desktop.AbstractDesktop;
 import org.fluentness.controller.desktop.DesktopView;
 import org.fluentness.controller.desktop.style.DesktopStyle;
-import org.fluentness.controller.desktop.swing.SwingViewRegistry;
 import org.fluentness.controller.desktop.swing.component.MenuBarView;
 
 import javax.swing.*;
-import javax.swing.event.CaretEvent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
-import static org.fluentness.controller.desktop.style.DesktopStyleFactory.ubuntuStyle;
+import static org.fluentness.controller.desktop.style.DesktopStyleFactory.*;
 import static org.fluentness.controller.desktop.swing.SwingViewFactory.*;
 
-public class Desktop extends AbstractDesktopController {
+public class Desktop extends AbstractDesktop<DesktopController> {
 
     @Override
-    public DesktopStyle getGlobalStyle() {
-        return ubuntuStyle();
+    public DesktopStyle style() {
+        return ubuntuStyle(
+            byClass(JTable.class, jTable -> jTable.setDragEnabled(false))
+        );
     }
 
+
     @Override
-    public DesktopView getMainView() {
+    public DesktopView view() {
         return frame(
             panel(
                 panel(
@@ -52,7 +52,7 @@ public class Desktop extends AbstractDesktopController {
                 menuItem("Close")
             ),
             menu("Edit",
-                menuItem("Cut").actionListener(this::cutPresed),
+                menuItem("Cut").actionListener(controller::cutPressed),
                 menuItem("Copy"),
                 menuItem("Paste")
             ),
@@ -71,14 +71,5 @@ public class Desktop extends AbstractDesktopController {
                 menuItem("About")
             )
         );
-    }
-
-    void test(CaretEvent caretEvent) {
-        JCheckBox checkbox_2 = (JCheckBox) SwingViewRegistry.getByName(JCheckBox.class, "checkbox_2");
-        checkbox_2.setText(checkbox_2.getText() + "HAHA");
-    }
-
-    void cutPresed(ActionEvent event) {
-        int i = 2;
     }
 }

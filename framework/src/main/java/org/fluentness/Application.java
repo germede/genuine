@@ -3,8 +3,8 @@ package org.fluentness;
 import org.fluentness.controller.Controller;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
-import org.fluentness.service.loading.LoadingException;
-import org.fluentness.service.loading.LoadingService;
+import org.fluentness.service.loader.LoaderException;
+import org.fluentness.service.loader.Loader;
 
 import java.util.List;
 
@@ -14,15 +14,15 @@ public interface Application {
         return this.getClass().getSimpleName().replace("Application","");
     }
 
-    default List<Class<? extends Controller>> getControllers(LoadingService loader) throws LoadingException {
+    default List<Class<? extends Controller>> getControllers(Loader loader) throws LoaderException {
         return loader.load(this.getClass().getPackage().getName() + ".controller", Controller.class);
     }
 
-    default List<Class<? extends Repository>> getRepositories(LoadingService loader) throws LoadingException {
+    default List<Class<? extends Repository>> getRepositories(Loader loader) throws LoaderException {
         return loader.load(this.getClass().getPackage().getName() + ".repository", Repository.class);
     }
 
-    default List<Class<? extends Service>> getServices(LoadingService loader) throws LoadingException {
+    default List<Class<? extends Service>> getServices(Loader loader) throws LoaderException {
         return loader.load(this.getClass().getPackage().getName() + ".service", Service.class);
     }
 

@@ -3,14 +3,14 @@ package org.fluentness.service.persistence;
 import org.apache.openjpa.lib.log.AbstractLog;
 import org.apache.openjpa.lib.log.Log;
 import org.apache.openjpa.lib.log.LogFactory;
-import org.fluentness.service.logging.LoggingService;
+import org.fluentness.service.logger.Logger;
 
 public class OpenJpaLoggingBridge extends AbstractLog implements LogFactory {
 
-    private final LoggingService loggingService;
+    private final Logger logger;
 
-    OpenJpaLoggingBridge(LoggingService loggingService) {
-        this.loggingService = loggingService;
+    OpenJpaLoggingBridge(Logger logger) {
+        this.logger = logger;
     }
 
     @Override
@@ -28,16 +28,16 @@ public class OpenJpaLoggingBridge extends AbstractLog implements LogFactory {
         switch (type) {
             case Log.FATAL:
             case Log.ERROR:
-                loggingService.error(message);
+                logger.error(message);
                 break;
             case Log.WARN:
-                loggingService.warning(message);
+                logger.warning(message);
                 break;
             case Log.INFO:
-                loggingService.info(message);
+                logger.info(message);
                 break;
             case Log.TRACE:
-                loggingService.debug(message);
+                logger.debug(message);
         }
     }
 }

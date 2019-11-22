@@ -1,23 +1,23 @@
 package com.sample.controller;
 
 import org.fluentness.controller.web.AbstractWeb;
+import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.html.Html;
-import org.fluentness.controller.web.html.HtmlStyler;
+import org.fluentness.controller.web.style.WebStyle;
 
-import static com.sample.service.TranslationService.*;
+import static com.sample.service.Translator.*;
 import static org.fluentness.controller.web.html.HtmlFactory.action;
 import static org.fluentness.controller.web.html.HtmlFactory.*;
 
 public class Web extends AbstractWeb<WebController> {
 
-
     @Override
-    protected void setStyles(HtmlStyler styler) {
+    protected WebStyle style() {
 
     }
 
     @Override
-    protected Html main(Html... toInclude) {
+    protected WebView view(WebView... toInclude) {
         return html(
             head(
                 title(() -> "The book library made with Fluentness"),
@@ -34,14 +34,14 @@ public class Web extends AbstractWeb<WebController> {
                     nav(
                         ul(_class("navigation_list"),
                             li(_class("navigation_item"),
-                                action(webController::books, books::translate)
+                                action(controller::books, books::translate)
                             ),
                             li(_class("navigation_item"),
-                                action(webController::authors, authors::translate)
+                                action(controller::authors, authors::translate)
                             )
                         )
                     ),
-                    div(toInclude)
+                    div((Html[]) toInclude)
                 )
             )
         );
