@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 
 public class AbstractWebControllerTest {
 
-    private AbstractWebController webController;
+    private AbstractWebController<com.sample.controller.AbstractWeb> webController;
 
     @Before
     public void setUp() {
-        webController = new AbstractWebController(){
+        webController = new AbstractWebController<com.sample.controller.AbstractWeb>(){
 
             public void notAnActionBecauseNoActionAnnotation() {
             }

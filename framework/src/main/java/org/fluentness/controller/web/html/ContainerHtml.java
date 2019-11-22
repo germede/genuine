@@ -1,4 +1,4 @@
-package org.fluentness.controller.web.markup;
+package org.fluentness.controller.web.html;
 
 import org.fluentness.controller.web.WebView;
 
@@ -6,12 +6,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ContainerMarkupView implements MarkupView {
+public class ContainerHtml implements Html {
 
     protected String tag;
-    protected List<MarkupView> innerViews;
+    protected List<Html> innerViews;
 
-    public ContainerMarkupView(String tag, MarkupView... inner) {
+    public ContainerHtml(String tag, Html... inner) {
         this.tag = tag;
         this.innerViews = Arrays.asList(inner);
     }
@@ -23,7 +23,7 @@ public class ContainerMarkupView implements MarkupView {
         builder.append(tag);
         builder.append(
             innerViews.stream()
-                .filter(markupView -> markupView instanceof AttributeMarkupView)
+                .filter(Html -> Html instanceof Attribute)
                 .map(WebView::render)
                 .collect(Collectors.joining())
         );
@@ -31,7 +31,7 @@ public class ContainerMarkupView implements MarkupView {
         if (innerViews != null) {
             builder.append(
                 innerViews.stream()
-                    .filter(markupView -> !(markupView instanceof AttributeMarkupView))
+                    .filter(Html -> !(Html instanceof Attribute))
                     .map(WebView::render)
                     .collect(Collectors.joining())
             );

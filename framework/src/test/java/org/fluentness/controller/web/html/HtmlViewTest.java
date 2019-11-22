@@ -1,4 +1,4 @@
-package org.fluentness.controller.web.markup.html;
+package org.fluentness.controller.web.html;
 
 public class HtmlViewTest {
 

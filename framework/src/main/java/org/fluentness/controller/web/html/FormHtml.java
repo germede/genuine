@@ -1,7 +1,6 @@
-package org.fluentness.controller.web.markup.html;
+package org.fluentness.controller.web.html;
 
 import org.fluentness.controller.web.WebActionReference;
-import org.fluentness.controller.web.markup.AttributeMarkupView;
 import org.fluentness.controller.web.markup.MarkupView;
 import org.fluentness.repository.field.FieldExtractor;
 
@@ -9,12 +8,12 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.fluentness.controller.web.markup.html.HtmlViewFactory.*;
+import static org.fluentness.controller.web.html.HtmlFactory.*;
 
-public class FormHtmlView<T> extends ContainerHtmlView {
+public class FormHtml<T> extends ContainerHtml {
 
 
-    public FormHtmlView(Object model, WebActionReference action) {
+    public FormHtml(Object model, WebActionReference action) {
         super("form", renderForm(model, action));
     }
 
@@ -29,8 +28,8 @@ public class FormHtmlView<T> extends ContainerHtmlView {
         return result.toArray(new MarkupView[0]);
     }
 
-    private static AttributeMarkupView[] getHtmlAttributesFor(Object object, Field field) {
-        List<AttributeMarkupView> result = new LinkedList<>();
+    private static Attribute[] getHtmlAttributesFor(Object object, Field field) {
+        List<Attribute> result = new LinkedList<>();
         try {
             field.setAccessible(true);
             result.add(_name(field.getName()));
@@ -40,7 +39,7 @@ public class FormHtmlView<T> extends ContainerHtmlView {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        return result.toArray(new AttributeMarkupView[0]);
+        return result.toArray(new Attribute[0]);
     }
 
 }

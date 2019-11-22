@@ -40,7 +40,7 @@ public class DefaultRoutingService implements RoutingService {
             return routingMap;
         }
         routingMap = new HashMap<>();
-        List<AbstractWebController> webControllers = injectionService.getInstances(AbstractWebController.class);
+        List<AbstractWebController<com.sample.controller.AbstractWeb>> webControllers = injectionService.getInstances(AbstractWebController.class);
         webControllers.forEach(controller -> {
             List<WebAction> actions = controller.getActions();
             actions.forEach(action -> routingMap.put(action.getPath(), getHttpHandlerForAction(controller, action)));
@@ -48,7 +48,7 @@ public class DefaultRoutingService implements RoutingService {
         return routingMap;
     }
 
-    private HttpHandler getHttpHandlerForAction(AbstractWebController controller, WebAction action) {
+    private HttpHandler getHttpHandlerForAction(AbstractWebController<com.sample.controller.AbstractWeb> controller, WebAction action) {
         Method method = action.getMethod();
         method.setAccessible(true);
         return (request, response) -> {

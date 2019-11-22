@@ -13,7 +13,14 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class AbstractWebController implements Controller {
+public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
+
+    protected final W web;
+
+    protected AbstractWebController(W web) {
+        this.web = web;
+        web.setController(this);
+    }
 
     public final List<WebAction> getActions() {
         List<WebAction> result = new LinkedList<>();

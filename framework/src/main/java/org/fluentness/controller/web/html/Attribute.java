@@ -1,11 +1,11 @@
-package org.fluentness.controller.web.markup;
+package org.fluentness.controller.web.html;
 
-public class AttributeMarkupView implements MarkupView {
+public class Attribute implements Html {
 
     private final String key;
     private final String value;
 
-    public AttributeMarkupView(String key, String value) {
+    public Attribute(String key, String value) {
         this.key = key;
         this.value = value;
     }
