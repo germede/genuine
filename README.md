@@ -1,7 +1,5 @@
 ![Fluentness logo](framework/src/main/resources/art/logo.png?raw=true "Fluentness logo")
 
-> The friendly face of Java 
-
 ## Introduction
 Fluentness is intended to be an easy-to-learn, fully-integrated, 
 multi-platform, inter-operable, consistent and flexible 
