@@ -4,15 +4,6 @@
 
 badges
 
-Controllers === Views
-||
-||
-||
-Repositories === Models
-||
-||
-||
-Services
 
 3 billion devices run java
 Java SE & EE revamp
