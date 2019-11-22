@@ -5,27 +5,27 @@ Fluentness is intended to be an open-source, easy-to-learn, fully-integrated,
 multi-platform, inter-operable, consistent and flexible 
 application development framework. After a quick-start you'll be able to:
 * develop both rich desktop applications based on Swing without headaches and 
-dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls. 
+dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls 
 * scale from small XML-based REST-Web-Services to fully-featured enterprise Apps 
-with small footprint (few dependencies), yet out-of-the-box runnable.
+with small footprint (few dependencies), yet out-of-the-box runnable
 * respect standards and coding guidelines as far as possible, but applying own, 
-well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture).
+well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture)
 * enjoy the advantages of developing in Java such as: type safety, performance
 , maturity, wide acceptance and knowledge, nice support of functional programming
 , "Write once, run everywhere", "3 billion devices run Java" ;) 
 
 ## Decalogue
 
->**F**orce your code to be compact, yet legible.  
->**L**oose coupling of application components.  
->**U**se static factories, avoiding the new operator.  
->**E**mbrace constructor-based dependency injection.  
->**N**otice how unit tests do assure software quality.    
->**T**ry to avoid comments and anti-patterns.  
->**N**ame every component as if it were your child.    
->**E**ndorse convention over configuration.  
->**S**upply your own implementation only when needed.    
->**S**tart applying SOLID, KISS and DRY principles.
+>**F**orce your code to be compact, yet legible  
+>**L**oose coupling of application components  
+>**U**se static factories, avoiding the new operator  
+>**E**mbrace constructor-based dependency injection  
+>**N**otice how unit tests do assure software quality    
+>**T**ry to avoid comments and anti-patterns  
+>**N**ame every component as if it were your child    
+>**E**ndorse convention over configuration  
+>**S**upply your own implementation only when needed    
+>**S**tart applying SOLID, KISS and DRY principles
 
 ## Quickstart
 
@@ -71,7 +71,7 @@ This project is based on these open-source technologies:
 - Apache [Tomcat](http://tomcat.apache.org/) as embedded web server and Servlet implementation
 - Apache [Maven](https://maven.apache.org/) for building and distributing the framework itself, projects based on it and their dependencies
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
-- [Git](https://git-scm.com/) as VCS. Sorry for the wild commiting on the master branch.
+- [Git](https://git-scm.com/) as VCS (Sorry for the wild commiting on the master branch)
 - [IntelliJ IDEA](https://www.jetbrains.com/idea/) as IDE
 - [Inkscape](https://inkscape.org/) with fonts Arial, [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the art logos
 - Much Engagement :muscle:
@@ -79,4 +79,4 @@ This project is based on these open-source technologies:
 ## License
 Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
-Copyright © 2019-2020 Gerardo Medina
+Copyright © 2020 Gerardo Medina
