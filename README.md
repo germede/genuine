@@ -1,7 +1,7 @@
 ![Fluentness logo](framework/src/main/resources/art/logo.png?raw=true "Fluentness logo")
 
 ## Introduction
-Fluentness is intended to be an easy-to-learn, fully-integrated, 
+Fluentness is intended to be an open-source, easy-to-learn, fully-integrated, 
 multi-platform, inter-operable, consistent and flexible 
 application development framework. After a quick-start you'll be able to:
 * develop both rich desktop applications based on Swing without headaches and 
