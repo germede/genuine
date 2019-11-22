@@ -1,39 +1,45 @@
 ![Fluentness logo](core/art/logo.png?raw=true "Fluentness logo")
 
->Slogan 
+> The friendly face of Java 
 
 badges
 
-
-3 billion devices run java
-Java SE & EE revamp
-Java rethought
-Fluentness: The Friendly face of Java SE & EE 
-
 ## Introduction
-Fluentness is intended to be an easy-to-learn, fully-integrated, Java-based, consistent and flexible (mobile, ) web and desktop development framework. 
+Fluentness is intended to be an easy-to-learn, fully-integrated, 
+multi-platform, inter-operable, consistent and flexible 
+application development framework. After a quick-start you'll be able to build both:
+* rich desktop applications based on Swing without headaches 
+* fast and dynamic Single-Page-Web-Apps, using code-based, on-the-fly 
+generated HTML, CSS and AJAX calls. 
 
-So let's say you want a fancy application that just says Hello to someone. Just add this to your flow/Controllers.java
-```java
-public class Controllers extends ControllerProvider {
-    Controller main = actions(
-        hello -> get("/hello", request -> response("Hello " + request.getGetParameter("name")))
-    );
-}
-```
-Visit http://localhost:8000/hello?name=YourName
+From small XML-based REST-Web-Services to fully-featured enterprise Apps:
+* with small footprint (few dependencies), yet standalone runtime based on 
+JDK-integrated Swing and out of the box Servlet / Server implementation
+* respecting standards and coding guidelines as far as possible, but with own, 
+well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture)
+
+Why Java? Well:
+* Type safety
+* Performance
+* Maven conventions
+* Maturity of enterprise standards
+* Wide acceptance and knowledge
+* Nice functional programming
+* Nicer object orientation
+* Write once, run everywhere
+* 3 billion devices run java? ;) 
 
 ## Decalogue
 
->**F**orce your code to be compact, yet legible Flent APIS 
->**L**oose coupling by splitting your application in base, data and flow: the Fluentness way  
->**U**se class attributes as finished components and functions as helpers  
->**E**mbrace the consumer-provider, onion-layer-like base-data-flow architecture  
->**N**otice how unit tests may help you define and accept requirements  
->**T**ry to avoid abusing of comments, singletons, statics and annotations  
->**N**ame every component as if it were your child  
->**E**ndorse convention over configurator and dependency definition over injection  
->**S**ubstitute framework default implementation with your own when needed  
+>**F**orce your code to be compact, yet legible  
+>**L**oose coupling of application components  
+>**U**se static factories, avoiding the new operator  
+>**E**mbrace constructor-based dependency injection  
+>**N**otice how unit tests do assure software quality    
+>**T**ry to avoid comments and anti-patterns  
+>**N**ame every component as if it were your child    
+>**E**ndorse convention over configuration  
+>**S**upply your own implementation only when needed    
 >**S**tart applying SOLID, KISS and DRY principles
 
 ## Quickstart
@@ -85,14 +91,14 @@ Pull requests into the develop branch are also welcome.
 
 Fluentness is thought to be extendable, either within your application's base package or even developing standalone plugins. 
 
-## Technologies
-This project is based on these open source technologies:
-- Java 8, specifically [OpenJDK](https://openjdk.java.net/)
-- JPA as ORM, implemented by [EclipseLink](https://www.eclipse.org/eclipselink/) 
-- [JUnit](https://junit.org/junit4/) and Mockito for unit testing
-- Apache [Maven](https://maven.apache.org/) for building and distributing
-- [NanoHTTPD](https://github.com/NanoHttpd/nanohttpd) as embedded Web server
-- [Inkscape](https://inkscape.org/) with fonts [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the logo
+## Dependencies
+This project is based on these open-source technologies:
+- [OpenJDK](https://openjdk.java.net/) implementing Java 8 
+- Apache [OpenJPA](http://openjpa.apache.org/) as JPA implementation
+- Apache [Tomcat](http://tomcat.apache.org/) as embedded web server and Servlet implementation
+- Apache [Maven](https://maven.apache.org/) for building and distributing the framework itself and projects based on it
+- [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
+- [Inkscape](https://inkscape.org/) with fonts Arial, [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the art
 - Much Engagement :muscle:
 
 ## License
