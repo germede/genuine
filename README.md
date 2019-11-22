@@ -1,18 +1,5 @@
 ![Fluentness logo](framework/src/main/resources/art/logo.png?raw=true "Fluentness logo")
 
-## Decalogue
-
->**F**orce your code to be compact, yet legible.  
->**L**oose coupling of application components.  
->**U**se static factories, avoiding the new operator.  
->**E**mbrace constructor-based dependency injection.  
->**N**otice how unit tests do assure software quality.    
->**T**ry to avoid comments and anti-patterns.  
->**N**ame every component as if it were your child.    
->**E**ndorse convention over configuration.  
->**S**upply your own implementation only when needed.    
->**S**tart applying SOLID, KISS and DRY principles.
-
 ## Introduction
 Fluentness is intended to be an easy-to-learn, fully-integrated, 
 multi-platform, inter-operable, consistent and flexible 
@@ -26,6 +13,19 @@ well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architect
 * enjoy the advantages of developing in Java such as: type safety, performance
 , maturity, wide acceptance and knowledge, nice support of functional programming
 , "Write once, run everywhere", "3 billion devices run Java" ;) 
+
+## Decalogue
+
+>**F**orce your code to be compact, yet legible.  
+>**L**oose coupling of application components.  
+>**U**se static factories, avoiding the new operator.  
+>**E**mbrace constructor-based dependency injection.  
+>**N**otice how unit tests do assure software quality.    
+>**T**ry to avoid comments and anti-patterns.  
+>**N**ame every component as if it were your child.    
+>**E**ndorse convention over configuration.  
+>**S**upply your own implementation only when needed.    
+>**S**tart applying SOLID, KISS and DRY principles.
 
 ## Quickstart
 
@@ -71,7 +71,7 @@ This project is based on these open-source technologies:
 - Apache [Tomcat](http://tomcat.apache.org/) as embedded web server and Servlet implementation
 - Apache [Maven](https://maven.apache.org/) for building and distributing the framework itself, projects based on it and their dependencies
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
-- [Git](https://git-scm.com/) as VCS
+- [Git](https://git-scm.com/) as VCS. Sorry for the wild commiting on the master branch.
 - [IntelliJ IDEA](https://www.jetbrains.com/idea/) as IDE
 - [Inkscape](https://inkscape.org/) with fonts Arial, [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the art logos
 - Much Engagement :muscle:
