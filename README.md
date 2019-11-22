@@ -1,8 +1,6 @@
-![Fluentness logo](core/art/logo.png?raw=true "Fluentness logo")
+![Fluentness logo](framework/src/main/resources/art/logo.png?raw=true "Fluentness logo")
 
 > The friendly face of Java 
-
-badges
 
 ## Introduction
 Fluentness is intended to be an easy-to-learn, fully-integrated, 
@@ -13,20 +11,16 @@ application development framework. After a quick-start you'll be able to build b
 generated HTML, CSS and AJAX calls. 
 
 From small XML-based REST-Web-Services to fully-featured enterprise Apps:
-* with small footprint (few dependencies), yet standalone runtime based on 
-JDK-integrated Swing and out of the box Servlet / Server implementation
+* with small footprint (few dependencies), yet out-of-the-box runnable
 * respecting standards and coding guidelines as far as possible, but with own, 
 well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture)
 
-Why Java? Well:
-* Type safety
-* Performance
-* Maven conventions
+Why Java? Well, here some reasons:
+* Type safety and performance
 * Maturity of enterprise standards
 * Wide acceptance and knowledge
-* Nice functional programming
-* Nicer object orientation
-* Write once, run everywhere
+* Nice support of functional programming
+* "Write once, run everywhere"
 * 3 billion devices run java? ;) 
 
 ## Decalogue
