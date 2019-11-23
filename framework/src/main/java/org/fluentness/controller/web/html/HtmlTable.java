@@ -1,5 +1,6 @@
 package org.fluentness.controller.web.html;
 
+import org.fluentness.controller.web.WebView;
 import org.fluentness.repository.Model;
 
 import java.lang.reflect.Field;
@@ -35,23 +36,23 @@ public class HtmlTable<T> extends HtmlContainer {
         return super.render();
     }
 
-    private Html[] renderTable() {
-        return new Html[]{
+    private WebView[] renderTable() {
+        return new WebView[]{
             thead(tr(renderHeader())),
             tbody(renderRows())
         };
     }
 
-    private Html[] renderHeader() {
-        return fields.stream().map(field -> th(field::getName)).toArray(Html[]::new);
+    private WebView[] renderHeader() {
+        return fields.stream().map(field -> th(field::getName)).toArray(WebView[]::new);
     }
 
-    private Html[] renderRows() {
-        return list.stream().map(object -> tr(renderRow(object))).toArray(Html[]::new);
+    private WebView[] renderRows() {
+        return list.stream().map(object -> tr(renderRow(object))).toArray(WebView[]::new);
     }
 
-    private Html[] renderRow(T object) {
-        List<Html> collect = fields.stream()
+    private WebView[] renderRow(T object) {
+        List<WebView> collect = fields.stream()
             .map(field ->
                 td(() -> {
                     try {
@@ -69,11 +70,11 @@ public class HtmlTable<T> extends HtmlContainer {
         if (appendColumnView != null) {
             collect.add(appendColumnView.toAppend(object));
         }
-        return collect.toArray(new Html[0]);
+        return collect.toArray(new WebView[0]);
     }
 
     @FunctionalInterface
     public interface AppendColumnView<T> {
-        Html toAppend(T t);
+        WebView toAppend(T t);
     }
 }

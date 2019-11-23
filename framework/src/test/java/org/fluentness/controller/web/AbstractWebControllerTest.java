@@ -23,7 +23,7 @@ public class AbstractWebControllerTest {
             }
 
             @Override
-            public WebView view(WebView ajaxResult) {
+            public WebView view(WebView toInclude) {
                 return null;
             }
         }){

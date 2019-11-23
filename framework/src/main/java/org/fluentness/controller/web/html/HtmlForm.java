@@ -1,6 +1,7 @@
 package org.fluentness.controller.web.html;
 
 import org.fluentness.controller.web.WebActionReference;
+import org.fluentness.controller.web.WebView;
 import org.fluentness.repository.Model;
 
 import java.lang.reflect.Field;
@@ -16,15 +17,15 @@ public class HtmlForm<T> extends HtmlContainer {
         super("form", renderForm(model, action));
     }
 
-    private static Html[] renderForm(Object object, WebActionReference action) {
-        List<Html> result = new LinkedList<>();
+    private static WebView[] renderForm(Object object, WebActionReference action) {
+        List<WebView> result = new LinkedList<>();
         result.add(_method(action.getMethod()));
         result.add(_action(action.getPath()));
         Model.getModelFields(object).stream()
             .map(field -> input(getHtmlAttributesFor(object, field)))
             .forEach(result::add);
         result.add(input(_class("button"), _type("submit"), _value("Submit")));
-        return result.toArray(new Html[0]);
+        return result.toArray(new WebView[0]);
     }
 
     private static HtmlAttribute[] getHtmlAttributesFor(Object object, Field field) {

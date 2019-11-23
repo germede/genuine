@@ -6,12 +6,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HtmlContainer implements Html {
+public class HtmlContainer implements WebView {
 
     protected String tag;
-    protected List<Html> innerViews;
+    protected List<WebView> innerViews;
 
-    public HtmlContainer(String tag, Html... inner) {
+    public HtmlContainer(String tag, WebView... inner) {
         this.tag = tag;
         this.innerViews = Arrays.asList(inner);
     }
@@ -23,7 +23,7 @@ public class HtmlContainer implements Html {
         builder.append(tag);
         builder.append(
             innerViews.stream()
-                .filter(Html -> Html instanceof HtmlAttribute)
+                .filter(WebView -> WebView instanceof HtmlAttribute)
                 .map(WebView::render)
                 .collect(Collectors.joining())
         );
@@ -31,7 +31,7 @@ public class HtmlContainer implements Html {
         if (innerViews != null) {
             builder.append(
                 innerViews.stream()
-                    .filter(Html -> !(Html instanceof HtmlAttribute))
+                    .filter(WebView -> !(WebView instanceof HtmlAttribute))
                     .map(WebView::render)
                     .collect(Collectors.joining())
             );

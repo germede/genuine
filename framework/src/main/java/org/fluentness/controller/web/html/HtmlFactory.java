@@ -1,6 +1,7 @@
 package org.fluentness.controller.web.html;
 
 import org.fluentness.controller.web.WebActionReference;
+import org.fluentness.controller.web.WebView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,11 +12,11 @@ import java.util.function.Function;
 public final class HtmlFactory {
 
     // special web views
-    public static HtmlContainer action(WebActionReference action, Html... html) {
-        List<Html> result = new ArrayList<>();
+    public static HtmlContainer action(WebActionReference action, WebView... html) {
+        List<WebView> result = new ArrayList<>();
         result.add(_href(action.getPath()));
         result.addAll(Arrays.asList(html));
-        return a(result.toArray(new Html[0]));
+        return a(result.toArray(new WebView[0]));
     }
 
     public static <T> HtmlForm<T> form(Object model, WebActionReference submitAction) {
@@ -29,7 +30,7 @@ public final class HtmlFactory {
     public static <T, V> V[] forEach(Iterable<T> iterable, Function<T, V> function) {
         List<V> result = new LinkedList<>();
         iterable.forEach(t -> result.add(function.apply(t)));
-        return result.toArray((V[]) new Html[0]);
+        return result.toArray((V[]) new WebView[0]);
     }
 
     // attributes markup views
@@ -494,435 +495,435 @@ public final class HtmlFactory {
     }
 
     // container html views
-    public static HtmlContainer a(Html... html) {
+    public static HtmlContainer a(WebView... html) {
         return new HtmlContainer("a", html);
     }
 
-    public static HtmlContainer abbr(Html... html) {
+    public static HtmlContainer abbr(WebView... html) {
         return new HtmlContainer("abbr", html);
     }
 
-    public static HtmlContainer acronym(Html... html) {
+    public static HtmlContainer acronym(WebView... html) {
         return new HtmlContainer("acronym", html);
     }
 
-    public static HtmlContainer address(Html... html) {
+    public static HtmlContainer address(WebView... html) {
         return new HtmlContainer("address", html);
     }
 
-    public static HtmlContainer applet(Html... html) {
+    public static HtmlContainer applet(WebView... html) {
         return new HtmlContainer("applet", html);
     }
 
-    public static HtmlContainer article(Html... html) {
+    public static HtmlContainer article(WebView... html) {
         return new HtmlContainer("article", html);
     }
 
-    public static HtmlContainer aside(Html... html) {
+    public static HtmlContainer aside(WebView... html) {
         return new HtmlContainer("aside", html);
     }
 
-    public static HtmlContainer audio(Html... html) {
+    public static HtmlContainer audio(WebView... html) {
         return new HtmlContainer("audio", html);
     }
 
-    public static HtmlContainer b(Html... html) {
+    public static HtmlContainer b(WebView... html) {
         return new HtmlContainer("b", html);
     }
 
-    public static HtmlContainer basefont(Html... html) {
+    public static HtmlContainer basefont(WebView... html) {
         return new HtmlContainer("basefont", html);
     }
 
-    public static HtmlContainer bdi(Html... html) {
+    public static HtmlContainer bdi(WebView... html) {
         return new HtmlContainer("bdi", html);
     }
 
-    public static HtmlContainer bdo(Html... html) {
+    public static HtmlContainer bdo(WebView... html) {
         return new HtmlContainer("bdo", html);
     }
 
-    public static HtmlContainer big(Html... html) {
+    public static HtmlContainer big(WebView... html) {
         return new HtmlContainer("big", html);
     }
 
-    public static HtmlContainer blockquote(Html... html) {
+    public static HtmlContainer blockquote(WebView... html) {
         return new HtmlContainer("blockquote", html);
     }
 
-    public static HtmlContainer body(Html... html) {
+    public static HtmlContainer body(WebView... html) {
         return new HtmlContainer("body", html);
     }
 
-    public static HtmlContainer button(Html... html) {
+    public static HtmlContainer button(WebView... html) {
         return new HtmlContainer("button", html);
     }
 
-    public static HtmlContainer canvas(Html... html) {
+    public static HtmlContainer canvas(WebView... html) {
         return new HtmlContainer("canvas", html);
     }
 
-    public static HtmlContainer caption(Html... html) {
+    public static HtmlContainer caption(WebView... html) {
         return new HtmlContainer("caption", html);
     }
 
-    public static HtmlContainer center(Html... html) {
+    public static HtmlContainer center(WebView... html) {
         return new HtmlContainer("center", html);
     }
 
-    public static HtmlContainer cite(Html... html) {
+    public static HtmlContainer cite(WebView... html) {
         return new HtmlContainer("cite", html);
     }
 
-    public static HtmlContainer code(Html... html) {
+    public static HtmlContainer code(WebView... html) {
         return new HtmlContainer("code", html);
     }
 
-    public static HtmlContainer colgroup(Html... html) {
+    public static HtmlContainer colgroup(WebView... html) {
         return new HtmlContainer("colgroup", html);
     }
 
-    public static HtmlContainer data(Html... html) {
+    public static HtmlContainer data(WebView... html) {
         return new HtmlContainer("data", html);
     }
 
-    public static HtmlContainer datalist(Html... html) {
+    public static HtmlContainer datalist(WebView... html) {
         return new HtmlContainer("datalist", html);
     }
 
-    public static HtmlContainer dd(Html... html) {
+    public static HtmlContainer dd(WebView... html) {
         return new HtmlContainer("dd", html);
     }
 
-    public static HtmlContainer del(Html... html) {
+    public static HtmlContainer del(WebView... html) {
         return new HtmlContainer("del", html);
     }
 
-    public static HtmlContainer details(Html... html) {
+    public static HtmlContainer details(WebView... html) {
         return new HtmlContainer("details", html);
     }
 
-    public static HtmlContainer dfn(Html... html) {
+    public static HtmlContainer dfn(WebView... html) {
         return new HtmlContainer("dfn", html);
     }
 
-    public static HtmlContainer dialog(Html... html) {
+    public static HtmlContainer dialog(WebView... html) {
         return new HtmlContainer("dialog", html);
     }
 
-    public static HtmlContainer dir(Html... html) {
+    public static HtmlContainer dir(WebView... html) {
         return new HtmlContainer("dir", html);
     }
 
-    public static HtmlContainer div(Html... html) {
+    public static HtmlContainer div(WebView... html) {
         return new HtmlContainer("div", html);
     }
 
-    public static HtmlContainer dl(Html... html) {
+    public static HtmlContainer dl(WebView... html) {
         return new HtmlContainer("dl", html);
     }
 
-    public static HtmlContainer dt(Html... html) {
+    public static HtmlContainer dt(WebView... html) {
         return new HtmlContainer("dt", html);
     }
 
-    public static HtmlContainer em(Html... html) {
+    public static HtmlContainer em(WebView... html) {
         return new HtmlContainer("em", html);
     }
 
-    public static HtmlContainer fieldset(Html... html) {
+    public static HtmlContainer fieldset(WebView... html) {
         return new HtmlContainer("fieldset", html);
     }
 
-    public static HtmlContainer figcaption(Html... html) {
+    public static HtmlContainer figcaption(WebView... html) {
         return new HtmlContainer("figcaption", html);
     }
 
-    public static HtmlContainer figure(Html... html) {
+    public static HtmlContainer figure(WebView... html) {
         return new HtmlContainer("figure", html);
     }
 
-    public static HtmlContainer font(Html... html) {
+    public static HtmlContainer font(WebView... html) {
         return new HtmlContainer("font", html);
     }
 
-    public static HtmlContainer footer(Html... html) {
+    public static HtmlContainer footer(WebView... html) {
         return new HtmlContainer("footer", html);
     }
 
-    public static HtmlContainer form(Html... html) {
+    public static HtmlContainer form(WebView... html) {
         return new HtmlContainer("form", html);
     }
 
-    public static HtmlContainer frame(Html... html) {
+    public static HtmlContainer frame(WebView... html) {
         return new HtmlContainer("frame", html);
     }
 
-    public static HtmlContainer frameset(Html... html) {
+    public static HtmlContainer frameset(WebView... html) {
         return new HtmlContainer("frameset", html);
     }
 
-    public static HtmlContainer h1(Html... html) {
+    public static HtmlContainer h1(WebView... html) {
         return new HtmlContainer("h1", html);
     }
 
-    public static HtmlContainer h2(Html... html) {
+    public static HtmlContainer h2(WebView... html) {
         return new HtmlContainer("h2", html);
     }
 
-    public static HtmlContainer h3(Html... html) {
+    public static HtmlContainer h3(WebView... html) {
         return new HtmlContainer("h3", html);
     }
 
-    public static HtmlContainer h4(Html... html) {
+    public static HtmlContainer h4(WebView... html) {
         return new HtmlContainer("h4", html);
     }
 
-    public static HtmlContainer h5(Html... html) {
+    public static HtmlContainer h5(WebView... html) {
         return new HtmlContainer("h5", html);
     }
 
-    public static HtmlContainer h6(Html... html) {
+    public static HtmlContainer h6(WebView... html) {
         return new HtmlContainer("h6", html);
     }
 
-    public static HtmlContainer head(Html... html) {
+    public static HtmlContainer head(WebView... html) {
         return new HtmlContainer("head", html);
     }
 
-    public static HtmlContainer header(Html... html) {
+    public static HtmlContainer header(WebView... html) {
         return new HtmlContainer("header", html);
     }
 
-    public static HtmlContainer html(Html... html) {
+    public static HtmlContainer html(WebView... html) {
         return new HtmlContainer("html", html);
     }
 
-    public static HtmlContainer i(Html... html) {
+    public static HtmlContainer i(WebView... html) {
         return new HtmlContainer("i", html);
     }
 
-    public static HtmlContainer iframe(Html... html) {
+    public static HtmlContainer iframe(WebView... html) {
         return new HtmlContainer("iframe", html);
     }
 
-    public static HtmlContainer ins(Html... html) {
+    public static HtmlContainer ins(WebView... html) {
         return new HtmlContainer("ins", html);
     }
 
-    public static HtmlContainer kbd(Html... html) {
+    public static HtmlContainer kbd(WebView... html) {
         return new HtmlContainer("kbd", html);
     }
 
-    public static HtmlContainer label(Html... html) {
+    public static HtmlContainer label(WebView... html) {
         return new HtmlContainer("label", html);
     }
 
-    public static HtmlContainer legend(Html... html) {
+    public static HtmlContainer legend(WebView... html) {
         return new HtmlContainer("legend", html);
     }
 
-    public static HtmlContainer li(Html... html) {
+    public static HtmlContainer li(WebView... html) {
         return new HtmlContainer("li", html);
     }
 
-    public static HtmlContainer main(Html... html) {
+    public static HtmlContainer main(WebView... html) {
         return new HtmlContainer("main", html);
     }
 
-    public static HtmlContainer map(Html... html) {
+    public static HtmlContainer map(WebView... html) {
         return new HtmlContainer("map", html);
     }
 
-    public static HtmlContainer mark(Html... html) {
+    public static HtmlContainer mark(WebView... html) {
         return new HtmlContainer("mark", html);
     }
 
-    public static HtmlContainer meter(Html... html) {
+    public static HtmlContainer meter(WebView... html) {
         return new HtmlContainer("meter", html);
     }
 
-    public static HtmlContainer nav(Html... html) {
+    public static HtmlContainer nav(WebView... html) {
         return new HtmlContainer("nav", html);
     }
 
-    public static HtmlContainer noframes(Html... html) {
+    public static HtmlContainer noframes(WebView... html) {
         return new HtmlContainer("noframes", html);
     }
 
-    public static HtmlContainer noscript(Html... html) {
+    public static HtmlContainer noscript(WebView... html) {
         return new HtmlContainer("noscript", html);
     }
 
-    public static HtmlContainer object(Html... html) {
+    public static HtmlContainer object(WebView... html) {
         return new HtmlContainer("object", html);
     }
 
-    public static HtmlContainer ol(Html... html) {
+    public static HtmlContainer ol(WebView... html) {
         return new HtmlContainer("ol", html);
     }
 
-    public static HtmlContainer optgroup(Html... html) {
+    public static HtmlContainer optgroup(WebView... html) {
         return new HtmlContainer("optgroup", html);
     }
 
-    public static HtmlContainer option(Html... html) {
+    public static HtmlContainer option(WebView... html) {
         return new HtmlContainer("option", html);
     }
 
-    public static HtmlContainer output(Html... html) {
+    public static HtmlContainer output(WebView... html) {
         return new HtmlContainer("output", html);
     }
 
-    public static HtmlContainer p(Html... html) {
+    public static HtmlContainer p(WebView... html) {
         return new HtmlContainer("p", html);
     }
 
-    public static HtmlContainer picture(Html... html) {
+    public static HtmlContainer picture(WebView... html) {
         return new HtmlContainer("picture", html);
     }
 
-    public static HtmlContainer pre(Html... html) {
+    public static HtmlContainer pre(WebView... html) {
         return new HtmlContainer("pre", html);
     }
 
-    public static HtmlContainer progress(Html... html) {
+    public static HtmlContainer progress(WebView... html) {
         return new HtmlContainer("progress", html);
     }
 
-    public static HtmlContainer q(Html... html) {
+    public static HtmlContainer q(WebView... html) {
         return new HtmlContainer("q", html);
     }
 
-    public static HtmlContainer rp(Html... html) {
+    public static HtmlContainer rp(WebView... html) {
         return new HtmlContainer("rp", html);
     }
 
-    public static HtmlContainer rt(Html... html) {
+    public static HtmlContainer rt(WebView... html) {
         return new HtmlContainer("rt", html);
     }
 
-    public static HtmlContainer ruby(Html... html) {
+    public static HtmlContainer ruby(WebView... html) {
         return new HtmlContainer("ruby", html);
     }
 
-    public static HtmlContainer s(Html... html) {
+    public static HtmlContainer s(WebView... html) {
         return new HtmlContainer("s", html);
     }
 
-    public static HtmlContainer samp(Html... html) {
+    public static HtmlContainer samp(WebView... html) {
         return new HtmlContainer("samp", html);
     }
 
-    public static HtmlContainer script(Html... html) {
+    public static HtmlContainer script(WebView... html) {
         return new HtmlContainer("script", html);
     }
 
-    public static HtmlContainer section(Html... html) {
+    public static HtmlContainer section(WebView... html) {
         return new HtmlContainer("section", html);
     }
 
-    public static HtmlContainer select(Html... html) {
+    public static HtmlContainer select(WebView... html) {
         return new HtmlContainer("select", html);
     }
 
-    public static HtmlContainer small(Html... html) {
+    public static HtmlContainer small(WebView... html) {
         return new HtmlContainer("small", html);
     }
 
-    public static HtmlContainer span(Html... html) {
+    public static HtmlContainer span(WebView... html) {
         return new HtmlContainer("span", html);
     }
 
-    public static HtmlContainer strike(Html... html) {
+    public static HtmlContainer strike(WebView... html) {
         return new HtmlContainer("strike", html);
     }
 
-    public static HtmlContainer strong(Html... html) {
+    public static HtmlContainer strong(WebView... html) {
         return new HtmlContainer("strong", html);
     }
 
-    public static HtmlContainer style(Html... html) {
+    public static HtmlContainer style(WebView... html) {
         return new HtmlContainer("style", html);
     }
 
-    public static HtmlContainer sub(Html... html) {
+    public static HtmlContainer sub(WebView... html) {
         return new HtmlContainer("sub", html);
     }
 
-    public static HtmlContainer summary(Html... html) {
+    public static HtmlContainer summary(WebView... html) {
         return new HtmlContainer("summary", html);
     }
 
-    public static HtmlContainer sup(Html... html) {
+    public static HtmlContainer sup(WebView... html) {
         return new HtmlContainer("sup", html);
     }
 
-    public static HtmlContainer svg(Html... html) {
+    public static HtmlContainer svg(WebView... html) {
         return new HtmlContainer("svg", html);
     }
 
-    public static HtmlContainer table(Html... html) {
+    public static HtmlContainer table(WebView... html) {
         return new HtmlContainer("table", html);
     }
 
-    public static HtmlContainer tbody(Html... html) {
+    public static HtmlContainer tbody(WebView... html) {
         return new HtmlContainer("tbody", html);
     }
 
-    public static HtmlContainer td(Html... html) {
+    public static HtmlContainer td(WebView... html) {
         return new HtmlContainer("td", html);
     }
 
-    public static HtmlContainer template(Html... html) {
+    public static HtmlContainer template(WebView... html) {
         return new HtmlContainer("template", html);
     }
 
-    public static HtmlContainer textarea(Html... html) {
+    public static HtmlContainer textarea(WebView... html) {
         return new HtmlContainer("textarea", html);
     }
 
-    public static HtmlContainer tfoot(Html... html) {
+    public static HtmlContainer tfoot(WebView... html) {
         return new HtmlContainer("tfoot", html);
     }
 
-    public static HtmlContainer th(Html... html) {
+    public static HtmlContainer th(WebView... html) {
         return new HtmlContainer("th", html);
     }
 
-    public static HtmlContainer thead(Html... html) {
+    public static HtmlContainer thead(WebView... html) {
         return new HtmlContainer("thead", html);
     }
 
-    public static HtmlContainer time(Html... html) {
+    public static HtmlContainer time(WebView... html) {
         return new HtmlContainer("time", html);
     }
 
-    public static HtmlContainer title(Html... html) {
+    public static HtmlContainer title(WebView... html) {
         return new HtmlContainer("title", html);
     }
 
-    public static HtmlContainer tr(Html... html) {
+    public static HtmlContainer tr(WebView... html) {
         return new HtmlContainer("tr", html);
     }
 
-    public static HtmlContainer tt(Html... html) {
+    public static HtmlContainer tt(WebView... html) {
         return new HtmlContainer("tt", html);
     }
 
-    public static HtmlContainer u(Html... html) {
+    public static HtmlContainer u(WebView... html) {
         return new HtmlContainer("u", html);
     }
 
-    public static HtmlContainer ul(Html... html) {
+    public static HtmlContainer ul(WebView... html) {
         return new HtmlContainer("ul", html);
     }
 
-    public static HtmlContainer var(Html... html) {
+    public static HtmlContainer var(WebView... html) {
         return new HtmlContainer("var", html);
     }
 
-    public static HtmlContainer video(Html... html) {
+    public static HtmlContainer video(WebView... html) {
         return new HtmlContainer("video", html);
     }
 

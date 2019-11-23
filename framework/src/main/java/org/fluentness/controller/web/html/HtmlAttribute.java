@@ -1,6 +1,8 @@
 package org.fluentness.controller.web.html;
 
-public class HtmlAttribute implements Html {
+import org.fluentness.controller.web.WebView;
+
+public class HtmlAttribute implements WebView {
 
     private final String key;
     private final String value;

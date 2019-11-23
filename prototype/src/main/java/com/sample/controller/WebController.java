@@ -89,7 +89,7 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Action(path = "/users/create")
-    public Object createUser(Request request) {
+    public WebView createUser(Request request) {
         return div(
             h2(create::translate),
             form(new User(), this::createUser)
