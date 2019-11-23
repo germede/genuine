@@ -12,4 +12,7 @@ public abstract class AbstractDesktopController<D extends AbstractDesktop> imple
     }
 
 
+    public D getDesktop() {
+        return desktop;
+    }
 }

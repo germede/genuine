@@ -108,8 +108,8 @@ public final class Fluentness {
     private static void desktop(Application application) throws FluentnessException {
         try {
             for (AbstractDesktopController controller : INJECTION_SERVICE.getInstances(AbstractDesktopController.class)) {
-                DesktopView.setGlobalStyle(controller.getGlobalStyle());
-                controller.getMainView().render();
+                DesktopView.setGlobalStyle(controller.getDesktop().style());
+                controller.getDesktop().view().render();
             }
         } catch (Exception e) {
             throw new FluentnessException(e);

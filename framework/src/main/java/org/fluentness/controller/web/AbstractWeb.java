@@ -12,5 +12,5 @@ public abstract class AbstractWeb<C extends AbstractWebController> {
 
     protected abstract WebStyle style();
 
-    protected abstract WebView view(WebView... toInclude);
+    protected abstract WebView view(WebView ajaxResult);
 }

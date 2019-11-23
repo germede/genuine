@@ -1,5 +1,6 @@
 package org.fluentness.controller.web;
 
+import org.fluentness.controller.web.style.WebStyle;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,11 +12,21 @@ import static org.junit.Assert.*;
 
 public class AbstractWebControllerTest {
 
-    private AbstractWebController<com.sample.controller.AbstractWeb> webController;
+    private AbstractWebController<AbstractWeb> webController;
 
     @Before
     public void setUp() {
-        webController = new AbstractWebController<com.sample.controller.AbstractWeb>(){
+        webController = new AbstractWebController<AbstractWeb>(new AbstractWeb() {
+            @Override
+            protected WebStyle style() {
+                return null;
+            }
+
+            @Override
+            protected WebView view(WebView ajaxResult) {
+                return null;
+            }
+        }){
 
             public void notAnActionBecauseNoActionAnnotation() {
             }

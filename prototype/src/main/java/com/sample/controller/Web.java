@@ -6,18 +6,17 @@ import org.fluentness.controller.web.html.Html;
 import org.fluentness.controller.web.style.WebStyle;
 
 import static com.sample.service.Translator.*;
-import static org.fluentness.controller.web.html.HtmlFactory.action;
 import static org.fluentness.controller.web.html.HtmlFactory.*;
 
 public class Web extends AbstractWeb<WebController> {
 
     @Override
     protected WebStyle style() {
-
+        return new WebStyle();
     }
 
     @Override
-    protected WebView view(WebView... toInclude) {
+    protected WebView view(WebView ajaxResult) {
         return html(
             head(
                 title(() -> "The book library made with Fluentness"),
@@ -41,7 +40,7 @@ public class Web extends AbstractWeb<WebController> {
                             )
                         )
                     ),
-                    div((Html[]) toInclude)
+                    (Html) ajaxResult
                 )
             )
         );

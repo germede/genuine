@@ -1,24 +1,24 @@
 package org.fluentness.controller.desktop;
 
 import org.fluentness.controller.desktop.style.DesktopStyle;
-import org.fluentness.controller.desktop.style.DesktopStyleLambda;
+import org.fluentness.controller.desktop.style.Style;
 
-import java.util.Map;
+import java.util.List;
 
 public abstract class DesktopView {
 
-    private static Map<Class, DesktopStyleLambda> styleMap;
+    private static List<Style> styleMap;
 
     public static void setGlobalStyle(DesktopStyle desktopStyle) {
-        DesktopView.styleMap = desktopStyle.getStyleMap();
+        DesktopView.styleMap = desktopStyle.getStyles();
     }
 
     protected DesktopView(Object view) {
         // Apply global styles
         if (styleMap != null) {
-            styleMap.entrySet().stream()
-                .filter(entry -> entry.getKey().isAssignableFrom(view.getClass()))
-                .map(Map.Entry::getValue)
+            styleMap.stream()
+                .filter(entry -> entry.getSwingClass().isAssignableFrom(view.getClass()))
+                .map(entry -> entry.getStyleLambda())
                 .forEach(desktopStyleLambda -> desktopStyleLambda.style(view));
         }
     }

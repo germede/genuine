@@ -21,7 +21,7 @@ public class HtmlTable<T> extends HtmlContainer {
         this.list = list;
         this.fields = (list == null || list.isEmpty()) ?
             new LinkedList<>() :
-            Model.FieldExtractor.INSTANCE.getModelFields(list.get(0));
+            Model.getModelFields(list.get(0));
     }
 
     public HtmlTable<T> appendColumn(AppendColumnView<T> appendColumnView) {
