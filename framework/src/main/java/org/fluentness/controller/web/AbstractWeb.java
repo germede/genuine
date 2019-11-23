@@ -10,7 +10,7 @@ public abstract class AbstractWeb<C extends AbstractWebController> {
         this.controller = controller;
     }
 
-    protected abstract WebStyle style();
+    public abstract WebStyle style();
 
-    protected abstract WebView view(WebView ajaxResult);
+    public abstract WebView view(WebView ajaxResult);
 }

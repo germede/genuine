@@ -15,8 +15,15 @@ import java.util.List;
 
 public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
 
+    protected final W web;
+
     protected AbstractWebController(W web) {
-        web.setController(this);
+        this.web = web;
+        this.web.setController(this);
+    }
+
+    public final W getWeb() {
+        return web;
     }
 
     public final List<WebAction> getActions() {

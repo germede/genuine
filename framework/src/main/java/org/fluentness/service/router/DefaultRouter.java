@@ -8,28 +8,37 @@ import org.fluentness.service.cache.Cache;
 import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.injector.Injector;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.fluentness.service.configurator.Configurator.router_encoding;
+import static org.fluentness.service.configurator.Configurator.router_single_page_mode;
 
 public class DefaultRouter implements Router {
+
 
     private final Injector injector;
     private final Configurator configurator;
     private final Authenticator authenticator;
     private final Cache cache;
 
+    private final boolean single_page_mode;
+    private final String ajax_handler;
+
     public DefaultRouter(Injector injector,
                          Configurator configurator,
                          Authenticator authenticator,
-                         Cache cache) {
+                         Cache cache) throws IOException {
         this.injector = injector;
         this.configurator = configurator;
         this.authenticator = authenticator;
         this.cache = cache;
+
+        this.single_page_mode = configurator.getOrDefault(router_single_page_mode, true);
+        this.ajax_handler = "<script src=\"/resources/js/ajax-handler.js\"></script>";
     }
 
     private Map<String, HttpHandler> routingMap;
@@ -61,7 +70,20 @@ public class DefaultRouter implements Router {
                 if (returnValue instanceof String) {
                     response.getWriter().write((String) returnValue);
                 } else if (returnValue instanceof WebView) {
-                    response.getWriter().write(((WebView) returnValue).render());
+
+                    WebView partial = (WebView) returnValue;
+                    if (request.getRequestURI().equals("/") || !single_page_mode) {
+                        // main view
+                        String render = controller.getWeb().view(partial).render();
+                        if (single_page_mode) {
+                            render = render.replace("</head>", ajax_handler + "</head>");
+                        }
+                        response.getWriter().write(render);
+                    } else {
+                        // ajax view
+                        response.getWriter().write(partial.render());
+                    }
+
                 } else if (returnValue instanceof Integer) {
                     response.setStatus((Integer) returnValue);
                 } else if (returnValue instanceof AbstractWebController.Response) {

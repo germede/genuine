@@ -26,12 +26,12 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Action(path = "/")
-    WebView index(Request request) {
+    public WebView index(Request request) {
         return books(request);
     }
 
     @Action(path = "/books")
-    WebView books(Request request) {
+    public WebView books(Request request) {
         return div(
             table(bookRepository.findAll(Book.class)).appendColumn(book ->
                 td(_class("float-right"),
@@ -55,17 +55,17 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Action(path = "/books/update/1")
-    WebView updateBook(Request request) {
+    public WebView updateBook(Request request) {
         return () -> "asdf";
     }
 
     @Action(path = "/books/delete/1")
-    WebView deleteBook(Request request) {
+    public WebView deleteBook(Request request) {
         return () -> "asdf";
     }
 
     @Action(path = "/authors")
-    WebView authors(Request request) {
+    public WebView authors(Request request) {
         return div(
             table(authorRepository.findAll(Author.class)),
             action(this::createAuthor, _class("button column"), create::translate)
@@ -73,7 +73,7 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Action(path = "/authors/create")
-    WebView createAuthor(Request request) {
+    public WebView createAuthor(Request request) {
         return div(
             h2(create::translate),
             form(new Author(), this::createAuthor)
@@ -81,7 +81,7 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Action(path = "/users")
-    WebView users(Request request) {
+    public WebView users(Request request) {
         return div(
             table(userRepository.findAll(User.class)),
             action(this::createUser, _class("button column"), create::translate)
@@ -89,7 +89,7 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Action(path = "/users/create")
-    Object createUser(Request request) {
+    public Object createUser(Request request) {
         return div(
             h2(create::translate),
             form(new User(), this::createUser)
@@ -97,12 +97,12 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Action(path = "/404")
-    WebView notFound(Request request) {
+    public WebView notFound(Request request) {
         return div(page_not_found::translate);
     }
 
     @Action(path = "/500")
-    WebView serverError(Request request) {
+    public WebView serverError(Request request) {
         return div(faulty::translate);
     }
 

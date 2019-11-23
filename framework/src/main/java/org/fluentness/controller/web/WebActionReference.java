@@ -12,44 +12,30 @@ public interface WebActionReference extends Serializable {
     Object execute(Request request);
 
     default String getPath() {
-        try {
-            Method m = getClass().getDeclaredMethod("writeReplace");
-            m.setAccessible(true);
-            Object replacement = m.invoke(this);
-            if (!(replacement instanceof SerializedLambda)) {
-                return "";
-            }
-            SerializedLambda l = ((SerializedLambda) replacement);
-            Method[] methods = l.getCapturedArg(0).getClass().getMethods();
-            return  l.getCapturedArg(0)
-                .getClass()
-                .getMethod(l.getImplMethodName(), Request.class)
-                .getAnnotation(AbstractWebController.Action.class)
-                .path();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
+        return getAction().path();
     }
 
     default String getMethod() {
+        return getAction().method();
+    }
+
+    default AbstractWebController.Action getAction() {
         try {
             Method m = getClass().getDeclaredMethod("writeReplace");
             m.setAccessible(true);
             Object replacement = m.invoke(this);
             if (!(replacement instanceof SerializedLambda)) {
-                return "";
+                return null;
             }
             SerializedLambda l = ((SerializedLambda) replacement);
-            Method[] methods = l.getCapturedArg(0).getClass().getMethods();
-            return  l.getCapturedArg(0)
+            return l
+                .getCapturedArg(0)
                 .getClass()
                 .getMethod(l.getImplMethodName(), Request.class)
-                .getAnnotation(AbstractWebController.Action.class)
-                .method();
+                .getAnnotation(AbstractWebController.Action.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return null;
     }
 }

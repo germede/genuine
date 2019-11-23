@@ -15,6 +15,7 @@ public interface Configurator extends Service {
     Key<String> mailing_password = new Key<>();
     Key<Integer> mailing_port = new Key<>();
     Key<String> persistence_unit = new Key<>();
+    Key<Boolean> router_single_page_mode = new Key<>();
     Key<String> router_encoding = new Key<>();
     Key<String> server_context = new Key<>();
     Key<Integer> server_port = new Key<>();

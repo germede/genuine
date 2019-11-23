@@ -11,8 +11,7 @@ public abstract class AbstractDesktopController<D extends AbstractDesktop> imple
         desktop.setController(this);
     }
 
-
-    public D getDesktop() {
+    public final D getDesktop() {
         return desktop;
     }
 }

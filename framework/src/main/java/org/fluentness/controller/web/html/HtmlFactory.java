@@ -11,10 +11,10 @@ import java.util.function.Function;
 public final class HtmlFactory {
 
     // special web views
-    public static HtmlContainer action(WebActionReference action, Html... inner) {
+    public static HtmlContainer action(WebActionReference action, Html... html) {
         List<Html> result = new ArrayList<>();
         result.add(_href(action.getPath()));
-        result.addAll(Arrays.asList(inner));
+        result.addAll(Arrays.asList(html));
         return a(result.toArray(new Html[0]));
     }
 
@@ -494,436 +494,436 @@ public final class HtmlFactory {
     }
 
     // container html views
-    public static HtmlContainer a(Html... inner) {
-        return new HtmlContainer("a", inner);
+    public static HtmlContainer a(Html... html) {
+        return new HtmlContainer("a", html);
     }
 
-    public static HtmlContainer abbr(Html... inner) {
-        return new HtmlContainer("abbr", inner);
+    public static HtmlContainer abbr(Html... html) {
+        return new HtmlContainer("abbr", html);
     }
 
-    public static HtmlContainer acronym(Html... inner) {
-        return new HtmlContainer("acronym", inner);
+    public static HtmlContainer acronym(Html... html) {
+        return new HtmlContainer("acronym", html);
     }
 
-    public static HtmlContainer address(Html... inner) {
-        return new HtmlContainer("address", inner);
+    public static HtmlContainer address(Html... html) {
+        return new HtmlContainer("address", html);
     }
 
-    public static HtmlContainer applet(Html... inner) {
-        return new HtmlContainer("applet", inner);
+    public static HtmlContainer applet(Html... html) {
+        return new HtmlContainer("applet", html);
     }
 
-    public static HtmlContainer article(Html... inner) {
-        return new HtmlContainer("article", inner);
+    public static HtmlContainer article(Html... html) {
+        return new HtmlContainer("article", html);
     }
 
-    public static HtmlContainer aside(Html... inner) {
-        return new HtmlContainer("aside", inner);
+    public static HtmlContainer aside(Html... html) {
+        return new HtmlContainer("aside", html);
     }
 
-    public static HtmlContainer audio(Html... inner) {
-        return new HtmlContainer("audio", inner);
+    public static HtmlContainer audio(Html... html) {
+        return new HtmlContainer("audio", html);
     }
 
-    public static HtmlContainer b(Html... inner) {
-        return new HtmlContainer("b", inner);
+    public static HtmlContainer b(Html... html) {
+        return new HtmlContainer("b", html);
     }
 
-    public static HtmlContainer basefont(Html... inner) {
-        return new HtmlContainer("basefont", inner);
+    public static HtmlContainer basefont(Html... html) {
+        return new HtmlContainer("basefont", html);
     }
 
-    public static HtmlContainer bdi(Html... inner) {
-        return new HtmlContainer("bdi", inner);
+    public static HtmlContainer bdi(Html... html) {
+        return new HtmlContainer("bdi", html);
     }
 
-    public static HtmlContainer bdo(Html... inner) {
-        return new HtmlContainer("bdo", inner);
+    public static HtmlContainer bdo(Html... html) {
+        return new HtmlContainer("bdo", html);
     }
 
-    public static HtmlContainer big(Html... inner) {
-        return new HtmlContainer("big", inner);
+    public static HtmlContainer big(Html... html) {
+        return new HtmlContainer("big", html);
     }
 
-    public static HtmlContainer blockquote(Html... inner) {
-        return new HtmlContainer("blockquote", inner);
+    public static HtmlContainer blockquote(Html... html) {
+        return new HtmlContainer("blockquote", html);
     }
 
-    public static HtmlContainer body(Html... inner) {
-        return new HtmlContainer("body", inner);
+    public static HtmlContainer body(Html... html) {
+        return new HtmlContainer("body", html);
     }
 
-    public static HtmlContainer button(Html... inner) {
-        return new HtmlContainer("button", inner);
+    public static HtmlContainer button(Html... html) {
+        return new HtmlContainer("button", html);
     }
 
-    public static HtmlContainer canvas(Html... inner) {
-        return new HtmlContainer("canvas", inner);
+    public static HtmlContainer canvas(Html... html) {
+        return new HtmlContainer("canvas", html);
     }
 
-    public static HtmlContainer caption(Html... inner) {
-        return new HtmlContainer("caption", inner);
+    public static HtmlContainer caption(Html... html) {
+        return new HtmlContainer("caption", html);
     }
 
-    public static HtmlContainer center(Html... inner) {
-        return new HtmlContainer("center", inner);
+    public static HtmlContainer center(Html... html) {
+        return new HtmlContainer("center", html);
     }
 
-    public static HtmlContainer cite(Html... inner) {
-        return new HtmlContainer("cite", inner);
+    public static HtmlContainer cite(Html... html) {
+        return new HtmlContainer("cite", html);
     }
 
-    public static HtmlContainer code(Html... inner) {
-        return new HtmlContainer("code", inner);
+    public static HtmlContainer code(Html... html) {
+        return new HtmlContainer("code", html);
     }
 
-    public static HtmlContainer colgroup(Html... inner) {
-        return new HtmlContainer("colgroup", inner);
+    public static HtmlContainer colgroup(Html... html) {
+        return new HtmlContainer("colgroup", html);
     }
 
-    public static HtmlContainer data(Html... inner) {
-        return new HtmlContainer("data", inner);
+    public static HtmlContainer data(Html... html) {
+        return new HtmlContainer("data", html);
     }
 
-    public static HtmlContainer datalist(Html... inner) {
-        return new HtmlContainer("datalist", inner);
+    public static HtmlContainer datalist(Html... html) {
+        return new HtmlContainer("datalist", html);
     }
 
-    public static HtmlContainer dd(Html... inner) {
-        return new HtmlContainer("dd", inner);
+    public static HtmlContainer dd(Html... html) {
+        return new HtmlContainer("dd", html);
     }
 
-    public static HtmlContainer del(Html... inner) {
-        return new HtmlContainer("del", inner);
+    public static HtmlContainer del(Html... html) {
+        return new HtmlContainer("del", html);
     }
 
-    public static HtmlContainer details(Html... inner) {
-        return new HtmlContainer("details", inner);
+    public static HtmlContainer details(Html... html) {
+        return new HtmlContainer("details", html);
     }
 
-    public static HtmlContainer dfn(Html... inner) {
-        return new HtmlContainer("dfn", inner);
+    public static HtmlContainer dfn(Html... html) {
+        return new HtmlContainer("dfn", html);
     }
 
-    public static HtmlContainer dialog(Html... inner) {
-        return new HtmlContainer("dialog", inner);
+    public static HtmlContainer dialog(Html... html) {
+        return new HtmlContainer("dialog", html);
     }
 
-    public static HtmlContainer dir(Html... inner) {
-        return new HtmlContainer("dir", inner);
+    public static HtmlContainer dir(Html... html) {
+        return new HtmlContainer("dir", html);
     }
 
-    public static HtmlContainer div(Html... inner) {
-        return new HtmlContainer("div", inner);
+    public static HtmlContainer div(Html... html) {
+        return new HtmlContainer("div", html);
     }
 
-    public static HtmlContainer dl(Html... inner) {
-        return new HtmlContainer("dl", inner);
+    public static HtmlContainer dl(Html... html) {
+        return new HtmlContainer("dl", html);
     }
 
-    public static HtmlContainer dt(Html... inner) {
-        return new HtmlContainer("dt", inner);
+    public static HtmlContainer dt(Html... html) {
+        return new HtmlContainer("dt", html);
     }
 
-    public static HtmlContainer em(Html... inner) {
-        return new HtmlContainer("em", inner);
+    public static HtmlContainer em(Html... html) {
+        return new HtmlContainer("em", html);
     }
 
-    public static HtmlContainer fieldset(Html... inner) {
-        return new HtmlContainer("fieldset", inner);
+    public static HtmlContainer fieldset(Html... html) {
+        return new HtmlContainer("fieldset", html);
     }
 
-    public static HtmlContainer figcaption(Html... inner) {
-        return new HtmlContainer("figcaption", inner);
+    public static HtmlContainer figcaption(Html... html) {
+        return new HtmlContainer("figcaption", html);
     }
 
-    public static HtmlContainer figure(Html... inner) {
-        return new HtmlContainer("figure", inner);
+    public static HtmlContainer figure(Html... html) {
+        return new HtmlContainer("figure", html);
     }
 
-    public static HtmlContainer font(Html... inner) {
-        return new HtmlContainer("font", inner);
+    public static HtmlContainer font(Html... html) {
+        return new HtmlContainer("font", html);
     }
 
-    public static HtmlContainer footer(Html... inner) {
-        return new HtmlContainer("footer", inner);
+    public static HtmlContainer footer(Html... html) {
+        return new HtmlContainer("footer", html);
     }
 
-    public static HtmlContainer form(Html... inner) {
-        return new HtmlContainer("form", inner);
+    public static HtmlContainer form(Html... html) {
+        return new HtmlContainer("form", html);
     }
 
-    public static HtmlContainer frame(Html... inner) {
-        return new HtmlContainer("frame", inner);
+    public static HtmlContainer frame(Html... html) {
+        return new HtmlContainer("frame", html);
     }
 
-    public static HtmlContainer frameset(Html... inner) {
-        return new HtmlContainer("frameset", inner);
+    public static HtmlContainer frameset(Html... html) {
+        return new HtmlContainer("frameset", html);
     }
 
-    public static HtmlContainer h1(Html... inner) {
-        return new HtmlContainer("h1", inner);
+    public static HtmlContainer h1(Html... html) {
+        return new HtmlContainer("h1", html);
     }
 
-    public static HtmlContainer h2(Html... inner) {
-        return new HtmlContainer("h2", inner);
+    public static HtmlContainer h2(Html... html) {
+        return new HtmlContainer("h2", html);
     }
 
-    public static HtmlContainer h3(Html... inner) {
-        return new HtmlContainer("h3", inner);
+    public static HtmlContainer h3(Html... html) {
+        return new HtmlContainer("h3", html);
     }
 
-    public static HtmlContainer h4(Html... inner) {
-        return new HtmlContainer("h4", inner);
+    public static HtmlContainer h4(Html... html) {
+        return new HtmlContainer("h4", html);
     }
 
-    public static HtmlContainer h5(Html... inner) {
-        return new HtmlContainer("h5", inner);
+    public static HtmlContainer h5(Html... html) {
+        return new HtmlContainer("h5", html);
     }
 
-    public static HtmlContainer h6(Html... inner) {
-        return new HtmlContainer("h6", inner);
+    public static HtmlContainer h6(Html... html) {
+        return new HtmlContainer("h6", html);
     }
 
-    public static HtmlContainer head(Html... inner) {
-        return new HtmlContainer("head", inner);
+    public static HtmlContainer head(Html... html) {
+        return new HtmlContainer("head", html);
     }
 
-    public static HtmlContainer header(Html... inner) {
-        return new HtmlContainer("header", inner);
+    public static HtmlContainer header(Html... html) {
+        return new HtmlContainer("header", html);
     }
 
-    public static HtmlContainer html(Html... inner) {
-        return new HtmlContainer("html", inner);
+    public static HtmlContainer html(Html... html) {
+        return new HtmlContainer("html", html);
     }
 
-    public static HtmlContainer i(Html... inner) {
-        return new HtmlContainer("i", inner);
+    public static HtmlContainer i(Html... html) {
+        return new HtmlContainer("i", html);
     }
 
-    public static HtmlContainer iframe(Html... inner) {
-        return new HtmlContainer("iframe", inner);
+    public static HtmlContainer iframe(Html... html) {
+        return new HtmlContainer("iframe", html);
     }
 
-    public static HtmlContainer ins(Html... inner) {
-        return new HtmlContainer("ins", inner);
+    public static HtmlContainer ins(Html... html) {
+        return new HtmlContainer("ins", html);
     }
 
-    public static HtmlContainer kbd(Html... inner) {
-        return new HtmlContainer("kbd", inner);
+    public static HtmlContainer kbd(Html... html) {
+        return new HtmlContainer("kbd", html);
     }
 
-    public static HtmlContainer label(Html... inner) {
-        return new HtmlContainer("label", inner);
+    public static HtmlContainer label(Html... html) {
+        return new HtmlContainer("label", html);
     }
 
-    public static HtmlContainer legend(Html... inner) {
-        return new HtmlContainer("legend", inner);
+    public static HtmlContainer legend(Html... html) {
+        return new HtmlContainer("legend", html);
     }
 
-    public static HtmlContainer li(Html... inner) {
-        return new HtmlContainer("li", inner);
+    public static HtmlContainer li(Html... html) {
+        return new HtmlContainer("li", html);
     }
 
-    public static HtmlContainer main(Html... inner) {
-        return new HtmlContainer("main", inner);
+    public static HtmlContainer main(Html... html) {
+        return new HtmlContainer("main", html);
     }
 
-    public static HtmlContainer map(Html... inner) {
-        return new HtmlContainer("map", inner);
+    public static HtmlContainer map(Html... html) {
+        return new HtmlContainer("map", html);
     }
 
-    public static HtmlContainer mark(Html... inner) {
-        return new HtmlContainer("mark", inner);
+    public static HtmlContainer mark(Html... html) {
+        return new HtmlContainer("mark", html);
     }
 
-    public static HtmlContainer meter(Html... inner) {
-        return new HtmlContainer("meter", inner);
+    public static HtmlContainer meter(Html... html) {
+        return new HtmlContainer("meter", html);
     }
 
-    public static HtmlContainer nav(Html... inner) {
-        return new HtmlContainer("nav", inner);
+    public static HtmlContainer nav(Html... html) {
+        return new HtmlContainer("nav", html);
     }
 
-    public static HtmlContainer noframes(Html... inner) {
-        return new HtmlContainer("noframes", inner);
+    public static HtmlContainer noframes(Html... html) {
+        return new HtmlContainer("noframes", html);
     }
 
-    public static HtmlContainer noscript(Html... inner) {
-        return new HtmlContainer("noscript", inner);
+    public static HtmlContainer noscript(Html... html) {
+        return new HtmlContainer("noscript", html);
     }
 
-    public static HtmlContainer object(Html... inner) {
-        return new HtmlContainer("object", inner);
+    public static HtmlContainer object(Html... html) {
+        return new HtmlContainer("object", html);
     }
 
-    public static HtmlContainer ol(Html... inner) {
-        return new HtmlContainer("ol", inner);
+    public static HtmlContainer ol(Html... html) {
+        return new HtmlContainer("ol", html);
     }
 
-    public static HtmlContainer optgroup(Html... inner) {
-        return new HtmlContainer("optgroup", inner);
+    public static HtmlContainer optgroup(Html... html) {
+        return new HtmlContainer("optgroup", html);
     }
 
-    public static HtmlContainer option(Html... inner) {
-        return new HtmlContainer("option", inner);
+    public static HtmlContainer option(Html... html) {
+        return new HtmlContainer("option", html);
     }
 
-    public static HtmlContainer output(Html... inner) {
-        return new HtmlContainer("output", inner);
+    public static HtmlContainer output(Html... html) {
+        return new HtmlContainer("output", html);
     }
 
-    public static HtmlContainer p(Html... inner) {
-        return new HtmlContainer("p", inner);
+    public static HtmlContainer p(Html... html) {
+        return new HtmlContainer("p", html);
     }
 
-    public static HtmlContainer picture(Html... inner) {
-        return new HtmlContainer("picture", inner);
+    public static HtmlContainer picture(Html... html) {
+        return new HtmlContainer("picture", html);
     }
 
-    public static HtmlContainer pre(Html... inner) {
-        return new HtmlContainer("pre", inner);
+    public static HtmlContainer pre(Html... html) {
+        return new HtmlContainer("pre", html);
     }
 
-    public static HtmlContainer progress(Html... inner) {
-        return new HtmlContainer("progress", inner);
+    public static HtmlContainer progress(Html... html) {
+        return new HtmlContainer("progress", html);
     }
 
-    public static HtmlContainer q(Html... inner) {
-        return new HtmlContainer("q", inner);
+    public static HtmlContainer q(Html... html) {
+        return new HtmlContainer("q", html);
     }
 
-    public static HtmlContainer rp(Html... inner) {
-        return new HtmlContainer("rp", inner);
+    public static HtmlContainer rp(Html... html) {
+        return new HtmlContainer("rp", html);
     }
 
-    public static HtmlContainer rt(Html... inner) {
-        return new HtmlContainer("rt", inner);
+    public static HtmlContainer rt(Html... html) {
+        return new HtmlContainer("rt", html);
     }
 
-    public static HtmlContainer ruby(Html... inner) {
-        return new HtmlContainer("ruby", inner);
+    public static HtmlContainer ruby(Html... html) {
+        return new HtmlContainer("ruby", html);
     }
 
-    public static HtmlContainer s(Html... inner) {
-        return new HtmlContainer("s", inner);
+    public static HtmlContainer s(Html... html) {
+        return new HtmlContainer("s", html);
     }
 
-    public static HtmlContainer samp(Html... inner) {
-        return new HtmlContainer("samp", inner);
+    public static HtmlContainer samp(Html... html) {
+        return new HtmlContainer("samp", html);
     }
 
-    public static HtmlContainer script(Html... inner) {
-        return new HtmlContainer("script", inner);
+    public static HtmlContainer script(Html... html) {
+        return new HtmlContainer("script", html);
     }
 
-    public static HtmlContainer section(Html... inner) {
-        return new HtmlContainer("section", inner);
+    public static HtmlContainer section(Html... html) {
+        return new HtmlContainer("section", html);
     }
 
-    public static HtmlContainer select(Html... inner) {
-        return new HtmlContainer("select", inner);
+    public static HtmlContainer select(Html... html) {
+        return new HtmlContainer("select", html);
     }
 
-    public static HtmlContainer small(Html... inner) {
-        return new HtmlContainer("small", inner);
+    public static HtmlContainer small(Html... html) {
+        return new HtmlContainer("small", html);
     }
 
-    public static HtmlContainer span(Html... inner) {
-        return new HtmlContainer("span", inner);
+    public static HtmlContainer span(Html... html) {
+        return new HtmlContainer("span", html);
     }
 
-    public static HtmlContainer strike(Html... inner) {
-        return new HtmlContainer("strike", inner);
+    public static HtmlContainer strike(Html... html) {
+        return new HtmlContainer("strike", html);
     }
 
-    public static HtmlContainer strong(Html... inner) {
-        return new HtmlContainer("strong", inner);
+    public static HtmlContainer strong(Html... html) {
+        return new HtmlContainer("strong", html);
     }
 
-    public static HtmlContainer style(Html... inner) {
-        return new HtmlContainer("style", inner);
+    public static HtmlContainer style(Html... html) {
+        return new HtmlContainer("style", html);
     }
 
-    public static HtmlContainer sub(Html... inner) {
-        return new HtmlContainer("sub", inner);
+    public static HtmlContainer sub(Html... html) {
+        return new HtmlContainer("sub", html);
     }
 
-    public static HtmlContainer summary(Html... inner) {
-        return new HtmlContainer("summary", inner);
+    public static HtmlContainer summary(Html... html) {
+        return new HtmlContainer("summary", html);
     }
 
-    public static HtmlContainer sup(Html... inner) {
-        return new HtmlContainer("sup", inner);
+    public static HtmlContainer sup(Html... html) {
+        return new HtmlContainer("sup", html);
     }
 
-    public static HtmlContainer svg(Html... inner) {
-        return new HtmlContainer("svg", inner);
+    public static HtmlContainer svg(Html... html) {
+        return new HtmlContainer("svg", html);
     }
 
-    public static HtmlContainer table(Html... inner) {
-        return new HtmlContainer("table", inner);
+    public static HtmlContainer table(Html... html) {
+        return new HtmlContainer("table", html);
     }
 
-    public static HtmlContainer tbody(Html... inner) {
-        return new HtmlContainer("tbody", inner);
+    public static HtmlContainer tbody(Html... html) {
+        return new HtmlContainer("tbody", html);
     }
 
-    public static HtmlContainer td(Html... inner) {
-        return new HtmlContainer("td", inner);
+    public static HtmlContainer td(Html... html) {
+        return new HtmlContainer("td", html);
     }
 
-    public static HtmlContainer template(Html... inner) {
-        return new HtmlContainer("template", inner);
+    public static HtmlContainer template(Html... html) {
+        return new HtmlContainer("template", html);
     }
 
-    public static HtmlContainer textarea(Html... inner) {
-        return new HtmlContainer("textarea", inner);
+    public static HtmlContainer textarea(Html... html) {
+        return new HtmlContainer("textarea", html);
     }
 
-    public static HtmlContainer tfoot(Html... inner) {
-        return new HtmlContainer("tfoot", inner);
+    public static HtmlContainer tfoot(Html... html) {
+        return new HtmlContainer("tfoot", html);
     }
 
-    public static HtmlContainer th(Html... inner) {
-        return new HtmlContainer("th", inner);
+    public static HtmlContainer th(Html... html) {
+        return new HtmlContainer("th", html);
     }
 
-    public static HtmlContainer thead(Html... inner) {
-        return new HtmlContainer("thead", inner);
+    public static HtmlContainer thead(Html... html) {
+        return new HtmlContainer("thead", html);
     }
 
-    public static HtmlContainer time(Html... inner) {
-        return new HtmlContainer("time", inner);
+    public static HtmlContainer time(Html... html) {
+        return new HtmlContainer("time", html);
     }
 
-    public static HtmlContainer title(Html... inner) {
-        return new HtmlContainer("title", inner);
+    public static HtmlContainer title(Html... html) {
+        return new HtmlContainer("title", html);
     }
 
-    public static HtmlContainer tr(Html... inner) {
-        return new HtmlContainer("tr", inner);
+    public static HtmlContainer tr(Html... html) {
+        return new HtmlContainer("tr", html);
     }
 
-    public static HtmlContainer tt(Html... inner) {
-        return new HtmlContainer("tt", inner);
+    public static HtmlContainer tt(Html... html) {
+        return new HtmlContainer("tt", html);
     }
 
-    public static HtmlContainer u(Html... inner) {
-        return new HtmlContainer("u", inner);
+    public static HtmlContainer u(Html... html) {
+        return new HtmlContainer("u", html);
     }
 
-    public static HtmlContainer ul(Html... inner) {
-        return new HtmlContainer("ul", inner);
+    public static HtmlContainer ul(Html... html) {
+        return new HtmlContainer("ul", html);
     }
 
-    public static HtmlContainer var(Html... inner) {
-        return new HtmlContainer("var", inner);
+    public static HtmlContainer var(Html... html) {
+        return new HtmlContainer("var", html);
     }
 
-    public static HtmlContainer video(Html... inner) {
-        return new HtmlContainer("video", inner);
+    public static HtmlContainer video(Html... html) {
+        return new HtmlContainer("video", html);
     }
 
     // empty html views

@@ -18,12 +18,12 @@ public class AbstractWebControllerTest {
     public void setUp() {
         webController = new AbstractWebController<AbstractWeb>(new AbstractWeb() {
             @Override
-            protected WebStyle style() {
+            public WebStyle style() {
                 return null;
             }
 
             @Override
-            protected WebView view(WebView ajaxResult) {
+            public WebView view(WebView ajaxResult) {
                 return null;
             }
         }){

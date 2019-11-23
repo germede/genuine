@@ -11,12 +11,12 @@ import static org.fluentness.controller.web.html.HtmlFactory.*;
 public class Web extends AbstractWeb<WebController> {
 
     @Override
-    protected WebStyle style() {
+    public WebStyle style() {
         return new WebStyle();
     }
 
     @Override
-    protected WebView view(WebView ajaxResult) {
+    public WebView view(WebView ajaxResult) {
         return html(
             head(
                 title(() -> "The book library made with Fluentness"),
