@@ -13,7 +13,11 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class DefaultLoader implements Loader {
+import static org.fluentness.service.Service.ServiceType;
+import static org.fluentness.service.Service.Type.IRREPLACEABLE;
+
+@ServiceType(IRREPLACEABLE)
+public final class FinalLoader implements Loader {
 
     @Override
     public <T extends ApplicationComponent> List<Class<? extends T>> load(String packageName, Class<T> parent) throws LoaderException {

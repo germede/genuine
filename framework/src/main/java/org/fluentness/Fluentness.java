@@ -12,14 +12,13 @@ import org.fluentness.service.Service;
 import org.fluentness.service.authenticator.BasicAuthenticator;
 import org.fluentness.service.cache.MemoryCache;
 import org.fluentness.service.configurator.DefaultConfigurator;
-import org.fluentness.service.injector.DefaultInjector;
+import org.fluentness.service.injector.FinalInjector;
 import org.fluentness.service.injector.Injector;
-import org.fluentness.service.loader.DefaultLoader;
+import org.fluentness.service.loader.FinalLoader;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.service.logger.JulLogger;
 import org.fluentness.service.mailer.JavaxMailer;
 import org.fluentness.service.persistence.OpenJpaPersistence;
-import org.fluentness.service.router.DefaultRouter;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.TomcatServer;
 
@@ -30,10 +29,6 @@ import java.util.List;
 
 public final class Fluentness {
 
-    private static final Injector INJECTION_SERVICE = new DefaultInjector();
-    private static final Loader LOADING_SERVICE = new DefaultLoader();
-    private static final Fluentness PROXY = new Fluentness();
-
     private static Application application;
 
     public static Application getApplication() {
@@ -41,55 +36,54 @@ public final class Fluentness {
     }
 
     public static void launch(Application application, String[] args) throws FluentnessException {
-        Fluentness.application = application;
-        init(application);
-        switch (application.getPlatform()) {
-            case DESKTOP:
-                desktop(application);
-                break;
-            case WEB:
-                web(application);
-                break;
-            default:
-                console(application, args);
-        }
-    }
-
-    private static void init(Application application) throws FluentnessException {
         if (application == null) {
             throw new FluentnessException("Passed application was null");
         }
-        List<Class<? extends Service>> services = application.getServices(LOADING_SERVICE);
-        services.add(DefaultLoader.class);
-        services.add(DefaultConfigurator.class);
-        services.add(JulLogger.class);
-        services.add(OpenJpaPersistence.class);
-        services.add(JavaxMailer.class);
-        if (application.getPlatform() == Application.Platform.WEB) {
-            services.add(MemoryCache.class);
-            services.add(BasicAuthenticator.class);
-            services.add(DefaultRouter.class);
-            services.add(TomcatServer.class);
+        Fluentness.application = application;
+        Injector injector = makeInjector(application);
+        switch (application.getPlatform()) {
+            case DESKTOP:
+                desktop(injector, application);
+                break;
+            case WEB:
+                web(injector, application);
+                break;
+            default:
+                console(injector, application, args);
         }
-        INJECTION_SERVICE.inject(services);
-
-        List<Class<? extends Repository>> repositories = application.getRepositories(LOADING_SERVICE);
-        INJECTION_SERVICE.inject(repositories);
-
-        List<Class<? extends Controller>> controllers = application.getControllers(LOADING_SERVICE);
-        controllers.add(DefaultConsoleController.class);
-        INJECTION_SERVICE.inject(controllers);
-
     }
 
-    private static void console(Application application, String[] args) throws FluentnessException {
+    private static Injector makeInjector(Application application) throws FluentnessException {
+        Loader loader = new FinalLoader();
+
+        List<Class<? extends Service>> services = new LinkedList<>();
+        services.add(DefaultConfigurator.class);
+        services.add(JulLogger.class);
+        services.add(JavaxMailer.class);
+        services.add(OpenJpaPersistence.class);
+        if (application.getPlatform().equals(Application.Platform.WEB)) {
+            services.add(MemoryCache.class);
+            services.add(BasicAuthenticator.class);
+            services.add(TomcatServer.class);
+        }
+        services.addAll(application.getServices(loader));
+
+        List<Class<? extends Repository>> repositories = application.getRepositories(loader);
+
+        List<Class<? extends Controller>> controllers = application.getControllers(loader);
+        controllers.add(DefaultConsoleController.class);
+
+        return new FinalInjector(loader, services, repositories, controllers);
+    }
+
+    private static void console(Injector injector, Application application, String[] args) throws FluentnessException {
         try {
             if (args == null) {
                 throw new ConsoleException("Passed args was null");
             }
             String name = args.length == 0 ? "help" : args[0];
             List<ConsoleAction> actions = new LinkedList<>();
-            INJECTION_SERVICE.getInstances(AbstractConsoleController.class)
+            injector.getInstances(AbstractConsoleController.class)
                 .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
             Method toExecute = actions
                 .stream()
@@ -99,15 +93,15 @@ public final class Fluentness {
                 .orElseThrow(() -> new ConsoleException("No such command with name %s found", name));
             Class<? extends Controller> declaringClass = (Class<? extends Controller>) toExecute.getDeclaringClass();
             toExecute.setAccessible(true);
-            toExecute.invoke(INJECTION_SERVICE.getInstance(declaringClass));
+            toExecute.invoke(injector.getInstance(declaringClass));
         } catch (ConsoleException | IllegalAccessException | InvocationTargetException e) {
             throw new FluentnessException(e);
         }
     }
 
-    private static void desktop(Application application) throws FluentnessException {
+    private static void desktop(Injector injector, Application application) throws FluentnessException {
         try {
-            for (AbstractDesktopController controller : INJECTION_SERVICE.getInstances(AbstractDesktopController.class)) {
+            for (AbstractDesktopController controller : injector.getInstances(AbstractDesktopController.class)) {
                 DesktopView.setGlobalStyle(controller.getDesktop().style());
                 controller.getDesktop().view().render();
             }
@@ -116,8 +110,8 @@ public final class Fluentness {
         }
     }
 
-    private static void web(Application application) throws FluentnessException {
-        INJECTION_SERVICE.getInstance(Server.class).start();
+    private static void web(Injector injector, Application application) throws FluentnessException {
+        injector.getInstance(Server.class).start();
     }
 
 

@@ -1,5 +1,6 @@
 package org.fluentness.controller.web.html;
 
+import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebActionReference;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.repository.Model;
@@ -18,9 +19,10 @@ public class HtmlForm<T> extends HtmlContainer {
     }
 
     private static WebView[] renderForm(Object object, WebActionReference action) {
+        String[] pathParts = AbstractWebController.getPath(action).split(" ");
         List<WebView> result = new LinkedList<>();
-        result.add(_method(action.getMethod()));
-        result.add(_action(action.getPath()));
+        result.add(_method(pathParts[0]));
+        result.add(_action(pathParts[1]));
         Model.getModelFields(object).stream()
             .map(field -> input(getHtmlAttributesFor(object, field)))
             .forEach(result::add);

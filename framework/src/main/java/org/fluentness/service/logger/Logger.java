@@ -1,8 +1,16 @@
 package org.fluentness.service.logger;
 
 import org.fluentness.service.Service;
+import org.fluentness.service.configurator.Key;
+import static org.fluentness.service.Service.ServiceType;
+import static org.fluentness.service.Service.Type.REPLACEABLE;
 
+@ServiceType(REPLACEABLE)
 public interface Logger extends Service {
+
+    Key<LogLevel> logger_level = new Key<>();
+    Key<Boolean> logger_console = new Key<>();
+    Key<String> logger_file = new Key<>();
 
     void log(LogLevel logLevel, String message, Object... parameters);
 

@@ -4,9 +4,9 @@ import org.fluentness.controller.web.style.WebStyle;
 
 public abstract class AbstractWeb<C extends AbstractWebController> {
 
-    protected C controller;
+    protected final C controller;
 
-    void setController(C controller) {
+    protected AbstractWeb(C controller) {
         this.controller = controller;
     }
 

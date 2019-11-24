@@ -4,6 +4,4 @@ import org.fluentness.ApplicationComponent;
 
 public interface Controller extends ApplicationComponent {
 
-    interface Action {
-    }
 }

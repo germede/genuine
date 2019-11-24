@@ -4,29 +4,22 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.fluentness.service.configurator.Configurator;
+import org.fluentness.service.injector.Injector;
 import org.fluentness.service.logger.Logger;
-import org.fluentness.service.router.Router;
 
 import java.io.File;
 import java.util.Arrays;
-
-import static org.fluentness.service.configurator.Configurator.server_context;
-import static org.fluentness.service.configurator.Configurator.server_port;
 
 public class TomcatServer implements Server {
 
     private final Configurator configurator;
     private final Logger logger;
-    private final Router router;
 
     private final Tomcat server;
 
-    public TomcatServer(Configurator configurator,
-                        Logger logger,
-                        Router router) {
+    public TomcatServer(Injector injector, Configurator configurator, Logger logger) {
         this.configurator = configurator;
         this.logger = logger;
-        this.router = router;
 
         String context = configurator.getOrDefault(server_context, "");
         int port = configurator.getOrDefault(server_port, 8000);
@@ -36,7 +29,11 @@ public class TomcatServer implements Server {
         server.setPort(port);
         server.getHost().setAppBase(".");
         Context ctx = server.addContext(context, new File(".").getAbsolutePath());
-        Tomcat.addServlet(ctx, "Fluentness", new DispatcherServlet(logger, router));
+        Tomcat.addServlet(ctx, "Fluentness", new DispatcherServlet(
+            injector,
+            configurator,
+            logger
+        ));
         ctx.addServletMappingDecoded("/*", "Fluentness");
 
         // redirect logging to own logger
@@ -69,7 +66,7 @@ public class TomcatServer implements Server {
                 logger.error(e);
             }
         } else {
-            logger.info("Server was stopped without being started");
+            logger.warning("Server was stopped without being started");
         }
     }
 }

@@ -1,11 +1,12 @@
 package org.fluentness.controller.desktop;
 
+import org.fluentness.controller.View;
 import org.fluentness.controller.desktop.style.DesktopStyle;
 import org.fluentness.controller.desktop.style.Style;
 
 import java.util.List;
 
-public abstract class DesktopView {
+public abstract class DesktopView implements View {
 
     private static List<Style> styleMap;
 
@@ -14,6 +15,7 @@ public abstract class DesktopView {
     }
 
     protected DesktopView(Object view) {
+        super();
         // Apply global styles
         if (styleMap != null) {
             styleMap.stream()
@@ -23,5 +25,6 @@ public abstract class DesktopView {
         }
     }
 
-    public abstract void render();
+    @Override
+    public abstract Boolean render();
 }

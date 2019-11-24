@@ -5,10 +5,13 @@ import org.fluentness.service.Service;
 
 import java.util.List;
 
+import static org.fluentness.service.Service.ServiceType;
+import static org.fluentness.service.Service.Type.IRREPLACEABLE;
+
+@ServiceType(IRREPLACEABLE)
 public interface Injector extends Service {
-    <A extends ApplicationComponent> List<A> getInstances(Class<A> tClass);
 
-    <A extends ApplicationComponent> A getInstance(Class<A> tClass);
+    <A extends ApplicationComponent> List<A> getInstances(Class<A> parent);
 
-    <A extends ApplicationComponent> void inject(List<Class<? extends A>> classes) throws InjectorException;
+    <A extends ApplicationComponent> A getInstance(Class<A> parent);
 }

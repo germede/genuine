@@ -8,8 +8,6 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.fluentness.service.configurator.Configurator.persistence_unit;
-
 public class OpenJpaPersistence implements Persistence {
 
     private final Logger logger;
@@ -25,7 +23,6 @@ public class OpenJpaPersistence implements Persistence {
                 .createEntityManagerFactory(configurator.get(persistence_unit), properties)
                 .createEntityManager();
         }
-
     }
 
     @Override

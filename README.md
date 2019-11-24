@@ -20,7 +20,7 @@ well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architect
 >**L**oose coupling of application components  
 >**U**se static factories, avoiding the new operator  
 >**E**mbrace constructor-based dependency injection  
->**N**otice how unit tests do assure software quality    
+>**N**otice how unit tests help assure software quality    
 >**T**ry to avoid comments and anti-patterns  
 >**N**ame every component as if it were your child    
 >**E**ndorse convention over configuration  

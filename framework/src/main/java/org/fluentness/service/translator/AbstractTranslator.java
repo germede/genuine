@@ -20,4 +20,6 @@ public abstract class AbstractTranslator implements Translator {
     protected static Translation msg(String defaultTranslation, Message... translation) {
         return new Translation(defaultTranslation, translation);
     }
+
+
 }

@@ -1,8 +1,11 @@
 package org.fluentness.controller.web;
 
-@FunctionalInterface
-public interface WebView {
+import org.fluentness.controller.View;
 
+@FunctionalInterface
+public interface WebView extends View {
+
+    @Override
     String render();
 
 }

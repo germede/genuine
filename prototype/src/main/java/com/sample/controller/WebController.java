@@ -19,19 +19,33 @@ public class WebController extends AbstractWebController<Web> {
         AuthorRepository authorRepository,
         UserRepository userRepository
     ) {
-        super(new Web());
+        super(Web.class);
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.userRepository = userRepository;
     }
 
-    @Action(path = "/")
-    public WebView index(Request request) {
+    @Override
+    public void defineRoutes() {
+        get("/", this::index);
+        get("/books", this::books);
+        get("/books/create", this::createBook);
+        get("/books/update/1", this::updateBook);
+        get("/books/delete/1", this::deleteBook);
+        get("/authors", this::authors);
+        get("/authors", this::authors);
+        get("/authors/create", this::authors);
+        get("/users", this::users);
+        get("/users/create", this::createUser);
+        get("/404", this::notFound);
+        get("/500", this::serverError);
+    }
+
+    WebView index(Request request) {
         return books(request);
     }
 
-    @Action(path = "/books")
-    public WebView books(Request request) {
+    WebView books(Request request) {
         return div(
             table(bookRepository.findAll(Book.class)).appendColumn(book ->
                 td(_class("float-right"),
@@ -46,64 +60,55 @@ public class WebController extends AbstractWebController<Web> {
         );
     }
 
-    @Action(path = "/books/create")
-    public WebView createBook(Request request) {
+    WebView createBook(Request request) {
         return div(
             h2(create::translate),
             form(new Book(), this::createBook)
         );
     }
 
-    @Action(path = "/books/update/1")
-    public WebView updateBook(Request request) {
-        return () -> "asdf";
+    String updateBook(Request request) {
+        return "asdf";
     }
 
-    @Action(path = "/books/delete/1")
-    public WebView deleteBook(Request request) {
-        return () -> "asdf";
+    String deleteBook(Request request) {
+        return "asdf";
     }
 
-    @Action(path = "/authors")
-    public WebView authors(Request request) {
+    WebView authors(Request request) {
         return div(
             table(authorRepository.findAll(Author.class)),
             action(this::createAuthor, _class("button column"), create::translate)
         );
     }
 
-    @Action(path = "/authors/create")
-    public WebView createAuthor(Request request) {
+    WebView createAuthor(Request request) {
         return div(
             h2(create::translate),
             form(new Author(), this::createAuthor)
         );
     }
 
-    @Action(path = "/users")
-    public WebView users(Request request) {
+    WebView users(Request request) {
         return div(
             table(userRepository.findAll(User.class)),
             action(this::createUser, _class("button column"), create::translate)
         );
     }
 
-    @Action(path = "/users/create")
-    public WebView createUser(Request request) {
+    WebView createUser(Request request) {
         return div(
             h2(create::translate),
             form(new User(), this::createUser)
         );
     }
 
-    @Action(path = "/404")
-    public WebView notFound(Request request) {
-        return div(page_not_found::translate);
+    WebView notFound(Request request) {
+        return page_not_found::translate;
     }
 
-    @Action(path = "/500")
-    public WebView serverError(Request request) {
-        return div(faulty::translate);
+    WebView serverError(Request request) {
+        return faulty::translate;
     }
 
 }

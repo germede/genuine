@@ -11,8 +11,6 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
-import static org.fluentness.service.configurator.Configurator.*;
-
 public class JulLogger implements Logger {
 
     protected final java.util.logging.Logger logger;

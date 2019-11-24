@@ -3,6 +3,7 @@ package org.fluentness.controller.web;
 import org.fluentness.controller.web.AbstractWebController.Request;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Method;
 
@@ -11,15 +12,20 @@ public interface WebActionReference extends Serializable {
 
     Object execute(Request request);
 
-    default String getPath() {
-        return getAction().path();
+    default boolean isAnnotationPresent(Class<? extends Annotation> annotation) {
+        Method method = getMethod();
+        return method != null && method.isAnnotationPresent(annotation);
     }
 
-    default String getMethod() {
-        return getAction().method();
+    default <T extends Annotation> T getAnnotation(Class<T> annotation) {
+        Method method = getMethod();
+        if (method != null) {
+            return method.getAnnotation(annotation);
+        }
+        return null;
     }
 
-    default AbstractWebController.Action getAction() {
+    default Method getMethod() {
         try {
             Method m = getClass().getDeclaredMethod("writeReplace");
             m.setAccessible(true);
@@ -31,10 +37,8 @@ public interface WebActionReference extends Serializable {
             return l
                 .getCapturedArg(0)
                 .getClass()
-                .getMethod(l.getImplMethodName(), Request.class)
-                .getAnnotation(AbstractWebController.Action.class);
-        } catch (Exception e) {
-            e.printStackTrace();
+                .getMethod(l.getImplMethodName(), Request.class);
+        } catch (Exception ignored) {
         }
         return null;
     }

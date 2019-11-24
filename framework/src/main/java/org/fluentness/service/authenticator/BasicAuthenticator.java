@@ -2,16 +2,17 @@ package org.fluentness.service.authenticator;
 
 import org.fluentness.Fluentness;
 import org.fluentness.service.configurator.Configurator;
+import org.fluentness.service.configurator.Key;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
 
-import static org.fluentness.service.configurator.Configurator.authentication_password;
-import static org.fluentness.service.configurator.Configurator.authentication_username;
-
 public class BasicAuthenticator implements Authenticator {
 
+    public static final Key<String> basic_authenticator_username = new Key<>();
+    public static final Key<String> basic_authenticator_password = new Key<>();
+    
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String AUTHENTICATE_HEADER = "WWW-Authenticate";
 
@@ -27,10 +28,10 @@ public class BasicAuthenticator implements Authenticator {
 
         if (requestHeader != null &&
             requestHeader.startsWith("Basic ") &&
-            configurator.has(authentication_username) &&
-            configurator.has(authentication_password)) {
+            configurator.has(basic_authenticator_username) &&
+            configurator.has(basic_authenticator_password)) {
 
-            String own = configurator.get(authentication_username) + ":" + configurator.get(authentication_password);
+            String own = configurator.get(basic_authenticator_username) + ":" + configurator.get(basic_authenticator_password);
 
             if (Base64.getEncoder().encodeToString(own.getBytes()).equals(requestHeader.split(" ")[1])) {
                 return true;

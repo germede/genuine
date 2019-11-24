@@ -20,8 +20,9 @@ public abstract class AbstractSwingView<Self extends AbstractSwingView, View ext
     }
 
     @Override
-    public void render() {
+    public Boolean render() {
         view.setVisible(true);
+        return true;
     }
 
     public View getView() {

@@ -10,6 +10,10 @@ import static org.fluentness.controller.web.html.HtmlFactory.*;
 
 public class Web extends AbstractWeb<WebController> {
 
+    protected Web(WebController controller) {
+        super(controller);
+    }
+
     @Override
     public WebStyle style() {
         return new WebStyle();

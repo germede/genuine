@@ -63,18 +63,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-                <configurator>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>11</source>
+                    <target>11</target>
                     <encoding>UTF-8</encoding>
-                    <parameters>true</parameters>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                </configurator>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -87,7 +79,7 @@
                         </goals>
                     </execution>
                 </executions>
-                <configurator>
+                <configuration>
                     <archive>
                         <index>true</index>
                         <manifest>
@@ -97,7 +89,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                </configurator>
+                </configuration>
             </plugin>
         </plugins>
     </build>

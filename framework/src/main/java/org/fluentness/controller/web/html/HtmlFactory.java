@@ -1,5 +1,6 @@
 package org.fluentness.controller.web.html;
 
+import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebActionReference;
 import org.fluentness.controller.web.WebView;
 
@@ -14,7 +15,7 @@ public final class HtmlFactory {
     // special web views
     public static HtmlContainer action(WebActionReference action, WebView... html) {
         List<WebView> result = new ArrayList<>();
-        result.add(_href(action.getPath()));
+        result.add(_href(AbstractWebController.getPath(action)));
         result.addAll(Arrays.asList(html));
         return a(result.toArray(new WebView[0]));
     }
