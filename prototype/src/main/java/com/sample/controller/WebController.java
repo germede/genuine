@@ -1,14 +1,14 @@
 package com.sample.controller;
 
+import com.sample.LibraryTranslation;
 import com.sample.repository.*;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
+import org.fluentness.service.dispatcher.Request;
 
-import static com.sample.service.Translator.*;
-import static org.fluentness.controller.web.html.HtmlFactory.action;
 import static org.fluentness.controller.web.html.HtmlFactory.*;
 
-public class WebController extends AbstractWebController<Web> {
+public class WebController extends AbstractWebController<Web> implements LibraryTranslation {
 
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
@@ -41,11 +41,11 @@ public class WebController extends AbstractWebController<Web> {
         get("/500", this::serverError);
     }
 
-    WebView index(Request request) {
+    public WebView index(Request request) {
         return books(request);
     }
 
-    WebView books(Request request) {
+    public WebView books(Request request) {
         return div(
             table(bookRepository.findAll(Book.class)).appendColumn(book ->
                 td(_class("float-right"),
@@ -60,54 +60,54 @@ public class WebController extends AbstractWebController<Web> {
         );
     }
 
-    WebView createBook(Request request) {
+    public WebView createBook(Request request) {
         return div(
             h2(create::translate),
             form(new Book(), this::createBook)
         );
     }
 
-    String updateBook(Request request) {
+    public String updateBook(Request request) {
         return "asdf";
     }
 
-    String deleteBook(Request request) {
+    public String deleteBook(Request request) {
         return "asdf";
     }
 
-    WebView authors(Request request) {
+    public WebView authors(Request request) {
         return div(
             table(authorRepository.findAll(Author.class)),
             action(this::createAuthor, _class("button column"), create::translate)
         );
     }
 
-    WebView createAuthor(Request request) {
+    public WebView createAuthor(Request request) {
         return div(
             h2(create::translate),
             form(new Author(), this::createAuthor)
         );
     }
 
-    WebView users(Request request) {
+    public WebView users(Request request) {
         return div(
             table(userRepository.findAll(User.class)),
             action(this::createUser, _class("button column"), create::translate)
         );
     }
 
-    WebView createUser(Request request) {
+    public WebView createUser(Request request) {
         return div(
             h2(create::translate),
             form(new User(), this::createUser)
         );
     }
 
-    WebView notFound(Request request) {
+    public WebView notFound(Request request) {
         return page_not_found::translate;
     }
 
-    WebView serverError(Request request) {
+    public WebView serverError(Request request) {
         return faulty::translate;
     }
 

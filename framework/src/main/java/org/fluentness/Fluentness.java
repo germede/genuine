@@ -12,9 +12,10 @@ import org.fluentness.service.Service;
 import org.fluentness.service.authenticator.BasicAuthenticator;
 import org.fluentness.service.cache.MemoryCache;
 import org.fluentness.service.configurator.DefaultConfigurator;
-import org.fluentness.service.injector.FinalInjector;
+import org.fluentness.service.dispatcher.FluentnessDispatcher;
+import org.fluentness.service.injector.FluentnessInjector;
 import org.fluentness.service.injector.Injector;
-import org.fluentness.service.loader.FinalLoader;
+import org.fluentness.service.loader.FluentnessLoader;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.service.logger.JulLogger;
 import org.fluentness.service.mailer.JavaxMailer;
@@ -54,9 +55,9 @@ public final class Fluentness {
     }
 
     private static Injector makeInjector(Application application) throws FluentnessException {
-        Loader loader = new FinalLoader();
+        Loader loader = new FluentnessLoader();
 
-        List<Class<? extends Service>> services = new LinkedList<>();
+        List<Class<? extends Service>> services = application.getServices(loader);
         services.add(DefaultConfigurator.class);
         services.add(JulLogger.class);
         services.add(JavaxMailer.class);
@@ -64,16 +65,16 @@ public final class Fluentness {
         if (application.getPlatform().equals(Application.Platform.WEB)) {
             services.add(MemoryCache.class);
             services.add(BasicAuthenticator.class);
+            services.add(FluentnessDispatcher.class);
             services.add(TomcatServer.class);
         }
-        services.addAll(application.getServices(loader));
 
         List<Class<? extends Repository>> repositories = application.getRepositories(loader);
 
         List<Class<? extends Controller>> controllers = application.getControllers(loader);
         controllers.add(DefaultConsoleController.class);
 
-        return new FinalInjector(loader, services, repositories, controllers);
+        return new FluentnessInjector(loader, services, repositories, controllers);
     }
 
     private static void console(Injector injector, Application application, String[] args) throws FluentnessException {
@@ -102,8 +103,8 @@ public final class Fluentness {
     private static void desktop(Injector injector, Application application) throws FluentnessException {
         try {
             for (AbstractDesktopController controller : injector.getInstances(AbstractDesktopController.class)) {
-                DesktopView.setGlobalStyle(controller.getDesktop().style());
-                controller.getDesktop().view().render();
+                DesktopView.setGlobalStyle(controller.getDesktop().getStyle());
+                controller.getDesktop().getView().render();
             }
         } catch (Exception e) {
             throw new FluentnessException(e);

@@ -1,23 +1,31 @@
 package org.fluentness.controller.web;
 
-public class WebAction {
+import org.fluentness.service.dispatcher.Request;
 
-    private final WebActionReference webActionReference;
-    private final AbstractWebController abstractWebController;
+import java.io.Serializable;
+import java.lang.invoke.SerializedLambda;
+import java.lang.reflect.Method;
 
-    public WebAction(
-        WebActionReference webActionReference,
-        AbstractWebController abstractWebController
-    ) {
-        this.webActionReference = webActionReference;
-        this.abstractWebController = abstractWebController;
+@FunctionalInterface
+public interface WebAction extends Serializable {
+
+    Object execute(Request request);
+
+    default Method getMethod() {
+        try {
+            Method method = this.getClass().getDeclaredMethod("writeReplace");
+            method.setAccessible(true);
+            Object replacement = method.invoke(this);
+            if (replacement instanceof SerializedLambda) {
+                SerializedLambda serializedLambda = ((SerializedLambda) replacement);
+                return serializedLambda
+                    .getCapturedArg(0)
+                    .getClass()
+                    .getMethod(serializedLambda.getImplMethodName(), Request.class);
+            }
+        } catch (Exception ignored) {
+        }
+        return null;
     }
 
-    public WebActionReference getLambda() {
-        return webActionReference;
-    }
-
-    public AbstractWebController getController() {
-        return abstractWebController;
-    }
 }

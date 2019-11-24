@@ -4,6 +4,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.fluentness.service.configurator.Configurator;
+import org.fluentness.service.dispatcher.Dispatcher;
 import org.fluentness.service.injector.Injector;
 import org.fluentness.service.logger.Logger;
 
@@ -12,14 +13,18 @@ import java.util.Arrays;
 
 public class TomcatServer implements Server {
 
+    private final Injector injector;
     private final Configurator configurator;
     private final Logger logger;
+    private final Dispatcher dispatcher;
 
     private final Tomcat server;
 
-    public TomcatServer(Injector injector, Configurator configurator, Logger logger) {
+    public TomcatServer(Injector injector, Configurator configurator, Logger logger, Dispatcher dispatcher) {
+        this.injector = injector;
         this.configurator = configurator;
         this.logger = logger;
+        this.dispatcher = dispatcher;
 
         String context = configurator.getOrDefault(server_context, "");
         int port = configurator.getOrDefault(server_port, 8000);
@@ -29,11 +34,7 @@ public class TomcatServer implements Server {
         server.setPort(port);
         server.getHost().setAppBase(".");
         Context ctx = server.addContext(context, new File(".").getAbsolutePath());
-        Tomcat.addServlet(ctx, "Fluentness", new DispatcherServlet(
-            injector,
-            configurator,
-            logger
-        ));
+        Tomcat.addServlet(ctx, "Fluentness", dispatcher);
         ctx.addServletMappingDecoded("/*", "Fluentness");
 
         // redirect logging to own logger
@@ -43,7 +44,7 @@ public class TomcatServer implements Server {
     }
 
     @Override
-    public void start() throws ServingException {
+    public void start() throws ServerException {
         try {
             server.start();
             logger.info(
@@ -53,7 +54,7 @@ public class TomcatServer implements Server {
             );
             new Thread(() -> server.getServer().await()).start();
         } catch (LifecycleException e) {
-            throw new ServingException(e);
+            throw new ServerException(e);
         }
     }
 

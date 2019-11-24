@@ -1,13 +1,10 @@
-package com.sample.service;
+package com.sample;
 
-import org.fluentness.service.translator.AbstractTranslator;
-import org.fluentness.service.translator.Translation;
+import org.fluentness.Translation;
 
-import static org.fluentness.service.translator.TranslationFactory.de;
-import static org.fluentness.service.translator.TranslationFactory.es;
+import static org.fluentness.TranslationFactory.*;
 
-
-public class Translator extends AbstractTranslator {
+public final class LibraryTranslation {
 
     public static final Translation
         welcome_message = msg("Welcome, %s", de("Willkommen, %s"), es("Bienvenido, %s")),

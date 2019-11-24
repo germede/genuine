@@ -6,11 +6,11 @@ public abstract class AbstractWeb<C extends AbstractWebController> {
 
     protected final C controller;
 
-    protected AbstractWeb(C controller) {
+    public AbstractWeb(C controller) {
         this.controller = controller;
     }
 
-    public abstract WebStyle style();
+    public abstract WebStyle getStyle();
 
-    public abstract WebView view(WebView toInclude);
+    public abstract WebView getView(WebView toInclude);
 }

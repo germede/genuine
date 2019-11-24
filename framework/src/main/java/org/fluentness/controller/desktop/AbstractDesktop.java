@@ -10,7 +10,7 @@ public abstract class AbstractDesktop<C extends AbstractDesktopController> {
         this.controller = controller;
     }
 
-    public abstract DesktopStyle style();
+    public abstract DesktopStyle getStyle();
 
-    public abstract DesktopView view();
+    public abstract DesktopView getView();
 }

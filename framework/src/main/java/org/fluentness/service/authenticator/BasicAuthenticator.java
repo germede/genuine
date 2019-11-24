@@ -3,16 +3,16 @@ package org.fluentness.service.authenticator;
 import org.fluentness.Fluentness;
 import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.configurator.Key;
+import org.fluentness.service.dispatcher.Request;
+import org.fluentness.service.dispatcher.Response;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
 
 public class BasicAuthenticator implements Authenticator {
 
     public static final Key<String> basic_authenticator_username = new Key<>();
     public static final Key<String> basic_authenticator_password = new Key<>();
-    
+
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String AUTHENTICATE_HEADER = "WWW-Authenticate";
 
@@ -23,7 +23,7 @@ public class BasicAuthenticator implements Authenticator {
     }
 
     @Override
-    public boolean authenticate(HttpServletRequest request, HttpServletResponse response) {
+    public Response authenticate(Request request) {
         String requestHeader = request.getHeader(AUTHORIZATION_HEADER);
 
         if (requestHeader != null &&
@@ -34,13 +34,13 @@ public class BasicAuthenticator implements Authenticator {
             String own = configurator.get(basic_authenticator_username) + ":" + configurator.get(basic_authenticator_password);
 
             if (Base64.getEncoder().encodeToString(own.getBytes()).equals(requestHeader.split(" ")[1])) {
-                return true;
+                return null;
             }
         }
-
-        response.setHeader(AUTHENTICATE_HEADER, "Basic realm=\"" + Fluentness.getApplication().getName() + "\"");
-        response.setStatus(401);
-        return false;
+        return response -> {
+            response.setHeader(AUTHENTICATE_HEADER, "Basic realm=\"" + Fluentness.getApplication().getName() + "\"");
+            response.setStatus(401);
+        };
     }
 
 }

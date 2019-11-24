@@ -11,10 +11,10 @@ public class AbstractWebControllerTest {
 
     @Before
     public void setUp() {
-        webController = new AbstractWebController<>(AbstractWeb.class){
+        webController = new AbstractWebController<AbstractWeb>(AbstractWeb.class){
 
             @Override
-            protected void defineRoutes() {
+            public void defineRoutes() {
 
             }
 

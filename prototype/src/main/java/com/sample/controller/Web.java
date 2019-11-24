@@ -1,26 +1,25 @@
 package com.sample.controller;
 
+import com.sample.LibraryTranslation;
 import org.fluentness.controller.web.AbstractWeb;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.style.WebStyle;
 
-import static com.sample.service.Translator.*;
-import static org.fluentness.controller.web.html.HtmlFactory.action;
 import static org.fluentness.controller.web.html.HtmlFactory.*;
 
-public class Web extends AbstractWeb<WebController> {
+public class Web extends AbstractWeb<WebController> implements LibraryTranslation {
 
-    protected Web(WebController controller) {
+    public Web(WebController controller) {
         super(controller);
     }
 
     @Override
-    public WebStyle style() {
+    public WebStyle getStyle() {
         return new WebStyle();
     }
 
     @Override
-    public WebView view(WebView toInclude) {
+    public WebView getView(WebView toInclude) {
         return html(
             head(
                 title(() -> "The book library made with Fluentness"),

@@ -1,7 +1,7 @@
 package ${package}.flow;
 
-import org.fluentness.service.translator.Locale;
-import org.fluentness.service.translator.LocaleProducer;
+import org.fluentness.controller.i18n.Locale;
+import org.fluentness.controller.i18n.LocaleProducer;
 
 public class Locales extends LocaleProducer {
 

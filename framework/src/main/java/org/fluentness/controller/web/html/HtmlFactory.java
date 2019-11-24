@@ -1,7 +1,7 @@
 package org.fluentness.controller.web.html;
 
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.controller.web.WebActionReference;
+import org.fluentness.controller.web.WebAction;
 import org.fluentness.controller.web.WebView;
 
 import java.util.ArrayList;
@@ -13,14 +13,14 @@ import java.util.function.Function;
 public final class HtmlFactory {
 
     // special web views
-    public static HtmlContainer action(WebActionReference action, WebView... html) {
+    public static HtmlContainer action(WebAction action, WebView... html) {
         List<WebView> result = new ArrayList<>();
-        result.add(_href(AbstractWebController.getPath(action)));
+        result.add(_href(AbstractWebController.getPath(action).split(" ")[1]));
         result.addAll(Arrays.asList(html));
         return a(result.toArray(new WebView[0]));
     }
 
-    public static <T> HtmlForm<T> form(Object model, WebActionReference submitAction) {
+    public static <T> HtmlForm<T> form(Object model, WebAction submitAction) {
         return new HtmlForm<>(model, submitAction);
     }
 

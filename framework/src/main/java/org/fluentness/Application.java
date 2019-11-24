@@ -3,8 +3,9 @@ package org.fluentness;
 import org.fluentness.controller.Controller;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
-import org.fluentness.service.loader.LoaderException;
+import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.loader.Loader;
+import org.fluentness.service.loader.LoaderException;
 
 import java.util.List;
 
@@ -26,9 +27,17 @@ public interface Application {
         return loader.load(this.getClass().getPackage().getName() + ".service", Service.class);
     }
 
-    Platform getPlatform();
+    default Platform getPlatform() {
+        return Platform.WEB;
+    }
 
-    Environment getEnvironment();
+    default Environment getEnvironment() {
+        return Environment.DEV;
+    }
+
+    default void configure(Configurator configurator, Environment environment) {
+
+    }
 
     enum Platform {
         CONSOLE,

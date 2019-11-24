@@ -1,11 +1,10 @@
 package org.fluentness.service.logger;
 
 import org.fluentness.service.Service;
+import org.fluentness.service.Singleton;
 import org.fluentness.service.configurator.Key;
-import static org.fluentness.service.Service.ServiceType;
-import static org.fluentness.service.Service.Type.REPLACEABLE;
 
-@ServiceType(REPLACEABLE)
+@Singleton
 public interface Logger extends Service {
 
     Key<LogLevel> logger_level = new Key<>();

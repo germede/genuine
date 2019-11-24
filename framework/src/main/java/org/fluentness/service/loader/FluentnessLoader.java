@@ -2,6 +2,7 @@ package org.fluentness.service.loader;
 
 import org.fluentness.ApplicationComponent;
 import org.fluentness.Fluentness;
+import org.fluentness.service.Singleton;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,11 +14,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static org.fluentness.service.Service.ServiceType;
-import static org.fluentness.service.Service.Type.IRREPLACEABLE;
-
-@ServiceType(IRREPLACEABLE)
-public final class FinalLoader implements Loader {
+@Singleton
+public class FluentnessLoader implements Loader {
 
     @Override
     public <T extends ApplicationComponent> List<Class<? extends T>> load(String packageName, Class<T> parent) throws LoaderException {

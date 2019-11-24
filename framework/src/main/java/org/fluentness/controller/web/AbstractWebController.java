@@ -4,43 +4,35 @@ import org.fluentness.controller.Controller;
 import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.authenticator.BasicAuthenticator;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
 
+    private static final Map<String, WebAction> globalRoutes = new HashMap<>();
+    private static final Map<Method, String> invertRoutes = new HashMap<>();
 
-    private static final Map<String, WebAction> routes = new HashMap<>();
-    private static final Map<WebActionReference, String> invertedRoutes = new HashMap<>();
-
-    public static Map<String, WebAction> getRoutes() {
-        return routes;
+    public static Map<String, WebAction> getGlobalRoutes() {
+        return globalRoutes;
     }
 
-    public static String getPath(WebActionReference action) {
-        return invertedRoutes.get(action);
+    public static String getPath(WebAction action) {
+        return invertRoutes.get(action.getMethod());
     }
 
-    public static WebAction getAction(String path) {
-        return routes.get(path);
-    }
+    protected W web;
 
-    protected final W web;
-
-    protected AbstractWebController(Class<W> web) {
+    protected AbstractWebController(Class<W> webClass) {
         try {
-            this.web = web.getConstructor(AbstractWebController.class).newInstance(this);
-            defineRoutes();
+            this.web = webClass.getConstructor(this.getClass()).newInstance(this);
+            this.defineRoutes();
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            this.web = null;
             e.printStackTrace();
         }
     }
@@ -49,80 +41,54 @@ public abstract class AbstractWebController<W extends AbstractWeb> implements Co
         return web;
     }
 
-    protected void get(String path, WebActionReference webActionReference) {
-        addRoute("GET", path, webActionReference);
+    public static void get(String path, WebAction webAction) {
+        addRoute("GET", path, webAction);
     }
 
-    protected void post(String path, WebActionReference webActionReference) {
-        addRoute("POST", path, webActionReference);
+    public static void post(String path, WebAction webAction) {
+        addRoute("POST", path, webAction);
     }
 
-    protected void head(String path, WebActionReference webActionReference) {
-        addRoute("HEAD", path, webActionReference);
+    public static void head(String path, WebAction webAction) {
+        addRoute("HEAD", path, webAction);
     }
 
-    protected void put(String path, WebActionReference webActionReference) {
-        addRoute("PUT", path, webActionReference);
+    public static void put(String path, WebAction webAction) {
+        addRoute("PUT", path, webAction);
     }
 
-    protected void patch(String path, WebActionReference webActionReference) {
-        addRoute("PATCH", path, webActionReference);
+    public static void patch(String path, WebAction webAction) {
+        addRoute("PATCH", path, webAction);
     }
 
-    protected void delete(String path, WebActionReference webActionReference) {
-        addRoute("DELETE", path, webActionReference);
+    public static void delete(String path, WebAction webAction) {
+        addRoute("DELETE", path, webAction);
     }
 
-    protected void trace(String path, WebActionReference webActionReference) {
-        addRoute("TRACE", path, webActionReference);
+    public static void trace(String path, WebAction webAction) {
+        addRoute("TRACE", path, webAction);
     }
 
-    protected void options(String path, WebActionReference webActionReference) {
-        addRoute("OPTIONS", path, webActionReference);
+    public static void options(String path, WebAction webAction) {
+        addRoute("OPTIONS", path, webAction);
     }
 
-    protected void connect(String path, WebActionReference webActionReference) {
-        addRoute("CONNECT", path, webActionReference);
+    public static void connect(String path, WebAction webAction) {
+        addRoute("CONNECT", path, webAction);
     }
 
-    protected Response redirect(WebActionReference webActionReference) {
-        return response -> {
-            response.setStatus(301);
-            response.setHeader("Location", getPath(webActionReference));
-        };
-    }
-
-    protected Response redirect(String url) {
-        return response -> {
-            response.setStatus(301);
-            response.setHeader("Location", url);
-        };
-    }
-
-    private void addRoute(String method, String path, WebActionReference webActionReference) {
-        path = method + " " + path;
-        routes.put(path, new WebAction(webActionReference, this));
-        invertedRoutes.put(webActionReference, path);
-    }
-
-    protected abstract void defineRoutes();
-
-    public static class Request extends HttpServletRequestWrapper {
-
-
-        private String pathVariable;
-
-        public Request(HttpServletRequest request) {
-            super(request);
-            request.getRequestURI();
+    private static void addRoute(String method, String path, WebAction webAction) {
+        if (webAction.getMethod() == null) {
+            System.err.println("Web action referenced method for path " + path + " must be public");
+            System.exit(1);
         }
+        path = method + " " + path;
+        globalRoutes.put(path, webAction);
+        invertRoutes.put(webAction.getMethod(), path);
     }
-    @FunctionalInterface
-    public interface Response {
 
-        void response(HttpServletResponse response);
+    public abstract void defineRoutes();
 
-    }
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     public @interface Authentication {

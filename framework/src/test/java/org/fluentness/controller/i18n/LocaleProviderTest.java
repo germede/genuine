@@ -1,4 +1,4 @@
-package org.fluentness.service.translator;
+package org.fluentness.controller.i18n;
 
 public class LocaleProviderTest {
 
