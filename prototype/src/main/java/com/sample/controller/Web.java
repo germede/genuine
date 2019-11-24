@@ -1,13 +1,13 @@
 package com.sample.controller;
 
-import com.sample.LibraryTranslation;
 import org.fluentness.controller.web.AbstractWeb;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.style.WebStyle;
 
+import static com.sample.LibraryTranslation.*;
 import static org.fluentness.controller.web.html.HtmlFactory.*;
 
-public class Web extends AbstractWeb<WebController> implements LibraryTranslation {
+public class Web extends AbstractWeb<WebController> {
 
     public Web(WebController controller) {
         super(controller);

@@ -1,14 +1,16 @@
 package com.sample.controller;
 
-import com.sample.LibraryTranslation;
 import com.sample.repository.*;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.service.dispatcher.Request;
 
+import static com.sample.LibraryTranslation.page_not_found;
+import static org.fluentness.Translation.create;
+import static org.fluentness.Translation.faulty;
 import static org.fluentness.controller.web.html.HtmlFactory.*;
 
-public class WebController extends AbstractWebController<Web> implements LibraryTranslation {
+public class WebController extends AbstractWebController<Web> {
 
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;

@@ -39,7 +39,6 @@ public class Translation {
         return String.format(translations.getOrDefault(Locale.getDefault().getLanguage(), fallback), parameters);
     }
 
-
     public static class Message {
         private final String language;
         private final String message;
