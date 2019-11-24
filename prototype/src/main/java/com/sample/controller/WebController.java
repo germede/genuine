@@ -36,7 +36,7 @@ public class WebController extends AbstractWebController<Web> {
         get("/books/delete/1", this::deleteBook);
         get("/authors", this::authors);
         get("/authors", this::authors);
-        get("/authors/create", this::authors);
+        get("/authors/create", this::createAuthor);
         get("/users", this::users);
         get("/users/create", this::createUser);
         get("/404", this::notFound);

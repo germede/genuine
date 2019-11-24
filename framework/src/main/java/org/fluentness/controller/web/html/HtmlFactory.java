@@ -15,7 +15,10 @@ public final class HtmlFactory {
     // special web views
     public static HtmlContainer action(WebAction action, WebView... html) {
         List<WebView> result = new ArrayList<>();
-        result.add(_href(AbstractWebController.getPath(action).split(" ")[1]));
+        String path = AbstractWebController.getPath(action);
+        if (path != null) {
+            result.add(_href(path.split(" ")[1]));
+        }
         result.addAll(Arrays.asList(html));
         return a(result.toArray(new WebView[0]));
     }
