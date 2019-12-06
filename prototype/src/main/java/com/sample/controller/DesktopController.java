@@ -21,7 +21,7 @@ public class DesktopController extends AbstractDesktopController<Desktop> {
         AuthorRepository authorRepository,
         UserRepository userRepository
     ) {
-        super(new Desktop());
+        super(Desktop.class);
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.userRepository = userRepository;

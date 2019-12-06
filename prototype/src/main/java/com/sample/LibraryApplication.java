@@ -12,19 +12,26 @@ import org.fluentness.service.server.Server;
 
 import static org.fluentness.Application.Environment.DEV;
 import static org.fluentness.Application.Environment.PROD;
+import static org.fluentness.Application.Platform.WEB;
 
 public class LibraryApplication implements Application {
 
+
+    @Override
+    public Environment getEnvironment() {
+        return DEV;
+    }
+
     @Override
     public Platform getPlatform() {
-        return Platform.WEB;
+        return WEB;
     }
 
     @Override
     public void configure(Configurator configurator, Environment environment) {
         if (environment.equals(DEV)) {
             configurator.set(Server.server_port, 8000);
-            configurator.set(Logger.logger_level, LogLevel.INFO);
+            configurator.set(Logger.logger_level, LogLevel.DEBUG);
             configurator.set(Logger.logger_console, true);
             configurator.set(Persistence.persistence_unit, "bookLibraryPU");
             configurator.set(BasicAuthenticator.basic_authenticator_username, "admin");

@@ -1,15 +1,14 @@
 package org.fluentness.service.dispatcher;
 
-import org.fluentness.controller.web.WebAction;
-
-import static org.fluentness.controller.web.AbstractWebController.getPath;
+import org.fluentness.controller.web.AbstractWebController;
+import org.fluentness.controller.web.WebActionReference;
 
 public final class ResponseFactory {
 
-    public static Response redirect(WebAction webAction) {
+    public static Response redirect(WebActionReference action) {
         return response -> {
             response.setStatus(301);
-            response.setHeader("Location", getPath(webAction));
+            response.setHeader("Location", action.getMethod().getAnnotation(AbstractWebController.Action.class).path());
         };
     }
 

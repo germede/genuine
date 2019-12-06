@@ -4,9 +4,9 @@ import org.fluentness.controller.desktop.style.DesktopStyle;
 
 public abstract class AbstractDesktop<C extends AbstractDesktopController> {
 
-    protected C controller;
+    protected final C controller;
 
-    void setController(C controller) {
+    public AbstractDesktop(C controller) {
         this.controller = controller;
     }
 

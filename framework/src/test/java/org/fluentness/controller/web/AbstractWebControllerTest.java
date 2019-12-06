@@ -13,10 +13,6 @@ public class AbstractWebControllerTest {
     public void setUp() {
         webController = new AbstractWebController<AbstractWeb>(AbstractWeb.class){
 
-            @Override
-            public void defineRoutes() {
-
-            }
 
             public void notAnActionBecauseNoActionAnnotation() {
             }

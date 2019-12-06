@@ -27,26 +27,12 @@ public class WebController extends AbstractWebController<Web> {
         this.userRepository = userRepository;
     }
 
-    @Override
-    public void defineRoutes() {
-        get("/", this::index);
-        get("/books", this::books);
-        get("/books/create", this::createBook);
-        get("/books/update/1", this::updateBook);
-        get("/books/delete/1", this::deleteBook);
-        get("/authors", this::authors);
-        get("/authors", this::authors);
-        get("/authors/create", this::createAuthor);
-        get("/users", this::users);
-        get("/users/create", this::createUser);
-        get("/404", this::notFound);
-        get("/500", this::serverError);
-    }
-
+    @Action(path = "/")
     public WebView index(Request request) {
         return books(request);
     }
 
+    @Action(path = "/books")
     public WebView books(Request request) {
         return div(
             table(bookRepository.findAll(Book.class)).appendColumn(book ->
@@ -62,6 +48,7 @@ public class WebController extends AbstractWebController<Web> {
         );
     }
 
+    @Action(path = "/books/create")
     public WebView createBook(Request request) {
         return div(
             h2(create::translate),
@@ -69,14 +56,17 @@ public class WebController extends AbstractWebController<Web> {
         );
     }
 
+    @Action(path = "/books/update/<id>")
     public String updateBook(Request request) {
         return "asdf";
     }
 
+    @Action(path = "/books/delete/<id>")
     public String deleteBook(Request request) {
         return "asdf";
     }
 
+    @Action(path = "/authors")
     public WebView authors(Request request) {
         return div(
             table(authorRepository.findAll(Author.class)),
@@ -84,6 +74,7 @@ public class WebController extends AbstractWebController<Web> {
         );
     }
 
+    @Action(path = "/authors/create")
     public WebView createAuthor(Request request) {
         return div(
             h2(create::translate),
@@ -91,6 +82,7 @@ public class WebController extends AbstractWebController<Web> {
         );
     }
 
+    @Action(path = "/users")
     public WebView users(Request request) {
         return div(
             table(userRepository.findAll(User.class)),
@@ -98,6 +90,7 @@ public class WebController extends AbstractWebController<Web> {
         );
     }
 
+    @Action(path = "/users/create")
     public WebView createUser(Request request) {
         return div(
             h2(create::translate),
@@ -105,10 +98,12 @@ public class WebController extends AbstractWebController<Web> {
         );
     }
 
+    @Action(path = "/404")
     public WebView notFound(Request request) {
         return page_not_found::translate;
     }
 
+    @Action(path = "/500")
     public WebView serverError(Request request) {
         return faulty::translate;
     }

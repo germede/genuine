@@ -13,9 +13,17 @@ import static org.fluentness.controller.desktop.swing.SwingViewFactory.*;
 
 public class Desktop extends AbstractDesktop<DesktopController> {
 
+    public Desktop(DesktopController controller) {
+        super(controller);
+    }
+
     @Override
     public DesktopStyle getStyle() {
         return ubuntuStyle(
+
+//            byId("")
+
+
             byClass(JTable.class, jTable -> jTable.setDragEnabled(false))
         );
     }
@@ -23,7 +31,7 @@ public class Desktop extends AbstractDesktop<DesktopController> {
 
     @Override
     public DesktopView getView() {
-        return frame(
+        return frame("Fluentness rocks",
             panel(
                 panel(
                     colorChooser(),

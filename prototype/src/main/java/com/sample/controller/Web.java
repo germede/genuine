@@ -15,7 +15,13 @@ public class Web extends AbstractWeb<WebController> {
 
     @Override
     public WebStyle getStyle() {
-        return new WebStyle();
+        return new WebStyle(
+//
+//            byTag(""),
+//            byClass(""),
+//            byId("")
+
+        );
     }
 
     @Override
@@ -32,7 +38,9 @@ public class Web extends AbstractWeb<WebController> {
             ),
             body(
                 div(_class("container"),
-                    h2(_class("text_center"), welcome_message::translate),
+                    h2(_class("text_center"),
+                        welcome_message::translate
+                    ),
                     nav(
                         ul(_class("navigation_list"),
                             li(_class("navigation_item"),

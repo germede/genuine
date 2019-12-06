@@ -7,7 +7,7 @@ import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Method;
 
 @FunctionalInterface
-public interface WebAction extends Serializable {
+public interface WebActionReference extends Serializable {
 
     Object execute(Request request);
 
@@ -28,4 +28,11 @@ public interface WebAction extends Serializable {
         return null;
     }
 
+    default String getPath() {
+        return getMethod().getAnnotation(AbstractWebController.Action.class).path();
+    }
+
+    default String getHttpMethod() {
+        return getMethod().getAnnotation(AbstractWebController.Action.class).method();
+    }
 }

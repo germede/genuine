@@ -10,89 +10,57 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 
 public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
 
-    private static final Map<String, WebAction> globalRoutes = new HashMap<>();
-    private static final Map<Method, String> invertRoutes = new HashMap<>();
+    private static final HashMap<String, Method> routes = new HashMap<>();
 
-    public static Map<String, WebAction> getGlobalRoutes() {
-        return globalRoutes;
+    public static HashMap<String, Method> getRoutes() {
+        return routes;
     }
 
-    public static String getPath(WebAction action) {
-        return invertRoutes.get(action.getMethod());
-    }
-
-    protected W web;
+    protected final W web;
 
     protected AbstractWebController(Class<W> webClass) {
+        W web = null;
         try {
-            this.web = webClass.getConstructor(this.getClass()).newInstance(this);
-            this.defineRoutes();
+            web = webClass.getConstructor(this.getClass()).newInstance(this);
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
+        this.web = web;
+
+        Arrays.stream(this.getClass().getMethods())
+            .filter(method -> method.isAnnotationPresent(AbstractWebController.Action.class))
+            .forEach(method ->
+                routes.put(
+                    method.getAnnotation(AbstractWebController.Action.class).method() +
+                        " " +
+                        method.getAnnotation(AbstractWebController.Action.class).path(),
+                    method
+                )
+            );
     }
 
     public final W getWeb() {
         return web;
     }
 
-    public static void get(String path, WebAction webAction) {
-        addRoute("GET", path, webAction);
-    }
-
-    public static void post(String path, WebAction webAction) {
-        addRoute("POST", path, webAction);
-    }
-
-    public static void head(String path, WebAction webAction) {
-        addRoute("HEAD", path, webAction);
-    }
-
-    public static void put(String path, WebAction webAction) {
-        addRoute("PUT", path, webAction);
-    }
-
-    public static void patch(String path, WebAction webAction) {
-        addRoute("PATCH", path, webAction);
-    }
-
-    public static void delete(String path, WebAction webAction) {
-        addRoute("DELETE", path, webAction);
-    }
-
-    public static void trace(String path, WebAction webAction) {
-        addRoute("TRACE", path, webAction);
-    }
-
-    public static void options(String path, WebAction webAction) {
-        addRoute("OPTIONS", path, webAction);
-    }
-
-    public static void connect(String path, WebAction webAction) {
-        addRoute("CONNECT", path, webAction);
-    }
-
-    private static void addRoute(String method, String path, WebAction webAction) {
-        if (webAction.getMethod() == null) {
-            System.err.println("Web action referenced method for path " + path + " must be public");
-            System.exit(1);
-        }
-        path = method + " " + path;
-        globalRoutes.put(path, webAction);
-        invertRoutes.put(webAction.getMethod(), path);
-    }
-
-    public abstract void defineRoutes();
-
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     public @interface Authentication {
-
         Class<? extends Authenticator>[] authenticators() default BasicAuthenticator.class;
+    }
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Action {
+        String path();
+
+        String method() default "GET";
+
+        boolean cache() default true;
     }
 }

@@ -2,7 +2,7 @@
 
 ## Introduction
 Fluentness is intended to be an open-source, easy-to-learn, fully-integrated, 
-multi-platform, inter-operable, consistent and flexible 
+multi-platform, convergent, consistent and flexible 
 application development framework. After a quick-start you'll be able to:
 * develop both rich desktop applications based on Swing without headaches and 
 dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls 
