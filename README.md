@@ -2,17 +2,16 @@
 
 ## Introduction
 Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
-multi-platform, convergent, consistent and flexible 
-application development framework. After a quick-start you'll be able to:
+multi-platform, consistent and flexible Java development framework. After a quick-start you'll be able to:
 * develop rich desktop applications based on Swing without headaches, 
 dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls
 or maybe the next top Android-App
 * scale from small XML-based REST-Web-Services to fully-featured enterprise Apps 
-with small footprint (few dependencies), yet out-of-the-box runnable
+with small footprint (few dependencies), yet out-of-the-box runnable like Spring Boot
 * respect standards and coding guidelines as far as possible, but applying own, 
 well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture)
-* enjoy the advantages of developing in Java such as: type safety, performance
-, maturity, wide acceptance and knowledge, nice support of functional programming
+* enjoy the advantages of developing in Java such as: type safety, performance, 
+maturity, wide acceptance and knowledge, nice support of functional programming
 , "Write once, run everywhere" and "3 billion devices run Java" ;) 
 
 ## Decalogue
@@ -73,7 +72,6 @@ This project is based on these open-source technologies:
 - Apache [Maven](https://maven.apache.org/) for building and distributing the framework itself, projects based on it and their dependencies
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
 - [Git](https://git-scm.com/) as VCS (Sorry for the wild commiting on the master branch)
-- [IntelliJ IDEA](https://www.jetbrains.com/idea/) as IDE
 - [Inkscape](https://inkscape.org/) with fonts Arial, [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the art logos
 - Much Engagement :muscle:
 
