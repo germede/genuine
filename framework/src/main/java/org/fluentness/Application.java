@@ -42,12 +42,14 @@ public interface Application {
     enum Platform {
         CONSOLE,
         DESKTOP,
+        MOBILE,
         WEB,
     }
 
     enum Environment {
         DEV,
         TEST,
+        STAGE,
         PROD,
     }
 

@@ -1,18 +1,19 @@
 ![Fluentness logo](framework/src/main/resources/art/logo.png?raw=true "Fluentness logo")
 
 ## Introduction
-Fluentness is intended to be an open-source, easy-to-learn, fully-integrated, 
+Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
 multi-platform, convergent, consistent and flexible 
 application development framework. After a quick-start you'll be able to:
-* develop both rich desktop applications based on Swing without headaches and 
-dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls 
+* develop rich desktop applications based on Swing without headaches, 
+dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls
+or maybe the next top Android-App
 * scale from small XML-based REST-Web-Services to fully-featured enterprise Apps 
 with small footprint (few dependencies), yet out-of-the-box runnable
 * respect standards and coding guidelines as far as possible, but applying own, 
 well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture)
 * enjoy the advantages of developing in Java such as: type safety, performance
 , maturity, wide acceptance and knowledge, nice support of functional programming
-, "Write once, run everywhere", "3 billion devices run Java" ;) 
+, "Write once, run everywhere" and "3 billion devices run Java" ;) 
 
 ## Decalogue
 
