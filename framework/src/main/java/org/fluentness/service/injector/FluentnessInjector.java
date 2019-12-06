@@ -64,7 +64,7 @@ public class FluentnessInjector implements Injector {
                 inject(cClass, declaredConstructors[0]);
 
             if (Configurator.class.isAssignableFrom(cClass)) {
-                Fluentness.getApplication().configure((Configurator) instance, Fluentness.getApplication().getEnvironment());
+                Fluentness.getApplication().configure((Configurator) instance);
             }
 
             instances.put(cClass, instance);

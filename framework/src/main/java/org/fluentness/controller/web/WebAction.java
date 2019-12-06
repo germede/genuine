@@ -7,7 +7,7 @@ import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Method;
 
 @FunctionalInterface
-public interface WebActionReference extends Serializable {
+public interface WebAction extends Serializable {
 
     Object execute(Request request);
 

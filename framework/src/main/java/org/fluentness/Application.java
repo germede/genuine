@@ -27,17 +27,11 @@ public interface Application {
         return loader.load(this.getClass().getPackage().getName() + ".service", Service.class);
     }
 
-    default Platform getPlatform() {
-        return Platform.WEB;
-    }
+    void configure(Configurator configurator);
 
-    default Environment getEnvironment() {
-        return Environment.DEV;
-    }
+    Platform getPlatform();
 
-    default void configure(Configurator configurator, Environment environment) {
-
-    }
+    Environment getEnvironment();
 
     enum Platform {
         CONSOLE,

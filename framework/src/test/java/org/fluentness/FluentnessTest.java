@@ -1,6 +1,7 @@
 package org.fluentness;
 
 import org.fluentness.controller.console.AbstractConsoleController;
+import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.injector.Injector;
 import org.junit.Before;
 
@@ -22,6 +23,11 @@ public class FluentnessTest {
     @Before
     public void setUp() {
         application = new Application() {
+            @Override
+            public void configure(Configurator configurator) {
+
+            }
+
             @Override
             public Platform getPlatform() {
                 return null;

@@ -1,6 +1,6 @@
 package org.fluentness.controller.web.html;
 
-import org.fluentness.controller.web.WebActionReference;
+import org.fluentness.controller.web.WebAction;
 import org.fluentness.controller.web.WebView;
 
 import java.util.LinkedList;
@@ -10,14 +10,14 @@ import java.util.function.Function;
 public final class HtmlFactory {
 
     // special web views
-    public static HtmlContainer action(WebActionReference action, WebView... html) {
+    public static HtmlContainer action(WebAction action, WebView... html) {
         WebView[] args = new WebView[html.length + 1];
         System.arraycopy(html, 0, args, 0, html.length);
         args[html.length] = _href(action.getPath());
         return a(args);
     }
 
-    public static <T> HtmlForm<T> form(Object model, WebActionReference submitAction) {
+    public static <T> HtmlForm<T> form(Object model, WebAction submitAction) {
         return new HtmlForm<>(model, submitAction);
     }
 

@@ -1,7 +1,6 @@
 package org.fluentness.controller.web.html;
 
-import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.controller.web.WebActionReference;
+import org.fluentness.controller.web.WebAction;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.repository.Model;
 
@@ -14,11 +13,11 @@ import static org.fluentness.controller.web.html.HtmlFactory.*;
 public class HtmlForm<T> extends HtmlContainer {
 
 
-    public HtmlForm(Object model, WebActionReference action) {
+    public HtmlForm(Object model, WebAction action) {
         super("form", renderForm(model, action));
     }
 
-    private static WebView[] renderForm(Object object, WebActionReference action) {
+    private static WebView[] renderForm(Object object, WebAction action) {
         List<WebView> result = new LinkedList<>();
         result.add(_method(action.getHttpMethod()));
         result.add(_action(action.getPath()));
