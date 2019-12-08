@@ -17,7 +17,7 @@ public class JulLogger implements Logger {
 
     public JulLogger(Configurator configurator) throws Exception {
         // retrieve log level
-        Level logLevel = configurator.getOrDefault(logger_level, LogLevel.DEBUG).toJulLevel();
+        Level logLevel = configurator.getOrDefault(LEVEL, LogLevel.DEBUG).toJulLevel();
 
         // init jul logger
         logger = java.util.logging.Logger.getGlobal();
@@ -26,7 +26,7 @@ public class JulLogger implements Logger {
         logger.setLevel(logLevel);
 
         // console logging
-        if (configurator.getOrDefault(logger_console, true)) {
+        if (configurator.getOrDefault(CONSOLE, true)) {
             ConsoleHandler consoleHandler = new ConsoleHandler(){
                 @Override
                 protected synchronized void setOutputStream(OutputStream outputStream) throws SecurityException {
@@ -39,9 +39,9 @@ public class JulLogger implements Logger {
         }
 
         // file logging
-        if (configurator.has(logger_file)) {
-            new File(configurator.get(logger_file)).mkdirs();
-            String logFilePath = configurator.get(logger_file) + "/" +
+        if (configurator.has(FILE)) {
+            new File(configurator.get(FILE)).mkdirs();
+            String logFilePath = configurator.get(FILE) + "/" +
                 new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
             File file = new File(logFilePath);
             FileHandler fileHandler;

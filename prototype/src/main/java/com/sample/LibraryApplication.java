@@ -17,17 +17,19 @@ public class LibraryApplication implements Application {
 
     @Override
     public void configure(Configurator configurator) {
-        configurator.set(Server.server_port, 8000);
-        configurator.set(Logger.logger_level, LogLevel.DEBUG);
-        configurator.set(Logger.logger_console, true);
-        configurator.set(Persistence.persistence_unit, "bookLibraryPU");
-        configurator.set(BasicAuthenticator.basic_authenticator_username, "admin");
-        configurator.set(BasicAuthenticator.basic_authenticator_password, "admin");
+        configurator.set(Server.PORT, 8000);
+        configurator.set(Logger.LEVEL, LogLevel.DEBUG);
+        configurator.set(Logger.CONSOLE, true);
+        configurator.set(Persistence.JDBC_URL, "jdbc:mysql://localhost:3306/party");
+        configurator.set(Persistence.USERNAME, "party");
+        configurator.set(Persistence.PASSWORD, "party");
+        configurator.set(BasicAuthenticator.USERNAME, "admin");
+        configurator.set(BasicAuthenticator.PASSWORD, "admin");
         switch (getEnvironment()) {
             case PROD:
-                configurator.set(Server.server_port, 80);
-                configurator.set(Logger.logger_level, LogLevel.ERROR);
-                configurator.set(Logger.logger_console, true);
+                configurator.set(Server.PORT, 80);
+                configurator.set(Logger.LEVEL, LogLevel.ERROR);
+                configurator.set(Logger.CONSOLE, true);
         }
 
     }

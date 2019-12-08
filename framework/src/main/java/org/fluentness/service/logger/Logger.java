@@ -7,9 +7,9 @@ import org.fluentness.service.configurator.Key;
 @Singleton
 public interface Logger extends Service {
 
-    Key<LogLevel> logger_level = new Key<>();
-    Key<Boolean> logger_console = new Key<>();
-    Key<String> logger_file = new Key<>();
+    Key<LogLevel> LEVEL = new Key<>();
+    Key<Boolean> CONSOLE = new Key<>();
+    Key<String> FILE = new Key<>();
 
     void log(LogLevel logLevel, String message, Object... parameters);
 

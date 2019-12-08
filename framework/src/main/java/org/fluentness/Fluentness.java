@@ -11,10 +11,10 @@ import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.authenticator.BasicAuthenticator;
 import org.fluentness.service.cache.MemoryCache;
-import org.fluentness.service.configurator.DefaultConfigurator;
-import org.fluentness.service.injector.FluentnessInjector;
+import org.fluentness.service.configurator.MapConfigurator;
+import org.fluentness.service.injector.FinalInjector;
 import org.fluentness.service.injector.Injector;
-import org.fluentness.service.loader.FluentnessLoader;
+import org.fluentness.service.loader.FinalLoader;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.service.logger.JulLogger;
 import org.fluentness.service.mailer.SocketMailer;
@@ -54,10 +54,10 @@ public final class Fluentness {
     }
 
     private static Injector makeInjector(Application application) throws FluentnessException {
-        Loader loader = new FluentnessLoader();
+        Loader loader = new FinalLoader();
 
         List<Class<? extends Service>> services = application.getServices(loader);
-        services.add(DefaultConfigurator.class);
+        services.add(MapConfigurator.class);
         services.add(JulLogger.class);
         services.add(SocketMailer.class);
         services.add(OpenJpaPersistence.class);
@@ -72,7 +72,7 @@ public final class Fluentness {
         List<Class<? extends Controller>> controllers = application.getControllers(loader);
         controllers.add(DefaultConsoleController.class);
 
-        return new FluentnessInjector(loader, services, repositories, controllers);
+        return new FinalInjector(loader, services, repositories, controllers);
     }
 
     private static void console(Injector injector, Application application, String[] args) throws FluentnessException {

@@ -47,10 +47,10 @@ public class SunServer implements Server {
         this.injector = injector;
         this.logger = logger;
 
-        this.port = configurator.getOrDefault(server_port, 8000);
-        this.context = configurator.getOrDefault(server_context, "/");
-        this.response_encoding = configurator.getOrDefault(server_response_encoding, "UTF-8");
-        this.single_page_mode = configurator.getOrDefault(server_single_page_mode, true);
+        this.port = configurator.getOrDefault(Server.PORT, 8000);
+        this.context = configurator.getOrDefault(Server.CONTEXT, "/");
+        this.response_encoding = configurator.getOrDefault(Server.RESPONSE_ENCODING, "UTF-8");
+        this.single_page_mode = configurator.getOrDefault(Server.SINGLE_PAGE_MODE, true);
 
         this.routes = AbstractWebController.getRoutes();
         this.authenticators = injector.getInstances(Authenticator.class)

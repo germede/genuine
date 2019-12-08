@@ -15,7 +15,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 @Singleton
-public class FluentnessLoader implements Loader {
+public class FinalLoader implements Loader {
 
     @Override
     public <T extends ApplicationComponent> List<Class<? extends T>> load(String packageName, Class<T> parent) throws LoaderException {

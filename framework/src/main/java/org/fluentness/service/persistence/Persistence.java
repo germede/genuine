@@ -10,7 +10,9 @@ import javax.persistence.Query;
 @Singleton
 public interface Persistence extends Service {
 
-    Key<String> persistence_unit = new Key<>();
+    Key<String> JDBC_URL = new Key<>();
+    Key<String> USERNAME = new Key<>();
+    Key<String> PASSWORD = new Key<>();
 
     EntityManager getEntityManager();
 

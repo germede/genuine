@@ -7,7 +7,7 @@ import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.Singleton;
 import org.fluentness.service.configurator.Configurator;
-import org.fluentness.service.loader.FluentnessLoader;
+import org.fluentness.service.loader.FinalLoader;
 import org.fluentness.service.loader.Loader;
 
 import java.lang.reflect.Constructor;
@@ -20,20 +20,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class FluentnessInjector implements Injector {
+public class FinalInjector implements Injector {
 
     private Map<Class, Object> instances = new LinkedHashMap<>();
 
-    public FluentnessInjector(Loader loader,
-                              List<Class<? extends Service>> services,
-                              List<Class<? extends Repository>> repositories,
-                              List<Class<? extends Controller>> controllers
+    public FinalInjector(Loader loader,
+                         List<Class<? extends Service>> services,
+                         List<Class<? extends Repository>> repositories,
+                         List<Class<? extends Controller>> controllers
     ) throws InjectorException {
+
         // add itself and loader service for other classes
         instances.put(Injector.class, this);
-        instances.put(FluentnessInjector.class, this);
+        instances.put(FinalInjector.class, this);
         instances.put(Loader.class, loader);
-        instances.put(FluentnessLoader.class, loader);
+        instances.put(FinalLoader.class, loader);
 
         // instantiate application components
         for (Class<? extends Service> service : services) inject(service);
