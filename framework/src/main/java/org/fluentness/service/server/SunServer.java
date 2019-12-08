@@ -22,8 +22,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.fluentness.controller.web.html.HtmlFactory._id;
-import static org.fluentness.controller.web.html.HtmlFactory.div;
+import static org.fluentness.controller.web.view.HtmlFactory._id;
+import static org.fluentness.controller.web.view.HtmlFactory.div;
 
 public class SunServer implements Server {
 

@@ -8,7 +8,7 @@ import org.fluentness.service.server.Request;
 import static com.sample.LibraryTranslation.page_not_found;
 import static org.fluentness.Translation.create;
 import static org.fluentness.Translation.faulty;
-import static org.fluentness.controller.web.html.HtmlFactory.*;
+import static org.fluentness.controller.web.view.HtmlFactory.*;
 
 public class WebController extends AbstractWebController<Web> {
 

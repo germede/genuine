@@ -3,13 +3,13 @@ package com.sample.controller;
 import org.fluentness.controller.desktop.AbstractDesktop;
 import org.fluentness.controller.desktop.DesktopView;
 import org.fluentness.controller.desktop.style.DesktopStyle;
-import org.fluentness.controller.desktop.swing.component.MenuBarView;
+import org.fluentness.controller.desktop.view.component.MenuBarView;
 
 import javax.swing.*;
 import java.awt.*;
 
 import static org.fluentness.controller.desktop.style.DesktopStyleFactory.*;
-import static org.fluentness.controller.desktop.swing.SwingViewFactory.*;
+import static org.fluentness.controller.desktop.view.SwingViewFactory.*;
 
 public class Desktop extends AbstractDesktop<DesktopController> {
 

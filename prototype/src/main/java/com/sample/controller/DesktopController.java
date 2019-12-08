@@ -4,7 +4,7 @@ import com.sample.repository.AuthorRepository;
 import com.sample.repository.BookRepository;
 import com.sample.repository.UserRepository;
 import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.controller.desktop.swing.SwingViewRegistry;
+import org.fluentness.controller.desktop.view.SwingViewRegistry;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;

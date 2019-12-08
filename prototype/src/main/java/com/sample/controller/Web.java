@@ -5,7 +5,7 @@ import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.style.WebStyle;
 
 import static com.sample.LibraryTranslation.*;
-import static org.fluentness.controller.web.html.HtmlFactory.*;
+import static org.fluentness.controller.web.view.HtmlFactory.*;
 
 public class Web extends AbstractWeb<WebController> {
 
