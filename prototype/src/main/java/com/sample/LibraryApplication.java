@@ -11,7 +11,7 @@ import org.fluentness.service.persistence.Persistence;
 import org.fluentness.service.server.Server;
 
 import static org.fluentness.Application.Environment.DEV;
-import static org.fluentness.Application.Platform.DESKTOP;
+import static org.fluentness.Application.Platform.WEB;
 
 public class LibraryApplication implements Application {
 
@@ -39,7 +39,7 @@ public class LibraryApplication implements Application {
 
     @Override
     public Platform getPlatform() {
-        return DESKTOP;
+        return WEB;
     }
 
     public static void main(String[] args) throws FluentnessException {

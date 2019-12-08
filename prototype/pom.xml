@@ -21,7 +21,7 @@
             <version>0.1.0</version>
         </dependency>
 
-        <!--Include the drive you need instead-->
+        <!--Include the driver you need instead-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

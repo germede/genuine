@@ -1,6 +1,6 @@
 package org.fluentness.controller.desktop.style;
 
-import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
+//import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -24,7 +24,7 @@ public class UbuntuDesktopStyle extends DesktopStyle {
     protected static final Font UBUNTU_FONT = new Font("Ubuntu", Font.PLAIN, 14);
 
     protected UbuntuDesktopStyle(Style[] extraStyles) {
-        super(new GTKLookAndFeel());
+        super(UIManager.getLookAndFeel());
         styles.add(panel());
         styles.add(menuItem());
         styles.add(menu());
