@@ -9,19 +9,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/out/generated-sources/r" isTestSource="false" generated="true" />
-      <excludeFolder url="file://$MODULE_DIR$/out/AndroidManifest.xml" />
-      <excludeFolder url="file://$MODULE_DIR$/out/classes" />
-      <excludeFolder url="file://$MODULE_DIR$/out/generated-sources/aidl" />
-      <excludeFolder url="file://$MODULE_DIR$/out/generated-sources/annotations" />
-      <excludeFolder url="file://$MODULE_DIR$/out/generated-test-sources" />
-      <excludeFolder url="file://$MODULE_DIR$/out/maven-status" />
-      <excludeFolder url="file://$MODULE_DIR$/out/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/out" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="jdk" jdkName="Maven Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.5.42" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-annotations-api:8.5.42" level="project" />
     <orderEntry type="library" name="Maven: org.apache.openjpa:openjpa-all:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4.7" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />

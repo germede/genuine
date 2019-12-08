@@ -12,7 +12,7 @@ public interface Server extends Service {
     Key<String> server_response_encoding = new Key<>();
     Key<Boolean> server_single_page_mode = new Key<>();
 
-    void start() throws ServerException;
+    void start();
 
     void stop();
 }

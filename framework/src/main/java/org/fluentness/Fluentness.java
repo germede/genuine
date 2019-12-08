@@ -12,16 +12,14 @@ import org.fluentness.service.Service;
 import org.fluentness.service.authenticator.BasicAuthenticator;
 import org.fluentness.service.cache.MemoryCache;
 import org.fluentness.service.configurator.DefaultConfigurator;
-import org.fluentness.service.dispatcher.FluentnessDispatcher;
 import org.fluentness.service.injector.FluentnessInjector;
 import org.fluentness.service.injector.Injector;
 import org.fluentness.service.loader.FluentnessLoader;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.service.logger.JulLogger;
-import org.fluentness.service.mailer.JavaxMailer;
 import org.fluentness.service.persistence.OpenJpaPersistence;
 import org.fluentness.service.server.Server;
-import org.fluentness.service.server.TomcatServer;
+import org.fluentness.service.server.SunServer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -60,13 +58,12 @@ public final class Fluentness {
         List<Class<? extends Service>> services = application.getServices(loader);
         services.add(DefaultConfigurator.class);
         services.add(JulLogger.class);
-        services.add(JavaxMailer.class);
+//        services.add(JavaxMailer.class);
         services.add(OpenJpaPersistence.class);
         if (application.getPlatform().equals(Application.Platform.WEB)) {
             services.add(MemoryCache.class);
             services.add(BasicAuthenticator.class);
-            services.add(FluentnessDispatcher.class);
-            services.add(TomcatServer.class);
+            services.add(SunServer.class);
         }
 
         List<Class<? extends Repository>> repositories = application.getRepositories(loader);

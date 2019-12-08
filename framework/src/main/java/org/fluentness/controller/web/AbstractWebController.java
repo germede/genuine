@@ -63,4 +63,5 @@ public abstract class AbstractWebController<W extends AbstractWeb> implements Co
 
         boolean cache() default true;
     }
+
 }

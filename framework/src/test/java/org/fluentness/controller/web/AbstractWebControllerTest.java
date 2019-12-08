@@ -2,9 +2,6 @@ package org.fluentness.controller.web;
 
 import org.junit.Before;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 public class AbstractWebControllerTest {
 
     private AbstractWebController<AbstractWeb> webController;
@@ -37,10 +34,6 @@ public class AbstractWebControllerTest {
                 return 200;
             }
 
-            public void testResponse(HttpServletResponse response) throws IOException {
-                response.setStatus(404);
-                response.getWriter().println("Not found");
-            }
 
             public WebView testView() {
                 return new WebView() {

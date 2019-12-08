@@ -1,10 +1,8 @@
 package org.fluentness.service.authenticator;
 
-import org.fluentness.Fluentness;
 import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.configurator.Key;
-import org.fluentness.service.dispatcher.Request;
-import org.fluentness.service.dispatcher.Response;
+import org.fluentness.service.server.Request;
 
 import java.util.Base64;
 
@@ -23,8 +21,8 @@ public class BasicAuthenticator implements Authenticator {
     }
 
     @Override
-    public Response authenticate(Request request) {
-        String requestHeader = request.getHeader(AUTHORIZATION_HEADER);
+    public boolean authenticate(Request request) {
+        String requestHeader = request.getHeaders().get(AUTHORIZATION_HEADER).get(0);
 
         if (requestHeader != null &&
             requestHeader.startsWith("Basic ") &&
@@ -34,13 +32,10 @@ public class BasicAuthenticator implements Authenticator {
             String own = configurator.get(basic_authenticator_username) + ":" + configurator.get(basic_authenticator_password);
 
             if (Base64.getEncoder().encodeToString(own.getBytes()).equals(requestHeader.split(" ")[1])) {
-                return null;
+                return true;
             }
         }
-        return response -> {
-            response.setHeader(AUTHENTICATE_HEADER, "Basic realm=\"" + Fluentness.getApplication().getName() + "\"");
-            response.setStatus(401);
-        };
+        return false;
     }
 
 }

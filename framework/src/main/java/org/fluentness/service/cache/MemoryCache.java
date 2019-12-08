@@ -1,8 +1,8 @@
 package org.fluentness.service.cache;
 
 import org.fluentness.service.logger.Logger;
+import org.fluentness.service.server.Request;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +18,9 @@ public class MemoryCache implements Cache {
     }
 
     @Override
-    public String cache(HttpServletRequest request, WebViewProvider inMissCase) throws InvocationTargetException, IllegalAccessException {
+    public String cache(Request request, WebViewProvider inMissCase) throws InvocationTargetException, IllegalAccessException {
 
-        String query = request.getQueryString() == null ? "" : ("?" + request.getQueryString());
-        String hash = request.getMethod() + " " + request.getRequestURI() + query;
+        String hash = request.getMethod() + " " + request.getUri();
         if (cache.containsKey(hash)) {
             logger.debug("Cache hit for %s", hash);
             return cache.get(hash);

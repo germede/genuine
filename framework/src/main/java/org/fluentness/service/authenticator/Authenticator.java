@@ -1,11 +1,10 @@
 package org.fluentness.service.authenticator;
 
 import org.fluentness.service.Service;
-import org.fluentness.service.dispatcher.Request;
-import org.fluentness.service.dispatcher.Response;
+import org.fluentness.service.server.Request;
 
 public interface Authenticator extends Service {
 
-    Response authenticate(Request request);
+    boolean authenticate(Request request);
 
 }

@@ -24,8 +24,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="darcula (2)" level="project" />
     <orderEntry type="module" module-name="framework" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.5.42" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-annotations-api:8.5.42" level="project" />
     <orderEntry type="library" name="Maven: org.apache.openjpa:openjpa-all:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4.7" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />

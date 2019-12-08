@@ -1,6 +1,6 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.service.dispatcher.Request;
+import org.fluentness.service.server.Request;
 
 import java.io.Serializable;
 import java.lang.invoke.SerializedLambda;
