@@ -17,6 +17,7 @@ import org.fluentness.service.injector.Injector;
 import org.fluentness.service.loader.FluentnessLoader;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.service.logger.JulLogger;
+import org.fluentness.service.mailer.SocketMailer;
 import org.fluentness.service.persistence.OpenJpaPersistence;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.SunServer;
@@ -58,7 +59,7 @@ public final class Fluentness {
         List<Class<? extends Service>> services = application.getServices(loader);
         services.add(DefaultConfigurator.class);
         services.add(JulLogger.class);
-//        services.add(JavaxMailer.class);
+        services.add(SocketMailer.class);
         services.add(OpenJpaPersistence.class);
         if (application.getPlatform().equals(Application.Platform.WEB)) {
             services.add(MemoryCache.class);
