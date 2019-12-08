@@ -2,36 +2,29 @@ package com.sample.repository;
 
 import org.fluentness.repository.Model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.sql.Date;
 
-import static org.fluentness.repository.Model.Type.*;
+import static org.fluentness.repository.Model.FieldType.*;
 
-@Entity
 public class Author implements Model {
 
     private int id;
 
-    @Field(TEXT)
+    @Type(TEXT)
     private String name;
 
-    @Field(TEXT)
+    @Type(TEXT)
     private String surname;
 
-    @Field(DATE)
+    @Type(DATE)
     private Date birthday;
 
-    @Field(FILE)
+    @Type(FILE)
     private String picture;
 
-    @Field(TEXT)
+    @Type(TEXT)
     private String biography;
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -40,8 +33,6 @@ public class Author implements Model {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -50,8 +41,6 @@ public class Author implements Model {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "surname")
     public String getSurname() {
         return surname;
     }
@@ -60,8 +49,6 @@ public class Author implements Model {
         this.surname = surname;
     }
 
-    @Basic
-    @Column(name = "birthday")
     public Date getBirthday() {
         return birthday;
     }
@@ -70,8 +57,6 @@ public class Author implements Model {
         this.birthday = birthday;
     }
 
-    @Basic
-    @Column(name = "picture")
     public String getPicture() {
         return picture;
     }
@@ -80,8 +65,6 @@ public class Author implements Model {
         this.picture = picture;
     }
 
-    @Basic
-    @Column(name = "biography")
     public String getBiography() {
         return biography;
     }

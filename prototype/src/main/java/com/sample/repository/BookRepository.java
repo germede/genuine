@@ -12,9 +12,11 @@ public class BookRepository extends AbstractCrudRepository<Book> {
     }
 
     public List<Book> findByTitle(String title) {
-        return persistence.query("SELECT s FROM Book s WHERE s.title = :title")
-            .setParameter("title", title)
-            .getResultList();
+        List<Book> all = findAll(Book.class);
+        return all;
+//        return persistence.query("SELECT s FROM Book s WHERE s.title = :title")
+//            .setParameter("title", title)
+//            .getResultList();
     }
 
 

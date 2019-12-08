@@ -2,38 +2,33 @@ package com.sample.repository;
 
 import org.fluentness.repository.Model;
 
-import javax.persistence.*;
+import static org.fluentness.repository.Model.FieldType.*;
 
-import static org.fluentness.repository.Model.Type.*;
-
-@Entity
 public class Book implements Model {
 
     private int id;
 
-    @Field(TEXT)
+    @Type(TEXT)
     private String title;
 
-    @Field(FILE)
+    @Type(FILE)
     private String cover;
 
-    @Field(TEXT)
+    @Type(TEXT)
     private String genre;
 
-    @Field(TEXT)
+    @Type(TEXT)
     private String synopsis;
 
-    @Field(NUMBER)
+    @Type(NUMBER)
     private int year;
 
-    @Field(CHECKBOX)
+    @Type(CHECKBOX)
     private boolean bestseller;
 
-    @Field(SELECT)
+    @Type(SELECT)
     private Author author;
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -42,8 +37,6 @@ public class Book implements Model {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -52,8 +45,6 @@ public class Book implements Model {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "cover")
     public String getCover() {
         return cover;
     }
@@ -62,8 +53,6 @@ public class Book implements Model {
         this.cover = cover;
     }
 
-    @Basic
-    @Column(name = "genre")
     public String getGenre() {
         return genre;
     }
@@ -72,8 +61,6 @@ public class Book implements Model {
         this.genre = genre;
     }
 
-    @Basic
-    @Column(name = "synopsis")
     public String getSynopsis() {
         return synopsis;
     }
@@ -82,8 +69,6 @@ public class Book implements Model {
         this.synopsis = synopsis;
     }
 
-    @Basic
-    @Column(name = "year")
     public int getYear() {
         return year;
     }
@@ -92,8 +77,6 @@ public class Book implements Model {
         this.year = year;
     }
 
-    @Basic
-    @Column(name = "bestseller")
     public boolean isBestseller() {
         return bestseller;
     }
@@ -102,8 +85,6 @@ public class Book implements Model {
         this.bestseller = bestseller;
     }
 
-    @ManyToOne
-    @Column(name = "author_id")
     public Author getAuthor() {
         return author;
     }

@@ -1,35 +1,36 @@
 package org.fluentness.repository;
 
-import javax.persistence.Entity;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public interface Model {
+    static Method[] getGetters(Class<? extends Model> modelClass) {
+        return Arrays.stream(modelClass.getMethods())
+            .filter(method -> method.getName().startsWith("get"))
+            .toArray(Method[]::new);
+    }
+
+    static Method[] getSetters(Class<? extends Model> modelClass) {
+        return Arrays.stream(modelClass.getMethods())
+            .filter(method -> method.getName().startsWith("set"))
+            .toArray(Method[]::new);
+    }
+
+
     @Target(ElementType.FIELD)
     @Retention(RetentionPolicy.RUNTIME)
-    @interface Field {
+    @interface Type {
 
-        Type value() default Type.TEXT;
+
+        FieldType value() default FieldType.TEXT;
 
     }
 
-
-    static List<java.lang.reflect.Field> getModelFields(Object o) {
-        return o.getClass().isAnnotationPresent(Entity.class) ?
-            Arrays.stream(o.getClass().getDeclaredFields())
-                .filter(field -> field.isAnnotationPresent(Field.class))
-                .collect(Collectors.toList()) :
-            new LinkedList<>();
-    }
-
-
-    enum Type {
+    enum FieldType {
         CHECKBOX,
         COLOR,
         DATE,

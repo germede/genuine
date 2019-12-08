@@ -2,27 +2,19 @@ package com.sample.repository;
 
 import org.fluentness.repository.Model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import static org.fluentness.repository.Model.FieldType.PASSWORD;
+import static org.fluentness.repository.Model.FieldType.TEXT;
 
-import static org.fluentness.repository.Model.Type.PASSWORD;
-import static org.fluentness.repository.Model.Type.TEXT;
-
-@Entity
 public class User implements Model {
 
     private int id;
 
-    @Field(TEXT)
+    @Type(TEXT)
     private String username;
 
-    @Field(PASSWORD)
+    @Type(PASSWORD)
     private String password;
 
-    @Id
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -31,8 +23,6 @@ public class User implements Model {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -41,8 +31,6 @@ public class User implements Model {
         this.username = username;
     }
 
-    @Basic
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }

@@ -3,29 +3,29 @@ package org.fluentness.controller.web.html;
 import org.fluentness.controller.web.WebView;
 import org.fluentness.repository.Model;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.fluentness.controller.web.html.HtmlFactory.*;
 
-public class HtmlTable<T> extends HtmlContainer {
+public class HtmlTable<M extends Model> extends HtmlContainer {
 
-    private final List<T> list;
-    private final List<Field> fields;
-    private AppendColumnView<T> appendColumnView;
+    private final List<M> list;
+    private final Method[] getters;
+    private AppendColumnView<M> appendColumnView;
 
-    public HtmlTable(List<T> list) {
+    public HtmlTable(List<M> list) {
         super("table");
         this.list = list;
-        this.fields = (list == null || list.isEmpty()) ?
-            new LinkedList<>() :
-            Model.getModelFields(list.get(0));
+        this.getters = (list == null || list.isEmpty()) ?
+            new Method[0] :
+            Model.getGetters(list.get(0).getClass());
     }
 
-    public HtmlTable<T> appendColumn(AppendColumnView<T> appendColumnView) {
+    public HtmlTable<M> appendColumn(AppendColumnView<M> appendColumnView) {
         this.appendColumnView = appendColumnView;
         return this;
     }
@@ -44,23 +44,24 @@ public class HtmlTable<T> extends HtmlContainer {
     }
 
     private WebView[] renderHeader() {
-        return fields.stream().map(field -> th(field::getName)).toArray(WebView[]::new);
+        return Arrays.stream(getters).map(field ->
+            th(() ->
+                field.getName().replace("get", "")
+            )
+        ).toArray(WebView[]::new);
     }
 
     private WebView[] renderRows() {
         return list.stream().map(object -> tr(renderRow(object))).toArray(WebView[]::new);
     }
 
-    private WebView[] renderRow(T object) {
-        List<WebView> collect = fields.stream()
-            .map(field ->
+    private WebView[] renderRow(M object) {
+        List<WebView> collect = Arrays.stream(getters)
+            .map(method ->
                 td(() -> {
                     try {
-                        field.setAccessible(true);
-                        Object fieldValue = field.get(object);
-                        field.setAccessible(false);
-                        return String.valueOf(fieldValue);
-                    } catch (IllegalAccessException e) {
+                        return String.valueOf(method.invoke(object));
+                    } catch (IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();
                     }
                     return "";

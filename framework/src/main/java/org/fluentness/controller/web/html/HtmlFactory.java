@@ -2,6 +2,7 @@ package org.fluentness.controller.web.html;
 
 import org.fluentness.controller.web.WebAction;
 import org.fluentness.controller.web.WebView;
+import org.fluentness.repository.Model;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,12 +18,12 @@ public final class HtmlFactory {
         return a(args);
     }
 
-    public static <T> HtmlForm<T> form(Object model, WebAction submitAction) {
+    public static <T> HtmlForm<T> form(Model model, WebAction submitAction) {
         return new HtmlForm<>(model, submitAction);
     }
 
-    public static <T> HtmlTable<T> table(List<T> modelList) {
-        return new HtmlTable<>(modelList);
+    public static <T> HtmlTable table(List<T> modelList) {
+        return new HtmlTable(modelList);
     }
 
     public static <T, V> V[] forEach(Iterable<T> iterable, Function<T, V> function) {
