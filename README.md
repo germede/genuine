@@ -68,6 +68,7 @@ Give a star if you enjoy this project. Contact me if you have any idea on how to
 This project is based on these open-source technologies:
 - [OpenJDK](https://openjdk.java.net/) implementing Java 8 
 - Apache [OpenJPA](http://openjpa.apache.org/) as JPA implementation
+- MAVEN plugins
 - Apache [Tomcat](http://tomcat.apache.org/) as embedded web server and Servlet implementation
 - Apache [Maven](https://maven.apache.org/) for building and distributing the framework itself, projects based on it and their dependencies
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
