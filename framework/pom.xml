@@ -12,7 +12,7 @@
 
     <artifactId>framework</artifactId>
 
-    <!-- Even if packaging is set to apk, normal jar with dependencies (for other platforms  -->
+    <!-- Even if packaging is set to apk, normal ready-to-use jar (for non-Android platforms) will be generated  -->
     <packaging>apk</packaging>
 
     <dependencies>
