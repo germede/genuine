@@ -65,10 +65,7 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
-                    <excludes>
-                        <!-- Normal jars do not need AndroidManifest -->
-                        <exclude>**/AndroidManifest.xml</exclude>
-                    </excludes>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
