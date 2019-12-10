@@ -1,5 +1,8 @@
 ![Fluentness logo](framework/src/main/resources/art/logo.png?raw=true "Fluentness logo")
 
+// todo
+very small footprint
+
 ## Introduction
 Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
 multi-platform, consistent and flexible Java development framework. After a quick-start you'll be able to:
@@ -7,7 +10,7 @@ multi-platform, consistent and flexible Java development framework. After a quic
 dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls
 or maybe the next top hybrid mobile app
 * scale from small XML-based REST-Web-Services to fully-featured enterprise Apps 
-with small footprint (few dependencies), yet out-of-the-box runnable like Spring Boot
+with very small footprint (few dependencies), yet out-of-the-box runnable like Spring Boot
 * respect standards and coding guidelines as far as possible, but applying own, 
 well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture)
 * enjoy the advantages of developing in Java such as: type safety, performance, 
@@ -67,12 +70,8 @@ Give a star if you enjoy this project. Contact me if you have any idea on how to
 ## Dependencies
 This project is based on these open-source technologies:
 - [OpenJDK](https://openjdk.java.net/) implementing Java 8 
-- Apache [OpenJPA](http://openjpa.apache.org/) as JPA implementation
-- MAVEN plugins
-- Apache [Tomcat](http://tomcat.apache.org/) as embedded web server and Servlet implementation
-- Apache [Maven](https://maven.apache.org/) for building and distributing the framework itself, projects based on it and their dependencies
+- [Maven](https://maven.apache.org/) with PLUGINS for building and distributing the framework itself, projects based on it and their dependencies
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
-- [Git](https://git-scm.com/) as VCS (Sorry for the wild commiting on the master branch)
 - [Inkscape](https://inkscape.org/) with fonts Arial, [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the art logos
 - Much Engagement :muscle:
 
