@@ -1,7 +1,7 @@
 ![Fluentness logo](framework/src/main/resources/art/logo.png?raw=true "Fluentness logo")
 
 // todo
-very small footprint
+few dependencies -> many target platforms (web, desktop, mobile, etc.) -> one code basis, one language
 
 ## Introduction
 Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
