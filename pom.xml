@@ -16,10 +16,6 @@
 
     <packaging>pom</packaging>
 
-    <build>
-        <directory>out</directory>
-    </build>
-
     <issueManagement>
         <url>https://github.com/germede/fluentness/issues</url>
         <system>GitHub Issues</system>
