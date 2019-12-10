@@ -12,9 +12,11 @@
 
     <artifactId>framework</artifactId>
 
-    <packaging>jar</packaging>
+    <!-- Even if packaging is set to apk, normal jar with dependencies (for other platforms  -->
+    <packaging>apk</packaging>
 
     <dependencies>
+        <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -27,6 +29,8 @@
             <version>2.23.4</version>
             <scope>test</scope>
         </dependency>
+        <!-- Last available API level on Maven central.
+        However, the used target SDK version is set actually in Android-Maven-Plugin -->
         <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
@@ -37,17 +41,23 @@
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>com.simpligility.maven.plugins</groupId>-->
-<!--                <artifactId>android-maven-plugin</artifactId>-->
-<!--                <version>4.3.0</version>-->
-<!--                <extensions>true</extensions>-->
-<!--                <configuration>-->
-<!--                    <sdk>-->
-<!--                        <path>/home/germede/Android/Sdk</path>-->
-<!--                    </sdk>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>com.simpligility.maven.plugins</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>4.6.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <!-- Older version of this plugin used dex android "compiler" by default, which is
+                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8 -->
+                    <dexCompiler>d8</dexCompiler>
+                    <sdk>
+                        <!-- API Level 29 doesn't work at the moment -->
+                        <platform>28</platform>
+                        <!-- Replace with your own path-->
+                        <path>/home/germede/Android/Sdk</path>
+                    </sdk>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -55,7 +65,10 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
-                    <encoding>UTF-8</encoding>
+                    <excludes>
+                        <!-- Normal jars do not need AndroidManifest -->
+                        <exclude>**/AndroidManifest.xml</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -63,6 +76,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
+                        <!-- Generate uber-jar (jar-with-dependencies) by default alongside with single-jar -->
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
@@ -84,7 +98,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12.4</version>
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
