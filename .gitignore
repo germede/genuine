@@ -1,17 +1,7 @@
-# Intellij
 .idea/*
-.idea_modules/
-lib/
-out/
+.idea_modules/*
+target/
 tmp/
-res/
-classes/
 *.iws
 *.ipr
-
-# Java
 *.class
-*.log
-
-# Minified CSS
-*.min.css
