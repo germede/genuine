@@ -9,5 +9,5 @@ import java.lang.reflect.InvocationTargetException;
 @Singleton
 public interface Cache extends Service {
 
-    String cache(Request request, WebViewProvider inMissCase) throws InvocationTargetException, IllegalAccessException;
+    String cache(Request request, Object inMissCase) throws InvocationTargetException, IllegalAccessException;
 }

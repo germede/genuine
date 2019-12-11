@@ -12,7 +12,8 @@
 
     <artifactId>prototype</artifactId>
 
-    <packaging>jar</packaging>
+    <!--Even if packaging is set to apk, a ready-to-use jar file (for non-Android platforms) will be generated-->
+    <packaging>apk</packaging>
 
     <dependencies>
         <dependency>
@@ -34,7 +35,7 @@
             <artifactId>darcula</artifactId>
             <version>1.0.0</version>
             <scope>system</scope>
-            <systemPath>/home/germede/Schreibtisch/Fluentness/prototype/src/main/resources/darcula.jar</systemPath>
+            <systemPath>/home/germede/IdeaProjects/Fluentness/prototype/src/main/resources/darcula.jar</systemPath>
         </dependency>
     </dependencies>
 
@@ -51,6 +52,7 @@
                 </configuration>
             </plugin>
 
+            <!--Use Java 8 with parameters (making web action method references work on runtime)-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -96,26 +98,23 @@
                 <version>3.1.1</version>
             </plugin>
 
-            <!--todo remove this. Needed for enhancement at build time, see https://openjpa.apache.org/entity-enhancement.html-->
+            <!--Essential configurations for Android builds-->
             <plugin>
-                <groupId>org.apache.openjpa</groupId>
-                <artifactId>openjpa-maven-plugin</artifactId>
-                <version>3.1.0</version>
+                <groupId>com.simpligility.maven.plugins</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>4.6.0</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <includes>**/entities/*.class</includes>
-                    <excludes>**/entities/XML*.class</excludes>
-                    <addDefaultConstructor>true</addDefaultConstructor>
-                    <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
+                    <!-- Older version of this plugin used dex android "compiler" by default, which is
+                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8 -->
+                    <dexCompiler>d8</dexCompiler>
+                    <sdk>
+                        <!-- API Level 29 doesn't work at the moment -->
+                        <platform>28</platform>
+                        <!-- Replace with your own path-->
+                        <path>/home/germede/Android/Sdk</path>
+                    </sdk>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>enhancer</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -18,7 +18,7 @@ public class MemoryCache implements Cache {
     }
 
     @Override
-    public String cache(Request request, WebViewProvider inMissCase) throws InvocationTargetException, IllegalAccessException {
+    public String cache(Request request, Object inMissCase) throws InvocationTargetException, IllegalAccessException {
 
         String hash = request.getMethod() + " " + request.getUri();
         if (cache.containsKey(hash)) {
@@ -26,10 +26,9 @@ public class MemoryCache implements Cache {
             return cache.get(hash);
         }
 
-        String render = inMissCase.provide().render();
-        cache.put(hash, render);
+        cache.put(hash, (String) inMissCase);
         logger.debug("Cache miss for %s", hash);
-        return render;
+        return (String) inMissCase;
     }
 
 }

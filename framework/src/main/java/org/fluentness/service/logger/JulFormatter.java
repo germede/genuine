@@ -7,8 +7,8 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-import static org.fluentness.service.logger.AnsiColor.ANSI_RED;
-import static org.fluentness.service.logger.AnsiColor.ANSI_RESET;
+import static org.fluentness.service.common.AnsiColor.ANSI_RED;
+import static org.fluentness.service.common.AnsiColor.ANSI_RESET;
 
 public class JulFormatter extends Formatter {
 
@@ -25,16 +25,8 @@ public class JulFormatter extends Formatter {
         builder.append(ANSI_RESET);
         builder.append(" | ");
         builder.append(logLevel.equals(LogLevel.ERROR) ? ANSI_RED : "");
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        for (StackTraceElement stackTraceElement : stackTrace) {
-            if (!stackTraceElement.getClassName().startsWith("java.lang.Thread") &&
-                !stackTraceElement.getClassName().startsWith("java.util.logging") &&
-                !stackTraceElement.getClassName().startsWith(getClass().getPackage().getName())) {
-                builder.append(stackTraceElement.getClassName().replaceAll(".*\\.", ""));
-                builder.append(": ");
-                break;
-            }
-        }
+        builder.append(Logger.getLoggerCaller());
+        builder.append(": ");
         builder.append(logRecord.getMessage());
         builder.append(logLevel.equals(LogLevel.ERROR) ? ANSI_RESET : "");
         builder.append("\n");

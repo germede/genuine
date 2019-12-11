@@ -17,13 +17,13 @@ public class JulLogger implements Logger {
 
     public JulLogger(Configurator configurator) throws Exception {
         // retrieve log level
-        Level logLevel = configurator.getOrDefault(LEVEL, LogLevel.DEBUG).toJulLevel();
+        Level julLevel = configurator.getOrDefault(LEVEL, LogLevel.DEBUG).toJulLevel();
 
         // init jul logger
         logger = java.util.logging.Logger.getGlobal();
         logger.setUseParentHandlers(false);
         Arrays.stream(logger.getHandlers()).forEach(logger::removeHandler);
-        logger.setLevel(logLevel);
+        logger.setLevel(julLevel);
 
         // console logging
         if (configurator.getOrDefault(CONSOLE, true)) {
@@ -34,7 +34,7 @@ public class JulLogger implements Logger {
                 }
             };
             consoleHandler.setFormatter(new JulFormatter());
-            consoleHandler.setLevel(logLevel);
+            consoleHandler.setLevel(julLevel);
             logger.addHandler(consoleHandler);
         }
 
@@ -52,7 +52,7 @@ public class JulLogger implements Logger {
                 fileHandler = new FileHandler(logFilePath);
             }
             fileHandler.setFormatter(new JulFormatter());
-            fileHandler.setLevel(logLevel);
+            fileHandler.setLevel(julLevel);
             logger.addHandler(fileHandler);
 
         }
@@ -79,34 +79,8 @@ public class JulLogger implements Logger {
     }
 
     @Override
-    public void error(Throwable throwable) {
-        logger.log(LogLevel.ERROR.toJulLevel(), retrieveThrowableMessage(throwable));
-    }
-
-    @Override
     public void log(LogLevel logLevel, String message, Object... parameters) {
-        logger.log(logLevel.toJulLevel(), format(message, parameters));
+        logger.log(logLevel.toJulLevel(), String.format(message, parameters));
     }
 
-    private String format(String message, Object... parameters) {
-        if (parameters != null && parameters.length > 0) {
-            return String.format(message, parameters);
-        }
-        return message;
-    }
-
-    private String retrieveThrowableMessage(Throwable throwable) {
-        StringBuilder res = new StringBuilder();
-        if (throwable.getMessage() == null) {
-            res.append(throwable.getClass().getSimpleName()).append(":");
-        } else {
-            res.append(throwable.getClass().getSimpleName()).append(" ").append(throwable.getMessage()).append(":");
-        }
-        for (StackTraceElement stackTraceElement : throwable.getStackTrace()) {
-            res.append("\n    ").append(stackTraceElement.toString());
-        }
-        return throwable.getCause() != null ?
-            res.toString() + "\nCaused by " + retrieveThrowableMessage(throwable.getCause()) :
-            res.toString();
-    }
 }
