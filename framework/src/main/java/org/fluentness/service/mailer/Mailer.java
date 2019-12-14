@@ -7,10 +7,8 @@ import org.fluentness.service.configurator.Key;
 @Singleton
 public interface Mailer extends Service {
 
-    Key<String> SERVER = new Key<>();
-    Key<Integer> PORT = new Key<>();
-    Key<String> USERNAME = new Key<>();
-    Key<String> PASSWORD = new Key<>();
+    Key<String> SERVER = new Key<>("localhost");
+    Key<Integer> PORT = new Key<>(25);
 
     void send(String from, String to, String message);
 }

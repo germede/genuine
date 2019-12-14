@@ -6,11 +6,9 @@ import org.fluentness.service.Singleton;
 @Singleton
 public interface Configurator extends Service {
 
-    boolean has(Key key);
+    <T> boolean has(Key<T> key);
 
     <T> T get(Key<T> key);
-
-    <T> T getOrDefault(Key<T> key, T fallback);
 
     <T> void set(Key<T> key, T value);
 

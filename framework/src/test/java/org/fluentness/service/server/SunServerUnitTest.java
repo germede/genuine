@@ -1,7 +1,6 @@
 //package org.fluentness.service.server;
 //
 //import org.fluentness.service.configurator.Configurator;
-//import org.fluentness.service.dispatcher.Dispatcher;
 //import org.fluentness.service.injector.Injector;
 //import org.fluentness.service.logger.Logger;
 //import org.junit.Assert;
@@ -12,9 +11,7 @@
 //import java.net.HttpURLConnection;
 //import java.net.URL;
 //
-//import static org.fluentness.service.server.Server.server_port;
-//
-//public class TomcatServerTest {
+//public class SunServerUnitTest {
 //
 //    private Injector injector;
 //    private Configurator configurator;

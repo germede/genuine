@@ -8,7 +8,7 @@ public class AndroidLogger implements Logger {
     private final int androidPriority;
 
     public AndroidLogger(Configurator configurator) {
-        this.androidPriority = configurator.getOrDefault(LEVEL, LogLevel.DEBUG).toAndroidPriority();
+        this.androidPriority = configurator.get(LEVEL).toAndroidPriority();
     }
 
     @Override

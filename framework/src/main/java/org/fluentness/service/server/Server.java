@@ -7,10 +7,10 @@ import org.fluentness.service.configurator.Key;
 @Singleton
 public interface Server extends Service {
 
-    Key<String> CONTEXT = new Key<>();
-    Key<Integer> PORT = new Key<>();
-    Key<String> RESPONSE_ENCODING = new Key<>();
-    Key<Boolean> SINGLE_PAGE_MODE = new Key<>();
+    Key<Integer> PORT = new Key<>(8000);
+    Key<String> CONTEXT = new Key<>("/");
+    Key<String> RESPONSE_ENCODING = new Key<>("UTF-8");
+    Key<Boolean> SINGLE_PAGE_MODE = new Key<>(true);
 
     void start();
 

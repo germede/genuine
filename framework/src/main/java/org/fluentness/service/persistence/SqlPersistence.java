@@ -14,17 +14,17 @@ public class SqlPersistence implements Persistence {
 
     private final Logger logger;
 
-    private final Connection connection;
+    private Connection connection;
 
     public SqlPersistence(Configurator configurator, Logger logger) throws SQLException {
         this.logger = logger;
-        //            String myDriver = "org.gjt.mm.mysql.Driver";
-//            Class.forName(myDriver);
-        connection = DriverManager.getConnection(
-            configurator.get(JDBC_URL),
-            configurator.get(USERNAME),
-            configurator.get(PASSWORD)
-        );
+        if (configurator.has(JDBC_URL) && configurator.has(USERNAME) && configurator.has(PASSWORD)) {
+            connection = DriverManager.getConnection(
+                    configurator.get(JDBC_URL),
+                    configurator.get(USERNAME),
+                    configurator.get(PASSWORD)
+            );
+        }
     }
 
     @Override

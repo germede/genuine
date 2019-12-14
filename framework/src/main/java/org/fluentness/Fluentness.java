@@ -6,9 +6,9 @@ import org.fluentness.controller.console.ConsoleAction;
 import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.DesktopView;
-import org.fluentness.service.injector.FinalInjector;
+import org.fluentness.service.injector.FnInjector;
 import org.fluentness.service.injector.Injector;
-import org.fluentness.service.loader.FinalLoader;
+import org.fluentness.service.loader.FnLoader;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.service.server.Server;
 
@@ -30,8 +30,8 @@ public final class Fluentness {
             throw new FluentnessException("Passed application was null");
         }
         Fluentness.application = application;
-        Loader loader = new FinalLoader();
-        Injector injector = new FinalInjector(loader);
+        Loader loader = new FnLoader();
+        Injector injector = new FnInjector(loader);
         switch (application.getPlatform()) {
             case DESKTOP:
                 desktop(injector);

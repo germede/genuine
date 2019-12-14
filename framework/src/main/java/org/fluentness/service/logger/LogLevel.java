@@ -9,10 +9,10 @@ import static org.fluentness.service.common.AnsiColor.*;
 
 public enum LogLevel {
     NONE(null),
-    ERROR(ANSI_RED),
-    WARNING(ANSI_YELLOW),
-    INFO(ANSI_BLUE),
-    DEBUG(ANSI_GREEN);
+    ERROR(RED),
+    WARNING(YELLOW),
+    INFO(BLUE),
+    DEBUG(GREEN);
 
     public static LogLevel fromJulLevel(Level julLevel) {
         return julLevel.equals(Level.ALL) || julLevel.equals(Level.FINEST) || julLevel.equals(Level.FINER) || julLevel.equals(Level.FINE) ? DEBUG :

@@ -7,8 +7,8 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-import static org.fluentness.service.common.AnsiColor.ANSI_RED;
-import static org.fluentness.service.common.AnsiColor.ANSI_RESET;
+import static org.fluentness.service.common.AnsiColor.RED;
+import static org.fluentness.service.common.AnsiColor.RESET;
 
 public class JulFormatter extends Formatter {
 
@@ -22,13 +22,13 @@ public class JulFormatter extends Formatter {
         builder.append(" | ");
         builder.append(logLevel.getAnsiColor().toString());
         builder.append(logLevel.toString());
-        builder.append(ANSI_RESET);
+        builder.append(RESET);
         builder.append(" | ");
-        builder.append(logLevel.equals(LogLevel.ERROR) ? ANSI_RED : "");
+        builder.append(logLevel.equals(LogLevel.ERROR) ? RED : "");
         builder.append(Logger.getLoggerCaller());
         builder.append(": ");
         builder.append(logRecord.getMessage());
-        builder.append(logLevel.equals(LogLevel.ERROR) ? ANSI_RESET : "");
+        builder.append(logLevel.equals(LogLevel.ERROR) ? RESET : "");
         builder.append("\n");
         return builder.toString();
     }

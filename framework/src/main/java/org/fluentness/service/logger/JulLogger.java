@@ -17,7 +17,7 @@ public class JulLogger implements Logger {
 
     public JulLogger(Configurator configurator) throws Exception {
         // retrieve log level
-        Level julLevel = configurator.getOrDefault(LEVEL, LogLevel.DEBUG).toJulLevel();
+        Level julLevel = configurator.get(LEVEL).toJulLevel();
 
         // init jul logger
         logger = java.util.logging.Logger.getGlobal();
@@ -26,7 +26,7 @@ public class JulLogger implements Logger {
         logger.setLevel(julLevel);
 
         // console logging
-        if (configurator.getOrDefault(CONSOLE, true)) {
+        if (configurator.get(CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler(){
                 @Override
                 protected synchronized void setOutputStream(OutputStream outputStream) throws SecurityException {

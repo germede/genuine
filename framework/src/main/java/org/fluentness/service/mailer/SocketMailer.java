@@ -19,8 +19,8 @@ public class SocketMailer implements Mailer {
     public SocketMailer(Configurator configurator, Logger logger) throws UnknownHostException {
         this.logger = logger;
 
-        this.server = InetAddress.getByName(configurator.getOrDefault(Mailer.SERVER, "localhost"));
-        this.port = configurator.getOrDefault(Mailer.PORT, 25);
+        this.server = InetAddress.getByName(configurator.get(Mailer.SERVER));
+        this.port = configurator.get(Mailer.PORT);
     }
 
     @Override

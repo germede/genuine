@@ -47,10 +47,10 @@ public class SunServer implements Server {
         this.injector = injector;
         this.logger = logger;
 
-        this.port = configurator.getOrDefault(Server.PORT, 8000);
-        this.context = configurator.getOrDefault(Server.CONTEXT, "/");
-        this.response_encoding = configurator.getOrDefault(Server.RESPONSE_ENCODING, "UTF-8");
-        this.single_page_mode = configurator.getOrDefault(Server.SINGLE_PAGE_MODE, true);
+        this.port = configurator.get(Server.PORT);
+        this.context = configurator.get(Server.CONTEXT);
+        this.response_encoding = configurator.get(Server.RESPONSE_ENCODING);
+        this.single_page_mode = configurator.get(Server.SINGLE_PAGE_MODE);
 
         this.routes = AbstractWebController.getRoutes();
         this.authenticators = injector.getInstances(Authenticator.class)
@@ -141,8 +141,9 @@ public class SunServer implements Server {
     private Response executeWebAction(Method action, Request request) {
         Locale.setDefault(request.getLocale());
 
-        Class<? extends AbstractWebController> controllerClass = (Class<? extends AbstractWebController>) action.getDeclaringClass();
-        AbstractWebController controller = injector.getInstance(controllerClass);
+        AbstractWebController<?> controller = injector.getInstance(
+                (Class<AbstractWebController<?>>) action.getDeclaringClass()
+        );
 
         try {
             Object returned = action.invoke(controller, request);
@@ -162,7 +163,7 @@ public class SunServer implements Server {
         return request.response(500);
     }
 
-    private Response handleWebView(Request request, AbstractWebController controller, WebView returned) {
+    private Response handleWebView(Request request, AbstractWebController<?> controller, WebView returned) {
         String render;
         if (request.getHeaders().get("http_x_requested_with") != null) {
             render = returned.render();

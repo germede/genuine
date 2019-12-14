@@ -31,7 +31,7 @@ public class DefaultConsoleController extends AbstractConsoleController {
             + "_/  (/_(_/_(/_/ / /_(__/ / /_(/_/_)_/_)_\n"
         );
 
-        System.out.println(ANSI_GREEN + "Available console actions:" + ANSI_RESET);
+        System.out.println(GREEN + "Available console actions:" + RESET);
 
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
@@ -52,7 +52,7 @@ public class DefaultConsoleController extends AbstractConsoleController {
                     .reduce(String::concat)
                     .get()
                 : "";
-            String actionLine = String.format(ANSI_PURPLE + "    %-40s" + ANSI_RESET + "%s",
+            String actionLine = String.format(PURPLE + "    %-40s" + RESET + "%s",
                 method.getName() + inLineParameters,
                 " " + method.getAnnotation(Action.class).description()
             );
@@ -61,7 +61,7 @@ public class DefaultConsoleController extends AbstractConsoleController {
 
         // print console actions
         categorizedConsoleActions.forEach((key, value) -> {
-            System.out.println(String.format(ANSI_BLUE + "%-40s" + ANSI_RESET, key + (!key.isEmpty() ? ":" : "")));
+            System.out.println(String.format(BLUE + "%-40s" + RESET, key + (!key.isEmpty() ? ":" : "")));
             value.forEach(System.out::println);
             System.out.println();
         });

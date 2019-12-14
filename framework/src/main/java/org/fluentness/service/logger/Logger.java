@@ -7,8 +7,8 @@ import org.fluentness.service.configurator.Key;
 @Singleton
 public interface Logger extends Service {
 
-    Key<LogLevel> LEVEL = new Key<>();
-    Key<Boolean> CONSOLE = new Key<>();
+    Key<LogLevel> LEVEL = new Key<>(LogLevel.DEBUG);
+    Key<Boolean> CONSOLE = new Key<>(true);
     Key<String> FILE = new Key<>();
 
     static String getLoggerCaller() {

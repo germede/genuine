@@ -7,7 +7,7 @@ import org.fluentness.service.Service;
 import org.fluentness.service.authenticator.BasicAuthenticator;
 import org.fluentness.service.cache.MemoryCache;
 import org.fluentness.service.configurator.Configurator;
-import org.fluentness.service.configurator.MapConfigurator;
+import org.fluentness.service.configurator.FnConfigurator;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.service.loader.LoaderException;
 import org.fluentness.service.logger.JulLogger;
@@ -58,7 +58,7 @@ public interface Application {
 
     default List<Class<? extends Service>> getServices(Loader loader) throws LoaderException {
         List<Class<? extends Service>> services = loader.load(this.getClass().getPackage().getName() + ".service", Service.class);
-        services.add(MapConfigurator.class);
+        services.add(FnConfigurator.class);
         services.add(JulLogger.class);
         services.add(SocketMailer.class);
         services.add(SqlPersistence.class);
