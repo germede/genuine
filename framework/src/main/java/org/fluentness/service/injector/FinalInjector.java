@@ -9,6 +9,7 @@ import org.fluentness.service.Singleton;
 import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.loader.FinalLoader;
 import org.fluentness.service.loader.Loader;
+import org.fluentness.service.loader.LoaderException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -24,11 +25,7 @@ public class FinalInjector implements Injector {
 
     private Map<Class, Object> instances = new LinkedHashMap<>();
 
-    public FinalInjector(Loader loader,
-                         List<Class<? extends Service>> services,
-                         List<Class<? extends Repository>> repositories,
-                         List<Class<? extends Controller>> controllers
-    ) throws InjectorException {
+    public FinalInjector(Loader loader) throws InjectorException, LoaderException {
 
         // add itself and loader service for other classes
         instances.put(Injector.class, this);
@@ -37,9 +34,15 @@ public class FinalInjector implements Injector {
         instances.put(FinalLoader.class, loader);
 
         // instantiate application components
-        for (Class<? extends Service> service : services) inject(service);
-        for (Class<? extends Repository> repository : repositories) inject(repository);
-        for (Class<? extends Controller> controller : controllers) inject(controller);
+        for (Class<? extends Service> service : Fluentness.getApplication().getServices(loader)) {
+            inject(service);
+        }
+        for (Class<? extends Repository> repository : Fluentness.getApplication().getRepositories(loader)) {
+            inject(repository);
+        }
+        for (Class<? extends Controller> controller : Fluentness.getApplication().getControllers(loader)) {
+            inject(controller);
+        }
     }
 
     @Override
@@ -63,10 +66,6 @@ public class FinalInjector implements Injector {
             Object instance = declaredConstructors.length == 0 ?
                 cClass.newInstance() :
                 inject(cClass, declaredConstructors[0]);
-
-            if (Configurator.class.isAssignableFrom(cClass)) {
-                Fluentness.getApplication().configure((Configurator) instance);
-            }
 
             instances.put(cClass, instance);
 

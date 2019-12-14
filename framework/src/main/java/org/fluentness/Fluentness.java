@@ -40,42 +40,23 @@ public final class Fluentness {
             throw new FluentnessException("Passed application was null");
         }
         Fluentness.application = application;
-        Injector injector = makeInjector(application);
+        Loader loader = new FinalLoader();
+        Injector injector = new FinalInjector(loader);
         switch (application.getPlatform()) {
             case DESKTOP:
-                desktop(injector, application);
+                desktop(injector);
                 break;
             case WEB:
-                web(injector, application);
+                web(injector);
                 break;
+            case CONSOLE:
+            case MOBILE:
             default:
-                console(injector, application, args);
+                console(injector, args);
         }
     }
 
-    private static Injector makeInjector(Application application) throws FluentnessException {
-        Loader loader = new FinalLoader();
-
-        List<Class<? extends Service>> services = application.getServices(loader);
-        services.add(MapConfigurator.class);
-        services.add(JulLogger.class);
-        services.add(SocketMailer.class);
-        services.add(SqlPersistence.class);
-        if (application.getPlatform().equals(Application.Platform.WEB)) {
-            services.add(MemoryCache.class);
-            services.add(BasicAuthenticator.class);
-            services.add(SunServer.class);
-        }
-
-        List<Class<? extends Repository>> repositories = application.getRepositories(loader);
-
-        List<Class<? extends Controller>> controllers = application.getControllers(loader);
-        controllers.add(DefaultConsoleController.class);
-
-        return new FinalInjector(loader, services, repositories, controllers);
-    }
-
-    private static void console(Injector injector, Application application, String[] args) throws FluentnessException {
+    private static void console(Injector injector, String[] args) throws FluentnessException {
         try {
             if (args == null) {
                 throw new ConsoleException("Passed args was null");
@@ -98,7 +79,7 @@ public final class Fluentness {
         }
     }
 
-    private static void desktop(Injector injector, Application application) throws FluentnessException {
+    private static void desktop(Injector injector) throws FluentnessException {
         try {
             for (AbstractDesktopController controller : injector.getInstances(AbstractDesktopController.class)) {
                 DesktopView.setGlobalStyle(controller.getDesktop().getStyle());
@@ -109,7 +90,7 @@ public final class Fluentness {
         }
     }
 
-    private static void web(Injector injector, Application application) throws FluentnessException {
+    private static void web(Injector injector) throws FluentnessException {
         injector.getInstance(Server.class).start();
     }
 

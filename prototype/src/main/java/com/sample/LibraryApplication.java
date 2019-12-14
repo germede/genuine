@@ -10,8 +10,7 @@ import org.fluentness.service.logger.Logger;
 import org.fluentness.service.persistence.Persistence;
 import org.fluentness.service.server.Server;
 
-import static org.fluentness.Application.Environment.DEV;
-import static org.fluentness.Application.Platform.WEB;
+import static org.fluentness.Application.Environment.PROD;
 
 public class LibraryApplication implements Application {
 
@@ -31,17 +30,6 @@ public class LibraryApplication implements Application {
                 configurator.set(Logger.LEVEL, LogLevel.ERROR);
                 configurator.set(Logger.CONSOLE, true);
         }
-
-    }
-
-    @Override
-    public Environment getEnvironment() {
-        return DEV;
-    }
-
-    @Override
-    public Platform getPlatform() {
-        return WEB;
     }
 
     public static void main(String[] args) throws FluentnessException {
