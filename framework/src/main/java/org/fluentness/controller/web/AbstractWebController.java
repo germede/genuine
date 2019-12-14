@@ -1,8 +1,8 @@
 package org.fluentness.controller.web;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.service.authenticator.Authenticator;
-import org.fluentness.service.authenticator.BasicAuthenticator;
+import org.fluentness.authenticator.Authenticator;
+import org.fluentness.authenticator.BasicAuthenticator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
+public abstract class AbstractWebController<W extends WebViewProvider> implements Controller {
 
     private static final HashMap<String, Method> routes = new HashMap<>();
 

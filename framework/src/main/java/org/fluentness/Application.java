@@ -1,38 +1,59 @@
 package org.fluentness;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.repository.Repository;
-import org.fluentness.service.Service;
-import org.fluentness.service.authenticator.BasicAuthenticator;
-import org.fluentness.service.cache.MemoryCache;
-import org.fluentness.service.configurator.Configurator;
-import org.fluentness.service.configurator.FnConfigurator;
-import org.fluentness.service.loader.Loader;
-import org.fluentness.service.loader.LoaderException;
-import org.fluentness.service.logger.JulLogger;
-import org.fluentness.service.mailer.SocketMailer;
-import org.fluentness.service.persistence.SqlPersistence;
-import org.fluentness.service.server.SunServer;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public interface Application {
-    enum Platform {
-        CONSOLE,
-        DESKTOP,
-        MOBILE,
-        WEB;
+
+
+    static <T> List<Class<? extends T>> autoload(String packageName, Class<T> parent) {
+        List<Class<? extends T>> result = new LinkedList<>();
+        try {
+            // directory
+            URL root = Thread.currentThread().getContextClassLoader().getResource(packageName.replace(".", "/"));
+            if (root != null) {
+                File[] files = new File(root.getFile()).listFiles((dir, name) -> name.endsWith(".class"));
+                if (files != null) {
+                    for (File file : files) {
+                        String className = file.getName().replaceAll(".class$", "");
+                        Class<?> clazz = Class.forName(packageName + "." + className);
+                        if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
+                            result.add((Class<T>) clazz);
+                        }
+                    }
+                }
+            }
+
+            // jar file
+            String jarPath = new File(Fluentness.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+            if (jarPath.endsWith(".jar")) {
+                ZipInputStream zip = new ZipInputStream(new FileInputStream(jarPath));
+                for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
+                    if (!entry.isDirectory() && entry.getName().endsWith(".class") && entry.getName().startsWith(packageName.replace(".", "/"))) {
+                        String className = entry.getName().replace('/', '.').replaceAll(".class$", "");
+                        Class<?> clazz = Class.forName(className);
+                        if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
+                            result.add((Class<T>) clazz);
+                        }
+                    }
+                }
+            }
+        } catch (IOException | ClassNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    enum Environment {
-        DEV,
-        TEST,
-        STAGE,
-        PROD;
-    }
-
-    void configure(Configurator configurator);
 
     default String getName() {
         return this.getClass().getSimpleName().replace("Application", "");
@@ -42,31 +63,13 @@ public interface Application {
         return Platform.WEB;
     }
 
-    default Environment getEnvironment() {
-        return Environment.DEV;
+    default List<Class<? extends Controller>> getControllers() {
+        return autoload(this.getClass().getPackage().getName() + ".controller", Controller.class);
     }
 
-    default List<Class<? extends Controller>> getControllers(Loader loader) throws LoaderException {
-        List<Class<? extends Controller>> controllers = loader.load(this.getClass().getPackage().getName() + ".controller", Controller.class);
-        controllers.add(DefaultConsoleController.class);
-        return controllers;
+    default List<Class<? extends Repository>> getRepositories() {
+        return autoload(this.getClass().getPackage().getName() + ".repository", Repository.class);
     }
 
-    default List<Class<? extends Repository>> getRepositories(Loader loader) throws LoaderException {
-        return loader.load(this.getClass().getPackage().getName() + ".repository", Repository.class);
-    }
 
-    default List<Class<? extends Service>> getServices(Loader loader) throws LoaderException {
-        List<Class<? extends Service>> services = loader.load(this.getClass().getPackage().getName() + ".service", Service.class);
-        services.add(FnConfigurator.class);
-        services.add(JulLogger.class);
-        services.add(SocketMailer.class);
-        services.add(SqlPersistence.class);
-        if (getPlatform().equals(Application.Platform.WEB)) {
-            services.add(MemoryCache.class);
-            services.add(BasicAuthenticator.class);
-            services.add(SunServer.class);
-        }
-        return services;
-    }
 }

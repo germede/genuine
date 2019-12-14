@@ -1,8 +1,8 @@
 package org.fluentness;
 
 import org.fluentness.controller.console.AbstractConsoleController;
-import org.fluentness.service.configurator.Configurator;
-import org.fluentness.service.injector.Injector;
+import org.fluentness.configuration.Configuration;
+import org.fluentness.injector.Injector;
 import org.junit.Before;
 
 import java.util.Collections;
@@ -24,7 +24,7 @@ public class FluentnessTest {
     public void setUp() {
         application = new Application() {
             @Override
-            public void configure(Configurator configurator) {
+            public void configure(Configuration configuration) {
 
             }
 

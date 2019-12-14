@@ -1,16 +1,19 @@
 package com.sample.controller;
 
+import com.sample.model.AuthorModel;
+import com.sample.model.BookModel;
+import com.sample.model.UserModel;
 import com.sample.repository.*;
+import com.sample.view.WebView;
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.controller.web.WebView;
-import org.fluentness.service.server.Request;
+import org.fluentness.server.Request;
 
-import static com.sample.LibraryTranslation.page_not_found;
-import static org.fluentness.Translation.create;
-import static org.fluentness.Translation.faulty;
-import static org.fluentness.controller.web.view.HtmlFactory.*;
+import static com.sample.localization.LibraryTranslation.page_not_found;
+import static org.fluentness.localization.Translation.create;
+import static org.fluentness.localization.Translation.faulty;
+import static org.fluentness.view.web.HtmlFactory.*;
 
-public class WebController extends AbstractWebController<Web> {
+public class WebController extends AbstractWebController<WebView> {
 
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
@@ -21,21 +24,21 @@ public class WebController extends AbstractWebController<Web> {
         AuthorRepository authorRepository,
         UserRepository userRepository
     ) {
-        super(Web.class);
+        super(WebView.class);
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.userRepository = userRepository;
     }
 
     @Action(path = "/")
-    public WebView index(Request request) {
+    public org.fluentness.view.web.WebView index(Request request) {
         return books(request);
     }
 
     @Action(path = "/books")
-    public WebView books(Request request) {
+    public org.fluentness.view.web.WebView books(Request request) {
         return div(
-            table(bookRepository.findAll(Book.class)).appendColumn(book ->
+            table(bookRepository.findAll(BookModel.class)).appendColumn(book ->
                 td(_class("float-right"),
                     action(this::updateBook, _class("button button-outline"), () -> "\uD83D\uDD89"),
                     () -> " ",
@@ -49,10 +52,10 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Action(path = "/books/create")
-    public WebView createBook(Request request) {
+    public org.fluentness.view.web.WebView createBook(Request request) {
         return div(
             h2(create::translate),
-            form(new Book(), this::createBook)
+            form(new BookModel(), this::createBook)
         );
     }
 
@@ -67,44 +70,44 @@ public class WebController extends AbstractWebController<Web> {
     }
 
     @Action(path = "/authors")
-    public WebView authors(Request request) {
+    public org.fluentness.view.web.WebView authors(Request request) {
         return div(
-            table(authorRepository.findAll(Author.class)),
+            table(authorRepository.findAll(AuthorModel.class)),
             action(this::createAuthor, _class("button column"), create::translate)
         );
     }
 
     @Action(path = "/authors/create")
-    public WebView createAuthor(Request request) {
+    public org.fluentness.view.web.WebView createAuthor(Request request) {
         return div(
             h2(create::translate),
-            form(new Author(), this::createAuthor)
+            form(new AuthorModel(), this::createAuthor)
         );
     }
 
     @Action(path = "/users")
-    public WebView users(Request request) {
+    public org.fluentness.view.web.WebView users(Request request) {
         return div(
-            table(userRepository.findAll(User.class)),
+            table(userRepository.findAll(UserModel.class)),
             action(this::createUser, _class("button column"), create::translate)
         );
     }
 
     @Action(path = "/users/create")
-    public WebView createUser(Request request) {
+    public org.fluentness.view.web.WebView createUser(Request request) {
         return div(
             h2(create::translate),
-            form(new User(), this::createUser)
+            form(new UserModel(), this::createUser)
         );
     }
 
     @Action(path = "/404")
-    public WebView notFound(Request request) {
+    public org.fluentness.view.web.WebView notFound(Request request) {
         return page_not_found::translate;
     }
 
     @Action(path = "/500")
-    public WebView serverError(Request request) {
+    public org.fluentness.view.web.WebView serverError(Request request) {
         return faulty::translate;
     }
 

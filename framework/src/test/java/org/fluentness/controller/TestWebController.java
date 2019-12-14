@@ -1,12 +1,12 @@
 package org.fluentness.controller;
 
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.service.server.Request;
+import org.fluentness.server.Request;
 
-public class TestWebController extends AbstractWebController<TestWeb> {
+public class TestWebController extends AbstractWebController<TestWebViewProvider> {
 
     public TestWebController() {
-        super(TestWeb.class);
+        super(TestWebViewProvider.class);
     }
 
     @Action(path = "/")

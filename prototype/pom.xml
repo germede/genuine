@@ -88,6 +88,7 @@
                 <version>4.6.0</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <dexMultiDex>true</dexMultiDex>
                     <!-- Older version of this plugin used dex android "compiler" by default, which is
                     incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8 -->
                     <dexCompiler>d8</dexCompiler>

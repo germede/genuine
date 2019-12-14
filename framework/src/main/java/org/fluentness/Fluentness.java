@@ -6,18 +6,18 @@ import org.fluentness.controller.console.ConsoleAction;
 import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.DesktopView;
-import org.fluentness.service.injector.FnInjector;
-import org.fluentness.service.injector.Injector;
-import org.fluentness.service.loader.FnLoader;
-import org.fluentness.service.loader.Loader;
-import org.fluentness.service.server.Server;
+import org.fluentness.injector.FnInjector;
+import org.fluentness.injector.Injector;
+import org.fluentness.loader.FnLoader;
+import org.fluentness.loader.Loader;
+import org.fluentness.server.Server;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class Fluentness {
+public class Fluentness {
 
     private static Application application;
 

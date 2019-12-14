@@ -1,9 +1,10 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.AbstractCrudRepository;
-import org.fluentness.service.persistence.Persistence;
+import com.sample.model.UserModel;
+import org.fluentness.repository.CrudRepository;
+import org.fluentness.persistence.Persistence;
 
-public class UserRepository extends AbstractCrudRepository<User> {
+public class UserRepository extends CrudRepository<UserModel> {
 
     public UserRepository(Persistence persistence) {
         super(persistence);

@@ -1,8 +1,8 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.controller.View;
-import org.fluentness.controller.desktop.style.DesktopStyle;
-import org.fluentness.controller.desktop.style.Style;
+import org.fluentness.view.View;
+import org.fluentness.style.desktop.DesktopStyle;
+import org.fluentness.style.desktop.Style;
 
 import java.util.List;
 
