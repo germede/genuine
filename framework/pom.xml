@@ -40,7 +40,6 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -64,12 +63,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <archive>
-                        <index>true</index>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
