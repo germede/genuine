@@ -1,11 +1,17 @@
 package org.fluentness.service.configurator;
 
+import org.fluentness.Fluentness;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class MapConfigurator implements Configurator {
 
     private final Map<Key, Object> settings = new HashMap<>();
+
+    public MapConfigurator() {
+        Fluentness.getApplication().configure(this);
+    }
 
     @Override
     public boolean has(Key key) {
