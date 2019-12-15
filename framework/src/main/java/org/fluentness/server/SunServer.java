@@ -3,7 +3,7 @@ package org.fluentness.server;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.view.web.WebView;
+import org.fluentness.view.web.HtmlView;
 import org.fluentness.authenticator.Authenticator;
 import org.fluentness.configuration.Configuration;
 import org.fluentness.injector.Injector;
@@ -149,8 +149,8 @@ public class SunServer implements Server {
             Object returned = action.invoke(controller, request);
             if (returned instanceof String) {
                 return request.response(200).setBody((String) returned);
-            } else if (returned instanceof WebView) {
-                return handleWebView(request, controller, (WebView) returned);
+            } else if (returned instanceof HtmlView) {
+                return handleWebView(request, controller, (HtmlView) returned);
             } else if (returned instanceof Integer) {
                 return request.response((int) returned);
             } else if (returned instanceof Response) {
@@ -163,7 +163,7 @@ public class SunServer implements Server {
         return request.response(500);
     }
 
-    private Response handleWebView(Request request, AbstractWebController<?> controller, WebView returned) {
+    private Response handleWebView(Request request, AbstractWebController<?> controller, HtmlView returned) {
         String render;
         if (request.getHeaders().get("http_x_requested_with") != null) {
             render = returned.render();

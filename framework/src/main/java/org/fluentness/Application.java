@@ -5,7 +5,7 @@ import org.fluentness.configuration.Configuration;
 import org.fluentness.controller.Controller;
 import org.fluentness.injector.FnInjector;
 import org.fluentness.injector.Injector;
-import org.fluentness.localization.Localization;
+import org.fluentness.localization.AbstractStringLocalization;
 import org.fluentness.logger.AndroidLogger;
 import org.fluentness.logger.JulLogger;
 import org.fluentness.logger.Logger;
@@ -115,10 +115,10 @@ public interface Application {
         return FnInjector.class;
     }
 
-    default List<Class<? extends Localization>> getLocalizations() {
+    default List<Class<? extends AbstractStringLocalization>> getLocalizations() {
         return load(
-                getClass().getPackage().getName() + "." + Localization.class.getSimpleName().toLowerCase(),
-                Localization.class
+                getClass().getPackage().getName() + "." + AbstractStringLocalization.class.getSimpleName().toLowerCase(),
+                AbstractStringLocalization.class
         );
     }
 

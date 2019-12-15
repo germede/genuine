@@ -34,7 +34,9 @@ public class DesktopView implements AbstractDesktop<DesktopController> {
         return frame("Fluentness rocks",
             panel(
                 panel(
-                    colorChooser(),
+                    action(CLICK, controller::dosomething,
+                        colorChooser()
+                        ),
                     table(
                         header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
                         row(1, "John", 40.0, false),

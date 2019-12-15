@@ -1,9 +1,9 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.view.web.WebView;
+import org.fluentness.view.web.HtmlView;
 import org.junit.Before;
 
-public class WebViewProviderControllerTest {
+public class HtmlViewProviderControllerTest {
 
     private AbstractWebController<WebViewProvider> webController;
 
@@ -36,8 +36,8 @@ public class WebViewProviderControllerTest {
             }
 
 
-            public WebView testView() {
-                return new WebView() {
+            public HtmlView testView() {
+                return new HtmlView() {
                     @Override
                     public String render() {
                         return "Test web view";

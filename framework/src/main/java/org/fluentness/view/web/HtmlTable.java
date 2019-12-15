@@ -5,12 +5,12 @@ import org.fluentness.model.Model;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.fluentness.view.web.HtmlFactory.*;
 
-public class HtmlTable<M extends Model> extends HtmlContainer {
+public class HtmlTable<M extends Model> extends HtmlElement {
 
     private final List<M> list;
     private final Method[] getters;
@@ -21,7 +21,7 @@ public class HtmlTable<M extends Model> extends HtmlContainer {
         this.list = list;
         this.getters = (list == null || list.isEmpty()) ?
             new Method[0] :
-            Model.getGetters(list.get(0).getClass());
+            list.get(0).getGetters();
     }
 
     public HtmlTable<M> appendColumn(AppendColumnView<M> appendColumnView) {
@@ -31,50 +31,43 @@ public class HtmlTable<M extends Model> extends HtmlContainer {
 
     @Override
     public String render() {
-        this.innerViews = Arrays.asList(renderTable());
+        this.html = Arrays.asList(renderTable());
         return super.render();
     }
 
-    private WebView[] renderTable() {
-        return new WebView[]{
+    private HtmlView[] renderTable() {
+        return new HtmlView[]{
             thead(tr(renderHeader())),
             tbody(renderRows())
         };
     }
 
-    private WebView[] renderHeader() {
-        return Arrays.stream(getters).map(field ->
-            th(() ->
-                field.getName().replace("get", "")
-            )
-        ).toArray(WebView[]::new);
+    private HtmlView[] renderHeader() {
+        return Arrays.stream(getters).map(field -> th(field.getName().replace("get", ""))).toArray(HtmlView[]::new);
     }
 
-    private WebView[] renderRows() {
-        return list.stream().map(object -> tr(renderRow(object))).toArray(WebView[]::new);
+    private HtmlView[] renderRows() {
+        return list.stream().map(object -> tr(renderRow(object))).toArray(HtmlView[]::new);
     }
 
-    private WebView[] renderRow(M object) {
-        List<WebView> collect = Arrays.stream(getters)
-            .map(method ->
-                td(() -> {
-                    try {
-                        return String.valueOf(method.invoke(object));
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-                    return "";
-                })
-            )
-            .collect(Collectors.toList());
+    private HtmlView[] renderRow(M object) {
+        List<HtmlView> collect = new LinkedList<>();
+        try {
+            for (Method method : getters) {
+                collect.add(td(String.valueOf(method.invoke(object))));
+            }
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
         if (appendColumnView != null) {
             collect.add(appendColumnView.toAppend(object));
         }
-        return collect.toArray(new WebView[0]);
+        return collect.toArray(new HtmlView[0]);
     }
 
     @FunctionalInterface
     public interface AppendColumnView<T> {
-        WebView toAppend(T t);
+        HtmlView toAppend(T t);
     }
 }

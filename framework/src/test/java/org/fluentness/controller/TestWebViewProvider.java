@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.controller.web.WebViewProvider;
-import org.fluentness.view.web.WebView;
+import org.fluentness.view.web.HtmlView;
 import org.fluentness.style.web.WebStyle;
 
 import static org.fluentness.view.web.HtmlFactory.*;
@@ -24,7 +24,7 @@ public class TestWebViewProvider extends WebViewProvider<TestWebController> {
     }
 
     @Override
-    public WebView getView(WebView toInclude) {
+    public HtmlView getView(HtmlView toInclude) {
         return html(
             head(
                 title(() -> "Dummy")

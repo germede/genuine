@@ -11,22 +11,22 @@ import java.util.List;
 
 import static org.fluentness.view.web.HtmlFactory.*;
 
-public class HtmlForm<T> extends HtmlContainer {
+public class HtmlForm<T> extends HtmlElement {
 
 
     public HtmlForm(Model model, WebAction action) {
         super("form", renderForm(model, action));
     }
 
-    private static WebView[] renderForm(Model object, WebAction action) {
-        List<WebView> result = new LinkedList<>();
+    private static HtmlView[] renderForm(Model model, WebAction action) {
+        List<HtmlView> result = new LinkedList<>();
         result.add(_method(action.getHttpMethod()));
         result.add(_action(action.getPath()));
-        Arrays.stream(Model.getGetters(object.getClass()))
-            .map(getter -> input(getHtmlAttributesFor(object, getter)))
+        Arrays.stream(model.getGetters())
+            .map(getter -> input(getHtmlAttributesFor(model, getter)))
             .forEach(result::add);
         result.add(input(_class("button"), _type("submit"), _value("Submit")));
-        return result.toArray(new WebView[0]);
+        return result.toArray(new HtmlView[0]);
     }
 
     private static HtmlAttribute[] getHtmlAttributesFor(Object object, Method getter) {

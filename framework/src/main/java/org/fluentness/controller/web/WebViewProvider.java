@@ -1,7 +1,7 @@
 package org.fluentness.controller.web;
 
 import org.fluentness.style.web.WebStyle;
-import org.fluentness.view.web.WebView;
+import org.fluentness.view.web.HtmlView;
 
 public abstract class WebViewProvider<C extends AbstractWebController> {
 
@@ -13,5 +13,5 @@ public abstract class WebViewProvider<C extends AbstractWebController> {
 
     public abstract WebStyle getStyle();
 
-    public abstract WebView getView(WebView toInclude);
+    public abstract HtmlView getView(HtmlView toInclude);
 }
