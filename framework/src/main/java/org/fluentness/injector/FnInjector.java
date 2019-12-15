@@ -1,17 +1,17 @@
 package org.fluentness.injector;
 
-import org.fluentness.Fluentness;
-import org.fluentness.controller.Controller;
-import org.fluentness.repository.CrudRepository;
-import org.fluentness.loader.FnLoader;
-import org.fluentness.loader.Loader;
-import org.fluentness.loader.LoaderException;
+import org.fluentness.Application;
+import org.fluentness.ApplicationComponent;
+import org.fluentness.configuration.Configuration;
+import org.fluentness.logger.Logger;
+import org.fluentness.mailer.Mailer;
+import org.fluentness.persistence.Persistence;
+import org.fluentness.server.Server;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,28 +21,25 @@ public class FnInjector implements Injector {
 
     private Map<Class, Object> instances = new LinkedHashMap<>();
 
-    public FnInjector(Loader loader) throws InjectorException, LoaderException {
-
-        // add itself and loader service for other classes
+    public FnInjector(Application application) throws InjectorException {
         instances.put(Injector.class, this);
         instances.put(FnInjector.class, this);
-        instances.put(Loader.class, loader);
-        instances.put(FnLoader.class, loader);
 
-        // instantiate application components
-        for (Class<? extends Service> service : Fluentness.getApplication().getServices(loader)) {
-            inject(service);
-        }
-        for (Class<? extends CrudRepository> repository : Fluentness.getApplication().getRepositories(loader)) {
-            inject(repository);
-        }
-        for (Class<? extends Controller> controller : Fluentness.getApplication().getControllers(loader)) {
-            inject(controller);
-        }
+        inject(application.getModels());
+        inject(application.getLocalizations());
+        inject(Configuration.class, application.getConfiguration());
+        inject(Logger.class, application.getLogger());
+        inject(Persistence.class, application.getPersistence());
+        inject(Server.class, application.getServer());
+        inject(Mailer.class, application.getMailer());
+        inject(application.getViews());
+        inject(application.getValidators());
+        inject(application.getRepositories());
+        inject(application.getControllers());
     }
 
     @Override
-    public <A> List<A> getInstances(Class<A> parent) {
+    public <A extends ApplicationComponent> List<A> getInstances(Class<A> parent) {
         return instances.values().stream()
             .filter(value -> parent.isAssignableFrom(value.getClass()))
             .map(o -> (A) o)
@@ -50,66 +47,48 @@ public class FnInjector implements Injector {
     }
 
     @Override
-    public <A> A getInstance(Class<A> parent) {
+    public <A extends ApplicationComponent> A getInstance(Class<A> parent) {
         return (A) instances.get(parent);
     }
 
-    private void inject(Class<? extends Component> cClass) throws InjectorException {
+    private <A extends ApplicationComponent> void inject(List<Class<? extends A>> classList) throws InjectorException {
+        for (Class single : classList) {
+            instances.put(single, instantiate(single));
+        }
+    }
+
+    private <A extends ApplicationComponent> void inject(Class<A> iClass, Class<? extends A> aClass) throws InjectorException {
+        instances.put(iClass, instantiate(aClass));
+    }
+
+    private <A extends ApplicationComponent> A instantiate(Class<? extends A> aClass) throws InjectorException {
         try {
-            validateInstantiation(cClass);
+            validateInstantiation(aClass);
+            Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
+            if (declaredConstructors.length == 0) {
+                return aClass.newInstance();
+            }
 
-            Constructor[] declaredConstructors = cClass.getDeclaredConstructors();
-            Object instance = declaredConstructors.length == 0 ?
-                cClass.newInstance() :
-                inject(cClass, declaredConstructors[0]);
-
-            instances.put(cClass, instance);
-
-            Arrays.stream(cClass.getInterfaces())
-                .filter(Service.class::isAssignableFrom)
-                .filter(serviceInterface -> !Service.class.equals(serviceInterface))
-                .filter(serviceInterface -> serviceInterface.isAnnotationPresent(Singleton.class))
-                .forEach(serviceInterface -> instances.put(serviceInterface, instance));
+            Constructor constructor = declaredConstructors[0];
+            return (A) constructor.newInstance(prepareConstructorParameters(aClass, constructor));
 
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new InjectorException(e);
         }
     }
 
-    private void validateInstantiation(Class iClass) throws InjectorException {
-        if (Modifier.isInterface(iClass.getModifiers())) {
-            throw new InjectorException("%s cannot be an interface in order to be instantiated", iClass.getName());
-        }
-        if (Modifier.isAbstract(iClass.getModifiers())) {
-            throw new InjectorException("%s cannot be abstract in order to be instantiated", iClass.getName());
-        }
-        if (!Modifier.isPublic(iClass.getModifiers())) {
-            throw new InjectorException("%s must be public in order to be instantiated", iClass.getName());
-        }
-        Constructor[] declaredConstructors = iClass.getDeclaredConstructors();
-        if (declaredConstructors.length > 1 || !Modifier.isPublic(declaredConstructors[0].getModifiers())) {
-            throw new InjectorException("%s may only have one or none public constructor", iClass.getName());
-        }
-    }
-
-    private Object inject(Class iClass, Constructor constructor)
-        throws InjectorException, IllegalAccessException, InvocationTargetException, InstantiationException {
-
+    private <A extends ApplicationComponent> Object[] prepareConstructorParameters(Class<? extends A> aClass, Constructor constructor) throws InjectorException {
         Parameter[] parameters = constructor.getParameters();
-        Object[] parametersToInject = new Object[parameters.length];
+        Object[] result = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
             Class<?> type = parameters[i].getType();
             if (instances.containsKey(type)) {
-                parametersToInject[i] = instances.get(type);
+                result[i] = instances.get(type);
             } else {
-                if (Component.class.isAssignableFrom(type)) {
+                if (ApplicationComponent.class.isAssignableFrom(type)) {
                     throw new InjectorException(
-                        "Could not resolve dependencies correctly. Ensure that:\n" +
-                            "    a) %s is added after %s or\n" +
-                            "    b) %s doesn't depend on %s\n",
-                        iClass.getSimpleName(),
-                        type.getSimpleName(),
-                        iClass.getSimpleName(),
+                        "Cannot instantiate % because it cannot depend on %s",
+                        aClass.getSimpleName(),
                         type.getSimpleName()
                     );
                 } else {
@@ -117,7 +96,23 @@ public class FnInjector implements Injector {
                 }
             }
         }
-        return constructor.newInstance(parametersToInject);
+        return result;
+    }
+
+    private void validateInstantiation(Class aClass) throws InjectorException {
+        if (Modifier.isInterface(aClass.getModifiers())) {
+            throw new InjectorException("%s's class cannot be an interface in order to be instantiated", aClass.getName());
+        }
+        if (Modifier.isAbstract(aClass.getModifiers())) {
+            throw new InjectorException("%s's class cannot be abstract in order to be instantiated", aClass.getName());
+        }
+        if (!Modifier.isPublic(aClass.getModifiers())) {
+            throw new InjectorException("%s's class must be public in order to be instantiated", aClass.getName());
+        }
+        Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
+        if (declaredConstructors.length > 1 || !Modifier.isPublic(declaredConstructors[0].getModifiers())) {
+            throw new InjectorException("%s's first constructor should be public", aClass.getName());
+        }
     }
 
 }

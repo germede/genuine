@@ -1,4 +1,6 @@
 package com.sample.validator;
 
-public class UserValidator {
+import org.fluentness.validator.Validator;
+
+public class UserValidator implements Validator {
 }

@@ -1,12 +1,12 @@
 package com.sample.localization;
 
-import org.fluentness.localization.Translation;
+import org.fluentness.localization.Localization;
 
 import static org.fluentness.localization.TranslationFactory.*;
 
 public final class LibraryTranslation {
 
-    public static final Translation
+    public static final Localization
         welcome_message = msg("Welcome, %s", de("Willkommen, %s"), es("Bienvenido, %s")),
         page_not_found = msg("Page not found", de("Seite nicht gefunden"), es("Página no encontrada")),
         books = msg("Books", de("Bucher"), es("Libros")),

@@ -1,16 +1,14 @@
 package org.fluentness.configuration;
 
-import org.fluentness.Fluentness;
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class FnConfiguration implements Configuration {
+public abstract class AbstractConfiguration implements Configuration {
 
     private final Map<Key, Object> settings = new HashMap<>();
 
-    public FnConfiguration() {
-        Fluentness.getApplication().configure(this);
+    public AbstractConfiguration() {
+        configure();
     }
 
     @Override
@@ -23,8 +21,9 @@ public class FnConfiguration implements Configuration {
         return settings.containsKey(key) ? (T) settings.get(key) : key.getFallback();
     }
 
-    @Override
-    public <T> void set(Key<T> key, T value) {
+    protected <T> void set(Key<T> key, T value) {
         settings.put(key, value);
     }
+
+    protected abstract void configure();
 }

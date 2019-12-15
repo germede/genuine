@@ -1,14 +1,12 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.controller.Controller;
 import org.fluentness.authenticator.Authenticator;
-import org.fluentness.authenticator.BasicAuthenticator;
+import org.fluentness.controller.Controller;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,17 +19,7 @@ public abstract class AbstractWebController<W extends WebViewProvider> implement
         return routes;
     }
 
-    protected final W web;
-
-    protected AbstractWebController(Class<W> webClass) {
-        W web = null;
-        try {
-            web = webClass.getConstructor(this.getClass()).newInstance(this);
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        this.web = web;
-
+    protected AbstractWebController() {
         Arrays.stream(this.getClass().getMethods())
             .filter(method -> method.isAnnotationPresent(AbstractWebController.Action.class))
             .forEach(method ->
@@ -44,22 +32,14 @@ public abstract class AbstractWebController<W extends WebViewProvider> implement
             );
     }
 
-    public final W getWeb() {
-        return web;
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface Authentication {
-        Class<? extends Authenticator>[] authenticators() default BasicAuthenticator.class;
-    }
-
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Action {
         String path();
 
         String method() default "GET";
+
+        Class<? extends Authenticator>[] authenticators() default {};
 
         boolean cache() default true;
     }

@@ -9,22 +9,24 @@ import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.server.Request;
 
 import static com.sample.localization.LibraryTranslation.page_not_found;
-import static org.fluentness.localization.Translation.create;
-import static org.fluentness.localization.Translation.faulty;
+import static org.fluentness.localization.Localization.create;
+import static org.fluentness.localization.Localization.faulty;
 import static org.fluentness.view.web.HtmlFactory.*;
 
-public class WebController extends AbstractWebController<WebView> {
+public class WebController extends AbstractWebController {
 
+    private WebView webView;
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
     private UserRepository userRepository;
 
     public WebController(
+        WebView webView,
         BookRepository bookRepository,
         AuthorRepository authorRepository,
         UserRepository userRepository
     ) {
-        super(WebView.class);
+        this.webView = webView;
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.userRepository = userRepository;
@@ -37,16 +39,18 @@ public class WebController extends AbstractWebController<WebView> {
 
     @Action(path = "/books")
     public org.fluentness.view.web.WebView books(Request request) {
-        return div(
-            table(bookRepository.findAll(BookModel.class)).appendColumn(book ->
-                td(_class("float-right"),
-                    action(this::updateBook, _class("button button-outline"), () -> "\uD83D\uDD89"),
-                    () -> " ",
-                    action(this::deleteBook, _class("button"), () -> "⨯")
+        return webView(
+            div(
+                table(bookRepository.findAll(BookModel.class)).appendColumn(book ->
+                    td(_class("float-right"),
+                        action(this::updateBook, _class("button button-outline"), () -> "\uD83D\uDD89"),
+                        () -> " ",
+                        action(this::deleteBook, _class("button"), () -> "⨯")
+                    )
+                ),
+                div(_class("row"),
+                    action(this::createBook, _class("button column"), create::translate)
                 )
-            ),
-            div(_class("row"),
-                action(this::createBook, _class("button column"), create::translate)
             )
         );
     }

@@ -1,6 +1,8 @@
 package org.fluentness.view;
 
-public interface View {
+import org.fluentness.ApplicationComponent;
+
+public interface View extends ApplicationComponent {
 
     Object render(Object... parameters);
 

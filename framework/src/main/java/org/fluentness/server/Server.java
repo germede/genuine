@@ -1,8 +1,9 @@
 package org.fluentness.server;
 
+import org.fluentness.ApplicationComponent;
 import org.fluentness.configuration.Key;
 
-public interface Server {
+public interface Server extends ApplicationComponent {
 
     Key<Integer> PORT = new Key<>(8000);
     Key<String> CONTEXT = new Key<>("/");

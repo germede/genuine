@@ -1,44 +1,46 @@
 package org.fluentness.persistence;
 
-import org.fluentness.model.Model;
 import org.fluentness.configuration.Configuration;
+import org.fluentness.injector.Injector;
 import org.fluentness.logger.Logger;
+import org.fluentness.model.Model;
 
 import java.lang.reflect.Method;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SqlPersistence implements Persistence {
 
+    private final Injector injector;
     private final Logger logger;
 
     private Connection connection;
 
-    public SqlPersistence(Configuration configuration, Logger logger) throws SQLException {
+    public SqlPersistence(Injector injector, Configuration configuration, Logger logger) throws SQLException {
+        this.injector = injector;
         this.logger = logger;
         if (configuration.has(JDBC_URL) && configuration.has(USERNAME) && configuration.has(PASSWORD)) {
             connection = DriverManager.getConnection(
-                    configuration.get(JDBC_URL),
-                    configuration.get(USERNAME),
-                    configuration.get(PASSWORD)
+                configuration.get(JDBC_URL),
+                configuration.get(USERNAME),
+                configuration.get(PASSWORD)
             );
         }
     }
 
     @Override
-    public <M extends Model> List<M> findAll(Class<M> model) {
-        List<M> result = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM " + model.getSimpleName());
+    public <M extends Model> List<M> select(Class<M> model, String query, Object... parameters) {
+        List<M> result = new LinkedList<>();
+        try (Statement statement = connection.createStatement()) {
+            for (Object parameter : parameters) {
+                query = query.replace("?", parameter.toString());
+            }
+            ResultSet resultSet = statement.executeQuery(query);
+            Method[] setters = injector.getInstance(model).getSetters();
+            String[] columns = methodsToColumns(setters);
 
-            Method[] setters = Model.getSetters(model);
-            String[] fieldNames = Arrays.stream(setters)
-                .map(method -> method.getName().replace("set","").toLowerCase())
-                .toArray(String[]::new);
-
+            // call setters for each result
             while (resultSet.next()) {
                 M instance = model.newInstance();
                 for (int i = 0; i < setters.length; i++) {
@@ -46,112 +48,97 @@ public class SqlPersistence implements Persistence {
                     Class<?> type = setter.getParameterTypes()[0];
                     Object value = null;
                     if (type.equals(String.class)) {
-                        value = resultSet.getString(fieldNames[i]);
+                        value = resultSet.getString(columns[i]);
                     } else if (type.equals(Integer.class) || type.equals(int.class)) {
-                        value = resultSet.getInt(fieldNames[i]);
+                        value = resultSet.getInt(columns[i]);
                     } else if (type.equals(Boolean.class) || type.equals(boolean.class)) {
-                        value = resultSet.getBoolean(fieldNames[i]);
+                        value = resultSet.getBoolean(columns[i]);
                     } else if (type.equals(Date.class)) {
-                        value = resultSet.getDate(fieldNames[i]);
+                        value = resultSet.getDate(columns[i]);
                     }
                     setter.invoke(instance, value);
                 }
-
                 result.add(instance);
             }
-            statement.close();
         } catch (Exception e) {
             logger.error(e);
         }
         return result;
     }
 
-//    @Override
-//    public boolean persist(Object model) {
-//        if (!entityManager.contains(model)) {
-//            if (!isActive()) {
-//                begin();
-//            }
-//            entityManager.persist(model);
-//            entityManager.flush();
-//            commit();
-//            logger.debug("%s record created successfully", model.getClass().getSimpleName());
-//            return true;
-//        }
-//        logger.debug("%s record already exists, cannot create", model.getClass().getSimpleName());
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean remove(Object model) {
-//        if (entityManager.contains(model)) {
-//            if (!isActive()) {
-//                begin();
-//            }
-//            entityManager.remove(model);
-//            entityManager.flush();
-//            commit();
-//            logger.debug("%s record deleted successfully", model.getClass().getSimpleName());
-//            return true;
-//        }
-//        logger.debug("%s record doesn't exists, cannot delete", model.getClass().getSimpleName());
-//        return false;
-//    }
-//
-//    @Override
-//    public <M> M find(Class<M> modelClass, int id) {
+    @Override
+    public <M extends Model> boolean insert(M model) {
+        try (Statement statement = connection.createStatement()) {
+            Method[] getters = model.getGetters();
+            String[] columns = methodsToColumns(getters);
+            String[] hiddenValues = new String[getters.length];
+            String[] values = new String[getters.length];
+            for (int i = 0; i < getters.length; i++) {
+                hiddenValues[i] = "?";
+                values[i] = getters[i].invoke(model).toString();
+            }
 
-//
-//        logger.debug("Retrieving %s record by ID %s", modelClass.getSimpleName(), id);
-//        return entityManager.find(modelClass, id);
-//    }
-//
-//    @Override
-//    public Query query(String query) {
-//        return entityManager.createQuery(query);
-//    }
-//
-//    @Override
-//    public boolean isActive() {
-//        return entityManager.getTransaction().isActive();
-//    }
-//
-//    @Override
-//    public void begin() {
-//        entityManager.getTransaction().begin();
-//    }
-//
-//    @Override
-//    public void commit() {
-//        entityManager.getTransaction().commit();
-//    }
-//
-//    @Override
-//    public void rollback() {
-//        entityManager.getTransaction().rollback();
-//    }
+            return statement.executeUpdate(
+                "INSERT INTO " + model.getClass().getSimpleName() +
+                    " (" + String.join(",", columns) +
+                    ") VALUES (" + String.join(",", hiddenValues) + ")", values
+            ) > 0;
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        return false;
+    }
 
+    @Override
+    public <M extends Model> boolean update(M model) {
+        try (Statement statement = connection.createStatement()) {
+            Method[] getters = model.getGetters();
+            String[] columns = methodsToColumns(getters);
+            String[] hiddenValues = new String[getters.length];
+            String[] values = new String[getters.length + 1];
+            for (int i = 0; i < getters.length; i++) {
+                hiddenValues[i] = "?";
+                values[i] = columns[i] + " = " + getters[i].invoke(model);
+            }
+            values[getters.length] = String.valueOf(model.getId());
+
+            return statement.executeUpdate(
+                "UPDATE " + model.getClass().getSimpleName() +
+                    " SET " + String.join(",", hiddenValues) +
+                    " WHERE id = ?", values
+            ) > 0;
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        return false;
+    }
+
+    @Override
+    public <M extends Model> boolean delete(M model) {
+        try (Statement statement = connection.createStatement()) {
+            return statement.executeUpdate(
+                "DELETE FROM " + model.getClass().getSimpleName() + " WHERE id = ?", new int[]{model.getId()}
+            ) > 0;
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        return false;
+    }
+
+    private String[] methodsToColumns(Method[] methods) {
+        String[] columns = new String[methods.length];
+        for (int i = 0; i < methods.length; i++) {
+            columns[i] = methodToColumn(methods[i]);
+        }
+        return columns;
+    }
+
+    private String methodToColumn(Method method) {
+        String name = method.getName();
+        return
+            name.startsWith("get") ? name.replace("get", "").toLowerCase() :
+                name.startsWith("is") ? name.replace("is", "").toLowerCase() :
+                    name.startsWith("set") ? name.replace("set", "").toLowerCase() :
+                        name;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

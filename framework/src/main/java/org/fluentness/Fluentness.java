@@ -6,10 +6,7 @@ import org.fluentness.controller.console.ConsoleAction;
 import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.DesktopView;
-import org.fluentness.injector.FnInjector;
 import org.fluentness.injector.Injector;
-import org.fluentness.loader.FnLoader;
-import org.fluentness.loader.Loader;
 import org.fluentness.server.Server;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,30 +16,28 @@ import java.util.List;
 
 public class Fluentness {
 
-    private static Application application;
-
-    public static Application getApplication() {
-        return application;
-    }
-
     public static void launch(Application application, String[] args) throws FluentnessException {
         if (application == null) {
             throw new FluentnessException("Passed application was null");
         }
-        Fluentness.application = application;
-        Loader loader = new FnLoader();
-        Injector injector = new FnInjector(loader);
-        switch (application.getPlatform()) {
-            case DESKTOP:
-                desktop(injector);
-                break;
-            case WEB:
-                web(injector);
-                break;
-            case CONSOLE:
-            case MOBILE:
-            default:
-                console(injector, args);
+
+        try {
+            Injector injector = application.getInjector().getConstructor(Application.class).newInstance(application);
+            switch (application.getPlatform()) {
+                case DESKTOP:
+                    desktop(injector);
+                    break;
+                case WEB:
+                    web(injector);
+                    break;
+                case CONSOLE:
+                case MOBILE:
+                default:
+                    console(injector, args);
+            }
+
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new FluentnessException(e);
         }
     }
 
@@ -54,13 +49,13 @@ public class Fluentness {
             String name = args.length == 0 ? "help" : args[0];
             List<ConsoleAction> actions = new LinkedList<>();
             injector.getInstances(AbstractConsoleController.class)
-                .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
+                    .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
             Method toExecute = actions
-                .stream()
-                .filter(action -> action.getMethod().getName().equals(name))
-                .map(ConsoleAction::getMethod)
-                .findFirst()
-                .orElseThrow(() -> new ConsoleException("No such command with name %s found", name));
+                    .stream()
+                    .filter(action -> action.getMethod().getName().equals(name))
+                    .map(ConsoleAction::getMethod)
+                    .findFirst()
+                    .orElseThrow(() -> new ConsoleException("No such command with name %s found", name));
             Class<? extends Controller> declaringClass = (Class<? extends Controller>) toExecute.getDeclaringClass();
             toExecute.setAccessible(true);
             toExecute.invoke(injector.getInstance(declaringClass));
@@ -80,7 +75,7 @@ public class Fluentness {
         }
     }
 
-    private static void web(Injector injector) throws FluentnessException {
+    private static void web(Injector injector) {
         injector.getInstance(Server.class).start();
     }
 

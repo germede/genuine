@@ -1,10 +1,12 @@
 package org.fluentness.injector;
 
+import org.fluentness.ApplicationComponent;
+
 import java.util.List;
 
-public interface Injector {
+public interface Injector extends ApplicationComponent {
 
-    <A> List<A> getInstances(Class<A> parent);
+    <A extends ApplicationComponent> List<A> getInstances(Class<A> parent);
 
-    <A> A getInstance(Class<A> parent);
+    <A extends ApplicationComponent> A getInstance(Class<A> parent);
 }

@@ -1,13 +1,10 @@
 package com.sample.repository;
 
-import org.fluentness.repository.CrudRepository;
+import com.sample.model.AuthorModel;
+import org.fluentness.repository.AbstractCrudRepository;
 import org.fluentness.persistence.Persistence;
 
-public class AuthorRepository extends CrudRepository<Authors> {
-
-
-
-
+public class AuthorRepository extends AbstractCrudRepository<AuthorModel> {
 
     public AuthorRepository(Persistence persistence) {
         super(persistence);

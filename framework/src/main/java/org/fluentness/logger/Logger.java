@@ -1,8 +1,9 @@
 package org.fluentness.logger;
 
+import org.fluentness.ApplicationComponent;
 import org.fluentness.configuration.Key;
 
-public interface Logger {
+public interface Logger extends ApplicationComponent {
 
     Key<LogLevel> LEVEL = new Key<>(LogLevel.DEBUG);
     Key<Boolean> CONSOLE = new Key<>(true);

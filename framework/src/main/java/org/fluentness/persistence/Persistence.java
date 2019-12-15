@@ -1,33 +1,23 @@
 package org.fluentness.persistence;
 
-import org.fluentness.model.Model;
+import org.fluentness.ApplicationComponent;
 import org.fluentness.configuration.Key;
+import org.fluentness.model.Model;
 
 import java.util.List;
 
-public interface Persistence {
+public interface Persistence extends ApplicationComponent {
 
     Key<String> JDBC_URL = new Key<>();
     Key<String> USERNAME = new Key<>();
     Key<String> PASSWORD = new Key<>();
 
-    <M extends Model> List<M> findAll(Class<M> model);
+    <M extends Model> List<M> select(Class<M> mClass, String query, Object... parameters);
 
-//    EntityManager getEntityManager();
-//
-//    <M extends Object> M find(Class<M> modelClass, int id);
-//
-//    Query query(String query);
-//
-//    boolean persist(Object model);
-//
-//    boolean remove(Object model);
-//
-//    boolean isActive();
-//
-//    void begin();
-//
-//    void commit();
-//
-//    void rollback();
+    <M extends Model> boolean insert(M model);
+
+    <M extends Model> boolean update(M model);
+
+    <M extends Model> boolean delete(M model);
+
 }

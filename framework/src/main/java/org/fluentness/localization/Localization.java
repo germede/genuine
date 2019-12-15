@@ -1,5 +1,7 @@
 package org.fluentness.localization;
 
+import org.fluentness.ApplicationComponent;
+
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
@@ -7,9 +9,9 @@ import java.util.stream.Collectors;
 
 import static org.fluentness.localization.TranslationFactory.*;
 
-public class Translation {
+public class Localization extends ApplicationComponent {
 
-    public static final Translation
+    public static final Localization
         submit = msg("Submit", de("Enviar"),es("Absenden")),
         action = msg("Action", de("Aktion"),es("Acción")),
         search = msg("Search", de("Suchen"),es("Buscar")),
@@ -24,7 +26,7 @@ public class Translation {
     private final String fallback;
     private final Map<String, String> translations;
 
-    Translation(String fallback, Message[] messages) {
+    Localization(String fallback, Message[] messages) {
         this.fallback = fallback;
         this.translations = Arrays.stream(messages).collect(
             Collectors.toMap(message -> message.language, message -> message.message)
