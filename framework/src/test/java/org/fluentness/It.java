@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.common.AnsiColor;
+import org.fluentness.service.logger.AnsiColor;
 import org.junit.Assert;
 
 public enum It {

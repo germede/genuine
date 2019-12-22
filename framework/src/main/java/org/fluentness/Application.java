@@ -1,25 +1,24 @@
 package org.fluentness;
 
-import org.fluentness.authenticator.Authenticator;
-import org.fluentness.configuration.Configuration;
+import org.fluentness.service.authenticator.Authenticator;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configuration.MapConfiguration;
 import org.fluentness.controller.Controller;
-import org.fluentness.injector.FnInjector;
-import org.fluentness.injector.Injector;
-import org.fluentness.localization.AbstractStringLocalization;
-import org.fluentness.logger.AndroidLogger;
-import org.fluentness.logger.JulLogger;
-import org.fluentness.logger.Logger;
-import org.fluentness.mailer.Mailer;
-import org.fluentness.mailer.SocketMailer;
-import org.fluentness.model.Model;
-import org.fluentness.persistence.Persistence;
-import org.fluentness.persistence.SqlPersistence;
+import org.fluentness.service.injector.ConstructorInjector;
+import org.fluentness.service.injector.Injector;
+import org.fluentness.service.localization.Localization;
+import org.fluentness.service.logger.AndroidLogger;
+import org.fluentness.service.logger.JulLogger;
+import org.fluentness.service.logger.Logger;
+import org.fluentness.service.mailer.Mailer;
+import org.fluentness.service.mailer.SocketMailer;
+import org.fluentness.repository.Model;
+import org.fluentness.service.persistence.Persistence;
+import org.fluentness.service.persistence.SqlPersistence;
 import org.fluentness.repository.Repository;
-import org.fluentness.server.Server;
-import org.fluentness.server.SunServer;
-import org.fluentness.style.Style;
-import org.fluentness.validator.Validator;
-import org.fluentness.view.View;
+import org.fluentness.service.server.Server;
+import org.fluentness.service.server.SunServer;
+import org.fluentness.controller.View;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,8 +32,10 @@ import java.util.zip.ZipInputStream;
 
 public interface Application {
 
-    static <T> List<Class<? extends T>> load(String packageName, Class<T> parent) {
+    default <T> Class<? extends T>[] load(Class<T> parent) {
         List<Class<? extends T>> result = new LinkedList<>();
+        String packageName = getClass().getPackage().getName() + "." + parent.getSimpleName().toLowerCase();
+
         try {
             // directory
             URL root = Thread.currentThread().getContextClassLoader().getResource(packageName.replace(".", "/"));
@@ -68,112 +69,59 @@ public interface Application {
         } catch (IOException | ClassNotFoundException | URISyntaxException e) {
             e.printStackTrace();
         }
-        return result;
+        return result.toArray(new Class[0]);
     }
 
     default String getName() {
         return this.getClass().getSimpleName().replace("Application", "");
     }
 
-    default Platform getPlatform() {
-        return Platform.WEB;
+    default Class<? extends Controller>[] getControllers() {
+        return load(Controller.class);
     }
 
-    default Environment getEnvironment() {
-        return Environment.DEV;
+    default Class<? extends Repository>[] getRepositories() {
+        return load(Repository.class);
     }
 
-    default List<Class<? extends Authenticator>> getAuthenticator() {
-        return load(
-                getClass().getPackage().getName() + "." + Authenticator.class.getSimpleName().toLowerCase(),
-                Authenticator.class
-        );
+    default Class<? extends Authenticator>[] getAuthenticator() {
+        return load(Authenticator.class);
     }
 
     default Class<? extends Configuration> getConfiguration() {
-        try {
-            return (Class<? extends Configuration>) Class.forName(
-                    // package
-                    getClass().getPackage().getName() + "." + Configuration.class.getSimpleName().toLowerCase() +
-                    // className
-                    getEnvironment().toString() + Configuration.class.getSimpleName()
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    default List<Class<? extends Controller>> getControllers() {
-        return load(
-                getClass().getPackage().getName() + "." + Controller.class.getSimpleName().toLowerCase(),
-                Controller.class
-        );
+        return MapConfiguration.class;
     }
 
     default Class<? extends Injector> getInjector() {
-        return FnInjector.class;
+        return ConstructorInjector.class;
     }
 
-    default List<Class<? extends AbstractStringLocalization>> getLocalizations() {
-        return load(
-                getClass().getPackage().getName() + "." + AbstractStringLocalization.class.getSimpleName().toLowerCase(),
-                AbstractStringLocalization.class
-        );
+    default Class<? extends Localization>[] getLocalizations() {
+        return load(Localization.class);
     }
 
     default Class<? extends Logger> getLogger() {
-        if (getPlatform().equals(Platform.MOBILE)) {
-            return AndroidLogger.class;
-        }
-        return JulLogger.class;
+        return getPlatform().equals(Platform.MOBILE) ? AndroidLogger.class : JulLogger.class;
     }
 
     default Class<? extends Mailer> getMailer() {
         return SocketMailer.class;
     }
 
-    default List<Class<? extends Model>> getModels() {
-        return load(
-                getClass().getPackage().getName() + "." + Model.class.getSimpleName().toLowerCase(),
-                Model.class
-        );
+    default Class<? extends Model>[] getModels() {
+        return load(Model.class);
     }
 
     default Class<? extends Persistence> getPersistence() {
         return SqlPersistence.class;
     }
 
-    default List<Class<? extends Repository<Model>>> getRepositories() {
-        return load(
-                getClass().getPackage().getName() + "." + Repository.class.getSimpleName().toLowerCase(),
-                Repository.class
-        );
-    }
-
     default Class<? extends Server> getServer() {
         return SunServer.class;
     }
 
-    default List<Class<? extends Style>> getStyles() {
-        return load(
-                getClass().getPackage().getName() + "." + Style.class.getSimpleName().toLowerCase(),
-                Style.class
-        );
-    }
-
-    default List<Class<? extends Validator>> getValidators() {
-        return load(
-                getClass().getPackage().getName() + "." + Validator.class.getSimpleName().toLowerCase(),
-                Validator.class
-        );
-    }
-
-    default List<Class<? extends View>> getViews() {
-        return load(
-                getClass().getPackage().getName() + "." + View.class.getSimpleName().toLowerCase(),
-                View.class
-        );
+    default Class<? extends View>[] getViews() {
+        return load(View.class);
     }
 
 
@@ -182,18 +130,5 @@ public interface Application {
         DESKTOP,
         MOBILE,
         WEB
-    }
-
-    enum Environment {
-        DEV,
-        TEST,
-        STAGE,
-        PROD;
-
-        @Override
-        public String toString() {
-            String toString = super.toString();
-            return toString.substring(0, 1).toUpperCase() + toString.substring(1);
-        }
     }
 }

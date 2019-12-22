@@ -8,9 +8,9 @@ Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-i
 multi-platform, consistent and flexible Java development framework. After a quick-start you'll be able to:
 * develop rich desktop applications based on Swing without headaches, 
 dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls
-or maybe the next top hybrid mobile app
+or maybe the next top Android native mobile app
 * scale from small XML-based REST-Web-Services to fully-featured enterprise Apps 
-with very small footprint (few dependencies), yet out-of-the-box runnable like Spring Boot
+with very small footprint (few dependencies), yet out-of-the-box runnable as in Spring Boot
 * respect standards and coding guidelines as far as possible, but applying own, 
 well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture)
 * enjoy the advantages of developing in Java such as: type safety, performance, 

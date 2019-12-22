@@ -1,14 +1,14 @@
 package org.fluentness.controller.console;
 
 import org.fluentness.Fluentness;
-import org.fluentness.injector.Injector;
-import org.fluentness.logger.Logger;
+import org.fluentness.service.injector.Injector;
+import org.fluentness.service.logger.Logger;
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import static org.fluentness.common.AnsiColor.*;
+import static org.fluentness.service.logger.AnsiColor.*;
 
 public class DefaultConsoleController extends AbstractConsoleController {
 

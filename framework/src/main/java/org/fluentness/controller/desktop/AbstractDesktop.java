@@ -1,6 +1,6 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.style.desktop.DesktopStyle;
+import org.fluentness.controller.desktop.style.DesktopStyle;
 
 public abstract class AbstractDesktop<C extends AbstractDesktopController> {
 
