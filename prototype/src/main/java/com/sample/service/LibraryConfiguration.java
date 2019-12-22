@@ -1,13 +1,13 @@
-package com.sample.configuration;
+package com.sample.service;
 
-import org.fluentness.authenticator.BasicAuthenticator;
-import org.fluentness.configuration.AbstractConfiguration;
-import org.fluentness.logger.LogLevel;
-import org.fluentness.logger.Logger;
-import org.fluentness.persistence.Persistence;
-import org.fluentness.server.Server;
+import org.fluentness.service.authenticator.BasicAuthenticator;
+import org.fluentness.service.configuration.AbstractConfiguration;
+import org.fluentness.service.logger.LogLevel;
+import org.fluentness.service.logger.Logger;
+import org.fluentness.service.persistence.Persistence;
+import org.fluentness.service.server.Server;
 
-public class DevConfiguration extends AbstractConfiguration {
+public class LibraryConfiguration extends AbstractConfiguration {
 
     @Override
     protected void configure() {

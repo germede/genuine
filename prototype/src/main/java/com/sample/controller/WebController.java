@@ -1,42 +1,66 @@
 package com.sample.controller;
 
-import com.sample.localization.StringLocalization;
-import com.sample.model.AuthorModel;
-import com.sample.model.BookModel;
-import com.sample.repository.AuthorRepository;
+import org.fluentness.controller.web.Handleer;
+import org.fluentness.controller.web.Route;
+import org.fluentness.controller.web.Routing;
+import com.sample.repository.Author;
+import com.sample.repository.Book;
 import com.sample.repository.BookRepository;
+import com.sample.repository.User;
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.server.Request;
-import org.fluentness.view.web.HtmlView;
+import org.fluentness.controller.web.WebAction;
+import org.fluentness.service.persistence.Persistence;
+import org.fluentness.service.server.Request;
+import org.fluentness.controller.web.view.HtmlView;
 
-import static org.fluentness.view.web.HtmlAttribute.CLASS;
-import static org.fluentness.view.web.HtmlFactory.*;
+import static org.fluentness.controller.web.view.HtmlAttribute.CLASS;
+import static org.fluentness.controller.web.view.HtmlFactory.*;
 
 public class WebController extends AbstractWebController {
 
-    private StringLocalization l10n;
+    private final Persistence persistence;
     private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
 
-    public WebController(
-        StringLocalization l10n,
-        BookRepository bookRepository,
-        AuthorRepository authorRepository
-    ) {
-        this.l10n = l10n;
+    public WebController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
     }
 
-    @Action(path = "/")
+    protected Routing getRouting() {
+        return routing(
+            get("/", this::index),
+            get("/books", this::books),
+            authenticate(request -> persistence.select(User.class, User.byName, request.getCookie(""))
+                get("/books/create", this::createBook),
+                get("/books/update/<id>", this::updateBook),
+                get("/books/delete/<id>", this::deleteBook)
+            ),
+            get("/authors", this::authors),
+            get("/authors/create", this::createAuthor),
+            get("/404", this::notFound),
+            get("/500", this::serverError)
+        );
+    }
+
+    private Route authenticate(Handleer handleer, Route... route) {
+        return null;
+    }
+
+    private Route get(String path, WebAction action) {
+
+    }
+
+    protected Routing routing(Route... routes) {
+
+    }
+
+
     public HtmlView index(Request request) {
         return books(request);
     }
 
-    @Action(path = "/books")
-    public HtmlView books(Request request) {
+    HtmlView books(Request request) {
         return div(
-            table(bookRepository.select(BookModel.class)).appendColumn(book ->
+            table(bookRepository.select(Book.class)).appendColumn(book ->
                 td(CLASS + "float-right",
                     action(this::updateBook, CLASS + "button button-outline", "\uD83D\uDD89"),
                     " ",
@@ -49,46 +73,39 @@ public class WebController extends AbstractWebController {
         );
     }
 
-    @Action(path = "/books/create")
     public HtmlView createBook(Request request) {
         return div(
             h2(l10n.localize(l10n.create)),
-            form(this::createBook, new BookModel())
+            form(this::createBook, new Book())
         );
     }
 
-    @Action(path = "/books/update/<id>")
     public String updateBook(Request request) {
         return "asdf";
     }
 
-    @Action(path = "/books/delete/<id>")
     public String deleteBook(Request request) {
         return "asdf";
     }
 
-    @Action(path = "/authors")
     public HtmlView authors(Request request) {
         return div(
-            table(authorRepository.select(AuthorModel.class)),
+            table(authorRepository.select(Author.class)),
             action(this::createAuthor, CLASS + "button column", l10n.create)
         );
     }
 
-    @Action(path = "/authors/create")
     public HtmlView createAuthor(Request request) {
         return div(
             h2(l10n.create),
-            form(this::createAuthor, new AuthorModel())
+            form(this::createAuthor, new Author())
         );
     }
 
-    @Action(path = "/404")
     public String notFound(Request request) {
         return l10n.page_not_found;
     }
 
-    @Action(path = "/500")
     public String serverError(Request request) {
         return l10n.server_error;
     }

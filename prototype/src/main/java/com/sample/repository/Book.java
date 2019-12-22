@@ -1,10 +1,10 @@
-package com.sample.model;
+package com.sample.repository;
 
-import org.fluentness.model.Model;
+import org.fluentness.repository.Model;
 
-import static org.fluentness.model.Model.FieldType.*;
+import static org.fluentness.repository.Model.FieldType.*;
 
-public class BookModel implements Model {
+public class Book implements Model {
 
     private int id;
 
@@ -27,7 +27,7 @@ public class BookModel implements Model {
     private boolean bestseller;
 
     @Type(SELECT)
-    private AuthorModel authorModel;
+    private Author author;
 
     public int getId() {
         return id;
@@ -85,12 +85,12 @@ public class BookModel implements Model {
         this.bestseller = bestseller;
     }
 
-    public AuthorModel getAuthorModel() {
-        return authorModel;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthorModel(AuthorModel authorModel) {
-        this.authorModel = authorModel;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
 }

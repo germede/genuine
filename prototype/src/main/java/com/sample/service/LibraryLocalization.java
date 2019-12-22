@@ -1,11 +1,11 @@
-package com.sample.localization;
+package com.sample.service;
 
-import org.fluentness.localization.AbstractStringLocalization;
+import org.fluentness.service.localization.AbstractStringLocalization;
 
 import static org.fluentness.base.service.localization.Language.de;
 import static org.fluentness.base.service.localization.Language.es;
 
-public class StringLocalization extends AbstractStringLocalization {
+public class LibraryLocalization extends AbstractStringLocalization {
 
     @Translate(to = de, as ="Willkommen, %s")
     @Translate(to = es, as ="Bienvenido, %s")

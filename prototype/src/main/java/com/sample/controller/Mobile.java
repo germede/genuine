@@ -1,20 +1,19 @@
-package com.sample.view;
+package com.sample.controller;
 
-import com.sample.controller.MobileController;
 import org.fluentness.controller.desktop.DesktopView;
-import org.fluentness.style.desktop.DesktopStyle;
-import org.fluentness.view.desktop.component.MenuBarView;
+import org.fluentness.controller.desktop.style.DesktopStyle;
+import org.fluentness.controller.desktop.view.component.MenuBarView;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static org.fluentness.style.desktop.DesktopStyleFactory.byClass;
-import static org.fluentness.style.desktop.DesktopStyleFactory.ubuntuStyle;
-import static org.fluentness.view.desktop.SwingViewFactory.*;
+import static org.fluentness.controller.desktop.style.DesktopStyleFactory.byClass;
+import static org.fluentness.controller.desktop.style.DesktopStyleFactory.ubuntuStyle;
+import static org.fluentness.controller.desktop.view.SwingViewFactory.*;
 
-public class MobileView extends AbstractMobile<MobileController> {
+public class Mobile extends AbstractMobile<MobileController> {
 
-    public MobileView(MobileController controller) {
+    public Mobile(MobileController controller) {
         super(controller);
     }
 

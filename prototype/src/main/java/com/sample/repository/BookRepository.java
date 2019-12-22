@@ -1,12 +1,12 @@
 package com.sample.repository;
 
 import com.sample.model.BookModel;
-import org.fluentness.repository.AbstractRepository;
-import org.fluentness.persistence.Persistence;
+import org.fluentness.repository.crud.AbstractCrudRepository;
+import org.fluentness.service.persistence.Persistence;
 
 import java.util.List;
 
-public class BookRepository extends AbstractRepository<BookModel> {
+public class BookRepository extends AbstractCrudRepository<BookModel> {
 
     public BookRepository(Persistence persistence) {
         super(persistence);

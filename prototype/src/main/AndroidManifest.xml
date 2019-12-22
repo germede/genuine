@@ -3,7 +3,7 @@
 
     <application
         android:label="Test">
-        <activity android:name="org.fluentness.controller.mobile.MyActivity">
+        <activity android:name="org.fluentness.controller.mobile.view.MyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

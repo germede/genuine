@@ -3,15 +3,14 @@ package com.sample.controller;
 import com.sample.repository.AuthorRepository;
 import com.sample.repository.BookRepository;
 import com.sample.repository.UserRepository;
-import com.sample.view.DesktopView;
 import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.view.desktop.SwingViewRegistry;
+import org.fluentness.controller.desktop.view.SwingViewRegistry;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
 import java.awt.event.ActionEvent;
 
-public class MobileController extends AbstractDesktopController<DesktopView> {
+public class MobileController extends AbstractDesktopController<Desktop> {
 
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
@@ -22,7 +21,7 @@ public class MobileController extends AbstractDesktopController<DesktopView> {
         AuthorRepository authorRepository,
         UserRepository userRepository
     ) {
-        super(DesktopView.class);
+        super(Desktop.class);
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.userRepository = userRepository;

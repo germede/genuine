@@ -1,16 +1,18 @@
-package com.sample.view;
+package com.sample.controller;
 
-import com.sample.localization.StringLocalization;
-import org.fluentness.view.View;
+import com.sample.LibraryLocalization;
+import org.fluentness.controller.View;
 
-import static org.fluentness.view.web.HtmlAttribute.*;
-import static org.fluentness.view.web.HtmlFactory.*;
+import static org.fluentness.controller.web.view.HtmlAttribute.*;
+import static org.fluentness.controller.web.view.HtmlFactory.*;
 
-public class WebView implements View<WebController> {
+public class Web implements View<WebController> {
 
-    private StringLocalization l10n;
+    private LibraryLocalization l10n;
 
-    public WebView(StringLocalization l10n) {
+    private WebController controller;
+
+    public Web(LibraryLocalization l10n) {
         this.l10n = l10n;
     }
 

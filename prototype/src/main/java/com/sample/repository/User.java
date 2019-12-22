@@ -1,11 +1,11 @@
-package com.sample.model;
+package com.sample.repository;
 
-import org.fluentness.model.Model;
+import org.fluentness.repository.Model;
 
-import static org.fluentness.model.Model.FieldType.PASSWORD;
-import static org.fluentness.model.Model.FieldType.TEXT;
+import static org.fluentness.repository.Model.FieldType.PASSWORD;
+import static org.fluentness.repository.Model.FieldType.TEXT;
 
-public class UserModel implements Model {
+public class User implements Model {
 
     private int id;
 

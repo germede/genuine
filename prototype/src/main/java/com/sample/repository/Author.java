@@ -1,12 +1,14 @@
-package com.sample.model;
+package com.sample.repository;
 
-import org.fluentness.model.Model;
+import org.fluentness.repository.Model;
 
 import java.sql.Date;
 
-import static org.fluentness.model.Model.FieldType.*;
+import static org.fluentness.repository.Model.FieldType.*;
 
-public class AuthorModel implements Model {
+
+@Query("byName", "name = %s")
+public class Author implements Model {
 
     private int id;
 

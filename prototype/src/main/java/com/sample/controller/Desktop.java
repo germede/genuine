@@ -1,19 +1,18 @@
-package com.sample.view;
+package com.sample.controller;
 
-import com.sample.controller.DesktopController;
 import org.fluentness.controller.desktop.AbstractDesktop;
-import org.fluentness.style.desktop.DesktopStyle;
-import org.fluentness.view.desktop.component.MenuBarView;
+import org.fluentness.controller.desktop.style.DesktopStyle;
+import org.fluentness.controller.desktop.view.component.MenuBarView;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static org.fluentness.style.desktop.DesktopStyleFactory.*;
-import static org.fluentness.view.desktop.SwingViewFactory.*;
+import static org.fluentness.controller.desktop.style.DesktopStyleFactory.*;
+import static org.fluentness.controller.desktop.view.SwingViewFactory.*;
 
-public class DesktopView implements AbstractDesktop<DesktopController> {
+public class Desktop implements AbstractDesktop<DesktopController> {
 
-    public DesktopView(DesktopController controller) {
+    public Desktop(DesktopController controller) {
         super(controller);
     }
 
