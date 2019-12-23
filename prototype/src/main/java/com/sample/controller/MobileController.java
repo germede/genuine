@@ -1,10 +1,8 @@
 package com.sample.controller;
 
-import com.sample.repository.AuthorRepository;
-import com.sample.repository.BookRepository;
-import com.sample.repository.UserRepository;
+import com.sample.view.Desktop;
 import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.controller.desktop.view.SwingViewRegistry;
+import org.fluentness.view.desktop.SwingViewRegistry;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;

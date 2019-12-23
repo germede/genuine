@@ -3,58 +3,40 @@ package com.sample.controller;
 import org.fluentness.controller.web.Handleer;
 import org.fluentness.controller.web.Route;
 import org.fluentness.controller.web.Routing;
-import com.sample.repository.Author;
-import com.sample.repository.Book;
-import com.sample.repository.BookRepository;
-import com.sample.repository.User;
+import com.sample.model.Author;
+import com.sample.model.Book;
+import com.sample.model.User;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebAction;
-import org.fluentness.service.persistence.Persistence;
-import org.fluentness.service.server.Request;
-import org.fluentness.controller.web.view.HtmlView;
+import org.fluentness.persistence.Persistence;
+import org.fluentness.server.Request;
+import org.fluentness.view.web.HtmlView;
 
-import static org.fluentness.controller.web.view.HtmlAttribute.CLASS;
-import static org.fluentness.controller.web.view.HtmlFactory.*;
+import static com.sample.LibraryTranslation.page_not_found;
+import static org.fluentness.view.web.HtmlAttribute.CLASS;
+import static org.fluentness.view.web.HtmlFactory.*;
 
 public class WebController extends AbstractWebController {
 
     private final Persistence persistence;
-    private final BookRepository bookRepository;
 
-    public WebController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public WebController(Persistence persistence) {
+        this.persistence = persistence;
     }
 
-    protected Routing getRouting() {
-        return routing(
-            get("/", this::index),
-            get("/books", this::books),
-            authenticate(request -> persistence.select(User.class, User.byName, request.getCookie(""))
-                get("/books/create", this::createBook),
-                get("/books/update/<id>", this::updateBook),
-                get("/books/delete/<id>", this::deleteBook)
-            ),
-            get("/authors", this::authors),
-            get("/authors/create", this::createAuthor),
-            get("/404", this::notFound),
-            get("/500", this::serverError)
-        );
+    protected void routing() {
+        get("/", this::index);
+        get("/books", this::books);
+        get("/books/create", this::createBook);
+        get("/books/update/<id>", this::updateBook);
+        get("/books/delete/<id>", this::deleteBook);
+        get("/authors", this::authors);
+        get("/authors/create", this::createAuthor);
+        get("/404", this::notFound);
+        get("/500", this::serverError);
     }
 
-    private Route authenticate(Handleer handleer, Route... route) {
-        return null;
-    }
-
-    private Route get(String path, WebAction action) {
-
-    }
-
-    protected Routing routing(Route... routes) {
-
-    }
-
-
-    public HtmlView index(Request request) {
+    HtmlView index(Request request) {
         return books(request);
     }
 
@@ -73,40 +55,40 @@ public class WebController extends AbstractWebController {
         );
     }
 
-    public HtmlView createBook(Request request) {
+    HtmlView createBook(Request request) {
         return div(
             h2(l10n.localize(l10n.create)),
             form(this::createBook, new Book())
         );
     }
 
-    public String updateBook(Request request) {
+    String updateBook(Request request) {
         return "asdf";
     }
 
-    public String deleteBook(Request request) {
+    String deleteBook(Request request) {
         return "asdf";
     }
 
-    public HtmlView authors(Request request) {
+    HtmlView authors(Request request) {
         return div(
             table(authorRepository.select(Author.class)),
             action(this::createAuthor, CLASS + "button column", l10n.create)
         );
     }
 
-    public HtmlView createAuthor(Request request) {
+    HtmlView createAuthor(Request request) {
         return div(
             h2(l10n.create),
             form(this::createAuthor, new Author())
         );
     }
 
-    public String notFound(Request request) {
-        return l10n.page_not_found;
+    String notFound(Request request) {
+        return page_not_found.translate();
     }
 
-    public String serverError(Request request) {
+    String serverError(Request request) {
         return l10n.server_error;
     }
 

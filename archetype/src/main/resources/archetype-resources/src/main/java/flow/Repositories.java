@@ -1,8 +1,8 @@
 package ${package}.flow;
 
 import ${package}.data.Dummy;
-import org.fluentness.repository.repository.Repository;
-import org.fluentness.repository.repository.RepositoryProducer;
+import org.fluentness.model.repository.Repository;
+import org.fluentness.model.repository.RepositoryProducer;
 
 public class Repositories extends RepositoryProducer {
 

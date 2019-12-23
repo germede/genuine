@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.service.server.Request;
+import org.fluentness.server.Request;
 
 public class TestWebController extends AbstractWebController<TestWebViewProvider> {
 

@@ -1,18 +1,19 @@
 package com.sample.controller;
 
-import com.sample.repository.BookRepository;
+import com.sample.model.Book;
 import org.fluentness.controller.console.AbstractConsoleController;
+import org.fluentness.persistence.Persistence;
 
 public class ConsoleController extends AbstractConsoleController {
 
-    private BookRepository bookRepository;
+    private final Persistence persistence;
 
-    public ConsoleController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public ConsoleController(Persistence persistence) {
+        this.persistence = persistence;
     }
 
     @Action(description = "Print all books containing name", category = "library")
     public void search_books(String name, int limit) {
-        bookRepository.findByTitle(name).stream().map(Object::toString).forEach(System.out::println);
+        persistence.select(Book.byName, name).stream().map(Object::toString).forEach(System.out::println);
     }
 }

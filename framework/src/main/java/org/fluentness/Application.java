@@ -1,24 +1,21 @@
 package org.fluentness;
 
-import org.fluentness.service.authenticator.Authenticator;
-import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.configuration.MapConfiguration;
+import org.fluentness.configuration.Configuration;
+import org.fluentness.configuration.MapConfiguration;
 import org.fluentness.controller.Controller;
-import org.fluentness.service.injector.ConstructorInjector;
-import org.fluentness.service.injector.Injector;
-import org.fluentness.service.localization.Localization;
-import org.fluentness.service.logger.AndroidLogger;
-import org.fluentness.service.logger.JulLogger;
-import org.fluentness.service.logger.Logger;
-import org.fluentness.service.mailer.Mailer;
-import org.fluentness.service.mailer.SocketMailer;
-import org.fluentness.repository.Model;
-import org.fluentness.service.persistence.Persistence;
-import org.fluentness.service.persistence.SqlPersistence;
-import org.fluentness.repository.Repository;
-import org.fluentness.service.server.Server;
-import org.fluentness.service.server.SunServer;
-import org.fluentness.controller.View;
+import org.fluentness.injector.ConstructorInjector;
+import org.fluentness.injector.Injector;
+import org.fluentness.logger.AndroidLogger;
+import org.fluentness.logger.JulLogger;
+import org.fluentness.logger.Logger;
+import org.fluentness.mailer.Mailer;
+import org.fluentness.mailer.SocketMailer;
+import org.fluentness.model.Model;
+import org.fluentness.persistence.Persistence;
+import org.fluentness.persistence.SqlPersistence;
+import org.fluentness.server.Server;
+import org.fluentness.server.SunServer;
+import org.fluentness.view.View;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -76,28 +73,20 @@ public interface Application {
         return this.getClass().getSimpleName().replace("Application", "");
     }
 
-    default Class<? extends Controller>[] getControllers() {
-        return load(Controller.class);
-    }
-
-    default Class<? extends Repository>[] getRepositories() {
-        return load(Repository.class);
-    }
-
-    default Class<? extends Authenticator>[] getAuthenticator() {
-        return load(Authenticator.class);
+    default Platform getPlatform() {
+        return Platform.WEB;
     }
 
     default Class<? extends Configuration> getConfiguration() {
         return MapConfiguration.class;
     }
 
-    default Class<? extends Injector> getInjector() {
-        return ConstructorInjector.class;
+    default Class<? extends Controller>[] getControllers() {
+        return load(Controller.class);
     }
 
-    default Class<? extends Localization>[] getLocalizations() {
-        return load(Localization.class);
+    default Class<? extends Injector> getInjector() {
+        return ConstructorInjector.class;
     }
 
     default Class<? extends Logger> getLogger() {
@@ -124,6 +113,7 @@ public interface Application {
         return load(View.class);
     }
 
+    void configure(Configuration configuration);
 
     enum Platform {
         CONSOLE,
