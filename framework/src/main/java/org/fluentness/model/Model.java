@@ -1,7 +1,6 @@
 package org.fluentness.model;
 
 import org.fluentness.ApplicationComponent;
-import org.fluentness.localization.Language;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
@@ -46,18 +45,4 @@ public interface Model extends ApplicationComponent {
         SELECT;
     }
 
-    @Repeatable(Translates.class)
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.FIELD)
-    @interface Translate {
-        Language to();
-
-        String as();
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.FIELD)
-    @interface Translates {
-        Translate[] value();
-    }
 }

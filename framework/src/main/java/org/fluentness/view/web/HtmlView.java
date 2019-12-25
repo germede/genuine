@@ -2,7 +2,7 @@ package org.fluentness.view.web;
 
 import java.util.stream.IntStream;
 
-public interface HtmlView extends Platform, CharSequence {
+public interface HtmlView extends CharSequence {
 
     @Override
     default int length() {

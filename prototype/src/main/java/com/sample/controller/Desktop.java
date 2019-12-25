@@ -1,20 +1,28 @@
-package com.sample.view;
+package com.sample.controller;
 
-import com.sample.controller.DesktopController;
-import org.fluentness.controller.desktop.AbstractDesktop;
-import org.fluentness.view.desktop.style.DesktopStyle;
+import org.fluentness.controller.desktop.AbstractDesktopController;
+import org.fluentness.persistence.Persistence;
+import org.fluentness.view.desktop.SwingViewRegistry;
 import org.fluentness.view.desktop.component.MenuBarView;
+import org.fluentness.view.desktop.style.DesktopStyle;
 
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
-import static org.fluentness.view.desktop.style.DesktopStyleFactory.*;
 import static org.fluentness.view.desktop.SwingViewFactory.*;
+import static org.fluentness.view.desktop.SwingViewFactory.menuItem;
+import static org.fluentness.view.desktop.style.DesktopStyleFactory.byClass;
+import static org.fluentness.view.desktop.style.DesktopStyleFactory.ubuntuStyle;
 
-public class Desktop implements AbstractDesktop<DesktopController> {
+public class Desktop extends AbstractDesktopController<java.awt.Desktop> {
 
-    public Desktop(DesktopController controller) {
-        super(controller);
+    private Persistence persistence;
+
+    public Desktop(Persistence persistence) {
+        super(java.awt.Desktop.class);
+        this.persistence = persistence;
     }
 
     @Override
@@ -36,7 +44,7 @@ public class Desktop implements AbstractDesktop<DesktopController> {
                 panel(
                     action(CLICK, controller::dosomething,
                         colorChooser()
-                        ),
+                    ),
                     table(
                         header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
                         row(1, "John", 40.0, false),
@@ -82,4 +90,15 @@ public class Desktop implements AbstractDesktop<DesktopController> {
             )
         );
     }
+
+    public void test(CaretEvent caretEvent) {
+
+        JCheckBox checkbox_2 = (JCheckBox) SwingViewRegistry.getByName(JCheckBox.class, "checkbox_2");
+        checkbox_2.setText(checkbox_2.getText() + "HAHA");
+    }
+
+    public void cutPressed(ActionEvent event) {
+        int i = 2;
+    }
+
 }

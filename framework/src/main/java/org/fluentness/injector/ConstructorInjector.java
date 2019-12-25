@@ -7,6 +7,7 @@ import org.fluentness.logger.Logger;
 import org.fluentness.mailer.Mailer;
 import org.fluentness.persistence.Persistence;
 import org.fluentness.server.Server;
+import org.fluentness.translator.Translator;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -26,6 +27,7 @@ public class ConstructorInjector implements Injector {
         instances.put(ConstructorInjector.class, this);
 
         inject(Configuration.class, application.getConfiguration());
+        inject(Translator.class, application.getTranslator());
         inject(Logger.class, application.getLogger());
         inject(Persistence.class, application.getPersistence());
         inject(Server.class, application.getServer());

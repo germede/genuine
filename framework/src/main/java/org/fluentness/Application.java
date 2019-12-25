@@ -15,6 +15,8 @@ import org.fluentness.persistence.Persistence;
 import org.fluentness.persistence.SqlPersistence;
 import org.fluentness.server.Server;
 import org.fluentness.server.SunServer;
+import org.fluentness.translator.SimpleTranslator;
+import org.fluentness.translator.Translator;
 import org.fluentness.view.View;
 
 import java.io.File;
@@ -103,6 +105,10 @@ public interface Application {
 
     default Class<? extends Persistence> getPersistence() {
         return SqlPersistence.class;
+    }
+
+    default Class<? extends Translator> getTranslator() {
+        return SimpleTranslator.class;
     }
 
     default Class<? extends Server> getServer() {

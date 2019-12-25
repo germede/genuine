@@ -1,45 +1,59 @@
 package com.sample;
 
-import org.fluentness.localization.Translation;
+import org.fluentness.translator.Language;
+import org.fluentness.translator.Translation;
 
-import static org.fluentness.localization.TranslationFactory.de;
-import static org.fluentness.localization.TranslationFactory.es;
+public enum LibraryTranslation implements Translation {
 
-public final class LibraryTranslation {
+    submit("Submit", "Enviar", "Absenden"),
+    action("Action", "Aktion", "Acción"),
+    search("Search", "Suchen", "Buscar"),
+    accept("Accept", "Akzeptieren", "Aceptar"),
+    cancel("Cancel", "Abbrechen", "Cancelar"),
+    select("Select", "Auswählen", "Seleccionar"),
+    create("Create", "Erstellen", "Crear"),
+    update("Update", "Editieren", "Editar"),
+    delete("Delete", "Entfernen", "Eliminar"),
+    welcome_message("Welcome, %s", "Willkommen, %s", "Bienvenido, %s"),
+    page_not_found("Page not found", "Seite nicht gefunden", "Página no encontrada"),
+    server_error("Server error", "Server-Fehler", "Error de servidor"),
+    books("Books", "Bucher", "Libros"),
+    book_title("Title", "Titel", "Título"),
+    book_title_placeholder("e.g. Harry Potter", "z.B. Harry Potter", "p.ej. Harry Potter"),
+    book_cover("Cover", "Deckblatt", "Portada"),
+    book_genre("Genre", "Genre", "Género"),
+    book_genre_placeholder("e.g. Fantasy", "z.B. Fantasy", "p.ej. Fantasy"),
+    book_synopsis("Synopsis", "Handlung", "Sinopsis"),
+    book_year("Year", "Jahr", "Año"),
+    book_year_placeholder("e.g. 1997", "z.B. 1997", "p.ej. 1997"),
+    book_is_new("Is new", "Ist neu", "Es nuevo"),
+    authors("Authors", "Autoren", "Autores"),
+    author_name("Name", "Vorname", "Nombre"),
+    author_surname("Surname", "Nachname", "Apellido(s)"),
+    author_birthday("Day of Birth", "Geburtsdatum", "Fecha de nacimiento"),
+    author_picture("Picture", "Bild", "Foto"),
+    author_test("Author test", "Bild", "Foto"),
+    author_biography("Biography", "Biografie", "Biografia"),
+    users("Users", "Benutzer", "Usuarios"),
+    user_username("Username", "Benutzername", "Nombre de usuario"),
+    user_password("Password", "Passwort", "Contraseña");
 
-    public static final Mytest asdf = () -> "test" -> "asdf";
+    private final String en;
+    private final String de;
+    private final String es;
 
-    public static final Translation
-        submit = msg("Submit", es("Absenden"), de("Enviar")),
-        action = msg("Action", es("Acción"), de("Aktion")),
-        search = msg("Search", es("Buscar"), de("Suchen")),
-        accept = msg("Accept", es("Aceptar"), de("Akzeptieren")),
-        cancel = msg("Cancel", es("Cancelar"), de("Abbrechen")),
-        select = msg("Select", es("Seleccionar"), de("Auswählen")),
-        create = msg("Create", es("Crear"), de("Erstellen")),
-        update = msg("Update", es("Editar"), de("Editieren")),
-        delete = msg("Delete", es("Eliminar"), de("Entfernen")),
-        welcome_message = msg("Welcome, %s", es("Bienvenido, %s"), de("Willkommen, %s")),
-        page_not_found = msg("Page not found", es("Página no encontrada"), de("Seite nicht gefunden")),
-        server_error = msg("Server error", es("Error de servidor"), de("Server-Fehler")),
-        books = msg("Books", es("Libros"), de("Bucher")),
-        book_title = msg("Title", es("Título"), de("Titel")),
-        book_title_placeholder = msg("e.g. Harry Potter", es("p.ej. Harry Potter"), de("z.B. Harry Potter")),
-        book_cover = msg("Cover", es("Portada"), de("Deckblatt")),
-        book_genre = msg("Genre", es("Género"), de("Genre")),
-        book_genre_placeholder = msg("e.g. Fantasy", es("p.ej. Fantasy"), de("z.B. Fantasy")),
-        book_synopsis = msg("Synopsis", es("Sinopsis"), de("Handlung")),
-        book_year = msg("Year", es("Año"), de("Jahr")),
-        book_year_placeholder = msg("e.g. 1997", es("p.ej. 1997"), de("z.B. 1997")),
-        book_is_new = msg("Is new", es("Es nuevo"), de("Ist neu")),
-        authors = msg("Authors", es("Autores"), de("Autoren")),
-        author_name = msg("Name", es("Nombre"), de("Vorname")),
-        author_surname = msg("Surname", es("Apellido(s)"), de("Nachname")),
-        author_birthday = msg("Day of Birth", es("Fecha de nacimiento"), de("Geburtsdatum")),
-        author_picture = msg("Picture", es("Foto"), de("Bild")),
-        author_biography = msg("Biography", es("Biografia"), de("Biografie")),
-        users = msg("Users", es("Usuarios"), de("Benutzer")),
-        user_username = msg("Username", es("Nombre de usuario"), de("Benutzername")),
-        user_password = msg("Password", es("Contraseña"), de("Passwort"));
+    LibraryTranslation(String en, String de, String es) {
+        this.en = en;
+        this.de = de;
+        this.es = es;
+    }
 
+    @Override
+    public String translate(Language language) {
+        switch (language) {
+            case DE: return de;
+            case ES: return es;
+            default: return en;
+        }
+    }
 }
