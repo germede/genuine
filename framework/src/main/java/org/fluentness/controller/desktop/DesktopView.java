@@ -1,7 +1,7 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.view.desktop.style.DesktopStyle;
-import org.fluentness.view.desktop.style.Style;
+import org.fluentness.controller.desktop.view.style.DesktopStyle;
+import org.fluentness.controller.desktop.view.style.Style;
 
 import java.util.List;
 

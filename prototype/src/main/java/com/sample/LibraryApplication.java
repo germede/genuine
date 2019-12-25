@@ -3,12 +3,12 @@ package com.sample;
 import org.fluentness.Application;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
-import org.fluentness.authenticator.BasicAuthenticator;
-import org.fluentness.configuration.Configuration;
-import org.fluentness.logger.LogLevel;
-import org.fluentness.logger.Logger;
-import org.fluentness.persistence.Persistence;
-import org.fluentness.server.Server;
+import org.fluentness.service.authenticator.BasicAuthenticator;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.logger.LogLevel;
+import org.fluentness.service.logger.Logger;
+import org.fluentness.service.persistence.Persistence;
+import org.fluentness.service.server.Server;
 
 
 public class LibraryApplication implements Application {

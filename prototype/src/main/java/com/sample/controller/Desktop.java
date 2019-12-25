@@ -1,27 +1,28 @@
 package com.sample.controller;
 
+import org.fluentness.controller.desktop.AbstractDesktop;
 import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.persistence.Persistence;
-import org.fluentness.view.desktop.SwingViewRegistry;
-import org.fluentness.view.desktop.component.MenuBarView;
-import org.fluentness.view.desktop.style.DesktopStyle;
+import org.fluentness.service.persistence.Persistence;
+import org.fluentness.controller.desktop.view.SwingViewRegistry;
+import org.fluentness.controller.desktop.view.component.MenuBarView;
+import org.fluentness.controller.desktop.view.style.DesktopStyle;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-import static org.fluentness.view.desktop.SwingViewFactory.*;
-import static org.fluentness.view.desktop.SwingViewFactory.menuItem;
-import static org.fluentness.view.desktop.style.DesktopStyleFactory.byClass;
-import static org.fluentness.view.desktop.style.DesktopStyleFactory.ubuntuStyle;
+import static org.fluentness.controller.desktop.view.SwingViewFactory.*;
+import static org.fluentness.controller.desktop.view.SwingViewFactory.menuItem;
+import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.byClass;
+import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.ubuntuStyle;
 
-public class Desktop extends AbstractDesktopController<java.awt.Desktop> {
+public class Desktop extends AbstractDesktop {
 
     private Persistence persistence;
 
     public Desktop(Persistence persistence) {
-        super(java.awt.Desktop.class);
+        super();
         this.persistence = persistence;
     }
 
@@ -89,16 +90,6 @@ public class Desktop extends AbstractDesktopController<java.awt.Desktop> {
                 menuItem("About")
             )
         );
-    }
-
-    public void test(CaretEvent caretEvent) {
-
-        JCheckBox checkbox_2 = (JCheckBox) SwingViewRegistry.getByName(JCheckBox.class, "checkbox_2");
-        checkbox_2.setText(checkbox_2.getText() + "HAHA");
-    }
-
-    public void cutPressed(ActionEvent event) {
-        int i = 2;
     }
 
 }

@@ -1,6 +1,6 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.authenticator.Authenticator;
+import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.controller.Controller;
 
 import java.lang.annotation.ElementType;

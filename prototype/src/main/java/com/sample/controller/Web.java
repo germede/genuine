@@ -1,22 +1,16 @@
 package com.sample.controller;
 
-import org.fluentness.controller.web.Handleer;
-import org.fluentness.controller.web.Route;
-import org.fluentness.controller.web.Routing;
-import com.sample.model.Author;
-import com.sample.model.Book;
-import com.sample.model.User;
+import com.sample.repository.Author;
+import com.sample.repository.Book;
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.controller.web.WebAction;
-import org.fluentness.persistence.Persistence;
-import org.fluentness.server.Request;
-import org.fluentness.view.View;
-import org.fluentness.view.web.HtmlElement;
-import org.fluentness.view.web.HtmlView;
+import org.fluentness.service.persistence.Persistence;
+import org.fluentness.service.server.Request;
+import org.fluentness.controller.View;
+import org.fluentness.controller.web.view.HtmlElement;
+import org.fluentness.controller.web.view.HtmlView;
 
 import static com.sample.LibraryTranslation.*;
-import static org.fluentness.view.web.HtmlFactory.*;
-import static org.fluentness.view.web.HtmlFactory.head;
+import static org.fluentness.controller.web.view.HtmlFactory.*;
 
 public class Web extends AbstractWebController {
 

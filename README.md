@@ -4,7 +4,7 @@
 few dependencies -> many target platforms (web, desktop, mobile, etc.) -> one code basis, one language
 
 ## Introduction
-Fluentness is intended to be an open-source, MVC-purist, all-rounder, easy-to-learn, fully-integrated, 
+Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
 multi-platform, consistent and flexible Java development framework. After a quick-start you'll be able to:
 * develop rich desktop applications based on Swing without headaches, 
 dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls

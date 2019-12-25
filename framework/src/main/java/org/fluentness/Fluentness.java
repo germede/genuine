@@ -6,8 +6,8 @@ import org.fluentness.controller.console.ConsoleAction;
 import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.DesktopView;
-import org.fluentness.injector.Injector;
-import org.fluentness.server.Server;
+import org.fluentness.service.injector.Injector;
+import org.fluentness.service.server.Server;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

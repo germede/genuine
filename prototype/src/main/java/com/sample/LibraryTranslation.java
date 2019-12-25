@@ -1,7 +1,7 @@
 package com.sample;
 
-import org.fluentness.translator.Language;
-import org.fluentness.translator.Translation;
+import org.fluentness.service.translator.Language;
+import org.fluentness.service.translator.Translation;
 
 public enum LibraryTranslation implements Translation {
 

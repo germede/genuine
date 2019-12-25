@@ -1,8 +1,8 @@
 package org.fluentness;
 
 import org.fluentness.controller.console.AbstractConsoleController;
-import org.fluentness.configuration.Configuration;
-import org.fluentness.injector.Injector;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.injector.Injector;
 import org.junit.Before;
 
 import java.util.Collections;

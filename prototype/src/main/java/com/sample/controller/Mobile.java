@@ -1,7 +1,7 @@
 package com.sample.controller;
 
 import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.view.desktop.SwingViewRegistry;
+import org.fluentness.controller.desktop.view.SwingViewRegistry;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;

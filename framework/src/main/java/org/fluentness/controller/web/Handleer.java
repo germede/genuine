@@ -1,6 +1,6 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.server.Request;
+import org.fluentness.service.server.Request;
 
 @FunctionalInterface
 public interface Handleer {
