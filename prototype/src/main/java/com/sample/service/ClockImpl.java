@@ -1,9 +1,9 @@
-package com.sample.service.clock;
+package com.sample.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class MyClock implements Clock {
+public class ClockImpl implements Clock {
 
     @Override
     public String getCurrentTime() {

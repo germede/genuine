@@ -1,9 +1,11 @@
 package org.fluentness;
 
-import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.configuration.Configurator;
-import org.fluentness.service.configuration.MapConfiguration;
 import org.fluentness.controller.Controller;
+import org.fluentness.controller.console.DefaultConsoleController;
+import org.fluentness.repository.Repository;
+import org.fluentness.service.Service;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configuration.Key;
 import org.fluentness.service.injector.ConstructorInjector;
 import org.fluentness.service.injector.Injector;
 import org.fluentness.service.logger.AndroidLogger;
@@ -11,14 +13,12 @@ import org.fluentness.service.logger.JulLogger;
 import org.fluentness.service.logger.Logger;
 import org.fluentness.service.mailer.Mailer;
 import org.fluentness.service.mailer.SocketMailer;
-import org.fluentness.repository.Model;
-import org.fluentness.service.persistence.Persistence;
 import org.fluentness.service.persistence.JdbcPersistence;
+import org.fluentness.service.persistence.Persistence;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.SunServer;
 import org.fluentness.service.translator.SimpleTranslator;
 import org.fluentness.service.translator.Translator;
-import org.fluentness.controller.View;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +32,10 @@ import java.util.zip.ZipInputStream;
 
 public interface Application {
 
-    default <T> Class<? extends T>[] load(Class<T> parent) {
+    Key<String> NAME = new Key<>("Fluentness Application");
+    Key<Platform> PLATFORM = new Key<>(Platform.WEB);
+
+    default <T> Class<? extends T>[] load(Class<T> parent, Class<? extends T>... extra) {
         List<Class<? extends T>> result = new LinkedList<>();
         String packageName = getClass().getPackage().getName() + "." + parent.getSimpleName().toLowerCase();
 
@@ -72,20 +75,17 @@ public interface Application {
         return result.toArray(new Class[0]);
     }
 
-    default String getName() {
-        return this.getClass().getSimpleName().replace("Application", "");
-    }
-
-    default Platform getPlatform() {
-        return Platform.WEB;
-    }
-
-    default Class<? extends Configuration> getConfiguration() {
-        return MapConfiguration.class;
-    }
 
     default Class<? extends Controller>[] getControllers() {
-        return load(Controller.class);
+        return load(Controller.class, DefaultConsoleController.class);
+    }
+
+    default Class<? extends Repository>[] getRepositories() {
+        return load(Repository.class);
+    }
+
+    default Class<? extends Service>[] getServices() {
+        return load(Controller.class, DefaultConsoleController.class);
     }
 
     default Class<? extends Injector> getInjector() {
@@ -100,10 +100,6 @@ public interface Application {
         return SocketMailer.class;
     }
 
-    default Class<? extends Model>[] getModels() {
-        return load(Model.class);
-    }
-
     default Class<? extends Persistence> getPersistence() {
         return JdbcPersistence.class;
     }
@@ -116,11 +112,8 @@ public interface Application {
         return SunServer.class;
     }
 
-    default Class<? extends View>[] getViews() {
-        return load(View.class);
-    }
 
-    Configurator getConfigurator();
+    void configure(Configuration configuration);
 
     enum Platform {
         CONSOLE,

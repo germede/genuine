@@ -1,7 +1,5 @@
 package org.fluentness.controller.desktop.view;
 
-import org.fluentness.controller.desktop.DesktopView;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.dnd.DropTarget;

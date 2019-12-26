@@ -22,10 +22,4 @@ public class MapConfiguration implements Configuration {
         settings.put(key, value);
         return this;
     }
-
-    @Override
-    public void configure(Configurator configurator) {
-        configurator.configure(this);
-    }
-
 }

@@ -1,4 +1,4 @@
-package com.sample.service.clock;
+package com.sample.service;
 
 public interface Clock {
 

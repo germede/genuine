@@ -27,7 +27,8 @@ public class ConstructorInjector implements Injector {
         instances.put(ConstructorInjector.class, this);
 
         inject(Configuration.class, application.getConfiguration());
-        getInstance(Configuration.class).configure(application.getConfigurator());
+        application.
+
         inject(Translator.class, application.getTranslator());
         inject(Logger.class, application.getLogger());
         inject(Persistence.class, application.getPersistence());

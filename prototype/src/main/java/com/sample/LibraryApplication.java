@@ -1,10 +1,11 @@
 package com.sample;
 
+import com.sample.controller.Web;
 import org.fluentness.Application;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.service.authenticator.BasicAuthenticator;
-import org.fluentness.service.configuration.Configurator;
+import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.logger.LogLevel;
 import org.fluentness.service.logger.Logger;
 import org.fluentness.service.persistence.Persistence;
@@ -14,9 +15,12 @@ import org.fluentness.service.server.Server;
 public class LibraryApplication implements Application {
 
     @Override
-    public Configurator getConfigurator() {
-        return configuration -> configuration
+    public void configure(Configuration configuration) {
+        configuration
+            .set(Application.NAME, "Library")
+            .set(Application.PLATFORM, Platform.WEB)
             .set(Server.PORT, 8000)
+            .set(Injector.MAILER, )
             .set(Logger.LEVEL, LogLevel.DEBUG)
             .set(Logger.CONSOLE, true)
             .set(Persistence.JDBC_URL, "jdbc:mysql://localhost:3306/party")

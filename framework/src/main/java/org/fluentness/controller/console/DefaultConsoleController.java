@@ -88,6 +88,22 @@ public class DefaultConsoleController extends AbstractConsoleController {
 //        deleteRecursively(PrivateDirectories.LOG);
     }
 
+    public final List<String> getActions() {
+        List<String> result = new LinkedList<>();
+        injection.getInstances(AbstractConsoleController.class).forEach(
+            abstractConsoleController ->Arrays.stream(getClass().getDeclaredMethods())
+                .filter(method -> method.isAnnotationPresent(Action.class))
+                .forEach(method -> result.add(
+                    new ConsoleAction(
+                        method.getAnnotation(Action.class).description(),
+                        method.getAnnotation(Action.class).category(),
+                        method
+                    ))
+                )
+        );
+        return result;
+    }
+
     private void deleteRecursively(String path) {
         deleteRecursively(new File(path));
     }

@@ -1,9 +1,10 @@
 package org.fluentness;
 
 import org.fluentness.controller.Controller;
+import org.fluentness.controller.console.AbstractConsoleController;
 import org.fluentness.controller.console.ConsoleAction;
 import org.fluentness.controller.console.ConsoleException;
-import org.fluentness.controller.desktop.DesktopView;
+import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.service.injector.Injector;
 import org.fluentness.service.server.Server;
 
@@ -35,7 +36,7 @@ public final class Fluentness {
 
     public static void console(Injector injector, String[] args) throws ConsoleException, InvocationTargetException, IllegalAccessException {
         if (args == null) {
-            throw new ConsoleException("Passed args was null");
+            throw new ConsoleException("Passed args array was null");
         }
         String name = args.length == 0 ? "help" : args[0];
         List<ConsoleAction> actions = new LinkedList<>();
