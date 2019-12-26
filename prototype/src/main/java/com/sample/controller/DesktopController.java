@@ -2,7 +2,6 @@ package com.sample.controller;
 
 import com.sample.repository.Author;
 import com.sample.repository.AuthorRepository;
-import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.view.SwingViewRegistry;
 
 import javax.swing.*;
@@ -11,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DesktopController extends AbstractDesktopController<Desktop> {
+public class DesktopController extends Controller<Desktop> {
 
     private final Desktop desktop;
     private final AuthorRepository authorRepository;

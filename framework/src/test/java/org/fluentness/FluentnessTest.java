@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.controller.console.AbstractConsoleController;
+import org.fluentness.controller.console.Action;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.injector.Injector;
 import org.junit.Before;

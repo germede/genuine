@@ -1,6 +1,5 @@
 package com.sample.controller;
 
-import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.view.SwingViewRegistry;
 
 import javax.swing.*;

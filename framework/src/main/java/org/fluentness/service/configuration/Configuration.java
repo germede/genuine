@@ -8,5 +8,7 @@ public interface Configuration extends ApplicationComponent {
 
     <T> T get(Key<T> key);
 
-    <T> void set(Key<T> key, T value);
+    <T> Configuration set(Key<T> key, T value);
+
+    void configure(Configurator configurator);
 }

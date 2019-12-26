@@ -1,23 +1,22 @@
 package com.sample.controller;
 
+import org.fluentness.controller.View;
 import org.fluentness.controller.desktop.AbstractDesktop;
-import org.fluentness.controller.desktop.AbstractDesktopController;
+import org.fluentness.controller.web.view.HtmlView;
 import org.fluentness.service.persistence.Persistence;
-import org.fluentness.controller.desktop.view.SwingViewRegistry;
 import org.fluentness.controller.desktop.view.component.MenuBarView;
 import org.fluentness.controller.desktop.view.style.DesktopStyle;
 
 import javax.swing.*;
-import javax.swing.event.CaretEvent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
+import static javax.accessibility.AccessibleAction.CLICK;
 import static org.fluentness.controller.desktop.view.SwingViewFactory.*;
 import static org.fluentness.controller.desktop.view.SwingViewFactory.menuItem;
 import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.byClass;
 import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.ubuntuStyle;
 
-public class Desktop extends AbstractDesktop {
+public class Desktop implements AbstractDesktop, View {
 
     private Persistence persistence;
 
@@ -25,6 +24,7 @@ public class Desktop extends AbstractDesktop {
         super();
         this.persistence = persistence;
     }
+
 
     @Override
     public DesktopStyle getStyle() {
@@ -37,9 +37,8 @@ public class Desktop extends AbstractDesktop {
         );
     }
 
-
     @Override
-    public org.fluentness.controller.desktop.DesktopView getView() {
+    public HtmlView render() {
         return frame("Fluentness rocks",
             panel(
                 panel(
@@ -91,5 +90,4 @@ public class Desktop extends AbstractDesktop {
             )
         );
     }
-
 }

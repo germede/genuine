@@ -1,13 +1,9 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.AbstractCrudRepository;
-import org.fluentness.service.persistence.Persistence;
+import org.fluentness.repository.Repository;
 
-public class AuthorRepository extends AbstractCrudRepository<Author> {
+public class AuthorRepository implements Repository<Author> {
 
-    protected AuthorRepository(Persistence persistence) {
-        super(Author.class, persistence);
-    }
 
 
 

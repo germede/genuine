@@ -1,6 +1,7 @@
 package org.fluentness;
 
 import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configuration.Configurator;
 import org.fluentness.service.configuration.MapConfiguration;
 import org.fluentness.controller.Controller;
 import org.fluentness.service.injector.ConstructorInjector;
@@ -119,7 +120,7 @@ public interface Application {
         return load(View.class);
     }
 
-    void configure(Configuration configuration);
+    Configurator getConfigurator();
 
     enum Platform {
         CONSOLE,

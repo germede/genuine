@@ -14,4 +14,6 @@ public interface View extends ApplicationComponent {
         return (View) register.get(name);
     }
 
+    Object render();
+
 }

@@ -3,13 +3,9 @@ package org.fluentness.service.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class MapConfiguration implements Configuration {
+public class MapConfiguration implements Configuration {
 
     private final Map<Key, Object> settings = new HashMap<>();
-
-    public MapConfiguration() {
-        configure();
-    }
 
     @Override
     public <T> boolean has(Key<T> key) {
@@ -22,9 +18,14 @@ public abstract class MapConfiguration implements Configuration {
     }
 
     @Override
-    public <T> void set(Key<T> key, T value) {
+    public <T> Configuration set(Key<T> key, T value) {
         settings.put(key, value);
+        return this;
     }
 
-    protected abstract void configure();
+    @Override
+    public void configure(Configurator configurator) {
+        configurator.configure(this);
+    }
+
 }

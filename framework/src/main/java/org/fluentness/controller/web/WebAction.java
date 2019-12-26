@@ -29,10 +29,10 @@ public interface WebAction extends Serializable {
     }
 
     default String getPath() {
-        return getMethod().getAnnotation(AbstractWebController.Action.class).path();
+        return getMethod().getAnnotation(Action.class).path();
     }
 
     default String getHttpMethod() {
-        return getMethod().getAnnotation(AbstractWebController.Action.class).method();
+        return getMethod().getAnnotation(Action.class).method();
     }
 }
