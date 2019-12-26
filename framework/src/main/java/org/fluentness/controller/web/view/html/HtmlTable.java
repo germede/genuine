@@ -1,4 +1,4 @@
-package org.fluentness.controller.web.view;
+package org.fluentness.controller.web.view.html;
 
 import org.fluentness.repository.Model;
 
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.fluentness.controller.web.view.HtmlFactory.*;
+import static org.fluentness.controller.web.view.html.HtmlFactory.*;
 
 public class HtmlTable<M extends Model> extends HtmlElement {
 
@@ -35,23 +35,23 @@ public class HtmlTable<M extends Model> extends HtmlElement {
         return super.render();
     }
 
-    private HtmlView[] renderTable() {
-        return new HtmlView[]{
+    private Html[] renderTable() {
+        return new Html[]{
             thead(tr(renderHeader())),
             tbody(renderRows())
         };
     }
 
-    private HtmlView[] renderHeader() {
-        return Arrays.stream(getters).map(field -> th(field.getName().replace("get", ""))).toArray(HtmlView[]::new);
+    private Html[] renderHeader() {
+        return Arrays.stream(getters).map(field -> th(field.getName().replace("get", ""))).toArray(Html[]::new);
     }
 
-    private HtmlView[] renderRows() {
-        return list.stream().map(object -> tr(renderRow(object))).toArray(HtmlView[]::new);
+    private Html[] renderRows() {
+        return list.stream().map(object -> tr(renderRow(object))).toArray(Html[]::new);
     }
 
-    private HtmlView[] renderRow(M object) {
-        List<HtmlView> collect = new LinkedList<>();
+    private Html[] renderRow(M object) {
+        List<Html> collect = new LinkedList<>();
         try {
             for (Method method : getters) {
                 collect.add(td(String.valueOf(method.invoke(object))));
@@ -63,11 +63,11 @@ public class HtmlTable<M extends Model> extends HtmlElement {
         if (appendColumnView != null) {
             collect.add(appendColumnView.toAppend(object));
         }
-        return collect.toArray(new HtmlView[0]);
+        return collect.toArray(new Html[0]);
     }
 
     @FunctionalInterface
     public interface AppendColumnView<T> {
-        HtmlView toAppend(T t);
+        Html toAppend(T t);
     }
 }

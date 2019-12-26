@@ -2,7 +2,7 @@ package com.sample.controller;
 
 import org.fluentness.controller.View;
 import org.fluentness.controller.desktop.AbstractDesktop;
-import org.fluentness.controller.web.view.HtmlView;
+import org.fluentness.controller.web.view.html.Html;
 import org.fluentness.service.persistence.Persistence;
 import org.fluentness.controller.desktop.view.component.MenuBarView;
 import org.fluentness.controller.desktop.view.style.DesktopStyle;
@@ -38,7 +38,7 @@ public class Desktop implements AbstractDesktop, View {
     }
 
     @Override
-    public HtmlView render() {
+    public Html render() {
         return frame("Fluentness rocks",
             panel(
                 panel(

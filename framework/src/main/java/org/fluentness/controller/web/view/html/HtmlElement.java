@@ -1,9 +1,9 @@
-package org.fluentness.controller.web.view;
+package org.fluentness.controller.web.view.html;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class HtmlElement implements HtmlView {
+public class HtmlElement implements Html {
 
     protected String tag;
     protected List<CharSequence> html;

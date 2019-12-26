@@ -1,4 +1,4 @@
-package org.fluentness.controller.web.view;
+package org.fluentness.controller.web.view.html;
 
 import org.fluentness.controller.web.WebAction;
 import org.fluentness.repository.Model;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.fluentness.controller.web.view.HtmlFactory.*;
+import static org.fluentness.controller.web.view.html.HtmlFactory.*;
 
 public class HtmlForm<T> extends HtmlElement {
 
@@ -18,15 +18,15 @@ public class HtmlForm<T> extends HtmlElement {
         super("form", renderForm(model, action));
     }
 
-    private static HtmlView[] renderForm(Model model, WebAction action) {
-        List<HtmlView> result = new LinkedList<>();
+    private static Html[] renderForm(Model model, WebAction action) {
+        List<Html> result = new LinkedList<>();
         result.add(_method(action.getHttpMethod()));
         result.add(_action(action.getPath()));
         Arrays.stream(model.getGetters())
             .map(getter -> input(getHtmlAttributesFor(model, getter)))
             .forEach(result::add);
         result.add(input(_class("button"), _type("submit"), _value("Submit")));
-        return result.toArray(new HtmlView[0]);
+        return result.toArray(new Html[0]);
     }
 
     private static HtmlAttribute[] getHtmlAttributesFor(Object object, Method getter) {

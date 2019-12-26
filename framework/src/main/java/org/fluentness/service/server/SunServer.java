@@ -3,7 +3,7 @@ package org.fluentness.service.server;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.controller.web.view.HtmlView;
+import org.fluentness.controller.web.view.html.Html;
 import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.injector.Injector;
@@ -22,8 +22,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.fluentness.controller.web.view.HtmlFactory._id;
-import static org.fluentness.controller.web.view.HtmlFactory.div;
+import static org.fluentness.controller.web.view.html.HtmlFactory._id;
+import static org.fluentness.controller.web.view.html.HtmlFactory.div;
 
 public class SunServer implements Server {
 
@@ -149,8 +149,8 @@ public class SunServer implements Server {
             Object returned = action.invoke(controller, request);
             if (returned instanceof String) {
                 return request.response(200).setBody((String) returned);
-            } else if (returned instanceof HtmlView) {
-                return handleWebView(request, controller, (HtmlView) returned);
+            } else if (returned instanceof Html) {
+                return handleWebView(request, controller, (Html) returned);
             } else if (returned instanceof Integer) {
                 return request.response((int) returned);
             } else if (returned instanceof Response) {
@@ -163,7 +163,7 @@ public class SunServer implements Server {
         return request.response(500);
     }
 
-    private Response handleWebView(Request request, AbstractWebController<?> controller, HtmlView returned) {
+    private Response handleWebView(Request request, AbstractWebController<?> controller, Html returned) {
         String render;
         if (request.getHeaders().get("http_x_requested_with") != null) {
             render = returned.render();

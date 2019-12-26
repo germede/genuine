@@ -1,4 +1,4 @@
-package org.fluentness.controller.web.view;
+package org.fluentness.controller.web.view.html;
 
 import org.fluentness.controller.web.WebAction;
 import org.fluentness.repository.Model;
@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.fluentness.controller.web.view.HtmlAttribute.HREF;
+import static org.fluentness.controller.web.view.html.HtmlAttribute.HREF;
 
 public final class HtmlFactory {
 
@@ -27,7 +27,7 @@ public final class HtmlFactory {
     public static <T, V> V[] forEach(Iterable<T> iterable, Function<T, V> function) {
         List<V> result = new LinkedList<>();
         iterable.forEach(t -> result.add(function.apply(t)));
-        return result.toArray((V[]) new HtmlView[0]);
+        return result.toArray((V[]) new Html[0]);
     }
 
     // container html views

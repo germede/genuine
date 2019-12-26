@@ -1,6 +1,6 @@
-package org.fluentness.controller.web.view;
+package org.fluentness.controller.web.view.html;
 
-public class HtmlAttribute implements HtmlView {
+public class HtmlAttribute implements Html {
 
     private final String key, value;
 

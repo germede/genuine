@@ -13,7 +13,7 @@ public @interface Action {
 
     String path();
 
-    String method() default "GET";
+    String[] method() default "GET";
 
     Class<? extends Authenticator>[] authenticators() default {};
 
