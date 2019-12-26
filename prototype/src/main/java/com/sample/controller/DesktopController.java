@@ -1,28 +1,27 @@
 package com.sample.controller;
 
+import com.sample.repository.Author;
+import com.sample.repository.AuthorRepository;
 import org.fluentness.controller.desktop.AbstractDesktopController;
 import org.fluentness.controller.desktop.view.SwingViewRegistry;
-import org.fluentness.controller.desktop.view.component.MenuBarView;
-import org.fluentness.controller.desktop.view.style.DesktopStyle;
-import org.fluentness.service.persistence.Persistence;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-
-import static org.fluentness.controller.desktop.view.SwingViewFactory.*;
-import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.byClass;
-import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.ubuntuStyle;
+import java.sql.SQLException;
+import java.util.List;
 
 public class DesktopController extends AbstractDesktopController<Desktop> {
 
     private final Desktop desktop;
-    private final Persistence persistence;
+    private final AuthorRepository authorRepository;
 
-    public DesktopController(Persistence persistence) {
+    public DesktopController(AuthorRepository authorRepository) throws SQLException {
+        super(Desktop.class);
         this.desktop = new Desktop(this);
-        this.persistence = persistence;
+        this.authorRepository = authorRepository;
+        List<Author> authors = authorRepository.queryForAll();
+        authorRepository.queryForAll();
     }
 
     public void test(CaretEvent caretEvent) {

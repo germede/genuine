@@ -15,7 +15,11 @@ with very small footprint (few dependencies), yet out-of-the-box runnable as in 
 well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture)
 * enjoy the advantages of developing in Java such as: type safety, performance, 
 maturity, wide acceptance and knowledge, nice support of functional programming
-, "Write once, run everywhere" and "3 billion devices run Java" ;) 
+, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
+
+## Features
+1. Takes advantages JDK included libraries as far as possible: Sun HTTP Server, Swing
+2. 
 
 ## Decalogue
 

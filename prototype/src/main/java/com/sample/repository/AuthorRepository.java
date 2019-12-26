@@ -1,14 +1,14 @@
 package com.sample.repository;
 
-import org.fluentness.repository.Model;
+import org.fluentness.repository.crud.AbstractCrudRepository;
+import org.fluentness.service.persistence.Persistence;
 
-import java.sql.Date;
+public class AuthorRepository extends AbstractCrudRepository<Author> {
 
-public class AuthorRepository implements Model {
+    protected AuthorRepository(Persistence persistence) {
+        super(Author.class, persistence);
+    }
 
-    String name;
-    String surname;
-    Date birthday;
-    String picture;
-    String biography;
+
+
 }

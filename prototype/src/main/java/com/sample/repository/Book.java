@@ -1,7 +1,6 @@
 package com.sample.repository;
 
 import org.fluentness.repository.Model;
-import org.fluentness.service.persistence.Query;
 
 public class Book implements Model {
 

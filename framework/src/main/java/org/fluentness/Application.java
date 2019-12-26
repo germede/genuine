@@ -12,7 +12,7 @@ import org.fluentness.service.mailer.Mailer;
 import org.fluentness.service.mailer.SocketMailer;
 import org.fluentness.repository.Model;
 import org.fluentness.service.persistence.Persistence;
-import org.fluentness.service.persistence.SqlPersistence;
+import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.SunServer;
 import org.fluentness.service.translator.SimpleTranslator;
@@ -104,7 +104,7 @@ public interface Application {
     }
 
     default Class<? extends Persistence> getPersistence() {
-        return SqlPersistence.class;
+        return JdbcPersistence.class;
     }
 
     default Class<? extends Translator> getTranslator() {
