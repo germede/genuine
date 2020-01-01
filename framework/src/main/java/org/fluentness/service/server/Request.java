@@ -2,7 +2,7 @@ package org.fluentness.service.server;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
-import org.fluentness.controller.web.AbstractWebController;
+import org.fluentness.controller.web.Controller;
 import org.fluentness.controller.web.WebAction;
 
 import java.io.InputStream;
@@ -53,7 +53,7 @@ public class Request {
     public Response makeRedirect(WebAction action) {
         return new Response(exchange, 301).addHeader(
             "Location",
-            action.getMethod().getAnnotation(AbstractWebController.Action.class).path()
+            action.getMethod().getAnnotation(Controller.Action.class).path()
         );
 
     }

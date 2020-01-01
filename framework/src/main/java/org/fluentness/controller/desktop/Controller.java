@@ -1,10 +1,10 @@
 package org.fluentness.controller.desktop;
 
-public abstract class AbstractDesktopController<D extends AbstractDesktop> implements org.fluentness.controller.Controller {
+public abstract class Controller<D extends View> implements org.fluentness.controller.Controller {
 
     protected final D desktop;
 
-    protected AbstractDesktopController(Class<D> desktopClass) {
+    protected Controller(Class<D> desktopClass) {
         D desktop = null;
         try {
             desktop = desktopClass.getConstructor(this.getClass()).newInstance(this);

@@ -1,9 +1,8 @@
 package org.fluentness.controller.mobile;
 
-import org.fluentness.controller.Controller;
-import org.fluentness.controller.desktop.AbstractDesktop;
+import org.fluentness.controller.desktop.View;
 
-public abstract class AbstractMobileController<D extends AbstractDesktop> implements Controller {
+public abstract class Controller<D extends View> implements org.fluentness.controller.Controller {
 //
 //    protected final D desktop;
 //

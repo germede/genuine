@@ -23,13 +23,13 @@ public class DesktopController extends Controller<Desktop> {
         authorRepository.queryForAll();
     }
 
-    public void test(CaretEvent caretEvent) {
+    void test(CaretEvent caretEvent) {
 
         JCheckBox checkbox_2 = (JCheckBox) SwingViewRegistry.getByName(JCheckBox.class, "checkbox_2");
         checkbox_2.setText(checkbox_2.getText() + "HAHA");
     }
 
-    public void cutPressed(ActionEvent event) {
+    void cutPressed(ActionEvent event) {
         int i = 2;
     }
 

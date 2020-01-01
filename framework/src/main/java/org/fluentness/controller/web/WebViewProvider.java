@@ -3,7 +3,7 @@ package org.fluentness.controller.web;
 import org.fluentness.controller.web.view.html.style.WebStyle;
 import org.fluentness.controller.web.view.html.Html;
 
-public abstract class WebViewProvider<C extends AbstractWebController> {
+public abstract class WebViewProvider<C extends Controller> {
 
     protected final C controller;
 

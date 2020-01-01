@@ -1,32 +1,32 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.controller.Controller;
-import org.fluentness.service.authenticator.Authenticator;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
-
-    private static final Map<String, WebAction> routes = new HashMap<>();
-
-    public static Map<String, WebAction> getRoutes() {
-        return routes;
-    }
+public abstract class Controller<W extends View> implements org.fluentness.controller.Controller {
 
     protected final W web;
+    private final Map<String, WebAction> routes = new HashMap<>();
 
-    protected AbstractWebController(W web) {
-        this.web = web;
-        this.web.setController(this);
+    protected Controller() {
+        // convention: WebController controls Web
+        try {
+            this.web = (W) Class.forName(getClass().getCanonicalName().replace("Controller", "")).newInstance();
+            this.web.setController(this);
+            routing();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+            this.web = null;
+            System.exit(1);
+        }
     }
 
     public final W getWeb() {
         return web;
+    }
+
+    public final Map<String, WebAction> getRoutes() {
+        return routes;
     }
 
     protected void get(String path, WebAction action) {
@@ -65,17 +65,7 @@ public abstract class AbstractWebController<W extends AbstractWeb> implements Co
         routes.put("PATCH " + path, action);
     }
 
-    @Target(ElementType.METHOD)
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface Action {
+    protected abstract void routing();
 
-        String path();
-
-        String method() default "GET";
-
-        Class<? extends Authenticator>[] authenticators() default {};
-
-        boolean cache() default true;
-    }
 
 }

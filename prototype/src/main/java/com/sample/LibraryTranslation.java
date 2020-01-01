@@ -38,9 +38,7 @@ public enum LibraryTranslation implements Translation {
     user_username("Username", "Benutzername", "Nombre de usuario"),
     user_password("Password", "Passwort", "Contraseña");
 
-    private final String en;
-    private final String de;
-    private final String es;
+    private final String en, de, es;
 
     LibraryTranslation(String en, String de, String es) {
         this.en = en;
@@ -51,9 +49,12 @@ public enum LibraryTranslation implements Translation {
     @Override
     public String translate(Language language) {
         switch (language) {
-            case DE: return de;
-            case ES: return es;
-            default: return en;
+            case DE:
+                return de;
+            case ES:
+                return es;
+            default:
+                return en;
         }
     }
 }

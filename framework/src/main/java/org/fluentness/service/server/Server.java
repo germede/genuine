@@ -1,7 +1,10 @@
 package org.fluentness.service.server;
 
 import org.fluentness.ApplicationComponent;
+import org.fluentness.controller.web.WebAction;
 import org.fluentness.service.configuration.Key;
+
+import java.util.Map;
 
 public interface Server extends ApplicationComponent {
 
@@ -10,7 +13,7 @@ public interface Server extends ApplicationComponent {
     Key<String> RESPONSE_ENCODING = new Key<>("UTF-8");
     Key<Boolean> SINGLE_PAGE_MODE = new Key<>(true);
 
-    void start();
+    void start(Map<String, WebAction> routes);
 
     void stop();
 }

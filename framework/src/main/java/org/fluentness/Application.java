@@ -1,13 +1,11 @@
 package org.fluentness;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.console.DefaultConsoleController;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.configuration.Key;
-import org.fluentness.service.injector.ConstructorInjector;
-import org.fluentness.service.injector.Injector;
+import org.fluentness.service.configuration.MapConfiguration;
 import org.fluentness.service.logger.AndroidLogger;
 import org.fluentness.service.logger.JulLogger;
 import org.fluentness.service.logger.Logger;
@@ -33,7 +31,6 @@ import java.util.zip.ZipInputStream;
 public interface Application {
 
     Key<String> NAME = new Key<>("Fluentness Application");
-    Key<Platform> PLATFORM = new Key<>(Platform.WEB);
 
     default <T> Class<? extends T>[] load(Class<T> parent, Class<? extends T>... extra) {
         List<Class<? extends T>> result = new LinkedList<>();
@@ -77,7 +74,7 @@ public interface Application {
 
 
     default Class<? extends Controller>[] getControllers() {
-        return load(Controller.class, DefaultConsoleController.class);
+        return load(Controller.class);
     }
 
     default Class<? extends Repository>[] getRepositories() {
@@ -85,7 +82,13 @@ public interface Application {
     }
 
     default Class<? extends Service>[] getServices() {
-        return load(Controller.class, DefaultConsoleController.class);
+        return load(Service.class);
+    }
+
+
+    // Fluentness services
+    default Class<? extends Configuration> getConfiguration() {
+        return MapConfiguration.class;
     }
 
     default Class<? extends Injector> getInjector() {
@@ -112,13 +115,5 @@ public interface Application {
         return SunServer.class;
     }
 
-
     void configure(Configuration configuration);
-
-    enum Platform {
-        CONSOLE,
-        DESKTOP,
-        MOBILE,
-        WEB
-    }
 }

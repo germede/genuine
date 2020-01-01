@@ -1,7 +1,6 @@
 package org.fluentness.controller.console;
 
 import org.fluentness.Fluentness;
-import org.fluentness.service.injector.Injector;
 import org.fluentness.service.logger.Logger;
 
 import java.io.File;
@@ -10,7 +9,7 @@ import java.util.*;
 
 import static org.fluentness.service.logger.AnsiColor.*;
 
-public class DefaultConsoleController extends AbstractConsoleController {
+public class DefaultConsoleController extends Controller {
 
 
     private Injector injection;
@@ -36,8 +35,8 @@ public class DefaultConsoleController extends AbstractConsoleController {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         List<ConsoleAction> actions = new LinkedList<>();
-        injection.getInstances(AbstractConsoleController.class)
-            .forEach(abstractConsoleController -> actions.addAll(abstractConsoleController.getActions()));
+        injection.getInstances(Controller.class)
+            .forEach(controller -> actions.addAll(controller.getActions()));
 
         // categorize console actions
         for (ConsoleAction action : actions) {
@@ -90,8 +89,8 @@ public class DefaultConsoleController extends AbstractConsoleController {
 
     public final List<String> getActions() {
         List<String> result = new LinkedList<>();
-        injection.getInstances(AbstractConsoleController.class).forEach(
-            abstractConsoleController ->Arrays.stream(getClass().getDeclaredMethods())
+        injection.getInstances(Controller.class).forEach(
+            controller ->Arrays.stream(getClass().getDeclaredMethods())
                 .filter(method -> method.isAnnotationPresent(Action.class))
                 .forEach(method -> result.add(
                     new ConsoleAction(

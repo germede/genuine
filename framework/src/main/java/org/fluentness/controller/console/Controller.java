@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-public abstract class AbstractConsoleController implements Controller {
+public abstract class Controller implements org.fluentness.controller.Controller {
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

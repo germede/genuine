@@ -1,7 +1,6 @@
 package com.sample.controller;
 
-import org.fluentness.controller.View;
-import org.fluentness.controller.desktop.AbstractDesktop;
+import org.fluentness.controller.desktop.View;
 import org.fluentness.controller.web.view.html.Html;
 import org.fluentness.service.persistence.Persistence;
 import org.fluentness.controller.desktop.view.component.MenuBarView;
@@ -16,7 +15,7 @@ import static org.fluentness.controller.desktop.view.SwingViewFactory.menuItem;
 import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.byClass;
 import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.ubuntuStyle;
 
-public class Desktop implements AbstractDesktop, View {
+public class Desktop implements View, org.fluentness.controller.View {
 
     private Persistence persistence;
 
@@ -26,7 +25,7 @@ public class Desktop implements AbstractDesktop, View {
     }
 
 
-    @Override
+    @Override6
     public DesktopStyle getStyle() {
         return ubuntuStyle(
 

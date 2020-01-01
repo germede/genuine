@@ -1,10 +1,10 @@
 package com.sample.controller;
 
 import com.sample.repository.Book;
-import org.fluentness.controller.console.Action;
+import org.fluentness.controller.console.Controller;
 import org.fluentness.service.persistence.Persistence;
 
-public class ConsoleController extends AbstractConsoleController {
+public class ConsoleController extends Controller {
 
     private final Persistence persistence;
 

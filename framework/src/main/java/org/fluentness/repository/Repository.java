@@ -1,11 +1,8 @@
 package org.fluentness.repository;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.fluentness.ApplicationComponent;
 
-public interface Repository<M extends Model> {
+public interface Repository<M extends Model> extends ApplicationComponent {
 
 
 

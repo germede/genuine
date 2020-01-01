@@ -2,11 +2,11 @@ package org.fluentness.service.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-import org.fluentness.controller.web.AbstractWebController;
+import org.fluentness.controller.web.Controller;
+import org.fluentness.controller.web.WebAction;
 import org.fluentness.controller.web.view.html.Html;
 import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.injector.Injector;
 import org.fluentness.service.logger.Logger;
 
 import java.io.IOException;
@@ -38,13 +38,12 @@ public class SunServer implements Server {
     private final String response_encoding;
     private final boolean single_page_mode;
 
-    private final Map<String, Method> routes;
+    private Map<String, WebAction> routes;
     private final Map<Class, Authenticator> authenticators;
 
     private final HttpServer server;
 
-    public SunServer(Injector injector, Configuration configuration, Logger logger) throws IOException {
-        this.injector = injector;
+    public SunServer(Configuration configuration, Logger logger) throws IOException {
         this.logger = logger;
 
         this.port = configuration.get(Server.PORT);
@@ -52,7 +51,6 @@ public class SunServer implements Server {
         this.response_encoding = configuration.get(Server.RESPONSE_ENCODING);
         this.single_page_mode = configuration.get(Server.SINGLE_PAGE_MODE);
 
-        this.routes = AbstractWebController.getRoutes();
         this.authenticators = injector.getInstances(Authenticator.class)
             .stream().collect(Collectors.toMap(Authenticator::getClass, o -> o));
 
@@ -62,7 +60,8 @@ public class SunServer implements Server {
 
 
     @Override
-    public void start() {
+    public void start(Map<String, WebAction> routes) {
+        this.routes = routes;
         logger.info("Server listening to http://localhost:%s%s", port, context);
         server.start();
     }
@@ -124,9 +123,9 @@ public class SunServer implements Server {
     }
 
     private Response authenticateWebAction(Method action, Request request) {
-        if (action.isAnnotationPresent(AbstractWebController.Authentication.class)) {
+        if (action.isAnnotationPresent(Controller.Authentication.class)) {
             for (Class<? extends Authenticator> authenticator :
-                action.getAnnotation(AbstractWebController.Authentication.class).authenticators()) {
+                action.getAnnotation(Controller.Authentication.class).authenticators()) {
                 if (authenticators.containsKey(authenticator)) {
                     if (authenticators.get(authenticator).authenticate(request)) {
                         return request.response(403);
@@ -141,8 +140,8 @@ public class SunServer implements Server {
     private Response executeWebAction(Method action, Request request) {
         Locale.setDefault(request.getLocale());
 
-        AbstractWebController<?> controller = injector.getInstance(
-                (Class<AbstractWebController<?>>) action.getDeclaringClass()
+        Controller<?> controller = injector.getInstance(
+                (Class<Controller<?>>) action.getDeclaringClass()
         );
 
         try {
@@ -163,7 +162,7 @@ public class SunServer implements Server {
         return request.response(500);
     }
 
-    private Response handleWebView(Request request, AbstractWebController<?> controller, Html returned) {
+    private Response handleWebView(Request request, Controller<?> controller, Html returned) {
         String render;
         if (request.getHeaders().get("http_x_requested_with") != null) {
             render = returned.render();

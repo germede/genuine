@@ -1,7 +1,6 @@
 package org.fluentness.service.persistence;
 
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.injector.Injector;
 import org.fluentness.service.logger.Logger;
 
 import java.lang.reflect.Field;

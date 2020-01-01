@@ -3,13 +3,13 @@ package org.fluentness.controller.web;
 import org.fluentness.controller.web.view.html.Html;
 import org.junit.Before;
 
-public class HtmlPlatformProviderAbstractWebControllerTest {
+public class HtmlPlatformProviderControllerTest {
 
-    private AbstractWebController<WebViewProvider> webController;
+    private Controller<WebViewProvider> webController;
 
     @Before
     public void setUp() {
-        webController = new AbstractWebController<WebViewProvider>(WebViewProvider.class){
+        webController = new Controller<WebViewProvider>(WebViewProvider.class){
 
 
             public void notAnActionBecauseNoActionAnnotation() {

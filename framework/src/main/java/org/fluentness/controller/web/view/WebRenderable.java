@@ -2,7 +2,7 @@ package org.fluentness.controller.web.view;
 
 import java.util.stream.IntStream;
 
-public interface WebView extends CharSequence {
+public interface WebRenderable extends CharSequence {
 
     @Override
     default int length() {
@@ -29,6 +29,6 @@ public interface WebView extends CharSequence {
         return null;
     }
 
-    String render(WebView toInclude);
+    String render(WebRenderable toInclude);
 
 }

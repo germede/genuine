@@ -1,8 +1,8 @@
 package org.fluentness.controller.web.view.html;
 
-import org.fluentness.controller.web.view.WebView;
+import org.fluentness.controller.web.view.WebRenderable;
 
-public interface Html extends WebView {
+public interface Html extends WebRenderable {
 
 
 }

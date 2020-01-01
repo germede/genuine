@@ -1,6 +1,6 @@
 package org.fluentness;
 
-public class FluentnessException extends Exception {
+public class FluentnessException extends RuntimeException {
 
     private String message;
     private Exception exception;

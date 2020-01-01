@@ -2,7 +2,6 @@ package org.fluentness;
 
 import org.fluentness.controller.console.Action;
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.injector.Injector;
 import org.junit.Before;
 
 import java.util.Collections;

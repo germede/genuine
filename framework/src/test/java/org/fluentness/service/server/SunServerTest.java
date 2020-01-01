@@ -3,7 +3,6 @@ package org.fluentness.service.server;
 import org.fluentness.It;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.controller.TestWebController;
-import org.fluentness.service.injector.Injector;
 import org.fluentness.service.logger.Logger;
 import org.junit.After;
 import org.junit.Before;
