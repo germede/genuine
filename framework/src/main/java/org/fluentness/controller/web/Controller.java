@@ -1,23 +1,22 @@
 package org.fluentness.controller.web;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.fluentness.service.authenticator.Authenticator;
+
+import java.lang.annotation.*;
+
+import static org.fluentness.controller.web.Controller.HttpMethod.GET;
 
 public abstract class Controller<W extends View> implements org.fluentness.controller.Controller {
 
     protected final W web;
-    private final Map<String, WebAction> routes = new HashMap<>();
 
     protected Controller() {
-        // convention: WebController controls Web
         try {
-            this.web = (W) Class.forName(getClass().getCanonicalName().replace("Controller", "")).newInstance();
-            this.web.setController(this);
-            routing();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            this.web = ((Class<W>) Class.forName(getClass().getCanonicalName().replace("Controller", ""))).newInstance();
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
-            this.web = null;
             System.exit(1);
+            this.web = null;
         }
     }
 
@@ -25,47 +24,35 @@ public abstract class Controller<W extends View> implements org.fluentness.contr
         return web;
     }
 
-    public final Map<String, WebAction> getRoutes() {
-        return routes;
+    @Override
+    public Class<? extends Annotation> getActionClass() {
+        return Action.class;
     }
 
-    protected void get(String path, WebAction action) {
-        routes.put("GET " + path, action);
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    protected @interface Action {
+
+        String path();
+
+        HttpMethod method() default GET;
+
+        String selector() default "";
+
+        Class<? extends Authenticator>[] authenticators() default {};
+
+        boolean cache() default true;
     }
 
-    protected void head(String path, WebAction action) {
-        routes.put("HEAD " + path, action);
+    protected enum HttpMethod {
+        GET,
+        HEAD,
+        POST,
+        PUT,
+        DELETE,
+        CONNECT,
+        OPTIONS,
+        TRACE,
+        PATCH,
     }
-
-    protected void post(String path, WebAction action) {
-        routes.put("POST " + path, action);
-    }
-
-    protected void put(String path, WebAction action) {
-        routes.put("PUT " + path, action);
-    }
-
-    protected void delete(String path, WebAction action) {
-        routes.put("DELETE " + path, action);
-    }
-
-    protected void connect(String path, WebAction action) {
-        routes.put("CONNECT " + path, action);
-    }
-
-    protected void options(String path, WebAction action) {
-        routes.put("OPTIONS " + path, action);
-    }
-
-    protected void trace(String path, WebAction action) {
-        routes.put("TRACE " + path, action);
-    }
-
-    protected void patch(String path, WebAction action) {
-        routes.put("PATCH " + path, action);
-    }
-
-    protected abstract void routing();
-
-
 }

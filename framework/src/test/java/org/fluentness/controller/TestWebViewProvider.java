@@ -1,10 +1,10 @@
 package org.fluentness.controller;
 
 import org.fluentness.controller.web.WebViewProvider;
-import org.fluentness.controller.web.view.html.Html;
-import org.fluentness.controller.web.view.html.style.WebStyle;
+import org.fluentness.controller.web.View.html.Html;
+import org.fluentness.controller.web.View.html.style.WebStyle;
 
-import static org.fluentness.controller.web.view.html.HtmlFactory.*;
+import static org.fluentness.controller.web.View.html.HtmlFactory.*;
 
 public class TestWebViewProvider extends WebViewProvider<TestWebController> {
 

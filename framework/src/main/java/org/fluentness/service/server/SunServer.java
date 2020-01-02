@@ -4,7 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import org.fluentness.controller.web.Controller;
 import org.fluentness.controller.web.WebAction;
-import org.fluentness.controller.web.view.html.Html;
+import org.fluentness.controller.web.View.html.Html;
 import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.logger.Logger;
@@ -22,8 +22,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.fluentness.controller.web.view.html.HtmlFactory._id;
-import static org.fluentness.controller.web.view.html.HtmlFactory.div;
+import static org.fluentness.controller.web.View.html.HtmlFactory._id;
+import static org.fluentness.controller.web.View.html.HtmlFactory.div;
 
 public class SunServer implements Server {
 
@@ -169,10 +169,10 @@ public class SunServer implements Server {
         } else {
             if (single_page_mode) {
                 render = controller
-                    .getWeb().getView(div(_id("ajax-placeholder"), returned)).render();
+                    .getWeb().getTemplate(div(_id("ajax-placeholder"), returned)).render();
                 render = render.replace("</head>", AJAX_HANDLER + "</head>");
             } else {
-                render = controller.getWeb().getView(returned).render();
+                render = controller.getWeb().getTemplate(returned).render();
             }
         }
         return request.response(200).setBody(render);

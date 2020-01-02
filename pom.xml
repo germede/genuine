@@ -20,4 +20,11 @@
         <url>https://github.com/germede/fluentness/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
+
+    <properties>
+        <kotlin.version>1.3.61</kotlin.version>
+    </properties>
+
+
+
 </project>

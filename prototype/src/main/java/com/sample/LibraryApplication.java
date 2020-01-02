@@ -1,6 +1,5 @@
 package com.sample;
 
-import com.sample.controller.Web;
 import org.fluentness.Application;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;

@@ -1,7 +1,7 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.controller.web.view.html.style.WebStyle;
-import org.fluentness.controller.web.view.html.Html;
+import org.fluentness.controller.web.View.html.style.WebStyle;
+import org.fluentness.controller.web.View.html.Html;
 
 public abstract class WebViewProvider<C extends Controller> {
 

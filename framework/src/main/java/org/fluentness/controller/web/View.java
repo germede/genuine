@@ -1,17 +1,24 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.controller.web.view.WebRenderable;
-import org.fluentness.controller.web.view.html.style.WebStyle;
+import org.fluentness.controller.web.template.WebTemplate;
+import org.fluentness.controller.web.template.html.style.WebStyle;
 
-public abstract class View<C extends Controller> {
+import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
-    protected C controller;
+public interface View {
 
-    void setController(C controller) {
-        this.controller = controller;
+    default WebStyle getStyle() {
+        return null;
     }
 
-    protected abstract WebStyle getStyle();
-
-    protected abstract WebRenderable getView(WebRenderable toInclude);
+    default WebTemplate getTemplate(WebTemplate toInclude) {
+        return html(
+            head(
+                title("Fluentness rocks")
+            ),
+            body(
+                toInclude
+            )
+        );
+    }
 }

@@ -1,31 +1,22 @@
 package com.sample.controller;
 
 import org.fluentness.controller.desktop.View;
-import org.fluentness.controller.web.view.html.Html;
-import org.fluentness.service.persistence.Persistence;
-import org.fluentness.controller.desktop.view.component.MenuBarView;
-import org.fluentness.controller.desktop.view.style.DesktopStyle;
+import org.fluentness.controller.desktop.template.DesktopTemplate;
+import org.fluentness.controller.web.View.html.Html;
+import org.fluentness.controller.desktop.template.component.MenuBarView;
+import org.fluentness.controller.desktop.style.DesktopStyle;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static javax.accessibility.AccessibleAction.CLICK;
-import static org.fluentness.controller.desktop.view.SwingViewFactory.*;
-import static org.fluentness.controller.desktop.view.SwingViewFactory.menuItem;
-import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.byClass;
-import static org.fluentness.controller.desktop.view.style.DesktopStyleFactory.ubuntuStyle;
+import static org.fluentness.controller.desktop.template.SwingViewFactory.*;
+import static org.fluentness.controller.desktop.template.SwingViewFactory.menuItem;
+import static org.fluentness.controller.desktop.style.DesktopStyleFactory.byClass;
+import static org.fluentness.controller.desktop.style.DesktopStyleFactory.ubuntuStyle;
 
-public class Desktop implements View, org.fluentness.controller.View {
+public class Desktop implements View {
 
-    private Persistence persistence;
-
-    public Desktop(Persistence persistence) {
-        super();
-        this.persistence = persistence;
-    }
-
-
-    @Override6
+    @Override
     public DesktopStyle getStyle() {
         return ubuntuStyle(
 
@@ -37,13 +28,11 @@ public class Desktop implements View, org.fluentness.controller.View {
     }
 
     @Override
-    public Html render() {
+    public DesktopTemplate getTemplate() {
         return frame("Fluentness rocks",
             panel(
                 panel(
-                    action(CLICK, controller::dosomething,
-                        colorChooser()
-                    ),
+                    colorChooser(),
                     table(
                         header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
                         row(1, "John", 40.0, false),

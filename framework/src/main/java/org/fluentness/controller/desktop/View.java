@@ -1,10 +1,11 @@
 package org.fluentness.controller.desktop;
 
-import org.fluentness.controller.desktop.view.style.DesktopStyle;
+import org.fluentness.controller.desktop.template.DesktopTemplate;
+import org.fluentness.controller.desktop.style.DesktopStyle;
 
-public interface View<C extends Controller> {
+public interface View {
 
     DesktopStyle getStyle();
 
-    DesktopView getView();
+    DesktopTemplate getTemplate();
 }

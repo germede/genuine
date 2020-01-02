@@ -13,7 +13,6 @@ import org.fluentness.service.translator.Translator;
 
 import java.lang.reflect.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public final class Fluentness {
 
@@ -21,7 +20,7 @@ public final class Fluentness {
         return new Fluentness(application);
     }
 
-    private Map<Class, Object> instances = new LinkedHashMap<>();
+    private static final Map<Class, Object> instances = new LinkedHashMap<>();
 
     private Fluentness(Application application) {
         inject(Configuration.class, application.getConfiguration());
@@ -62,7 +61,7 @@ public final class Fluentness {
     public void desktop() {
         for (Controller controller : getInstances(Controller.class)) {
             DesktopView.setGlobalStyle(controller.getDesktop().getStyle());
-            controller.getDesktop().getView().render();
+            controller.getDesktop().getTemplate().render();
         }
     }
 
@@ -80,7 +79,7 @@ public final class Fluentness {
             .toArray();
     }
 
-    private <A extends ApplicationComponent> A getInstance(Class<A> parent) {
+    public static <A extends ApplicationComponent> A getInstance(Class<A> parent) {
         return (A) instances.get(parent);
     }
 

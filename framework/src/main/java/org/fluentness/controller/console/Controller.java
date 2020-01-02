@@ -1,13 +1,13 @@
 package org.fluentness.controller.console;
 
-import org.fluentness.controller.Controller;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 public abstract class Controller implements org.fluentness.controller.Controller {
+
+    @Override
+    public Class<? extends Annotation> getActionClass() {
+        return Action.class;
+    }
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)

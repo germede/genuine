@@ -5,77 +5,32 @@ import com.sample.repository.AuthorRepository;
 import com.sample.repository.Book;
 import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.Controller;
-import org.fluentness.controller.web.view.WebRenderable;
-import org.fluentness.controller.web.view.html.Html;
-import org.fluentness.controller.web.view.html.style.WebStyle;
-import org.fluentness.service.server.Request;
+import org.fluentness.controller.web.template.html.Html;
+import org.fluentness.service.mailer.Mailer;
+import org.fluentness.service.server.Response;
 
-import static com.sample.LibraryTranslation.*;
-import static org.fluentness.controller.web.view.html.HtmlFactory.*;
+import static com.sample.LibraryTranslation.create;
+import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends Controller<Web> {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final Mailer mailer;
 
-    protected WebController(BookRepository bookRepository, AuthorRepository authorRepository) {
+    protected WebController(BookRepository bookRepository, AuthorRepository authorRepository, Mailer mailer) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.mailer = mailer;
     }
 
-    @Override
-    protected WebStyle getStyle() {
-        return null;
+    @Action(path = "/")
+    Response index() {
+        return redirect("/books");
     }
 
-    @Override
-    protected WebRenderable getView(WebRenderable toInclude) {
-        return html(
-            head(
-                title("The book library made with Fluentness"),
-                meta(_name("lang"), _content("en")),
-                meta(_charset("UTF-8")),
-                link(_rel("stylesheet"), _type("text/css"), _href("https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css")),
-                link(_rel("stylesheet"), _type("text/css"), _href("/resources/css/styles.css")),
-                script(_src("/resources/js/script.min.js"))
-            ),
-            body(
-                div(_class("container"),
-                    h2(_class("text_center"), welcome_message),
-                    nav(
-                        ul(_class("navigation_list"),
-                            li(_class("navigation_item"),
-                                action(controller::books, books)
-                            ),
-                            li(_class("navigation_item"),
-                                action(controller::authors, authors)
-                            )
-                        )
-                    ),
-                    toInclude
-                )
-            )
-        );
-    }
-
-    @Override
-    protected void routing() {
-        get("/", request -> redirect());
-        get("/books", this::books);
-        get("/books/create", this::createBook);
-        get("/books/update/<id>", this::updateBook);
-        get("/books/delete/<id>", this::deleteBook);
-        get("/authors", this::authors);
-        get("/authors/create", this::createAuthor);
-        get("/notFound", request -> "Page not found");
-        get("/serverError", request -> "Server error");
-    }
-
-    Html index(Request request) {
-        return books(request);
-    }
-
-    Html books(Request request) {
+    @Action(path = "/books", selector = "#books")
+    Html books() {
         return div(
             table(bookRepository.findAll()).appendColumn(book ->
                 td(_class("float-right"),
@@ -90,32 +45,42 @@ public class WebController extends Controller<Web> {
         );
     }
 
-    Html createBook(Request request) {
+    @Action(path = "/books/create")
+    Html createBook() {
         return div(
             h2(create),
             form(this::createBook, new Book())
         );
     }
 
-    String updateBook(Request request) {
+    @Action(path = "/books/update/<id>")
+    String updateBook(int id) {
         return "asdf";
     }
 
-    String deleteBook(Request request) {
+    @Action(path = "/books/delete/<id>")
+    String deleteBook(int id) {
         return "asdf";
     }
 
-    Html authors(Request request) {
+    @Action(path = "/authors", selector = "#authors")
+    Html authors() {
         return div(
             table(authorRepository.findAll()),
-            action(this::createAuthor, _class("button column"), create)
+            button(_class("button column"), _id("createAuthor"), create)
         );
     }
 
-    Html createAuthor(Request request) {
+    @Action(path = "/authors/create", selector = "#createAuthor")
+    Html createAuthor() {
         return div(
             h2(create),
             form(this::createAuthor, new Author())
         );
+    }
+
+    @Action(path = "/sendMessage")
+    void sendMessage(String message) {
+        mailer.send("info@library.com", "", message);
     }
 }

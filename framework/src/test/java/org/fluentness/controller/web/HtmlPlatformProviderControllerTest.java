@@ -1,6 +1,6 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.controller.web.view.html.Html;
+import org.fluentness.controller.web.View.html.Html;
 import org.junit.Before;
 
 public class HtmlPlatformProviderControllerTest {
