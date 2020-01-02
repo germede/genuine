@@ -1,12 +1,12 @@
 package org.fluentness.service.configuration;
 
-import org.fluentness.ApplicationComponent;
+import org.fluentness.service.Service;
 
-public interface Configuration extends ApplicationComponent {
+public interface Configuration extends Service {
 
-    <T> boolean has(Key<T> key);
+    <T> boolean has(Setting<T> setting);
 
-    <T> T get(Key<T> key);
+    <T> T get(Setting<T> setting);
 
-    <T> Configuration set(Key<T> key, T value);
+    <T> Configuration set(Setting<T> setting, T value);
 }

@@ -31,7 +31,7 @@ public abstract class Controller<W extends View> implements org.fluentness.contr
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
-    protected @interface Action {
+    public @interface Action {
 
         String path();
 

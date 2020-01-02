@@ -1,12 +1,10 @@
 package org.fluentness.service.authenticator;
 
-import org.fluentness.ApplicationComponent;
-import org.fluentness.service.Multiton;
-import org.fluentness.service.server.Request;
+import org.fluentness.service.Service;
+import org.fluentness.service.server.SunRequest;
 
-@Multiton
-public interface Authenticator extends ApplicationComponent {
+public interface Authenticator extends Service {
 
-    boolean authenticate(Request request);
+    boolean authenticate(SunRequest request);
 
 }

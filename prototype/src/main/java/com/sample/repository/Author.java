@@ -4,7 +4,7 @@ import org.fluentness.repository.Model;
 
 import java.sql.Date;
 
-public class Author extends Model {
+public class Author implements Model {
 
     String name;
     String surname;

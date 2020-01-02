@@ -10,13 +10,11 @@ import java.util.List;
 
 public class JdbcPersistence implements Persistence {
 
-    private final Injector injector;
     private final Logger logger;
 
     private Connection connection;
 
-    public JdbcPersistence(Injector injector, Configuration configuration, Logger logger) throws SQLException {
-        this.injector = injector;
+    public JdbcPersistence(Configuration configuration, Logger logger) throws SQLException {
         this.logger = logger;
         if (configuration.has(JDBC_URL) && configuration.has(USERNAME) && configuration.has(PASSWORD)) {
             connection = DriverManager.getConnection(
@@ -35,8 +33,7 @@ public class JdbcPersistence implements Persistence {
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
             while (resultSet.next()) {
                 M instance = model.newInstance();
-                for (int i = 0; i < fields.length; i++) {
-                    Field field = fields[i];
+                for (Field field : fields) {
                     String name = field.getName();
                     field.setAccessible(true);
                     Class<?> type = field.getType();

@@ -9,13 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class Repository<M extends Model> implements org.fluentness.repository.Repository<M> {
+public abstract class Repository<M extends Model> implements org.fluentness.repository.Repository {
 
-    protected final Class<M> modelClass;
-    protected final String tableName;
-    protected final Persistence persistence;
+    protected Class<M> modelClass;
+    protected String tableName;
+    protected Persistence persistence;
 
-    protected Repository(Persistence persistence) {
+    protected Repository() {
         try {
             Class<M> modelClass = (Class<M>) Class.forName(getClass().getCanonicalName().replace("Repository", ""));
             this.modelClass = modelClass;

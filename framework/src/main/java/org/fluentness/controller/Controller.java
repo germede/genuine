@@ -9,7 +9,7 @@ import java.util.Arrays;
 public interface Controller<V extends View> extends ApplicationComponent {
 
     default Method[] getActions() {
-        return Arrays.stream(this.getClass().getMethods())
+        return Arrays.stream(this.getClass().getDeclaredMethods())
             .filter(method -> method.isAnnotationPresent(getActionClass()))
             .toArray(Method[]::new);
     }

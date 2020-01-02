@@ -1,6 +1,5 @@
 package org.fluentness.controller.web.template.html;
 
-import org.fluentness.controller.web.WebAction;
 import org.fluentness.repository.Model;
 
 import java.lang.reflect.InvocationTargetException;

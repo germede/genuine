@@ -1,12 +1,12 @@
 package org.fluentness.service.mailer;
 
-import org.fluentness.ApplicationComponent;
-import org.fluentness.service.configuration.Key;
+import org.fluentness.service.Service;
+import org.fluentness.service.configuration.Setting;
 
-public interface Mailer extends ApplicationComponent {
+public interface Mailer extends Service {
 
-    Key<String> SERVER = new Key<>("localhost");
-    Key<Integer> PORT = new Key<>(25);
+    Setting<String> SERVER = new Setting<>("localhost");
+    Setting<Integer> PORT = new Setting<>(25);
 
     void send(String from, String to, String message);
 }

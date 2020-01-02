@@ -1,6 +1,5 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.web.WebViewProvider;
 import org.fluentness.controller.web.View.html.Html;
 import org.fluentness.controller.web.View.html.style.WebStyle;
 

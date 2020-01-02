@@ -30,6 +30,6 @@ public class LibraryApplication implements Application {
     }
 
     public static void main(String[] args) throws FluentnessException {
-        Fluentness.launch(new LibraryApplication(), args);
+        Fluentness.launch(new LibraryApplication()).console(args);
     }
 }

@@ -1,13 +1,13 @@
 package org.fluentness.service.configuration;
 
-public class Key<T> {
+public class Setting<T> {
 
     private T fallback;
 
-    public Key() {
+    public Setting() {
     }
 
-    public Key(T fallback) {
+    public Setting(T fallback) {
         this.fallback = fallback;
     }
 

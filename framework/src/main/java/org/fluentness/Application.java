@@ -4,9 +4,8 @@ import org.fluentness.controller.Controller;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.configuration.Key;
 import org.fluentness.service.configuration.MapConfiguration;
-import org.fluentness.service.logger.AndroidLogger;
+import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.logger.JulLogger;
 import org.fluentness.service.logger.Logger;
 import org.fluentness.service.mailer.Mailer;
@@ -30,7 +29,7 @@ import java.util.zip.ZipInputStream;
 
 public interface Application {
 
-    Key<String> NAME = new Key<>("Fluentness Application");
+    Setting<String> NAME = new Setting<>("Fluentness application");
 
     default <T> Class<? extends T>[] load(Class<T> parent, Class<? extends T>... extra) {
         List<Class<? extends T>> result = new LinkedList<>();
@@ -86,17 +85,13 @@ public interface Application {
     }
 
 
-    // Fluentness services
     default Class<? extends Configuration> getConfiguration() {
         return MapConfiguration.class;
     }
 
-    default Class<? extends Injector> getInjector() {
-        return ConstructorInjector.class;
-    }
-
     default Class<? extends Logger> getLogger() {
-        return getPlatform().equals(Platform.MOBILE) ? AndroidLogger.class : JulLogger.class;
+        // doesn't apply to mobile
+        return JulLogger.class;
     }
 
     default Class<? extends Mailer> getMailer() {
@@ -114,6 +109,7 @@ public interface Application {
     default Class<? extends Server> getServer() {
         return SunServer.class;
     }
+
 
     void configure(Configuration configuration);
 }

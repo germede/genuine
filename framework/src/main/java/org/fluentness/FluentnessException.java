@@ -1,9 +1,9 @@
 package org.fluentness;
 
-public class FluentnessException extends RuntimeException {
+public class FluentnessException extends Exception {
 
     private String message;
-    private Exception exception;
+    private Throwable cause;
 
     @Override
     public String getMessage() {
@@ -12,16 +12,16 @@ public class FluentnessException extends RuntimeException {
 
     @Override
     public StackTraceElement[] getStackTrace() {
-        return message != null ? exception.getStackTrace() : super.getStackTrace();
+        return message != null ? cause.getStackTrace() : super.getStackTrace();
     }
 
     @Override
     public synchronized Throwable getCause() {
-        return exception != null ? exception : super.getCause();
+        return cause != null ? cause : super.getCause();
     }
 
-    protected FluentnessException(Exception exception) {
-        this.exception = exception;
+    protected FluentnessException(Throwable cause) {
+        this.cause = cause;
     }
 
     protected FluentnessException(String messageToFormat, Object... parameters) {

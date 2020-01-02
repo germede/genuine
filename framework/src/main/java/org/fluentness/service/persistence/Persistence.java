@@ -1,15 +1,15 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.ApplicationComponent;
-import org.fluentness.service.configuration.Key;
+import org.fluentness.service.Service;
+import org.fluentness.service.configuration.Setting;
 
 import java.util.List;
 
-public interface Persistence extends ApplicationComponent {
+public interface Persistence extends Service {
 
-    Key<String> JDBC_URL = new Key<>();
-    Key<String> USERNAME = new Key<>();
-    Key<String> PASSWORD = new Key<>();
+    Setting<String> JDBC_URL = new Setting<>();
+    Setting<String> USERNAME = new Setting<>();
+    Setting<String> PASSWORD = new Setting<>();
 
 
     <M> List<M> select(Class<M> aClass, String sql);

@@ -7,9 +7,8 @@ import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.Controller;
 import org.fluentness.controller.web.template.html.Html;
 import org.fluentness.service.mailer.Mailer;
-import org.fluentness.service.server.Response;
 
-import static com.sample.LibraryTranslation.create;
+import static com.sample.repository.Translation.create;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends Controller<Web> {

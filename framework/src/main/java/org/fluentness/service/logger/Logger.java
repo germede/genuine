@@ -1,13 +1,13 @@
 package org.fluentness.service.logger;
 
-import org.fluentness.ApplicationComponent;
-import org.fluentness.service.configuration.Key;
+import org.fluentness.service.Service;
+import org.fluentness.service.configuration.Setting;
 
-public interface Logger extends ApplicationComponent {
+public interface Logger extends Service {
 
-    Key<LogLevel> LEVEL = new Key<>(LogLevel.DEBUG);
-    Key<Boolean> CONSOLE = new Key<>(true);
-    Key<String> FILE = new Key<>();
+    Setting<LogLevel> LEVEL = new Setting<>(LogLevel.DEBUG);
+    Setting<Boolean> CONSOLE = new Setting<>(true);
+    Setting<String> FILE = new Setting<>();
 
     static String getLoggerCaller() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();

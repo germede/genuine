@@ -2,14 +2,12 @@ package org.fluentness.service.server;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
-import org.fluentness.controller.web.Controller;
-import org.fluentness.controller.web.WebAction;
 
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Locale;
 
-public class Request {
+public class SunRequest {
 
     private final HttpExchange exchange;
     private final String method;
@@ -17,7 +15,7 @@ public class Request {
     private final Headers headers;
     private final InputStream body;
 
-    public Request(HttpExchange exchange) {
+    public SunRequest(HttpExchange exchange) {
         method = exchange.getRequestMethod();
         uri = exchange.getRequestURI();
         headers = exchange.getRequestHeaders();
@@ -46,19 +44,7 @@ public class Request {
         return Locale.getDefault();
     }
 
-    public Response response(int code) {
-        return new Response(exchange, code);
-    }
-
-    public Response makeRedirect(WebAction action) {
-        return new Response(exchange, 301).addHeader(
-            "Location",
-            action.getMethod().getAnnotation(Controller.Action.class).path()
-        );
-
-    }
-
-    public Response makeRedirect(String url) {
-        return new Response(exchange, 301).addHeader("Location", url);
+    public SunResponse response(int code) {
+        return new SunResponse(exchange, code);
     }
 }

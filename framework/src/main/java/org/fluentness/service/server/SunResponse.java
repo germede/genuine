@@ -2,18 +2,18 @@ package org.fluentness.service.server;
 
 import com.sun.net.httpserver.HttpExchange;
 
-public class Response {
+public class SunResponse {
 
     private final HttpExchange exchange;
     private final int code;
     private String body;
 
-    Response(HttpExchange exchange, int code) {
+    SunResponse(HttpExchange exchange, int code) {
         this.exchange = exchange;
         this.code = code;
     }
 
-    public Response addHeader(String key, String value) {
+    public SunResponse addHeader(String key, String value) {
         exchange.getResponseHeaders().add(key, value);
         return this;
     }
@@ -26,7 +26,7 @@ public class Response {
         return body;
     }
 
-    public Response setBody(String body) {
+    public SunResponse setBody(String body) {
         this.body = body;
         return this;
     }

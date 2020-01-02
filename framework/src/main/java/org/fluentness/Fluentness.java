@@ -1,9 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.controller.console.ConsoleAction;
-import org.fluentness.controller.console.ConsoleException;
 import org.fluentness.controller.desktop.Controller;
-import org.fluentness.controller.web.WebAction;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.logger.Logger;
 import org.fluentness.service.mailer.Mailer;
@@ -16,13 +13,24 @@ import java.util.*;
 
 public final class Fluentness {
 
-    public static Fluentness launch(Application application) {
+    public static Fluentness launch(Application application) throws FluentnessException {
         return new Fluentness(application);
     }
 
     private static final Map<Class, Object> instances = new LinkedHashMap<>();
 
-    private Fluentness(Application application) {
+    public static <A extends ApplicationComponent> A[] getInstances(Class<A> parent) {
+        return (A[]) instances.values().stream()
+            .filter(value -> parent.isAssignableFrom(value.getClass()))
+            .map(o -> (A) o)
+            .toArray();
+    }
+
+    public static <A extends ApplicationComponent> A getInstance(Class<A> parent) {
+        return (A) instances.get(parent);
+    }
+
+    private Fluentness(Application application) throws FluentnessException {
         inject(Configuration.class, application.getConfiguration());
         application.configure(getInstance(Configuration.class));
 
@@ -39,61 +47,59 @@ public final class Fluentness {
         inject(application.getControllers());
     }
 
-    public void console(String[] args) {
-        if (args == null) {
-            throw new IllegalArgumentException("Passed args array was null");
-        }
-        String name = args.length == 0 ? "help" : args[0];
-        List<ConsoleAction> actions = new LinkedList<>();
-        Arrays.stream(getInstances(org.fluentness.controller.console.Controller.class))
-            .forEach(controller -> actions.addAll(controller.getActions()));
-        Method toExecute = actions
-            .stream()
-            .filter(action -> action.getMethod().getName().equals(name))
-            .map(ConsoleAction::getMethod)
-            .findFirst()
-            .orElseThrow(() -> new ConsoleException("No such command with name %s found", name));
-        Class<? extends org.fluentness.controller.Controller> declaringClass = (Class<? extends org.fluentness.controller.Controller>) toExecute.getDeclaringClass();
-        toExecute.setAccessible(true);
-        toExecute.invoke(getInstance(declaringClass));
-    }
-
-    public void desktop() {
-        for (Controller controller : getInstances(Controller.class)) {
-            DesktopView.setGlobalStyle(controller.getDesktop().getStyle());
-            controller.getDesktop().getTemplate().render();
+    public void console(String[] args) throws FluentnessException {
+        try {
+            if (args == null) {
+                throw new IllegalArgumentException("Passed args array was null");
+            }
+            String name = args.length == 0 ? "help" : args[0];
+            List<Method> actions = new LinkedList<>();
+            Arrays.stream(getInstances(org.fluentness.controller.console.Controller.class))
+                .forEach(controller -> actions.addAll(Arrays.asList(controller.getActions())));
+            Method toExecute = actions
+                .stream()
+                .filter(action -> action.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No such command with name %s found", name));
+            Class<? extends org.fluentness.controller.Controller> declaringClass =
+                (Class<? extends org.fluentness.controller.Controller>) toExecute.getDeclaringClass();
+            toExecute.setAccessible(true);
+            toExecute.invoke(getInstance(declaringClass));
+        } catch (Throwable cause) {
+            throw new FluentnessException(cause);
         }
     }
 
-    public void web() {
-        Map<String, WebAction> routes = new HashMap<>();
-        Arrays.stream(getInstances(org.fluentness.controller.web.Controller.class))
-            .forEach(controller -> routes.putAll(controller.getRoutes()));
-        getInstance(Server.class).start(routes);
+    public void desktop() throws FluentnessException {
+        try {
+            for (Controller controller : getInstances(Controller.class)) {
+                DesktopView.setGlobalStyle(controller.getDesktop().getStyle());
+                controller.getDesktop().getTemplate().render();
+            }
+        } catch (Throwable cause) {
+            throw new FluentnessException(cause);
+        }
     }
 
-    private <A extends ApplicationComponent> A[] getInstances(Class<A> parent) {
-        return (A[]) instances.values().stream()
-            .filter(value -> parent.isAssignableFrom(value.getClass()))
-            .map(o -> (A) o)
-            .toArray();
+    public void web() throws FluentnessException {
+        try {
+            getInstance(Server.class).start(routes);
+        } catch (Throwable cause) {
+            throw new FluentnessException(cause);
+        }
     }
 
-    public static <A extends ApplicationComponent> A getInstance(Class<A> parent) {
-        return (A) instances.get(parent);
-    }
-
-    private <A extends ApplicationComponent> void inject(Class<? extends A>... classList) {
+    private <A extends ApplicationComponent> void inject(Class<? extends A>... classList) throws FluentnessException {
         for (Class aClass : classList) {
             instances.put(aClass, instantiate(aClass));
         }
     }
 
-    private <A extends ApplicationComponent> void inject(Class<A> iClass, Class<? extends A> aClass) {
+    private <A extends ApplicationComponent> void inject(Class<A> iClass, Class<? extends A> aClass) throws FluentnessException {
         instances.put(iClass, instantiate(aClass));
     }
 
-    private <A extends ApplicationComponent> A instantiate(Class<? extends A> aClass) {
+    private <A extends ApplicationComponent> A instantiate(Class<? extends A> aClass) throws FluentnessException {
         try {
             validateInstantiation(aClass);
             Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
@@ -110,8 +116,9 @@ public final class Fluentness {
     }
 
     private <A extends ApplicationComponent> Object[] prepareConstructorParameters(
-        Class<? extends A> aClass, Constructor constructor
-    ) {
+        Class<? extends A> aClass,
+        Constructor constructor
+    ) throws FluentnessException {
 
         Parameter[] parameters = constructor.getParameters();
         Object[] result = new Object[parameters.length];

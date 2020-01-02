@@ -1,15 +1,15 @@
 package org.fluentness.service.authenticator;
 
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.configuration.Key;
-import org.fluentness.service.server.Request;
+import org.fluentness.service.configuration.Setting;
+import org.fluentness.service.server.SunRequest;
 
 import java.util.Base64;
 
 public class BasicAuthenticator implements Authenticator {
 
-    public static final Key<String> USERNAME = new Key<>();
-    public static final Key<String> PASSWORD = new Key<>();
+    public static final Setting<String> USERNAME = new Setting<>();
+    public static final Setting<String> PASSWORD = new Setting<>();
 
     protected static final String AUTHORIZATION_HEADER = "Authorization";
     protected static final String AUTHENTICATE_HEADER = "WWW-Authenticate";
@@ -21,7 +21,7 @@ public class BasicAuthenticator implements Authenticator {
     }
 
     @Override
-    public boolean authenticate(Request request) {
+    public boolean authenticate(SunRequest request) {
         String requestHeader = request.getHeaders().get(AUTHORIZATION_HEADER).get(0);
 
         if (requestHeader != null &&
