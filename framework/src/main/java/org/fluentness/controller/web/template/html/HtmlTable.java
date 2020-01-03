@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
-public class HtmlTable<M extends Model> extends HtmlElement {
+public class HtmlTable<M extends Model> extends Html {
 
     private final List<M> list;
     private final Method[] getters = null;
@@ -28,12 +28,12 @@ public class HtmlTable<M extends Model> extends HtmlElement {
         this.appendColumnView = appendColumnView;
         return this;
     }
-
-    @Override
-    public String render() {
-        this.html = Arrays.asList(renderTable());
-        return super.render();
-    }
+//
+//    @Override
+//    public String render() {
+//        this.html = Arrays.asList(renderTable());
+//        return super.render();
+//    }
 
     private Html[] renderTable() {
         return new Html[]{

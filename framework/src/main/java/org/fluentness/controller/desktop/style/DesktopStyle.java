@@ -1,15 +1,24 @@
 package org.fluentness.controller.desktop.style;
 
+import org.fluentness.controller.desktop.style.property.Property;
+
 import javax.swing.*;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class DesktopStyle {
 
-    protected List<Style> styles = new LinkedList<>();
+    public static DesktopStyle basedOn(String lookAndFeelClassName) {
+        return new DesktopStyle(lookAndFeelClassName);
+    }
 
-    public DesktopStyle(LookAndFeel lookAndFeel) {
+    public static DesktopStyle basedOn(LookAndFeel lookAndFeel) {
+        return new DesktopStyle(lookAndFeel);
+    }
+
+    private List<Property> properties = new LinkedList<>();
+
+    private DesktopStyle(LookAndFeel lookAndFeel) {
         try {
             UIManager.setLookAndFeel(lookAndFeel);
         } catch (UnsupportedLookAndFeelException e) {
@@ -17,12 +26,26 @@ public class DesktopStyle {
         }
     }
 
-    protected DesktopStyle(LookAndFeel lookAndFeel, Style[] styles) {
-        this(lookAndFeel);
-        this.styles = Arrays.asList(styles);
+    private DesktopStyle(String lookAndFeel) {
+        try {
+            UIManager.setLookAndFeel(lookAndFeel);
+        } catch (UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List<Style> getStyles() {
-        return styles;
+
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public DesktopStyle forTag() {
+//
+//        public static <S extends Container > Property<S,> byClass(Class<S> swingClass, PropertyLambda<S> styleLambda) {
+//            return new Property(swingClass, styleLambda);
+//        }
+//        properties.add();
+        return this;
     }
 }

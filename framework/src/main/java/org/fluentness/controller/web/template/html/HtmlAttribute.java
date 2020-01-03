@@ -1,16 +1,132 @@
 package org.fluentness.controller.web.template.html;
 
-public class HtmlAttribute implements Html {
+public enum HtmlAttribute {
+    ACCEPT,
+    ACCEPT_CHARSET,
+    ACCESSKEY,
+    ACTION,
+    ALIGN,
+    ALT,
+    ASYNC,
+    AUTOCOMPLETE,
+    AUTOFOCUS,
+    AUTOPLAY,
+    AUTOSAVE,
+    BGCOLOR,
+    BORDER,
+    BUFFERED,
+    CHALLENGE,
+    CHARSET,
+    CHECKED,
+    CITE,
+    CLASS,
+    CODE,
+    CODEBASE,
+    COLOR,
+    COLS,
+    COLSPAN,
+    CONTENT,
+    CONTENTEDITABLE,
+    CONTEXTMENU,
+    CONTROLS,
+    COORDS,
+    CROSSORIGIN,
+    DATA,
+    DATETIME,
+    DEFAULT,
+    DIR,
+    DIRNAME,
+    DISABLED,
+    DOWNLOAD,
+    DRAGGABLE,
+    DROPZONE,
+    ENCTYPE,
+    FOR_,
+    FORM,
+    FORMACTION,
+    HEADERS,
+    HEIGHT,
+    HIDDEN,
+    HIGH,
+    HREF,
+    HREFLANG,
+    HTTP_EQUIV,
+    ICON,
+    ID,
+    INTEGRITY,
+    ISMAP,
+    ITEMPROP,
+    KEYTYPE,
+    KIND,
+    LABEL,
+    LANG,
+    LANGUAGE,
+    LIST,
+    LOOP,
+    LOW,
+    MANIFEST,
+    MAX,
+    MAXLENGTH,
+    MEDIA,
+    METHOD,
+    MIN,
+    MULTIPLE,
+    MUTED,
+    NAME,
+    NOVALIDATE,
+    OPEN,
+    OPTIMUM,
+    PATTERN,
+    PING,
+    PLACEHOLDER,
+    POSTER,
+    PRELOAD,
+    RADIOGROUP,
+    READONLY,
+    REL,
+    REQUIRED,
+    REVERSED,
+    ROWS,
+    ROWSPAN,
+    SANDBOX,
+    SCOPE,
+    SCOPED,
+    SEAMLESS,
+    SELECTED,
+    SHAPE,
+    SIZE,
+    SIZES,
+    SLOT,
+    SPAN,
+    SPELLCHECK,
+    SRC,
+    SRCDOC,
+    SRCLANG,
+    SRCSET,
+    START,
+    STEP,
+    STYLE,
+    SUMMARY,
+    TABINDEX,
+    TARGET,
+    TITLE,
+    TYPE,
+    USEMAP,
+    VALUE,
+    WIDTH;
 
-    private final String key, value;
+    public static final String PREFIX = "";
 
-    public HtmlAttribute(String key, String value) {
-        this.key = key;
-        this.value = value;
+    public static String toAttr(String string) {
+        return PREFIX + " " + string.toLowerCase() + " = \"";
     }
+
+    private final String toString = toAttr(toString());
 
     @Override
     public String toString() {
-        return " " + key + "=\"" + value + "\"";
+        return toString;
     }
+
+
 }

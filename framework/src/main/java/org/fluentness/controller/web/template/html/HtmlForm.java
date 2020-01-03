@@ -4,7 +4,7 @@ import org.fluentness.repository.Model;
 
 import java.lang.reflect.Method;
 
-public class HtmlForm<T> extends HtmlElement {
+public class HtmlForm<T> extends Html {
 
 
     public HtmlForm(Model model, Method action) {

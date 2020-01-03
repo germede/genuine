@@ -81,7 +81,7 @@ public final class Fluentness {
     public void desktop() throws FluentnessException {
         try {
             for (Controller controller : getInstances(Controller.class)) {
-//                DesktopView.setGlobalStyle(controller.getDesktop().getStyle());
+//                controller.getDesktop().getStyle().apply();
                 controller.getDesktop().getTemplate().render();
             }
         } catch (Throwable cause) {

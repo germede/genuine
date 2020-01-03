@@ -7,6 +7,8 @@ import org.fluentness.controller.web.template.html.Html;
 import org.fluentness.service.mailer.Mailer;
 
 import static com.sample.LibraryTranslation.create;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.ID;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends Controller<Web> {
@@ -30,14 +32,13 @@ public class WebController extends Controller<Web> {
     Html books() {
         return div(
             table(bookRepository.findAll()).appendColumn(book ->
-                td(_class("float-right"),
-                    button(_id("#updateBook"), _class("button button-outline"), "\uD83D\uDD89"),
-                    " ",
-                    button(_id("#deleteBook"), _class("button"), "⨯")
+                td(CLASS + "float-right",
+                    button(ID + "updateBook", CLASS + "button button-outline", "\uD83D\uDD89"),
+                    button(ID + "deleteBook", CLASS + "button", "⨯")
                 )
             ),
-            div(_class("row"),
-                button(_id("#createBook"), _class("button column"), create)
+            div(CLASS + "row",
+                button(ID + "createBook", CLASS + "button column", create)
             )
         );
     }
@@ -64,7 +65,7 @@ public class WebController extends Controller<Web> {
     Html authors() {
         return div(
             table(authorRepository.findAll()),
-            button(_class("button column"), _id("createAuthor"), create)
+            button(CLASS + "button column", ID + "createAuthor", create)
         );
     }
 

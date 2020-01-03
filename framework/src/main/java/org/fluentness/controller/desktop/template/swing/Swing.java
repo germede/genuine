@@ -1,25 +1,79 @@
 package org.fluentness.controller.desktop.template.swing;
 
-import org.fluentness.controller.desktop.template.DesktopTemplate;
-
+import javax.swing.*;
 import java.awt.*;
+import java.util.stream.IntStream;
 
-public class Swing<V extends Container> implements DesktopTemplate {
+public class Swing<V extends Container> implements CharSequence {
+
+
+    @Override
+    public int length() {
+        return 0;
+    }
+
+    @Override
+    public char charAt(int i) {
+        return 0;
+    }
+
+    @Override
+    public CharSequence subSequence(int i, int i1) {
+        return null;
+    }
+
+    @Override
+    public IntStream chars() {
+        return null;
+    }
+
+    @Override
+    public IntStream codePoints() {
+        return null;
+    }
 
     private V actualSwing;
 
-    Swing(V actualSwing) {
+    Swing(V actualSwing, CharSequence... swings) {
         this.actualSwing = actualSwing;
+        handleSwings(swings);
+    }
+
+    private void handleSwings(CharSequence[] swings) {
+        for (CharSequence swing : swings) {
+            if (swing instanceof Swing) {
+                this.actualSwing.add(((Swing) swing).getActualSwing());
+            } else if (swing instanceof String) {
+                handleString((String) swing);
+            }
+        }
+    }
+
+    private void handleString(String string) {
+        if (string.startsWith(SwingAttribute.PREFIX)) {
+            handleAttribute(string);
+        } else {
+            handleNormalText(string);
+        }
+    }
+
+    private void handleAttribute(String string) {
+        SwingAttribute attribute = SwingAttribute.valueOf(string.replace("###",""));
+        switch (attribute) {
+            case ID:
+        }
+    }
+
+    private void handleNormalText(String string) {
+        if (JLabel.class.equals(actualSwing.getClass())) {
+            ((JLabel) actualSwing).setText(string);
+        }
     }
 
     public V getActualSwing() {
         return actualSwing;
     }
 
-    @Override
-    public void render() {
-        actualSwing.setVisible(true);
-    }
 
     // ==== instead of layout()
 //    public Self borderLayout(String... arrangements) {

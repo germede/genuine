@@ -12,7 +12,7 @@
 //
 //import static org.fluentness.controller.desktop.style.DesktopStyleFactory.byClass;
 //
-//public class UbuntuDesktopStyle extends DesktopStyle {
+//public class SystemDesktopStyle extends DesktopStyle {
 //
 //    protected static final Color BACKGROUND = new Color(245, 246, 247);
 //    protected static final Color ORANGE = new Color(237, 78, 0);
@@ -25,8 +25,8 @@
 //    protected static final Border INACTIVE_BORDER = BorderFactory.createEmptyBorder(6, 5, 4, 5);
 //    protected static final Font UBUNTU_FONT = new Font("Ubuntu", Font.PLAIN, 14);
 //
-//    protected UbuntuDesktopStyle(Property[] extraProperties) {
-//        super(UIManager.getLookAndFeel());
+//    protected SystemDesktopStyle(Property[] extraProperties) {
+//        super(UIManager.getSystemLookAndFeelClassName());
 //        properties.add(panel());
 //        properties.add(menuItem());
 //        properties.add(menu());

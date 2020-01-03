@@ -7,29 +7,34 @@ import org.fluentness.controller.desktop.template.swing.Swing;
 
 import javax.swing.*;
 
-import static org.fluentness.controller.desktop.style.DesktopStyleFactory.byClass;
-import static org.fluentness.controller.desktop.style.DesktopStyleFactory.ubuntuStyle;
+import static org.fluentness.controller.desktop.template.swing.SwingAttribute.CLASS;
+import static org.fluentness.controller.desktop.template.swing.SwingAttribute.ID;
 import static org.fluentness.controller.desktop.template.swing.SwingFactory.*;
 
 public class Desktop implements View {
 
     @Override
     public DesktopStyle getStyle() {
-        return ubuntuStyle(
 
-//            byId("")
-
-
-            byClass(JTable.class, jTable -> jTable.setDragEnabled(false)),
-            byClass(JFrame.class, jFrame -> jFrame.setJMenuBar(topBar().getActualSwing()))
-        );
+//        return DesktopStyle.basedOn(UIManager.getSystemLookAndFeelClassName())
+//            .forAll(JFrame.class, jFrame -> jFrame.set)
+//            .forKey()
+//
+//
+//        return
+//
+//            style(new GTKLookAndFeel(),
+//            byClass(JTable.class, jTable -> jTable.setDragEnabled(false)),
+//            byClass(JFrame.class, jFrame -> jFrame.setJMenuBar(topBar().getActualSwing()))
+//        );
+        return null;
     }
 
     @Override
     public DesktopTemplate getTemplate() {
-        return frame("Fluentness rocks",
-            panel(
-                panel(
+        return frame(ID + "Fluentness rocks",
+            panel(ID + "panel1", CLASS + "panel",
+                panel(CLASS + "panel",
                     colorChooser(),
                     table(
                         header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
