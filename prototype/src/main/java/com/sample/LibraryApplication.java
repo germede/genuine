@@ -17,9 +17,7 @@ public class LibraryApplication implements Application {
     public void configure(Configuration configuration) {
         configuration
             .set(Application.NAME, "Library")
-            .set(Application.PLATFORM, Platform.WEB)
             .set(Server.PORT, 8000)
-            .set(Injector.MAILER, )
             .set(Logger.LEVEL, LogLevel.DEBUG)
             .set(Logger.CONSOLE, true)
             .set(Persistence.JDBC_URL, "jdbc:mysql://localhost:3306/party")

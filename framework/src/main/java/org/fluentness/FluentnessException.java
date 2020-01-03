@@ -1,6 +1,7 @@
 package org.fluentness;
 
-public class FluentnessException extends Exception {
+// basic exception class (checked)
+public class FluentnessException extends java.lang.Exception {
 
     private String message;
     private Throwable cause;

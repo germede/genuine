@@ -1,14 +1,12 @@
 package com.sample.controller;
 
-import com.sample.repository.Author;
 import com.sample.repository.AuthorRepository;
-import com.sample.repository.Book;
 import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.Controller;
 import org.fluentness.controller.web.template.html.Html;
 import org.fluentness.service.mailer.Mailer;
 
-import static com.sample.repository.Translation.create;
+import static com.sample.LibraryTranslation.create;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends Controller<Web> {
@@ -17,15 +15,15 @@ public class WebController extends Controller<Web> {
     private final AuthorRepository authorRepository;
     private final Mailer mailer;
 
-    protected WebController(BookRepository bookRepository, AuthorRepository authorRepository, Mailer mailer) {
+    public WebController(BookRepository bookRepository, AuthorRepository authorRepository, Mailer mailer) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.mailer = mailer;
     }
 
     @Action(path = "/")
-    Response index() {
-        return redirect("/books");
+    Html index() {
+        return books();
     }
 
     @Action(path = "/books", selector = "#books")
@@ -33,13 +31,13 @@ public class WebController extends Controller<Web> {
         return div(
             table(bookRepository.findAll()).appendColumn(book ->
                 td(_class("float-right"),
-                    action(this::updateBook, _class("button button-outline"), "\uD83D\uDD89"),
+                    button(_id("#updateBook"), _class("button button-outline"), "\uD83D\uDD89"),
                     " ",
-                    action(this::deleteBook, _class("button"), "⨯")
+                    button(_id("#deleteBook"), _class("button"), "⨯")
                 )
             ),
             div(_class("row"),
-                action(this::createBook, _class("button column"), create)
+                button(_id("#createBook"), _class("button column"), create)
             )
         );
     }
@@ -47,8 +45,8 @@ public class WebController extends Controller<Web> {
     @Action(path = "/books/create")
     Html createBook() {
         return div(
-            h2(create),
-            form(this::createBook, new Book())
+            h2(create)
+//            form(this::createBook, new Book())
         );
     }
 
@@ -73,8 +71,8 @@ public class WebController extends Controller<Web> {
     @Action(path = "/authors/create", selector = "#createAuthor")
     Html createAuthor() {
         return div(
-            h2(create),
-            form(this::createAuthor, new Author())
+            h2(create)
+//            form(this::createAuthor, new Author())
         );
     }
 

@@ -13,7 +13,7 @@ public class DesktopController extends Controller<Desktop> {
         this.authorRepository = authorRepository;
     }
 
-    @Action(selector = ".button")
+    @Action(selector = ".button", event = Event.CLICK)
     void test(CaretEvent caretEvent) {
         System.out.println("test");
     }

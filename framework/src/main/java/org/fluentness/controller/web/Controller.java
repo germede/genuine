@@ -10,14 +10,15 @@ public abstract class Controller<W extends View> implements org.fluentness.contr
 
     protected final W web;
 
-    protected Controller() {
+    public Controller() {
+        W web = null;
         try {
-            this.web = ((Class<W>) Class.forName(getClass().getCanonicalName().replace("Controller", ""))).newInstance();
+            web = ((Class<W>) Class.forName(getClass().getCanonicalName().replace("Controller", ""))).newInstance();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
             System.exit(1);
-            this.web = null;
         }
+        this.web = web;
     }
 
     public final W getWeb() {

@@ -1,5 +1,6 @@
 package org.fluentness;
 
+import org.fluentness.controller.console.FluentnessController;
 import org.fluentness.controller.desktop.Controller;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.logger.Logger;
@@ -11,19 +12,25 @@ import org.fluentness.service.translator.Translator;
 import java.lang.reflect.*;
 import java.util.*;
 
+import static org.fluentness.controller.web.Controller.Action;
+
 public final class Fluentness {
+
+    private static final Map<Class, Object> instances = new LinkedHashMap<>();
 
     public static Fluentness launch(Application application) throws FluentnessException {
         return new Fluentness(application);
     }
 
-    private static final Map<Class, Object> instances = new LinkedHashMap<>();
-
     public static <A extends ApplicationComponent> A[] getInstances(Class<A> parent) {
-        return (A[]) instances.values().stream()
+        Object[] objects = instances.values().stream()
             .filter(value -> parent.isAssignableFrom(value.getClass()))
-            .map(o -> (A) o)
             .toArray();
+        A[] result = (A[]) Array.newInstance(parent, objects.length);
+        for (int j = 0; j < objects.length; j++) {
+            Array.set(result, j, objects[j]);
+        }
+        return result;
     }
 
     public static <A extends ApplicationComponent> A getInstance(Class<A> parent) {
@@ -44,6 +51,7 @@ public final class Fluentness {
         // app components
         inject(application.getServices());
         inject(application.getRepositories());
+        inject(FluentnessController.class, FluentnessController.class);
         inject(application.getControllers());
     }
 
@@ -60,7 +68,7 @@ public final class Fluentness {
                 .stream()
                 .filter(action -> action.getName().equals(name))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No such command with name %s found", name));
+                .orElseThrow(() -> new IllegalArgumentException("No such command with name " + name + " found"));
             Class<? extends org.fluentness.controller.Controller> declaringClass =
                 (Class<? extends org.fluentness.controller.Controller>) toExecute.getDeclaringClass();
             toExecute.setAccessible(true);
@@ -73,7 +81,7 @@ public final class Fluentness {
     public void desktop() throws FluentnessException {
         try {
             for (Controller controller : getInstances(Controller.class)) {
-                DesktopView.setGlobalStyle(controller.getDesktop().getStyle());
+//                DesktopView.setGlobalStyle(controller.getDesktop().getStyle());
                 controller.getDesktop().getTemplate().render();
             }
         } catch (Throwable cause) {
@@ -83,23 +91,31 @@ public final class Fluentness {
 
     public void web() throws FluentnessException {
         try {
+            Map<String, Method> routes = new HashMap<>();
+            for (org.fluentness.controller.web.Controller controller : getInstances(org.fluentness.controller.web.Controller.class)) {
+                for (Method action : controller.getActions()) {
+                    Action annotation = action.getAnnotation(Action.class);
+                    routes.put(annotation.method() + " " + annotation.path(), action);
+                }
+            }
+
             getInstance(Server.class).start(routes);
         } catch (Throwable cause) {
             throw new FluentnessException(cause);
         }
     }
 
-    private <A extends ApplicationComponent> void inject(Class<? extends A>... classList) throws FluentnessException {
+    private <I extends ApplicationComponent> void inject(Class<? extends I>... classList) throws FluentnessException {
         for (Class aClass : classList) {
             instances.put(aClass, instantiate(aClass));
         }
     }
 
-    private <A extends ApplicationComponent> void inject(Class<A> iClass, Class<? extends A> aClass) throws FluentnessException {
+    private <I extends ApplicationComponent> void inject(Class<I> iClass, Class<? extends I> aClass) throws FluentnessException {
         instances.put(iClass, instantiate(aClass));
     }
 
-    private <A extends ApplicationComponent> A instantiate(Class<? extends A> aClass) throws FluentnessException {
+    private <I extends ApplicationComponent> I instantiate(Class<? extends I> aClass) throws FluentnessException {
         try {
             validateInstantiation(aClass);
             Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
@@ -108,15 +124,14 @@ public final class Fluentness {
             }
 
             Constructor constructor = declaredConstructors[0];
-            return (A) constructor.newInstance(prepareConstructorParameters(aClass, constructor));
-
+            return (I) constructor.newInstance(prepareConstructorParameters(aClass, constructor));
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new FluentnessException(e);
         }
     }
 
-    private <A extends ApplicationComponent> Object[] prepareConstructorParameters(
-        Class<? extends A> aClass,
+    private <I extends ApplicationComponent> Object[] prepareConstructorParameters(
+        Class<? extends I> aClass,
         Constructor constructor
     ) throws FluentnessException {
 
@@ -124,8 +139,10 @@ public final class Fluentness {
         Object[] result = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
             Class<?> type = parameters[i].getType();
-            if (instances.containsKey(type)) {
-                result[i] = instances.get(type);
+            if (ApplicationComponent[].class.isAssignableFrom(type)) {
+                result[i] = getInstances((Class<? extends ApplicationComponent>) type.getComponentType());
+            } else if (instances.containsKey(type)) {
+                result[i] = getInstance((Class<? extends ApplicationComponent>) type);
             } else {
                 if (ApplicationComponent.class.isAssignableFrom(type)) {
                     throw new FluentnessException(
@@ -134,7 +151,7 @@ public final class Fluentness {
                         type.getSimpleName()
                     );
                 } else {
-                    throw new FluentnessException("%s is not an application component", type.getSimpleName());
+                    throw new FluentnessException("%s is not injectable as it isn't any ApplicationComponent", type.getSimpleName());
                 }
             }
         }
@@ -156,4 +173,5 @@ public final class Fluentness {
             throw new FluentnessException("%s's first constructor should be public", aClass.getName());
         }
     }
+
 }

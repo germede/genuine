@@ -110,7 +110,6 @@ public class SunServer implements Server {
                 }
             }
         }
-        // todo cache
         return executeWebAction(action, request);
     }
 

@@ -12,6 +12,4 @@ public class Author implements Model {
     String picture;
     String biography;
 
-
-
 }

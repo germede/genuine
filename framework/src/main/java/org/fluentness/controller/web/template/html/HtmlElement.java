@@ -19,15 +19,13 @@ public class HtmlElement implements Html {
         StringBuilder inner = new StringBuilder();
         for (CharSequence item : html) {
             String render = item.toString();
-            if (render.startsWith(HtmlAttribute.PREFIX)) {
-                String[] split = render.split("=");
-                assert split.length == 2;
-                attributes.append(" ").append(split[0].replace("###", "")).append("=\"").append(split[1]);
+            if (item instanceof HtmlAttribute) {
+                attributes.append(item);
             } else {
                 inner.append(item);
             }
         }
-        return "<" + tag + attributes + (inner.length() == 0 ? "/>" : ">" + inner + "</" + tag + ">");
+        return "<" + tag + String.join(attributes) + (inner.length() == 0 ? "/>" : ">" + inner + "</" + tag + ">");
     }
 
     public HtmlElement add(String attribute) {

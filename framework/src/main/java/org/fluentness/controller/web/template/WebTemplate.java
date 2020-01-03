@@ -29,6 +29,8 @@ public interface WebTemplate extends CharSequence {
         return null;
     }
 
-    String render();
+    default String render() {
+        return toString();
+    }
 
 }

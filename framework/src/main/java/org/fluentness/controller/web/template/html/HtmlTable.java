@@ -8,20 +8,20 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.fluentness.controller.web.View.html.HtmlFactory.*;
+import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class HtmlTable<M extends Model> extends HtmlElement {
 
     private final List<M> list;
-    private final Method[] getters;
+    private final Method[] getters = null;
     private AppendColumnView<M> appendColumnView;
 
     public HtmlTable(List<M> list) {
         super("table");
         this.list = list;
-        this.getters = (list == null || list.isEmpty()) ?
-            new Method[0] :
-            list.get(0).getGetters();
+//        this.getters = (list == null || list.isEmpty()) ?
+//            new Method[0] :
+//            list.get(0).getGetters();
     }
 
     public HtmlTable<M> appendColumn(AppendColumnView<M> appendColumnView) {

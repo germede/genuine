@@ -1,18 +1,14 @@
 package org.fluentness.controller.web.template.html;
 
-import org.fluentness.repository.Model;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.fluentness.controller.web.View.html.HtmlAttribute.HREF;
-
 public final class HtmlFactory {
 
-    public static <T> HtmlForm<T> form(WebAction submitAction, Model model) {
-        return new HtmlForm<>(model, submitAction);
-    }
+//    public static <T> HtmlForm<T> form(WebAction submitAction, Model model) {
+//        return new HtmlForm<>(model, submitAction);
+//    }
 
     public static <T> HtmlTable table(List<T> modelList) {
         return new HtmlTable(modelList);

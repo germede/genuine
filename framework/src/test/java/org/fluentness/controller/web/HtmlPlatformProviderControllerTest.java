@@ -1,59 +1,56 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.controller.web.View.html.Html;
-import org.junit.Before;
-
 public class HtmlPlatformProviderControllerTest {
-
-    private Controller<WebViewProvider> webController;
-
-    @Before
-    public void setUp() {
-        webController = new Controller<WebViewProvider>(WebViewProvider.class){
-
-
-            public void notAnActionBecauseNoActionAnnotation() {
-            }
-
-            void notAnActionBecauseItIsNotPublic() {
-            }
-
-            public void testVoid() {
-                int result = 2 + 2;
-            }
-
-            public String testString() {
-                return "Hello world!";
-            }
-
-            public int testForbidden() {
-                return 403;
-            }
-
-            public int testServerError() {
-                int outOfBounds = new int[]{}[1];
-                return 200;
-            }
-
-
-            public Html testView() {
-                return new Html() {
-                    @Override
-                    public String render() {
-                        return "Test web view";
-                    }
-                };
-            }
-
-            public String testGetParameter(String name) {
-                return "Greetings, " + name;
-            }
-
-            public String testPostParameter(String name) {
-                return "Greetings, " + name;
-            }
-        };
-    }
+//
+//    private Controller<WebViewProvider> webController;
+//
+//    @Before
+//    public void setUp() {
+//        webController = new Controller<WebViewProvider>(WebViewProvider.class){
+//
+//
+//            public void notAnActionBecauseNoActionAnnotation() {
+//            }
+//
+//            void notAnActionBecauseItIsNotPublic() {
+//            }
+//
+//            public void testVoid() {
+//                int result = 2 + 2;
+//            }
+//
+//            public String testString() {
+//                return "Hello world!";
+//            }
+//
+//            public int testForbidden() {
+//                return 403;
+//            }
+//
+//            public int testServerError() {
+//                int outOfBounds = new int[]{}[1];
+//                return 200;
+//            }
+//
+//
+//            public Html testView() {
+//                return new Html() {
+//                    @Override
+//                    public String render() {
+//                        return "Test web view";
+//                    }
+//                };
+//            }
+//
+//            public String testGetParameter(String name) {
+//                return "Greetings, " + name;
+//            }
+//
+//            public String testPostParameter(String name) {
+//                return "Greetings, " + name;
+//            }
+//        };
+//    }
 
 //    @Test
 //    public void getActions_sizeIsCalled_numberOfActionsIsCorrect() {

@@ -2,6 +2,6 @@ package org.fluentness.repository;
 
 public interface Model {
 
-    int getId();
+    default int getId() {return 0;};
 
 }

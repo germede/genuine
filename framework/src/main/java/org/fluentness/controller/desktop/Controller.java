@@ -6,14 +6,15 @@ public abstract class Controller<D extends View> implements org.fluentness.contr
 
     protected final D desktop;
 
-    protected Controller() {
+    public Controller() {
+        D desktop = null;
         try {
-            this.desktop = ((Class<D>) Class.forName(getClass().getCanonicalName().replace("Controller", ""))).newInstance();
+            desktop = ((Class<D>) Class.forName(getClass().getCanonicalName().replace("Controller", ""))).newInstance();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
             System.exit(1);
-            this.desktop = null;
         }
+        this.desktop = desktop;
     }
 
     public final D getDesktop() {

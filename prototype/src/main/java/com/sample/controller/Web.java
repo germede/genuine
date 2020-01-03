@@ -3,7 +3,7 @@ package com.sample.controller;
 import org.fluentness.controller.web.View;
 import org.fluentness.controller.web.template.WebTemplate;
 
-import static com.sample.repository.Translation.*;
+import static com.sample.LibraryTranslation.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class Web implements View {
