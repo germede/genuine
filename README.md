@@ -36,17 +36,17 @@ maturity, wide acceptance and knowledge, nice support of functional programming
 
 ## Quickstart
 
-### 1. Clone this repository :arrow_down:
+### 1. :arrow_down: Clone this repository 
 ```bash
 git clone https://github.com/germede/Fluentness
 ```
 
-### 2. Compile and install the sources into your local repository :desktop_computer:
+### 2. :desktop_computer: Compile and install the sources into your local repository 
 ```bash
 cd Fluentness && mvn clean install
 ```
 
-### 3. Bootstrap your application :rocket:
+### 3. :rocket: Bootstrap your application 
 Navigate to your project root directory and execute following:
 ```bash
 mvn archetype:generate                                  \
@@ -61,11 +61,11 @@ This will generate a naked project based on the project's Maven archetype.
 Hit <kbd>Enter</kbd> when confirmation needed.    
 Run the main method on DummyApp.java with your favourite IDE.  
 
-### 4. Read the docs :books:
+### 4. :books: Read the docs
 Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) how the prototype library application was developed. 
 Even if this framework is intended to be easy for newbies to learn, some documentation is always helpful.  
 
-### 5. Have fun and contribute :busts_in_silhouette:
+### 5. :busts_in_silhouette: Have fun and contribute 
 Please feel free to open a [new issue](https://github.com/germede/Fluentness/issues/new) 
 or a [pull request](https://github.com/germede/Fluentness/compare) directly on GitHub.  
 
