@@ -11,30 +11,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="40mm"
-   height="20mm"
-   viewBox="0 0 40 20"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="logo.svg"
-   inkscape:export-filename="/home/germede/IdeaProjects/Fluentness/framework/src/main/resources/art/logo.png"
-   inkscape:export-xdpi="635"
-   inkscape:export-ydpi="635">
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="logo.svg">
   <defs
      id="defs2">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient1045">
-      <stop
-         style="stop-color:#00ffff;stop-opacity:1"
-         offset="0"
-         id="stop1041" />
-      <stop
-         style="stop-color:#7a00ff;stop-opacity:1"
-         offset="1"
-         id="stop1043" />
-    </linearGradient>
     <linearGradient
        id="linearGradient2390"
        osb:paint="solid">
@@ -91,16 +76,6 @@
        y1="107.99444"
        x2="81.891632"
        y2="83.491577" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient1045"
-       id="linearGradient1049"
-       x1="106.26912"
-       y1="87.979797"
-       x2="135.08601"
-       y2="106.63421"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-106.26912,190.36579)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -109,17 +84,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284272"
-     inkscape:cx="67.519926"
-     inkscape:cy="16.263917"
+     inkscape:zoom="2.8"
+     inkscape:cx="351.62153"
+     inkscape:cy="779.54266"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="836"
-     inkscape:window-height="434"
-     inkscape:window-x="625"
-     inkscape:window-y="97"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1680"
+     inkscape:window-height="999"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
      showguides="false"
      inkscape:snap-bbox="true"
      inkscape:bbox-paths="true"
@@ -132,11 +107,7 @@
      inkscape:snap-midpoints="true"
      inkscape:snap-object-midpoints="true"
      inkscape:snap-text-baseline="true"
-     inkscape:snap-page="true"
-     inkscape:lockguides="false"
-     inkscape:snap-center="true"
-     inkscape:snap-others="false"
-     inkscape:snap-nodes="true" />
+     inkscape:snap-page="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -152,42 +123,43 @@
   <g
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-277)">
-    <text
-       xml:space="preserve"
-       desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="24.090425"
-       y="291.80099"
-       id="text825"
-       style="font-size:7.5017519px;fill:#000000;stroke-width:0.62514603"><tspan
-         sodipodi:role="line"
-         id="tspan823"
-         x="24.090425"
-         y="291.80099"
-         desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:Furore;-inkscape-font-specification:Furore;letter-spacing:0.21695833px;fill:#1a1a1a;stroke-width:0.26458332"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Furore;-inkscape-font-specification:Furore;fill:#000000;stroke-width:0.62514603">ness</tspan></text>
+     id="layer1">
+    <rect
+       desktopStyle="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+       id="rect865"
+       width="87.294395"
+       height="50"
+       x="60.834816"
+       y="69.927231" />
     <rect
        desktopStyle="opacity:1;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.63985682;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
        id="rect968-3"
-       width="39.5"
-       height="0.80000001"
-       x="-1.5143395e-06"
-       y="291"
-       style="fill:#000000;stroke-width:0.81986624" />
+       width="87.294395"
+       height="0.53853595"
+       x="60.834816"
+       y="101.1638" />
     <text
        xml:space="preserve"
        desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient869);fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-0.13282083"
-       y="291.11566"
-       id="text2587"
-       style="font-size:11.60617542px;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.96718127"><tspan
+       x="72.972252"
+       y="99.656189"
+       id="text2587"><tspan
          sodipodi:role="line"
          id="tspan2585"
-         x="-0.13282083"
-         y="291.11566"
+         x="72.972252"
+         y="99.656189"
          desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'Scriptina Pro';-inkscape-font-specification:'Scriptina Pro';letter-spacing:0.07143751px;fill:url(#linearGradient869);fill-opacity:1;stroke-width:0.26458332"
-         rotate="0 0 0 0 0 0 0"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333333px;font-family:Scriptina;-inkscape-font-specification:Scriptina;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.96718127">Fluent</tspan></text>
+         rotate="0 0 0 0 0 0 0 0 0 0 0 0">Fluentness </tspan></text>
+    <text
+       xml:space="preserve"
+       desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="71.439331"
+       y="104.70095"
+       id="text825"><tspan
+         sodipodi:role="line"
+         id="tspan823"
+         x="71.439331"
+         y="104.70095"
+         desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:Furore;-inkscape-font-specification:Furore;letter-spacing:0.21695833px;fill:#1a1a1a;stroke-width:0.26458332">Framework</tspan></text>
   </g>
 </svg>
