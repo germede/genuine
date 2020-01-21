@@ -13,7 +13,7 @@
     <artifactId>prototype</artifactId>
 
     <!--Even if packaging is set to apk, a ready-to-use jar file (for non-Android platforms) will be generated-->
-    <packaging>apk</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -82,24 +82,24 @@
             </plugin>
 
             <!--Essential configurations for Android builds-->
-            <plugin>
-                <groupId>com.simpligility.maven.plugins</groupId>
-                <artifactId>android-maven-plugin</artifactId>
-                <version>4.6.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <dexMultiDex>true</dexMultiDex>
-                    <!-- Older version of this plugin used dex android "compiler" by default, which is
-                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8 -->
-                    <dexCompiler>d8</dexCompiler>
-                    <sdk>
-                        <!-- API Level 29 doesn't work at the moment -->
-                        <platform>28</platform>
-                        <!-- Replace with your own path-->
-                        <path>/home/germede/Android/Sdk</path>
-                    </sdk>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.simpligility.maven.plugins</groupId>-->
+<!--                <artifactId>android-maven-plugin</artifactId>-->
+<!--                <version>4.6.0</version>-->
+<!--                <extensions>true</extensions>-->
+<!--                <configuration>-->
+<!--                    <dexMultiDex>true</dexMultiDex>-->
+<!--                    &lt;!&ndash; Older version of this plugin used dex android "compiler" by default, which is-->
+<!--                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8 &ndash;&gt;-->
+<!--                    <dexCompiler>d8</dexCompiler>-->
+<!--                    <sdk>-->
+<!--                        &lt;!&ndash; API Level 29 doesn't work at the moment &ndash;&gt;-->
+<!--                        <platform>28</platform>-->
+<!--                        &lt;!&ndash; Replace with your own path&ndash;&gt;-->
+<!--                        <path>/home/germede/Android/Sdk</path>-->
+<!--                    </sdk>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

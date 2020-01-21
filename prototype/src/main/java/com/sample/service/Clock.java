@@ -1,6 +1,8 @@
 package com.sample.service;
 
-public interface Clock {
+import org.fluentness.service.Service;
+
+public interface Clock extends Service {
 
     String getCurrentTime();
 

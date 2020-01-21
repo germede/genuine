@@ -6,7 +6,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public interface Controller<V extends View> extends ApplicationComponent {
+public interface Controller extends ApplicationComponent {
 
     default Method[] getActions() {
         return Arrays.stream(this.getClass().getDeclaredMethods())

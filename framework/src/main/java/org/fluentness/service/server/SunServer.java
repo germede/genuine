@@ -23,8 +23,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.fluentness.controller.web.template.html.HtmlFactory._id;
 import static org.fluentness.controller.web.template.html.HtmlFactory.div;
+import static org.fluentness.service.translator.Language.ID;
 
 public class SunServer implements Server {
 
@@ -141,10 +141,10 @@ public class SunServer implements Server {
         } else {
             if (configuration.get(SINGLE_PAGE_MODE)) {
                 render = controller
-                    .getWeb().getTemplate(div(_id("ajax-placeholder"), returned)).render();
+                    .getWeb().getTemplate(div(ID + "ajax-placeholder", returned.toString())).render();
                 render = render.replace("</head>", configuration.get(AJAX_HANDLER) + "</head>");
             } else {
-                render = controller.getWeb().getTemplate(returned).render();
+                render = controller.getWeb().getTemplate(returned.toString()).render();
             }
         }
         return request.response(200).setBody(render);

@@ -6,7 +6,7 @@ public enum SwingAttribute {
 
     public static final String PREFIX = "###";
 
-    private final String toString = PREFIX + toString();
+    private final String toString = PREFIX + name() + "=";
 
     @Override
     public String toString() {

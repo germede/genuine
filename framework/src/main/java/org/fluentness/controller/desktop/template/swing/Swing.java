@@ -58,10 +58,10 @@ public class Swing<V extends Container> implements CharSequence {
     }
 
     private void handleAttribute(String string) {
-        SwingAttribute attribute = SwingAttribute.valueOf(string.replace("###",""));
-        switch (attribute) {
-            case ID:
-        }
+//        SwingAttribute attribute = SwingAttribute.valueOf(string.replace("###",""));
+//        switch (attribute) {
+//            case ID:
+//        }
     }
 
     private void handleNormalText(String string) {

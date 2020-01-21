@@ -1,7 +1,8 @@
 package org.fluentness;
 
-import org.fluentness.controller.console.FluentnessController;
 import org.fluentness.controller.desktop.Controller;
+import org.fluentness.repository.Repository;
+import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.logger.Logger;
 import org.fluentness.service.mailer.Mailer;
@@ -19,7 +20,12 @@ public final class Fluentness {
     private static final Map<Class, Object> instances = new LinkedHashMap<>();
 
     public static Fluentness launch(Application application) throws FluentnessException {
-        return new Fluentness(application);
+        try {
+            return new Fluentness(application);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static <A extends ApplicationComponent> A[] getInstances(Class<A> parent) {
@@ -37,22 +43,45 @@ public final class Fluentness {
         return (A) instances.get(parent);
     }
 
-    private Fluentness(Application application) throws FluentnessException {
-        inject(Configuration.class, application.getConfiguration());
+    private Fluentness(Application application) throws Exception {
+//        inject(Configuration.class, application.getConfiguration());
+//        application.configure(getInstance(Configuration.class));
+//
+//        // basic services
+//        inject(Translator.class, application.getTranslator());
+//        inject(Logger.class, application.getLogger());
+//        inject(Persistence.class, application.getPersistence());
+//        inject(Server.class, application.getServer());
+//        inject(Mailer.class, application.getMailer());
+//
+//        // app components
+//        inject(application.getServices());
+//        inject(application.getRepositories());
+//        inject(FluentnessController.class, FluentnessController.class);
+//        inject(application.getControllers());
+//
+
+        instances.put(Configuration.class, application.getConfigurationInstance());
         application.configure(getInstance(Configuration.class));
 
         // basic services
-        inject(Translator.class, application.getTranslator());
-        inject(Logger.class, application.getLogger());
-        inject(Persistence.class, application.getPersistence());
-        inject(Server.class, application.getServer());
-        inject(Mailer.class, application.getMailer());
+        instances.put(Translator.class, application.getTranslatorInstance());
+        instances.put(Logger.class, application.getLoggerInstance());
+        instances.put(Persistence.class, application.getPersistenceInstance());
+        instances.put(Server.class, application.getServerInstance());
+        instances.put(Mailer.class, application.getMailerInstance());
 
         // app components
-        inject(application.getServices());
-        inject(application.getRepositories());
-        inject(FluentnessController.class, FluentnessController.class);
-        inject(application.getControllers());
+        for (Service service : application.getServicesInstance()) {
+            instances.put(service.getClass(), service);
+        }
+        for (Repository service : application.getRepositoriesInstance()) {
+            instances.put(service.getClass(), service);
+        }
+        for (org.fluentness.controller.Controller service : application.getControllersInstance()) {
+            instances.put(service.getClass(), service);
+        }
+        Map<Class, Object> instances = Fluentness.instances;
     }
 
     public void console(String[] args) throws FluentnessException {
@@ -80,7 +109,9 @@ public final class Fluentness {
 
     public void desktop() throws FluentnessException {
         try {
-            for (Controller controller : getInstances(Controller.class)) {
+            Map<Class, Object> instances1 = instances;
+            Controller[] instances = getInstances(Controller.class);
+            for (Controller controller : instances) {
 //                controller.getDesktop().getStyle().apply();
                 controller.getDesktop().getTemplate().render();
             }
@@ -169,7 +200,7 @@ public final class Fluentness {
             throw new FluentnessException("%s's class must be public in order to be instantiated", aClass.getName());
         }
         Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
-        if (declaredConstructors.length > 1 || !Modifier.isPublic(declaredConstructors[0].getModifiers())) {
+        if (declaredConstructors.length > 0 && !Modifier.isPublic(declaredConstructors[0].getModifiers())) {
             throw new FluentnessException("%s's first constructor should be public", aClass.getName());
         }
     }

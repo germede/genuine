@@ -121,7 +121,7 @@ public enum HtmlAttribute {
         return PREFIX + " " + string.toLowerCase() + " = \"";
     }
 
-    private final String toString = toAttr(toString());
+    private final String toString = toAttr(name());
 
     @Override
     public String toString() {
