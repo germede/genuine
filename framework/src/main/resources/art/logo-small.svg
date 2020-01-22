@@ -11,18 +11,26 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="20mm"
-   height="20mm"
+   width="2cm"
+   height="2cm"
    viewBox="0 0 20 20"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
    sodipodi:docname="logo-small.svg"
    inkscape:export-filename="/home/germede/IdeaProjects/Fluentness/framework/src/main/resources/art/logo-small.png"
-   inkscape:export-xdpi="635.00006"
-   inkscape:export-ydpi="635.00006">
+   inkscape:export-xdpi="1270"
+   inkscape:export-ydpi="1270">
   <defs
      id="defs2">
+    <linearGradient
+       id="linearGradient2306"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop2304" />
+    </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient1045">
@@ -95,12 +103,12 @@
        inkscape:collect="always"
        xlink:href="#linearGradient1045"
        id="linearGradient1049"
-       x1="106.33553"
-       y1="88.50071"
-       x2="122.61878"
-       y2="100.73338"
+       x1="106.29565"
+       y1="90.950531"
+       x2="119.32226"
+       y2="100.73666"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-104.47716,190.82165)" />
+       gradientTransform="matrix(1.0235517,0,0,1.0235517,-105.4658,187.59082)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -110,16 +118,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6568543"
-     inkscape:cx="19.191868"
-     inkscape:cy="29.124056"
+     inkscape:cx="71.394642"
+     inkscape:cy="30.613352"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="1023"
-     inkscape:window-x="0"
-     inkscape:window-y="27"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1062"
+     inkscape:window-height="434"
+     inkscape:window-x="317"
+     inkscape:window-y="198"
+     inkscape:window-maximized="0"
      showguides="false"
      inkscape:snap-bbox="true"
      inkscape:bbox-paths="true"
@@ -136,7 +144,8 @@
      inkscape:lockguides="false"
      inkscape:snap-center="true"
      inkscape:snap-others="false"
-     inkscape:snap-nodes="true" />
+     inkscape:snap-nodes="true"
+     units="cm" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -154,40 +163,40 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-277)">
-    <text
-       xml:space="preserve"
-       desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="10.476442"
-       y="291.97293"
-       id="text825"
-       style="font-size:7.5017519px;fill:#000000;stroke-width:0.62514603"><tspan
-         sodipodi:role="line"
-         id="tspan823"
-         x="10.476442"
-         y="291.97293"
-         desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:Furore;-inkscape-font-specification:Furore;letter-spacing:0.21695833px;fill:#1a1a1a;stroke-width:0.26458332"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:Furore;-inkscape-font-specification:Furore;fill:#000000;stroke-width:0.62514603">n</tspan></text>
     <rect
        desktopStyle="opacity:1;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.63985682;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
        id="rect968-3"
-       width="20.000002"
-       height="1.2"
-       x="-1.5143395e-06"
-       y="290.80002"
-       style="fill:#000000;stroke-width:0.71450472" />
+       width="20"
+       height="0.60000002"
+       x="1.7763568e-15"
+       y="291.39999"
+       style="fill:#333333;fill-opacity:1;stroke-width:0.50523108" />
+    <text
+       xml:space="preserve"
+       desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="12.839767"
+       y="290.70001"
+       id="text825"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.5017519px;font-family:Domine;-inkscape-font-specification:Domine;fill:#333333;stroke-width:0.62514603"><tspan
+         sodipodi:role="line"
+         id="tspan823"
+         x="12.839767"
+         y="290.70001"
+         desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:Furore;-inkscape-font-specification:Furore;letter-spacing:0.21695833px;fill:#1a1a1a;stroke-width:0.26458332"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Furore;-inkscape-font-specification:Furore;fill:#333333;stroke-width:0.62514603">N</tspan></text>
     <text
        xml:space="preserve"
        desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient869);fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="1.6591421"
-       y="291.5715"
+       x="3.170161"
+       y="290.7135"
        id="text2587"
-       style="font-size:11.60617542px;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.96718127"><tspan
+       style="font-size:11.87952137px;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.98996007"><tspan
          sodipodi:role="line"
          id="tspan2585"
-         x="1.6591421"
-         y="291.5715"
+         x="3.170161"
+         y="290.7135"
          desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'Scriptina Pro';-inkscape-font-specification:'Scriptina Pro';letter-spacing:0.07143751px;fill:url(#linearGradient869);fill-opacity:1;stroke-width:0.26458332"
          rotate="0 0"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.875px;font-family:Scriptina;-inkscape-font-specification:Scriptina;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.96718127">F</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.99910641px;font-family:Scriptina;-inkscape-font-specification:Scriptina;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.98996007">F</tspan></text>
   </g>
 </svg>
