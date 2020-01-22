@@ -65,7 +65,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <!--Replace with your own-->
-                            <mainClass>com.sample.LibraryApplication</mainClass>
+                            <mainClass>com.sample.Library</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

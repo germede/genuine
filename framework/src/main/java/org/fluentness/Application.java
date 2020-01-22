@@ -22,8 +22,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -111,26 +109,6 @@ public interface Application {
     default Class<? extends Server> getServer() {
         return SunServer.class;
     }
-
-
-    Controller[] getControllersInstance();
-
-    Repository[] getRepositoriesInstance();
-
-    Service[] getServicesInstance();
-
-    Configuration getConfigurationInstance();
-
-    Logger getLoggerInstance() throws Exception;
-
-    Mailer getMailerInstance() throws UnknownHostException;
-
-    Persistence getPersistenceInstance() throws SQLException;
-
-    Translator getTranslatorInstance();
-
-    Server getServerInstance();
-
 
     void configure(Configuration configuration);
 }
