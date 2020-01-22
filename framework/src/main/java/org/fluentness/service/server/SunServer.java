@@ -46,6 +46,7 @@ public class SunServer implements Server {
     public void start(Map<String, Method> routes) throws IOException {
         this.routes = routes;
         server = HttpServer.create(new InetSocketAddress(configuration.get(HOST), configuration.get(PORT)), 0);
+        server.createContext("/", this::handle);
         logger.info("Server listening to http://localhost:%s%s", configuration.get(PORT), configuration.get(CONTEXT));
         server.start();
     }
@@ -58,23 +59,22 @@ public class SunServer implements Server {
     }
 
     private void handle(HttpExchange exchange) throws IOException {
-        SunRequest request = new SunRequest(exchange);
-        SunResponse response;
         try {
-            response = handlePath(request);
+            SunRequest request = new SunRequest(exchange);
+            SunResponse response = handlePath(request);
+
+            String body = response.getBody();
+            String encoding = configuration.get(RESPONSE_ENCODING);
+            exchange.getResponseHeaders().set("Content-Type", "text/html; charset=" + encoding);
+            exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
+            Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
+            out.write(body);
+            out.close();
+            logger.debug("%s %s -> %s", request.getMethod(), request.getUri(), response.getCode());
         } catch (Exception e) {
-            response = request.response(500);
+            exchange.sendResponseHeaders(500,0);
             logger.error(e);
         }
-
-        String body = response.getBody();
-        String encoding = configuration.get(RESPONSE_ENCODING);
-        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=" + encoding);
-        exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
-        Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
-        out.write(body);
-        out.close();
-        logger.debug("%s %s -> %s", request.getMethod(), request.getUri(), response.getCode());
     }
 
     private SunResponse handlePath(SunRequest request) throws IOException {
@@ -117,7 +117,8 @@ public class SunServer implements Server {
         Locale.setDefault(request.getLocale());
         Controller controller = Fluentness.getInstance((Class<? extends Controller>) action.getDeclaringClass());
         try {
-            Object returned = action.invoke(controller, request);
+            action.setAccessible(true);
+            Object returned = action.getParameterCount() > 0 ? action.invoke(controller, calculateParams(action, request)) : action.invoke(controller);
             if (returned instanceof String) {
                 return request.response(200).setBody((String) returned);
             } else if (returned instanceof WebTemplate) {
@@ -132,6 +133,16 @@ public class SunServer implements Server {
             logger.error(e);
         }
         return request.response(500);
+    }
+
+    private Object calculateParams(Method action, SunRequest request) {
+        Object[] result = new Object[action.getParameterCount()];
+        Class<?>[] parameterTypes = action.getParameterTypes();
+        for (int i = 0, parameterTypesLength = parameterTypes.length; i < parameterTypesLength; i++) {
+            Class<?> parameterType = parameterTypes[i];
+            // todo assign params
+        }
+        return result;
     }
 
     private SunResponse handleWebView(SunRequest request, Controller controller, WebTemplate returned) {

@@ -11,6 +11,7 @@ public class SunResponse {
     SunResponse(HttpExchange exchange, int code) {
         this.exchange = exchange;
         this.code = code;
+        this.body = "";
     }
 
     public SunResponse addHeader(String key, String value) {

@@ -12,12 +12,12 @@ public abstract class Controller<W extends View> implements org.fluentness.contr
 
     public Controller() {
         W web = null;
-//        try {
-//            web = ((Class<W>) Class.forName(getClass().getCanonicalName().replace("Controller", ""))).newInstance();
-//        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
+        try {
+            web = ((Class<W>) Class.forName(getClass().getCanonicalName().replace("Controller", ""))).newInstance();
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
         this.web = web;
     }
 

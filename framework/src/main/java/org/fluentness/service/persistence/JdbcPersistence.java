@@ -17,11 +17,13 @@ public class JdbcPersistence implements Persistence {
     public JdbcPersistence(Configuration configuration, Logger logger) throws SQLException {
         this.logger = logger;
         if (configuration.has(JDBC_URL) && configuration.has(USERNAME) && configuration.has(PASSWORD)) {
-//            connection = DriverManager.getConnection(
-//                configuration.get(JDBC_URL),
-//                configuration.get(USERNAME),
-//                configuration.get(PASSWORD)
-//            );
+            connection = DriverManager.getConnection(
+                configuration.get(JDBC_URL),
+                configuration.get(USERNAME),
+                configuration.get(PASSWORD)
+            );
+        } else {
+            logger.warning("No database connection initialized due to lacking configuration");
         }
     }
 

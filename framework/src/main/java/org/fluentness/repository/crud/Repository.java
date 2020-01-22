@@ -1,5 +1,6 @@
 package org.fluentness.repository.crud;
 
+import org.fluentness.Fluentness;
 import org.fluentness.repository.Model;
 import org.fluentness.service.persistence.Persistence;
 
@@ -10,20 +11,25 @@ import java.util.stream.Collectors;
 
 public abstract class Repository<M extends Model> implements org.fluentness.repository.Repository {
 
-    protected Class<M> modelClass;
-    protected String tableName;
-    protected Persistence persistence;
+    protected final Class<M> modelClass;
+    protected final String tableName;
+    protected final Persistence persistence;
 
     protected Repository() {
-//        try {
-//            Class<M> modelClass = (Class<M>) Class.forName(getClass().getCanonicalName().replace("Repository", ""));
-//            this.modelClass = modelClass;
-//            this.tableName = modelClass.getSimpleName().toLowerCase();
-//            this.persistence = Fluentness.getInstance(Persistence.class);
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
+        Class<M> modelClass = null;
+        String tableName = null;
+        Persistence persistence = null;
+        try {
+            modelClass = (Class<M>) Class.forName(getClass().getCanonicalName().replace("Repository", ""));
+            tableName = modelClass.getSimpleName().toLowerCase();
+            persistence = Fluentness.getInstance(Persistence.class);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        this.modelClass = modelClass;
+        this.tableName = tableName;
+        this.persistence = persistence;
     }
 
     public Class<M> getModelClass() {

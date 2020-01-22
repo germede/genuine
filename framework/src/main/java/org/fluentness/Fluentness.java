@@ -1,8 +1,7 @@
 package org.fluentness;
 
+import org.fluentness.controller.console.FluentnessController;
 import org.fluentness.controller.desktop.Controller;
-import org.fluentness.repository.Repository;
-import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.logger.Logger;
 import org.fluentness.service.mailer.Mailer;
@@ -44,43 +43,22 @@ public final class Fluentness {
     }
 
     private Fluentness(Application application) throws Exception {
-//        inject(Configuration.class, application.getConfiguration());
-//        application.configure(getInstance(Configuration.class));
-//
-//        // basic services
-//        inject(Translator.class, application.getTranslator());
-//        inject(Logger.class, application.getLogger());
-//        inject(Persistence.class, application.getPersistence());
-//        inject(Server.class, application.getServer());
-//        inject(Mailer.class, application.getMailer());
-//
-//        // app components
-//        inject(application.getServices());
-//        inject(application.getRepositories());
-//        inject(FluentnessController.class, FluentnessController.class);
-//        inject(application.getControllers());
-//
-
-        instances.put(Configuration.class, application.getConfigurationInstance());
+        inject(Configuration.class, application.getConfiguration());
         application.configure(getInstance(Configuration.class));
 
         // basic services
-        instances.put(Translator.class, application.getTranslatorInstance());
-        instances.put(Logger.class, application.getLoggerInstance());
-        instances.put(Persistence.class, application.getPersistenceInstance());
-        instances.put(Server.class, application.getServerInstance());
-        instances.put(Mailer.class, application.getMailerInstance());
+        inject(Translator.class, application.getTranslator());
+        inject(Logger.class, application.getLogger());
+        inject(Persistence.class, application.getPersistence());
+        inject(Server.class, application.getServer());
+        inject(Mailer.class, application.getMailer());
 
         // app components
-        for (Service service : application.getServicesInstance()) {
-            instances.put(service.getClass(), service);
-        }
-        for (Repository service : application.getRepositoriesInstance()) {
-            instances.put(service.getClass(), service);
-        }
-        for (org.fluentness.controller.Controller service : application.getControllersInstance()) {
-            instances.put(service.getClass(), service);
-        }
+        inject(application.getServices());
+        inject(application.getRepositories());
+        inject(FluentnessController.class, FluentnessController.class);
+        inject(application.getControllers());
+
         Map<Class, Object> instances = Fluentness.instances;
     }
 
@@ -129,7 +107,6 @@ public final class Fluentness {
                     routes.put(annotation.method() + " " + annotation.path(), action);
                 }
             }
-
             getInstance(Server.class).start(routes);
         } catch (Throwable cause) {
             throw new FluentnessException(cause);

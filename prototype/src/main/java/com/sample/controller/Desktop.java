@@ -47,7 +47,7 @@ public class Desktop implements View {
                         row(2, "Rambo", 70.0, false),
                         row(3, "Zorro", 60.0, true)
                     ),
-                    button("Test button")
+                    button(CLASS + "button", "Test button")
                 )//.flowLayout()
             )//.borderLayout(BorderLayout.NORTH, BorderLayout.SOUTH)
         );//.bounds(0, 0, 800, 600).center().minimumSize(300, 300).menuBar(topBar());

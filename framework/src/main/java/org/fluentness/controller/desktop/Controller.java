@@ -7,14 +7,14 @@ public abstract class Controller<D extends View> implements org.fluentness.contr
     protected final D desktop;
 
     public Controller() {
-//        D desktop = null;
-//        try {
-//            desktop = ((Class<D>) Class.forName(getClass().getCanonicalName().replace("Controller", ""))).newInstance();
-//        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
-        this.desktop = getNewDesktop();
+        D desktop = null;
+        try {
+            desktop = ((Class<D>) Class.forName(getClass().getCanonicalName().replace("Controller", ""))).newInstance();
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        this.desktop = desktop;
     }
 
     protected abstract D getNewDesktop();
