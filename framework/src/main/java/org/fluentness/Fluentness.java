@@ -92,6 +92,7 @@ public final class Fluentness {
             for (Controller controller : instances) {
 //                controller.getDesktop().getStyle().apply();
                 controller.getDesktop().getTemplate().render();
+                controller.setListeners();
             }
         } catch (Throwable cause) {
             throw new FluentnessException(cause);

@@ -4,7 +4,7 @@ import org.fluentness.controller.desktop.template.DesktopTemplate;
 
 import java.awt.*;
 
-public class SwingTemplate<V extends Window>  implements DesktopTemplate {
+public class SwingTemplate<V extends Window> implements DesktopTemplate {
 
     private V actualSwing;
 

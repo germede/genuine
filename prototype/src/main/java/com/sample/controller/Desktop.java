@@ -35,6 +35,7 @@ public class Desktop implements View {
         return frame(ID + "Fluentness rocks",
             panel(ID + "panel1", CLASS + "panel",
                 panel(CLASS + "panel",
+                    button(ID + "daButton", "Test button"),
                     colorChooser(),
                     table(
                         header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
@@ -46,8 +47,7 @@ public class Desktop implements View {
                         row(2, "Rambo", 70.0, false),
                         row(2, "Rambo", 70.0, false),
                         row(3, "Zorro", 60.0, true)
-                    ),
-                    button(CLASS + "button", "Test button")
+                    )
                 )//.flowLayout()
             )//.borderLayout(BorderLayout.NORTH, BorderLayout.SOUTH)
         );//.bounds(0, 0, 800, 600).center().minimumSize(300, 300).menuBar(topBar());

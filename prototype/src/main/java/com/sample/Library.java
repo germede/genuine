@@ -28,6 +28,6 @@ public class Library implements Application {
     }
 
     public static void main(String[] args) throws FluentnessException {
-        Fluentness.launch(new Library()).web();
+        Fluentness.launch(new Library()).desktop();
     }
 }

@@ -3,8 +3,6 @@ package com.sample.controller;
 import com.sample.repository.AuthorRepository;
 import org.fluentness.controller.desktop.Controller;
 
-import javax.swing.event.CaretEvent;
-
 public class DesktopController extends Controller<Desktop> {
 
     private final AuthorRepository authorRepository;
@@ -13,13 +11,9 @@ public class DesktopController extends Controller<Desktop> {
         this.authorRepository = authorRepository;
     }
 
-    @Action(selector = ".button", event = Event.CLICK)
-    void test(CaretEvent caretEvent) {
+    @Action(selector = "#daButton", event = Event.CLICK)
+    void test() {
         System.out.println("test");
     }
 
-    @Override
-    protected Desktop getNewDesktop() {
-        return new Desktop();
-    }
 }

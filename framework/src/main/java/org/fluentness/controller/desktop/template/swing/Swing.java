@@ -2,9 +2,24 @@ package org.fluentness.controller.desktop.template.swing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public class Swing<V extends Container> implements CharSequence {
+
+    private static final Map<String, Swing> ID_MAP = new HashMap<>();
+    private static final Map<String, List<Swing>> CLASS_MAP = new HashMap<>();
+
+    public static Swing getById(String id) {
+        return ID_MAP.get(id);
+    }
+
+    public static List<Swing> getByClass(String clazz) {
+        return CLASS_MAP.get(clazz);
+    }
 
 
     @Override
@@ -58,10 +73,21 @@ public class Swing<V extends Container> implements CharSequence {
     }
 
     private void handleAttribute(String string) {
-//        SwingAttribute attribute = SwingAttribute.valueOf(string.replace("###",""));
-//        switch (attribute) {
-//            case ID:
-//        }
+        SwingAttribute key = SwingAttribute.valueOf(string.split("=")[0].replace(SwingAttribute.PREFIX, ""));
+        String value = string.split("=")[1];
+
+        switch (key) {
+            case ID:
+                ID_MAP.put(value, this);
+                break;
+            case CLASS:
+                for (String clazz : value.split(" ")) {
+                    List<Swing> list = CLASS_MAP.containsKey(clazz) ? CLASS_MAP.get(clazz) : new LinkedList<>();
+                    list.add(this);
+                    CLASS_MAP.put(clazz, list);
+                }
+                break;
+        }
     }
 
     private void handleNormalText(String string) {
