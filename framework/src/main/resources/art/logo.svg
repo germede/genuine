@@ -103,12 +103,12 @@
        inkscape:collect="always"
        xlink:href="#linearGradient1045"
        id="linearGradient1049"
-       x1="106.21597"
-       y1="93.087807"
-       x2="123.5061"
-       y2="104.28045"
+       x1="106.24255"
+       y1="90.533859"
+       x2="129.29605"
+       y2="105.45739"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-101.21597,187.71954)" />
+       gradientTransform="translate(-102.7693,189.00438)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -117,14 +117,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="44.074402"
-     inkscape:cy="17.613334"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="30.548445"
+     inkscape:cy="43.150371"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="1023"
+     inkscape:window-width="1366"
+     inkscape:window-height="741"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -143,8 +143,9 @@
      inkscape:snap-page="true"
      inkscape:lockguides="false"
      inkscape:snap-center="true"
-     inkscape:snap-others="false"
-     inkscape:snap-nodes="true" />
+     inkscape:snap-others="true"
+     inkscape:snap-nodes="true"
+     inkscape:snap-global="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -153,7 +154,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -167,35 +168,35 @@
        id="rect968-3"
        width="30"
        height="0.30000001"
-       x="1.7763568e-15"
-       y="288.70001"
+       x="1.1920929e-07"
+       y="290.20001"
        style="fill:#333333;fill-opacity:1;stroke-width:0.43754295" />
     <text
        xml:space="preserve"
        desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="19.083628"
-       y="288.39999"
+       x="11.989338"
+       y="292.26901"
        id="text825"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.5017519px;font-family:Domine;-inkscape-font-specification:Domine;fill:#333333;stroke-width:0.62514603;"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.5017519px;font-family:Domine;-inkscape-font-specification:Domine;fill:#333333;stroke-width:0.62514603"><tspan
          sodipodi:role="line"
          id="tspan823"
-         x="19.083628"
-         y="288.39999"
+         x="11.989338"
+         y="292.26901"
          desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:Furore;-inkscape-font-specification:Furore;letter-spacing:0.21695833px;fill:#1a1a1a;stroke-width:0.26458332"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.09902787px;font-family:Furore;-inkscape-font-specification:Furore;fill:#333333;stroke-width:0.62514603;">NESS</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.09902787px;font-family:Furore;-inkscape-font-specification:Furore;fill:#333333;stroke-width:0.62514603">NESS</tspan></text>
     <text
        xml:space="preserve"
        desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient869);fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="4.9203076"
-       y="288.46939"
+       x="3.3669877"
+       y="289.7543"
        id="text2587"
        style="font-size:11.60617542px;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.96718127"><tspan
          sodipodi:role="line"
          id="tspan2585"
-         x="4.9203076"
-         y="288.46939"
+         x="3.3669877"
+         y="289.7543"
          desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'Scriptina Pro';-inkscape-font-specification:'Scriptina Pro';letter-spacing:0.07143751px;fill:url(#linearGradient869);fill-opacity:1;stroke-width:0.26458332"
          rotate="0 0 0 0 0 0 0"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.3499999px;font-family:Scriptina;-inkscape-font-specification:Scriptina;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.96718127">Fluent</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:Scriptina;-inkscape-font-specification:Scriptina;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.96718127">Fluent</tspan></text>
   </g>
 </svg>
