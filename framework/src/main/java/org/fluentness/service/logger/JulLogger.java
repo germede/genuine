@@ -1,6 +1,6 @@
 package org.fluentness.service.logger;
 
-import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configurator.Configurator;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -15,9 +15,9 @@ public class JulLogger implements Logger {
 
     protected final java.util.logging.Logger logger;
 
-    public JulLogger(Configuration configuration) throws Exception {
+    public JulLogger(Configurator configurator) throws Exception {
         // retrieve log level
-        Level julLevel = configuration.get(LEVEL).toJulLevel();
+        Level julLevel = configurator.get(LEVEL).toJulLevel();
 
         // init jul logger
         logger = java.util.logging.Logger.getGlobal();
@@ -26,7 +26,7 @@ public class JulLogger implements Logger {
         logger.setLevel(julLevel);
 
         // console logging
-        if (configuration.get(CONSOLE)) {
+        if (configurator.get(CONSOLE)) {
             ConsoleHandler consoleHandler = new ConsoleHandler(){
                 @Override
                 protected synchronized void setOutputStream(OutputStream outputStream) throws SecurityException {
@@ -39,9 +39,9 @@ public class JulLogger implements Logger {
         }
 
         // file logging
-        if (configuration.has(FILE)) {
-            new File(configuration.get(FILE)).mkdirs();
-            String logFilePath = configuration.get(FILE) + "/" +
+        if (configurator.has(FILE)) {
+            new File(configurator.get(FILE)).mkdirs();
+            String logFilePath = configurator.get(FILE) + "/" +
                 new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())) + ".txt";
             File file = new File(logFilePath);
             FileHandler fileHandler;

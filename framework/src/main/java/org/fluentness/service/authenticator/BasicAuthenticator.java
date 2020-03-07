@@ -1,7 +1,7 @@
 package org.fluentness.service.authenticator;
 
-import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.configuration.Setting;
+import org.fluentness.service.configurator.Configurator;
+import org.fluentness.service.configurator.Setting;
 import org.fluentness.service.server.SunRequest;
 
 import java.util.Base64;
@@ -14,10 +14,10 @@ public class BasicAuthenticator implements Authenticator {
     protected static final String AUTHORIZATION_HEADER = "Authorization";
     protected static final String AUTHENTICATE_HEADER = "WWW-Authenticate";
 
-    private Configuration configuration;
+    private Configurator configurator;
 
-    public BasicAuthenticator(Configuration configuration) {
-        this.configuration = configuration;
+    public BasicAuthenticator(Configurator configurator) {
+        this.configurator = configurator;
     }
 
     @Override
@@ -26,10 +26,10 @@ public class BasicAuthenticator implements Authenticator {
 
         if (requestHeader != null &&
             requestHeader.startsWith("Basic ") &&
-            configuration.has(USERNAME) &&
-            configuration.has(PASSWORD)) {
+            configurator.has(USERNAME) &&
+            configurator.has(PASSWORD)) {
 
-            String own = configuration.get(USERNAME) + ":" + configuration.get(PASSWORD);
+            String own = configurator.get(USERNAME) + ":" + configurator.get(PASSWORD);
 
             if (Base64.getEncoder().encodeToString(own.getBytes()).equals(requestHeader.split(" ")[1])) {
                 return true;

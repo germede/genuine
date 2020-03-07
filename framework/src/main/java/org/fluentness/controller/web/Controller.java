@@ -1,7 +1,5 @@
 package org.fluentness.controller.web;
 
-import org.fluentness.service.authenticator.Authenticator;
-
 import java.lang.annotation.*;
 
 import static org.fluentness.controller.web.Controller.HttpMethod.GET;
@@ -40,7 +38,7 @@ public abstract class Controller<W extends View> implements org.fluentness.contr
 
         String selector() default "";
 
-        Class<? extends Authenticator>[] authenticators() default {};
+        boolean authenticate() default true;
 
         boolean cache() default true;
     }

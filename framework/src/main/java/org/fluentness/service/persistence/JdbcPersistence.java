@@ -1,6 +1,6 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.logger.Logger;
 
 import java.lang.reflect.Field;
@@ -14,13 +14,13 @@ public class JdbcPersistence implements Persistence {
 
     private Connection connection;
 
-    public JdbcPersistence(Configuration configuration, Logger logger) throws SQLException {
+    public JdbcPersistence(Configurator configurator, Logger logger) throws SQLException {
         this.logger = logger;
-        if (configuration.has(JDBC_URL) && configuration.has(USERNAME) && configuration.has(PASSWORD)) {
+        if (configurator.has(JDBC_URL) && configurator.has(USERNAME) && configurator.has(PASSWORD)) {
             connection = DriverManager.getConnection(
-                configuration.get(JDBC_URL),
-                configuration.get(USERNAME),
-                configuration.get(PASSWORD)
+                configurator.get(JDBC_URL),
+                configurator.get(USERNAME),
+                configurator.get(PASSWORD)
             );
         } else {
             logger.warning("No database connection initialized due to lacking configuration");

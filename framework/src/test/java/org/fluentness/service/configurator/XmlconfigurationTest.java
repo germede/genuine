@@ -1,4 +1,4 @@
-package org.fluentness.service.configuration;
+package org.fluentness.service.configurator;
 
 public class XmlconfigurationTest {
 

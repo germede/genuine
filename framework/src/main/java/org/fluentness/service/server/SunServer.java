@@ -6,7 +6,7 @@ import org.fluentness.Fluentness;
 import org.fluentness.controller.web.Controller;
 import org.fluentness.controller.web.template.WebTemplate;
 import org.fluentness.service.authenticator.Authenticator;
-import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.logger.Logger;
 
 import java.io.IOException;
@@ -18,10 +18,8 @@ import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.fluentness.controller.web.template.html.HtmlFactory.div;
 import static org.fluentness.service.translator.Language.ID;
@@ -29,14 +27,13 @@ import static org.fluentness.service.translator.Language.ID;
 public class SunServer implements Server {
 
     private final Logger logger;
-    private final Configuration configuration;
-    private final Map<Class<? extends Authenticator>, Authenticator> authenticators;
+    private final Configurator configurator;
+    private final Authenticator authenticator;
 
-    public SunServer(Authenticator[] authenticators, Configuration configuration, Logger logger) {
+    public SunServer(Authenticator authenticator, Configurator configurator, Logger logger) {
         this.logger = logger;
-        this.configuration = configuration;
-        this.authenticators = Arrays.stream(authenticators)
-            .collect(Collectors.toMap(Authenticator::getClass, authenticator -> authenticator));
+        this.configurator = configurator;
+        this.authenticator = authenticator;
     }
 
     private HttpServer server;
@@ -45,9 +42,9 @@ public class SunServer implements Server {
     @Override
     public void start(Map<String, Method> routes) throws IOException {
         this.routes = routes;
-        server = HttpServer.create(new InetSocketAddress(configuration.get(HOST), configuration.get(PORT)), 0);
+        server = HttpServer.create(new InetSocketAddress(configurator.get(HOST), configurator.get(PORT)), 0);
         server.createContext("/", this::handle);
-        logger.info("Server listening to http://localhost:%s%s", configuration.get(PORT), configuration.get(CONTEXT));
+        logger.info("Server listening to http://localhost:%s%s", configurator.get(PORT), configurator.get(CONTEXT));
         server.start();
     }
 
@@ -64,7 +61,7 @@ public class SunServer implements Server {
             SunResponse response = handlePath(request);
 
             String body = response.getBody();
-            String encoding = configuration.get(RESPONSE_ENCODING);
+            String encoding = configurator.get(RESPONSE_ENCODING);
             exchange.getResponseHeaders().set("Content-Type", "text/html; charset=" + encoding);
             exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
             Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
@@ -72,14 +69,14 @@ public class SunServer implements Server {
             out.close();
             logger.debug("%s %s -> %s", request.getMethod(), request.getUri(), response.getCode());
         } catch (Exception e) {
-            exchange.sendResponseHeaders(500,0);
+            exchange.sendResponseHeaders(500, 0);
             logger.error(e);
         }
     }
 
     private SunResponse handlePath(SunRequest request) throws IOException {
         String path = request.getMethod() + " " + request.getUri().getPath();
-        if (path.startsWith(configuration.get(GET_RESOURCES))) {
+        if (path.startsWith(configurator.get(GET_RESOURCES))) {
             return handleStaticFiles(request);
         } else if (routes.containsKey(path)) {
             return authenticateWebAction(routes.get(path), request);
@@ -102,13 +99,8 @@ public class SunServer implements Server {
     }
 
     private SunResponse authenticateWebAction(Method action, SunRequest request) {
-        for (Class<? extends Authenticator> authenticator :
-            action.getAnnotation(Controller.Action.class).authenticators()) {
-            if (authenticators.containsKey(authenticator)) {
-                if (authenticators.get(authenticator).authenticate(request)) {
-                    return request.response(403);
-                }
-            }
+        if (action.getAnnotation(Controller.Action.class).authenticate() && !authenticator.authenticate(request)) {
+            return request.response(403);
         }
         return executeWebAction(action, request);
     }
@@ -150,10 +142,10 @@ public class SunServer implements Server {
         if (request.getHeaders().get("http_x_requested_with") != null) {
             render = returned.render();
         } else {
-            if (configuration.get(SINGLE_PAGE_MODE)) {
+            if (configurator.get(SINGLE_PAGE_MODE)) {
                 render = controller
                     .getWeb().getTemplate(div(ID + "ajax-placeholder", returned.toString())).render();
-                render = render.replace("</head>", configuration.get(AJAX_HANDLER) + "</head>");
+                render = render.replace("</head>", configurator.get(AJAX_HANDLER) + "</head>");
             } else {
                 render = controller.getWeb().getTemplate(returned.toString()).render();
             }

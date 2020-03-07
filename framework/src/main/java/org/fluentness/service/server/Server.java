@@ -1,7 +1,7 @@
 package org.fluentness.service.server;
 
 import org.fluentness.service.Service;
-import org.fluentness.service.configuration.Setting;
+import org.fluentness.service.configurator.Setting;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;

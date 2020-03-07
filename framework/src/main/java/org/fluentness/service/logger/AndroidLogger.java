@@ -1,14 +1,14 @@
 package org.fluentness.service.logger;
 
 import android.util.Log;
-import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configurator.Configurator;
 
 public class AndroidLogger implements Logger {
 
     private final int androidPriority;
 
-    public AndroidLogger(Configuration configuration) {
-        this.androidPriority = configuration.get(LEVEL).toAndroidPriority();
+    public AndroidLogger(Configurator configurator) {
+        this.androidPriority = configurator.get(LEVEL).toAndroidPriority();
     }
 
     @Override

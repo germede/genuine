@@ -1,7 +1,7 @@
 package org.fluentness.service.mailer;
 
 import org.fluentness.service.Service;
-import org.fluentness.service.configuration.Setting;
+import org.fluentness.service.configurator.Setting;
 
 public interface Mailer extends Service {
 

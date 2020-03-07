@@ -1,6 +1,6 @@
 package org.fluentness.service.mailer;
 
-import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.logger.Logger;
 
 import java.io.*;
@@ -16,11 +16,11 @@ public class SocketMailer implements Mailer {
     private final InetAddress server;
     private final int port;
 
-    public SocketMailer(Configuration configuration, Logger logger) throws UnknownHostException {
+    public SocketMailer(Configurator configurator, Logger logger) throws UnknownHostException {
         this.logger = logger;
 
-        this.server = InetAddress.getByName(configuration.get(Mailer.SERVER));
-        this.port = configuration.get(Mailer.PORT);
+        this.server = InetAddress.getByName(configurator.get(Mailer.SERVER));
+        this.port = configurator.get(Mailer.PORT);
     }
 
     @Override

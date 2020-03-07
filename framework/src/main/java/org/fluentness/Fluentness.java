@@ -1,13 +1,8 @@
 package org.fluentness;
 
-import org.fluentness.controller.console.FluentnessController;
 import org.fluentness.controller.desktop.Controller;
-import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.logger.Logger;
-import org.fluentness.service.mailer.Mailer;
-import org.fluentness.service.persistence.Persistence;
+import org.fluentness.service.Service;
 import org.fluentness.service.server.Server;
-import org.fluentness.service.translator.Translator;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -17,15 +12,6 @@ import static org.fluentness.controller.web.Controller.Action;
 public final class Fluentness {
 
     private static final Map<Class, Object> instances = new LinkedHashMap<>();
-
-    public static Fluentness launch(Application application) throws FluentnessException {
-        try {
-            return new Fluentness(application);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public static <A extends ApplicationComponent> A[] getInstances(Class<A> parent) {
         Object[] objects = instances.values().stream()
@@ -42,24 +28,14 @@ public final class Fluentness {
         return (A) instances.get(parent);
     }
 
-    private Fluentness(Application application) throws Exception {
-        inject(Configuration.class, application.getConfiguration());
-        application.configure(getInstance(Configuration.class));
+    public static Fluentness launch(Application application) throws FluentnessException {
+        return new Fluentness(application);
+    }
 
-        // basic services
-        inject(Translator.class, application.getTranslator());
-        inject(Logger.class, application.getLogger());
-        inject(Persistence.class, application.getPersistence());
-        inject(Server.class, application.getServer());
-        inject(Mailer.class, application.getMailer());
-
-        // app components
+    private Fluentness(Application application) throws FluentnessException {
         inject(application.getServices());
         inject(application.getRepositories());
-        inject(FluentnessController.class, FluentnessController.class);
         inject(application.getControllers());
-
-        Map<Class, Object> instances = Fluentness.instances;
     }
 
     public void console(String[] args) throws FluentnessException {
@@ -114,60 +90,47 @@ public final class Fluentness {
         }
     }
 
-    private <I extends ApplicationComponent> void inject(Class<? extends I>... classList) throws FluentnessException {
-        for (Class aClass : classList) {
-            instances.put(aClass, instantiate(aClass));
-        }
-    }
+    private <I extends ApplicationComponent> void inject(List<Class<? extends I>> classes) throws FluentnessException {
+        Object thisins = Fluentness.instances;
+        while (!classes.isEmpty()) {
+            for (int i = 0; i < classes.size(); i++) {
+                Class aClass = classes.get(i);
+                Class key = Service.class.isAssignableFrom(aClass) ? getServiceClass(aClass) : aClass;
 
-    private <I extends ApplicationComponent> void inject(Class<I> iClass, Class<? extends I> aClass) throws FluentnessException {
-        instances.put(iClass, instantiate(aClass));
-    }
+                // do not override keys when already instantiated
+                if (instances.containsKey(key)) {
+                    classes.remove(i);
+                    i--;
+                    continue;
+                }
 
-    private <I extends ApplicationComponent> I instantiate(Class<? extends I> aClass) throws FluentnessException {
-        try {
-            validateInstantiation(aClass);
-            Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
-            if (declaredConstructors.length == 0) {
-                return aClass.newInstance();
-            }
-
-            Constructor constructor = declaredConstructors[0];
-            return (I) constructor.newInstance(prepareConstructorParameters(aClass, constructor));
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new FluentnessException(e);
-        }
-    }
-
-    private <I extends ApplicationComponent> Object[] prepareConstructorParameters(
-        Class<? extends I> aClass,
-        Constructor constructor
-    ) throws FluentnessException {
-
-        Parameter[] parameters = constructor.getParameters();
-        Object[] result = new Object[parameters.length];
-        for (int i = 0; i < parameters.length; i++) {
-            Class<?> type = parameters[i].getType();
-            if (ApplicationComponent[].class.isAssignableFrom(type)) {
-                result[i] = getInstances((Class<? extends ApplicationComponent>) type.getComponentType());
-            } else if (instances.containsKey(type)) {
-                result[i] = getInstance((Class<? extends ApplicationComponent>) type);
-            } else {
-                if (ApplicationComponent.class.isAssignableFrom(type)) {
-                    throw new FluentnessException(
-                        "Cannot instantiate % because it cannot depend on %s",
-                        aClass.getSimpleName(),
-                        type.getSimpleName()
-                    );
-                } else {
-                    throw new FluentnessException("%s is not injectable as it isn't any ApplicationComponent", type.getSimpleName());
+                validate(aClass);
+                Object value = instantiate(aClass);
+                if (value != null) {
+                    instances.put(key, value);
+                    classes.remove(i);
+                    i--;
                 }
             }
         }
-        return result;
     }
 
-    private void validateInstantiation(Class aClass) throws FluentnessException {
+    private Class<? extends Service> getServiceClass(Class<? extends Service> aClass) {
+        Class currentClass = aClass;
+        while (true) {
+            for (Class anInterface : currentClass.getInterfaces()) {
+                if (anInterface.equals(Service.class)) {
+                    return currentClass;
+                }
+                if (Service.class.isAssignableFrom(anInterface)) {
+                    return anInterface;
+                }
+            }
+            currentClass = currentClass.getSuperclass();
+        }
+    }
+
+    private void validate(Class aClass) throws FluentnessException {
         if (Modifier.isInterface(aClass.getModifiers())) {
             throw new FluentnessException("%s's class cannot be an interface in order to be instantiated", aClass.getName());
         }
@@ -178,8 +141,43 @@ public final class Fluentness {
             throw new FluentnessException("%s's class must be public in order to be instantiated", aClass.getName());
         }
         Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
-        if (declaredConstructors.length > 0 && !Modifier.isPublic(declaredConstructors[0].getModifiers())) {
-            throw new FluentnessException("%s's first constructor should be public", aClass.getName());
+        if (declaredConstructors.length > 0) {
+            if (!Modifier.isPublic(declaredConstructors[0].getModifiers())) {
+                throw new FluentnessException("%s's first constructor should be public", aClass.getName());
+            }
+
+            for (Class parameterType : declaredConstructors[0].getParameterTypes()) {
+                if (!ApplicationComponent.class.isAssignableFrom(parameterType)) {
+                    throw new FluentnessException("%s constructor parameters should be ApplicationComponent", aClass.getName());
+                }
+            }
+        }
+    }
+
+    private Object instantiate(Class aClass) throws FluentnessException {
+        try {
+            Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
+            if (declaredConstructors.length == 0) {
+                // no dependencies, just instantiate
+                return aClass.newInstance();
+            }
+
+            Constructor constructor = declaredConstructors[0];
+            Parameter[] parameters = constructor.getParameters();
+            Object[] result = new Object[parameters.length];
+            for (int i = 0; i < parameters.length; i++) {
+                Class<?> type = parameters[i].getType();
+                if (instances.containsKey(type)) {
+                    // dependency was already instantiated
+                    result[i] = getInstance((Class<? extends ApplicationComponent>) type);
+                } else {
+                    // cancel instantiation
+                    return null;
+                }
+            }
+            return constructor.newInstance(result);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new FluentnessException(e);
         }
     }
 
