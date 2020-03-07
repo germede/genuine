@@ -4,7 +4,7 @@ import org.fluentness.controller.web.View;
 import org.fluentness.controller.web.template.WebTemplate;
 import org.fluentness.controller.web.template.html.style.WebStyle;
 
-import static com.sample.LibraryTranslation.*;
+import static com.sample.service.LibraryTranslator.*;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 

@@ -4,6 +4,8 @@ import org.fluentness.service.Service;
 
 public interface Translator extends Service {
 
-    String translate(Translation translation);
-
+    default String translate(String translation) {
+        // todo implement
+        return translation;
+    }
 }

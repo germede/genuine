@@ -6,7 +6,7 @@ import org.fluentness.controller.web.Controller;
 import org.fluentness.controller.web.template.html.Html;
 import org.fluentness.service.mailer.Mailer;
 
-import static com.sample.LibraryTranslation.create;
+import static com.sample.service.LibraryTranslator.create;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.ID;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;

@@ -14,7 +14,6 @@ import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.persistence.Persistence;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.SunServer;
-import org.fluentness.service.translator.SimpleTranslator;
 import org.fluentness.service.translator.Translator;
 
 import java.io.File;
