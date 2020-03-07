@@ -31,10 +31,21 @@ public class WebController extends Controller<Web> {
     @Action(path = "/books", selector = "#books")
     Html books() {
         return div(
-            table(bookRepository.findAll()).appendColumn(book ->
-                td(CLASS + "float-right",
-                    button(ID + "updateBook", CLASS + "button button-outline", "\uD83D\uDD89"),
-                    button(ID + "deleteBook", CLASS + "button", "⨯")
+
+            table(
+                thead(
+                    th("asdf")
+                ),
+                tbody(
+                    forEach(bookRepository.findAll(), book ->
+                        tr(
+                            td("test"),
+                            td(CLASS + "float-right",
+                                button(ID + "updateBook", CLASS + "button button-outline", "\uD83D\uDD89"),
+                                button(ID + "deleteBook", CLASS + "button", "⨯")
+                            )
+                        )
+                    )
                 )
             ),
             div(CLASS + "row",
@@ -64,7 +75,7 @@ public class WebController extends Controller<Web> {
     @Action(path = "/authors", selector = "#authors")
     Html authors() {
         return div(
-            table(authorRepository.findAll()),
+//            table(authorRepository.findAll()),
             button(CLASS + "button column", ID + "createAuthor", create)
         );
     }

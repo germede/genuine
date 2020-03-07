@@ -1,20 +1,14 @@
 package org.fluentness.controller.web.template.html;
 
+import org.fluentness.controller.web.template.WebTemplate;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
 public final class HtmlFactory {
 
-//    public static <T> HtmlForm<T> form(WebAction submitAction, Model model) {
-//        return new HtmlForm<>(model, submitAction);
-//    }
-
-    public static <T> HtmlTable table(List<T> modelList) {
-        return new HtmlTable(modelList);
-    }
-
-    public static <T, V> V[] forEach(Iterable<T> iterable, Function<T, V> function) {
+    public static <T, V extends WebTemplate> V[] forEach(Iterable<T> iterable, Function<T, V> function) {
         List<V> result = new LinkedList<>();
         iterable.forEach(t -> result.add(function.apply(t)));
         return result.toArray((V[]) new Html[0]);
