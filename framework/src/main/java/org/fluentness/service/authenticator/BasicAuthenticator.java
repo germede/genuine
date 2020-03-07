@@ -2,7 +2,7 @@ package org.fluentness.service.authenticator;
 
 import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.configurator.Setting;
-import org.fluentness.service.server.SunRequest;
+import org.fluentness.service.server.Request;
 
 import java.util.Base64;
 
@@ -21,7 +21,7 @@ public class BasicAuthenticator implements Authenticator {
     }
 
     @Override
-    public boolean authenticate(SunRequest request) {
+    public boolean authenticate(Request request) {
         String requestHeader = request.getHeaders().get(AUTHORIZATION_HEADER).get(0);
 
         if (requestHeader != null &&

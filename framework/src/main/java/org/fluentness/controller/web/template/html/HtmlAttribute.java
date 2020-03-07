@@ -115,17 +115,11 @@ public enum HtmlAttribute {
     VALUE,
     WIDTH;
 
-    public static final String PREFIX = "";
-
-    public static String toAttr(String string) {
-        return PREFIX + " " + string.toLowerCase() + " = \"";
-    }
-
-    private final String toString = toAttr(name());
+    public static final String PREFIX = "###";
 
     @Override
     public String toString() {
-        return toString;
+        return PREFIX + name().toLowerCase().replace('_','-') + "=\"";
     }
 
 

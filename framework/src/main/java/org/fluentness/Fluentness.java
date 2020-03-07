@@ -95,7 +95,7 @@ public final class Fluentness {
         while (!classes.isEmpty()) {
             for (int i = 0; i < classes.size(); i++) {
                 Class aClass = classes.get(i);
-                Class key = Service.class.isAssignableFrom(aClass) ? getServiceClass(aClass) : aClass;
+                Class key = Service.class.isAssignableFrom(aClass) ? getServiceKey(aClass) : aClass;
 
                 // do not override keys when already instantiated
                 if (instances.containsKey(key)) {
@@ -115,7 +115,7 @@ public final class Fluentness {
         }
     }
 
-    private Class<? extends Service> getServiceClass(Class<? extends Service> aClass) {
+    private Class<? extends Service> getServiceKey(Class<? extends Service> aClass) {
         Class currentClass = aClass;
         while (true) {
             for (Class anInterface : currentClass.getInterfaces()) {

@@ -9,15 +9,11 @@ import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.logger.Logger;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Map;
 
@@ -57,12 +53,12 @@ public class SunServer implements Server {
 
     private void handle(HttpExchange exchange) throws IOException {
         try {
-            SunRequest request = new SunRequest(exchange);
-            SunResponse response = handlePath(request);
+            Request request = new Request(exchange);
+            Response response = handlePath(request);
 
             String body = response.getBody();
             String encoding = configurator.get(RESPONSE_ENCODING);
-            exchange.getResponseHeaders().set("Content-Type", "text/html; charset=" + encoding);
+            exchange.getResponseHeaders().set("Content-Type", response.getContentType() + "; charset=" + encoding);
             exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
             Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
             out.write(body);
@@ -74,51 +70,63 @@ public class SunServer implements Server {
         }
     }
 
-    private SunResponse handlePath(SunRequest request) throws IOException {
+    private Response handlePath(Request request) throws IOException {
         String path = request.getMethod() + " " + request.getUri().getPath();
-        if (path.startsWith(configurator.get(GET_RESOURCES))) {
-            return handleStaticFiles(request);
+        if (path.startsWith("GET /resources")) {
+            return handleStaticFile(request);
         } else if (routes.containsKey(path)) {
             return authenticateWebAction(routes.get(path), request);
         }
         return request.response(404);
     }
 
-    private SunResponse handleStaticFiles(SunRequest request) throws IOException {
-        String resourcePath = request.getUri().getPath().substring(11);
-        if (resourcePath.startsWith("js") || resourcePath.startsWith("css")) {
-            Path path = Paths.get(resourcePath);
-            if (!Files.exists(path)) {
-                return request.response(404);
-            } else {
-                return request.response(200).setBody(Files.readAllLines(path).toString());
+    private Response handleStaticFile(Request request) throws IOException {
+        String path = request.getUri().getPath().replace("/resources/", "");
+        InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(path);
+        if (resourceAsStream != null) {
+            BufferedReader reader = new BufferedReader(
+                new InputStreamReader(
+                    resourceAsStream,
+                    StandardCharsets.UTF_8
+                )
+            );
+            StringBuilder result = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
             }
+            return request.response(200)
+                .setBody(result.toString())
+                .setContentType(
+                    path.startsWith("css") ? "text/css" :
+                        path.startsWith("js") ? "application/javascript" :
+                            "image/png"
+                );
         }
-
-        return request.response(403);
+        return request.response(404);
     }
 
-    private SunResponse authenticateWebAction(Method action, SunRequest request) {
+    private Response authenticateWebAction(Method action, Request request) {
         if (action.getAnnotation(Controller.Action.class).authenticate() && !authenticator.authenticate(request)) {
             return request.response(403);
         }
         return executeWebAction(action, request);
     }
 
-    private SunResponse executeWebAction(Method action, SunRequest request) {
+    private Response executeWebAction(Method action, Request request) {
         Locale.setDefault(request.getLocale());
         Controller controller = Fluentness.getInstance((Class<? extends Controller>) action.getDeclaringClass());
         try {
             action.setAccessible(true);
-            Object returned = action.getParameterCount() > 0 ? action.invoke(controller, calculateParams(action, request)) : action.invoke(controller);
+            Object returned = action.getParameterCount() > 0 ? action.invoke(controller, prepareArgs(action, request)) : action.invoke(controller);
             if (returned instanceof String) {
                 return request.response(200).setBody((String) returned);
             } else if (returned instanceof WebTemplate) {
                 return handleWebView(request, controller, (WebTemplate) returned);
             } else if (returned instanceof Integer) {
                 return request.response((int) returned);
-            } else if (returned instanceof SunResponse) {
-                return (SunResponse) returned;
+            } else if (returned instanceof Response) {
+                return (Response) returned;
             }
             return request.response(501);
         } catch (IllegalAccessException | InvocationTargetException e) {
@@ -127,7 +135,7 @@ public class SunServer implements Server {
         return request.response(500);
     }
 
-    private Object calculateParams(Method action, SunRequest request) {
+    private Object prepareArgs(Method action, Request request) {
         Object[] result = new Object[action.getParameterCount()];
         Class<?>[] parameterTypes = action.getParameterTypes();
         for (int i = 0, parameterTypesLength = parameterTypes.length; i < parameterTypesLength; i++) {
@@ -137,17 +145,17 @@ public class SunServer implements Server {
         return result;
     }
 
-    private SunResponse handleWebView(SunRequest request, Controller controller, WebTemplate returned) {
+    private Response handleWebView(Request request, Controller controller, WebTemplate returned) {
         String render;
         if (request.getHeaders().get("http_x_requested_with") != null) {
             render = returned.render();
         } else {
             if (configurator.get(SINGLE_PAGE_MODE)) {
-                render = controller
-                    .getWeb().getTemplate(div(ID + "ajax-placeholder", returned.toString())).render();
+                render = controller.getWeb().getTemplate(div(ID + "ajax-placeholder", returned.toString())).render();
                 render = render.replace("</head>", configurator.get(AJAX_HANDLER) + "</head>");
             } else {
-                render = controller.getWeb().getTemplate(returned.toString()).render();
+                WebTemplate template = controller.getWeb().getTemplate(returned.toString());
+                render = template.render();
             }
         }
         return request.response(200).setBody(render);

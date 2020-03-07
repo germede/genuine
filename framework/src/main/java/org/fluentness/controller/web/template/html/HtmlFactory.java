@@ -20,10 +20,6 @@ public final class HtmlFactory {
         return result.toArray((V[]) new Html[0]);
     }
 
-    public static String attr(String key, String value) {
-        return HtmlAttribute.toAttr(key).concat(value);
-    }
-
     public static HtmlTemplate html(CharSequence... html) {
         return new HtmlTemplate(html);
     }

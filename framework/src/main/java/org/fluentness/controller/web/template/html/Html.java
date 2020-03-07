@@ -1,10 +1,10 @@
 package org.fluentness.controller.web.template.html;
 
-import java.util.Arrays;
-import java.util.List;
+import org.fluentness.controller.web.template.WebTemplate;
+
 import java.util.stream.IntStream;
 
-public class Html implements CharSequence {
+public class Html implements CharSequence, WebTemplate {
 
     @Override
     public int length() {
@@ -33,11 +33,11 @@ public class Html implements CharSequence {
 
 
     protected String tag;
-    protected List<CharSequence> html;
+    protected CharSequence[] html;
 
     public Html(String tag, CharSequence... html) {
         this.tag = tag;
-        this.html = Arrays.asList(html);
+        this.html = html;
     }
 
     @Override
@@ -46,17 +46,12 @@ public class Html implements CharSequence {
         StringBuilder inner = new StringBuilder();
         for (CharSequence item : html) {
             String render = item.toString();
-            if (render.startsWith("###")) {
-                attributes.append(render.substring(3).concat("\""));
+            if (render.startsWith(HtmlAttribute.PREFIX)) {
+                attributes.append(" ").append(render.substring(3)).append("\"");
             } else {
-                inner.append(item);
+                inner.append(render);
             }
         }
-        return "<" + tag + String.join(attributes) + (inner.length() == 0 ? "/>" : ">" + inner + "</" + tag + ">");
-    }
-
-    public Html add(String attribute) {
-        html.add(attribute);
-        return this;
+        return "<" + tag + attributes + (inner.length() == 0 ? "/>" : (">" + inner + "</" + tag + ">"));
     }
 }

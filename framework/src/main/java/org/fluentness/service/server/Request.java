@@ -7,15 +7,15 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.Locale;
 
-public class SunRequest {
+public class Request {
 
-    private final HttpExchange exchange;
-    private final String method;
-    private final URI uri;
-    private final Headers headers;
-    private final InputStream body;
+    protected HttpExchange exchange;
+    protected String method;
+    protected URI uri;
+    protected Headers headers;
+    protected InputStream body;
 
-    public SunRequest(HttpExchange exchange) {
+    public Request(HttpExchange exchange) {
         method = exchange.getRequestMethod();
         uri = exchange.getRequestURI();
         headers = exchange.getRequestHeaders();
@@ -44,7 +44,7 @@ public class SunRequest {
         return Locale.getDefault();
     }
 
-    public SunResponse response(int code) {
-        return new SunResponse(exchange, code);
+    public Response response(int code) {
+        return new Response(exchange, code);
     }
 }

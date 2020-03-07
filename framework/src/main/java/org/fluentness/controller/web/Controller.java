@@ -38,7 +38,7 @@ public abstract class Controller<W extends View> implements org.fluentness.contr
 
         String selector() default "";
 
-        boolean authenticate() default true;
+        boolean authenticate() default false;
 
         boolean cache() default true;
     }

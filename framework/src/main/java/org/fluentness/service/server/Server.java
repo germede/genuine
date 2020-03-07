@@ -16,7 +16,6 @@ public interface Server extends Service {
     Setting<SSLContext> SSL_CONTEXT = new Setting<>();
     Setting<String> RESPONSE_ENCODING = new Setting<>("UTF-8");
     Setting<Boolean> SINGLE_PAGE_MODE = new Setting<>(true);
-    Setting<String> GET_RESOURCES = new Setting<>("GET /resources");
     Setting<String> AJAX_HANDLER = new Setting<>("<script src=\"/resources/js/ajax-handler.js\"></script>");
 
     void start(Map<String, Method> routes) throws IOException;
