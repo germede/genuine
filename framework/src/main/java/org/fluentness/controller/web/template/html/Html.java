@@ -52,6 +52,6 @@ public class Html implements CharSequence, WebTemplate {
                 inner.append(render);
             }
         }
-        return "<" + tag + attributes + (inner.length() == 0 ? "/>" : (">" + inner + "</" + tag + ">"));
+        return "<" + tag + attributes + (inner.length() == 0 && !tag.equals("script") ? "/>\n" : (">" + inner + "</" + tag + ">\n"));
     }
 }
