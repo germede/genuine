@@ -7,7 +7,7 @@ public abstract class TranslationFactory implements Service {
     public static final String SEPARATOR = "#L#";
 
     private static String translation(String language, String translation) {
-        return SEPARATOR + language + translation;
+        return SEPARATOR + language + translation + SEPARATOR;
     }
 
     public static String af(String translation) {
