@@ -2,7 +2,10 @@ package com.sample.service;
 
 import org.fluentness.service.translator.Translator;
 
-public class LibraryTranslator extends Translator {
+import static org.fluentness.service.translator.TranslationFactory.de;
+import static org.fluentness.service.translator.TranslationFactory.es;
+
+public class LibraryTranslator implements Translator {
 
     public static final String
         submit = "Submit" + de("Enviar") + es("Absenden"),

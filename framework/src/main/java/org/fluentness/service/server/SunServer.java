@@ -5,31 +5,33 @@ import com.sun.net.httpserver.HttpServer;
 import org.fluentness.Fluentness;
 import org.fluentness.controller.web.Controller;
 import org.fluentness.controller.web.template.WebTemplate;
+import org.fluentness.controller.web.template.html.HtmlAttribute;
 import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.configurator.Configurator;
 import org.fluentness.service.logger.Logger;
+import org.fluentness.service.translator.Translator;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
-import java.util.Locale;
 import java.util.Map;
 
 import static org.fluentness.controller.web.template.html.HtmlFactory.div;
-import static org.fluentness.service.translator.Language.ID;
 
 public class SunServer implements Server {
 
     private final Logger logger;
     private final Configurator configurator;
     private final Authenticator authenticator;
+    private final Translator translator;
 
-    public SunServer(Authenticator authenticator, Configurator configurator, Logger logger) {
+    public SunServer(Authenticator authenticator, Configurator configurator, Logger logger, Translator translator) {
         this.logger = logger;
         this.configurator = configurator;
         this.authenticator = authenticator;
+        this.translator = translator;
     }
 
     private HttpServer server;
@@ -54,12 +56,13 @@ public class SunServer implements Server {
     private void handle(HttpExchange exchange) throws IOException {
         try {
             Request request = new SunRequest(exchange);
+            Request.CURRENT.set(request);
             Response response = handlePath(request);
 
             String body = response.getBody();
             String contentType = "text/html";
             String encoding = configurator.get(RESPONSE_ENCODING);
-            response.getHeaders().set("Content-Type", contentType + "; charset=" + encoding);
+            response.getHeaders().set(ResponseHeader.CONTENT_TYPE, contentType + "; charset=" + encoding);
             exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
             Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
             out.write(body);
@@ -99,7 +102,7 @@ public class SunServer implements Server {
             return request.makeResponse(200)
                 .setBody(result.toString())
                 .addHeader(
-                    "Content-Type",
+                    RequestHeader.CONTENT_TYPE,
                     path.startsWith("css") ? "text/css" :
                         path.startsWith("js") ? "application/javascript" :
                             "image/png"
@@ -116,7 +119,6 @@ public class SunServer implements Server {
     }
 
     private Response executeWebAction(Method action, Request request) {
-        Locale.setDefault(request.getLocale());
         Controller controller = Fluentness.getInstance((Class<? extends Controller>) action.getDeclaringClass());
         try {
             action.setAccessible(true);
@@ -149,11 +151,11 @@ public class SunServer implements Server {
 
     private Response handleWebView(Request request, Controller controller, WebTemplate returned) {
         String render;
-        if (request.getHeaders().get("http_x_requested_with") != null) {
+        if (request.getHeaders().get(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.render();
         } else {
             if (configurator.get(SINGLE_PAGE_MODE)) {
-                render = controller.getWeb().getTemplate(div(ID + "ajax-placeholder", returned.toString())).render();
+                render = controller.getWeb().getTemplate(div(HtmlAttribute.ID + "ajax-placeholder", returned.toString())).render();
                 render = render.replace("</head>", configurator.get(AJAX_HANDLER) + "</head>");
             } else {
                 WebTemplate template = controller.getWeb().getTemplate(returned.toString());

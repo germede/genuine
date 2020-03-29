@@ -6,7 +6,6 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class SunRequest implements Request {
@@ -43,12 +42,6 @@ public class SunRequest implements Request {
     @Override
     public InputStream getBody() {
         return body;
-    }
-
-    @Override
-    public Locale getLocale() {
-        // todo implement
-        return Locale.getDefault();
     }
 
     @Override

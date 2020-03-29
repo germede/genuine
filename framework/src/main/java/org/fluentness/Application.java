@@ -5,12 +5,13 @@ import org.fluentness.controller.console.FluentnessController;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.authenticator.BasicAuthenticator;
-import org.fluentness.service.configurator.BasicConfigurator;
+import org.fluentness.service.configurator.DefaultConfigurator;
 import org.fluentness.service.configurator.Setting;
 import org.fluentness.service.logger.JulLogger;
 import org.fluentness.service.mailer.SocketMailer;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.server.SunServer;
+import org.fluentness.service.translator.DefaultTranslator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,7 +34,8 @@ public interface Application {
             SocketMailer.class,
             JdbcPersistence.class,
             SunServer.class,
-            BasicConfigurator.class,
+            DefaultConfigurator.class,
+            DefaultTranslator.class,
             BasicAuthenticator.class
         );
     }

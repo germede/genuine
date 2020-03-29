@@ -1,6 +1,8 @@
 package org.fluentness.controller.web.template.html;
 
+import org.fluentness.Fluentness;
 import org.fluentness.controller.web.template.WebTemplate;
+import org.fluentness.service.server.Request;
 import org.fluentness.service.translator.Translator;
 
 import java.util.stream.IntStream;
@@ -50,7 +52,8 @@ public class Html implements CharSequence, WebTemplate {
             if (render.startsWith(HtmlAttribute.PREFIX)) {
                 attributes.append(" ").append(render.substring(3)).append("\"");
             } else {
-                inner.append(Translator.translate(render));
+                // do translation
+                inner.append(Fluentness.getInstance(Translator.class).translate(render, Request.CURRENT.get().getSortedAcceptedLanguages()));
             }
         }
         return "<" + tag + attributes + (inner.length() == 0 && !tag.equals("script") ? "/>" : (">" + inner + "</" + tag + ">"));
