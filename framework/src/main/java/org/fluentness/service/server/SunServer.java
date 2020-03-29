@@ -53,12 +53,13 @@ public class SunServer implements Server {
 
     private void handle(HttpExchange exchange) throws IOException {
         try {
-            Request request = new Request(exchange);
+            Request request = new SunRequest(exchange);
             Response response = handlePath(request);
 
             String body = response.getBody();
+            String contentType = "text/html";
             String encoding = configurator.get(RESPONSE_ENCODING);
-            exchange.getResponseHeaders().set("Content-Type", response.getContentType() + "; charset=" + encoding);
+            response.getHeaders().set("Content-Type", contentType + "; charset=" + encoding);
             exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
             Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
             out.write(body);
@@ -77,7 +78,7 @@ public class SunServer implements Server {
         } else if (routes.containsKey(path)) {
             return authenticateWebAction(routes.get(path), request);
         }
-        return request.response(404);
+        return request.makeResponse(404);
     }
 
     private Response handleStaticFile(Request request) throws IOException {
@@ -95,20 +96,21 @@ public class SunServer implements Server {
             while ((line = reader.readLine()) != null) {
                 result.append(line);
             }
-            return request.response(200)
+            return request.makeResponse(200)
                 .setBody(result.toString())
-                .setContentType(
+                .addHeader(
+                    "Content-Type",
                     path.startsWith("css") ? "text/css" :
                         path.startsWith("js") ? "application/javascript" :
                             "image/png"
                 );
         }
-        return request.response(404);
+        return request.makeResponse(404);
     }
 
     private Response authenticateWebAction(Method action, Request request) {
         if (action.getAnnotation(Controller.Action.class).authenticate() && !authenticator.authenticate(request)) {
-            return request.response(403);
+            return request.makeResponse(403);
         }
         return executeWebAction(action, request);
     }
@@ -120,19 +122,19 @@ public class SunServer implements Server {
             action.setAccessible(true);
             Object returned = action.getParameterCount() > 0 ? action.invoke(controller, prepareArgs(action, request)) : action.invoke(controller);
             if (returned instanceof String) {
-                return request.response(200).setBody((String) returned);
+                return request.makeResponse(200).setBody((String) returned);
             } else if (returned instanceof WebTemplate) {
                 return handleWebView(request, controller, (WebTemplate) returned);
             } else if (returned instanceof Integer) {
-                return request.response((int) returned);
+                return request.makeResponse((int) returned);
             } else if (returned instanceof Response) {
                 return (Response) returned;
             }
-            return request.response(501);
+            return request.makeResponse(501);
         } catch (IllegalAccessException | InvocationTargetException e) {
             logger.error(e);
         }
-        return request.response(500);
+        return request.makeResponse(500);
     }
 
     private Object prepareArgs(Method action, Request request) {
@@ -158,6 +160,6 @@ public class SunServer implements Server {
                 render = template.render();
             }
         }
-        return request.response(200).setBody(render);
+        return request.makeResponse(200).setBody(render);
     }
 }
