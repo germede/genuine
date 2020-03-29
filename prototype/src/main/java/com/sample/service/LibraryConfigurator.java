@@ -17,7 +17,7 @@ public class LibraryConfigurator extends Configurator {
         set(Server.SINGLE_PAGE_MODE, false);
         set(Logger.LEVEL, LogLevel.DEBUG);
         set(Logger.CONSOLE, true);
-        set(Persistence.JDBC_URL, "jdbc:mysql://localhost:3306/party");
+        set(Persistence.JDBC_URL, "jdbc:mysql://localhost:3306/party?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         set(Persistence.USERNAME, "party");
         set(Persistence.PASSWORD, "party");
         set(BasicAuthenticator.USERNAME, "admin");

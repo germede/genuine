@@ -115,7 +115,7 @@ public enum HtmlAttribute {
     VALUE,
     WIDTH;
 
-    public static final String PREFIX = "###";
+    public static final String PREFIX = "#A#";
 
     @Override
     public String toString() {

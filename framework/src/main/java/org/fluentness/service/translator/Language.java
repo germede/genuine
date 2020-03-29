@@ -241,8 +241,4 @@ public enum Language {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
 }

@@ -2,15 +2,29 @@ package org.fluentness.service.translator;
 
 import org.fluentness.service.Service;
 
+import java.util.Locale;
+
 public abstract class Translator implements Service {
-    
-    protected String translate(String translation) {
-        // todo implement
+
+    private static final String SEPARATOR = "#L#";
+
+    public static String translate(String translation) {
+        String language = Locale.getDefault().getLanguage();
+
+        String str = SEPARATOR + language;
+        if (translation.contains(str)) {
+            int beginIndex = translation.indexOf(str) + str.length();
+            int endIndex = translation.indexOf(SEPARATOR, beginIndex + 1);
+            return translation.substring(beginIndex, endIndex);
+        }
+        if (translation.contains(SEPARATOR)) {
+            return translation.substring(0, translation.indexOf(SEPARATOR));
+        }
         return translation;
     }
 
     protected static String translation(Language language, String translation) {
-        return language + translation;
+        return SEPARATOR + language + translation;
     }
 
     protected static String af(String translation) {
