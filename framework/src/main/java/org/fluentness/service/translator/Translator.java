@@ -2,15 +2,11 @@ package org.fluentness.service.translator;
 
 import org.fluentness.service.Service;
 
-import java.util.Locale;
-
 public abstract class Translator implements Service {
 
     private static final String SEPARATOR = "#L#";
 
-    public static String translate(String translation) {
-        String language = Locale.getDefault().getLanguage();
-
+    public static String translate(String translation, String language) {
         String str = SEPARATOR + language;
         if (translation.contains(str)) {
             int beginIndex = translation.indexOf(str) + str.length();
@@ -23,920 +19,920 @@ public abstract class Translator implements Service {
         return translation;
     }
 
-    protected static String translation(Language language, String translation) {
+    protected static String translation(String language, String translation) {
         return SEPARATOR + language + translation;
     }
 
     protected static String af(String translation) {
-        return translation(Language.AF, translation);
+        return translation("af", translation);
     }
 
     protected static String af_za(String translation) {
-        return translation(Language.AF_ZA, translation);
+        return translation("af_ZA", translation);
     }
 
     protected static String ar(String translation) {
-        return translation(Language.AR, translation);
+        return translation("ar", translation);
     }
 
     protected static String ar_ae(String translation) {
-        return translation(Language.AR_AE, translation);
+        return translation("ar_AE", translation);
     }
 
     protected static String ar_bh(String translation) {
-        return translation(Language.AR_BH, translation);
+        return translation("ar_BH", translation);
     }
 
     protected static String ar_dz(String translation) {
-        return translation(Language.AR_DZ, translation);
+        return translation("ar_DZ", translation);
     }
 
     protected static String ar_eg(String translation) {
-        return translation(Language.AR_EG, translation);
+        return translation("ar_EG", translation);
     }
 
     protected static String ar_iq(String translation) {
-        return translation(Language.AR_IQ, translation);
+        return translation("ar_IQ", translation);
     }
 
     protected static String ar_jo(String translation) {
-        return translation(Language.AR_JO, translation);
+        return translation("ar_JO", translation);
     }
 
     protected static String ar_kw(String translation) {
-        return translation(Language.AR_KW, translation);
+        return translation("ar_KW", translation);
     }
 
     protected static String ar_lb(String translation) {
-        return translation(Language.AR_LB, translation);
+        return translation("ar_LB", translation);
     }
 
     protected static String ar_ly(String translation) {
-        return translation(Language.AR_LY, translation);
+        return translation("ar_LY", translation);
     }
 
     protected static String ar_ma(String translation) {
-        return translation(Language.AR_MA, translation);
+        return translation("ar_MA", translation);
     }
 
     protected static String ar_om(String translation) {
-        return translation(Language.AR_OM, translation);
+        return translation("ar_OM", translation);
     }
 
     protected static String ar_qa(String translation) {
-        return translation(Language.AR_QA, translation);
+        return translation("ar_QA", translation);
     }
 
     protected static String ar_sa(String translation) {
-        return translation(Language.AR_SA, translation);
+        return translation("ar_SA", translation);
     }
 
     protected static String ar_sy(String translation) {
-        return translation(Language.AR_SY, translation);
+        return translation("ar_SY", translation);
     }
 
     protected static String ar_tn(String translation) {
-        return translation(Language.AR_TN, translation);
+        return translation("ar_TN", translation);
     }
 
     protected static String ar_ye(String translation) {
-        return translation(Language.AR_YE, translation);
+        return translation("ar_YE", translation);
     }
 
     protected static String az(String translation) {
-        return translation(Language.AZ, translation);
+        return translation("az", translation);
     }
 
     protected static String az_az(String translation) {
-        return translation(Language.AZ_AZ, translation);
+        return translation("az_AZ", translation);
     }
 
     protected static String be(String translation) {
-        return translation(Language.BE, translation);
+        return translation("be", translation);
     }
 
     protected static String be_by(String translation) {
-        return translation(Language.BE_BY, translation);
+        return translation("be_BY", translation);
     }
 
     protected static String bg(String translation) {
-        return translation(Language.BG, translation);
+        return translation("bg", translation);
     }
 
     protected static String bg_bg(String translation) {
-        return translation(Language.BG_BG, translation);
+        return translation("bg_BG", translation);
     }
 
     protected static String bs_ba(String translation) {
-        return translation(Language.BS_BA, translation);
+        return translation("bs_BA", translation);
     }
 
     protected static String ca(String translation) {
-        return translation(Language.CA, translation);
+        return translation("ca", translation);
     }
 
     protected static String ca_es(String translation) {
-        return translation(Language.CA_ES, translation);
+        return translation("ca_ES", translation);
     }
 
     protected static String cs(String translation) {
-        return translation(Language.CS, translation);
+        return translation("cs", translation);
     }
 
     protected static String cs_cz(String translation) {
-        return translation(Language.CS_CZ, translation);
+        return translation("cs_CZ", translation);
     }
 
     protected static String cy(String translation) {
-        return translation(Language.CY, translation);
+        return translation("cy", translation);
     }
 
     protected static String cy_gb(String translation) {
-        return translation(Language.CY_GB, translation);
+        return translation("cy_GB", translation);
     }
 
     protected static String da(String translation) {
-        return translation(Language.DA, translation);
+        return translation("da", translation);
     }
 
     protected static String da_dk(String translation) {
-        return translation(Language.DA_DK, translation);
+        return translation("da_DK", translation);
     }
 
     protected static String de(String translation) {
-        return translation(Language.DE, translation);
+        return translation("de", translation);
     }
 
     protected static String de_at(String translation) {
-        return translation(Language.DE_AT, translation);
+        return translation("de_AT", translation);
     }
 
     protected static String de_ch(String translation) {
-        return translation(Language.DE_CH, translation);
+        return translation("de_CH", translation);
     }
 
     protected static String de_de(String translation) {
-        return translation(Language.DE_DE, translation);
+        return translation("de_DE", translation);
     }
 
     protected static String de_li(String translation) {
-        return translation(Language.DE_LI, translation);
+        return translation("de_LI", translation);
     }
 
     protected static String de_lu(String translation) {
-        return translation(Language.DE_LU, translation);
+        return translation("de_LU", translation);
     }
 
     protected static String dv(String translation) {
-        return translation(Language.DV, translation);
+        return translation("dv", translation);
     }
 
     protected static String dv_mv(String translation) {
-        return translation(Language.DV_MV, translation);
+        return translation("dv_MV", translation);
     }
 
     protected static String el(String translation) {
-        return translation(Language.EL, translation);
+        return translation("el", translation);
     }
 
     protected static String el_gr(String translation) {
-        return translation(Language.EL_GR, translation);
+        return translation("el_GR", translation);
     }
 
     protected static String en(String translation) {
-        return translation(Language.EN, translation);
+        return translation("en", translation);
     }
 
     protected static String en_au(String translation) {
-        return translation(Language.EN_AU, translation);
+        return translation("en_AU", translation);
     }
 
     protected static String en_bz(String translation) {
-        return translation(Language.EN_BZ, translation);
+        return translation("en_BZ", translation);
     }
 
     protected static String en_ca(String translation) {
-        return translation(Language.EN_CA, translation);
+        return translation("en_CA", translation);
     }
 
     protected static String en_cb(String translation) {
-        return translation(Language.EN_CB, translation);
+        return translation("en_CB", translation);
     }
 
     protected static String en_gb(String translation) {
-        return translation(Language.EN_GB, translation);
+        return translation("en_GB", translation);
     }
 
     protected static String en_ie(String translation) {
-        return translation(Language.EN_IE, translation);
+        return translation("en_IE", translation);
     }
 
     protected static String en_jm(String translation) {
-        return translation(Language.EN_JM, translation);
+        return translation("en_JM", translation);
     }
 
     protected static String en_nz(String translation) {
-        return translation(Language.EN_NZ, translation);
+        return translation("en_NZ", translation);
     }
 
     protected static String en_ph(String translation) {
-        return translation(Language.EN_PH, translation);
+        return translation("en_PH", translation);
     }
 
     protected static String en_tt(String translation) {
-        return translation(Language.EN_TT, translation);
+        return translation("en_TT", translation);
     }
 
     protected static String en_us(String translation) {
-        return translation(Language.EN_US, translation);
+        return translation("en_US", translation);
     }
 
     protected static String en_za(String translation) {
-        return translation(Language.EN_ZA, translation);
+        return translation("en_ZA", translation);
     }
 
     protected static String en_zw(String translation) {
-        return translation(Language.EN_ZW, translation);
+        return translation("en_ZW", translation);
     }
 
     protected static String eo(String translation) {
-        return translation(Language.EO, translation);
+        return translation("eo", translation);
     }
 
     protected static String es(String translation) {
-        return translation(Language.ES, translation);
+        return translation("es", translation);
     }
 
     protected static String es_ar(String translation) {
-        return translation(Language.ES_AR, translation);
+        return translation("es_AR", translation);
     }
 
     protected static String es_bo(String translation) {
-        return translation(Language.ES_BO, translation);
+        return translation("es_BO", translation);
     }
 
     protected static String es_cl(String translation) {
-        return translation(Language.ES_CL, translation);
+        return translation("es_CL", translation);
     }
 
     protected static String es_co(String translation) {
-        return translation(Language.ES_CO, translation);
+        return translation("es_CO", translation);
     }
 
     protected static String es_cr(String translation) {
-        return translation(Language.ES_CR, translation);
+        return translation("es_CR", translation);
     }
 
     protected static String es_do(String translation) {
-        return translation(Language.ES_DO, translation);
+        return translation("es_DO", translation);
     }
 
     protected static String es_ec(String translation) {
-        return translation(Language.ES_EC, translation);
+        return translation("es_EC", translation);
     }
 
     protected static String es_es(String translation) {
-        return translation(Language.ES_ES, translation);
+        return translation("es_ES", translation);
     }
 
     protected static String es_gt(String translation) {
-        return translation(Language.ES_GT, translation);
+        return translation("es_GT", translation);
     }
 
     protected static String es_hn(String translation) {
-        return translation(Language.ES_HN, translation);
+        return translation("es_HN", translation);
     }
 
     protected static String es_mx(String translation) {
-        return translation(Language.ES_MX, translation);
+        return translation("es_MX", translation);
     }
 
     protected static String es_ni(String translation) {
-        return translation(Language.ES_NI, translation);
+        return translation("es_NI", translation);
     }
 
     protected static String es_pa(String translation) {
-        return translation(Language.ES_PA, translation);
+        return translation("es_PA", translation);
     }
 
     protected static String es_pe(String translation) {
-        return translation(Language.ES_PE, translation);
+        return translation("es_PE", translation);
     }
 
     protected static String es_pr(String translation) {
-        return translation(Language.ES_PR, translation);
+        return translation("es_PR", translation);
     }
 
     protected static String es_py(String translation) {
-        return translation(Language.ES_PY, translation);
+        return translation("es_PY", translation);
     }
 
     protected static String es_sv(String translation) {
-        return translation(Language.ES_SV, translation);
+        return translation("es_SV", translation);
     }
 
     protected static String es_uy(String translation) {
-        return translation(Language.ES_UY, translation);
+        return translation("es_UY", translation);
     }
 
     protected static String es_ve(String translation) {
-        return translation(Language.ES_VE, translation);
+        return translation("es_VE", translation);
     }
 
     protected static String et(String translation) {
-        return translation(Language.ET, translation);
+        return translation("et", translation);
     }
 
     protected static String et_ee(String translation) {
-        return translation(Language.ET_EE, translation);
+        return translation("et_EE", translation);
     }
 
     protected static String eu(String translation) {
-        return translation(Language.EU, translation);
+        return translation("eu", translation);
     }
 
     protected static String eu_es(String translation) {
-        return translation(Language.EU_ES, translation);
+        return translation("eu_ES", translation);
     }
 
     protected static String fa(String translation) {
-        return translation(Language.FA, translation);
+        return translation("fa", translation);
     }
 
     protected static String fa_ir(String translation) {
-        return translation(Language.FA_IR, translation);
+        return translation("fa_IR", translation);
     }
 
     protected static String fi(String translation) {
-        return translation(Language.FI, translation);
+        return translation("fi", translation);
     }
 
     protected static String fi_fi(String translation) {
-        return translation(Language.FI_FI, translation);
+        return translation("fi_FI", translation);
     }
 
     protected static String fo(String translation) {
-        return translation(Language.FO, translation);
+        return translation("fo", translation);
     }
 
     protected static String fo_fo(String translation) {
-        return translation(Language.FO_FO, translation);
+        return translation("fo_FO", translation);
     }
 
     protected static String fr(String translation) {
-        return translation(Language.FR, translation);
+        return translation("fr", translation);
     }
 
     protected static String fr_be(String translation) {
-        return translation(Language.FR_BE, translation);
+        return translation("fr_BE", translation);
     }
 
     protected static String fr_ca(String translation) {
-        return translation(Language.FR_CA, translation);
+        return translation("fr_CA", translation);
     }
 
     protected static String fr_ch(String translation) {
-        return translation(Language.FR_CH, translation);
+        return translation("fr_CH", translation);
     }
 
     protected static String fr_fr(String translation) {
-        return translation(Language.FR_FR, translation);
+        return translation("fr_FR", translation);
     }
 
     protected static String fr_lu(String translation) {
-        return translation(Language.FR_LU, translation);
+        return translation("fr_LU", translation);
     }
 
     protected static String fr_mc(String translation) {
-        return translation(Language.FR_MC, translation);
+        return translation("fr_MC", translation);
     }
 
     protected static String gl(String translation) {
-        return translation(Language.GL, translation);
+        return translation("gl", translation);
     }
 
     protected static String gl_es(String translation) {
-        return translation(Language.GL_ES, translation);
+        return translation("gl_ES", translation);
     }
 
     protected static String gu(String translation) {
-        return translation(Language.GU, translation);
+        return translation("gu", translation);
     }
 
     protected static String gu_in(String translation) {
-        return translation(Language.GU_IN, translation);
+        return translation("gu_IN", translation);
     }
 
     protected static String he(String translation) {
-        return translation(Language.HE, translation);
+        return translation("he", translation);
     }
 
     protected static String he_il(String translation) {
-        return translation(Language.HE_IL, translation);
+        return translation("he_IL", translation);
     }
 
     protected static String hi(String translation) {
-        return translation(Language.HI, translation);
+        return translation("hi", translation);
     }
 
     protected static String hi_in(String translation) {
-        return translation(Language.HI_IN, translation);
+        return translation("hi_IN", translation);
     }
 
     protected static String hr(String translation) {
-        return translation(Language.HR, translation);
+        return translation("hr", translation);
     }
 
     protected static String hr_ba(String translation) {
-        return translation(Language.HR_BA, translation);
+        return translation("hr_BA", translation);
     }
 
     protected static String hr_hr(String translation) {
-        return translation(Language.HR_HR, translation);
+        return translation("hr_HR", translation);
     }
 
     protected static String hu(String translation) {
-        return translation(Language.HU, translation);
+        return translation("hu", translation);
     }
 
     protected static String hu_hu(String translation) {
-        return translation(Language.HU_HU, translation);
+        return translation("hu_HU", translation);
     }
 
     protected static String hy(String translation) {
-        return translation(Language.HY, translation);
+        return translation("hy", translation);
     }
 
     protected static String hy_am(String translation) {
-        return translation(Language.HY_AM, translation);
+        return translation("hy_AM", translation);
     }
 
     protected static String id(String translation) {
-        return translation(Language.ID, translation);
+        return translation("id", translation);
     }
 
     protected static String id_id(String translation) {
-        return translation(Language.ID_ID, translation);
+        return translation("id_ID", translation);
     }
 
     protected static String is(String translation) {
-        return translation(Language.IS, translation);
+        return translation("is", translation);
     }
 
     protected static String is_is(String translation) {
-        return translation(Language.IS_IS, translation);
+        return translation("is_IS", translation);
     }
 
     protected static String it(String translation) {
-        return translation(Language.IT, translation);
+        return translation("it", translation);
     }
 
     protected static String it_ch(String translation) {
-        return translation(Language.IT_CH, translation);
+        return translation("it_CH", translation);
     }
 
     protected static String it_it(String translation) {
-        return translation(Language.IT_IT, translation);
+        return translation("it_IT", translation);
     }
 
     protected static String ja(String translation) {
-        return translation(Language.JA, translation);
+        return translation("ja", translation);
     }
 
     protected static String ja_jp(String translation) {
-        return translation(Language.JA_JP, translation);
+        return translation("ja_JP", translation);
     }
 
     protected static String ka(String translation) {
-        return translation(Language.KA, translation);
+        return translation("ka", translation);
     }
 
     protected static String ka_ge(String translation) {
-        return translation(Language.KA_GE, translation);
+        return translation("ka_GE", translation);
     }
 
     protected static String kk(String translation) {
-        return translation(Language.KK, translation);
+        return translation("kk", translation);
     }
 
     protected static String kk_kz(String translation) {
-        return translation(Language.KK_KZ, translation);
+        return translation("kk_KZ", translation);
     }
 
     protected static String kn(String translation) {
-        return translation(Language.KN, translation);
+        return translation("kn", translation);
     }
 
     protected static String kn_in(String translation) {
-        return translation(Language.KN_IN, translation);
+        return translation("kn_IN", translation);
     }
 
     protected static String ko(String translation) {
-        return translation(Language.KO, translation);
+        return translation("ko", translation);
     }
 
     protected static String ko_kr(String translation) {
-        return translation(Language.KO_KR, translation);
+        return translation("ko_KR", translation);
     }
 
     protected static String kok(String translation) {
-        return translation(Language.KOK, translation);
+        return translation("koK", translation);
     }
 
     protected static String kok_in(String translation) {
-        return translation(Language.KOK_IN, translation);
+        return translation("koK_IN", translation);
     }
 
     protected static String ky(String translation) {
-        return translation(Language.KY, translation);
+        return translation("ky", translation);
     }
 
     protected static String ky_kg(String translation) {
-        return translation(Language.KY_KG, translation);
+        return translation("ky_KG", translation);
     }
 
     protected static String lt(String translation) {
-        return translation(Language.LT, translation);
+        return translation("lt", translation);
     }
 
     protected static String lt_lt(String translation) {
-        return translation(Language.LT_LT, translation);
+        return translation("lt_LT", translation);
     }
 
     protected static String lv(String translation) {
-        return translation(Language.LV, translation);
+        return translation("lv", translation);
     }
 
     protected static String lv_lv(String translation) {
-        return translation(Language.LV_LV, translation);
+        return translation("lv_LV", translation);
     }
 
     protected static String mi(String translation) {
-        return translation(Language.MI, translation);
+        return translation("mi", translation);
     }
 
     protected static String mi_nz(String translation) {
-        return translation(Language.MI_NZ, translation);
+        return translation("mi_NZ", translation);
     }
 
     protected static String mk(String translation) {
-        return translation(Language.MK, translation);
+        return translation("mk", translation);
     }
 
     protected static String mk_mk(String translation) {
-        return translation(Language.MK_MK, translation);
+        return translation("mk_MK", translation);
     }
 
     protected static String mn(String translation) {
-        return translation(Language.MN, translation);
+        return translation("mn", translation);
     }
 
     protected static String mn_mn(String translation) {
-        return translation(Language.MN_MN, translation);
+        return translation("mn_MN", translation);
     }
 
     protected static String mr(String translation) {
-        return translation(Language.MR, translation);
+        return translation("mr", translation);
     }
 
     protected static String mr_in(String translation) {
-        return translation(Language.MR_IN, translation);
+        return translation("mr_IN", translation);
     }
 
     protected static String ms(String translation) {
-        return translation(Language.MS, translation);
+        return translation("ms", translation);
     }
 
     protected static String ms_bn(String translation) {
-        return translation(Language.MS_BN, translation);
+        return translation("ms_BN", translation);
     }
 
     protected static String ms_my(String translation) {
-        return translation(Language.MS_MY, translation);
+        return translation("ms_MY", translation);
     }
 
     protected static String mt(String translation) {
-        return translation(Language.MT, translation);
+        return translation("mt", translation);
     }
 
     protected static String mt_mt(String translation) {
-        return translation(Language.MT_MT, translation);
+        return translation("mt_MT", translation);
     }
 
     protected static String nb(String translation) {
-        return translation(Language.NB, translation);
+        return translation("nb", translation);
     }
 
     protected static String nb_no(String translation) {
-        return translation(Language.NB_NO, translation);
+        return translation("nb_NO", translation);
     }
 
     protected static String nl(String translation) {
-        return translation(Language.NL, translation);
+        return translation("nl", translation);
     }
 
     protected static String nl_be(String translation) {
-        return translation(Language.NL_BE, translation);
+        return translation("nl_BE", translation);
     }
 
     protected static String nl_nl(String translation) {
-        return translation(Language.NL_NL, translation);
+        return translation("nl_NL", translation);
     }
 
     protected static String nn_no(String translation) {
-        return translation(Language.NN_NO, translation);
+        return translation("nn_NO", translation);
     }
 
     protected static String ns(String translation) {
-        return translation(Language.NS, translation);
+        return translation("ns", translation);
     }
 
     protected static String ns_za(String translation) {
-        return translation(Language.NS_ZA, translation);
+        return translation("ns_ZA", translation);
     }
 
     protected static String pa(String translation) {
-        return translation(Language.PA, translation);
+        return translation("pa", translation);
     }
 
     protected static String pa_in(String translation) {
-        return translation(Language.PA_IN, translation);
+        return translation("pa_IN", translation);
     }
 
     protected static String pl(String translation) {
-        return translation(Language.PL, translation);
+        return translation("pl", translation);
     }
 
     protected static String pl_pl(String translation) {
-        return translation(Language.PL_PL, translation);
+        return translation("pl_PL", translation);
     }
 
     protected static String ps(String translation) {
-        return translation(Language.PS, translation);
+        return translation("ps", translation);
     }
 
     protected static String ps_ar(String translation) {
-        return translation(Language.PS_AR, translation);
+        return translation("ps_AR", translation);
     }
 
     protected static String pt(String translation) {
-        return translation(Language.PT, translation);
+        return translation("pt", translation);
     }
 
     protected static String pt_br(String translation) {
-        return translation(Language.PT_BR, translation);
+        return translation("pt_BR", translation);
     }
 
     protected static String pt_pt(String translation) {
-        return translation(Language.PT_PT, translation);
+        return translation("pt_PT", translation);
     }
 
     protected static String qu(String translation) {
-        return translation(Language.QU, translation);
+        return translation("qu", translation);
     }
 
     protected static String qu_bo(String translation) {
-        return translation(Language.QU_BO, translation);
+        return translation("qu_BO", translation);
     }
 
     protected static String qu_ec(String translation) {
-        return translation(Language.QU_EC, translation);
+        return translation("qu_EC", translation);
     }
 
     protected static String qu_pe(String translation) {
-        return translation(Language.QU_PE, translation);
+        return translation("qu_PE", translation);
     }
 
     protected static String ro(String translation) {
-        return translation(Language.RO, translation);
+        return translation("ro", translation);
     }
 
     protected static String ro_ro(String translation) {
-        return translation(Language.RO_RO, translation);
+        return translation("ro_RO", translation);
     }
 
     protected static String ru(String translation) {
-        return translation(Language.RU, translation);
+        return translation("ru", translation);
     }
 
     protected static String ru_ru(String translation) {
-        return translation(Language.RU_RU, translation);
+        return translation("ru_RU", translation);
     }
 
     protected static String sa(String translation) {
-        return translation(Language.SA, translation);
+        return translation("sa", translation);
     }
 
     protected static String sa_in(String translation) {
-        return translation(Language.SA_IN, translation);
+        return translation("sa_IN", translation);
     }
 
     protected static String se(String translation) {
-        return translation(Language.SE, translation);
+        return translation("se", translation);
     }
 
     protected static String se_fi(String translation) {
-        return translation(Language.SE_FI, translation);
+        return translation("se_FI", translation);
     }
 
     protected static String se_no(String translation) {
-        return translation(Language.SE_NO, translation);
+        return translation("se_NO", translation);
     }
 
     protected static String se_se(String translation) {
-        return translation(Language.SE_SE, translation);
+        return translation("se_SE", translation);
     }
 
     protected static String sk(String translation) {
-        return translation(Language.SK, translation);
+        return translation("sk", translation);
     }
 
     protected static String sk_sk(String translation) {
-        return translation(Language.SK_SK, translation);
+        return translation("sk_SK", translation);
     }
 
     protected static String sl(String translation) {
-        return translation(Language.SL, translation);
+        return translation("sl", translation);
     }
 
     protected static String sl_si(String translation) {
-        return translation(Language.SL_SI, translation);
+        return translation("sl_SI", translation);
     }
 
     protected static String sq(String translation) {
-        return translation(Language.SQ, translation);
+        return translation("sq", translation);
     }
 
     protected static String sq_al(String translation) {
-        return translation(Language.SQ_AL, translation);
+        return translation("sq_AL", translation);
     }
 
     protected static String sr_ba(String translation) {
-        return translation(Language.SR_BA, translation);
+        return translation("sr_BA", translation);
     }
 
     protected static String sr_sp(String translation) {
-        return translation(Language.SR_SP, translation);
+        return translation("sr_SP", translation);
     }
 
     protected static String sv(String translation) {
-        return translation(Language.SV, translation);
+        return translation("sv", translation);
     }
 
     protected static String sv_fi(String translation) {
-        return translation(Language.SV_FI, translation);
+        return translation("sv_FI", translation);
     }
 
     protected static String sv_se(String translation) {
-        return translation(Language.SV_SE, translation);
+        return translation("sv_SE", translation);
     }
 
     protected static String sw(String translation) {
-        return translation(Language.SW, translation);
+        return translation("sw", translation);
     }
 
     protected static String sw_ke(String translation) {
-        return translation(Language.SW_KE, translation);
+        return translation("sw_KE", translation);
     }
 
     protected static String syr(String translation) {
-        return translation(Language.SYR, translation);
+        return translation("syR", translation);
     }
 
     protected static String syr_sy(String translation) {
-        return translation(Language.SYR_SY, translation);
+        return translation("syR_SY", translation);
     }
 
     protected static String ta(String translation) {
-        return translation(Language.TA, translation);
+        return translation("ta", translation);
     }
 
     protected static String ta_in(String translation) {
-        return translation(Language.TA_IN, translation);
+        return translation("ta_IN", translation);
     }
 
     protected static String te(String translation) {
-        return translation(Language.TE, translation);
+        return translation("te", translation);
     }
 
     protected static String te_in(String translation) {
-        return translation(Language.TE_IN, translation);
+        return translation("te_IN", translation);
     }
 
     protected static String th(String translation) {
-        return translation(Language.TH, translation);
+        return translation("th", translation);
     }
 
     protected static String th_th(String translation) {
-        return translation(Language.TH_TH, translation);
+        return translation("th_TH", translation);
     }
 
     protected static String tl(String translation) {
-        return translation(Language.TL, translation);
+        return translation("tl", translation);
     }
 
     protected static String tl_ph(String translation) {
-        return translation(Language.TL_PH, translation);
+        return translation("tl_PH", translation);
     }
 
     protected static String tn(String translation) {
-        return translation(Language.TN, translation);
+        return translation("tn", translation);
     }
 
     protected static String tn_za(String translation) {
-        return translation(Language.TN_ZA, translation);
+        return translation("tn_ZA", translation);
     }
 
     protected static String tr(String translation) {
-        return translation(Language.TR, translation);
+        return translation("tr", translation);
     }
 
     protected static String tr_tr(String translation) {
-        return translation(Language.TR_TR, translation);
+        return translation("tr_TR", translation);
     }
 
     protected static String tt(String translation) {
-        return translation(Language.TT, translation);
+        return translation("tt", translation);
     }
 
     protected static String tt_ru(String translation) {
-        return translation(Language.TT_RU, translation);
+        return translation("tt_RU", translation);
     }
 
     protected static String ts(String translation) {
-        return translation(Language.TS, translation);
+        return translation("ts", translation);
     }
 
     protected static String uk(String translation) {
-        return translation(Language.UK, translation);
+        return translation("uk", translation);
     }
 
     protected static String uk_ua(String translation) {
-        return translation(Language.UK_UA, translation);
+        return translation("uk_UA", translation);
     }
 
     protected static String ur(String translation) {
-        return translation(Language.UR, translation);
+        return translation("ur", translation);
     }
 
     protected static String ur_pk(String translation) {
-        return translation(Language.UR_PK, translation);
+        return translation("ur_PK", translation);
     }
 
     protected static String uz(String translation) {
-        return translation(Language.UZ, translation);
+        return translation("uz", translation);
     }
 
     protected static String uz_uz(String translation) {
-        return translation(Language.UZ_UZ, translation);
+        return translation("uz_UZ", translation);
     }
 
     protected static String vi(String translation) {
-        return translation(Language.VI, translation);
+        return translation("vi", translation);
     }
 
     protected static String vi_vn(String translation) {
-        return translation(Language.VI_VN, translation);
+        return translation("vi_VN", translation);
     }
 
     protected static String xh(String translation) {
-        return translation(Language.XH, translation);
+        return translation("xh", translation);
     }
 
     protected static String xh_za(String translation) {
-        return translation(Language.XH_ZA, translation);
+        return translation("xh_ZA", translation);
     }
 
     protected static String zh(String translation) {
-        return translation(Language.ZH, translation);
+        return translation("zh", translation);
     }
 
     protected static String zh_cn(String translation) {
-        return translation(Language.ZH_CN, translation);
+        return translation("zh_CN", translation);
     }
 
     protected static String zh_hk(String translation) {
-        return translation(Language.ZH_HK, translation);
+        return translation("zh_HK", translation);
     }
 
     protected static String zh_mo(String translation) {
-        return translation(Language.ZH_MO, translation);
+        return translation("zh_MO", translation);
     }
 
     protected static String zh_sg(String translation) {
-        return translation(Language.ZH_SG, translation);
+        return translation("zh_SG", translation);
     }
 
     protected static String zh_tw(String translation) {
-        return translation(Language.ZH_TW, translation);
+        return translation("zh_TW", translation);
     }
 
     protected static String zu(String translation) {
-        return translation(Language.ZU, translation);
+        return translation("zu", translation);
     }
 
     protected static String zu_za(String translation) {
-        return translation(Language.ZU_ZA, translation);
+        return translation("zu_ZA", translation);
     }
 
 }
