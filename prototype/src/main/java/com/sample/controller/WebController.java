@@ -37,7 +37,7 @@ public class WebController extends Controller<Web> {
                     th("asdf")
                 ),
                 tbody(
-                    forEach(bookRepository.findAll(), book ->
+                    forEach(bookRepository.select(), book ->
                         tr(
                             td("test"),
                             td(CLASS + "float-right",

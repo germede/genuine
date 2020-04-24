@@ -2,7 +2,7 @@ package com.sample.repository;
 
 import org.fluentness.repository.Model;
 
-public class Book implements Model {
+public class Book extends Model {
 
     String title;
     String cover;

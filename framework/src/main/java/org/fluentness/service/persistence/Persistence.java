@@ -1,5 +1,6 @@
 package org.fluentness.service.persistence;
 
+import org.fluentness.repository.Model;
 import org.fluentness.service.Service;
 import org.fluentness.service.configurator.Setting;
 
@@ -12,7 +13,13 @@ public interface Persistence extends Service {
     Setting<String> PASSWORD = new Setting<>();
 
 
-    <M> List<M> select(Class<M> aClass, String sql);
+    <M extends Model> M retrieve(Class<M> modelClass, long id);
 
-    int persist(String sql);
+    <M extends Model> List<M> retrieve(Class<M> aClass, String... conditions);
+
+    int persist(Model model);
+
+    int remove(Model model);
+
+
 }

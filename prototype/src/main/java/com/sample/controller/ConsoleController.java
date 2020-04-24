@@ -15,7 +15,7 @@ public class ConsoleController extends Controller {
 
     @Action(description = "Print all books containing name", category = "library")
     String search_books(String name, int limit) {
-        return bookRepository.findByColumn("name", name).stream()
+        return bookRepository.selectByField("name", name).stream()
             .map(Object::toString)
             .collect(Collectors.joining("\n"));
     }
