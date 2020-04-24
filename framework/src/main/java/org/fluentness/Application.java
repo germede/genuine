@@ -9,7 +9,7 @@ import org.fluentness.service.configurator.DefaultConfigurator;
 import org.fluentness.service.configurator.Setting;
 import org.fluentness.service.logger.JulLogger;
 import org.fluentness.service.mailer.SocketMailer;
-import org.fluentness.service.persistence.JdbcPersistence;
+import org.fluentness.service.persistence.FilePersistence;
 import org.fluentness.service.server.SunServer;
 import org.fluentness.service.translator.DefaultTranslator;
 
@@ -32,7 +32,7 @@ public interface Application {
         return load(Service.class,
             JulLogger.class,
             SocketMailer.class,
-            JdbcPersistence.class,
+            FilePersistence.class,
             SunServer.class,
             DefaultConfigurator.class,
             DefaultTranslator.class,

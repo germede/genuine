@@ -21,7 +21,7 @@ public class JdbcPersistence implements Persistence {
                 configurator.get(JDBC_URL),
                 configurator.get(USERNAME),
                 configurator.get(PASSWORD)
-            );
+            );*/
         } else {
             logger.warning("No database connection initialized due to lacking configuration");
         }
