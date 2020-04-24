@@ -10,6 +10,8 @@ import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class Web implements View {
 
+    public String name;
+
     @Override
     public WebStyle getStyle() {
         return null;
@@ -17,28 +19,39 @@ public class Web implements View {
 
     @Override
     public WebTemplate getTemplate(CharSequence toInclude) {
+
         return html(
             head(
                 title("The book library made with Fluentness"),
                 meta(NAME + "lang", CONTENT + "en"),
                 meta(CHARSET + "UTF-8"),
-                link(REL + "stylesheet", TYPE + "text/css", HREF + "https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css"),
+                link(REL + "stylesheet", TYPE + "text/css", HREF + "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"),
+                link(REL + "stylesheet", TYPE + "text/css", HREF + "https://cdn.jsdelivr.net/npm/picnic"),
                 link(REL + "stylesheet", TYPE + "text/css", HREF + "/resources/css/styles.css"),
                 script(SRC + "/resources/js/script.min.js")
             ),
             body(
                 div(CLASS + "container",
                     h2(CLASS + "text_center", welcome_message),
-                    nav(
-                        ul(CLASS + "navigation_list",
-                            li(CLASS + "navigation_item", ID + "books", books),
-                            li(CLASS + "navigation_item", ID + "authors", authors)
-                        ),
-                        toInclude
+                    nav(CLASS + "demo",
+                        a(HREF + "#", CLASS + "brand", img(CLASS + "logo", SRC + "/img/basket.png")),
+                        input(ID + "bmenub", TYPE + "checkbox", CLASS + "show"),
+                        label(FOR + "bmenub", CLASS + "burger pseudo button", "menu"),
+
+                        div(CLASS + "menu",
+                            a(HREF + "#", CLASS + "pseudo button icon-picture", "Demo"),
+                            a(HREF + "#", CLASS + "button icon-puzzle", "Plugins")
+                        )
                     )
+//                    nav(
+//                        ul(CLASS + "navigation_list",
+//                            li(CLASS + "navigation_item", ID + "books", books),
+//                            li(CLASS + "navigation_item", ID + "authors", authors)
+//                        ),
+//                        toInclude
+//                    )
                 )
             )
         );
     }
-
 }

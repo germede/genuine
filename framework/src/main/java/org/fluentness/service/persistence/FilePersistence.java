@@ -4,7 +4,6 @@ import org.fluentness.repository.Model;
 import org.fluentness.service.logger.Logger;
 
 import java.io.*;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,7 +17,7 @@ public class FilePersistence implements Persistence {
 
     public FilePersistence(Logger logger) throws IOException {
         this.logger = logger;
-        if (Files.notExists(Paths.get("data"))){
+        if (Files.notExists(Paths.get("data"))) {
             Files.createDirectory(Paths.get("data"));
         }
     }
@@ -51,7 +50,7 @@ public class FilePersistence implements Persistence {
     public int persist(Model model) {
         try {
             if (model.getId() == 0) {
-                setNewID(model);
+                model.setId(getNewID(model));
             }
 
             Path path = Paths.get(getFilePath(model.getClass(), model.getId()));
@@ -81,7 +80,7 @@ public class FilePersistence implements Persistence {
         return 0;
     }
 
-    private void setNewID(Model model) {
+    private long getNewID(Model model) {
         try {
             // search for an unused id
             String[] list = new File(getFileDirectory(model.getClass())).list();
@@ -95,12 +94,11 @@ public class FilePersistence implements Persistence {
                 Files.createDirectory(Paths.get(getFileDirectory(model.getClass())));
                 id = 1;
             }
-            Field idField = Model.class.getDeclaredField("id");
-            idField.setAccessible(true);
-            idField.set(model, id);
-        } catch (NoSuchFieldException | IllegalAccessException | IOException e) {
+            return id;
+        } catch (IOException e) {
             logger.error(e);
         }
+        return 0;
     }
 
     private <M extends Model> String getFilePath(Class<M> modelClass, long id) {

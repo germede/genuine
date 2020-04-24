@@ -49,8 +49,8 @@ public class Html implements CharSequence, WebTemplate {
         StringBuilder inner = new StringBuilder();
         for (CharSequence item : html) {
             String render = item.toString();
-            if (render.startsWith(HtmlAttribute.PREFIX)) {
-                attributes.append(" ").append(render.substring(3)).append("\"");
+            if (render.startsWith(" ")) {
+                attributes.append(render).append("\"");
             } else {
                 // do translation
                 inner.append(Fluentness.getInstance(Translator.class).translate(render, Request.CURRENT.get().getSortedAcceptedLanguages()));

@@ -41,7 +41,7 @@ public enum HtmlAttribute {
     DRAGGABLE,
     DROPZONE,
     ENCTYPE,
-    FOR_,
+    FOR,
     FORM,
     FORMACTION,
     HEADERS,
@@ -115,11 +115,9 @@ public enum HtmlAttribute {
     VALUE,
     WIDTH;
 
-    public static final String PREFIX = "#A#";
-
     @Override
     public String toString() {
-        return PREFIX + name().toLowerCase().replace('_','-') + "=\"";
+        return " " + name().toLowerCase().replace('_','-') + "=\"";
     }
 
 
