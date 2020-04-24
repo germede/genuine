@@ -28,7 +28,7 @@ public class FilePersistence implements Persistence {
         try {
             FileInputStream fileIn = new FileInputStream(getFilePath(modelClass, id));
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            Model model = (Model) in.readObject();
+            Object model = in.readObject();
             in.close();
             fileIn.close();
             return (M) model;
