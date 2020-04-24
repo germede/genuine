@@ -1,6 +1,7 @@
 package com.sample.controller;
 
 import com.sample.repository.AuthorRepository;
+import com.sample.repository.Book;
 import com.sample.repository.BookRepository;
 import org.fluentness.controller.web.Controller;
 import org.fluentness.controller.web.template.html.Html;
@@ -30,6 +31,10 @@ public class WebController extends Controller<Web> {
 
     @Action(path = "/books", selector = "#books")
     Html books() {
+
+        bookRepository.insert(new Book("title1","cover2","genre3","synopsis4",1324,true,null));
+
+
         return div(
 
             table(

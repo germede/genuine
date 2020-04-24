@@ -1,8 +1,15 @@
 package org.fluentness;
 
-import org.fluentness.controller.desktop.Controller;
+import org.fluentness.controller.console.FluentnessController;
 import org.fluentness.service.Service;
+import org.fluentness.service.authenticator.BasicAuthenticator;
+import org.fluentness.service.configurator.DefaultConfigurator;
+import org.fluentness.service.logger.JulLogger;
+import org.fluentness.service.mailer.SocketMailer;
+import org.fluentness.service.persistence.FilePersistence;
 import org.fluentness.service.server.Server;
+import org.fluentness.service.server.SunServer;
+import org.fluentness.service.translator.DefaultTranslator;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -32,12 +39,6 @@ public final class Fluentness {
         return new Fluentness(application);
     }
 
-    private Fluentness(Application application) throws FluentnessException {
-        inject(application.getServices());
-        inject(application.getRepositories());
-        inject(application.getControllers());
-    }
-
     public void console(String[] args) throws FluentnessException {
         try {
             if (args == null) {
@@ -64,8 +65,8 @@ public final class Fluentness {
     public void desktop() throws FluentnessException {
         try {
             Map<Class, Object> instances1 = instances;
-            Controller[] instances = getInstances(Controller.class);
-            for (Controller controller : instances) {
+            org.fluentness.controller.desktop.Controller[] instances = getInstances(org.fluentness.controller.desktop.Controller.class);
+            for (org.fluentness.controller.desktop.Controller controller : instances) {
 //                controller.getDesktop().getStyle().apply();
                 controller.getDesktop().getTemplate().render();
                 controller.setListeners();
@@ -90,17 +91,32 @@ public final class Fluentness {
         }
     }
 
-    private <I extends ApplicationComponent> void inject(List<Class<? extends I>> classes) throws FluentnessException {
-        Object thisins = Fluentness.instances;
-        while (!classes.isEmpty()) {
-            for (int i = 0; i < classes.size(); i++) {
-                Class aClass = classes.get(i);
-                Class key = Service.class.isAssignableFrom(aClass) ? getServiceKey(aClass) : aClass;
+    private Fluentness(Application application) throws FluentnessException {
+        inject(application.getServices());
+        inject(
+            JulLogger.class,
+            SocketMailer.class,
+            FilePersistence.class,
+            SunServer.class,
+            DefaultConfigurator.class,
+            DefaultTranslator.class,
+            BasicAuthenticator.class
+        );
+
+        inject(application.getRepositories());
+
+        inject(application.getControllers());
+        inject(FluentnessController.class);
+    }
+
+    private <I extends ApplicationComponent> void inject(Class<? extends I>... classes) throws FluentnessException {
+        for (int i = 0; i < classes.length; i++) {
+            for (int j = 0; j < classes.length; j++) {
+                Class aClass = classes[j];
+                Class key = getKey(aClass);
 
                 // do not override keys when already instantiated
                 if (instances.containsKey(key)) {
-                    classes.remove(i);
-                    i--;
                     continue;
                 }
 
@@ -108,16 +124,17 @@ public final class Fluentness {
                 Object value = instantiate(aClass);
                 if (value != null) {
                     instances.put(key, value);
-                    classes.remove(i);
-                    i--;
                 }
             }
         }
     }
 
-    private Class<? extends Service> getServiceKey(Class<? extends Service> aClass) {
+    private Class<? extends ApplicationComponent> getKey(Class<? extends ApplicationComponent> aClass) {
+        if (!Service.class.isAssignableFrom(aClass)) {
+            return aClass;
+        }
         Class currentClass = aClass;
-        while (true) {
+        while (!currentClass.equals(Object.class)) {
             for (Class anInterface : currentClass.getInterfaces()) {
                 if (anInterface.equals(Service.class)) {
                     return currentClass;
@@ -128,6 +145,7 @@ public final class Fluentness {
             }
             currentClass = currentClass.getSuperclass();
         }
+        return null;
     }
 
     private void validate(Class aClass) throws FluentnessException {

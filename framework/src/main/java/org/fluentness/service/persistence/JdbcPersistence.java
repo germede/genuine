@@ -64,7 +64,7 @@ public class JdbcPersistence implements Persistence {
                 update.append(i == 0 ? "" : ", ").append(field.getName()).append(" = ").append(field.get(model));
             }
 
-            String sql = "INSERT INTO " + model.getTableName() + "(" + into + ") " +
+            String sql = "INSERT INTO " + model.getClass().getSimpleName().toLowerCase() + "(" + into + ") " +
                 "VALUES (" + insert + ") " +
                 "ON DUPLICATE KEY UPDATE " + update;
 
@@ -82,7 +82,7 @@ public class JdbcPersistence implements Persistence {
     @Override
     public int remove(Model model) {
         try (Statement statement = connection.createStatement()) {
-            return statement.executeUpdate("DELETE FROM " + model.getTableName() + " WHERE id = " + model.getId());
+            return statement.executeUpdate("DELETE FROM " + model.getClass().getSimpleName().toLowerCase() + " WHERE id = " + model.getId());
         } catch (Exception e) {
             logger.error(e);
         }
