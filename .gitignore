@@ -2,6 +2,7 @@
 .idea_modules/*
 target/
 tmp/
+data/
 *.iws
 *.ipr
 *.class
