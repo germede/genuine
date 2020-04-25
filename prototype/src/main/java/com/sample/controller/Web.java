@@ -39,17 +39,11 @@ public class Web implements View {
                         label(FOR + "bmenub", CLASS + "burger pseudo button", "menu"),
 
                         div(CLASS + "menu",
-                            a(HREF + "#", CLASS + "pseudo button icon-picture", "Demo"),
-                            a(HREF + "#", CLASS + "button icon-puzzle", "Plugins")
+                            a(HREF + "#", CLASS + "pseudo button icon-picture", books),
+                            a(HREF + "#", CLASS + "button icon-puzzle", authors)
+
                         )
                     )
-//                    nav(
-//                        ul(CLASS + "navigation_list",
-//                            li(CLASS + "navigation_item", ID + "books", books),
-//                            li(CLASS + "navigation_item", ID + "authors", authors)
-//                        ),
-//                        toInclude
-//                    )
                 )
             )
         );

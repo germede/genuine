@@ -33,18 +33,6 @@
 
     <build>
         <plugins>
-            <!--Use Java 8 with parameters (making web action method references work on runtime)-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                    <encoding>UTF-8</encoding>
-                    <parameters>true</parameters>
-                </configuration>
-            </plugin>
 
             <!--In order to make standalone apps, assembly plugin is used instead of jar, for including dependencies-->
             <plugin>

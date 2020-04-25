@@ -2,5 +2,20 @@ package org.fluentness.repository;
 
 import org.fluentness.ApplicationComponent;
 
-public interface Repository extends ApplicationComponent {
+import java.util.List;
+
+public interface Repository<M extends Model> extends ApplicationComponent {
+
+    M select(long id);
+
+    List<M> select();
+
+    List<M> selectByField(String field, Object value);
+
+    int insert(M model);
+
+    int update(M model);
+
+    int delete(M model);
+
 }

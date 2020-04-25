@@ -1,7 +1,7 @@
 package org.fluentness;
 
 import org.fluentness.controller.web.Controller;
-import org.fluentness.repository.crud.Repository;
+import org.fluentness.repository.crud.CrudRepository;
 import org.fluentness.service.Service;
 import org.fluentness.service.configurator.Setting;
 
@@ -11,7 +11,7 @@ public interface Application {
 
     Class<? extends Service>[] getServices();
 
-    Class<? extends Repository>[] getRepositories();
+    Class<? extends CrudRepository>[] getRepositories();
 
     Class<? extends Controller>[] getControllers();
 

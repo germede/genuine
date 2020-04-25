@@ -73,7 +73,7 @@ Give a star if you enjoy this project. Contact me if you have any idea on how to
 
 ## Dependencies
 This project is based on these open-source technologies:
-- [OpenJDK](https://openjdk.java.net/) implementing Java 8 
+- [OpenJDK](https://openjdk.java.net/) implementing Java 11 
 - [Maven](https://maven.apache.org/) with PLUGINS for building and distributing the framework itself, projects based on it and their dependencies
 - The Android platform
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing

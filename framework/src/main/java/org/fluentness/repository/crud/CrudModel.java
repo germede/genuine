@@ -1,8 +1,8 @@
-package org.fluentness.repository;
+package org.fluentness.repository.crud;
 
 import java.io.Serializable;
 
-public interface Model implements Serializable {
+public abstract class CrudModel implements Serializable {
 
     private long id = 0;
 

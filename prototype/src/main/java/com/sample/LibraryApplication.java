@@ -12,7 +12,7 @@ import org.fluentness.Application;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.controller.web.Controller;
-import org.fluentness.repository.crud.Repository;
+import org.fluentness.repository.crud.CrudRepository;
 import org.fluentness.service.Service;
 
 public class LibraryApplication implements Application {
@@ -26,7 +26,7 @@ public class LibraryApplication implements Application {
     }
 
     @Override
-    public Class<? extends Repository>[] getRepositories() {
+    public Class<? extends CrudRepository>[] getRepositories() {
         return new Class[]{
             AuthorRepository.class,
             BookRepository.class,
