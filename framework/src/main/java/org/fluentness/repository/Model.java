@@ -2,15 +2,9 @@ package org.fluentness.repository;
 
 import java.io.Serializable;
 
-public interface Model implements Serializable {
+public interface Model extends Serializable {
 
-    private long id = 0;
+    long getId();
 
-    public final long getId() {
-        return id;
-    }
-
-    public final void setId(long id) {
-        this.id = id;
-    }
+    void setId(long id);
 }
