@@ -1,5 +1,6 @@
 package com.sample.controller;
 
+import com.sample.WorkStation;
 import org.fluentness.controller.web.AbstractWebView;
 import org.fluentness.controller.web.template.WebTemplate;
 import org.fluentness.controller.web.template.html.style.WebStyle;
@@ -30,13 +31,14 @@ public class WebView extends AbstractWebView<WebController> {
                 div(CLASS + "container",
                     h2(CLASS + "text_center", welcome_message),
                     nav(
-                        a(HREF + "#", CLASS + "brand", img(CLASS + "logo", SRC + "/img/basket.png")),
-                        input(ID + "bmenub", TYPE + "checkbox", CLASS + "show"),
-                        label(FOR + "bmenub", CLASS + "burger pseudo button", "menu"),
+                        a(ID + "index", CLASS + "brand", WorkStation.class.getSimpleName()),
+
+                        input(ID + "burger", TYPE + "checkbox", CLASS + "show"),
+                        label(FOR + "burger", CLASS + "burger pseudo button", menu),
 
                         div(CLASS + "menu",
-                            a(ID + "notes", CLASS + "pseudo button", notes),
-                            a(CLASS + "pseudo button", authors)
+                            a(ID + "notes", CLASS + "pseudo button $current", notes),
+                            a(CLASS + "pseudo button $current", authors)
                         )
                     ),
                     actionResult

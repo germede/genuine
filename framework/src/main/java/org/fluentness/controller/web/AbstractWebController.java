@@ -1,6 +1,7 @@
 package org.fluentness.controller.web;
 
 import org.fluentness.controller.Controller;
+import org.fluentness.service.server.Request;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
@@ -12,16 +13,9 @@ import static org.fluentness.controller.web.AbstractWebController.HttpMethod.GET
 
 public abstract class AbstractWebController<V extends AbstractWebView> implements Controller {
 
-    private static final Map<String, Method> pathMethodMap = new HashMap<>();
-    private static final Map<String, String> selectorPathMap = new HashMap<>();
-
-    public static Map<String, Method> getPathMethodMap() {
-        return pathMethodMap;
-    }
-
-    public static Map<String, String> getSelectorPathMap() {
-        return selectorPathMap;
-    }
+    public static final Map<String, Method> pathMethodMap = new HashMap<>();
+    public static final Map<String, String> methodPathMap = new HashMap<>();
+    public static final ThreadLocal<Request> request = new ThreadLocal<>();
 
     protected final V view;
 
@@ -31,7 +25,7 @@ public abstract class AbstractWebController<V extends AbstractWebView> implement
         Arrays.stream(getActions()).forEach(action -> {
             Action annotation = action.getAnnotation(Action.class);
             pathMethodMap.put(annotation.method() + " " + annotation.path(), action);
-            selectorPathMap.put(annotation.selector(), annotation.path());
+            methodPathMap.put(action.getName(), annotation.path());
         });
     }
 

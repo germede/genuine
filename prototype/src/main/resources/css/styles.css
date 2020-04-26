@@ -1,10 +1,24 @@
+nav .brand {
+    padding-right: 17px;
+}
 
 nav .menu, nav .burger {
     float: left;
 }
 
+nav .menu > * {
+    margin-right: 0;
+}
+
 nav .show ~ .menu {
     left: 0;
+    right: auto;
     max-width: 100%;
-    width: 100%;
+    width: 70%;
+    transform-origin: center left;
+}
+
+nav .menu a[data=current] {
+    text-decoration: underline black 2px;
+    text-underline-offset: 6px;
 }

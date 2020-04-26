@@ -27,7 +27,7 @@ public class WebController extends AbstractWebController<WebView> {
         return notes();
     }
 
-    @Action(path = "/notes", selector = "#notes")
+    @Action(path = "/notes")
     Html notes() {
         noteRepository.insert(new Note("Title", "Description", 0));
 

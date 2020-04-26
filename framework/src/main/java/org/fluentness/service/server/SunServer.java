@@ -39,7 +39,7 @@ public class SunServer implements Server {
 
     @Override
     public void start() throws IOException {
-        this.routes = AbstractWebController.getPathMethodMap();
+        this.routes = AbstractWebController.pathMethodMap;
         server = HttpServer.create(new InetSocketAddress(configuration.get(HOST), configuration.get(PORT)), 0);
         server.createContext("/", this::handle);
         log.info("Server listening to http://localhost:%s%s", configuration.get(PORT), configuration.get(CONTEXT));
@@ -57,6 +57,8 @@ public class SunServer implements Server {
         try {
             Request request = new SunRequest(exchange);
             Request.CURRENT.set(request);
+            AbstractWebController.request.set(request);
+
             Response response = handlePath(request);
 
             String body = response.getBody();
