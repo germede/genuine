@@ -14,6 +14,7 @@ import org.fluentness.service.server.Server;
 import org.fluentness.service.server.SunServer;
 import org.fluentness.service.translator.DefaultTranslator;
 
+import javax.swing.*;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.List;
@@ -68,6 +69,7 @@ public final class Fluentness {
 
     public void desktop() throws FluentnessException {
         try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             Map<Class, Object> instances1 = instances;
             AbstractDesktopController[] instances = getInstances(AbstractDesktopController.class);
             for (AbstractDesktopController controller : instances) {

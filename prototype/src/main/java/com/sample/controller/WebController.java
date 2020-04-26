@@ -1,5 +1,6 @@
 package com.sample.controller;
 
+import com.sample.repository.Note;
 import com.sample.repository.NoteRepository;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.html.Html;
@@ -25,27 +26,32 @@ public class WebController extends AbstractWebController<WebView> {
         return notes();
     }
 
-    @Action(path = "/books", selector = "#books")
+    @Action(path = "/notes")
     Html notes() {
+        noteRepository.insert(new Note("Title", "Description", 0));
+
         return div(
             table(
                 thead(
-                    th("asdf")
+                    th(note_title),
+                    th(note_description),
+                    th("")
                 ),
                 tbody(
                     forEach(noteRepository.select(), note ->
                         tr(
-                            td("test"),
-                            td(CLASS + "float-right",
-                                button(ID + "updateBook", CLASS + "button button-outline", "\uD83D\uDD89"),
-                                button(ID + "deleteBook", CLASS + "button", "⨯")
+                            td(note.getTitle()),
+                            td(note.getDescription()),
+                            td(
+                                button(CLASS + "button button-outline", "\uD83D\uDD89"),
+                                button(CLASS + "button", "⨯")
                             )
                         )
                     )
                 )
             ),
             div(CLASS + "row",
-                button(ID + "createBook", CLASS + "button column", create)
+                button(CLASS + "button column", create)
             )
         );
     }
@@ -68,7 +74,7 @@ public class WebController extends AbstractWebController<WebView> {
         return "asdf";
     }
 
-    @Action(path = "/authors", selector = "#authors")
+    @Action(path = "/authors")
     Html authors() {
         return div(
 //            table(authorRepository.findAll()),
@@ -76,7 +82,7 @@ public class WebController extends AbstractWebController<WebView> {
         );
     }
 
-    @Action(path = "/authors/create", selector = "#createAuthor")
+    @Action(path = "/authors/create")
     Html createAuthor() {
         return div(
             h2(create)

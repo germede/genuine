@@ -1,15 +1,4 @@
-.navigation_list {
-    border-bottom: solid 1px #ccc;
-    padding: 20px 10px;
-    text-align: center;
-}
 
-.navigation_item {
-    display: inline;
-    list-style: none;
-    margin: 0 20px;
-}
-
-.text_center {
-    text-align: center;
+nav .menu {
+    float: left;
 }

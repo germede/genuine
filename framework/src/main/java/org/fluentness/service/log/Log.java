@@ -14,11 +14,11 @@ public interface Log extends Service {
         for (StackTraceElement stackTraceElement : stackTrace) {
             if (!stackTraceElement.getClassName().startsWith("java.lang.Thread") &&
                     !stackTraceElement.getClassName().startsWith("java.util.logging") &&
-                    !stackTraceElement.getClassName().startsWith("org.fluentness.service.logger")) {
+                    !stackTraceElement.getClassName().startsWith("org.fluentness.service.log")) {
                 return stackTraceElement.getClassName().replaceAll(".*\\.", "");
             }
         }
-        return "Logger";
+        return "Log";
     }
 
     void log(LogLevel logLevel, String message, Object... parameters);

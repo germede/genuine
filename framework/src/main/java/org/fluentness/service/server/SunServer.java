@@ -60,9 +60,7 @@ public class SunServer implements Server {
             Response response = handlePath(request);
 
             String body = response.getBody();
-            String contentType = "text/html";
             String encoding = configuration.get(RESPONSE_ENCODING);
-            response.getHeaders().set(ResponseHeader.CONTENT_TYPE, contentType + "; charset=" + encoding);
             exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
             Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
             out.write(body);
@@ -162,6 +160,9 @@ public class SunServer implements Server {
                 render = template.render();
             }
         }
-        return request.makeResponse(200).setBody(render);
+        return request
+            .makeResponse(200)
+            .setBody(render)
+            .addHeader(ResponseHeader.CONTENT_TYPE, "text/html; charset=" + configuration.get(RESPONSE_ENCODING));
     }
 }

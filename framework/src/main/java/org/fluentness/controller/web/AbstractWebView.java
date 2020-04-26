@@ -17,5 +17,5 @@ public abstract class AbstractWebView<C extends AbstractWebController> {
 
     public abstract WebStyle getStyle();
 
-    public abstract WebTemplate getTemplate(CharSequence toInclude);
+    public abstract WebTemplate getTemplate(CharSequence actionResult);
 }
