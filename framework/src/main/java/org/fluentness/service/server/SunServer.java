@@ -38,8 +38,8 @@ public class SunServer implements Server {
     private Map<String, Method> routes;
 
     @Override
-    public void start(Map<String, Method> routes) throws IOException {
-        this.routes = routes;
+    public void start() throws IOException {
+        this.routes = AbstractWebController.getPathMethodMap();
         server = HttpServer.create(new InetSocketAddress(configuration.get(HOST), configuration.get(PORT)), 0);
         server.createContext("/", this::handle);
         log.info("Server listening to http://localhost:%s%s", configuration.get(PORT), configuration.get(CONTEXT));

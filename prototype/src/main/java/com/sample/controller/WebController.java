@@ -7,7 +7,8 @@ import org.fluentness.controller.web.template.html.Html;
 import org.fluentness.service.mail.Mail;
 
 import static com.sample.service.Translator.*;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.ID;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends AbstractWebController<WebView> {
@@ -26,7 +27,7 @@ public class WebController extends AbstractWebController<WebView> {
         return notes();
     }
 
-    @Action(path = "/notes")
+    @Action(path = "/notes", selector = "#notes")
     Html notes() {
         noteRepository.insert(new Note("Title", "Description", 0));
 
@@ -75,7 +76,7 @@ public class WebController extends AbstractWebController<WebView> {
     }
 
     @Action(path = "/authors")
-    Html authors() {
+    public Html authors() {
         return div(
 //            table(authorRepository.findAll()),
             button(CLASS + "button column", ID + "createAuthor", create)

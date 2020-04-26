@@ -32,6 +32,7 @@ public class Translator extends AbstractTranslator {
         author_picture = "Picture" + de("Bild") + es("Foto"),
         author_test = "Author test" + de("Bild") + es("Foto"),
         author_biography = "Biography" + de("Biografie") + es("Biografia"),
+
         users = "Users" + de("Benutzer") + es("Usuarios"),
         user_username = "Username" + de("Benutzername") + es("Nombre de usuario"),
         user_password = "Password" + de("Passwort") + es("Contraseña");

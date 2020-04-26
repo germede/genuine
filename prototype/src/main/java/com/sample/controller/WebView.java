@@ -17,7 +17,6 @@ public class WebView extends AbstractWebView<WebController> {
 
     @Override
     public WebTemplate getTemplate(CharSequence actionResult) {
-
         return html(
             head(
                 title("The book library made with Fluentness"),
@@ -36,8 +35,8 @@ public class WebView extends AbstractWebView<WebController> {
                         label(FOR + "bmenub", CLASS + "burger pseudo button", "menu"),
 
                         div(CLASS + "menu",
-                            a(HREF + "#", CLASS + "pseudo button", notes),
-                            a(HREF + "#", CLASS + "pseudo button", authors)
+                            a(ID + "notes", CLASS + "pseudo button", notes),
+                            a(CLASS + "pseudo button", authors)
                         )
                     ),
                     actionResult

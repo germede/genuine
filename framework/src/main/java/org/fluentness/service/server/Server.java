@@ -5,8 +5,6 @@ import org.fluentness.service.configuration.Setting;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.Map;
 
 public interface Server extends Service {
 
@@ -18,7 +16,7 @@ public interface Server extends Service {
     Setting<Boolean> SINGLE_PAGE_MODE = new Setting<>(true);
     Setting<String> AJAX_HANDLER = new Setting<>("<script src=\"/resources/js/ajax-handler.js\"></script>");
 
-    void start(Map<String, Method> routes) throws IOException;
+    void start() throws IOException;
 
     void stop();
 }

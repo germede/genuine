@@ -84,14 +84,7 @@ public final class Fluentness {
 
     public void web() throws FluentnessException {
         try {
-            Map<String, Method> routes = new HashMap<>();
-            for (AbstractWebController webController : getInstances(AbstractWebController.class)) {
-                for (Method action : webController.getActions()) {
-                    Action annotation = action.getAnnotation(Action.class);
-                    routes.put(annotation.method() + " " + annotation.path(), action);
-                }
-            }
-            getInstance(Server.class).start(routes);
+            getInstance(Server.class).start();
         } catch (Throwable cause) {
             throw new FluentnessException(cause);
         }

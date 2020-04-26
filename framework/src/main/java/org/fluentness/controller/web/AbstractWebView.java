@@ -5,14 +5,10 @@ import org.fluentness.controller.web.template.html.style.WebStyle;
 
 public abstract class AbstractWebView<C extends AbstractWebController> {
 
-    private C controller;
+    protected C controller;
 
     final void setController(C controller) {
         this.controller = controller;
-    }
-
-    protected final C controller() {
-        return controller;
     }
 
     public abstract WebStyle getStyle();
