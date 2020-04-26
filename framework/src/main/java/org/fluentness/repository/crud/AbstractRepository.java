@@ -1,6 +1,5 @@
 package org.fluentness.repository.crud;
 
-import org.fluentness.Fluentness;
 import org.fluentness.repository.Model;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.log.Log;
@@ -14,15 +13,9 @@ public abstract class AbstractRepository<M extends Model> implements Repository<
     protected final Log log;
     protected final Class<M> modelClass;
 
-    protected AbstractRepository() {
-        this.persistence = Fluentness.getInstance(Persistence.class);
-        this.log = Fluentness.getInstance(Log.class);
-        Class<M> modelClass = null;
-        try {
-            modelClass = (Class<M>) Class.forName(getClass().getCanonicalName().replace("Repository", ""));
-        } catch (ClassNotFoundException e) {
-            log.error(e);
-        }
+    public AbstractRepository(Persistence persistence, Log log, Class<M> modelClass) {
+        this.persistence = persistence;
+        this.log = log;
         this.modelClass = modelClass;
     }
 

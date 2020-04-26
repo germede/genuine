@@ -27,10 +27,7 @@ public class WebController extends AbstractWebController<WebView> {
 
     @Action(path = "/books", selector = "#books")
     Html notes() {
-
-
         return div(
-
             table(
                 thead(
                     th("asdf")

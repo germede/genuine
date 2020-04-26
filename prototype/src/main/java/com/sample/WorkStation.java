@@ -42,6 +42,6 @@ public class WorkStation implements Application {
     }
 
     public static void main(String[] args) throws FluentnessException {
-        Fluentness.launch(new WorkStation()).desktop();
+        Fluentness.launch(new WorkStation()).web();
     }
 }

@@ -11,7 +11,7 @@ import static org.fluentness.controller.desktop.template.swing.SwingAttribute.CL
 import static org.fluentness.controller.desktop.template.swing.SwingAttribute.ID;
 import static org.fluentness.controller.desktop.template.swing.SwingFactory.*;
 
-public class DesktopView implements AbstractDesktopView {
+public class DesktopView extends AbstractDesktopView {
 
     @Override
     public DesktopStyle getStyle() {
