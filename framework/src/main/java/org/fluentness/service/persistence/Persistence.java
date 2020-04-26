@@ -2,7 +2,7 @@ package org.fluentness.service.persistence;
 
 import org.fluentness.repository.Model;
 import org.fluentness.service.Service;
-import org.fluentness.service.configurator.Setting;
+import org.fluentness.service.configuration.Setting;
 
 import java.util.List;
 

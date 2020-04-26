@@ -2,7 +2,7 @@ package org.fluentness.service.translator;
 
 import org.fluentness.service.Service;
 
-public abstract class TranslationFactory implements Service {
+public final class TranslationFactory implements Service {
 
     public static final String SEPARATOR = "#L#";
 
@@ -922,4 +922,6 @@ public abstract class TranslationFactory implements Service {
         return translation("zu_ZA", translation);
     }
 
+    private TranslationFactory() {
+    }
 }

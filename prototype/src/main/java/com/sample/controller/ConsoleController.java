@@ -1,21 +1,21 @@
 package com.sample.controller;
 
-import com.sample.repository.BookRepository;
-import org.fluentness.controller.console.Controller;
+import com.sample.repository.NoteRepository;
+import org.fluentness.controller.console.AbstractConsoleController;
 
 import java.util.stream.Collectors;
 
-public class ConsoleController extends Controller {
+public class ConsoleController extends AbstractConsoleController {
 
-    private final BookRepository bookRepository;
+    private final NoteRepository noteRepository;
 
-    public ConsoleController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public ConsoleController(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
     }
 
-    @Action(description = "Print all books containing name", category = "library")
-    String search_books(String name, int limit) {
-        return bookRepository.selectByField("name", name).stream()
+    @Action(description = "Print all notes containing name", category = "library")
+    String search_notes(String name, int limit) {
+        return noteRepository.selectByField("name", name).stream()
             .map(Object::toString)
             .collect(Collectors.joining("\n"));
     }

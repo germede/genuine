@@ -1,8 +1,8 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.CrudModel;
+import org.fluentness.repository.crud.AbstractModel;
 
-public class Note extends CrudModel {
+public class Note extends AbstractModel {
 
     private String title;
     private String description;

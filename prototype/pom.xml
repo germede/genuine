@@ -21,14 +21,6 @@
             <artifactId>framework</artifactId>
             <version>0.1.0</version>
         </dependency>
-
-        <!--Include the driver you need instead-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.17</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -53,7 +45,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <!--Replace with your own-->
-                            <mainClass>com.sample.LibraryApplication</mainClass>
+                            <mainClass>com.sample.WorkStation</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

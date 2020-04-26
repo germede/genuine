@@ -12,7 +12,7 @@ public class MyActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TextView text = new TextView(this);
-        text.setText("ich bin der hammer");
+        text.setText("Hallo Welt");
         text.setTextColor(Color.BLUE);
         setContentView(text);
     }

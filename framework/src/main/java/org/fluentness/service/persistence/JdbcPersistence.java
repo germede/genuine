@@ -1,8 +1,8 @@
 package org.fluentness.service.persistence;
 
 import org.fluentness.repository.Model;
-import org.fluentness.service.configurator.Configurator;
-import org.fluentness.service.logger.Logger;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.log.Log;
 
 import java.lang.reflect.Field;
 import java.sql.*;
@@ -13,20 +13,20 @@ import java.util.stream.Collectors;
 
 public class JdbcPersistence implements Persistence {
 
-    private final Logger logger;
+    private final Log log;
 
     private Connection connection;
 
-    public JdbcPersistence(Configurator configurator, Logger logger) throws SQLException {
-        this.logger = logger;
-        if (configurator.has(JDBC_URL) && configurator.has(USERNAME) && configurator.has(PASSWORD)) {
+    public JdbcPersistence(Configuration configuration, Log log) throws SQLException {
+        this.log = log;
+        if (configuration.has(JDBC_URL) && configuration.has(USERNAME) && configuration.has(PASSWORD)) {
             connection = DriverManager.getConnection(
-                configurator.get(JDBC_URL),
-                configurator.get(USERNAME),
-                configurator.get(PASSWORD)
+                configuration.get(JDBC_URL),
+                configuration.get(USERNAME),
+                configuration.get(PASSWORD)
             );
         } else {
-            logger.warning("No database connection initialized due to lacking configuration");
+            log.warning("No database connection initialized due to lacking configuration");
         }
     }
 
@@ -71,10 +71,10 @@ public class JdbcPersistence implements Persistence {
             try (Statement statement = connection.createStatement()) {
                 return statement.executeUpdate(sql);
             } catch (Exception e) {
-                logger.error(e);
+                log.error(e);
             }
         } catch (IllegalAccessException e) {
-            logger.error(e);
+            log.error(e);
         }
         return 0;
     }
@@ -84,7 +84,7 @@ public class JdbcPersistence implements Persistence {
         try (Statement statement = connection.createStatement()) {
             return statement.executeUpdate("DELETE FROM " + model.getClass().getSimpleName().toLowerCase() + " WHERE id = " + model.getId());
         } catch (Exception e) {
-            logger.error(e);
+            log.error(e);
         }
         return 0;
     }

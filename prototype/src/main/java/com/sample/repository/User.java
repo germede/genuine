@@ -1,8 +1,8 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.CrudModel;
+import org.fluentness.repository.crud.AbstractModel;
 
-public class User extends CrudModel {
+public class User extends AbstractModel {
 
     private String username;
     private String password;
@@ -19,4 +19,5 @@ public class User extends CrudModel {
     public void setUsername(String username) {
         this.username = username;
     }
+
 }

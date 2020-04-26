@@ -1,38 +1,32 @@
 package com.sample.controller;
 
-import com.sample.repository.AuthorRepository;
-import com.sample.repository.Book;
-import com.sample.repository.BookRepository;
-import org.fluentness.controller.web.Controller;
+import com.sample.repository.NoteRepository;
+import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.html.Html;
-import org.fluentness.service.mailer.Mailer;
+import org.fluentness.service.mail.Mail;
 
-import static com.sample.service.LibraryTranslator.create;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.ID;
+import static com.sample.service.Translator.*;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
-public class WebController extends Controller<Web> {
+public class WebController extends AbstractWebController<WebView> {
 
-    private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
-    private final Mailer mailer;
+    private final NoteRepository noteRepository;
+    private final Mail mail;
 
-    public WebController(BookRepository bookRepository, AuthorRepository authorRepository, Mailer mailer) {
-        this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
-        this.mailer = mailer;
+    public WebController(NoteRepository noteRepository, Mail mail) {
+        super(new WebView());
+        this.noteRepository = noteRepository;
+        this.mail = mail;
     }
 
     @Action(path = "/")
     Html index() {
-        return books();
+        return notes();
     }
 
     @Action(path = "/books", selector = "#books")
-    Html books() {
-
-        bookRepository.insert(new Book("title1","cover2","genre3","synopsis4",1324,true,null));
+    Html notes() {
 
 
         return div(
@@ -42,7 +36,7 @@ public class WebController extends Controller<Web> {
                     th("asdf")
                 ),
                 tbody(
-                    forEach(bookRepository.select(), book ->
+                    forEach(noteRepository.select(), note ->
                         tr(
                             td("test"),
                             td(CLASS + "float-right",
@@ -95,6 +89,6 @@ public class WebController extends Controller<Web> {
 
     @Action(path = "/sendMessage")
     void sendMessage(String message) {
-        mailer.send("info@library.com", "", message);
+        mail.send("info@library.com", "", message);
     }
 }

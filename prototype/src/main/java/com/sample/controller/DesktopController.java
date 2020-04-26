@@ -1,19 +1,18 @@
 package com.sample.controller;
 
-import com.sample.repository.AuthorRepository;
-import org.fluentness.controller.desktop.Controller;
+import org.fluentness.controller.desktop.AbstractDesktopController;
 
-public class DesktopController extends Controller<Desktop> {
+public class DesktopController extends AbstractDesktopController<DesktopView> {
 
-    private final AuthorRepository authorRepository;
-
-    public DesktopController(AuthorRepository authorRepository)  {
-        this.authorRepository = authorRepository;
-    }
-
-    @Action(selector = "#daButton", event = Event.CLICK)
-    void test() {
-        System.out.println("test");
-    }
+//    private final AuthorRepository authorRepository;
+//
+//    public DesktopController(AuthorRepository authorRepository)  {
+//        this.authorRepository = authorRepository;
+//    }
+//
+//    @Action(selector = "#daButton", event = Event.CLICK)
+//    void test() {
+//        System.out.println("test");
+//    }
 
 }

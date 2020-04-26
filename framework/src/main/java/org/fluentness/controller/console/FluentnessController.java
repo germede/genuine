@@ -5,9 +5,9 @@ import org.fluentness.Fluentness;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import static org.fluentness.service.logger.AnsiColor.*;
+import static org.fluentness.service.log.AnsiColor.*;
 
-public final class FluentnessController extends Controller {
+public final class FluentnessController extends AbstractConsoleController {
 
     @Action(description = "Prints all available console actions")
     public void help() {
@@ -24,7 +24,7 @@ public final class FluentnessController extends Controller {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         List<Method> actions = new LinkedList<>();
-        for (Controller controller : Fluentness.getInstances(Controller.class)) {
+        for (AbstractConsoleController controller : Fluentness.getInstances(AbstractConsoleController.class)) {
             actions.addAll(Arrays.asList(controller.getActions()));
         }
 

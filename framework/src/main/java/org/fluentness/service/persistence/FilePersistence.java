@@ -1,7 +1,7 @@
 package org.fluentness.service.persistence;
 
 import org.fluentness.repository.Model;
-import org.fluentness.service.logger.Logger;
+import org.fluentness.service.log.Log;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 
 public class FilePersistence implements Persistence {
 
-    private final Logger logger;
+    private final Log log;
 
-    public FilePersistence(Logger logger) throws IOException {
-        this.logger = logger;
+    public FilePersistence(Log log) throws IOException {
+        this.log = log;
         if (Files.notExists(Paths.get("data"))) {
             Files.createDirectory(Paths.get("data"));
         }
@@ -32,7 +32,7 @@ public class FilePersistence implements Persistence {
             fileIn.close();
             return (M) model;
         } catch (IOException | ClassNotFoundException e) {
-            logger.error(e);
+            log.error(e);
         }
         return null;
     }
@@ -64,7 +64,7 @@ public class FilePersistence implements Persistence {
             fileOut.close();
             return 1;
         } catch (IOException e) {
-            logger.error(e);
+            log.error(e);
         }
         return 0;
     }
@@ -75,7 +75,7 @@ public class FilePersistence implements Persistence {
             Files.delete(Paths.get(getFilePath(model.getClass(), model.getId())));
             return 1;
         } catch (IOException e) {
-            logger.error(e);
+            log.error(e);
         }
         return 0;
     }
@@ -96,7 +96,7 @@ public class FilePersistence implements Persistence {
             }
             return id;
         } catch (IOException e) {
-            logger.error(e);
+            log.error(e);
         }
         return 0;
     }

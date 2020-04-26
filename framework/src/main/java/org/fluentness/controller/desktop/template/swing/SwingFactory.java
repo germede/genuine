@@ -7,8 +7,6 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public final class SwingFactory {
 
-    // ==== windows
-
     public static SwingTemplate window(Swing content) {
         JWindow item = new JWindow();
         item.setContentPane(content.getActualSwing());

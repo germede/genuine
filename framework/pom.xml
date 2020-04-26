@@ -36,7 +36,15 @@
             <version>4.1.1.4</version>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>RedHat EA</id>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>

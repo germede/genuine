@@ -1,11 +1,14 @@
 package org.fluentness;
 
+import org.fluentness.controller.console.AbstractConsoleController;
 import org.fluentness.controller.console.FluentnessController;
+import org.fluentness.controller.desktop.AbstractDesktopController;
+import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.service.Service;
-import org.fluentness.service.authenticator.BasicAuthenticator;
-import org.fluentness.service.configurator.DefaultConfigurator;
-import org.fluentness.service.logger.JulLogger;
-import org.fluentness.service.mailer.SocketMailer;
+import org.fluentness.service.authentication.BasicAuthentication;
+import org.fluentness.service.configuration.DefaultConfiguration;
+import org.fluentness.service.log.JulLog;
+import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.persistence.FilePersistence;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.SunServer;
@@ -13,8 +16,9 @@ import org.fluentness.service.translator.DefaultTranslator;
 
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.List;
 
-import static org.fluentness.controller.web.Controller.Action;
+import static org.fluentness.controller.web.AbstractWebController.Action;
 
 public final class Fluentness {
 
@@ -46,7 +50,7 @@ public final class Fluentness {
             }
             String name = args.length == 0 ? "help" : args[0];
             List<Method> actions = new LinkedList<>();
-            Arrays.stream(getInstances(org.fluentness.controller.console.Controller.class))
+            Arrays.stream(getInstances(AbstractConsoleController.class))
                 .forEach(controller -> actions.addAll(Arrays.asList(controller.getActions())));
             Method toExecute = actions
                 .stream()
@@ -65,10 +69,10 @@ public final class Fluentness {
     public void desktop() throws FluentnessException {
         try {
             Map<Class, Object> instances1 = instances;
-            org.fluentness.controller.desktop.Controller[] instances = getInstances(org.fluentness.controller.desktop.Controller.class);
-            for (org.fluentness.controller.desktop.Controller controller : instances) {
+            AbstractDesktopController[] instances = getInstances(AbstractDesktopController.class);
+            for (AbstractDesktopController controller : instances) {
 //                controller.getDesktop().getStyle().apply();
-                controller.getDesktop().getTemplate().render();
+                controller.view().getTemplate().render();
                 controller.setListeners();
             }
         } catch (Throwable cause) {
@@ -79,8 +83,8 @@ public final class Fluentness {
     public void web() throws FluentnessException {
         try {
             Map<String, Method> routes = new HashMap<>();
-            for (org.fluentness.controller.web.Controller controller : getInstances(org.fluentness.controller.web.Controller.class)) {
-                for (Method action : controller.getActions()) {
+            for (AbstractWebController webController : getInstances(AbstractWebController.class)) {
+                for (Method action : webController.getActions()) {
                     Action annotation = action.getAnnotation(Action.class);
                     routes.put(annotation.method() + " " + annotation.path(), action);
                 }
@@ -94,13 +98,13 @@ public final class Fluentness {
     private Fluentness(Application application) throws FluentnessException {
         inject(application.getServices());
         inject(
-            JulLogger.class,
-            SocketMailer.class,
+            JulLog.class,
+            SocketMail.class,
             FilePersistence.class,
             SunServer.class,
-            DefaultConfigurator.class,
+            DefaultConfiguration.class,
             DefaultTranslator.class,
-            BasicAuthenticator.class
+            BasicAuthentication.class
         );
 
         inject(application.getRepositories());

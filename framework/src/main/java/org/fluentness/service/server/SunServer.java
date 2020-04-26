@@ -3,12 +3,12 @@ package org.fluentness.service.server;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import org.fluentness.Fluentness;
-import org.fluentness.controller.web.Controller;
+import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.WebTemplate;
 import org.fluentness.controller.web.template.html.HtmlAttribute;
-import org.fluentness.service.authenticator.Authenticator;
-import org.fluentness.service.configurator.Configurator;
-import org.fluentness.service.logger.Logger;
+import org.fluentness.service.authentication.Authentication;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.log.Log;
 import org.fluentness.service.translator.Translator;
 
 import java.io.*;
@@ -22,15 +22,15 @@ import static org.fluentness.controller.web.template.html.HtmlFactory.div;
 
 public class SunServer implements Server {
 
-    private final Logger logger;
-    private final Configurator configurator;
-    private final Authenticator authenticator;
+    private final Log log;
+    private final Configuration configuration;
+    private final Authentication authentication;
     private final Translator translator;
 
-    public SunServer(Authenticator authenticator, Configurator configurator, Logger logger, Translator translator) {
-        this.logger = logger;
-        this.configurator = configurator;
-        this.authenticator = authenticator;
+    public SunServer(Authentication authentication, Configuration configuration, Log log, Translator translator) {
+        this.log = log;
+        this.configuration = configuration;
+        this.authentication = authentication;
         this.translator = translator;
     }
 
@@ -40,9 +40,9 @@ public class SunServer implements Server {
     @Override
     public void start(Map<String, Method> routes) throws IOException {
         this.routes = routes;
-        server = HttpServer.create(new InetSocketAddress(configurator.get(HOST), configurator.get(PORT)), 0);
+        server = HttpServer.create(new InetSocketAddress(configuration.get(HOST), configuration.get(PORT)), 0);
         server.createContext("/", this::handle);
-        logger.info("Server listening to http://localhost:%s%s", configurator.get(PORT), configurator.get(CONTEXT));
+        log.info("Server listening to http://localhost:%s%s", configuration.get(PORT), configuration.get(CONTEXT));
         server.start();
     }
 
@@ -61,16 +61,16 @@ public class SunServer implements Server {
 
             String body = response.getBody();
             String contentType = "text/html";
-            String encoding = configurator.get(RESPONSE_ENCODING);
+            String encoding = configuration.get(RESPONSE_ENCODING);
             response.getHeaders().set(ResponseHeader.CONTENT_TYPE, contentType + "; charset=" + encoding);
             exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
             Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
             out.write(body);
             out.close();
-            logger.debug("%s %s -> %s", request.getMethod(), request.getUri(), response.getCode());
+            log.debug("%s %s -> %s", request.getMethod(), request.getUri(), response.getCode());
         } catch (Exception e) {
             exchange.sendResponseHeaders(500, 0);
-            logger.error(e);
+            log.error(e);
         }
     }
 
@@ -112,21 +112,21 @@ public class SunServer implements Server {
     }
 
     private Response authenticateWebAction(Method action, Request request) {
-        if (action.getAnnotation(Controller.Action.class).authenticate() && !authenticator.authenticate(request)) {
+        if (action.getAnnotation(AbstractWebController.Action.class).authenticate() && !authentication.authenticate(request)) {
             return request.makeResponse(403);
         }
         return executeWebAction(action, request);
     }
 
     private Response executeWebAction(Method action, Request request) {
-        Controller controller = Fluentness.getInstance((Class<? extends Controller>) action.getDeclaringClass());
+        AbstractWebController webController = Fluentness.getInstance((Class<? extends AbstractWebController>) action.getDeclaringClass());
         try {
             action.setAccessible(true);
-            Object returned = action.getParameterCount() > 0 ? action.invoke(controller, prepareArgs(action, request)) : action.invoke(controller);
+            Object returned = action.getParameterCount() > 0 ? action.invoke(webController, prepareArgs(action, request)) : action.invoke(webController);
             if (returned instanceof String) {
                 return request.makeResponse(200).setBody((String) returned);
             } else if (returned instanceof WebTemplate) {
-                return handleWebView(request, controller, (WebTemplate) returned);
+                return handleWebView(request, webController, (WebTemplate) returned);
             } else if (returned instanceof Integer) {
                 return request.makeResponse((int) returned);
             } else if (returned instanceof Response) {
@@ -134,7 +134,7 @@ public class SunServer implements Server {
             }
             return request.makeResponse(501);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            logger.error(e);
+            log.error(e);
         }
         return request.makeResponse(500);
     }
@@ -149,16 +149,16 @@ public class SunServer implements Server {
         return result;
     }
 
-    private Response handleWebView(Request request, Controller controller, WebTemplate returned) {
+    private Response handleWebView(Request request, AbstractWebController webController, WebTemplate returned) {
         String render;
         if (request.getHeaders().get(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.render();
         } else {
-            if (configurator.get(SINGLE_PAGE_MODE)) {
-                render = controller.getWeb().getTemplate(div(HtmlAttribute.ID + "ajax-placeholder", returned.toString())).render();
-                render = render.replace("</head>", configurator.get(AJAX_HANDLER) + "</head>");
+            if (configuration.get(SINGLE_PAGE_MODE)) {
+                render = webController.view().getTemplate(div(HtmlAttribute.ID + "ajax-placeholder", returned.toString())).render();
+                render = render.replace("</head>", configuration.get(AJAX_HANDLER) + "</head>");
             } else {
-                WebTemplate template = controller.getWeb().getTemplate(returned.toString());
+                WebTemplate template = webController.view().getTemplate(returned.toString());
                 render = template.render();
             }
         }

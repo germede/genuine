@@ -1,7 +1,7 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.CrudRepository;
+import org.fluentness.repository.crud.AbstractRepository;
 
-public class UserRepository extends CrudRepository<User> {
+public class UserRepository extends AbstractRepository<User> {
 
 }
