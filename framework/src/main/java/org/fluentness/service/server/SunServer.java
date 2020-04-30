@@ -11,7 +11,6 @@ import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
@@ -51,23 +50,18 @@ public class SunServer implements Server {
     }
 
     private void handle(HttpExchange exchange) throws IOException {
-        try {
-            Request request = new SunRequest(exchange);
-            AbstractWebController.request.set(request);
+        Request request = new SunRequest(exchange);
+        AbstractWebController.request.set(request);
 
-            Response response = handlePath(request);
+        Response response = handlePath(request);
 
-            String body = response.getBody();
-            String encoding = configuration.get(RESPONSE_ENCODING);
-            exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
-            Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
-            out.write(body);
-            out.close();
-            log.debug("%s %s -> %s", request.getMethod(), request.getUri(), response.getCode());
-        } catch (Throwable e) {
-            exchange.sendResponseHeaders(ResponseStatusCode.NOT_FOUND.toInt(), 0);
-            log.error(e);
-        }
+        String body = response.getBody();
+        String encoding = configuration.get(RESPONSE_ENCODING);
+        exchange.sendResponseHeaders(response.getCode(), body.getBytes().length);
+        Writer out = new OutputStreamWriter(exchange.getResponseBody(), encoding);
+        out.write(body);
+        out.close();
+        log.debug("%s %s -> %s", request.getMethod(), request.getUri(), response.getCode());
     }
 
     private Response handlePath(Request request) throws IOException {
@@ -122,7 +116,7 @@ public class SunServer implements Server {
                 return (Response) returned;
             }
             return request.makeResponse(ResponseStatusCode.NOT_IMPLEMENTED);
-        } catch (IllegalAccessException | InvocationTargetException e) {
+        } catch (Throwable e) {
             log.error(e);
         }
         return request.makeResponse(ResponseStatusCode.INTERNAL_SERVER_ERROR);

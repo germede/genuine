@@ -2,22 +2,25 @@ package com.sample.controller;
 
 import com.sample.repository.Note;
 import com.sample.repository.NoteRepository;
+import com.sample.service.calendar.CalendarService;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.html.Html;
-import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.mail.Mail;
 
 import static com.sample.service.Translator.*;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.ID;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends AbstractWebController<WebView> {
 
+    private final CalendarService calendarService;
     private final NoteRepository noteRepository;
     private final Mail mail;
 
-    public WebController(Authentication authentication, NoteRepository noteRepository, Mail mail) {
-        super(new WebView(authentication));
+    public WebController(CalendarService calendarService, NoteRepository noteRepository, Mail mail) {
+        super(new WebView());
+        this.calendarService = calendarService;
         this.noteRepository = noteRepository;
         this.mail = mail;
     }
@@ -83,13 +86,14 @@ public class WebController extends AbstractWebController<WebView> {
         );
     }
 
-    @Action(path = "/authors/create")
-    Html createAuthor() {
-        return div(
-            h2(create)
-//            form(this::createAuthor, new Author())
+    @Action(path = "/calendar", selector = "#calendar")
+    Html calendar() {
+        return div(CLASS + "calendar",
+            h2(calendar),
+            calendarService.renderMonthCalendar(2020,4)
         );
     }
+
 
     @Action(path = "/sendMessage")
     void sendMessage(String message) {

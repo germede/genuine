@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.DATA;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.HREF;
 
-public class Html implements CharSequence, WebTemplate {
+public class Html implements WebTemplate {
 
     @Override
     public int length() {

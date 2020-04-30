@@ -23,6 +23,8 @@ public class Translator extends AbstractTranslator {
         page_not_found = "Page not found" + de("Seite nicht gefunden") + es("Página no encontrada"),
         server_error = "Server error" + de("Server-Fehler") + es("Error de servidor"),
 
+        calendar = "Calendar" + de("Kalender") + es("Calendario"),
+
         notes = "Notes" + de("Notizen") + es("Notas"),
         note_title = "Title" + de("Titel") + es("Título"),
         note_description = "Cover" + de("Deckblatt") + es("Portada"),

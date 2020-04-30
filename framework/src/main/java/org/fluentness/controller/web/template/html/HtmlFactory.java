@@ -8,10 +8,10 @@ import java.util.function.Function;
 
 public final class HtmlFactory {
 
-    public static <T, V extends WebTemplate> V[] forEach(Iterable<T> iterable, Function<T, V> function) {
+    public static <T, V extends WebTemplate> CharSequence forEach(Iterable<T> iterable, Function<T, V> function) {
         List<V> result = new LinkedList<>();
         iterable.forEach(t -> result.add(function.apply(t)));
-        return result.toArray((V[]) new Html[0]);
+        return String.join("", result);
     }
 
     public static HtmlTemplate html(CharSequence... html) {

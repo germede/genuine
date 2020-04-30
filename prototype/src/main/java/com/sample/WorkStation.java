@@ -8,6 +8,7 @@ import com.sample.repository.UserRepository;
 import com.sample.service.Authentication;
 import com.sample.service.Configuration;
 import com.sample.service.Translator;
+import com.sample.service.calendar.CalendarServiceImpl;
 import org.fluentness.Application;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
@@ -22,7 +23,8 @@ public class WorkStation implements Application {
         return services(
             Configuration.class,
             Translator.class,
-            Authentication.class
+            Authentication.class,
+            CalendarServiceImpl.class
         );
     }
 
