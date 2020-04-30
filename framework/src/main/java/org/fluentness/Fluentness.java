@@ -3,9 +3,8 @@ package org.fluentness;
 import org.fluentness.controller.console.AbstractConsoleController;
 import org.fluentness.controller.console.FluentnessController;
 import org.fluentness.controller.desktop.AbstractDesktopController;
-import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.service.Service;
-import org.fluentness.service.authentication.BasicAuthentication;
+import org.fluentness.service.authentication.AbstractAuthentication;
 import org.fluentness.service.configuration.DefaultConfiguration;
 import org.fluentness.service.log.JulLog;
 import org.fluentness.service.mail.SocketMail;
@@ -18,8 +17,6 @@ import javax.swing.*;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.List;
-
-import static org.fluentness.controller.web.AbstractWebController.Action;
 
 public final class Fluentness {
 
@@ -99,7 +96,7 @@ public final class Fluentness {
             SunServer.class,
             DefaultConfiguration.class,
             DefaultTranslator.class,
-            BasicAuthentication.class
+            AbstractAuthentication.class
         );
 
         inject(application.getRepositories());

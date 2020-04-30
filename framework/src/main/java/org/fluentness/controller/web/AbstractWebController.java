@@ -2,6 +2,7 @@ package org.fluentness.controller.web;
 
 import org.fluentness.controller.Controller;
 import org.fluentness.service.server.Request;
+import org.fluentness.service.server.RequestMethod;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
@@ -9,7 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.fluentness.controller.web.AbstractWebController.HttpMethod.GET;
+import static org.fluentness.service.server.RequestMethod.GET;
 
 public abstract class AbstractWebController<V extends AbstractWebView> implements Controller {
 
@@ -46,23 +47,11 @@ public abstract class AbstractWebController<V extends AbstractWebView> implement
 
         String selector() default "";
 
-        HttpMethod method() default GET;
+        RequestMethod method() default GET;
 
-        boolean authenticate() default false;
+        boolean authenticate() default true;
 
         boolean cache() default true;
     }
 
-
-    protected enum HttpMethod {
-        GET,
-        HEAD,
-        POST,
-        PUT,
-        DELETE,
-        CONNECT,
-        OPTIONS,
-        TRACE,
-        PATCH,
-    }
 }

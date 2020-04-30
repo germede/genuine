@@ -5,6 +5,7 @@ import com.sample.controller.DesktopController;
 import com.sample.controller.WebController;
 import com.sample.repository.NoteRepository;
 import com.sample.repository.UserRepository;
+import com.sample.service.Authentication;
 import com.sample.service.Configuration;
 import com.sample.service.Translator;
 import org.fluentness.Application;
@@ -20,7 +21,8 @@ public class WorkStation implements Application {
     public Class<? extends Service>[] getServices() {
         return services(
             Configuration.class,
-            Translator.class
+            Translator.class,
+            Authentication.class
         );
     }
 

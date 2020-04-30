@@ -9,10 +9,8 @@ import java.util.Map;
 
 public interface Request {
 
-    ThreadLocal<Request> CURRENT = new ThreadLocal<>();
-
-    default String[] getSortedAcceptedLanguages() {
-        List<String> languageList = getHeaders().get(RequestHeader.ACCEPT_LANGUAGE);
+    default String[] getLanguages() {
+        List<String> languageList = getHeaders().get(RequestHeader.ACCEPT_LANGUAGE.toString());
         if (languageList.size() > 0) {
             return Locale.LanguageRange.parse(languageList.get(0))
                 .stream()
@@ -23,9 +21,18 @@ public interface Request {
         return new String[]{"en"};
     }
 
+    default String getHeader(RequestHeader requestHeader) {
+        List<String> elements = getHeaders().get(requestHeader.toString());
+        return elements != null ? String.join("", elements) : null;
+    }
+
+    default Response makeResponse(ResponseStatusCode code) {
+        return makeResponse(code.toInt());
+    }
+
     Map<String, List<String>> getHeaders();
 
-    String getMethod();
+    RequestMethod getMethod();
 
     URI getUri();
 

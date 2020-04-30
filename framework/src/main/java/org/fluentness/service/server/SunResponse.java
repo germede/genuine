@@ -3,6 +3,9 @@ package org.fluentness.service.server;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
+import java.util.List;
+import java.util.Map;
+
 public class SunResponse implements Response {
 
     protected final HttpExchange exchange;
@@ -17,13 +20,13 @@ public class SunResponse implements Response {
     }
 
     @Override
-    public Headers getHeaders() {
+    public Map<String, List<String>> getHeaders() {
         return headers;
     }
 
     @Override
-    public Response addHeader(String key, String value) {
-        headers.set(key, value);
+    public Response addHeader(ResponseHeader key, String value) {
+        headers.set(key.toString(), value);
         return this;
     }
 

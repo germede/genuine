@@ -1,12 +1,13 @@
 package org.fluentness.service.server;
 
-import com.sun.net.httpserver.Headers;
+import java.util.List;
+import java.util.Map;
 
 public interface Response {
 
-    Headers getHeaders();
+    Map<String, List<String>> getHeaders();
 
-    Response addHeader(String key, String value);
+    Response addHeader(ResponseHeader key, String value);
 
     int getCode();
 

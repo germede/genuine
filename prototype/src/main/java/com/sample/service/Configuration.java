@@ -1,7 +1,6 @@
 package com.sample.service;
 
 import org.fluentness.Application;
-import org.fluentness.service.authentication.BasicAuthentication;
 import org.fluentness.service.configuration.AbstractConfiguration;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.log.LogLevel;
@@ -20,7 +19,5 @@ public class Configuration extends AbstractConfiguration {
         set(Persistence.JDBC_URL, "jdbc:mysql://localhost:3306/party?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         set(Persistence.USERNAME, "party");
         set(Persistence.PASSWORD, "party");
-        set(BasicAuthentication.USERNAME, "admin");
-        set(BasicAuthentication.PASSWORD, "admin");
     }
 }

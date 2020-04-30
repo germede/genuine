@@ -11,13 +11,13 @@ import java.util.Map;
 public class SunRequest implements Request {
 
     protected final HttpExchange exchange;
-    protected String method;
-    protected URI uri;
-    protected Headers headers;
-    protected InputStream body;
+    protected final RequestMethod method;
+    protected final URI uri;
+    protected final Headers headers;
+    protected final InputStream body;
 
     public SunRequest(HttpExchange exchange) {
-        method = exchange.getRequestMethod();
+        method = RequestMethod.valueOf(exchange.getRequestMethod());
         uri = exchange.getRequestURI();
         headers = exchange.getRequestHeaders();
         body = exchange.getRequestBody();
@@ -30,7 +30,7 @@ public class SunRequest implements Request {
     }
 
     @Override
-    public String getMethod() {
+    public RequestMethod getMethod() {
         return method;
     }
 

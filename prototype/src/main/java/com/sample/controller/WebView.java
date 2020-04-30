@@ -4,12 +4,19 @@ import com.sample.WorkStation;
 import org.fluentness.controller.web.AbstractWebView;
 import org.fluentness.controller.web.template.WebTemplate;
 import org.fluentness.controller.web.template.html.style.WebStyle;
+import org.fluentness.service.authentication.Authentication;
 
 import static com.sample.service.Translator.*;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebView extends AbstractWebView<WebController> {
+
+    private final Authentication authentication;
+
+    public WebView(Authentication authentication) {
+        this.authentication = authentication;
+    }
 
     @Override
     public WebStyle getStyle() {
@@ -29,13 +36,11 @@ public class WebView extends AbstractWebView<WebController> {
             ),
             body(
                 div(CLASS + "container",
-                    h2(CLASS + "text_center", welcome_message),
                     nav(
                         a(ID + "index", CLASS + "brand", WorkStation.class.getSimpleName()),
 
                         input(ID + "burger", TYPE + "checkbox", CLASS + "show"),
                         label(FOR + "burger", CLASS + "burger pseudo button", menu),
-
                         div(CLASS + "menu",
                             a(ID + "notes", CLASS + "pseudo button $current", notes),
                             a(CLASS + "pseudo button $current", authors)

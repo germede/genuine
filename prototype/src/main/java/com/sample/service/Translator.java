@@ -18,6 +18,7 @@ public class Translator extends AbstractTranslator {
         delete = "Delete" + de("Entfernen") + es("Eliminar"),
 
         welcome_message = "Welcome" + de("Willkommen") + es("Bienvenido"),
+        login = "Log in" + de("Anmelden") + es("Entrar"),
         menu = "Menu" + de("Menü") + es("Menú"),
         page_not_found = "Page not found" + de("Seite nicht gefunden") + es("Página no encontrada"),
         server_error = "Server error" + de("Server-Fehler") + es("Error de servidor"),
