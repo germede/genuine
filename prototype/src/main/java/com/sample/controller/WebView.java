@@ -36,8 +36,7 @@ public class WebView extends AbstractWebView<WebController> {
                     label(FOR + "burger", CLASS + "burger pseudo button", menu),
                     div(CLASS + "menu",
                         a(ID + "notes", CLASS + "pseudo button", notes),
-                        a(ID + "calendar", CLASS + "pseudo button", calendar),
-                        a(CLASS + "pseudo button", authors)
+                        a(ID + "calendar", CLASS + "pseudo button", calendar)
                     )
                 ),
                 div(CLASS + "flex wrapper",

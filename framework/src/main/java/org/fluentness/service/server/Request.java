@@ -21,6 +21,10 @@ public interface Request {
         return new String[]{"en"};
     }
 
+    default Locale getLocale() {
+        return Locale.forLanguageTag(getLanguages()[getLanguages().length-1]);
+    }
+
     default String getHeader(RequestHeader requestHeader) {
         List<String> elements = getHeaders().get(requestHeader.toString());
         return elements != null ? String.join("", elements) : null;
@@ -30,11 +34,13 @@ public interface Request {
         return makeResponse(code.toInt());
     }
 
-    Map<String, List<String>> getHeaders();
-
     RequestMethod getMethod();
 
+    Map<String, List<String>> getHeaders();
+
     URI getUri();
+
+    String getParameter(String name);
 
     InputStream getBody();
 

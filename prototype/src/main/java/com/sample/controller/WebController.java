@@ -2,7 +2,7 @@ package com.sample.controller;
 
 import com.sample.repository.Note;
 import com.sample.repository.NoteRepository;
-import com.sample.service.CalendarService;
+import com.sample.service.Calendar;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.html.Html;
 import org.fluentness.service.mail.Mail;
@@ -14,13 +14,13 @@ import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends AbstractWebController<WebView> {
 
-    private final CalendarService calendarService;
+    private final Calendar calendar;
     private final NoteRepository noteRepository;
     private final Mail mail;
 
-    public WebController(CalendarService calendarService, NoteRepository noteRepository, Mail mail) {
+    public WebController(Calendar calendar, NoteRepository noteRepository, Mail mail) {
         super(new WebView());
-        this.calendarService = calendarService;
+        this.calendar = calendar;
         this.noteRepository = noteRepository;
         this.mail = mail;
     }
@@ -86,12 +86,9 @@ public class WebController extends AbstractWebController<WebView> {
         );
     }
 
-    @Action(path = "/calendar/<id>", selector = "#calendar")
-    Html calendar() {
-        return div(CLASS + "calendar",
-            h2(calendar),
-            calendarService.renderMonthCalendar(2020,5)
-        );
+    @Action(path = "/calendar", selector = "#calendar")
+    Html calendar(int year, int month) {
+        return calendar.renderMonthCalendar(year, month);
     }
 
 

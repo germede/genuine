@@ -5,6 +5,7 @@ import org.fluentness.service.configuration.AbstractConfiguration;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.log.LogLevel;
 import org.fluentness.service.persistence.Persistence;
+import org.fluentness.service.router.Router;
 import org.fluentness.service.server.Server;
 
 public class Configuration extends AbstractConfiguration {
@@ -14,7 +15,7 @@ public class Configuration extends AbstractConfiguration {
         set(Application.NAME, "Library");
         set(Server.PORT, 8000);
         set(Server.HOST, "0.0.0.0");
-        set(Server.SINGLE_PAGE_MODE, false);
+        set(Router.SINGLE_PAGE_MODE, false);
         set(Log.LEVEL, LogLevel.DEBUG);
         set(Log.CONSOLE, true);
         set(Persistence.JDBC_URL, "jdbc:mysql://localhost:3306/party?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
