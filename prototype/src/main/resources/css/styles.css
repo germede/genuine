@@ -35,6 +35,10 @@ div.wrapper {
     margin: 0 auto;
 }
 
+.calendar span {
+    text-align: center;
+}
+
 .calendar span:not(.current) {
     color: lightgray;
 }
