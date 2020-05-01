@@ -1,9 +1,12 @@
 package com.sample.service;
 
-import org.fluentness.controller.web.template.html.Html;
 import org.fluentness.service.Service;
+
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.List;
 
 public interface Calendar extends Service {
 
-    Html renderMonthCalendar(int year, int month);
+    List<LocalDate> getDays(YearMonth month);
 }

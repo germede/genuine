@@ -14,6 +14,14 @@ public final class HtmlFactory {
         return String.join("", result);
     }
 
+    public static <T, V extends WebTemplate> CharSequence forEach(T[] iterable, Function<T, V> function) {
+        List<V> result = new LinkedList<>();
+        for (T t : iterable) {
+            result.add(function.apply(t));
+        }
+        return String.join("", result);
+    }
+
     public static HtmlTemplate html(CharSequence... html) {
         return new HtmlTemplate(html);
     }

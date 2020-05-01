@@ -40,13 +40,18 @@ public class DefaultRouter implements Router {
     public Response handle(Request request) {
         AbstractWebController.request.set(request);
 
-        String path = request.getMethod() + " " + request.getUri().getPath();
-        if (path.startsWith("GET /resources")) {
-            return handleStaticFile(request);
-        } else if (routes.containsKey(path)) {
-            return authentication.handle(request, () -> executeWebAction(routes.get(path), request));
+        try {
+            String path = request.getMethod() + " " + request.getUri().getPath();
+            if (path.startsWith("GET /resources")) {
+                return handleStaticFile(request);
+            } else if (routes.containsKey(path)) {
+                return authentication.handle(request, () -> executeWebAction(routes.get(path), request));
+            }
+            return request.makeResponse(ResponseStatusCode.NOT_FOUND);
+        } catch (Throwable cause) {
+            log.error(cause);
         }
-        return request.makeResponse(ResponseStatusCode.NOT_FOUND);
+        return request.makeResponse(ResponseStatusCode.INTERNAL_SERVER_ERROR);
     }
 
     private Response handleStaticFile(Request request) {
@@ -87,7 +92,10 @@ public class DefaultRouter implements Router {
         );
         try {
             action.setAccessible(true);
-            Object returned = action.getParameterCount() > 0 ? action.invoke(webController, prepareArgs(action, request)) : action.invoke(webController);
+            Object[] args = prepareArgs(action, request);
+            Object returned = action.getParameterCount() > 0 ?
+                action.invoke(webController, args) :
+                action.invoke(webController);
             if (returned instanceof String) {
                 return request.makeResponse(ResponseStatusCode.OK).setBody((String) returned);
             } else if (returned instanceof WebTemplate) {
@@ -109,11 +117,16 @@ public class DefaultRouter implements Router {
         Object[] result = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
             Parameter parameter = parameters[i];
-            if (parameter.getType().equals(Request.class)) {
+            if (Request.class.isAssignableFrom(parameter.getType())) {
                 result[i] = request;
-            } else if (parameter.getType().equals(Integer.class)) {
-                result[i] = Integer.parseInt(request.getParameter(parameter.getName()));
-            } else if (parameter.getType().equals(String.class)) {
+            } else if (int.class.isAssignableFrom(parameter.getType())) {
+                try {
+                    int integer = Integer.parseInt(request.getParameter(parameter.getName()));
+                    result[i] = integer;
+                } catch (NumberFormatException e) {
+                    result[i] = 0;
+                }
+            } else if (String.class.isAssignableFrom(parameter.getType())) {
                 result[i] = request.getParameter(parameter.getName());
             }
         }

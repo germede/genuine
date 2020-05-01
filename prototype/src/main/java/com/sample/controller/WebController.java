@@ -7,9 +7,13 @@ import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.html.Html;
 import org.fluentness.service.mail.Mail;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import static com.sample.service.Translator.*;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.ID;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends AbstractWebController<WebView> {
@@ -37,8 +41,8 @@ public class WebController extends AbstractWebController<WebView> {
         return div(
             table(
                 thead(
-                    th(note_title),
-                    th(note_description),
+                    th(_note_title),
+                    th(_note_description),
                     th("")
                 ),
                 tbody(
@@ -55,45 +59,37 @@ public class WebController extends AbstractWebController<WebView> {
                 )
             ),
             div(CLASS + "row",
-                button(CLASS + "button column", create)
+                button(CLASS + "button column", _create)
             )
-        );
-    }
-
-    @Action(path = "/books/create")
-    Html createBook() {
-        return div(
-            h2(create)
-//            form(this::createBook, new Book())
-        );
-    }
-
-    @Action(path = "/books/update/<id>")
-    String updateBook(int id) {
-        return "asdf";
-    }
-
-    @Action(path = "/books/delete/<id>")
-    String deleteBook(int id) {
-        return "asdf";
-    }
-
-    @Action(path = "/authors")
-    public Html authors() {
-        return div(
-//            table(authorRepository.findAll()),
-            button(CLASS + "button column", ID + "createAuthor", create)
         );
     }
 
     @Action(path = "/calendar", selector = "#calendar")
     Html calendar(int year, int month) {
-        return calendar.renderMonthCalendar(year, month);
+        YearMonth current = (year == 0 && month == 0) ? YearMonth.now() : YearMonth.of(year, month);
+        YearMonth previous = current.minusMonths(1);
+        YearMonth next = current.plusMonths(1);
+        List<LocalDate> days = calendar.getDays(current);
+        return div(CLASS + "calendar",
+            h2(
+                current.format(DateTimeFormatter.ofPattern("MMMM y", request.get().getLocale())),
+                div(CLASS + "right",
+                    a(HREF + "/calendar?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),
+                        i(CLASS + "icono-caretLeftCircle")
+                    ),
+                    a(HREF + "/calendar?year=" + next.getYear() + "&month=" + next.getMonthValue(),
+                        i(CLASS + "icono-caretRightCircle")
+                    )
+                )
+            ),
+            div(CLASS + "flex seven",
+                forEach(days, day ->
+                    span(CLASS + (day.getMonthValue() == current.getMonthValue() ? "current" : ""),
+                        day.getDayOfMonth() + ""
+                    )
+                )
+            )
+        );
     }
 
-
-    @Action(path = "/sendMessage")
-    void sendMessage(String message) {
-        mail.send("info@library.com", "", message);
-    }
 }
