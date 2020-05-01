@@ -86,11 +86,11 @@ public class WebController extends AbstractWebController<WebView> {
         );
     }
 
-    @Action(path = "/calendar", selector = "#calendar")
+    @Action(path = "/calendar/<id>", selector = "#calendar")
     Html calendar() {
         return div(CLASS + "calendar",
             h2(calendar),
-            calendarService.renderMonthCalendar(2020,4)
+            calendarService.renderMonthCalendar(2020,5)
         );
     }
 

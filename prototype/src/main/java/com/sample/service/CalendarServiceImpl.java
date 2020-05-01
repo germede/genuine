@@ -14,13 +14,27 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public Html renderMonthCalendar(int year, int month) {
-        YearMonth of = YearMonth.of(year, month);
+        YearMonth current = YearMonth.of(year, month);
         List<LocalDate> days = new LinkedList<>();
-        for (int i = 1; i < of.lengthOfMonth() +1; i++) {
-            days.add(of.atDay(i));
+        LocalDate firstDay = current.atDay(1);
+        LocalDate lastDay = current.atDay(current.lengthOfMonth());
+        for (int i = firstDay.getDayOfWeek().getValue() - 1; i > 0; i--) {
+            days.add(firstDay.minusDays(i));
         }
-        return div(CLASS + "flex seven",
-            forEach(days, t -> div(span(t+"")))
+        for (int j = 1; j < current.lengthOfMonth() + 1; j++) {
+            days.add(current.atDay(j));
+        }
+        for (int k = 1; k < 8 - lastDay.getDayOfWeek().getValue(); k++) {
+            days.add(lastDay.plusDays(k));
+        }
+        return div(CLASS + "calendar flex seven",
+            forEach(days, t ->
+                div(
+                    span(CLASS + (t.getMonthValue() == month ? "current" : ""),
+                        t.getDayOfMonth() + ""
+                    )
+                )
+            )
         );
     }
 

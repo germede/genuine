@@ -29,3 +29,8 @@ div.wrapper {
     max-width: 960px;
     margin: 0 auto;
 }
+
+.calendar span:not(.current) {
+    color: lightgray;
+
+}
