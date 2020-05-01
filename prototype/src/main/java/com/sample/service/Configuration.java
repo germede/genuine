@@ -13,6 +13,7 @@ public class Configuration extends AbstractConfiguration {
     protected void configure() {
         set(Application.NAME, "Library");
         set(Server.PORT, 8000);
+        set(Server.HOST, "0.0.0.0");
         set(Server.SINGLE_PAGE_MODE, false);
         set(Log.LEVEL, LogLevel.DEBUG);
         set(Log.CONSOLE, true);

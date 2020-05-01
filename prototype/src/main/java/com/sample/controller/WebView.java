@@ -23,6 +23,7 @@ public class WebView extends AbstractWebView<WebController> {
                 title("The book library made with Fluentness"),
                 meta(NAME + "lang", CONTENT + "en"),
                 meta(CHARSET + "UTF-8"),
+                meta(NAME + "viewport", CONTENT + "width=device-width, initial-scale=1"),
                 link(REL + "stylesheet", TYPE + "text/css", HREF + "https://cdn.jsdelivr.net/npm/picnic"),
                 link(REL + "stylesheet", TYPE + "text/css", HREF + "/resources/css/styles.css"),
                 script(SRC + "/resources/js/script.min.js")
