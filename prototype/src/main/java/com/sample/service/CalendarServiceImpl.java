@@ -1,4 +1,4 @@
-package com.sample.service.calendar;
+package com.sample.service;
 
 import org.fluentness.controller.web.template.html.Html;
 

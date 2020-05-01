@@ -2,7 +2,7 @@ package com.sample.controller;
 
 import com.sample.repository.Note;
 import com.sample.repository.NoteRepository;
-import com.sample.service.calendar.CalendarService;
+import com.sample.service.CalendarService;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.html.Html;
 import org.fluentness.service.mail.Mail;
