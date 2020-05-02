@@ -8,7 +8,7 @@ import static com.sample.service.Translator.*;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
-public class WebView extends AbstractWebView<WebController> {
+public class WebView extends AbstractWebView {
 
     @Override
     public WebTemplate getTemplate(CharSequence actionResult) {

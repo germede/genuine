@@ -1,6 +1,8 @@
 package org.fluentness.controller;
 
-public interface View {
+import org.fluentness.ApplicationComponent;
+
+public interface View extends ApplicationComponent {
 
 
 }

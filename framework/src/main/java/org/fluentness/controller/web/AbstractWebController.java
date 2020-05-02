@@ -5,6 +5,7 @@ import org.fluentness.service.server.Request;
 import org.fluentness.service.server.RequestMethod;
 
 import java.lang.annotation.*;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,11 +23,14 @@ public abstract class AbstractWebController<V extends AbstractWebView> implement
 
     public AbstractWebController(V view) {
         this.view = view;
-        view.setController(this);
         Arrays.stream(getActions()).forEach(action -> {
             Action annotation = action.getAnnotation(Action.class);
-            pathMethodMap.put(annotation.method() + " " + annotation.path(), action);
-            methodPathMap.put(action.getName(), annotation.path());
+            Constructor<?>[] constructors = this.getClass().getDeclaredConstructors();
+            String path = constructors.length > 0 && constructors[0].isAnnotationPresent(BasePath.class) ?
+                constructors[0].getAnnotation(BasePath.class).value() + annotation.path() :
+                annotation.path();
+            pathMethodMap.put(annotation.method() + " " + path, action);
+            methodPathMap.put(action.getName(), path);
         });
     }
 
@@ -50,6 +54,12 @@ public abstract class AbstractWebController<V extends AbstractWebView> implement
         boolean authenticate() default true;
 
         boolean cache() default true;
+    }
+
+    @Target(ElementType.CONSTRUCTOR)
+    @Retention(RetentionPolicy.RUNTIME)
+    protected @interface BasePath {
+        String value();
     }
 
 }
