@@ -1,6 +1,6 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.AbstractRepository;
+import org.fluentness.repository.AbstractRepository;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
 

@@ -3,11 +3,13 @@ package org.fluentness.controller.console;
 import org.fluentness.Fluentness;
 import org.fluentness.repository.Model;
 import org.fluentness.repository.Repository;
+import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.persistence.Persistence;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.*;
@@ -18,9 +20,11 @@ import static org.fluentness.service.log.AnsiColor.*;
 
 public final class FluentnessController extends AbstractConsoleController {
 
+    private Configuration configuration;
     private Persistence persistence;
 
-    public FluentnessController(Persistence persistence) {
+    public FluentnessController(Configuration configuration, Persistence persistence) {
+        this.configuration = configuration;
         this.persistence = persistence;
     }
 
@@ -96,20 +100,17 @@ public final class FluentnessController extends AbstractConsoleController {
         frame.setVisible(true);
 
         button.addActionListener(e -> {
-            input.setText(convert(input.getText()));
+            final Pattern TAG_PATTERN = Pattern.compile("<(?!!)(?!/)\\s*([a-zA-Z0-9]+)(.*?)>(.+)<");
+            final Pattern ATTRIBUTE_PATTERN = Pattern.compile("(\\S+)=['\"]{1}([^>]*?)['\"]{1}");
+
+            String text = input.getText().replaceAll("<(\\w+)\\s", "$1(");
+            text = text.replaceAll("\\s(\\w+)=\"([\\w\\s]+)\"", "$1 + \"$2\", ");
+            text = text.replaceAll("</\\w*>", "),");
+            text = text.replaceAll(">", "");
+            // todo improve
+
+            input.setText(text);
         });
-    }
-
-    private String convert(String text) {
-        final Pattern TAG_PATTERN = Pattern.compile("<(?!!)(?!/)\\s*([a-zA-Z0-9]+)(.*?)>(.+)<");
-        final Pattern ATTRIBUTE_PATTERN = Pattern.compile("(\\S+)=['\"]{1}([^>]*?)['\"]{1}");
-
-        text = text.replaceAll("<(\\w+)\\s", "$1(");
-        text = text.replaceAll("\\s(\\w+)=\"([\\w\\s]+)\"", "$1 + \"$2\", ");
-        text = text.replaceAll("</\\w*>", "),");
-        text = text.replaceAll(">", "");
-        // todo improve
-        return text;
     }
 
     @Action(category = "sql", description = "Prints out required create sql statements based on existing Models")
@@ -123,13 +124,45 @@ public final class FluentnessController extends AbstractConsoleController {
             .map(Repository::getModelClass)
             .collect(Collectors.toUnmodifiableList());
 
+        StringBuilder builder = new StringBuilder();
         for (Class<? extends Model> modelClass : modelClasses) {
-            StringBuilder builder = new StringBuilder();
 
-            builder.append("CREATE TABLE ").append(persistence.getTableName(modelClass));
+            // todo improve sorting depending on foreign
+            List<Field> foreignKeys = new LinkedList<>();
 
-            System.out.println(builder.toString());
+            builder.append("CREATE TABLE ").append(persistence.getTableName(modelClass)).append(" ( \n");
+            builder.append("    ").append(persistence.getIdName()).append(" INT AUTO_INCREMENT PRIMARY KEY,\n");
+            Field[] declaredFields = modelClass.getDeclaredFields();
+            for (int i = 0, declaredFieldsLength = declaredFields.length; i < declaredFieldsLength; i++) {
+                Field field = declaredFields[i];
+                builder.append("    ").append(field.getName()).append(" ");
+                Class<?> type = field.getType();
+                if (type.equals(String.class)) {
+                    builder.append("VARCHAR(255) NOT NULL");
+                } else if (int.class.isAssignableFrom(type)) {
+                    builder.append("INT NOT NULL");
+                } else if (Model.class.isAssignableFrom(type)) {
+                    builder.append("INT NOT NULL");
+                    foreignKeys.add(field);
+                }
+                builder.append(i == declaredFieldsLength - 1 && foreignKeys.isEmpty() ? "\n" : ",\n");
+            }
+
+            for (int i = 0, foreignKeysSize = foreignKeys.size(); i < foreignKeysSize; i++) {
+                Field field = foreignKeys.get(i);
+                builder
+                    .append("    FOREIGN KEY (")
+                    .append(field.getName())
+                    .append(") REFERENCES ")
+                    .append(persistence.getTableName((Class<? extends Model>) field.getType()))
+                    .append("(")
+                    .append(persistence.getIdName())
+                    .append(") ON UPDATE cascade ")
+                    .append("ON DELETE cascade")
+                    .append(i == foreignKeysSize - 1 ? "\n" : ",\n");
+            }
+            builder.append(");\n");
         }
-
+        System.out.println(builder.toString());
     }
 }

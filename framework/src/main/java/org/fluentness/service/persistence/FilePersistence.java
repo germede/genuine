@@ -38,7 +38,7 @@ public class FilePersistence implements Persistence {
     }
 
     @Override
-    public <M extends Model> List<M> retrieve(Class<M> modelClass, String... conditions) {
+    public <M extends Model> List<M> retrieve(Class<M> modelClass, Condition... conditions) {
         // todo implement conditions
         File[] records = new File(getFileDirectory(modelClass)).listFiles();
         return Arrays.stream(records != null ? records : new File[0])

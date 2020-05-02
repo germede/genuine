@@ -1,17 +1,17 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.AbstractModel;
+import org.fluentness.repository.AbstractModel;
 
 public class Note extends AbstractModel {
 
     private String title;
     private String description;
-    private long user_id;
+    private User user;
 
-    public Note(String title, String description, long user_id) {
+    public Note(String title, String description, User user) {
         this.title = title;
         this.description = description;
-        this.user_id = user_id;
+        this.user = user;
     }
 
     public String getTitle() {
@@ -30,7 +30,7 @@ public class Note extends AbstractModel {
         this.description = description;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 }

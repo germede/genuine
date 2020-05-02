@@ -2,9 +2,13 @@ package org.fluentness.service.persistence;
 
 import org.fluentness.repository.Model;
 import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.log.Log;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Parameter;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -13,15 +17,24 @@ import java.util.stream.Collectors;
 
 public class JdbcPersistence implements Persistence {
 
+    public static final Setting<String> DRIVER = new Setting<>("mysql");
+    public static final Setting<String> HOST = new Setting<>("localhost");
+    public static final Setting<Integer> PORT = new Setting<>(3306);
+    public static final Setting<String> URL_PARAMETER_QUERY = new Setting<>("");
+    public static final Setting<String> DATABASE = new Setting<>();
+    public static final Setting<String> USERNAME = new Setting<>();
+    public static final Setting<String> PASSWORD = new Setting<>();
+
     private final Log log;
 
     private Connection connection;
 
     public JdbcPersistence(Configuration configuration, Log log) throws SQLException {
         this.log = log;
-        if (configuration.has(JDBC_URL) && configuration.has(USERNAME) && configuration.has(PASSWORD)) {
+        if (configuration.has(DATABASE) && configuration.has(USERNAME) && configuration.has(PASSWORD)) {
+            String url = "jdbc:" + configuration.get(DRIVER) + "://" + configuration.get(HOST) + ":" + configuration.get(PORT) + "/" + configuration.get(DATABASE) + configuration.get(URL_PARAMETER_QUERY);
             connection = DriverManager.getConnection(
-                configuration.get(JDBC_URL),
+                url,
                 configuration.get(USERNAME),
                 configuration.get(PASSWORD)
             );
@@ -34,17 +47,18 @@ public class JdbcPersistence implements Persistence {
     public <M extends Model> M retrieve(Class<M> modelClass, long id) {
         List<M> retrieve = retrieve(
             modelClass,
-            "SELECT * FROM " + getTableName(modelClass) + " WHERE id = " + id
+            "SELECT * FROM " + getTableName(modelClass) + " WHERE " + getIdName() + " = " + id
         );
         return retrieve.size() > 0 ? retrieve.get(0) : null;
     }
 
     @Override
-    public <M extends Model> List<M> retrieve(Class<M> modelClass, String... conditions) {
+    public <M extends Model> List<M> retrieve(Class<M> modelClass, Condition... conditions) {
         return retrieve(
             modelClass,
             conditions.length > 0 ?
-                "SELECT * FROM " + getTableName(modelClass) + " WHERE " + String.join(" AND ", conditions) :
+                "SELECT * FROM " + getTableName(modelClass) + " WHERE " +
+                    Arrays.stream(conditions).map(Condition::toString).collect(Collectors.joining(" AND ")) :
                 "SELECT * FROM " + getTableName(modelClass)
         );
     }
@@ -82,7 +96,7 @@ public class JdbcPersistence implements Persistence {
     @Override
     public int remove(Model model) {
         try (Statement statement = connection.createStatement()) {
-            return statement.executeUpdate("DELETE FROM " + getTableName(model) + " WHERE id = " + model.getId());
+            return statement.executeUpdate("DELETE FROM " + getTableName(model) + " WHERE " + getIdName() + " = " + model.getId());
         } catch (Exception e) {
             log.error(e);
         }
@@ -91,32 +105,41 @@ public class JdbcPersistence implements Persistence {
 
     private <M extends Model> List<M> retrieve(Class<M> modelClass, String sql) {
         List<M> result = new LinkedList<>();
-        Field[] fields = modelClass.getDeclaredFields();
+        ResultSet resultSet = null;
         try {
-            ResultSet resultSet = connection.createStatement().executeQuery(sql);
+            resultSet = connection.createStatement().executeQuery(sql);
             while (resultSet.next()) {
-                M instance = modelClass.newInstance();
-                for (Field field : fields) {
-                    String name = field.getName();
-                    field.setAccessible(true);
-                    Class<?> type = field.getType();
-                    Object value = null;
-                    if (type.equals(String.class)) {
-                        value = resultSet.getString(name);
-                    } else if (type.equals(Integer.class) || type.equals(int.class)) {
-                        value = resultSet.getInt(name);
-                    } else if (type.equals(Boolean.class) || type.equals(boolean.class)) {
-                        value = resultSet.getBoolean(name);
-                    } else if (type.equals(Date.class)) {
-                        value = resultSet.getDate(name);
-                    }
-                    field.set(instance, value);
-                }
-                result.add(instance);
+                result.add(instantiate(modelClass, resultSet));
             }
-        } catch (SQLException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            log.error(e);
         }
         return result;
+    }
+
+    private <M extends Model> M instantiate(Class<M> modelClass, ResultSet resultSet) {
+        try {
+            Constructor constructor = modelClass.getConstructors()[0];
+            Parameter[] parameters = constructor.getParameters();
+            Object[] preparedParameters = new Object[constructor.getParameterCount()];
+            for (int i = 0; i < parameters.length; i++) {
+                Parameter parameter = parameters[i];
+                String name = parameter.getName();
+                Class<?> type = parameter.getType();
+                if (type.equals(String.class)) {
+                    preparedParameters[i] = resultSet.getString(name);
+                } else if (type.equals(Integer.class) || type.equals(int.class)) {
+                    preparedParameters[i] = resultSet.getInt(name);
+                } else if (type.equals(Boolean.class) || type.equals(boolean.class)) {
+                    preparedParameters[i] = resultSet.getBoolean(name);
+                } else if (type.equals(Date.class)) {
+                    preparedParameters[i] = resultSet.getDate(name);
+                }
+            }
+            return (M) constructor.newInstance(preparedParameters);
+        } catch (SQLException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            log.error(e);
+        }
+        return null;
     }
 }

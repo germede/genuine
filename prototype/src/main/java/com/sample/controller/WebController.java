@@ -1,11 +1,10 @@
 package com.sample.controller;
 
-import com.sample.repository.Note;
 import com.sample.repository.NoteRepository;
+import com.sample.repository.UserRepository;
 import com.sample.service.Calendar;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.html.Html;
-import org.fluentness.service.mail.Mail;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -13,20 +12,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.sample.service.Translator.*;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.HREF;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends AbstractWebController<WebView> {
 
     private final Calendar calendar;
     private final NoteRepository noteRepository;
-    private final Mail mail;
+    private final UserRepository userRepository;
 
-    public WebController(Calendar calendar, NoteRepository noteRepository, Mail mail) {
+    public WebController(Calendar calendar, NoteRepository noteRepository, UserRepository userRepository) {
         super(new WebView());
         this.calendar = calendar;
         this.noteRepository = noteRepository;
-        this.mail = mail;
+        this.userRepository = userRepository;
     }
 
     @Action(path = "/")
@@ -34,10 +34,29 @@ public class WebController extends AbstractWebController<WebView> {
         return notes();
     }
 
+    @Action(path = "/users", selector = "#users")
+    Html users() {
+        return div(
+            h1(_users),
+            table(
+                thead(
+                    th(_user_username),
+                    th(_user_password)
+                ),
+                tbody(
+                    forEach(userRepository.select(), user ->
+                        tr(
+                            td(user.getUsername()),
+                            td("SECRET")
+                        )
+                    )
+                )
+            )
+        );
+    }
+
     @Action(path = "/notes")
     Html notes() {
-        noteRepository.insert(new Note("Title", "Description", 0));
-
         return div(
             table(
                 thead(

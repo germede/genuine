@@ -39,7 +39,7 @@ public class WebView extends AbstractWebView<WebController> {
                         a(ID + "notes", CLASS + "pseudo button", i(CLASS + "icono-document"), _notes),
                         a(ID + "calendar", CLASS + "pseudo button", i(CLASS + "icono-calendar"), _calendar),
                         a(ID + "bookmarks", CLASS + "pseudo button", i(CLASS + "icono-bookmarkEmpty")),
-                        a(ID + "contacts", CLASS + "pseudo button", i(CLASS + "icono-user"))
+                        a(ID + "users", CLASS + "pseudo button", i(CLASS + "icono-user"), _users)
                     )
                 ),
                 div(CLASS + "flex wrapper",

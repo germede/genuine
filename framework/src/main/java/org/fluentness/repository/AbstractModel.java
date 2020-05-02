@@ -1,6 +1,4 @@
-package org.fluentness.repository.crud;
-
-import org.fluentness.repository.Model;
+package org.fluentness.repository;
 
 public abstract class AbstractModel implements Model {
 

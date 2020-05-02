@@ -1,8 +1,7 @@
-package org.fluentness.repository.crud;
+package org.fluentness.repository;
 
-import org.fluentness.repository.Model;
-import org.fluentness.repository.Repository;
 import org.fluentness.service.log.Log;
+import org.fluentness.service.persistence.Condition;
 import org.fluentness.service.persistence.Persistence;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public abstract class AbstractRepository<M extends Model> implements Repository<
 
     @Override
     public List<M> selectByField(String field, Object value) {
-        return persistence.retrieve(modelClass, field + " = " + "'" + value + "'");
+        return persistence.retrieve(modelClass, Condition.eq(field, value));
     }
 
     @Override

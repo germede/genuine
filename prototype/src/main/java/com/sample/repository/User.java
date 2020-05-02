@@ -1,6 +1,6 @@
 package com.sample.repository;
 
-import org.fluentness.repository.crud.AbstractModel;
+import org.fluentness.repository.AbstractModel;
 
 public class User extends AbstractModel {
 

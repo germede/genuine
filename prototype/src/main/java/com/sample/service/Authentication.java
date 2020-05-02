@@ -1,11 +1,21 @@
 package com.sample.service;
 
+import com.sample.repository.User;
 import org.fluentness.service.authentication.AbstractAuthentication;
+import org.fluentness.service.persistence.Persistence;
+
+import static org.fluentness.service.persistence.Condition.eq;
 
 public class Authentication extends AbstractAuthentication {
 
+    private final Persistence persistence;
+
+    public Authentication(Persistence persistence) {
+        this.persistence = persistence;
+    }
+
     @Override
     protected boolean authorize(String username, String password) {
-        return true;
+        return persistence.retrieve(User.class, eq("username", username), eq("password", password)).size() > 0;
     }
 }
