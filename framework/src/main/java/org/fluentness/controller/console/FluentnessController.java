@@ -122,7 +122,7 @@ public final class FluentnessController extends AbstractConsoleController {
         List<Class> modelClasses = Fluentness.getInstances(Repository.class)
             .stream()
             .map(Repository::getModelClass)
-            .collect(Collectors.toUnmodifiableList());
+            .collect(Collectors.toList());
 
         StringBuilder builder = new StringBuilder();
         for (Class<? extends Model> modelClass : modelClasses) {

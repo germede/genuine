@@ -21,23 +21,27 @@
             <artifactId>framework</artifactId>
             <version>0.1.0</version>
         </dependency>
-
     </dependencies>
-
+    
     <build>
         <plugins>
-            <!--Don't forget to export ANDROID_HOME-->
-
+            <!--Essential configurations for Android builds-->
             <plugin>
                 <groupId>com.simpligility.maven.plugins</groupId>
                 <artifactId>android-maven-plugin</artifactId>
                 <version>4.6.0</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <dexMultiDex>true</dexMultiDex>
+                    <!-- Older version of this plugin used dex android "compiler" by default, which is
+                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8 -->
+                    <dexCompiler>d8</dexCompiler>
                     <sdk>
-                        <platform>24</platform>
+                        <platform>28</platform>
+                        <!-- Replace with your own path or export ANDROID_HOME-->
                         <path>/home/germede/Android/Sdk</path>
                     </sdk>
+
                 </configuration>
             </plugin>
 
@@ -45,6 +49,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>
                 <executions>
                     <execution>
                         <!--Generate fat jar (jar-with-dependencies) by default alongside with normal jar-->
@@ -69,12 +74,6 @@
                 </configuration>
             </plugin>
 
-            <!--It's always nice to have some auto-generated docs-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-            </plugin>
         </plugins>
     </build>
 </project>
