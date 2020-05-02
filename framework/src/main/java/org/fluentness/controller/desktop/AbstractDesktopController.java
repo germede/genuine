@@ -43,6 +43,7 @@ public abstract class AbstractDesktopController<V extends AbstractDesktopView> i
             Action annotation = action.getAnnotation(Action.class);
             // todo support hierarchy
             // todo remove dependency on Swing
+            // todo dont use static getBYId implement own methods on DesktopView
             String selector = annotation.selector();
             if (selector.startsWith("#")) {
                 Swing byId = Swing.getById(selector.replace("#", ""));

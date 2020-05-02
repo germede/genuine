@@ -32,7 +32,7 @@ public class WebView extends AbstractWebView {
                     label(FOR + "burger", CLASS + "burger pseudo button", _menu),
                     div(CLASS + "menu",
                         a(ID + "notes", CLASS + "pseudo button", _notes),
-                        a(ID + "calendar", CLASS + "pseudo button", _calendar),
+                        a(ID + "events", CLASS + "pseudo button", _events),
                         a(ID + "bookmarks", CLASS + "pseudo button", "Bookmarks"),
                         a(ID + "users", CLASS + "pseudo button", _users)
                     )

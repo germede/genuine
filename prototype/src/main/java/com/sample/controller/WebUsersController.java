@@ -8,13 +8,13 @@ import static com.sample.service.Translator.*;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
-public class WebUsersController extends AbstractWebController<WebView> {
+public class WebUsersController extends AbstractWebController {
 
     private final UserRepository userRepository;
 
     @BasePath("/users")
     public WebUsersController(UserRepository userRepository) {
-        super(new WebView());
+        super(WebView.class);
         this.userRepository = userRepository;
     }
 

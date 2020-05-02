@@ -13,18 +13,18 @@ import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.HREF;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
-public class WebCalenderController extends AbstractWebController<WebView> {
+public class WebEventsController extends AbstractWebController {
 
     private final Calendar calendar;
 
-    @BasePath("/calendar")
-    public WebCalenderController(Calendar calendar) {
-        super(new WebView());
+    @BasePath("/events")
+    public WebEventsController(Calendar calendar) {
+        super(WebView.class);
         this.calendar = calendar;
     }
 
     @Action(path = "/")
-    Html calendar(int year, int month) {
+    Html events(int year, int month) {
         YearMonth current = (year == 0 && month == 0) ? YearMonth.now() : YearMonth.of(year, month);
         YearMonth previous = current.minusMonths(1);
         YearMonth next = current.plusMonths(1);
@@ -34,10 +34,10 @@ public class WebCalenderController extends AbstractWebController<WebView> {
                 i(CLASS + "icono-calendar"),
                 current.format(DateTimeFormatter.ofPattern("MMMM y", request.get().getLocale())),
                 div(CLASS + "right",
-                    a(HREF + "/calendar?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),
+                    a(HREF + "/events/?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),
                         i(CLASS + "icono-caretLeftCircle")
                     ),
-                    a(HREF + "/calendar?year=" + next.getYear() + "&month=" + next.getMonthValue(),
+                    a(HREF + "/events/?year=" + next.getYear() + "&month=" + next.getMonthValue(),
                         i(CLASS + "icono-caretRightCircle")
                     )
                 )
