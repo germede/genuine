@@ -20,6 +20,7 @@
         <url>https://github.com/germede/fluentness/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
+
     <!--With parameters (making web action method references work on runtime)-->
     <build>
         <plugins>
@@ -28,8 +29,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>8</source>
+                    <target>8</target>
                     <encoding>UTF-8</encoding>
                     <parameters>true</parameters>
                 </configuration>
