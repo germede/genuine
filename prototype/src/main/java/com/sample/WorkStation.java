@@ -8,7 +8,7 @@ import org.fluentness.service.persistence.JdbcPersistence;
 
 import java.util.List;
 
-import static org.fluentness.Application.Platform.WEB;
+import static org.fluentness.Application.Platform.DESKTOP;
 
 public class WorkStation implements Application {
 
@@ -20,6 +20,6 @@ public class WorkStation implements Application {
     }
 
     public static void main(String[] args) throws FluentnessException {
-        Fluentness.launch(new WorkStation()).on(WEB, args);
+        Fluentness.launch(new WorkStation()).on(DESKTOP, args);
     }
 }

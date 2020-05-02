@@ -62,7 +62,7 @@ public final class Fluentness {
                     List<AbstractDesktopController> instances = getInstances(AbstractDesktopController.class);
                     for (AbstractDesktopController controller : instances) {
 //                controller.getDesktop().getStyle().apply();
-                        controller.view().getTemplate().render();
+                        controller.getView().getTemplate().render();
                         controller.setListeners();
                     }
                     break;

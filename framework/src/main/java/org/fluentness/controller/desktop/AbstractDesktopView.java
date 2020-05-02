@@ -3,19 +3,11 @@ package org.fluentness.controller.desktop;
 import org.fluentness.controller.desktop.template.DesktopTemplate;
 import org.fluentness.controller.desktop.style.DesktopStyle;
 
-public abstract class AbstractDesktopView<C extends AbstractDesktopController> {
+public abstract class AbstractDesktopView {
 
-    private C controller;
-
-    final void setController(C controller) {
-        this.controller = controller;
+    public DesktopStyle getStyle() {
+        return null;
     }
-
-    protected final C controller() {
-        return controller;
-    }
-
-    public abstract DesktopStyle getStyle();
 
     public abstract DesktopTemplate getTemplate();
 }

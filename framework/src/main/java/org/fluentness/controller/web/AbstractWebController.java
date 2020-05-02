@@ -30,7 +30,6 @@ public abstract class AbstractWebController implements Controller {
     public AbstractWebController(Class<? extends AbstractWebView> viewClass) {
         if (!viewInstances.containsKey(viewClass)) {
             try {
-                // only views with empty constructor are allowed
                 viewInstances.put(viewClass, viewClass.getConstructors()[0].newInstance());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
