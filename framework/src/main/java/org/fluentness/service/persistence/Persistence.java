@@ -19,11 +19,15 @@ public interface Persistence extends Service {
         return "id";
     }
 
-    <M extends Model> M retrieve(Class<M> modelClass, long id);
+    <M extends Model> M retrieve(Class<M> modelClass, int id);
 
     <M extends Model> List<M> retrieve(Class<M> modelClass, Condition... conditions);
 
     int persist(Model model);
 
-    int remove(Model model);
+    <M extends Model> int remove(Class<M> modelClass, int id);
+
+    default int remove(Model model) {
+        return remove(model.getClass(), model.getId());
+    }
 }

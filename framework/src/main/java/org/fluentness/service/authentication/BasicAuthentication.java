@@ -5,20 +5,10 @@ import org.fluentness.service.server.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-public abstract class AbstractAuthentication implements Authentication {
+public abstract class BasicAuthentication implements Authentication {
 
     @Override
-    public Response handle(Request request, ResponseLambda success) {
-        if (authenticate(request)) {
-            return success.response();
-        }
-        return request.makeResponse(ResponseStatusCode.UNAUTHORIZED).addHeader(
-            ResponseHeader.WWW_AUTHENTICATE, AuthenticationType.BASIC.toString()
-        );
-    }
-
-    protected boolean authenticate(Request request) {
-
+    public boolean authorize(Request request) {
         String authorizationHeader = request.getHeader(RequestHeader.AUTHORIZATION);
         String prefix = AuthenticationType.BASIC.toString();
         if (authorizationHeader != null && authorizationHeader.startsWith(prefix)) {
@@ -28,10 +18,16 @@ public abstract class AbstractAuthentication implements Authentication {
                 ),
                 StandardCharsets.UTF_8
             ).split(":", 2);
-
             return authorize(credentials[0], credentials[1]);
         }
         return false;
+    }
+
+    @Override
+    public Response demandCredentials(Request request) {
+        return request.makeResponse(ResponseStatusCode.UNAUTHORIZED).addHeader(
+            ResponseHeader.WWW_AUTHENTICATE, AuthenticationType.BASIC.toString()
+        );
     }
 
     protected abstract boolean authorize(String username, String password);

@@ -6,8 +6,13 @@ import org.fluentness.service.server.Response;
 public class DefaultAuthentication implements Authentication {
 
     @Override
-    public Response handle(Request request, ResponseLambda success) {
-        return success.response();
+    public boolean authorize(Request request) {
+        return true;
+    }
+
+    @Override
+    public Response demandCredentials(Request request) {
+        return null;
     }
 
 }

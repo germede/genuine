@@ -58,7 +58,7 @@ public abstract class AbstractWebController implements Controller {
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Action {
 
-        String path();
+        String path() default "";
 
         RequestMethod method() default GET;
 

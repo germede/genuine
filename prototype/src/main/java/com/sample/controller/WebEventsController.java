@@ -23,7 +23,7 @@ public class WebEventsController extends AbstractWebController {
         this.calendar = calendar;
     }
 
-    @Action(path = "/")
+    @Action
     Html events(int year, int month) {
         YearMonth current = (year == 0 && month == 0) ? YearMonth.now() : YearMonth.of(year, month);
         YearMonth previous = current.minusMonths(1);
@@ -34,10 +34,10 @@ public class WebEventsController extends AbstractWebController {
                 i(CLASS + "icono-calendar"),
                 current.format(DateTimeFormatter.ofPattern("MMMM y", request.get().getLocale())),
                 div(CLASS + "right",
-                    a(HREF + "/events/?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),
+                    a(HREF + "/events?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),
                         i(CLASS + "icono-caretLeftCircle")
                     ),
-                    a(HREF + "/events/?year=" + next.getYear() + "&month=" + next.getMonthValue(),
+                    a(HREF + "/events?year=" + next.getYear() + "&month=" + next.getMonthValue(),
                         i(CLASS + "icono-caretRightCircle")
                     )
                 )

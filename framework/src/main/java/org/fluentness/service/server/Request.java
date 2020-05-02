@@ -40,6 +40,8 @@ public interface Request {
 
     URI getUri();
 
+    boolean hasParameter(String name);
+
     String getParameter(String name);
 
     InputStream getBody();

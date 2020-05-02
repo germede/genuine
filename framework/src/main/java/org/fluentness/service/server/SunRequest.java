@@ -60,6 +60,11 @@ public class SunRequest implements Request {
     }
 
     @Override
+    public boolean hasParameter(String name) {
+        return getParameters.containsKey(name);
+    }
+
+    @Override
     public String getParameter(String name) {
         return getParameters.get(name);
     }

@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.nio.charset.StandardCharsets;
@@ -40,48 +41,53 @@ public class DefaultRouter implements Router {
     public Response handle(Request request) {
         AbstractWebController.request.set(request);
 
+        Response response;
         try {
             String path = request.getMethod() + " " + request.getUri().getPath();
             if (path.startsWith("GET /resources")) {
-                return handleStaticFile(request);
+                response = handleStaticFile(request);
             } else if (routes.containsKey(path)) {
-                return authentication.handle(request, () -> executeWebAction(routes.get(path), request));
+                response = authentication.authorize(request) ?
+                    executeWebAction(routes.get(path), request) :
+                    authentication.demandCredentials(request);
+            } else {
+                response = request.makeResponse(ResponseStatusCode.NOT_FOUND);
             }
-            return request.makeResponse(ResponseStatusCode.NOT_FOUND);
         } catch (Throwable cause) {
+            response = request.makeResponse(ResponseStatusCode.INTERNAL_SERVER_ERROR);
             log.error(cause);
         }
-        return request.makeResponse(ResponseStatusCode.INTERNAL_SERVER_ERROR);
+
+        if (response.getCode() >= 400 && routes.containsKey("GET /" + response.getCode())) {
+            response = executeWebAction(routes.get("GET /" + response.getCode()), request);
+        }
+        return response;
     }
 
-    private Response handleStaticFile(Request request) {
+    private Response handleStaticFile(Request request) throws IOException {
         String path = request.getUri().getPath().replace("/resources/", "");
         InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(path);
         if (resourceAsStream != null) {
-            try {
-                BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(
-                        resourceAsStream,
-                        StandardCharsets.UTF_8
-                    )
-                );
-                StringBuilder result = new StringBuilder();
-                String line;
-                while (true) {
-                    if (!((line = reader.readLine()) != null)) break;
-                    result.append(line);
-                }
-                return request.makeResponse(ResponseStatusCode.OK)
-                    .setBody(result.toString())
-                    .addHeader(
-                        ResponseHeader.CONTENT_TYPE,
-                        path.startsWith("css") ? "text/css" :
-                            path.startsWith("js") ? "application/javascript" :
-                                "image/png"
-                    );
-            } catch (IOException e) {
-                log.error(e);
+            BufferedReader reader = new BufferedReader(
+                new InputStreamReader(
+                    resourceAsStream,
+                    StandardCharsets.UTF_8
+                )
+            );
+            StringBuilder result = new StringBuilder();
+            String line;
+            while (true) {
+                if (!((line = reader.readLine()) != null)) break;
+                result.append(line);
             }
+            return request.makeResponse(ResponseStatusCode.OK)
+                .setBody(result.toString())
+                .addHeader(
+                    ResponseHeader.CONTENT_TYPE,
+                    path.startsWith("css") ? "text/css" :
+                        path.startsWith("js") ? "application/javascript" :
+                            "image/png"
+                );
         }
         return request.makeResponse(ResponseStatusCode.NOT_FOUND);
     }
@@ -90,10 +96,11 @@ public class DefaultRouter implements Router {
         AbstractWebController webController = Fluentness.getInstance(
             (Class<? extends AbstractWebController>) action.getDeclaringClass()
         );
+        action.setAccessible(true);
+        Object[] args = prepareArgs(action, request);
+        Object returned = null;
         try {
-            action.setAccessible(true);
-            Object[] args = prepareArgs(action, request);
-            Object returned = action.getParameterCount() > 0 ?
+            returned = action.getParameterCount() > 0 ?
                 action.invoke(webController, args) :
                 action.invoke(webController);
             if (returned instanceof String) {
@@ -106,7 +113,7 @@ public class DefaultRouter implements Router {
                 return (Response) returned;
             }
             return request.makeResponse(ResponseStatusCode.NOT_IMPLEMENTED);
-        } catch (Throwable e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             log.error(e);
         }
         return request.makeResponse(ResponseStatusCode.INTERNAL_SERVER_ERROR);
@@ -117,17 +124,18 @@ public class DefaultRouter implements Router {
         Object[] result = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
             Parameter parameter = parameters[i];
-            if (Request.class.isAssignableFrom(parameter.getType())) {
+            Class<?> type = parameter.getType();
+            String name = parameter.getName();
+            if (Request.class.isAssignableFrom(type)) {
                 result[i] = request;
-            } else if (int.class.isAssignableFrom(parameter.getType())) {
-                try {
-                    int integer = Integer.parseInt(request.getParameter(parameter.getName()));
-                    result[i] = integer;
-                } catch (NumberFormatException e) {
-                    result[i] = 0;
-                }
-            } else if (String.class.isAssignableFrom(parameter.getType())) {
-                result[i] = request.getParameter(parameter.getName());
+            } else if (int.class.isAssignableFrom(type)) {
+                result[i] = request.hasParameter(name) ? Integer.parseInt(request.getParameter(name)) : 0;
+            } else if (boolean.class.isAssignableFrom(type)) {
+                result[i] = request.hasParameter(name) ? Boolean.parseBoolean(request.getParameter(name)) : false;
+            } else if (float.class.isAssignableFrom(type)) {
+                result[i] = request.hasParameter(name) ? Float.parseFloat(request.getParameter(name)) : 0.0f;
+            } else if (String.class.isAssignableFrom(type)) {
+                result[i] = request.hasParameter(name) ? request.getParameter(name) : "";
             }
         }
         return result;

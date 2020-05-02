@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public interface Model extends Serializable {
 
-    long getId();
+    int getId();
 
-    void setId(long id);
+    void setId(int id);
 }

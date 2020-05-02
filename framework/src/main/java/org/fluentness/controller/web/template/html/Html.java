@@ -45,7 +45,12 @@ public abstract class Html implements WebTemplate {
     private void handleIdAttribute(String value) {
         if (AbstractWebController.methodPathMap.containsKey(value)) {
             String path = AbstractWebController.methodPathMap.get(value);
-            attributes.append(" href=\"").append(path).append("\"");
+            if(tag.equals("form")) {
+                attributes.append(" action=\"").append(path).append("\"");
+            } else {
+                attributes.append(" href=\"").append(path).append("\"");
+            }
+
             if (AbstractWebController.request.get().getUri().toString().startsWith(path)) {
                 attributes.append(" data=\"").append("current").append("\"");
             }

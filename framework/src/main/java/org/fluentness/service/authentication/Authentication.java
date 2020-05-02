@@ -6,10 +6,7 @@ import org.fluentness.service.server.Response;
 
 public interface Authentication extends Service {
 
-    Response handle(Request request, ResponseLambda success);
+    boolean authorize(Request request);
 
-    @FunctionalInterface
-    interface ResponseLambda {
-        Response response();
-    }
+    Response demandCredentials(Request request);
 }

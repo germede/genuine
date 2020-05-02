@@ -44,7 +44,7 @@ public class JdbcPersistence implements Persistence {
     }
 
     @Override
-    public <M extends Model> M retrieve(Class<M> modelClass, long id) {
+    public <M extends Model> M retrieve(Class<M> modelClass, int id) {
         List<M> retrieve = retrieve(
             modelClass,
             "SELECT * FROM " + getTableName(modelClass) + " WHERE " + getIdName() + " = " + id
@@ -74,14 +74,14 @@ public class JdbcPersistence implements Persistence {
             for (int i = 0; i < declaredFields.length; i++) {
                 Field field = declaredFields[i];
                 field.setAccessible(true);
-                insert.append(i == 0 ? "" : ", ").append(field.get(model));
-                update.append(i == 0 ? "" : ", ").append(field.getName()).append(" = ").append(field.get(model));
+                insert.append(i == 0 ? "'" : ", '").append(field.get(model)).append("'");
+                update.append(i == 0 ? "" : ", ").append(field.getName()).append(" = '").append(field.get(model)).append("'");
             }
 
             String sql = "INSERT INTO " + getTableName(model) + "(" + into + ") " +
                 "VALUES (" + insert + ") " +
                 "ON DUPLICATE KEY UPDATE " + update;
-
+            log.debug(sql);
             try (Statement statement = connection.createStatement()) {
                 return statement.executeUpdate(sql);
             } catch (Exception e) {
@@ -94,9 +94,11 @@ public class JdbcPersistence implements Persistence {
     }
 
     @Override
-    public int remove(Model model) {
+    public <M extends Model> int remove(Class<M> modelClass, int id) {
         try (Statement statement = connection.createStatement()) {
-            return statement.executeUpdate("DELETE FROM " + getTableName(model) + " WHERE " + getIdName() + " = " + model.getId());
+            String sql = "DELETE FROM " + getTableName(modelClass) + " WHERE " + getIdName() + " = " + id;
+            log.debug(sql);
+            return statement.executeUpdate(sql);
         } catch (Exception e) {
             log.error(e);
         }
@@ -107,6 +109,7 @@ public class JdbcPersistence implements Persistence {
         List<M> result = new LinkedList<>();
         ResultSet resultSet = null;
         try {
+            log.debug(sql);
             resultSet = connection.createStatement().executeQuery(sql);
             while (resultSet.next()) {
                 result.add(instantiate(modelClass, resultSet));
@@ -136,7 +139,9 @@ public class JdbcPersistence implements Persistence {
                     preparedParameters[i] = resultSet.getDate(name);
                 }
             }
-            return (M) constructor.newInstance(preparedParameters);
+            M m = (M) constructor.newInstance(preparedParameters);
+            m.setId(resultSet.getInt(getIdName()));
+            return m;
         } catch (SQLException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             log.error(e);
         }

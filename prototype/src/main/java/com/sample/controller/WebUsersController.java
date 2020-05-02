@@ -1,5 +1,6 @@
 package com.sample.controller;
 
+import com.sample.repository.User;
 import com.sample.repository.UserRepository;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.html.Html;
@@ -18,7 +19,7 @@ public class WebUsersController extends AbstractWebController {
         this.userRepository = userRepository;
     }
 
-    @Action(path = "/")
+    @Action
     Html users() {
         return div(
             table(
@@ -26,7 +27,9 @@ public class WebUsersController extends AbstractWebController {
                     tr(
                         td(i(CLASS + "icono-user"), user.getUsername()),
                         td(CLASS + "right",
-                            i(CLASS + "icono-trash"),
+                            a(HREF + "/users/delete?id=" + user.getId(),
+                                i(CLASS + "icono-trash")
+                            ),
                             i(CLASS + "icono-sliders")
                         )
                     )
@@ -36,23 +39,35 @@ public class WebUsersController extends AbstractWebController {
             div(CLASS + "modal",
                 input(ID + "new-user-modal", TYPE + "checkbox"),
                 label(FOR + "new-user-modal", CLASS + "overlay"),
-                article(
-                    header(
-                        h3(_create),
-                        label(FOR + "new-user-modal", CLASS + "close", "&times;")
-                    ),
-                    section(CLASS + "content",
-                        form(
-                            input(TYPE + "text", PLACEHOLDER + _user_username),
-                            input(TYPE + "password", PLACEHOLDER + _user_password)
+                form(ID + "newUser", METHOD + "GET",
+                    article(
+                        header(
+                            h3(_create),
+                            label(FOR + "new-user-modal", CLASS + "close", "&times;")
+                        ),
+                        section(CLASS + "content",
+                            input(NAME + "username", TYPE + "text", PLACEHOLDER + _user_username),
+                            input(NAME + "password", TYPE + "password", PLACEHOLDER + _user_password)
+                        ),
+                        footer(
+                            label(FOR + "new-user-modal", CLASS + "button", _cancel),
+                            input(TYPE + "submit", CLASS + "button right success", _submit)
                         )
-                    ),
-                    footer(
-                        label(FOR + "new-user-modal", CLASS + "button", _cancel),
-                        a(CLASS + "button right success", _submit)
                     )
                 )
             )
         );
+    }
+
+    @Action(path = "/new")
+    Html newUser(String username, String password) {
+        userRepository.insert(new User(username, password));
+        return users();
+    }
+
+    @Action(path = "/delete")
+    Html deleteUser(int id) {
+        userRepository.delete(id);
+        return users();
     }
 }

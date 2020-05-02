@@ -24,7 +24,7 @@ public abstract class AbstractRepository<M extends Model> implements Repository<
     }
 
     @Override
-    public M select(long id) {
+    public M select(int id) {
         return persistence.retrieve(modelClass, id);
     }
 
@@ -53,5 +53,9 @@ public abstract class AbstractRepository<M extends Model> implements Repository<
         return persistence.remove(model);
     }
 
+    @Override
+    public int delete(int id) {
+        return persistence.remove(modelClass, id);
+    }
 
 }

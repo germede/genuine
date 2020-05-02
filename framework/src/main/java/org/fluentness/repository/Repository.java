@@ -8,7 +8,7 @@ public interface Repository<M extends Model> extends ApplicationComponent {
 
     Class<M> getModelClass();
 
-    M select(long id);
+    M select(int id);
 
     List<M> select();
 
@@ -20,4 +20,5 @@ public interface Repository<M extends Model> extends ApplicationComponent {
 
     int delete(M model);
 
+    int delete(int id);
 }

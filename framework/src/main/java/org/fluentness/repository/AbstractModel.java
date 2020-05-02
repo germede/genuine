@@ -2,19 +2,19 @@ package org.fluentness.repository;
 
 public abstract class AbstractModel implements Model {
 
-    private long id;
+    private int id;
 
     public AbstractModel() {
         this.id = 0;
     }
 
     @Override
-    public long getId() {
+    public int getId() {
         return id;
     }
 
     @Override
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

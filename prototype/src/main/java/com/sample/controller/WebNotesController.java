@@ -18,7 +18,7 @@ public class WebNotesController extends AbstractWebController {
         this.noteRepository = noteRepository;
     }
 
-    @Action(path = "/")
+    @Action
     Html notes() {
         return div(
             table(

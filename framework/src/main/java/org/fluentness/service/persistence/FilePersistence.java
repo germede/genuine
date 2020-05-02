@@ -23,7 +23,7 @@ public class FilePersistence implements Persistence {
     }
 
     @Override
-    public <M extends Model> M retrieve(Class<M> modelClass, long id) {
+    public <M extends Model> M retrieve(Class<M> modelClass, int id) {
         try {
             FileInputStream fileIn = new FileInputStream(getFilePath(modelClass, id));
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -42,7 +42,7 @@ public class FilePersistence implements Persistence {
         // todo implement conditions
         File[] records = new File(getFileDirectory(modelClass)).listFiles();
         return Arrays.stream(records != null ? records : new File[0])
-            .map(file -> retrieve(modelClass, Long.parseLong(file.getName())))
+            .map(file -> retrieve(modelClass, Integer.parseInt(file.getName())))
             .collect(Collectors.toList());
     }
 
@@ -70,9 +70,9 @@ public class FilePersistence implements Persistence {
     }
 
     @Override
-    public int remove(Model model) {
+    public <M extends Model> int remove(Class<M> modelClass, int id) {
         try {
-            Files.delete(Paths.get(getFilePath(model.getClass(), model.getId())));
+            Files.delete(Paths.get(getFilePath(modelClass, id)));
             return 1;
         } catch (IOException e) {
             log.error(e);
@@ -80,11 +80,11 @@ public class FilePersistence implements Persistence {
         return 0;
     }
 
-    private long getNewID(Model model) {
+    private int getNewID(Model model) {
         try {
             // search for an unused id
             String[] list = new File(getFileDirectory(model.getClass())).list();
-            long id;
+            int id;
             if (list != null) {
                 id = list.length;
                 while (Files.exists(Paths.get(getFilePath(model.getClass(), id)))) {
@@ -101,7 +101,7 @@ public class FilePersistence implements Persistence {
         return 0;
     }
 
-    private <M extends Model> String getFilePath(Class<M> modelClass, long id) {
+    private <M extends Model> String getFilePath(Class<M> modelClass, int id) {
         return getFileDirectory(modelClass) + "/" + id;
     }
 
