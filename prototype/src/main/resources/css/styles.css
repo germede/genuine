@@ -35,6 +35,10 @@ div.wrapper {
     margin: 0 auto;
 }
 
+[class*="icono-"] {
+    transform: scale(0.8);
+}
+
 .calendar span {
     text-align: center;
 }

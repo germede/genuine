@@ -40,26 +40,34 @@ public final class FinalInjection implements Injection {
     @Override
     public Map<Class, Object> inject(Application application) throws InjectionException {
         instances = new HashMap<>();
-        inject(application.getServices());
-        inject(defaultServices);
+
+        List<Class<? extends Service>> services = application.getServices();
+        services.addAll(defaultServices);
+        inject(services);
+
         inject(application.getRepositories());
-        inject(application.getControllers());
-        inject(defaultControllers);
+
+        List<Class<? extends Controller>> controllers = application.getControllers();
+        controllers.addAll(defaultControllers);
+        inject(controllers);
+
         return instances;
     }
 
     private <I extends ApplicationComponent> void inject(List<Class<? extends I>> classes) throws
         InjectionException {
         List<Class<? extends I>> notInstantiated = new LinkedList<>();
+        List<Class<? extends I>> keysToIgnore = new LinkedList<>();
         for (Class<? extends I> clazz : classes) {
             Class key = getKey(clazz);
-            if (!instances.containsKey(key)) {
+            if (!keysToIgnore.contains(key)) {
                 Object instance = instantiate(clazz);
                 if (instance instanceof Class) {
                     notInstantiated.add(clazz);
                 } else {
                     instances.put(key, instance);
                 }
+                keysToIgnore.add(key);
             }
         }
         if (notInstantiated.size() >= classes.size()) {

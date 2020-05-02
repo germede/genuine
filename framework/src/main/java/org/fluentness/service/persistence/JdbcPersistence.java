@@ -34,7 +34,7 @@ public class JdbcPersistence implements Persistence {
     public <M extends Model> M retrieve(Class<M> modelClass, long id) {
         List<M> retrieve = retrieve(
             modelClass,
-            "SELECT * FROM " + modelClass.getSimpleName().toLowerCase() + " WHERE id = " + id
+            "SELECT * FROM " + getTableName(modelClass) + " WHERE id = " + id
         );
         return retrieve.size() > 0 ? retrieve.get(0) : null;
     }
@@ -44,8 +44,8 @@ public class JdbcPersistence implements Persistence {
         return retrieve(
             modelClass,
             conditions.length > 0 ?
-                "SELECT * FROM " + modelClass.getSimpleName().toLowerCase() + " WHERE " + String.join(" AND ", conditions) :
-                "SELECT * FROM " + modelClass.getSimpleName().toLowerCase()
+                "SELECT * FROM " + getTableName(modelClass) + " WHERE " + String.join(" AND ", conditions) :
+                "SELECT * FROM " + getTableName(modelClass)
         );
     }
 
@@ -64,7 +64,7 @@ public class JdbcPersistence implements Persistence {
                 update.append(i == 0 ? "" : ", ").append(field.getName()).append(" = ").append(field.get(model));
             }
 
-            String sql = "INSERT INTO " + model.getClass().getSimpleName().toLowerCase() + "(" + into + ") " +
+            String sql = "INSERT INTO " + getTableName(model) + "(" + into + ") " +
                 "VALUES (" + insert + ") " +
                 "ON DUPLICATE KEY UPDATE " + update;
 
@@ -82,7 +82,7 @@ public class JdbcPersistence implements Persistence {
     @Override
     public int remove(Model model) {
         try (Statement statement = connection.createStatement()) {
-            return statement.executeUpdate("DELETE FROM " + model.getClass().getSimpleName().toLowerCase() + " WHERE id = " + model.getId());
+            return statement.executeUpdate("DELETE FROM " + getTableName(model) + " WHERE id = " + model.getId());
         } catch (Exception e) {
             log.error(e);
         }

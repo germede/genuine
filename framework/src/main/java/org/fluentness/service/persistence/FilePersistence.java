@@ -106,6 +106,6 @@ public class FilePersistence implements Persistence {
     }
 
     private <M extends Model> String getFileDirectory(Class<M> modelClass) {
-        return "data/" + modelClass.getSimpleName().toLowerCase();
+        return "data/" + getTableName(modelClass);
     }
 }

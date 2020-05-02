@@ -8,19 +8,20 @@ import org.fluentness.service.server.Server;
 
 import javax.swing.*;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class Fluentness {
 
     private static Map<Class, Object> instances;
 
-    public static <A extends ApplicationComponent> A[] getInstances(Class<A> parent) {
-        return (A[]) instances.values().stream()
-                .filter(value -> parent.isAssignableFrom(value.getClass()))
-                .toArray();
+    public static <A extends ApplicationComponent> List<A> getInstances(Class<A> parent) {
+        List<A> list = new ArrayList<>();
+        for (Object value : instances.values()) {
+            if (parent.isAssignableFrom(value.getClass())) {
+                list.add((A) value);
+            }
+        }
+        return list;
     }
 
     public static <A extends ApplicationComponent> A getInstance(Class<A> parent) {
@@ -46,23 +47,19 @@ public final class Fluentness {
                     if (args == null) {
                         throw new IllegalArgumentException("Passed args array was null");
                     }
-                    String name = args.length == 0 ? "help" : args[0];
-                    List<Method> actions = new LinkedList<>();
-                    Arrays.stream(getInstances(AbstractConsoleController.class))
-                        .forEach(controller -> actions.addAll(Arrays.asList(controller.getActions())));
-                    Method toExecute = actions
-                        .stream()
-                        .filter(action -> action.getName().equals(name))
-                        .findFirst()
-                        .orElseThrow(() -> new IllegalArgumentException("No such command with name " + name + " found"));
-                    Class<? extends org.fluentness.controller.Controller> declaringClass =
-                        (Class<? extends org.fluentness.controller.Controller>) toExecute.getDeclaringClass();
+                    Map<String, Method> nameActionMap = AbstractConsoleController.nameActionMap;
+                    String name = args.length == 0 || !nameActionMap.containsKey(args[0]) ? "help" : args[0];
+                    Method toExecute = nameActionMap.get(name);
                     toExecute.setAccessible(true);
-                    toExecute.invoke(getInstance(declaringClass));
+                    toExecute.invoke(
+                        getInstance(
+                            (Class<? extends org.fluentness.controller.Controller>) toExecute.getDeclaringClass()
+                        )
+                    );
                     break;
                 case DESKTOP:
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    AbstractDesktopController[] instances = getInstances(AbstractDesktopController.class);
+                    List<AbstractDesktopController> instances = getInstances(AbstractDesktopController.class);
                     for (AbstractDesktopController controller : instances) {
 //                controller.getDesktop().getStyle().apply();
                         controller.view().getTemplate().render();

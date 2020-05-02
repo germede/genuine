@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface Repository<M extends Model> extends ApplicationComponent {
 
+    Class<M> getModelClass();
+
     M select(long id);
 
     List<M> select();

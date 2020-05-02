@@ -23,10 +23,10 @@ import static org.fluentness.controller.web.template.html.HtmlFactory.div;
 public class DefaultRouter implements Router {
 
     private final Authentication authentication;
-
-    private final Map<String, Method> routes;
     private final Log log;
     private final Configuration configuration;
+
+    private final Map<String, Method> routes;
 
     public DefaultRouter(Authentication authentication, Log log, Configuration configuration) {
         this.authentication = authentication;

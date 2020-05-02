@@ -20,6 +20,11 @@ public abstract class AbstractRepository<M extends Model> implements Repository<
     }
 
     @Override
+    public Class<M> getModelClass() {
+        return modelClass;
+    }
+
+    @Override
     public M select(long id) {
         return persistence.retrieve(modelClass, id);
     }

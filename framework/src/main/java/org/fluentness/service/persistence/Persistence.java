@@ -12,6 +12,13 @@ public interface Persistence extends Service {
     Setting<String> USERNAME = new Setting<>();
     Setting<String> PASSWORD = new Setting<>();
 
+    default String getTableName(Model model) {
+        return getTableName(model.getClass());
+    }
+
+    default String getTableName(Class<? extends Model> modelClass) {
+        return modelClass.getSimpleName().toLowerCase();
+    }
 
     <M extends Model> M retrieve(Class<M> modelClass, long id);
 
