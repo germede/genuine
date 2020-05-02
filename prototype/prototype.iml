@@ -11,9 +11,12 @@
       <sourceFolder url="file://$MODULE_DIR$/app/src/main/res" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/app/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/app/build" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
+      <excludeFolder url="file://$MODULE_DIR$/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target/generated-sources/aidl" />
+      <excludeFolder url="file://$MODULE_DIR$/target/generated-sources/annotations" />
+      <excludeFolder url="file://$MODULE_DIR$/target/maven-status" />
     </content>
-    <orderEntry type="jdk" jdkName="Maven Android API 28 Platform" jdkType="Android SDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="framework" />
   </component>

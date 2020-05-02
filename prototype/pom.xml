@@ -13,7 +13,7 @@
     <artifactId>prototype</artifactId>
 
     <!--Even if packaging is set to apk, a ready-to-use jar file (for non-Android platforms) will be generated-->
-    <packaging>jar</packaging>
+    <packaging>apk</packaging>
 
     <dependencies>
         <dependency>
@@ -26,6 +26,20 @@
 
     <build>
         <plugins>
+            <!--Don't forget to export ANDROID_HOME-->
+
+            <plugin>
+                <groupId>com.simpligility.maven.plugins</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>4.6.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <sdk>
+                        <platform>24</platform>
+                        <path>/home/germede/Android/Sdk</path>
+                    </sdk>
+                </configuration>
+            </plugin>
 
             <!--In order to make standalone apps, assembly plugin is used instead of jar, for including dependencies-->
             <plugin>
