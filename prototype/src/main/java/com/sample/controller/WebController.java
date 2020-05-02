@@ -37,17 +37,19 @@ public class WebController extends AbstractWebController<WebView> {
     @Action(path = "/users", selector = "#users")
     Html users() {
         return div(
-            h1(_users),
-            table(
+            table(CLASS + "pure-table",
                 thead(
                     th(_user_username),
-                    th(_user_password)
+                    th()
                 ),
                 tbody(
                     forEach(userRepository.select(), user ->
                         tr(
-                            td(user.getUsername()),
-                            td("SECRET")
+                            td(i(CLASS + "icono-user"), user.getUsername()),
+                            td(
+                                i(CLASS + "icono-trash right"),
+                                i(CLASS + "icono-sliders right")
+                            )
                         )
                     )
                 )
