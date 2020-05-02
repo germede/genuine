@@ -131,11 +131,13 @@ public class JdbcPersistence implements Persistence {
                 Class<?> type = parameter.getType();
                 if (type.equals(String.class)) {
                     preparedParameters[i] = resultSet.getString(name);
-                } else if (type.equals(Integer.class) || type.equals(int.class)) {
+                } else if (int.class.isAssignableFrom(type)) {
                     preparedParameters[i] = resultSet.getInt(name);
-                } else if (type.equals(Boolean.class) || type.equals(boolean.class)) {
+                } else if (float.class.isAssignableFrom(type)) {
+                    preparedParameters[i] = resultSet.getFloat(name);
+                } else if (boolean.class.isAssignableFrom(type)) {
                     preparedParameters[i] = resultSet.getBoolean(name);
-                } else if (type.equals(Date.class)) {
+                } else if (Date.class.isAssignableFrom(type)) {
                     preparedParameters[i] = resultSet.getDate(name);
                 }
             }

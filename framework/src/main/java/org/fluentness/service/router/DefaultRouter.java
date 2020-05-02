@@ -17,6 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
 import java.util.Map;
 
 import static org.fluentness.controller.web.template.html.HtmlFactory.div;
@@ -126,16 +127,19 @@ public class DefaultRouter implements Router {
             Parameter parameter = parameters[i];
             Class<?> type = parameter.getType();
             String name = parameter.getName();
+
             if (Request.class.isAssignableFrom(type)) {
                 result[i] = request;
+            } else if (type.equals(String.class)) {
+                result[i] = request.hasParameter(name) ? request.getParameter(name) : "";
             } else if (int.class.isAssignableFrom(type)) {
                 result[i] = request.hasParameter(name) ? Integer.parseInt(request.getParameter(name)) : 0;
-            } else if (boolean.class.isAssignableFrom(type)) {
-                result[i] = request.hasParameter(name) ? Boolean.parseBoolean(request.getParameter(name)) : false;
             } else if (float.class.isAssignableFrom(type)) {
                 result[i] = request.hasParameter(name) ? Float.parseFloat(request.getParameter(name)) : 0.0f;
-            } else if (String.class.isAssignableFrom(type)) {
-                result[i] = request.hasParameter(name) ? request.getParameter(name) : "";
+            } else if (boolean.class.isAssignableFrom(type)) {
+                result[i] = request.hasParameter(name) ? Boolean.parseBoolean(request.getParameter(name)) : false;
+            } else if (Date.class.isAssignableFrom(type)) {
+                result[i] = request.hasParameter(name) ? Date.parse(request.getParameter(name)) : new Date(0);
             }
         }
         return result;

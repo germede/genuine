@@ -1,3 +1,8 @@
+body {
+    background: #111;
+    color: #fff;
+}
+
 nav {
     background-image: linear-gradient(to right, #088, #408);
     color: white;
