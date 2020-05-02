@@ -9,7 +9,48 @@ import java.util.stream.IntStream;
 
 import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 
-public class Html implements WebTemplate {
+public abstract class Html implements WebTemplate {
+
+    protected final String tag;
+    protected final StringBuilder attributes;
+    protected final StringBuilder inner;
+
+    public Html(String tag, CharSequence[] html) {
+        this.tag = tag;
+        attributes = new StringBuilder();
+        inner = new StringBuilder();
+
+        Translator translator = Fluentness.getInstance(Translator.class);
+        String[] languages = AbstractWebController.request.get().getLanguages();
+
+        for (CharSequence item : html) {
+            String render = item.toString();
+            if (render.startsWith(HtmlAttribute.SEPARATOR)) {
+                // if attribute
+                render = render.substring(SEPARATOR.length());
+                String[] split = render.split(SEPARATOR);
+                String key = split[0];
+                String value = split.length == 2 ? translator.translate(split[1], languages) : "";
+                if (key.equals("id")) {
+                    handleIdAttribute(value);
+                }
+                attributes.append(' ').append(key).append("=\"").append(value).append("\"");
+            } else {
+                // if inner html, do translation
+                inner.append(translator.translate(render, languages));
+            }
+        }
+    }
+
+    private void handleIdAttribute(String value) {
+        if (AbstractWebController.methodPathMap.containsKey(value)) {
+            String path = AbstractWebController.methodPathMap.get(value);
+            attributes.append(" href=\"").append(path).append("\"");
+            if (AbstractWebController.request.get().getUri().toString().startsWith(path)) {
+                attributes.append(" data=\"").append("current").append("\"");
+            }
+        }
+    }
 
     @Override
     public int length() {
@@ -36,44 +77,4 @@ public class Html implements WebTemplate {
         return null;
     }
 
-
-    protected final String tag;
-    protected CharSequence[] html;
-
-    public Html(String tag, CharSequence[] html) {
-        this.tag = tag;
-        this.html = html;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder attributes = new StringBuilder();
-        StringBuilder inner = new StringBuilder();
-        for (CharSequence item : html) {
-            String render = item.toString();
-            if (render.startsWith(HtmlAttribute.ATTR)) {
-                // if attribute, check for actions
-                handleIdAttribute(attributes, render);
-                attributes.append(render.replace(ATTR, " ")).append("\"");
-            } else {
-                // if inner html, do translation
-                inner.append(Fluentness.getInstance(Translator.class)
-                    .translate(render, AbstractWebController.request.get().getLanguages()));
-            }
-        }
-        return "<" + tag + attributes + ">" + inner + "</" + tag + ">";
-    }
-
-    private void handleIdAttribute(StringBuilder attributes, String render) {
-        if (render.startsWith(ID.toString())) {
-            String id = render.substring(render.indexOf("=\"") + 2);
-            if (AbstractWebController.methodPathMap.containsKey(id)) {
-                String path = AbstractWebController.methodPathMap.get(id);
-                attributes.append(" href=\"").append(path).append("\"");
-                if (AbstractWebController.request.get().getUri().toString().startsWith(path)) {
-                    attributes.append(" data=\"").append("current").append("\"");
-                }
-            }
-        }
-    }
 }

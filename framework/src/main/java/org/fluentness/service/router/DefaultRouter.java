@@ -136,14 +136,14 @@ public class DefaultRouter implements Router {
     private Response handleWebView(Request request, AbstractWebController webController, WebTemplate returned) {
         String render;
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
-            render = returned.render();
+            render = returned.toString();
         } else {
             if (configuration.get(SINGLE_PAGE_MODE)) {
-                render = webController.view().getTemplate(div(HtmlAttribute.ID + "ajax-placeholder", returned.toString())).render();
+                render = webController.view().getTemplate(div(HtmlAttribute.ID + "ajax-placeholder", returned.toString())).toString();
                 render = render.replace("</head>", configuration.get(AJAX_HANDLER) + "</head>");
             } else {
                 WebTemplate template = webController.view().getTemplate(returned.toString());
-                render = template.render();
+                render = template.toString();
             }
         }
         return request

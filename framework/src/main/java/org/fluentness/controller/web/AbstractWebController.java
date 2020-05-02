@@ -45,8 +45,6 @@ public abstract class AbstractWebController<V extends AbstractWebView> implement
 
         String path();
 
-        String selector() default "";
-
         RequestMethod method() default GET;
 
         boolean authenticate() default true;

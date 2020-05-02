@@ -115,11 +115,11 @@ public enum HtmlAttribute {
     VALUE,
     WIDTH;
 
-    public static final String ATTR = "#ATTR#";
+    public static final String SEPARATOR = "#ATTR#";
 
     @Override
     public String toString() {
-        return ATTR + name().toLowerCase().replace('_','-') + "=\"";
+        return SEPARATOR + name().toLowerCase().replace('_','-') + SEPARATOR;
     }
 
 

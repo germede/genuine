@@ -1,6 +1,7 @@
 nav {
-    background-image: linear-gradient(to right, blue, purple);
+    background-image: linear-gradient(to right, #088, #408);
     color: white;
+    box-shadow: 0 0 1em rgb(0, 0, 0);
 }
 
 nav .brand {
@@ -17,10 +18,16 @@ nav .menu > * {
 
 nav .show ~ .menu {
     left: 0;
-    right: auto;
+    right: 30%;
     max-width: 100%;
-    width: 70%;
-    transform-origin: center left;
+    width: auto;
+    transform-origin: left;
+    background: transparent;
+    transition: all 1s ease;
+}
+
+nav .show:checked ~ .menu {
+    background: #333;
 }
 
 nav .menu a[data=current] {
@@ -36,7 +43,7 @@ div.wrapper {
 }
 
 [class*="icono-"] {
-    transform: scale(0.8);
+    color: #333;
 }
 
 .calendar span {
@@ -53,4 +60,21 @@ div.wrapper {
 
 table {
     width: 100%;
+}
+
+th {
+    background-color: inherit;
+    color: inherit;
+}
+
+td, th {
+    padding: .3em 2.4em .3em 2.4em;
+}
+
+.button {
+    background: #333;
+}
+
+.button > [class*="icono-"] {
+    color: white;
 }

@@ -31,9 +31,9 @@ public class HtmlCombination implements WebTemplate {
         return null;
     }
 
-    private final Html[] html;
+    private final CharSequence[] html;
 
-    public HtmlCombination(Html[] html) {
+    public HtmlCombination(CharSequence... html) {
         this.html = html;
     }
 

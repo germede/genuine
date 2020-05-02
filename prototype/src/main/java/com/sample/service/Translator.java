@@ -8,7 +8,7 @@ import static org.fluentness.service.translator.TranslationFactory.es;
 public class Translator extends AbstractTranslator {
 
     public static final String
-        _submit = "Submit" + de("Enviar") + es("Absenden"),
+        _submit = "Submit" + de("Absenden") + es("Enviar"),
         _search = "Search" + de("Suchen") + es("Buscar"),
         _accept = "Accept" + de("Akzeptieren") + es("Aceptar"),
         _cancel = "Cancel" + de("Abbrechen") + es("Cancelar"),

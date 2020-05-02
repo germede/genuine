@@ -12,8 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.sample.service.Translator.*;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.HREF;
+import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
 public class WebController extends AbstractWebController<WebView> {
@@ -34,28 +33,44 @@ public class WebController extends AbstractWebController<WebView> {
         return notes();
     }
 
-    @Action(path = "/users", selector = "#users")
+    @Action(path = "/users")
     Html users() {
         return div(
-            table(CLASS + "pure-table",
-                thead(
-                    th(_user_username),
-                    th()
-                ),
-                tbody(
-                    forEach(userRepository.select(), user ->
-                        tr(
-                            td(i(CLASS + "icono-user"), user.getUsername()),
-                            td(
-                                i(CLASS + "icono-trash right"),
-                                i(CLASS + "icono-sliders right")
-                            )
+            table(
+                forEach(userRepository.select(), user ->
+                    tr(
+                        td(i(CLASS + "icono-user"), user.getUsername()),
+                        td(CLASS + "right",
+                            i(CLASS + "icono-trash"),
+                            i(CLASS + "icono-sliders")
                         )
+                    )
+                )
+            ),
+            label(FOR + "new-user-modal", CLASS + "button full", i(CLASS + "icono-plusCircle"), _create),
+            div(CLASS + "modal",
+                input(ID + "new-user-modal", TYPE + "checkbox"),
+                label(FOR + "new-user-modal", CLASS + "overlay"),
+                article(
+                    header(
+                        h3(_create),
+                        label(FOR + "new-user-modal", CLASS + "close", "&times;")
+                    ),
+                    section(CLASS + "content",
+                        form(
+                            input(TYPE + "text", PLACEHOLDER + _user_username),
+                            input(TYPE + "password", PLACEHOLDER + _user_password)
+                        )
+                    ),
+                    footer(
+                        label(FOR + "new-user-modal", CLASS + "button", _cancel),
+                        a(CLASS + "button right success", _submit)
                     )
                 )
             )
         );
     }
+
 
     @Action(path = "/notes")
     Html notes() {
@@ -85,7 +100,7 @@ public class WebController extends AbstractWebController<WebView> {
         );
     }
 
-    @Action(path = "/calendar", selector = "#calendar")
+    @Action(path = "/calendar")
     Html calendar(int year, int month) {
         YearMonth current = (year == 0 && month == 0) ? YearMonth.now() : YearMonth.of(year, month);
         YearMonth previous = current.minusMonths(1);
@@ -93,6 +108,7 @@ public class WebController extends AbstractWebController<WebView> {
         List<LocalDate> days = calendar.getDays(current);
         return div(CLASS + "calendar",
             h2(
+                i(CLASS + "icono-calendar"),
                 current.format(DateTimeFormatter.ofPattern("MMMM y", request.get().getLocale())),
                 div(CLASS + "right",
                     a(HREF + "/calendar?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),
