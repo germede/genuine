@@ -4,7 +4,7 @@ import com.sample.controller.*;
 import com.sample.repository.NoteRepository;
 import com.sample.repository.UserRepository;
 import com.sample.service.Authentication;
-import com.sample.service.CalendarImpl;
+import com.sample.service.calendar.CalendarImpl;
 import com.sample.service.Configuration;
 import org.fluentness.Application;
 import org.fluentness.Fluentness;

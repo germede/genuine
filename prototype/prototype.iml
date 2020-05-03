@@ -7,7 +7,7 @@
         <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/target/generated-sources/aidl" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="CUSTOM_APK_RESOURCE_FOLDER" value="/target/generated-sources/combined-resources/res" />
-        <option name="APK_PATH" value="/target/prototype-0.1.0.apk" />
+        <option name="APK_PATH" value="/target/prototype.apk" />
         <option name="RUN_PROCESS_RESOURCES_MAVEN_TASK" value="false" />
         <option name="COMPILE_CUSTOM_GENERATED_SOURCES" value="false" />
         <includeAssetsFromLibraries>true</includeAssetsFromLibraries>

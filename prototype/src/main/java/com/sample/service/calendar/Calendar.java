@@ -1,4 +1,4 @@
-package com.sample.service;
+package com.sample.service.calendar;
 
 import org.fluentness.service.Service;
 

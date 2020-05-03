@@ -1,6 +1,6 @@
 package com.sample.controller;
 
-import com.sample.service.Calendar;
+import com.sample.service.calendar.Calendar;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.html.Html;
 

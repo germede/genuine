@@ -1,4 +1,4 @@
-package com.sample.service;
+package com.sample.service.calendar;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
