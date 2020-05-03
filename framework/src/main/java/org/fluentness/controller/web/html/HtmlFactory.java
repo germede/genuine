@@ -1,6 +1,6 @@
-package org.fluentness.controller.web.template.html;
+package org.fluentness.controller.web.html;
 
-import org.fluentness.controller.web.template.WebTemplate;
+import org.fluentness.controller.web.WebTemplate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,13 +8,13 @@ import java.util.function.Function;
 
 public final class HtmlFactory {
 
-    public static <T, V extends WebTemplate> CharSequence forEach(Iterable<T> iterable, Function<T, V> function) {
+    public static <T, V extends CharSequence> CharSequence forEach(Iterable<T> iterable, Function<T, V> function) {
         List<V> result = new LinkedList<>();
         iterable.forEach(t -> result.add(function.apply(t)));
         return String.join("", result);
     }
 
-    public static <T, V extends WebTemplate> CharSequence forEach(T[] iterable, Function<T, V> function) {
+    public static <T, V extends CharSequence> CharSequence forEach(T[] iterable, Function<T, V> function) {
         List<V> result = new LinkedList<>();
         for (T t : iterable) {
             result.add(function.apply(t));
@@ -22,7 +22,11 @@ public final class HtmlFactory {
         return String.join("", result);
     }
 
+    public static HtmlTemplate html(CharSequence... html) {
+        return new HtmlTemplate(html);
+    }
     // container html views
+
     public static Html a(CharSequence... html) {
         return new HtmlContainer("a", html);
     }
@@ -221,10 +225,6 @@ public final class HtmlFactory {
 
     public static Html header(CharSequence... html) {
         return new HtmlContainer("header", html);
-    }
-
-    public static WebTemplate html(CharSequence... html) {
-        return new HtmlCombination("<!DOCTYPE html>",new HtmlContainer("html", html));
     }
 
     public static Html i(CharSequence... html) {

@@ -1,4 +1,4 @@
-package org.fluentness.controller.web.template.html;
+package org.fluentness.controller.web.html;
 
 public enum HtmlAttribute {
     ACCEPT,

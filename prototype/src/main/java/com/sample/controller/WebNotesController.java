@@ -2,11 +2,11 @@ package com.sample.controller;
 
 import com.sample.repository.NoteRepository;
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.controller.web.template.html.Html;
+import org.fluentness.controller.web.html.Html;
 
 import static com.sample.Translations.*;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.CLASS;
-import static org.fluentness.controller.web.template.html.HtmlFactory.*;
+import static org.fluentness.controller.web.html.HtmlAttribute.CLASS;
+import static org.fluentness.controller.web.html.HtmlFactory.*;
 
 public class WebNotesController extends AbstractWebController {
 

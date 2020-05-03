@@ -1,4 +1,4 @@
-package org.fluentness.controller.desktop.template.swing;
+package org.fluentness.controller.desktop.swing;
 
 import javax.swing.*;
 

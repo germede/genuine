@@ -1,7 +1,7 @@
-package org.fluentness.controller.mobile.template.android;
+package org.fluentness.controller.mobile.android;
 
 import android.view.View;
-import org.fluentness.controller.mobile.template.MobileTemplate;
+import org.fluentness.controller.mobile.MobileTemplate;
 
 public class Android<V extends View> implements MobileTemplate {
 
@@ -15,8 +15,4 @@ public class Android<V extends View> implements MobileTemplate {
         return view;
     }
 
-    @Override
-    public void render() {
-        view.setVisibility(View.VISIBLE);
-    }
 }

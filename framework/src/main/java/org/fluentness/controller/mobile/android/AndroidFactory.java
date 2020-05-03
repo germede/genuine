@@ -1,4 +1,4 @@
-package org.fluentness.controller.mobile.template.android;
+package org.fluentness.controller.mobile.android;
 
 import android.content.Context;
 import android.widget.LinearLayout;

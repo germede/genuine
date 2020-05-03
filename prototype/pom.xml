@@ -61,21 +61,6 @@
                 </configuration>
             </plugin>
 
-            <!--In order to execute the standalone jar directly from maven (exec:java)-->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <configuration>
-                    <executable>java</executable>
-                    <mainClass>com.sample.WorkStation</mainClass>
-                    <arguments>
-                        <argument>-jar</argument>
-                        <argument>${project.build.outputDirectory}/${project.build.finalName}-jar-with-dependencies.jar</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-
             <!--In order to build android apks, deploy and run them-->
             <plugin>
                 <groupId>com.simpligility.maven.plugins</groupId>

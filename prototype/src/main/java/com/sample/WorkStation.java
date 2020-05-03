@@ -13,7 +13,7 @@ import org.fluentness.service.injection.initer.Controllers;
 import org.fluentness.service.injection.initer.Repositories;
 import org.fluentness.service.injection.initer.Services;
 
-import static org.fluentness.Application.Platform.MOBILE;
+import static org.fluentness.Application.Platform.WEB;
 
 public class WorkStation implements Application {
 
@@ -33,7 +33,7 @@ public class WorkStation implements Application {
             MobileController.class,
             WebController.class, WebEventsController.class, WebNotesController.class, WebUsersController.class
         );
-        return MOBILE;
+        return WEB;
     }
 
     public static void main(String[] args) throws FluentnessException {

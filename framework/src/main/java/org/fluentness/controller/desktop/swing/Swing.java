@@ -1,4 +1,6 @@
-package org.fluentness.controller.desktop.template.swing;
+package org.fluentness.controller.desktop.swing;
+
+import org.fluentness.controller.Template;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,9 +8,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
 
-public class Swing<V extends Container> implements CharSequence {
+public class Swing<V extends Container> implements Template {
 
     private static final Map<String, Swing> ID_MAP = new HashMap<>();
     private static final Map<String, List<Swing>> CLASS_MAP = new HashMap<>();
@@ -21,32 +22,7 @@ public class Swing<V extends Container> implements CharSequence {
         return CLASS_MAP.get(clazz);
     }
 
-    @Override
-    public int length() {
-        return 0;
-    }
-
-    @Override
-    public char charAt(int i) {
-        return 0;
-    }
-
-    @Override
-    public CharSequence subSequence(int i, int i1) {
-        return null;
-    }
-
-    @Override
-    public IntStream chars() {
-        return null;
-    }
-
-    @Override
-    public IntStream codePoints() {
-        return null;
-    }
-
-    private V view;
+    protected V view;
 
     Swing(V view, CharSequence... swings) {
         this.view = view;
@@ -98,7 +74,6 @@ public class Swing<V extends Container> implements CharSequence {
     public V getView() {
         return view;
     }
-
 
     // ==== instead of layout()
 //    public Self borderLayout(String... arrangements) {

@@ -1,14 +1,14 @@
 package com.sample.controller;
 
 import org.fluentness.controller.desktop.DesktopView;
-import org.fluentness.controller.desktop.template.DesktopTemplate;
-import org.fluentness.controller.desktop.template.swing.Swing;
+import org.fluentness.controller.desktop.DesktopTemplate;
+import org.fluentness.controller.desktop.swing.Swing;
 
 import javax.swing.*;
 
-import static org.fluentness.controller.desktop.template.swing.SwingAttribute.CLASS;
-import static org.fluentness.controller.desktop.template.swing.SwingAttribute.ID;
-import static org.fluentness.controller.desktop.template.swing.SwingFactory.*;
+import static org.fluentness.controller.desktop.swing.SwingAttribute.CLASS;
+import static org.fluentness.controller.desktop.swing.SwingAttribute.ID;
+import static org.fluentness.controller.desktop.swing.SwingFactory.*;
 
 public class Desktop implements DesktopView {
 

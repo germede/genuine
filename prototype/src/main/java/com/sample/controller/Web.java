@@ -2,16 +2,16 @@ package com.sample.controller;
 
 import com.sample.WorkStation;
 import org.fluentness.controller.web.WebView;
-import org.fluentness.controller.web.template.WebTemplate;
+import org.fluentness.controller.web.WebTemplate;
 
 import static com.sample.Translations.*;
-import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
-import static org.fluentness.controller.web.template.html.HtmlFactory.*;
+import static org.fluentness.controller.web.html.HtmlAttribute.*;
+import static org.fluentness.controller.web.html.HtmlFactory.*;
 
 public class Web implements WebView {
 
     @Override
-    public WebTemplate getTemplate(CharSequence actionResult) {
+    public WebTemplate getTemplate() {
         return html(
             head(
                 title("The book library made with Fluentness"),
@@ -38,7 +38,7 @@ public class Web implements WebView {
                     )
                 ),
                 div(CLASS + "flex wrapper",
-                    actionResult
+                    actionResult.get()
                 )
             )
         );

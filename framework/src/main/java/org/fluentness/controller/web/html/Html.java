@@ -1,15 +1,16 @@
-package org.fluentness.controller.web.template.html;
+package org.fluentness.controller.web.html;
 
+import org.fluentness.controller.Template;
 import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.controller.web.template.WebTemplate;
+import org.fluentness.controller.web.WebTemplate;
 import org.fluentness.service.injection.Injection;
 import org.fluentness.service.translator.Translator;
 
 import java.util.stream.IntStream;
 
-import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
+import static org.fluentness.controller.web.html.HtmlAttribute.*;
 
-public abstract class Html implements WebTemplate {
+public abstract class Html implements Template {
 
     protected final String tag;
     protected final StringBuilder attributes;
@@ -55,31 +56,6 @@ public abstract class Html implements WebTemplate {
                 attributes.append(" data=\"").append("current").append("\"");
             }
         }
-    }
-
-    @Override
-    public int length() {
-        return 0;
-    }
-
-    @Override
-    public char charAt(int i) {
-        return 0;
-    }
-
-    @Override
-    public CharSequence subSequence(int i, int i1) {
-        return null;
-    }
-
-    @Override
-    public IntStream chars() {
-        return null;
-    }
-
-    @Override
-    public IntStream codePoints() {
-        return null;
     }
 
 }
