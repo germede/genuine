@@ -1,11 +1,11 @@
-package com.sample.service;
+package com.sample;
 
 import org.fluentness.service.translator.AbstractTranslator;
 
 import static org.fluentness.service.translator.TranslationFactory.de;
 import static org.fluentness.service.translator.TranslationFactory.es;
 
-public class Translator extends AbstractTranslator {
+public class Translations {
 
     public static final String
         _submit = "Submit" + de("Absenden") + es("Enviar"),

@@ -7,20 +7,20 @@ import org.fluentness.Application;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.controller.mobile.template.android.Android;
+import org.fluentness.controller.mobile.template.android.AndroidFactory;
+import org.fluentness.service.injection.Injection;
 
 public class FnActivity extends Activity {
-
-    public static Application application;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            Class.forName("com.sample.WorkStation");
-            Fluentness.launch(application);
-            Android template = (Android) Fluentness.getInstances(AbstractMobileController.class).get(0).getView().getTemplate();
+            Fluentness.launch(((Class<? extends Application>) Class.forName("com.sample.WorkStation")).newInstance());
+            AndroidFactory.context = this;
+            Android template = (Android) Injection.getInstances(AbstractMobileController.class).get(0).getView().getTemplate();
             setContentView(template.getView());
-        } catch (FluentnessException | ClassNotFoundException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | FluentnessException e) {
             Log.e(this.getClass().getSimpleName(), "Exception", e);
         }
     }

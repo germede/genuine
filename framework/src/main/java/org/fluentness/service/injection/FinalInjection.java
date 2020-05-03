@@ -1,12 +1,20 @@
 package org.fluentness.service.injection;
 
 import org.fluentness.Application;
+import org.fluentness.Application.Platform;
 import org.fluentness.ApplicationComponent;
 import org.fluentness.controller.Controller;
+import org.fluentness.controller.console.AbstractConsoleController;
 import org.fluentness.controller.console.FluentnessController;
+import org.fluentness.controller.desktop.AbstractDesktopController;
+import org.fluentness.controller.mobile.AbstractMobileController;
+import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.service.Service;
 import org.fluentness.service.authentication.DefaultAuthentication;
 import org.fluentness.service.configuration.DefaultConfiguration;
+import org.fluentness.service.injection.initer.Controllers;
+import org.fluentness.service.injection.initer.Repositories;
+import org.fluentness.service.injection.initer.Services;
 import org.fluentness.service.log.AndroidLog;
 import org.fluentness.service.log.JulLog;
 import org.fluentness.service.mail.SocketMail;
@@ -24,42 +32,59 @@ import java.util.stream.Collectors;
 
 public final class FinalInjection implements Injection {
 
-
-    private Map<Class, Object> instances;
-
     @Override
-    public Map<Class, Object> inject(Application application) throws InjectionException {
-        instances = new HashMap<>();
-        inject(withFallbackServices(application));
-        inject(application.getRepositories());
-        inject(withFallbackControllers(application));
-        return instances;
+    public Platform inject(Application application) throws InjectionException {
+
+        Services services = new Services();
+        Repositories repositories = new Repositories();
+        Controllers controllers = new Controllers();
+        Platform platform = application.init(services, repositories, controllers);
+
+        inject(withFallbackServices(services, platform));
+        inject(repositories.get());
+        inject(withFallbackControllers(controllers, platform));
+
+        return platform;
     }
 
-    private List<Class<? extends Service>> withFallbackServices(Application application) {
-        List<Class<? extends Service>> services = application.getServices();
-        switch (application.getPlatform()) {
+    private List<Class<? extends Service>> withFallbackServices(Services services, Platform platform) {
+        List<Class<? extends Service>> serviceList = services.get();
+        switch (platform) {
             case WEB:
-                services.add(DefaultAuthentication.class);
-                services.add(SunServer.class);
-                services.add(DefaultRouter.class);
+                serviceList.add(DefaultAuthentication.class);
+                serviceList.add(SunServer.class);
+                serviceList.add(DefaultRouter.class);
             case DESKTOP:
-                services.add(SocketMail.class);
-                services.add(JulLog.class);
+                serviceList.add(SocketMail.class);
+                serviceList.add(JulLog.class);
             case MOBILE:
-                services.add(AndroidLog.class);
+                serviceList.add(AndroidLog.class);
             case CONSOLE:
-                services.add(FilePersistence.class);
-                services.add(DefaultConfiguration.class);
-                services.add(DefaultTranslator.class);
+                serviceList.add(FilePersistence.class);
+                serviceList.add(DefaultConfiguration.class);
+                serviceList.add(DefaultTranslator.class);
         }
-        return services;
+        return serviceList;
     }
 
-    private List<Class<? extends Controller>> withFallbackControllers(Application application) {
-        List<Class<? extends Controller>> controllers = application.getControllers();
-        controllers.add(FluentnessController.class);
-        return controllers;
+    private List<Class<? extends Controller>> withFallbackControllers(Controllers controllers, Platform platform) {
+        List<Class<? extends Controller>> controllerList = controllers.get();
+        switch (platform) {
+            case WEB:
+                controllerList.removeIf(aClass -> !AbstractWebController.class.isAssignableFrom(aClass));
+                break;
+            case DESKTOP:
+                controllerList.removeIf(aClass -> !AbstractDesktopController.class.isAssignableFrom(aClass));
+                break;
+            case MOBILE:
+                controllerList.removeIf(aClass -> !AbstractMobileController.class.isAssignableFrom(aClass));
+                break;
+            case CONSOLE:
+                controllerList.removeIf(aClass -> !AbstractConsoleController.class.isAssignableFrom(aClass));
+                controllerList.add(FluentnessController.class);
+                break;
+        }
+        return controllerList;
     }
 
     private <I extends ApplicationComponent> void inject(List<Class<? extends I>> classes) throws

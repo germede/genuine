@@ -5,7 +5,7 @@ import com.sample.repository.UserRepository;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.html.Html;
 
-import static com.sample.service.Translator.*;
+import static com.sample.Translations.*;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 

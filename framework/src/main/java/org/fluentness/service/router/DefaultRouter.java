@@ -1,11 +1,11 @@
 package org.fluentness.service.router;
 
-import org.fluentness.Fluentness;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.template.WebTemplate;
 import org.fluentness.controller.web.template.html.HtmlAttribute;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.injection.Injection;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.server.*;
 
@@ -94,7 +94,7 @@ public class DefaultRouter implements Router {
     }
 
     private Response executeWebAction(Method action, Request request) {
-        AbstractWebController webController = Fluentness.getInstance(
+        AbstractWebController webController = Injection.getInstance(
             (Class<? extends AbstractWebController>) action.getDeclaringClass()
         );
         action.setAccessible(true);

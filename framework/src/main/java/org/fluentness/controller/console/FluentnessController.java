@@ -1,9 +1,9 @@
 package org.fluentness.controller.console;
 
-import org.fluentness.Fluentness;
 import org.fluentness.repository.Model;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.injection.Injection;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.persistence.Persistence;
 
@@ -43,7 +43,7 @@ public final class FluentnessController extends AbstractConsoleController {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         List<Method> actions = new LinkedList<>();
-        for (AbstractConsoleController controller : Fluentness.getInstances(AbstractConsoleController.class)) {
+        for (AbstractConsoleController controller : Injection.getInstances(AbstractConsoleController.class)) {
             actions.addAll(Arrays.asList(controller.getActions()));
         }
 
@@ -119,7 +119,7 @@ public final class FluentnessController extends AbstractConsoleController {
             System.err.println(JdbcPersistence.class.getSimpleName() + " is not being used, ignoring");
             return;
         }
-        List<Class> modelClasses = Fluentness.getInstances(Repository.class)
+        List<Class> modelClasses = Injection.getInstances(Repository.class)
             .stream()
             .map(Repository::getModelClass)
             .collect(Collectors.toList());
