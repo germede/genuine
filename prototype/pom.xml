@@ -82,12 +82,6 @@
                 <artifactId>android-maven-plugin</artifactId>
                 <version>4.6.0</version>
                 <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <!--Generate apk only when needed-->
-                        <phase>none</phase>
-                    </execution>
-                </executions>
                 <configuration>
                     <!--Older version of this plugin used dex android "compiler" by default, which is
                     incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8-->
@@ -103,14 +97,9 @@
                     </sdk>
                     <artifactSet>
                         <excludes>
-                            <exclude>mysql:mysql-connector-java:*</exclude>
+                            <exclude>mysql:mysql-connector-java:8.0.17</exclude>
                         </excludes>
                     </artifactSet>
-                    <artifactTypeSet>
-                        <excludes>
-                            <exclude>jar</exclude>
-                        </excludes>
-                    </artifactTypeSet>
                 </configuration>
             </plugin>
         </plugins>
