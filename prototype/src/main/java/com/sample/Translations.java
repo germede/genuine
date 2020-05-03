@@ -1,12 +1,10 @@
 package com.sample;
 
-import org.fluentness.service.translator.AbstractTranslator;
-
 import static org.fluentness.service.translator.TranslationFactory.de;
 import static org.fluentness.service.translator.TranslationFactory.es;
 
 public class Translations {
-
+// todo make interface?
     public static final String
         _submit = "Submit" + de("Absenden") + es("Enviar"),
         _search = "Search" + de("Suchen") + es("Buscar"),

@@ -12,16 +12,16 @@ import org.fluentness.FluentnessException;
 import org.fluentness.service.injection.initer.Controllers;
 import org.fluentness.service.injection.initer.Repositories;
 import org.fluentness.service.injection.initer.Services;
-import org.fluentness.service.persistence.JdbcPersistence;
+import org.fluentness.service.persistence.FilePersistence;
 
-import static org.fluentness.Application.Platform.WEB;
+import static org.fluentness.Application.Platform.MOBILE;
 
 public class WorkStation implements Application {
 
     @Override
     public Platform init(Services services, Repositories repositories, Controllers controllers) {
         services.set(
-            JdbcPersistence.class,
+            FilePersistence.class,
             Authentication.class, Configuration.class,
             CalendarImpl.class
         );
@@ -35,7 +35,7 @@ public class WorkStation implements Application {
             MobileController.class,
             WebController.class, WebEventsController.class, WebNotesController.class, WebUsersController.class
         );
-        return WEB;
+        return MOBILE;
     }
 
     public static void main(String[] args) throws FluentnessException {

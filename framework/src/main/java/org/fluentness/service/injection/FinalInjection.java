@@ -18,7 +18,9 @@ import org.fluentness.service.injection.initer.Services;
 import org.fluentness.service.log.AndroidLog;
 import org.fluentness.service.log.JulLog;
 import org.fluentness.service.mail.SocketMail;
+import org.fluentness.service.persistence.AndroidPersistence;
 import org.fluentness.service.persistence.FilePersistence;
+import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.router.DefaultRouter;
 import org.fluentness.service.server.SunServer;
 import org.fluentness.service.translator.DefaultTranslator;
@@ -54,11 +56,13 @@ public final class FinalInjection implements Injection {
                 serviceList.add(DefaultAuthentication.class);
                 serviceList.add(SunServer.class);
                 serviceList.add(DefaultRouter.class);
+                serviceList.add(JdbcPersistence.class);
             case DESKTOP:
                 serviceList.add(SocketMail.class);
                 serviceList.add(JulLog.class);
             case MOBILE:
                 serviceList.add(AndroidLog.class);
+                serviceList.add(AndroidPersistence.class);
             case CONSOLE:
                 serviceList.add(FilePersistence.class);
                 serviceList.add(DefaultConfiguration.class);
@@ -134,15 +138,12 @@ public final class FinalInjection implements Injection {
     }
 
     private Object instantiate(Class aClass) throws InjectionException {
-        validate(aClass);
+        Constructor constructor = getConstructor(aClass);
         try {
-            Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
-            if (declaredConstructors.length == 0) {
+            if (constructor.getParameterCount() == 0) {
                 // no dependencies, just instantiate
                 return aClass.newInstance();
             }
-
-            Constructor constructor = declaredConstructors[0];
             Parameter[] parameters = constructor.getParameters();
             Object[] result = new Object[parameters.length];
             for (int i = 0; i < parameters.length; i++) {
@@ -159,7 +160,7 @@ public final class FinalInjection implements Injection {
         }
     }
 
-    private void validate(Class aClass) throws InjectionException {
+    private Constructor getConstructor(Class aClass) throws InjectionException {
         if (Modifier.isInterface(aClass.getModifiers())) {
             throw new InjectionException("%s's class cannot be an interface in order to be instantiated", aClass.getName());
         }
@@ -169,17 +170,10 @@ public final class FinalInjection implements Injection {
         if (!Modifier.isPublic(aClass.getModifiers())) {
             throw new InjectionException("%s's class must be public in order to be instantiated", aClass.getName());
         }
-        Constructor[] declaredConstructors = aClass.getDeclaredConstructors();
-        if (declaredConstructors.length > 0) {
-            if (!Modifier.isPublic(declaredConstructors[0].getModifiers())) {
-                throw new InjectionException("%s's first constructor should be public", aClass.getName());
-            }
+        return Arrays.stream(aClass.getConstructors())
+            .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
+            .findFirst()
+            .orElseThrow(() -> new InjectionException("%s should have at least one public constructor", aClass.getName()));
 
-            for (Class parameterType : declaredConstructors[0].getParameterTypes()) {
-                if (!ApplicationComponent.class.isAssignableFrom(parameterType)) {
-                    throw new InjectionException("%s constructor parameters should be ApplicationComponent", aClass.getName());
-                }
-            }
-        }
     }
 }
