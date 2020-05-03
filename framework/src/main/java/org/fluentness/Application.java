@@ -33,6 +33,8 @@ public interface Application {
         return load(Controller.class);
     }
 
+    Platform getPlatform();
+
     default <T> List<Class<? extends T>> load(Class<T> parent) {
         List<Class<? extends T>> result = new LinkedList<>();
         try {

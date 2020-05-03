@@ -28,21 +28,14 @@ public final class Fluentness {
         return (A) instances.get(parent);
     }
 
-    public static Fluentness launch(Application application) throws FluentnessException {
-        return new Fluentness(application);
+    public static Fluentness launch(Application application, String... args) throws FluentnessException {
+        return new Fluentness(application, args);
     }
 
-    private Fluentness(Application application) throws FluentnessException {
+    private Fluentness(Application application, String[] args) throws FluentnessException {
         try {
             instances = new FinalInjection().inject(application);
-        } catch (InjectionException e) {
-            throw new FluentnessException(e);
-        }
-    }
-
-    public void on(Application.Platform platform, String... args) throws FluentnessException {
-        try {
-            switch (platform) {
+            switch (application.getPlatform()) {
                 case CONSOLE:
                     if (args == null) {
                         throw new IllegalArgumentException("Passed args array was null");

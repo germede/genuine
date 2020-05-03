@@ -31,14 +31,16 @@ public class HtmlCombination implements WebTemplate {
         return null;
     }
 
-    private final CharSequence[] html;
+    private final CharSequence html1;
+    private final CharSequence html2;
 
-    public HtmlCombination(CharSequence... html) {
-        this.html = html;
+    public HtmlCombination(CharSequence html1, CharSequence html2) {
+        this.html1 = html1;
+        this.html2 = html2;
     }
 
     @Override
     public String toString() {
-        return String.join("",html);
+        return html1.toString() + html2.toString();
     }
 }

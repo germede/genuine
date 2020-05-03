@@ -7,6 +7,7 @@ import org.fluentness.controller.console.FluentnessController;
 import org.fluentness.service.Service;
 import org.fluentness.service.authentication.DefaultAuthentication;
 import org.fluentness.service.configuration.DefaultConfiguration;
+import org.fluentness.service.log.AndroidLog;
 import org.fluentness.service.log.JulLog;
 import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.persistence.FilePersistence;
@@ -23,35 +24,42 @@ import java.util.stream.Collectors;
 
 public final class FinalInjection implements Injection {
 
-    private static final List<Class<? extends Service>> defaultServices = Arrays.asList(
-        JulLog.class,
-        SocketMail.class,
-        FilePersistence.class,
-        SunServer.class,
-        DefaultRouter.class,
-        DefaultConfiguration.class,
-        DefaultTranslator.class,
-        DefaultAuthentication.class
-    );
-    private static final List<Class<? extends Controller>> defaultControllers = Collections.singletonList(FluentnessController.class);
 
     private Map<Class, Object> instances;
 
     @Override
     public Map<Class, Object> inject(Application application) throws InjectionException {
         instances = new HashMap<>();
-
-        List<Class<? extends Service>> services = application.getServices();
-        services.addAll(defaultServices);
-        inject(services);
-
+        inject(withFallbackServices(application));
         inject(application.getRepositories());
-
-        List<Class<? extends Controller>> controllers = application.getControllers();
-        controllers.addAll(defaultControllers);
-        inject(controllers);
-
+        inject(withFallbackControllers(application));
         return instances;
+    }
+
+    private List<Class<? extends Service>> withFallbackServices(Application application) {
+        List<Class<? extends Service>> services = application.getServices();
+        switch (application.getPlatform()) {
+            case WEB:
+                services.add(DefaultAuthentication.class);
+                services.add(SunServer.class);
+                services.add(DefaultRouter.class);
+            case DESKTOP:
+                services.add(SocketMail.class);
+                services.add(JulLog.class);
+            case MOBILE:
+                services.add(AndroidLog.class);
+            case CONSOLE:
+                services.add(FilePersistence.class);
+                services.add(DefaultConfiguration.class);
+                services.add(DefaultTranslator.class);
+        }
+        return services;
+    }
+
+    private List<Class<? extends Controller>> withFallbackControllers(Application application) {
+        List<Class<? extends Controller>> controllers = application.getControllers();
+        controllers.add(FluentnessController.class);
+        return controllers;
     }
 
     private <I extends ApplicationComponent> void inject(List<Class<? extends I>> classes) throws
@@ -81,7 +89,7 @@ public final class FinalInjection implements Injection {
         }
     }
 
-    private Class<? extends ApplicationComponent> getKey(Class<? extends ApplicationComponent> aClass) {
+    private Class getKey(Class aClass) {
         if (!Service.class.isAssignableFrom(aClass)) {
             return aClass;
         }

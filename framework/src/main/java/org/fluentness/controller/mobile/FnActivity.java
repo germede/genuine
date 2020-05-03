@@ -17,7 +17,7 @@ public class FnActivity extends Activity {
         super.onCreate(savedInstanceState);
         try {
             Class.forName("com.sample.WorkStation");
-            Fluentness.launch(application).on(Application.Platform.MOBILE);
+            Fluentness.launch(application);
             Android template = (Android) Fluentness.getInstances(AbstractMobileController.class).get(0).getView().getTemplate();
             setContentView(template.getView());
         } catch (FluentnessException e) {
