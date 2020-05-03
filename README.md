@@ -1,7 +1,8 @@
-![Fluentness logo](fn-core/src/main/resources/art/logo.png?raw=true "Fluentness logo")
+---
+~WORK IN PROGRESS~
+---
 
-// todo
-few dependencies -> many target platforms (web, desktop, mobile, etc.) -> one code basis, one language
+![Fluentness logo](fn-core/src/main/resources/art/logo.png?raw=true "Fluentness logo")
 
 ## Introduction
 Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
@@ -22,7 +23,7 @@ maturity, wide acceptance and knowledge, nice support of functional programming
 2. 
 
 ## Decalogue
-
+// todo move into wiki
 >**F**orce your code to be compact, yet legible  
 >**L**oose coupling of application components  
 >**U**se static factories, avoiding the new operator  
@@ -73,13 +74,12 @@ Give a star if you enjoy this project. Contact me if you have any idea on how to
 
 ## Dependencies
 This project is based on these open-source technologies:
-- [OpenJDK](https://openjdk.java.net/) implementing Java 11 
+- [OpenJDK](https://openjdk.java.net/) , language level 8 
 - [Maven](https://maven.apache.org/) with PLUGINS for building and distributing the framework itself, projects based on it and their dependencies
 - The Android platform
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
-- Darcula Swing Look and Feel
 - [Inkscape](https://inkscape.org/) with fonts Arial, [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the art logos
-- Much Engagement :muscle:
+- A lot of engagement :muscle:
 
 ## License
 Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
