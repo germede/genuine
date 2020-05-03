@@ -1,12 +1,12 @@
 package com.sample.controller;
 
 import com.sample.WorkStation;
-import org.fluentness.controller.web.WebView;
-import org.fluentness.controller.web.WebTemplate;
+import org.fluentness.controller.WebTemplate;
+import org.fluentness.controller.WebView;
 
 import static com.sample.Translations.*;
-import static org.fluentness.controller.web.html.HtmlAttribute.*;
-import static org.fluentness.controller.web.html.HtmlFactory.*;
+import static org.fluentness.controller.html.HtmlAttribute.*;
+import static org.fluentness.controller.html.HtmlFactory.*;
 
 public class Web implements WebView {
 

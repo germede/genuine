@@ -1,7 +1,7 @@
 package ${package}.flow;
 
-import org.fluentness.controller.console.style.Style;
-import org.fluentness.controller.console.style.StyleProducer;
+import org.fluentness.mobile.console.style.Style;
+import org.fluentness.mobile.console.style.StyleProducer;
 
 public class Styles extends StyleProducer {
 

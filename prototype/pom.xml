@@ -18,14 +18,35 @@
     <dependencies>
         <dependency>
             <groupId>org.fluentness</groupId>
-            <artifactId>framework</artifactId>
-            <version>0.1.0</version>
+            <artifactId>fn-core</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentness</groupId>
+            <artifactId>fn-desktop</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentness</groupId>
+            <artifactId>fn-game</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentness</groupId>
+            <artifactId>fn-mobile</artifactId>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentness</groupId>
+            <artifactId>fn-web</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

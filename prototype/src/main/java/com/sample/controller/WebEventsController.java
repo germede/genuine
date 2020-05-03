@@ -1,17 +1,17 @@
 package com.sample.controller;
 
 import com.sample.service.calendar.Calendar;
-import org.fluentness.controller.web.AbstractWebController;
-import org.fluentness.controller.web.html.Html;
+import org.fluentness.controller.html.Html;
+import org.fluentness.controller.AbstractWebController;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.fluentness.controller.web.html.HtmlAttribute.CLASS;
-import static org.fluentness.controller.web.html.HtmlAttribute.HREF;
-import static org.fluentness.controller.web.html.HtmlFactory.*;
+import static org.fluentness.controller.html.HtmlAttribute.CLASS;
+import static org.fluentness.controller.html.HtmlAttribute.HREF;
+import static org.fluentness.controller.html.HtmlFactory.*;
 
 public class WebEventsController extends AbstractWebController {
 

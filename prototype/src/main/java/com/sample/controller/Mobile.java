@@ -1,10 +1,10 @@
 package com.sample.controller;
 
-import org.fluentness.controller.mobile.MobileView;
-import org.fluentness.controller.mobile.MobileTemplate;
+import org.fluentness.controller.MobileView;
+import org.fluentness.controller.MobileTemplate;
 
-import static org.fluentness.controller.mobile.android.AndroidFactory.linearLayout;
-import static org.fluentness.controller.mobile.android.AndroidFactory.text;
+import static org.fluentness.controller.android.AndroidFactory.linearLayout;
+import static org.fluentness.controller.android.AndroidFactory.text;
 
 public class Mobile implements MobileView {
 

@@ -10,7 +10,11 @@
 
     <modules>
         <module>archetype</module>
-        <module>framework</module>
+        <module>fn-core</module>
+        <module>fn-desktop</module>
+        <module>fn-game</module>
+        <module>fn-mobile</module>
+        <module>fn-web</module>
         <module>prototype</module>
     </modules>
 
@@ -24,6 +28,23 @@
         <url>https://github.com/germede/fluentness/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
+
+
+    <dependencies>
+        <!--Test dependencies-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.23.4</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <!--With parameters (making web action method references work on runtime)-->
     <build>
@@ -41,5 +62,7 @@
             </plugin>
         </plugins>
     </build>
+
+
 
 </project>

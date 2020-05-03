@@ -1,6 +1,6 @@
 package com.sample.controller;
 
-import org.fluentness.controller.desktop.AbstractDesktopController;
+import org.fluentness.controller.AbstractDesktopController;
 
 public class DesktopController extends AbstractDesktopController {
 
