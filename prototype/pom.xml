@@ -87,8 +87,6 @@
                     incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8-->
                     <dexCompiler>d8</dexCompiler>
                     <dexMultiDex>true</dexMultiDex>
-                    <!--This path works better with IDE-->
-                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
                     <sdk>
                         <!--Only works with API level 28-->
                         <platform>28</platform>
