@@ -6,9 +6,15 @@ import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public interface Application {
 
@@ -58,22 +64,24 @@ public interface Application {
             }
 
             // filter .class files in jar file
-//            String jarPath = new File(Fluentness.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
-//            if (jarPath.endsWith(".jar")) {
-//                ZipInputStream zip = new ZipInputStream(new FileInputStream(jarPath));
-//                for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
-//                    if (!entry.isDirectory() && entry.getName().endsWith(".class") && entry.getName().startsWith(path)) {
-//                        String className = entry.getName().replace('/', '.').replaceAll(".class$", "");
-//                        Class<?> clazz = Class.forName(className);
-//                        // find classes implementing parent
-//                        if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
-//                            result.add((Class<? extends T>) clazz);
-//                        }
-//                    }
-//                }
-//            }
+            if (getPlatform() != Platform.MOBILE) {
+                String jarPath = new File(Fluentness.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+                if (jarPath.endsWith(".jar")) {
+                    ZipInputStream zip = new ZipInputStream(new FileInputStream(jarPath));
+                    for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
+                        if (!entry.isDirectory() && entry.getName().endsWith(".class") && entry.getName().startsWith(path)) {
+                            String className = entry.getName().replace('/', '.').replaceAll(".class$", "");
+                            Class<?> clazz = Class.forName(className);
+                            // find classes implementing parent
+                            if (parent.isAssignableFrom(clazz) && !clazz.isInterface()) {
+                                result.add((Class<? extends T>) clazz);
+                            }
+                        }
+                    }
+                }
+            }
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | IOException | URISyntaxException e) {
             e.printStackTrace();
         }
         return result;

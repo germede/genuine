@@ -20,12 +20,8 @@ public class FnActivity extends Activity {
             Fluentness.launch(application);
             Android template = (Android) Fluentness.getInstances(AbstractMobileController.class).get(0).getView().getTemplate();
             setContentView(template.getView());
-        } catch (FluentnessException e) {
-            for (StackTraceElement stackTraceElement : e.getStackTrace()) {
-                Log.e(Fluentness.class.getSimpleName(), stackTraceElement.toString());
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (FluentnessException | ClassNotFoundException e) {
+            Log.e(this.getClass().getSimpleName(), "Exception", e);
         }
     }
 }

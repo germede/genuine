@@ -21,38 +21,18 @@
             <artifactId>framework</artifactId>
             <version>0.1.0</version>
         </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
         </dependency>
-
-
     </dependencies>
-    
+
     <build>
         <plugins>
-            <!--Essential configurations for Android builds-->
-            <plugin>
-                <groupId>com.simpligility.maven.plugins</groupId>
-                <artifactId>android-maven-plugin</artifactId>
-                <version>4.6.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <dexMultiDex>true</dexMultiDex>
-                    <!-- Older version of this plugin used dex android "compiler" by default, which is
-                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8 -->
-                    <dexCompiler>d8</dexCompiler>
-                    <sdk>
-                        <platform>28</platform>
-                        <!-- Replace with your own path or export ANDROID_HOME-->
-                        <path>/home/germede/Android/Sdk</path>
-                    </sdk>
 
-                </configuration>
-            </plugin>
-
-            <!--In order to make standalone apps, assembly plugin is used instead of jar, for including dependencies-->
+            <!--In order to make standalone jars, assembly plugin is used for including dependencies-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -81,6 +61,58 @@
                 </configuration>
             </plugin>
 
+            <!--In order to execute the standalone jar directly from maven (exec:java)-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <executable>java</executable>
+                    <mainClass>com.sample.WorkStation</mainClass>
+                    <arguments>
+                        <argument>-jar</argument>
+                        <argument>${project.build.outputDirectory}/${project.build.finalName}-jar-with-dependencies.jar</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+
+            <!--In order to build android apks, deploy and run them-->
+            <plugin>
+                <groupId>com.simpligility.maven.plugins</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>4.6.0</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <!--Generate apk only when needed-->
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--Older version of this plugin used dex android "compiler" by default, which is
+                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8-->
+                    <dexCompiler>d8</dexCompiler>
+                    <dexMultiDex>true</dexMultiDex>
+                    <!--This path works better with IDE-->
+                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+                    <sdk>
+                        <!--Only works with API level 28-->
+                        <platform>28</platform>
+                        <!--Replace with your own path or export ANDROID_HOME-->
+                        <path>/home/germede/Android/Sdk</path>
+                    </sdk>
+                    <artifactSet>
+                        <excludes>
+                            <exclude>mysql:mysql-connector-java:*</exclude>
+                        </excludes>
+                    </artifactSet>
+                    <artifactTypeSet>
+                        <excludes>
+                            <exclude>jar</exclude>
+                        </excludes>
+                    </artifactTypeSet>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

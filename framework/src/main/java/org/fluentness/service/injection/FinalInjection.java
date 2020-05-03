@@ -78,13 +78,13 @@ public final class FinalInjection implements Injection {
                 keysToIgnore.add(key);
             }
         }
-        if (notInstantiated.size() >= classes.size()) {
-            throw new InjectionException(
-                "Cannot resolve dependency instantiating [%s]. Possible cause: Circle dependency.",
-                notInstantiated.stream().map(Class::getSimpleName).collect(Collectors.joining(", "))
-            );
-        }
         if (notInstantiated.size() > 0) {
+            if (notInstantiated.size() >= classes.size()) {
+                throw new InjectionException(
+                    "Cannot resolve dependency instantiating [%s]. Possible cause: Circle dependency.",
+                    notInstantiated.stream().map(Class::getSimpleName).collect(Collectors.joining(", "))
+                );
+            }
             inject(notInstantiated);
         }
     }
