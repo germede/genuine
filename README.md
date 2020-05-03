@@ -1,4 +1,4 @@
-![Fluentness logo](framework/src/main/resources/art/logo.png?raw=true "Fluentness logo")
+![Fluentness logo](fn-core/src/main/resources/art/logo.png?raw=true "Fluentness logo")
 
 // todo
 few dependencies -> many target platforms (web, desktop, mobile, etc.) -> one code basis, one language
