@@ -1,5 +1,5 @@
 ---
-~WORK IN PROGRESS~
+WORK IN PROGRESS
 ---
 
 ![Fluentness logo](fn-core/src/main/resources/art/logo.png?raw=true "Fluentness logo")
