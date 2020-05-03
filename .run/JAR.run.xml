@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Android" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="JAR" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -10,8 +10,7 @@
           </option>
           <option name="goals">
             <list>
-              <option value="android:deploy" />
-              <option value="android:run" />
+              <option value="exec:java" />
             </list>
           </option>
           <option name="pomFileName" />
