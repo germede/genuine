@@ -12,6 +12,7 @@ import org.fluentness.FluentnessException;
 import org.fluentness.service.injection.initer.Controllers;
 import org.fluentness.service.injection.initer.Repositories;
 import org.fluentness.service.injection.initer.Services;
+import org.fluentness.service.persistence.JdbcPersistence;
 
 import static org.fluentness.Application.Platform.WEB;
 
@@ -20,6 +21,7 @@ public class WorkStation implements Application {
     @Override
     public Platform init(Services services, Repositories repositories, Controllers controllers) {
         services.set(
+            JdbcPersistence.class,
             Authentication.class, Configuration.class,
             CalendarImpl.class
         );

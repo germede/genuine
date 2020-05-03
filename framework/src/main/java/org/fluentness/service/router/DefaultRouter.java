@@ -1,5 +1,6 @@
 package org.fluentness.service.router;
 
+import org.fluentness.controller.Template;
 import org.fluentness.controller.web.AbstractWebController;
 import org.fluentness.controller.web.WebTemplate;
 import org.fluentness.controller.web.WebView;
@@ -107,8 +108,8 @@ public class DefaultRouter implements Router {
                 action.invoke(webController);
             if (returned instanceof String) {
                 return request.makeResponse(ResponseStatusCode.OK).setBody((String) returned);
-            } else if (returned instanceof WebTemplate) {
-                return handleWebView(request, webController, (WebTemplate) returned);
+            } else if (returned instanceof CharSequence) {
+                return handleWebView(request, webController, (CharSequence) returned);
             } else if (returned instanceof Integer) {
                 return request.makeResponse((int) returned);
             } else if (returned instanceof Response) {
@@ -146,7 +147,7 @@ public class DefaultRouter implements Router {
         return result;
     }
 
-    private Response handleWebView(Request request, AbstractWebController webController, WebTemplate returned) {
+    private Response handleWebView(Request request, AbstractWebController webController, CharSequence returned) {
         String render;
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
