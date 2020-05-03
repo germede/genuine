@@ -19,7 +19,7 @@ public class WebEventsController extends AbstractWebController {
 
     @BasePath("/events")
     public WebEventsController(Calendar calendar) {
-        super(WebView.class);
+        super(Web.class);
         this.calendar = calendar;
     }
 

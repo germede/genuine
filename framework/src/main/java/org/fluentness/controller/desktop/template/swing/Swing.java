@@ -21,7 +21,6 @@ public class Swing<V extends Container> implements CharSequence {
         return CLASS_MAP.get(clazz);
     }
 
-
     @Override
     public int length() {
         return 0;
@@ -47,17 +46,17 @@ public class Swing<V extends Container> implements CharSequence {
         return null;
     }
 
-    private V actualSwing;
+    private V view;
 
-    Swing(V actualSwing, CharSequence... swings) {
-        this.actualSwing = actualSwing;
+    Swing(V view, CharSequence... swings) {
+        this.view = view;
         handleSwings(swings);
     }
 
     private void handleSwings(CharSequence[] swings) {
         for (CharSequence swing : swings) {
             if (swing instanceof Swing) {
-                this.actualSwing.add(((Swing) swing).getActualSwing());
+                this.view.add(((Swing) swing).getView());
             } else if (swing instanceof String) {
                 handleString((String) swing);
             }
@@ -91,13 +90,13 @@ public class Swing<V extends Container> implements CharSequence {
     }
 
     private void handleNormalText(String string) {
-        if (JLabel.class.equals(actualSwing.getClass())) {
-            ((JLabel) actualSwing).setText(string);
+        if (JLabel.class.equals(view.getClass())) {
+            ((JLabel) view).setText(string);
         }
     }
 
-    public V getActualSwing() {
-        return actualSwing;
+    public V getView() {
+        return view;
     }
 
 

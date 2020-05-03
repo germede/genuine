@@ -1,7 +1,6 @@
 package com.sample.controller;
 
-import org.fluentness.controller.desktop.AbstractDesktopView;
-import org.fluentness.controller.desktop.style.DesktopStyle;
+import org.fluentness.controller.desktop.DesktopView;
 import org.fluentness.controller.desktop.template.DesktopTemplate;
 import org.fluentness.controller.desktop.template.swing.Swing;
 
@@ -11,24 +10,7 @@ import static org.fluentness.controller.desktop.template.swing.SwingAttribute.CL
 import static org.fluentness.controller.desktop.template.swing.SwingAttribute.ID;
 import static org.fluentness.controller.desktop.template.swing.SwingFactory.*;
 
-public class DesktopView extends AbstractDesktopView {
-
-    @Override
-    public DesktopStyle getStyle() {
-
-//        return DesktopStyle.basedOn(UIManager.getSystemLookAndFeelClassName())
-//            .forAll(JFrame.class, jFrame -> jFrame.set)
-//            .forKey()
-//
-//
-//        return
-//
-//            style(new GTKLookAndFeel(),
-//            byClass(JTable.class, jTable -> jTable.setDragEnabled(false)),
-//            byClass(JFrame.class, jFrame -> jFrame.setJMenuBar(topBar().getActualSwing()))
-//        );
-        return null;
-    }
+public class Desktop implements DesktopView {
 
     @Override
     public DesktopTemplate getTemplate() {

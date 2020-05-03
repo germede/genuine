@@ -15,13 +15,13 @@ import java.util.Map;
 public abstract class AbstractDesktopController implements Controller {
 
     private static final Map<Class, Object> viewInstances = new HashMap<>();
-    protected final AbstractDesktopView view;
+    protected final DesktopView view;
 
-    public final AbstractDesktopView getView() {
+    public final DesktopView getView() {
         return view;
     }
 
-    public AbstractDesktopController(Class<? extends AbstractDesktopView> viewClass) {
+    public AbstractDesktopController(Class<? extends DesktopView> viewClass) {
         if (!viewInstances.containsKey(viewClass)) {
             try {
                 viewInstances.put(viewClass, viewClass.getConstructors()[0].newInstance());
@@ -29,7 +29,7 @@ public abstract class AbstractDesktopController implements Controller {
                 e.printStackTrace();
             }
         }
-        view = (AbstractDesktopView) viewInstances.get(viewClass);
+        view = (DesktopView) viewInstances.get(viewClass);
     }
 
     @Override
@@ -57,7 +57,7 @@ public abstract class AbstractDesktopController implements Controller {
             if (selector.startsWith("#")) {
                 Swing byId = Swing.getById(selector.replace("#", ""));
                 if(byId != null) {
-                    Container actualSwing = byId.getActualSwing();
+                    Container actualSwing = byId.getView();
                     switch (annotation.event()) {
                         case CLICK:
                             actualSwing.addMouseListener(new MouseListener() {

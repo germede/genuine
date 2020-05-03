@@ -3,7 +3,7 @@ package org.fluentness.controller.web;
 import org.fluentness.controller.View;
 import org.fluentness.controller.web.template.WebTemplate;
 
-public abstract class AbstractWebView implements View {
+public interface WebView extends View {
 
-    public abstract WebTemplate getTemplate(CharSequence actionResult);
+    WebTemplate getTemplate(CharSequence actionResult);
 }

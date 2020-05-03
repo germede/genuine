@@ -1,14 +1,14 @@
 package com.sample.controller;
 
 import com.sample.WorkStation;
-import org.fluentness.controller.web.AbstractWebView;
+import org.fluentness.controller.web.WebView;
 import org.fluentness.controller.web.template.WebTemplate;
 
 import static com.sample.service.Translator.*;
 import static org.fluentness.controller.web.template.html.HtmlAttribute.*;
 import static org.fluentness.controller.web.template.html.HtmlFactory.*;
 
-public class WebView extends AbstractWebView {
+public class Web implements WebView {
 
     @Override
     public WebTemplate getTemplate(CharSequence actionResult) {

@@ -14,7 +14,7 @@ public class WebNotesController extends AbstractWebController {
 
     @BasePath("/notes")
     public WebNotesController(NoteRepository noteRepository) {
-        super(WebView.class);
+        super(Web.class);
         this.noteRepository = noteRepository;
     }
 

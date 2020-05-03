@@ -1,15 +1,26 @@
 package com.sample.repository;
 
-import org.fluentness.repository.AbstractModel;
+import org.fluentness.repository.Model;
 
-public class User extends AbstractModel {
+public class User implements Model{
 
+    private int id;
     private String username;
     private String password;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -19,5 +30,4 @@ public class User extends AbstractModel {
     public void setUsername(String username) {
         this.username = username;
     }
-
 }

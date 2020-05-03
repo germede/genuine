@@ -5,7 +5,7 @@ import org.fluentness.controller.desktop.AbstractDesktopController;
 public class DesktopController extends AbstractDesktopController {
 
     public DesktopController() {
-        super(DesktopView.class);
+        super(Desktop.class);
     }
 
     @Action(selector = "#daButton", event = Event.CLICK)

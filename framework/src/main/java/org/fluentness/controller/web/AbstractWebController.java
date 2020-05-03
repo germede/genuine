@@ -21,13 +21,13 @@ public abstract class AbstractWebController implements Controller {
     public static final ThreadLocal<Request> request = new ThreadLocal<>();
 
     private static final Map<Class, Object> viewInstances = new HashMap<>();
-    protected final AbstractWebView view;
+    protected final WebView view;
 
-    public final AbstractWebView getView() {
+    public final WebView getView() {
         return view;
     }
 
-    public AbstractWebController(Class<? extends AbstractWebView> viewClass) {
+    public AbstractWebController(Class<? extends WebView> viewClass) {
         if (!viewInstances.containsKey(viewClass)) {
             try {
                 viewInstances.put(viewClass, viewClass.getConstructors()[0].newInstance());
@@ -35,7 +35,7 @@ public abstract class AbstractWebController implements Controller {
                 e.printStackTrace();
             }
         }
-        view = (AbstractWebView) viewInstances.get(viewClass);
+        view = (WebView) viewInstances.get(viewClass);
 
         Constructor<?>[] constructors = getClass().getConstructors();
         Arrays.stream(getActions()).forEach(action -> {

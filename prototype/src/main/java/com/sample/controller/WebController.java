@@ -10,7 +10,7 @@ public class WebController extends AbstractWebController {
 
     @BasePath("/")
     public WebController() {
-        super(WebView.class);
+        super(Web.class);
     }
 
     @Action

@@ -9,14 +9,14 @@ public final class SwingFactory {
 
     public static SwingTemplate window(Swing content) {
         JWindow item = new JWindow();
-        item.setContentPane(content.getActualSwing());
+        item.setContentPane(content.getView());
         item.pack();
         return new SwingTemplate(item, content);
     }
 
     public static SwingTemplate frame(String title, Swing content) {
         JFrame item = new JFrame(title);
-        item.setContentPane(content.getActualSwing());
+        item.setContentPane(content.getView());
         item.setDefaultCloseOperation(EXIT_ON_CLOSE);
         item.pack();
         return new SwingTemplate(item, content);
@@ -24,7 +24,7 @@ public final class SwingFactory {
 
     public static SwingTemplate dialog(Swing content) {
         JDialog item = new JDialog();
-        item.setContentPane(content.getActualSwing());
+        item.setContentPane(content.getView());
         item.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         item.pack();
         return new SwingTemplate(item, content);
@@ -214,7 +214,7 @@ public final class SwingFactory {
     public static Swing<AbstractButton>[] buttonGroup(Swing<AbstractButton>... buttons) {
         ButtonGroup buttonGroup = new ButtonGroup();
         for (Swing<AbstractButton> button : buttons) {
-            buttonGroup.add(button.getActualSwing());
+            buttonGroup.add(button.getView());
         }
         return buttons;
     }
