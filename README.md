@@ -1,8 +1,8 @@
+![Fluentness logo](fn-core/src/main/resources/art/logo-large.png?raw=true "Fluentness logo")
+
 ---
 WORK IN PROGRESS
 ---
-
-![Fluentness logo](fn-core/src/main/resources/art/logo-large.png?raw=true "Fluentness logo")
 
 ## Introduction
 Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
