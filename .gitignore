@@ -1,9 +1,6 @@
 .idea/*
 .idea_modules/*
-.run/*
 target/
-tmp/
-data/
 *.iws
 *.ipr
 *.class

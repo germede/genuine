@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="70mm"
+   height="10mm"
+   viewBox="0 0 70 10"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="logo-large.svg"
+   inkscape:export-filename="/home/germede/IdeaProjects/Fluentness/framework/src/main/resources/art/logo.png"
+   inkscape:export-xdpi="1270"
+   inkscape:export-ydpi="1270">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient2306"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop2304" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1045">
+      <stop
+         style="stop-color:#00ffff;stop-opacity:1"
+         offset="0"
+         id="stop1041" />
+      <stop
+         style="stop-color:#7a00ff;stop-opacity:1"
+         offset="1"
+         id="stop1043" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2390"
+       osb:paint="solid">
+      <stop
+         desktopStyle="stop-color:#808080;stop-opacity:1;"
+         offset="0"
+         id="stop2388" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient832">
+      <stop
+         desktopStyle="stop-color:#000080;stop-opacity:1"
+         offset="0"
+         id="stop828" />
+      <stop
+         desktopStyle="stop-color:#008080;stop-opacity:1"
+         offset="1"
+         id="stop830" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2553"
+       osb:paint="solid">
+      <stop
+         desktopStyle="stop-color:#020000;stop-opacity:1;"
+         offset="0"
+         id="stop2551" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2429"
+       osb:paint="solid">
+      <stop
+         desktopStyle="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop2427" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient832"
+       id="linearGradient834"
+       x1="137.26514"
+       y1="106.04285"
+       x2="82.231987"
+       y2="84.781693"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(2.1166667)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient832"
+       id="linearGradient869"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(2.6458334,2.6458334)"
+       x1="139.80931"
+       y1="107.99444"
+       x2="81.891632"
+       y2="83.491577" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1045"
+       id="linearGradient1049"
+       x1="106.24255"
+       y1="90.533859"
+       x2="136.73473"
+       y2="105.45739"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.67008289,0,0,0.67008289,-46.407461,226.33468)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="113.46672"
+     inkscape:cy="21.211577"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     showguides="false"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-text-baseline="true"
+     inkscape:snap-page="true"
+     inkscape:lockguides="false"
+     inkscape:snap-center="true"
+     inkscape:snap-others="true"
+     inkscape:snap-nodes="true"
+     inkscape:snap-global="true" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-287)">
+    <rect
+       desktopStyle="opacity:1;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.63985682;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+       id="rect968-3"
+       width="70"
+       height="0.30000001"
+       x="-5.5511151e-17"
+       y="294.20001"
+       style="fill:#333333;fill-opacity:1;stroke-width:0.66835791" />
+    <text
+       xml:space="preserve"
+       desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:url(#linearGradient869);fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="24.712662"
+       y="293.84561"
+       id="text2587"
+       style="font-size:7.77709961px;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.64809161"><tspan
+         sodipodi:role="line"
+         id="tspan2585"
+         x="24.712662"
+         y="293.84561"
+         desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.75555611px;font-family:'Scriptina Pro';-inkscape-font-specification:'Scriptina Pro';letter-spacing:0.07143751px;fill:url(#linearGradient869);fill-opacity:1;stroke-width:0.26458332"
+         rotate="0 0 0 0 0 0 0 0 0 0 0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.67336845px;font-family:Scriptina;-inkscape-font-specification:Scriptina;fill:url(#linearGradient1049);fill-opacity:1;stroke-width:0.64809161">Fluentness</tspan></text>
+    <text
+       xml:space="preserve"
+       desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comic Zine OT';-inkscape-font-specification:'Comic Zine OT';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="35.049389"
+       y="295.65973"
+       id="text825-7"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.23472226px;font-family:Domine;-inkscape-font-specification:Domine;fill:#333333;stroke-width:0.43071547"><tspan
+         sodipodi:role="line"
+         x="35.049389"
+         y="295.65973"
+         desktopStyle="font-desktopStyle:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:Furore;-inkscape-font-specification:Furore;letter-spacing:0.21695833px;fill:#1a1a1a;stroke-width:0.26458332"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.23472226px;font-family:Furore;-inkscape-font-specification:Furore;text-align:end;text-anchor:end;fill:#333333;stroke-width:0.43071547"
+         id="tspan3750-3">framework</tspan></text>
+  </g>
+</svg>
