@@ -1,11 +1,7 @@
 ![Fluentness logo](fn-core/src/main/resources/art/logo-large.png?raw=true "Fluentness logo")
 
 
-WORK IN PROGRESS
 
-
-
-## Introduction
 Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
 multi-platform, consistent and flexible Java development framework. After a quick-start you'll be able to:
 * develop rich desktop applications based on Swing without headaches, 
@@ -21,7 +17,8 @@ maturity, wide acceptance and knowledge, nice support of functional programming
 
 ## Features
 1. Takes advantages JDK included libraries as far as possible: Sun HTTP Server, Swing
-2. 
+2. WORK IN PROGRESS
+ 
 
 ## Decalogue
 // todo move into wiki
