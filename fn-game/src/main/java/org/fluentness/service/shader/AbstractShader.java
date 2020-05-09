@@ -1,21 +1,19 @@
 package org.fluentness.service.shader;
 
-import org.fluentness.engine.algebra.Matrix4f;
-import org.fluentness.engine.algebra.Vector3f;
-import org.fluentness.engine.memory.BufferFactory;
 import org.fluentness.engine.memory.Memory;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
-import java.io.*;
-import java.nio.FloatBuffer;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-public abstract class AbstractShader {
+public abstract class AbstractShader implements Shader {
 
-
+    private final int program = GL20.glCreateProgram();
     private final int vertexShader = compile(getVertexShaderPath(), GL20.GL_VERTEX_SHADER);
     private final int fragmentShader = compile(getFragmentShaderPath(), GL20.GL_FRAGMENT_SHADER);
-    private final int program = GL20.glCreateProgram();
     {
         GL20.glAttachShader(program, vertexShader);
         GL20.glAttachShader(program, fragmentShader);
@@ -25,8 +23,6 @@ public abstract class AbstractShader {
 
         Memory.shader(this);
     }
-
-
     public final int transformationMatrix = getUniformLocation("transformationMatrix");
     public final int projectionMatrix = getUniformLocation("projectionMatrix");
     public final int viewMatrix = getUniformLocation("viewMatrix");
@@ -39,12 +35,10 @@ public abstract class AbstractShader {
     public final int fogDensity = getUniformLocation("fogDensity");
     public final int fogGradient = getUniformLocation("fogGradient");
     public final int skyColour = getUniformLocation("skyColour");
-    protected abstract String getVertexShaderPath();
 
-    protected abstract String getFragmentShaderPath();
-
-    protected int getUniformLocation(String transformationMatrix) {
-        return GL20.glGetUniformLocation(program, transformationMatrix);
+    @Override
+    public int getProgram() {
+        return program;
     }
 
     public int getVertexShader() {
@@ -55,11 +49,15 @@ public abstract class AbstractShader {
         return fragmentShader;
     }
 
-    public int getProgram() {
-        return program;
+    protected abstract String getVertexShaderPath();
+
+    protected abstract String getFragmentShaderPath();
+
+    protected int getUniformLocation(String transformationMatrix) {
+        return GL20.glGetUniformLocation(program, transformationMatrix);
     }
 
-    private int compile(String file, int type) {
+    protected int compile(String file, int type) {
         StringBuilder shaderSource = new StringBuilder();
         try {
             InputStream resourceAsStream = getClass().getResourceAsStream("/shaders/" + file);
@@ -83,36 +81,6 @@ public abstract class AbstractShader {
             System.exit(-1);
         }
         return shader;
-    }
-
-    public void start() {
-        GL20.glUseProgram(program);
-    }
-
-    public void stop() {
-        GL20.glUseProgram(0);
-    }
-
-    public void set(int uniform, int value) {
-        GL20.glUniform1i(uniform, value);
-    }
-
-    public void set(int uniform, float value) {
-        GL20.glUniform1f(uniform, value);
-    }
-
-    public void set(int uniform, boolean value) {
-        GL20.glUniform1f(uniform, value ? 1 : 0);
-    }
-
-    public void set(int uniform, Vector3f vector) {
-        GL20.glUniform3f(uniform, vector.x, vector.y, vector.z);
-    }
-
-    public void set(int uniform, Matrix4f matrix) {
-        FloatBuffer buffer = BufferFactory.matrix4fBuffer();
-        matrix.toBuffer(buffer);
-        GL20.glUniformMatrix4fv(uniform, false, buffer);
     }
 
 }

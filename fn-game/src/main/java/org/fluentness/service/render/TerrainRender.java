@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.fluentness.engine.algebra.MatrixFactory.transformationMatrix;
 
-public class TerrainRender extends AbstractRender<TerrainShader> {
+public class TerrainRender extends AbstractRender<TerrainShader, List<Terrain>> {
 
     public TerrainRender(AbstractScene scene) {
         super(new TerrainShader(), scene);

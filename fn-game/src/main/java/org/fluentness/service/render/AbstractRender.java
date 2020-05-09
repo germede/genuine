@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL30;
 import static org.fluentness.engine.algebra.MatrixFactory.projectionMatrix;
 import static org.fluentness.engine.algebra.MatrixFactory.viewMatrix;
 
-public abstract class AbstractRender<S extends AbstractShader> {
+public abstract class AbstractRender<S extends AbstractShader, O> implements Render<O> {
 
     protected final S shader;
     protected final AbstractScene scene;

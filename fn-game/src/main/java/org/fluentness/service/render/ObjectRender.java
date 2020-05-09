@@ -13,12 +13,13 @@ import java.util.Map;
 
 import static org.fluentness.engine.algebra.MatrixFactory.transformationMatrix;
 
-public class ObjectRender extends AbstractRender<ObjectShader> {
+public class ObjectRender extends AbstractRender<ObjectShader, Map<ObjectModel, List<Object>>> {
 
     public ObjectRender(AbstractScene scene) {
         super(new ObjectShader(), scene);
     }
 
+    @Override
     public void render(Map<ObjectModel, List<Object>> objects) {
         shader.start();
         for (ObjectModel model : objects.keySet()) {
