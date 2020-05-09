@@ -79,7 +79,6 @@ This project is based on these open-source technologies:
 - [Inkscape](https://inkscape.org/) with fonts Arial, [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the art logos
 - A lot of engagement :muscle:
 
-## License
-Fluentness is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
-
-Copyright © 2020 Gerardo Medina
+## Copyright
+Copyright © 2020 Gerardo Medina. 
+This project is licensed under the EUPL (1.2 or later).
