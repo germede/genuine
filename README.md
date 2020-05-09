@@ -80,5 +80,5 @@ This project is based on these open-source technologies:
 - A lot of engagement :muscle:
 
 ## Copyright
-Copyright © 2020 Gerardo Medina. 
+Copyright © 2020 Gerardo Medina.  
 This project is licensed under the EUPL (1.2 or later).
