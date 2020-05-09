@@ -3,7 +3,7 @@ package org.fluentness.service.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class DefaultConfiguration implements Configuration {
+public class DefaultConfiguration implements Configuration {
 
     private final Map<Setting, Object> settings = new HashMap<>();
 
