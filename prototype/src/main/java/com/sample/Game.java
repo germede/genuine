@@ -1,12 +1,12 @@
 package com.sample;
 
-import org.fluentness.AbstractGameApplication;
+import org.fluentness.AbstractGame;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 
-public class GameApplication extends AbstractGameApplication {
+public class Game extends AbstractGame {
 
     public static void main(String[] args) throws FluentnessException {
-        Fluentness.launch(new GameApplication(), args);
+        Fluentness.launch(new Game(), args);
     }
 }

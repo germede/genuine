@@ -7,7 +7,7 @@ import com.sample.controller.WebUsersController;
 import com.sample.repository.NoteRepository;
 import com.sample.repository.UserRepository;
 import com.sample.service.Authentication;
-import org.fluentness.AbstractWebApplication;
+import org.fluentness.AbstractWeb;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.controller.Controller;
@@ -21,7 +21,7 @@ import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.router.Router;
 import org.fluentness.service.server.Server;
 
-public class WebApplication extends AbstractWebApplication {
+public class Web extends AbstractWeb {
 
     @Override
     public void configure(Configuration configuration) {
@@ -64,6 +64,6 @@ public class WebApplication extends AbstractWebApplication {
     }
 
     public static void main(String[] args) throws FluentnessException {
-        Fluentness.launch(new WebApplication(), args);
+        Fluentness.launch(new Web(), args);
     }
 }

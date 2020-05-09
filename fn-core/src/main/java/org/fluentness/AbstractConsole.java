@@ -5,7 +5,7 @@ import org.fluentness.controller.AbstractConsoleController;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public abstract class AbstractConsoleApplication implements Application {
+public abstract class AbstractConsole implements Application {
 
     @Override
     public final void run(String[] args) throws Exception {

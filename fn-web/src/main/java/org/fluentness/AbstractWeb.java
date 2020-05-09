@@ -7,7 +7,7 @@ import org.fluentness.service.router.DefaultRouter;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.SunServer;
 
-public abstract class AbstractWebApplication implements Application {
+public abstract class AbstractWeb implements Application {
 
     @Override
     public Provider<Service> services() {

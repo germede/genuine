@@ -5,7 +5,7 @@ import org.fluentness.service.injection.Provider;
 import org.fluentness.service.log.AndroidLog;
 import org.fluentness.service.persistence.AndroidPersistence;
 
-public abstract class AbstractMobileApplication implements Application {
+public abstract class AbstractMobile implements Application {
 
     @Override
     public Provider<Service> services() {

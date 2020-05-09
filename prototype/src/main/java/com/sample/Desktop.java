@@ -3,14 +3,14 @@ package com.sample;
 import com.sample.controller.DesktopController;
 import com.sample.repository.NoteRepository;
 import com.sample.repository.UserRepository;
-import org.fluentness.AbstractDesktopApplication;
+import org.fluentness.AbstractDesktop;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.controller.Controller;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.injection.Provider;
 
-public class DesktopApplication extends AbstractDesktopApplication {
+public class Desktop extends AbstractDesktop {
 
     @Override
     public Provider<Controller> controllers() {
@@ -28,6 +28,6 @@ public class DesktopApplication extends AbstractDesktopApplication {
     }
 
     public static void main(String[] args) throws FluentnessException {
-        Fluentness.launch(new DesktopApplication(), args);
+        Fluentness.launch(new Desktop(), args);
     }
 }

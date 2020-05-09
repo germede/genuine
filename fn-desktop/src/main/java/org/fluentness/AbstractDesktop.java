@@ -5,7 +5,7 @@ import org.fluentness.controller.AbstractDesktopController;
 import javax.swing.*;
 import java.util.List;
 
-public abstract class AbstractDesktopApplication implements Application {
+public abstract class AbstractDesktop implements Application {
 
     @Override
     public final void run(String[] args) throws Exception {

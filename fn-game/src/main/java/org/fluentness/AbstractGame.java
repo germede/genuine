@@ -4,7 +4,7 @@ import org.fluentness.service.Service;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.service.parser.ObjParser;
 
-public abstract class AbstractGameApplication implements Application {
+public abstract class AbstractGame implements Application {
 
     @Override
     public Provider<Service> services() {
