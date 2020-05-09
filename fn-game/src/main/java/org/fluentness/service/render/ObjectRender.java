@@ -1,9 +1,9 @@
-package org.fluentness.engine.render;
+package org.fluentness.service.render;
 
 import org.fluentness.engine.AbstractScene;
 import org.fluentness.engine.entity.Object;
 import org.fluentness.engine.model.ObjectModel;
-import org.fluentness.engine.shader.ObjectShader;
+import org.fluentness.service.shader.ObjectShader;
 import org.fluentness.engine.texture.ObjectTexture;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;

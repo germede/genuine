@@ -3,7 +3,6 @@ package com.sample;
 import com.sample.controller.ConsoleController;
 import com.sample.repository.NoteRepository;
 import com.sample.repository.UserRepository;
-import com.sample.service.Configuration;
 import org.fluentness.AbstractConsoleApplication;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
@@ -13,13 +12,12 @@ import org.fluentness.service.Service;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.service.persistence.JdbcPersistence;
 
-public class Console extends AbstractConsoleApplication {
+public class ConsoleApplication extends AbstractConsoleApplication {
 
     @Override
-    public Provider<Service> services() {
-        return super.services()
-            .add(JdbcPersistence.class)
-            .add(Configuration.class)
+    public Provider<Controller> controllers() {
+        return super.controllers()
+            .add(ConsoleController.class)
             ;
     }
 
@@ -32,13 +30,13 @@ public class Console extends AbstractConsoleApplication {
     }
 
     @Override
-    public Provider<Controller> controllers() {
-        return super.controllers()
-            .add(ConsoleController.class)
+    public Provider<Service> services() {
+        return super.services()
+            .add(JdbcPersistence.class)
             ;
     }
 
     public static void main(String[] args) throws FluentnessException {
-        Fluentness.launch(new Console(), args);
+        Fluentness.launch(new ConsoleApplication(), args);
     }
 }

@@ -1,11 +1,11 @@
-package org.fluentness.engine.render;
+package org.fluentness.service.render;
 
 import org.fluentness.engine.AbstractScene;
 import org.fluentness.engine.algebra.Vector3f;
 import org.fluentness.engine.entity.Camera;
 import org.fluentness.engine.entity.Fog;
 import org.fluentness.engine.entity.Light;
-import org.fluentness.engine.shader.AbstractShader;
+import org.fluentness.service.shader.AbstractShader;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 

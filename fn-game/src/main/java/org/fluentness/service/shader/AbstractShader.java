@@ -1,4 +1,4 @@
-package org.fluentness.engine.shader;
+package org.fluentness.service.shader;
 
 import org.fluentness.engine.algebra.Matrix4f;
 import org.fluentness.engine.algebra.Vector3f;

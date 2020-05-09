@@ -32,7 +32,7 @@ public final class Fluentness {
     private Fluentness(Application application, String[] args) throws FluentnessException {
         try {
 
-            new FinalInjection().inject(application);
+            new FinalInjection(application).inject();
             Map<Class, Object> instances = Fluentness.instances;
             application.run(args);
         } catch (Throwable cause) {

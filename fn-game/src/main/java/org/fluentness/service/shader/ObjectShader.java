@@ -1,4 +1,4 @@
-package org.fluentness.engine.shader;
+package org.fluentness.service.shader;
 
 public class ObjectShader extends AbstractShader {
 

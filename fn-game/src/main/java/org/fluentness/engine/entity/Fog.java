@@ -2,7 +2,7 @@ package org.fluentness.engine.entity;
 
 public class Fog implements Entity {
 
-    private float density = 0.0015f;
+    private float density = 0.0012f;
     private float gradient = 5.0f;
 
     public float getDensity() {

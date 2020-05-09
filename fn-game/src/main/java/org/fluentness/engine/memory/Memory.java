@@ -1,6 +1,6 @@
 package org.fluentness.engine.memory;
 
-import org.fluentness.engine.shader.AbstractShader;
+import org.fluentness.service.shader.AbstractShader;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;

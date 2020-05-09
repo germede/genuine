@@ -7,8 +7,8 @@ import org.fluentness.engine.entity.Object;
 import org.fluentness.engine.entity.*;
 import org.fluentness.engine.memory.Memory;
 import org.fluentness.engine.model.ObjectModel;
-import org.fluentness.engine.render.ObjectRender;
-import org.fluentness.engine.render.TerrainRender;
+import org.fluentness.service.render.ObjectRender;
+import org.fluentness.service.render.TerrainRender;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
 import java.util.*;

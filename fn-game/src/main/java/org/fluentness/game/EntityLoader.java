@@ -4,8 +4,8 @@ import org.fluentness.engine.algebra.Vector3f;
 import org.fluentness.engine.entity.Object;
 import org.fluentness.engine.entity.Terrain;
 import org.fluentness.engine.model.ObjectModel;
-import org.fluentness.engine.parser.ObjParser;
-import org.fluentness.engine.parser.Parser;
+import org.fluentness.service.parser.ObjParser;
+import org.fluentness.service.parser.Parser;
 import org.fluentness.engine.texture.TerrainTexture;
 
 import java.util.Random;

@@ -1,8 +1,8 @@
-package org.fluentness.engine.render;
+package org.fluentness.service.render;
 
 import org.fluentness.engine.AbstractScene;
 import org.fluentness.engine.entity.Terrain;
-import org.fluentness.engine.shader.TerrainShader;
+import org.fluentness.service.shader.TerrainShader;
 import org.fluentness.engine.texture.TerrainTexture;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;

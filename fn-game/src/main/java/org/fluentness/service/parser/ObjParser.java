@@ -1,4 +1,4 @@
-package org.fluentness.engine.parser;
+package org.fluentness.service.parser;
 
 import org.fluentness.engine.algebra.Vector2f;
 import org.fluentness.engine.algebra.Vector3f;

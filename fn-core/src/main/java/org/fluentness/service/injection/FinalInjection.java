@@ -4,6 +4,7 @@ import org.fluentness.Application;
 import org.fluentness.ApplicationComponent;
 import org.fluentness.Fluentness;
 import org.fluentness.service.Service;
+import org.fluentness.service.configuration.Configuration;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,8 +17,14 @@ import java.util.stream.Collectors;
 
 public final class FinalInjection implements Injection {
 
+    private final Application application;
+
+    public FinalInjection(Application application) {
+        this.application = application;
+    }
+
     @Override
-    public void inject(Application application) throws InjectionException {
+    public void inject() throws InjectionException {
         inject(application.services().get());
         inject(application.repositories().get());
         inject(application.controllers().get());
@@ -33,6 +40,9 @@ public final class FinalInjection implements Injection {
                 if (instance instanceof Class) {
                     notInstantiated.add(clazz);
                 } else {
+                    if (instance instanceof Configuration) {
+                        application.configure((Configuration) instance);
+                    }
                     Fluentness.instances.put(key, instance);
                 }
                 keysToIgnore.add(key);
