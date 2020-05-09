@@ -1,0 +1,46 @@
+#version 330 core
+
+in vec2 pass_textureCoordinates;
+in vec3 surfaceNormal;
+in vec3 toLightVector;
+in vec3 toCameraVector;
+in float visibility;
+
+out vec4 pixelColour;
+
+// textureSample doesn't need to be extra set
+uniform sampler2D textureSampler;
+
+uniform vec3 lightColour;
+uniform float ambientLight;
+uniform float shineDamper;
+uniform float reflectivity;
+uniform vec3 skyColour;
+
+void main(void) {
+
+    // normal light
+    vec3 unitSurfaceNormal = normalize(surfaceNormal);
+    vec3 unitToLightVector = normalize(toLightVector);
+    float nDot1 = dot(unitSurfaceNormal, unitToLightVector);
+    float brightness = max(nDot1, ambientLight);
+    vec3 diffuse = brightness * lightColour;
+
+    // specular light
+    vec3 unitToCameraVector = normalize(toCameraVector);
+    vec3 lightDirection = -unitToLightVector;
+    vec3 reflectedLightDirection = reflect(lightDirection, unitSurfaceNormal);
+    float specularFactor = max(dot(reflectedLightDirection, unitToCameraVector),0.0);
+    float dampedSpecularFactor = pow(specularFactor, shineDamper);
+    vec3 finalSpecular = dampedSpecularFactor * reflectivity * lightColour;
+
+    // do not render transparent pixel
+    vec4 textureColour = texture(textureSampler, pass_textureCoordinates);
+    if (textureColour.a < 0.5) {
+        discard;
+    }
+
+    // fog and return
+    pixelColour = vec4(diffuse,1.0) * textureColour + vec4(finalSpecular, 1.0);
+    pixelColour = mix(vec4(skyColour,1.0), pixelColour, visibility);
+}
