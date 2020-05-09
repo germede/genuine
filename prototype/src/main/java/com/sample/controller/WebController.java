@@ -1,10 +1,11 @@
 package com.sample.controller;
 
+import com.sample.view.Web;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.controller.html.Html;
+import org.fluentness.view.Html;
 
 import static com.sample.Translations.*;
-import static org.fluentness.controller.html.HtmlFactory.h1;
+import static org.fluentness.view.HtmlFactory.h1;
 
 public class WebController extends AbstractWebController {
 

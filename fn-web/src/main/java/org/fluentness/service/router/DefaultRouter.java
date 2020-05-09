@@ -1,9 +1,9 @@
 package org.fluentness.service.router;
 
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.controller.WebTemplate;
-import org.fluentness.controller.WebView;
-import org.fluentness.controller.html.HtmlAttribute;
+import org.fluentness.view.WebTemplate;
+import org.fluentness.view.WebView;
+import org.fluentness.view.HtmlAttribute;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.injection.Injection;
@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Map;
 
-import static org.fluentness.controller.html.HtmlFactory.div;
+import static org.fluentness.view.HtmlFactory.div;
 
 public class DefaultRouter implements Router {
 

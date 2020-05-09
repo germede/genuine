@@ -1,5 +1,6 @@
 package com.sample.repository;
 
+import com.sample.model.Note;
 import org.fluentness.repository.AbstractRepository;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;

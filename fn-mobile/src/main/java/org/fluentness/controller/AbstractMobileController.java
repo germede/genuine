@@ -1,6 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.Controller;
+import org.fluentness.view.MobileView;
 
 import java.lang.annotation.*;
 import java.lang.reflect.InvocationTargetException;

@@ -36,6 +36,11 @@
             <artifactId>fn-mobile</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>org.fluentness</groupId>
+            <artifactId>fn-web</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>

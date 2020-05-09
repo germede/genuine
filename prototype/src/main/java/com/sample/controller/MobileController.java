@@ -1,5 +1,6 @@
 package com.sample.controller;
 
+import com.sample.view.Mobile;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;

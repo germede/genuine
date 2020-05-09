@@ -1,13 +1,14 @@
 package com.sample.controller;
 
-import com.sample.repository.User;
+import com.sample.model.User;
 import com.sample.repository.UserRepository;
+import com.sample.view.Web;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.controller.html.Html;
+import org.fluentness.view.Html;
 
 import static com.sample.Translations.*;
-import static org.fluentness.controller.html.HtmlAttribute.*;
-import static org.fluentness.controller.html.HtmlFactory.*;
+import static org.fluentness.view.HtmlAttribute.*;
+import static org.fluentness.view.HtmlFactory.*;
 
 public class WebUsersController extends AbstractWebController {
 

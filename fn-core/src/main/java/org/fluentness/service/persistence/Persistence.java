@@ -1,6 +1,6 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.repository.Model;
+import org.fluentness.model.Model;
 import org.fluentness.service.Service;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.Controller;
 import org.fluentness.service.server.Request;
 import org.fluentness.service.server.RequestMethod;
+import org.fluentness.view.WebView;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Constructor;

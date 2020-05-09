@@ -1,6 +1,7 @@
 package org.fluentness.repository;
 
 import org.fluentness.ApplicationComponent;
+import org.fluentness.model.Model;
 
 import java.util.List;
 

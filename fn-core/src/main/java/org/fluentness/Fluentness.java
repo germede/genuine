@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.controller.console.AbstractConsoleController;
+import org.fluentness.controller.AbstractConsoleController;
 import org.fluentness.service.injection.FinalInjection;
 import org.fluentness.service.injection.Injection;
 
@@ -41,10 +41,9 @@ public final class Fluentness {
 //                    }
 //                    break;
                 case MOBILE:
-                    // FnActivity initializes the views
                     break;
                 case WEB:
-//                    Injection.getInstance(Server.class).start();
+
                     break;
             }
         } catch (Throwable cause) {

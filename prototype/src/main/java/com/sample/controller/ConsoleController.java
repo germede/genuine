@@ -1,7 +1,7 @@
 package com.sample.controller;
 
 import com.sample.repository.NoteRepository;
-import org.fluentness.controller.console.AbstractConsoleController;
+import org.fluentness.controller.AbstractConsoleController;
 
 import java.util.stream.Collectors;
 
