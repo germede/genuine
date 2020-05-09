@@ -1,13 +1,29 @@
 package org.fluentness;
 
-import org.fluentness.controller.AbstractConsoleController;
 import org.fluentness.service.injection.FinalInjection;
-import org.fluentness.service.injection.Injection;
 
-import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class Fluentness {
+
+    public static final Map<Class, Object> instances = new HashMap<>();
+
+    public static <A extends ApplicationComponent> List<A> getInstances(Class<A> parent) {
+        List<A> list = new ArrayList<>();
+        for (Object value : instances.values()) {
+            if (parent.isAssignableFrom(value.getClass())) {
+                list.add((A) value);
+            }
+        }
+        return list;
+    }
+
+    public static <A extends ApplicationComponent> A getInstance(Class<A> parent) {
+        return (A) instances.get(parent);
+    }
 
     public static Fluentness launch(Application application, String... args) throws FluentnessException {
         return new Fluentness(application, args);
@@ -15,40 +31,12 @@ public final class Fluentness {
 
     private Fluentness(Application application, String[] args) throws FluentnessException {
         try {
-            Application.Platform platform = new FinalInjection().inject(application);
-            switch (platform) {
-                case CONSOLE:
-                    if (args == null) {
-                        throw new IllegalArgumentException("Passed args array was null");
-                    }
-                    Map<String, Method> nameActionMap = AbstractConsoleController.nameActionMap;
-                    String name = args.length == 0 || !nameActionMap.containsKey(args[0]) ? "help" : args[0];
-                    Method toExecute = nameActionMap.get(name);
-                    toExecute.setAccessible(true);
-                    toExecute.invoke(
-                        Injection.getInstance(
-                            (Class<? extends org.fluentness.controller.Controller>) toExecute.getDeclaringClass()
-                        )
-                    );
-                    break;
-                case DESKTOP:
-//                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//                    List<AbstractDesktopController> instances = Injection.getInstances(AbstractDesktopController.class);
-//                    for (AbstractDesktopController controller : instances) {
-////                controller.getDesktop().getStyle().apply();
-//                        controller.getView().getTemplate().render();
-//                        controller.setListeners();
-//                    }
-//                    break;
-                case MOBILE:
-                    break;
-                case WEB:
 
-                    break;
-            }
+            new FinalInjection().inject(application);
+            Map<Class, Object> instances = Fluentness.instances;
+            application.run(args);
         } catch (Throwable cause) {
             throw new FluentnessException(cause);
         }
     }
-
 }

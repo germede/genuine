@@ -1,6 +1,7 @@
 .idea/*
 .idea_modules/*
 target/
+database/
 *.iws
 *.ipr
 *.class

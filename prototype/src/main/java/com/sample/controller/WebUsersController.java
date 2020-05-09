@@ -2,11 +2,11 @@ package com.sample.controller;
 
 import com.sample.model.User;
 import com.sample.repository.UserRepository;
-import com.sample.view.Web;
+import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.Html;
 
-import static com.sample.Translations.*;
+import static com.sample.service.Translation.*;
 import static org.fluentness.view.HtmlAttribute.*;
 import static org.fluentness.view.HtmlFactory.*;
 
@@ -16,7 +16,7 @@ public class WebUsersController extends AbstractWebController {
 
     @BasePath("/users")
     public WebUsersController(UserRepository userRepository) {
-        super(Web.class);
+        super(WebView.class);
         this.userRepository = userRepository;
     }
 

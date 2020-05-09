@@ -1,6 +1,6 @@
 package com.sample.controller;
 
-import com.sample.view.Mobile;
+import com.sample.view.MobileView;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
@@ -8,7 +8,7 @@ import org.fluentness.service.persistence.Persistence;
 public class MobileController extends AbstractMobileController {
 
     public MobileController(Persistence persistence, Log log) {
-        super(Mobile.class);
+        super(MobileView.class);
 
 //        persistence.persist(new User("test", "test"));
 //        persistence.persist(new User("test2", "test2"));

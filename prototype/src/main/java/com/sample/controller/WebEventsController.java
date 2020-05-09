@@ -1,13 +1,13 @@
 package com.sample.controller;
 
-import com.sample.service.calendar.Calendar;
-import com.sample.view.Web;
-import org.fluentness.view.Html;
+import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
+import org.fluentness.view.Html;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.fluentness.view.HtmlAttribute.CLASS;
@@ -16,12 +16,9 @@ import static org.fluentness.view.HtmlFactory.*;
 
 public class WebEventsController extends AbstractWebController {
 
-    private final Calendar calendar;
-
     @BasePath("/events")
-    public WebEventsController(Calendar calendar) {
-        super(Web.class);
-        this.calendar = calendar;
+    public WebEventsController() {
+        super(WebView.class);
     }
 
     @Action
@@ -29,7 +26,7 @@ public class WebEventsController extends AbstractWebController {
         YearMonth current = (year == 0 && month == 0) ? YearMonth.now() : YearMonth.of(year, month);
         YearMonth previous = current.minusMonths(1);
         YearMonth next = current.plusMonths(1);
-        List<LocalDate> days = calendar.getDays(current);
+        List<LocalDate> days = getDays(current);
         return div(CLASS + "calendar",
             h2(
                 i(CLASS + "icono-calendar"),
@@ -51,6 +48,25 @@ public class WebEventsController extends AbstractWebController {
                 )
             )
         );
+    }
+
+    private List<LocalDate> getDays(YearMonth month) {
+
+        List<LocalDate> days = new LinkedList<>();
+        LocalDate firstDay = month.atDay(1);
+        LocalDate lastDay = month.atDay(month.lengthOfMonth());
+
+        for (int i = firstDay.getDayOfWeek().getValue() - 1; i > 0; i--) {
+            days.add(firstDay.minusDays(i));
+        }
+        for (int j = 1; j < month.lengthOfMonth() + 1; j++) {
+            days.add(month.atDay(j));
+        }
+        for (int k = 1; k < 8 - lastDay.getDayOfWeek().getValue(); k++) {
+            days.add(lastDay.plusDays(k));
+        }
+
+        return days;
     }
 
 }

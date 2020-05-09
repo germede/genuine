@@ -1,6 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.view.MobileView;
+import org.fluentness.view.AbstractMobileView;
 
 import java.lang.annotation.*;
 import java.lang.reflect.InvocationTargetException;
@@ -10,13 +10,13 @@ import java.util.Map;
 public abstract class AbstractMobileController implements Controller {
 
     private static final Map<Class, Object> viewInstances = new HashMap<>();
-    protected final MobileView view;
+    protected final AbstractMobileView view;
 
-    public final MobileView getView() {
+    public final AbstractMobileView getView() {
         return view;
     }
 
-    public AbstractMobileController(Class<? extends MobileView> viewClass) {
+    public AbstractMobileController(Class<? extends AbstractMobileView> viewClass) {
         if (!viewInstances.containsKey(viewClass)) {
             try {
                 viewInstances.put(viewClass, viewClass.getConstructors()[0].newInstance());
@@ -24,7 +24,7 @@ public abstract class AbstractMobileController implements Controller {
                 e.printStackTrace();
             }
         }
-        view = (MobileView) viewInstances.get(viewClass);
+        view = (AbstractMobileView) viewInstances.get(viewClass);
     }
 
     @Override

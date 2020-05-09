@@ -1,14 +1,14 @@
 package com.sample.view;
 
-import com.sample.WorkStation;
+import com.sample.Desktop;
 import org.fluentness.view.WebTemplate;
-import org.fluentness.view.WebView;
+import org.fluentness.view.AbstractWebView;
 
-import static com.sample.Translations.*;
+import static com.sample.service.Translation.*;
 import static org.fluentness.view.HtmlAttribute.*;
 import static org.fluentness.view.HtmlFactory.*;
 
-public class Web implements WebView {
+public class WebView extends AbstractWebView {
 
     @Override
     public WebTemplate getTemplate() {
@@ -26,7 +26,7 @@ public class Web implements WebView {
             ),
             body(
                 nav(
-                    a(ID + "index", CLASS + "brand", WorkStation.class.getSimpleName()),
+                    a(ID + "index", CLASS + "brand", Desktop.class.getSimpleName()),
 
                     input(ID + "burger", TYPE + "checkbox", CLASS + "show"),
                     label(FOR + "burger", CLASS + "burger pseudo button", _menu),

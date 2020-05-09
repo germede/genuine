@@ -1,6 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.view.DesktopView;
+import org.fluentness.view.AbstractDesktopView;
 import org.fluentness.view.Swing;
 
 import java.awt.*;
@@ -15,13 +15,13 @@ import java.util.Map;
 public abstract class AbstractDesktopController implements Controller {
 
     private static final Map<Class, Object> viewInstances = new HashMap<>();
-    protected final DesktopView view;
+    protected final AbstractDesktopView view;
 
-    public final DesktopView getView() {
+    public final AbstractDesktopView getView() {
         return view;
     }
 
-    public AbstractDesktopController(Class<? extends DesktopView> viewClass) {
+    public AbstractDesktopController(Class<? extends AbstractDesktopView> viewClass) {
         if (!viewInstances.containsKey(viewClass)) {
             try {
                 viewInstances.put(viewClass, viewClass.getConstructors()[0].newInstance());
@@ -29,7 +29,7 @@ public abstract class AbstractDesktopController implements Controller {
                 e.printStackTrace();
             }
         }
-        view = (DesktopView) viewInstances.get(viewClass);
+        view = (AbstractDesktopView) viewInstances.get(viewClass);
     }
 
     @Override

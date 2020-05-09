@@ -1,17 +1,17 @@
 package com.sample.controller;
 
-import com.sample.view.Web;
+import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.Html;
 
-import static com.sample.Translations.*;
+import static com.sample.service.Translation.*;
 import static org.fluentness.view.HtmlFactory.h1;
 
 public class WebController extends AbstractWebController {
 
     @BasePath("/")
     public WebController() {
-        super(Web.class);
+        super(WebView.class);
     }
 
     @Action

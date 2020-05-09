@@ -4,7 +4,7 @@ import com.sample.model.User;
 import org.fluentness.service.authentication.BasicAuthentication;
 import org.fluentness.service.persistence.Persistence;
 
-import static org.fluentness.service.persistence.Condition.eq;
+import static org.fluentness.repository.AbstractRepository.eq;
 
 public class Authentication extends BasicAuthentication {
 

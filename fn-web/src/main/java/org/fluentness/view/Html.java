@@ -1,7 +1,7 @@
 package org.fluentness.view;
 
+import org.fluentness.Fluentness;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.service.injection.Injection;
 import org.fluentness.service.translator.Translator;
 
 import static org.fluentness.view.HtmlAttribute.*;
@@ -17,7 +17,7 @@ public abstract class Html implements Template {
         attributes = new StringBuilder();
         inner = new StringBuilder();
 
-        Translator translator = Injection.getInstance(Translator.class);
+        Translator translator = Fluentness.getInstance(Translator.class);
         String[] languages = AbstractWebController.request.get().getLanguages();
 
         for (CharSequence item : html) {

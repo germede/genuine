@@ -7,7 +7,6 @@ import org.fluentness.Application;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.controller.AbstractMobileController;
-import org.fluentness.service.injection.Injection;
 import org.fluentness.service.log.Log;
 
 public class AndroidActivity extends Activity {
@@ -23,13 +22,13 @@ public class AndroidActivity extends Activity {
             Fluentness.launch(application);
 
             AndroidFactory.context = this;
-            Android template = (Android) Injection.getInstances(AbstractMobileController.class).get(0).getView().getTemplate();
+            Android template = (Android) Fluentness.getInstances(AbstractMobileController.class).get(0).getView().getTemplate();
 
             // todo manage more controllers and views
 
             setContentView(template.getView());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | FluentnessException | PackageManager.NameNotFoundException e) {
-            Log log = Injection.getInstance(Log.class);
+            Log log = Fluentness.getInstance(Log.class);
             if (log != null) {
                 log.error(e);
             } else {

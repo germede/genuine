@@ -1,11 +1,11 @@
 package com.sample.controller;
 
 import com.sample.repository.NoteRepository;
-import com.sample.view.Web;
+import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.Html;
 
-import static com.sample.Translations.*;
+import static com.sample.service.Translation.*;
 import static org.fluentness.view.HtmlAttribute.CLASS;
 import static org.fluentness.view.HtmlFactory.*;
 
@@ -15,7 +15,7 @@ public class WebNotesController extends AbstractWebController {
 
     @BasePath("/notes")
     public WebNotesController(NoteRepository noteRepository) {
-        super(Web.class);
+        super(WebView.class);
         this.noteRepository = noteRepository;
     }
 

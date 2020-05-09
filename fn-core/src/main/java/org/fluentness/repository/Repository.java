@@ -22,4 +22,5 @@ public interface Repository<M extends Model> extends ApplicationComponent {
     int delete(M model);
 
     int delete(int id);
+
 }

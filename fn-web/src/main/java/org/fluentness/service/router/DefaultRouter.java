@@ -1,12 +1,12 @@
 package org.fluentness.service.router;
 
+import org.fluentness.Fluentness;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.WebTemplate;
-import org.fluentness.view.WebView;
+import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.HtmlAttribute;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.injection.Injection;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.server.*;
 
@@ -95,7 +95,7 @@ public class DefaultRouter implements Router {
     }
 
     private Response executeWebAction(Method action, Request request) {
-        AbstractWebController webController = Injection.getInstance(
+        AbstractWebController webController = Fluentness.getInstance(
             (Class<? extends AbstractWebController>) action.getDeclaringClass()
         );
         action.setAccessible(true);
@@ -152,11 +152,11 @@ public class DefaultRouter implements Router {
             render = returned.toString();
         } else {
             if (configuration.get(SINGLE_PAGE_MODE)) {
-                WebView.actionResult.set(div(HtmlAttribute.ID + "ajax-placeholder", returned.toString()));
+                AbstractWebView.actionResult.set(div(HtmlAttribute.ID + "ajax-placeholder", returned.toString()));
                 render = webController.getView().getTemplate().toString();
                 render = render.replace("</head>", configuration.get(AJAX_HANDLER) + "</head>");
             } else {
-                WebView.actionResult.set(returned.toString());
+                AbstractWebView.actionResult.set(returned.toString());
                 WebTemplate template = webController.getView().getTemplate();
                 render = template.toString();
             }

@@ -1,6 +1,6 @@
 package com.sample.view;
 
-import org.fluentness.view.DesktopView;
+import org.fluentness.view.AbstractDesktopView;
 import org.fluentness.view.DesktopTemplate;
 import org.fluentness.view.Swing;
 
@@ -10,7 +10,7 @@ import static org.fluentness.view.SwingAttribute.CLASS;
 import static org.fluentness.view.SwingAttribute.ID;
 import static org.fluentness.view.SwingFactory.*;
 
-public class Desktop implements DesktopView {
+public class DesktopView extends AbstractDesktopView {
 
     @Override
     public DesktopTemplate getTemplate() {

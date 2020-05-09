@@ -1,9 +1,9 @@
-package com.sample;
+package com.sample.service;
 
 import static org.fluentness.service.translator.TranslationFactory.de;
 import static org.fluentness.service.translator.TranslationFactory.es;
 
-public class Translations {
+public class Translation {
 // todo make interface?
     public static final String
         _submit = "Submit" + de("Absenden") + es("Enviar"),

@@ -1,9 +1,9 @@
 package org.fluentness.controller;
 
+import org.fluentness.Fluentness;
 import org.fluentness.model.Model;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.injection.Injection;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.persistence.Persistence;
 
@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 
 import static org.fluentness.service.log.AnsiColor.*;
 
-public final class FnConsoleController extends AbstractConsoleController {
+public final class DefaultConsoleController extends AbstractConsoleController {
 
     private Configuration configuration;
     private Persistence persistence;
 
-    public FnConsoleController(Configuration configuration, Persistence persistence) {
+    public DefaultConsoleController(Configuration configuration, Persistence persistence) {
         this.configuration = configuration;
         this.persistence = persistence;
     }
@@ -43,7 +43,7 @@ public final class FnConsoleController extends AbstractConsoleController {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         List<Method> actions = new LinkedList<>();
-        for (AbstractConsoleController controller : Injection.getInstances(AbstractConsoleController.class)) {
+        for (AbstractConsoleController controller : Fluentness.getInstances(AbstractConsoleController.class)) {
             actions.addAll(Arrays.asList(controller.getActions()));
         }
 
@@ -119,7 +119,7 @@ public final class FnConsoleController extends AbstractConsoleController {
             System.err.println(JdbcPersistence.class.getSimpleName() + " is not being used, ignoring");
             return;
         }
-        List<Class> modelClasses = Injection.getInstances(Repository.class)
+        List<Class> modelClasses = Fluentness.getInstances(Repository.class)
             .stream()
             .map(Repository::getModelClass)
             .collect(Collectors.toList());

@@ -1,12 +1,12 @@
 package com.sample.controller;
 
-import com.sample.view.Desktop;
+import com.sample.view.DesktopView;
 import org.fluentness.controller.AbstractDesktopController;
 
 public class DesktopController extends AbstractDesktopController {
 
     public DesktopController() {
-        super(Desktop.class);
+        super(DesktopView.class);
     }
 
     @Action(selector = "#daButton", event = Event.CLICK)

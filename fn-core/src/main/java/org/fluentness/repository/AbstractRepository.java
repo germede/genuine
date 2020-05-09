@@ -36,7 +36,7 @@ public abstract class AbstractRepository<M extends Model> implements Repository<
 
     @Override
     public List<M> selectByField(String field, Object value) {
-        return persistence.retrieve(modelClass, Condition.eq(field, value));
+        return persistence.retrieve(modelClass, eq(field, value));
     }
 
     @Override
@@ -57,6 +57,23 @@ public abstract class AbstractRepository<M extends Model> implements Repository<
     @Override
     public int delete(int id) {
         return persistence.remove(modelClass, id);
+    }
+
+
+    public static Condition eq(String field, Object value) {
+        return new Condition(field, "=", value);
+    }
+
+    public static Condition lt(String field, Object value) {
+        return new Condition(field, "<", value);
+    }
+
+    public static Condition gt(String field, Object value) {
+        return new Condition(field, ">", value);
+    }
+
+    public static Condition in(String field, Object value) {
+        return new Condition(field, " IN ", value);
     }
 
 }

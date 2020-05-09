@@ -2,7 +2,7 @@ package org.fluentness.controller;
 
 import org.fluentness.service.server.Request;
 import org.fluentness.service.server.RequestMethod;
-import org.fluentness.view.WebView;
+import org.fluentness.view.AbstractWebView;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Constructor;
@@ -21,13 +21,13 @@ public abstract class AbstractWebController implements Controller {
     public static final ThreadLocal<Request> request = new ThreadLocal<>();
 
     private static final Map<Class, Object> viewInstances = new HashMap<>();
-    protected final WebView view;
+    protected final AbstractWebView view;
 
-    public final WebView getView() {
+    public final AbstractWebView getView() {
         return view;
     }
 
-    public AbstractWebController(Class<? extends WebView> viewClass) {
+    public AbstractWebController(Class<? extends AbstractWebView> viewClass) {
         if (!viewInstances.containsKey(viewClass)) {
             try {
                 viewInstances.put(viewClass, viewClass.getConstructors()[0].newInstance());
@@ -35,7 +35,7 @@ public abstract class AbstractWebController implements Controller {
                 e.printStackTrace();
             }
         }
-        view = (WebView) viewInstances.get(viewClass);
+        view = (AbstractWebView) viewInstances.get(viewClass);
 
         Constructor<?>[] constructors = getClass().getConstructors();
         Arrays.stream(getActions()).forEach(action -> {

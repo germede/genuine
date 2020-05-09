@@ -1,18 +1,9 @@
 package org.fluentness.service.injection;
 
 import org.fluentness.Application;
-import org.fluentness.Application.Platform;
 import org.fluentness.ApplicationComponent;
-import org.fluentness.controller.Controller;
+import org.fluentness.Fluentness;
 import org.fluentness.service.Service;
-import org.fluentness.service.configuration.DefaultConfiguration;
-import org.fluentness.service.injection.initer.Controllers;
-import org.fluentness.service.injection.initer.Repositories;
-import org.fluentness.service.injection.initer.Services;
-import org.fluentness.service.log.JulLog;
-import org.fluentness.service.persistence.FilePersistence;
-import org.fluentness.service.persistence.JdbcPersistence;
-import org.fluentness.service.translator.DefaultTranslator;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -26,64 +17,13 @@ import java.util.stream.Collectors;
 public final class FinalInjection implements Injection {
 
     @Override
-    public Platform inject(Application application) throws InjectionException {
-
-        Services services = new Services();
-        Repositories repositories = new Repositories();
-        Controllers controllers = new Controllers();
-        Platform platform = application.init(services, repositories, controllers);
-
-        inject(withFallbackServices(services, platform));
-        inject(repositories.get());
-        inject(withFallbackControllers(controllers, platform));
-
-        return platform;
+    public void inject(Application application) throws InjectionException {
+        inject(application.services().get());
+        inject(application.repositories().get());
+        inject(application.controllers().get());
     }
 
-    private List<Class<? extends Service>> withFallbackServices(Services services, Platform platform) {
-        List<Class<? extends Service>> serviceList = services.get();
-        switch (platform) {
-            case WEB:
-//                serviceList.add(DefaultAuthentication.class);
-//                serviceList.add(SunServer.class);
-//                serviceList.add(DefaultRouter.class);
-                serviceList.add(JdbcPersistence.class);
-            case DESKTOP:
-//                serviceList.add(SocketMail.class);
-                serviceList.add(JulLog.class);
-            case MOBILE:
-//                serviceList.add(AndroidLog.class);
-//                serviceList.add(AndroidPersistence.class);
-            case CONSOLE:
-                serviceList.add(FilePersistence.class);
-                serviceList.add(DefaultConfiguration.class);
-                serviceList.add(DefaultTranslator.class);
-        }
-        return serviceList;
-    }
-
-    private List<Class<? extends Controller>> withFallbackControllers(Controllers controllers, Platform platform) {
-        List<Class<? extends Controller>> controllerList = controllers.get();
-//        switch (platform) {
-//            case WEB:
-//                controllerList.removeIf(aClass -> !AbstractWebController.class.isAssignableFrom(aClass));
-//                break;
-//            case DESKTOP:
-//                controllerList.removeIf(aClass -> !AbstractDesktopController.class.isAssignableFrom(aClass));
-//                break;
-//            case MOBILE:
-//                controllerList.removeIf(aClass -> !AbstractMobileController.class.isAssignableFrom(aClass));
-//                break;
-//            case CONSOLE:
-//                controllerList.removeIf(aClass -> !AbstractConsoleController.class.isAssignableFrom(aClass));
-//                controllerList.add(FluentnessController.class);
-//                break;
-//        }
-        return controllerList;
-    }
-
-    private <I extends ApplicationComponent> void inject(List<Class<? extends I>> classes) throws
-        InjectionException {
+    private <I extends ApplicationComponent> void inject(List<Class<? extends I>> classes) throws InjectionException {
         List<Class<? extends I>> notInstantiated = new LinkedList<>();
         List<Class<? extends I>> keysToIgnore = new LinkedList<>();
         for (Class<? extends I> clazz : classes) {
@@ -93,7 +33,7 @@ public final class FinalInjection implements Injection {
                 if (instance instanceof Class) {
                     notInstantiated.add(clazz);
                 } else {
-                    instances.put(key, instance);
+                    Fluentness.instances.put(key, instance);
                 }
                 keysToIgnore.add(key);
             }
@@ -139,8 +79,8 @@ public final class FinalInjection implements Injection {
             Object[] result = new Object[parameters.length];
             for (int i = 0; i < parameters.length; i++) {
                 Class<?> type = parameters[i].getType();
-                if (instances.containsKey(type)) {
-                    result[i] = instances.get(type);
+                if (Fluentness.instances.containsKey(type)) {
+                    result[i] = Fluentness.instances.get(type);
                 } else {
                     return type;
                 }
