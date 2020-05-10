@@ -7,11 +7,11 @@ import org.fluentness.view.Html;
 import static com.sample.service.Translation.*;
 import static org.fluentness.view.HtmlFactory.h1;
 
-public class WebController extends AbstractWebController {
+public class WebController extends AbstractWebController<WebView> {
 
     @BasePath("/")
-    public WebController() {
-        super(WebView.class);
+    public WebController(WebView webView) {
+        super(webView);
     }
 
     @Action

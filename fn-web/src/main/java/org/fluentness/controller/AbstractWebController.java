@@ -6,7 +6,6 @@ import org.fluentness.view.AbstractWebView;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,29 +13,14 @@ import java.util.Map;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
-public abstract class AbstractWebController implements Controller {
+public abstract class AbstractWebController<V extends AbstractWebView> extends AbstractViewController<V> {
 
     public static final Map<String, Method> pathMethodMap = new HashMap<>();
     public static final Map<String, String> methodPathMap = new HashMap<>();
     public static final ThreadLocal<Request> request = new ThreadLocal<>();
 
-    private static final Map<Class, Object> viewInstances = new HashMap<>();
-    protected final AbstractWebView view;
-
-    public final AbstractWebView getView() {
-        return view;
-    }
-
-    public AbstractWebController(Class<? extends AbstractWebView> viewClass) {
-        if (!viewInstances.containsKey(viewClass)) {
-            try {
-                viewInstances.put(viewClass, viewClass.getConstructors()[0].newInstance());
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
-        view = (AbstractWebView) viewInstances.get(viewClass);
-
+    public AbstractWebController(V view) {
+        super(view, Action.class);
         Constructor<?>[] constructors = getClass().getConstructors();
         Arrays.stream(getActions()).forEach(action -> {
             Action annotation = action.getAnnotation(Action.class);
@@ -46,11 +30,6 @@ public abstract class AbstractWebController implements Controller {
             pathMethodMap.put(annotation.method() + " " + path, action);
             methodPathMap.put(action.getName(), path);
         });
-    }
-
-    @Override
-    public Class<? extends Annotation> getActionClass() {
-        return Action.class;
     }
 
     @Target(ElementType.METHOD)

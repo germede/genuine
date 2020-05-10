@@ -4,8 +4,13 @@ import org.fluentness.view.SceneElement;
 
 public class Fog implements SceneElement {
 
-    private float density = 0.0012f;
-    private float gradient = 5.0f;
+    private float density;
+    private float gradient;
+
+    public Fog(float density, float gradient) {
+        this.density = density;
+        this.gradient = gradient;
+    }
 
     public float getDensity() {
         return density;

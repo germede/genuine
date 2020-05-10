@@ -16,7 +16,7 @@ public abstract class AbstractMobile implements Application {
     }
 
     @Override
-    public final void run(String[] args) throws Exception {
+    public void run(String[] args) throws Exception {
 
     }
 }

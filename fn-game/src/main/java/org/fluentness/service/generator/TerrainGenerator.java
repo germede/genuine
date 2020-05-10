@@ -11,7 +11,8 @@ public class TerrainGenerator implements Generator {
         this.loader = loader;
     }
 
-    public Shape generateTerrain(int vertexCount, float size) {
+    @Override
+    public Shape generate(int vertexCount, float size) {
         int count = vertexCount * vertexCount;
         float[] vertices = new float[count * 3];
         float[] normals = new float[count * 3];

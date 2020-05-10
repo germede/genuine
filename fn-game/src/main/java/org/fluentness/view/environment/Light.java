@@ -5,13 +5,13 @@ import org.fluentness.view.SceneElement;
 
 public class Light implements SceneElement {
 
-    private Vector3f translation;
-    private Vector3f colour;
+    private Vector3f colour = new Vector3f(1,1,1);
     private float ambientLight = 0.5f;
 
-    public Light(Vector3f translation, Vector3f colour) {
-        this.translation = translation;
-        this.colour = colour;
+    private Vector3f translation;
+
+    public Light(float x, float y, float z) {
+        this.translation = new Vector3f(x, y, z);
     }
 
     public Vector3f getTranslation() {

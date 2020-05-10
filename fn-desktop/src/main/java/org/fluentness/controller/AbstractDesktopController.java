@@ -9,32 +9,11 @@ import java.awt.event.MouseListener;
 import java.lang.annotation.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
-public abstract class AbstractDesktopController implements Controller {
+public abstract class AbstractDesktopController<V extends AbstractDesktopView> extends AbstractViewController<V> {
 
-    private static final Map<Class, Object> viewInstances = new HashMap<>();
-    protected final AbstractDesktopView view;
-
-    public final AbstractDesktopView getView() {
-        return view;
-    }
-
-    public AbstractDesktopController(Class<? extends AbstractDesktopView> viewClass) {
-        if (!viewInstances.containsKey(viewClass)) {
-            try {
-                viewInstances.put(viewClass, viewClass.getConstructors()[0].newInstance());
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
-        view = (AbstractDesktopView) viewInstances.get(viewClass);
-    }
-
-    @Override
-    public Class<? extends Annotation> getActionClass() {
-        return Action.class;
+    public AbstractDesktopController(V view) {
+        super(view, Action.class);
     }
 
     @Target(ElementType.METHOD)

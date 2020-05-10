@@ -2,16 +2,17 @@ package org.fluentness.model;
 
 public class Shape implements Model {
 
-    private final int vao;
+    private final int id;
     private final int vertexCount;
 
-    public Shape(int vao, int vertexCount) {
-        this.vao = vao;
+    public Shape(int id, int vertexCount) {
+        this.id = id;
         this.vertexCount = vertexCount;
     }
 
-    public int getVao() {
-        return vao;
+    @Override
+    public int getId() {
+        return id;
     }
 
     public int getVertexCount() {
@@ -19,12 +20,7 @@ public class Shape implements Model {
     }
 
     @Override
-    public int getId() {
-        return vao;
-    }
-
-    @Override
     public void setId(int id) {
-
+        throw new UnsupportedOperationException("Not allowed to set shape id");
     }
 }

@@ -14,11 +14,11 @@ import static org.fluentness.view.HtmlAttribute.CLASS;
 import static org.fluentness.view.HtmlAttribute.HREF;
 import static org.fluentness.view.HtmlFactory.*;
 
-public class WebEventsController extends AbstractWebController {
+public class WebEventsController extends AbstractWebController<WebView> {
 
     @BasePath("/events")
-    public WebEventsController() {
-        super(WebView.class);
+    public WebEventsController(WebView webView) {
+        super(webView);
     }
 
     @Action

@@ -130,39 +130,4 @@ public class DefaultAlgebra implements Algebra {
 
         return matrix4f;
     }
-
-    @Override
-    public Vector2f zeroVector2f() {
-        return new Vector2f(0, 0);
-    }
-
-    @Override
-    public Vector3f zeroVector3f() {
-        return new Vector3f(0, 0, 0);
-    }
-
-    @Override
-    public Vector4f zeroVector4f() {
-        return new Vector4f(0, 0, 0, 0);
-    }
-
-    @Override
-    public Vector3f whiteRgb() {
-        return new Vector3f(1, 1, 1);
-    }
-
-    @Override
-    public Vector3f blackRgb() {
-        return new Vector3f(0, 0, 0);
-    }
-
-    @Override
-    public Vector4f whiteRgba() {
-        return new Vector4f(1, 1, 1, 1);
-    }
-
-    @Override
-    public Vector4f blackRgba() {
-        return new Vector4f(0, 0, 0, 1);
-    }
 }

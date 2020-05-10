@@ -27,6 +27,7 @@ public final class FinalInjection implements Injection {
     public void inject() throws InjectionException {
         inject(application.services().get());
         inject(application.repositories().get());
+        inject(application.views().get());
         inject(application.controllers().get());
     }
 

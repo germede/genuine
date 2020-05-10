@@ -20,17 +20,4 @@ public interface Algebra extends Service {
 
     Matrix4f viewMatrix(Vector3f translation, Vector3f rotation);
 
-    Vector2f zeroVector2f();
-
-    Vector3f zeroVector3f();
-
-    Vector4f zeroVector4f();
-
-    Vector3f whiteRgb();
-
-    Vector3f blackRgb();
-
-    Vector4f whiteRgba();
-
-    Vector4f blackRgba();
 }

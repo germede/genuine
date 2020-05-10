@@ -12,7 +12,7 @@ public class Entity implements SceneElement {
 
     private Vector3f translation;
     private Vector3f rotation;
-    private float scale = 1;
+    private float scale;
 
     private float shineDamper = 1;
     private float reflectivity = 0;
@@ -22,13 +22,15 @@ public class Entity implements SceneElement {
         this.texture = texture;
         this.translation = new Vector3f(0, 0, 0);
         this.rotation = new Vector3f(0, 0, 0);
+        this.scale = 1;
     }
 
-    public Entity(Shape shape, Texture texture, Vector3f translation, Vector3f rotation) {
+    public Entity(Shape shape, Texture texture, Vector3f translation, Vector3f rotation, float scale) {
         this.shape = shape;
         this.texture = texture;
         this.translation = translation;
         this.rotation = rotation;
+        this.scale = scale;
     }
 
     public Shape getShape() {

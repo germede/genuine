@@ -60,13 +60,15 @@ public class DefaultLoader implements Loader {
     public Texture loadTexture(String path) {
         RawTexture rawTexture = textureParser.parse(path);
 
-        int id = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, id);
+        int texture = glGenTextures();
+        memory.texture(texture);
+
+        glBindTexture(GL_TEXTURE_2D, texture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, rawTexture.getWidth(), rawTexture.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, rawTexture.getPixels());
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        return new Texture(id, rawTexture.hasTransparency());
+        return new Texture(texture, rawTexture.hasTransparency());
     }
 }

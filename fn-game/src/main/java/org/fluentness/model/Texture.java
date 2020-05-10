@@ -1,30 +1,25 @@
 package org.fluentness.model;
 
-import org.fluentness.service.memory.DefaultMemory;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
-
-import static org.lwjgl.opengl.GL11.*;
-
-public class Texture {
+public class Texture implements Model {
 
     private final int id;
-    private final boolean hasTransparency = false;
+    private final boolean hasTransparency;
     private final boolean lightUniformly;
 
     public Texture(int id, boolean hasTransparency) {
-        id = load(texturePath);
-        DefaultMemory.texture(id);
+        this.id = id;
+        this.hasTransparency = hasTransparency;
         lightUniformly = hasTransparency; // todo make it light uniformly only when using multi-faced models
     }
 
+    @Override
     public int getId() {
         return id;
+    }
+
+    @Override
+    public void setId(int id) {
+
     }
 
     public boolean hasTransparency() {

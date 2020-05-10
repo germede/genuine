@@ -1,22 +1,19 @@
 package org.fluentness.service.render;
 
+import org.fluentness.model.Texture;
+import org.fluentness.service.algebra.Algebra;
+import org.fluentness.service.shader.TerrainShader;
 import org.fluentness.view.Scene;
 import org.fluentness.view.entity.Terrain;
-import org.fluentness.service.shader.TerrainShader;
-import org.fluentness.model.texture.TerrainTexture;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
-import java.util.List;
+public class TerrainRender extends AbstractRender<TerrainShader> {
 
-import static org.fluentness.service.algebra.DefaultAlgebra.transformationMatrix;
+    public TerrainRender(Algebra algebra, TerrainShader terrainShader) {
+        super(algebra, terrainShader);
 
-public class TerrainRender extends AbstractRender<TerrainShader, List<Terrain>> {
-
-    public TerrainRender(Scene scene) {
-        super(new TerrainShader(), scene);
-
-        // bind multi-texture slots to uniform
+        // bind multi-texture slots to uniforms
         shader.start();
         shader.set(shader.blendMap, 0);
         shader.set(shader.blackTexture, 1);
@@ -26,10 +23,11 @@ public class TerrainRender extends AbstractRender<TerrainShader, List<Terrain>> 
         shader.stop();
     }
 
-    public void render(List<Terrain> terrainList) {
+    @Override
+    public void render(Scene scene) {
         shader.start();
-        for (Terrain terrain : terrainList) {
-            bind(terrain.getShape().getVao());
+        for (Terrain terrain : scene.getTerrains()) {
+            bind(terrain.getShape().getId(),scene);
             bindTextures(terrain.getRepeatTextures(), terrain.getTextures());
             renderTerrain(terrain);
             unbind();
@@ -37,7 +35,7 @@ public class TerrainRender extends AbstractRender<TerrainShader, List<Terrain>> 
         shader.stop();
     }
 
-    private void bindTextures(float repeatTextures, TerrainTexture[] textures) {
+    private void bindTextures(float repeatTextures, Texture[] textures) {
 
         shader.set(shader.repeatTextures, repeatTextures);
         // todo handle transparency
@@ -55,7 +53,7 @@ public class TerrainRender extends AbstractRender<TerrainShader, List<Terrain>> 
     }
 
     private void renderTerrain(Terrain terrain) {
-        shader.set(shader.transformationMatrix, transformationMatrix(terrain.getTranslation(), terrain.getRotation(), terrain.getScale()));
+        shader.set(shader.transformationMatrix, algebra.transformationMatrix(terrain.getTranslation(), terrain.getRotation(), terrain.getScale()));
         shader.set(shader.shineDamper, 1);
         shader.set(shader.reflectivity, 0);
 

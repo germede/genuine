@@ -7,6 +7,7 @@ import com.sample.controller.WebUsersController;
 import com.sample.repository.NoteRepository;
 import com.sample.repository.UserRepository;
 import com.sample.service.Authentication;
+import com.sample.view.WebView;
 import org.fluentness.AbstractWeb;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
@@ -20,21 +21,18 @@ import org.fluentness.service.log.LogLevel;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.router.Router;
 import org.fluentness.service.server.Server;
+import org.fluentness.view.View;
 
 public class Web extends AbstractWeb {
 
     @Override
-    public void configure(Configuration configuration) {
-        configuration
-            .set(Server.PORT, 8000)
-            .set(Server.HOST, "0.0.0.0")
-            .set(Router.SINGLE_PAGE_MODE, false)
-            .set(Log.LEVEL, LogLevel.DEBUG)
-            .set(Log.CONSOLE, true)
-            .set(JdbcPersistence.URL_PARAMETER_QUERY, "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC")
-            .set(JdbcPersistence.DATABASE, "workstation")
-            .set(JdbcPersistence.USERNAME, "workstation")
-            .set(JdbcPersistence.PASSWORD, "workstation");
+    public Provider<Controller> controllers() {
+        return super.controllers()
+            .add(WebController.class)
+            .add(WebEventsController.class)
+            .add(WebNotesController.class)
+            .add(WebUsersController.class)
+            ;
     }
 
     @Override
@@ -54,13 +52,24 @@ public class Web extends AbstractWeb {
     }
 
     @Override
-    public Provider<Controller> controllers() {
-        return super.controllers()
-            .add(WebController.class)
-            .add(WebEventsController.class)
-            .add(WebNotesController.class)
-            .add(WebUsersController.class)
+    public Provider<View> views() {
+        return super.views()
+            .add(WebView.class)
             ;
+    }
+
+    @Override
+    public void configure(Configuration configuration) {
+        configuration
+            .set(Server.PORT, 8000)
+            .set(Server.HOST, "0.0.0.0")
+            .set(Router.SINGLE_PAGE_MODE, false)
+            .set(Log.LEVEL, LogLevel.DEBUG)
+            .set(Log.CONSOLE, true)
+            .set(JdbcPersistence.URL_PARAMETER_QUERY, "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC")
+            .set(JdbcPersistence.DATABASE, "workstation")
+            .set(JdbcPersistence.USERNAME, "workstation")
+            .set(JdbcPersistence.PASSWORD, "workstation");
     }
 
     public static void main(String[] args) throws FluentnessException {

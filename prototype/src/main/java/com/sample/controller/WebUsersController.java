@@ -15,8 +15,8 @@ public class WebUsersController extends AbstractWebController {
     private final UserRepository userRepository;
 
     @BasePath("/users")
-    public WebUsersController(UserRepository userRepository) {
-        super(WebView.class);
+    public WebUsersController(WebView webView, UserRepository userRepository) {
+        super(webView);
         this.userRepository = userRepository;
     }
 

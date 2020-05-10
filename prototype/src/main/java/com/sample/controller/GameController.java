@@ -1,4 +1,13 @@
 package com.sample.controller;
 
-public class GameController {
+import com.sample.view.GameView;
+import org.fluentness.controller.AbstractGameController;
+
+public class GameController extends AbstractGameController<GameView> {
+
+    public GameController(GameView view) {
+        super(view);
+    }
+
+
 }

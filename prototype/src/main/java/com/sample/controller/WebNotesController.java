@@ -9,13 +9,13 @@ import static com.sample.service.Translation.*;
 import static org.fluentness.view.HtmlAttribute.CLASS;
 import static org.fluentness.view.HtmlFactory.*;
 
-public class WebNotesController extends AbstractWebController {
+public class WebNotesController extends AbstractWebController<WebView> {
 
     private final NoteRepository noteRepository;
 
     @BasePath("/notes")
-    public WebNotesController(NoteRepository noteRepository) {
-        super(WebView.class);
+    public WebNotesController(WebView webView, NoteRepository noteRepository) {
+        super(webView);
         this.noteRepository = noteRepository;
     }
 

@@ -1,39 +1,39 @@
 package org.fluentness.service.render;
 
+import org.fluentness.model.Shape;
+import org.fluentness.model.Texture;
+import org.fluentness.service.algebra.Algebra;
+import org.fluentness.service.shader.EntityShader;
 import org.fluentness.view.Scene;
 import org.fluentness.view.entity.Entity;
-import org.fluentness.model.shape.ShapeModel;
-import org.fluentness.service.shader.EntityShader;
-import org.fluentness.model.texture.ObjectTexture;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.fluentness.service.algebra.DefaultAlgebra.transformationMatrix;
+public class EntityRender extends AbstractRender<EntityShader> {
 
-public class EntityRender extends AbstractRender<EntityShader, Map<ShapeModel, List<Entity>>> {
-
-    public EntityRender(Scene scene) {
-        super(new EntityShader(), scene);
+    public EntityRender(Algebra algebra, EntityShader entityShader) {
+        super(algebra, entityShader);
     }
 
     @Override
-    public void render(Map<ShapeModel, List<Entity>> objects) {
+    public void render(Scene scene) {
         shader.start();
-        for (ShapeModel model : objects.keySet()) {
-            bind(model.getVao());
-            bindTexture(model.getTexture());
-            for (Entity entity : objects.get(model)) {
-                renderObject(entity);
+        Map<Shape, List<Entity>> entities = scene.getEntities();
+        for (Shape shape : entities.keySet()) {
+            bind(shape.getId(), scene);
+            bindTexture(entities.get(shape).get(0).getTexture());
+            for (Entity entity : entities.get(shape)) {
+                renderEntity(entity);
             }
             unbind();
         }
         shader.stop();
     }
 
-    private void bindTexture(ObjectTexture texture) {
+    private void bindTexture(Texture texture) {
         if (texture.hasTransparency()) {
             GL11.glDisable(GL11.GL_CULL_FACE);
         } else {
@@ -47,8 +47,8 @@ public class EntityRender extends AbstractRender<EntityShader, Map<ShapeModel, L
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getId());
     }
 
-    private void renderObject(Entity entity) {
-        shader.set(shader.transformationMatrix, transformationMatrix(entity.getTranslation(), entity.getRotation(), entity.getScale()));
+    private void renderEntity(Entity entity) {
+        shader.set(shader.transformationMatrix, algebra.transformationMatrix(entity.getTranslation(), entity.getRotation(), entity.getScale()));
         shader.set(shader.shineDamper, entity.getShineDamper());
         shader.set(shader.reflectivity, entity.getReflectivity());
 

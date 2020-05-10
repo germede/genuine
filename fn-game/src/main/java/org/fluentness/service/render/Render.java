@@ -2,10 +2,11 @@ package org.fluentness.service.render;
 
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
+import org.fluentness.view.Scene;
 
 @MultiService
-public interface Render<O> extends Service {
+public interface Render extends Service {
 
-    void render(O toRender);
+    void render(Scene scene);
 
 }

@@ -19,7 +19,7 @@ public abstract class AbstractWeb implements Application {
     }
 
     @Override
-    public final void run(String[] args) throws Exception {
+    public void run(String[] args) throws Exception {
         Fluentness.getInstance(Server.class).start();
     }
 }
