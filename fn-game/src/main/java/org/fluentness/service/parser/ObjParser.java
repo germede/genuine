@@ -28,7 +28,7 @@ public class ObjParser implements Parser {
     private int[] indicesArray;
 
     @Override
-    public ShapeModel load(String model, String texture) {
+    public ShapeModel loadShape(String model, String texture) {
         process(model);
         return new ShapeModel(verticesArray, texturesArray, normalsArray, indicesArray, new ObjectTexture(texture));
     }

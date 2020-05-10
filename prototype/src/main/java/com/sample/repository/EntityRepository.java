@@ -1,4 +1,4 @@
-package org.fluentness.repository;
+package com.sample.repository;
 
 import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.view.entity.Entity;
@@ -12,6 +12,8 @@ import java.util.Random;
 
 public class EntityRepository {
 
+
+
     private final Parser parser = new ObjParser();
     private final Random random = new Random();
     private final int count = 100;
@@ -19,7 +21,7 @@ public class EntityRepository {
     private final int min = -1000;
 
     public Entity[] loadTrees() {
-        ShapeModel treeModel = parser.load("plants/lowPolyTree.obj", "plants/lowPolyTree.png");
+        ShapeModel treeModel = parser.loadShape("plants/lowPolyTree.obj", "plants/lowPolyTree.png");
         Entity[] trees = new Entity[count];
         for (int i = 0; i < trees.length; i++) {
             trees[i] = new Entity(treeModel)
@@ -31,7 +33,7 @@ public class EntityRepository {
     }
 
     public Entity[] loadGrasses() {
-        ShapeModel grassModel = parser.load("plants/highGrass.obj", "plants/highGrass.png");
+        ShapeModel grassModel = parser.loadShape("plants/highGrass.obj", "plants/highGrass.png");
         Entity[] grasses = new Entity[count];
 
         for (int i = 0; i < grasses.length; i++) {
@@ -43,7 +45,7 @@ public class EntityRepository {
     }
 
     public Entity[] loadFlowers() {
-        ShapeModel flowerModel = parser.load("plants/highGrass.obj", "plants/flower.png");
+        ShapeModel flowerModel = parser.loadShape("plants/highGrass.obj", "plants/flower.png");
         Entity[] flowers = new Entity[count/6];
 
         for (int i = 0; i < flowers.length; i++) {
@@ -55,7 +57,7 @@ public class EntityRepository {
     }
 
     public Entity[] loadFerns() {
-        ShapeModel fernModel = parser.load("plants/fern.obj", "plants/fern.png");
+        ShapeModel fernModel = parser.loadShape("plants/fern.obj", "plants/fern.png");
         Entity[] ferns = new Entity[count];
 
         for (int i = 0; i < ferns.length; i++) {

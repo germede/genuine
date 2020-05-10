@@ -1,6 +1,10 @@
-package org.fluentness.model.texture;
+package org.fluentness.service.loader;
 
-import org.fluentness.service.memory.DefaultMemory;
+import org.fluentness.service.memory.Memory;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -11,25 +15,47 @@ import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public abstract class AbstractTexture {
+public class LoaderImpl implements Loader {
 
-    protected final int id;
-    protected boolean hasTransparency = false;
+    private Memory memory;
+    private Parser parser;
 
-    public AbstractTexture(String texturePath) {
-        id = load(texturePath);
-        DefaultMemory.texture(id);
+    public LoaderImpl(Memory memory) {
+        this.memory = memory;
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public int loadShape() {
+
+        float[] vertices, float[] textures, float[] normals, int[] indices
+
+        int vertexCount = indices.length;
+        int vao = GL30.glGenVertexArrays();
+        memory.vao(vao);
+
+        GL30.glBindVertexArray(vao);
+        int vbo = GL15.glGenBuffers();
+        memory.vbo(vbo);
+        GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vbo);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, memory.intBuffer(indices), GL15.GL_STATIC_DRAW);
+        loadVbo(0, 3, vertices);
+        loadVbo(1, 2, textures);
+        loadVbo(2, 3, normals);
+        GL30.glBindVertexArray(0);
+
+        return vao;
     }
 
-    public boolean hasTransparency() {
-        return hasTransparency;
+    private void loadVbo(int attributeNumber, int coordinateSize, float[] data) {
+        int vbo = GL15.glGenBuffers();
+        memory.vbo(vbo);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, memory.floatBuffer(data), GL15.GL_STATIC_DRAW);
+        GL20.glVertexAttribPointer(attributeNumber, coordinateSize, GL11.GL_FLOAT, false, 0, 0);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }
 
-    private int load(String path) {
+    private int bindTexture(String path) {
         int result = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, result);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -69,5 +95,4 @@ public abstract class AbstractTexture {
         }
         return result;
     }
-
 }

@@ -7,6 +7,7 @@ import org.fluentness.service.injection.Provider;
 import org.fluentness.service.memory.DefaultMemory;
 import org.fluentness.service.parser.ObjParser;
 import org.fluentness.service.render.EntityRender;
+import org.fluentness.service.render.TerrainRender;
 import org.fluentness.service.shader.EntityShader;
 import org.fluentness.service.shader.TerrainShader;
 
@@ -22,7 +23,7 @@ public abstract class AbstractGame implements Application {
             .add(EntityShader.class)
             .add(TerrainShader.class)
             .add(EntityRender.class)
-            .add(TerrainShader.class)
+            .add(TerrainRender.class)
             ;
     }
 

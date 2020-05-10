@@ -1,5 +1,6 @@
 package org.fluentness.view.entity;
 
+import org.fluentness.model.Shape;
 import org.fluentness.service.algebra.DefaultAlgebra;
 import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.model.shape.ShapeModel;
@@ -7,7 +8,7 @@ import org.fluentness.view.SceneElement;
 
 public class Entity implements SceneElement {
 
-    private ShapeModel model;
+    private Shape shape;
 
     private Vector3f translation = DefaultAlgebra.zeroVector3f();
     private Vector3f rotation =  DefaultAlgebra.zeroVector3f();
@@ -16,16 +17,16 @@ public class Entity implements SceneElement {
     private float shineDamper = 1;
     private float reflectivity = 0;
 
-    public Entity(ShapeModel model) {
-        this.model = model;
+    public Entity(ShapeModel shape) {
+        this.shape = shape;
     }
 
-    public ShapeModel getModel() {
-        return model;
+    public ShapeModel getShape() {
+        return shape;
     }
 
-    public Entity setModel(ShapeModel model) {
-        this.model = model;
+    public Entity setShape(ShapeModel shape) {
+        this.shape = shape;
         return this;
     }
 

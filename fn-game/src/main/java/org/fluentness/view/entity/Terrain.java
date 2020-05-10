@@ -2,7 +2,7 @@ package org.fluentness.view.entity;
 
 import org.fluentness.service.algebra.DefaultAlgebra;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.model.shape.TerrainModel;
+import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.model.texture.TerrainTexture;
 import org.fluentness.view.SceneElement;
 
@@ -12,7 +12,7 @@ public class Terrain implements SceneElement {
     private final float size = 2200;
     private float repeatTextures = 40;
 
-    private final TerrainModel model;
+    private final TerrainGenerator model;
     private final TerrainTexture[] textures;
 
     private Vector3f translation;
@@ -22,7 +22,7 @@ public class Terrain implements SceneElement {
     public Terrain(int gridX, int gridZ, TerrainTexture... textures) {
         translation = new Vector3f(gridX * size - size / 2, 0, gridZ * size - size / 2);
 
-        model = new TerrainModel(vertexCount, size);
+        model = new TerrainGenerator(vertexCount, size);
         this.textures = textures;
     }
 
@@ -35,7 +35,7 @@ public class Terrain implements SceneElement {
         return this;
     }
 
-    public TerrainModel getModel() {
+    public TerrainGenerator getModel() {
         return model;
     }
 

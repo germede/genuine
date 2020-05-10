@@ -82,10 +82,10 @@ public class Scene {
 
     public void addEntity(Entity... entities) {
         for (Entity entity : entities) {
-            if (!objectMap.containsKey(entity.getModel())) {
-                objectMap.put(entity.getModel(), new LinkedList<>());
+            if (!objectMap.containsKey(entity.getShape())) {
+                objectMap.put(entity.getShape(), new LinkedList<>());
             }
-            objectMap.get(entity.getModel()).add(entity);
+            objectMap.get(entity.getShape()).add(entity);
         }
     }
 

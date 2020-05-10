@@ -1,13 +1,22 @@
-package org.fluentness.model.shape;
+package org.fluentness.service.generator;
 
-public class TerrainModel extends AbstractModel {
+import org.fluentness.model.Shape;
+import org.fluentness.service.loader.Loader;
 
-    public TerrainModel(int vertexCount, float size) {
+public class TerrainGenerator implements Generator {
+
+    private final Loader loader;
+
+    public TerrainGenerator(Loader loader) {
+        this.loader = loader;
+    }
+
+    public Shape generateTerrain(int vertexCount, float size) {
         int count = vertexCount * vertexCount;
-        vertices = new float[count * 3];
-        normals = new float[count * 3];
-        textures = new float[count * 2];
-        indices = new int[6 * (vertexCount - 1) * (vertexCount - 1)];
+        float[] vertices = new float[count * 3];
+        float[] normals = new float[count * 3];
+        float[] textures = new float[count * 2];
+        int[] indices = new int[6 * (vertexCount - 1) * (vertexCount - 1)];
         int vertexPointer = 0;
         for (int i = 0; i < vertexCount; i++) {
             for (int j = 0; j < vertexCount; j++) {
@@ -37,6 +46,6 @@ public class TerrainModel extends AbstractModel {
                 indices[pointer++] = bottomRight;
             }
         }
-        loadVao();
+        return new Shape(loader.loadShape(vertices, textures, normals, indices), vertexCount);
     }
 }

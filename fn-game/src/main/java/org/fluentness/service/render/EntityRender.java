@@ -52,7 +52,7 @@ public class EntityRender extends AbstractRender<EntityShader, Map<ShapeModel, L
         shader.set(shader.shineDamper, entity.getShineDamper());
         shader.set(shader.reflectivity, entity.getReflectivity());
 
-        GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+        GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getShape().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
     }
 
 }
