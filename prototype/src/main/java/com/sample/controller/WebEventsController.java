@@ -2,7 +2,7 @@ package com.sample.controller;
 
 import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.view.Html;
+import org.fluentness.view.html.Html;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -10,9 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.fluentness.view.HtmlAttribute.CLASS;
-import static org.fluentness.view.HtmlAttribute.HREF;
-import static org.fluentness.view.HtmlFactory.*;
+import static org.fluentness.view.html.HtmlAttribute.CLASS;
+import static org.fluentness.view.html.HtmlAttribute.HREF;
+import static org.fluentness.view.html.HtmlFactory.*;
 
 public class WebEventsController extends AbstractWebController<WebView> {
 

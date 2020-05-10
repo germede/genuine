@@ -3,8 +3,8 @@ package org.fluentness.service.render;
 import org.fluentness.model.Texture;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.TerrainShader;
-import org.fluentness.view.Scene;
-import org.fluentness.view.entity.Terrain;
+import org.fluentness.view.scene.Scene;
+import org.fluentness.view.scene.entity.Terrain;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 

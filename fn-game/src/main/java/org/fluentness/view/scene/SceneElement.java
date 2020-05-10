@@ -1,4 +1,4 @@
-package org.fluentness.view;
+package org.fluentness.view.scene;
 
 public interface SceneElement {
 

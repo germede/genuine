@@ -3,11 +3,11 @@ package com.sample.controller;
 import com.sample.repository.NoteRepository;
 import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.view.Html;
+import org.fluentness.view.html.Html;
 
 import static com.sample.service.Translation.*;
-import static org.fluentness.view.HtmlAttribute.CLASS;
-import static org.fluentness.view.HtmlFactory.*;
+import static org.fluentness.view.html.HtmlAttribute.CLASS;
+import static org.fluentness.view.html.HtmlFactory.*;
 
 public class WebNotesController extends AbstractWebController<WebView> {
 

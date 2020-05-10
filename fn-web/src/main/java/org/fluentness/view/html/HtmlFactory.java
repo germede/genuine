@@ -1,4 +1,4 @@
-package org.fluentness.view;
+package org.fluentness.view.html;
 
 import java.util.LinkedList;
 import java.util.List;

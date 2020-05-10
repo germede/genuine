@@ -1,10 +1,11 @@
-package org.fluentness.view;
+package org.fluentness.view.html;
 
 import org.fluentness.Fluentness;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.service.translator.Translator;
+import org.fluentness.view.Template;
 
-import static org.fluentness.view.HtmlAttribute.*;
+import static org.fluentness.view.html.HtmlAttribute.*;
 
 public abstract class Html implements Template {
 

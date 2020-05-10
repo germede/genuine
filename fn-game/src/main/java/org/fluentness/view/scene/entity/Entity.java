@@ -1,9 +1,9 @@
-package org.fluentness.view.entity;
+package org.fluentness.view.scene.entity;
 
 import org.fluentness.model.Shape;
 import org.fluentness.model.Texture;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.view.SceneElement;
+import org.fluentness.view.scene.SceneElement;
 
 public class Entity implements SceneElement {
 

@@ -4,7 +4,7 @@ import org.fluentness.Fluentness;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.WebTemplate;
 import org.fluentness.view.AbstractWebView;
-import org.fluentness.view.HtmlAttribute;
+import org.fluentness.view.html.HtmlAttribute;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Map;
 
-import static org.fluentness.view.HtmlFactory.div;
+import static org.fluentness.view.html.HtmlFactory.div;
 
 public class DefaultRouter implements Router {
 

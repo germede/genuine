@@ -1,4 +1,6 @@
-package org.fluentness.view;
+package org.fluentness.view.html;
+
+import org.fluentness.view.WebTemplate;
 
 public class HtmlCombination implements WebTemplate {
 

@@ -2,13 +2,13 @@ package com.sample.view;
 
 import org.fluentness.view.AbstractDesktopView;
 import org.fluentness.view.DesktopTemplate;
-import org.fluentness.view.Swing;
+import org.fluentness.view.swing.Swing;
 
 import javax.swing.*;
 
-import static org.fluentness.view.SwingAttribute.CLASS;
-import static org.fluentness.view.SwingAttribute.ID;
-import static org.fluentness.view.SwingFactory.*;
+import static org.fluentness.view.swing.SwingAttribute.CLASS;
+import static org.fluentness.view.swing.SwingAttribute.ID;
+import static org.fluentness.view.swing.SwingFactory.*;
 
 public class DesktopView extends AbstractDesktopView {
 

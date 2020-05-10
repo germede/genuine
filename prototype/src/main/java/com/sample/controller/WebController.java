@@ -2,10 +2,10 @@ package com.sample.controller;
 
 import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.view.Html;
+import org.fluentness.view.html.Html;
 
 import static com.sample.service.Translation.*;
-import static org.fluentness.view.HtmlFactory.h1;
+import static org.fluentness.view.html.HtmlFactory.h1;
 
 public class WebController extends AbstractWebController<WebView> {
 

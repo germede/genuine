@@ -17,7 +17,7 @@ import org.fluentness.service.render.EntityRender;
 import org.fluentness.service.render.TerrainRender;
 import org.fluentness.service.shader.EntityShader;
 import org.fluentness.service.shader.TerrainShader;
-import org.fluentness.view.Scene;
+import org.fluentness.view.scene.Scene;
 
 public abstract class AbstractGame implements Application {
 

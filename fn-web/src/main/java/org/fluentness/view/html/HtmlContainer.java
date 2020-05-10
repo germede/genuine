@@ -1,4 +1,4 @@
-package org.fluentness.view;
+package org.fluentness.view.html;
 
 public class HtmlContainer extends Html {
 

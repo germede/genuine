@@ -1,12 +1,13 @@
-package org.fluentness.view;
+package org.fluentness.view.scene;
 
 import org.fluentness.model.Shape;
-import org.fluentness.view.entity.Entity;
-import org.fluentness.view.entity.Terrain;
-import org.fluentness.view.environment.Background;
-import org.fluentness.view.environment.Camera;
-import org.fluentness.view.environment.Fog;
-import org.fluentness.view.environment.Light;
+import org.fluentness.view.GameTemplate;
+import org.fluentness.view.scene.entity.Entity;
+import org.fluentness.view.scene.entity.Terrain;
+import org.fluentness.view.scene.environment.Background;
+import org.fluentness.view.scene.environment.Camera;
+import org.fluentness.view.scene.environment.Fog;
+import org.fluentness.view.scene.environment.Light;
 
 import java.util.*;
 

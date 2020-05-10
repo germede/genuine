@@ -1,9 +1,11 @@
 package org.fluentness.view;
 
-import org.fluentness.view.environment.Background;
-import org.fluentness.view.environment.Camera;
-import org.fluentness.view.environment.Fog;
-import org.fluentness.view.environment.Light;
+import org.fluentness.view.scene.Scene;
+import org.fluentness.view.scene.SceneElement;
+import org.fluentness.view.scene.environment.Background;
+import org.fluentness.view.scene.environment.Camera;
+import org.fluentness.view.scene.environment.Fog;
+import org.fluentness.view.scene.environment.Light;
 
 public abstract class AbstractGameView implements View<GameTemplate> {
 

@@ -4,11 +4,11 @@ import com.sample.model.User;
 import com.sample.repository.UserRepository;
 import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.view.Html;
+import org.fluentness.view.html.Html;
 
 import static com.sample.service.Translation.*;
-import static org.fluentness.view.HtmlAttribute.*;
-import static org.fluentness.view.HtmlFactory.*;
+import static org.fluentness.view.html.HtmlAttribute.*;
+import static org.fluentness.view.html.HtmlFactory.*;
 
 public class WebUsersController extends AbstractWebController {
 

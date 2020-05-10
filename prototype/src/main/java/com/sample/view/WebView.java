@@ -5,8 +5,8 @@ import org.fluentness.view.WebTemplate;
 import org.fluentness.view.AbstractWebView;
 
 import static com.sample.service.Translation.*;
-import static org.fluentness.view.HtmlAttribute.*;
-import static org.fluentness.view.HtmlFactory.*;
+import static org.fluentness.view.html.HtmlAttribute.*;
+import static org.fluentness.view.html.HtmlFactory.*;
 
 public class WebView extends AbstractWebView {
 

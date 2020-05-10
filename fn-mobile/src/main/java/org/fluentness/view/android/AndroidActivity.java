@@ -1,4 +1,4 @@
-package org.fluentness.view;
+package org.fluentness.view.android;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
