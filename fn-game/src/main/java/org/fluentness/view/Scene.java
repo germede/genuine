@@ -1,8 +1,8 @@
 package org.fluentness.view;
 
+import org.fluentness.service.algebra.DefaultAlgebra;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.service.algebra.VectorFactory;
-import org.fluentness.service.memory.Memory;
+import org.fluentness.service.memory.DefaultMemory;
 import org.fluentness.model.shape.ShapeModel;
 import org.fluentness.controller.Input;
 import org.fluentness.service.display.Display;
@@ -18,7 +18,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
 public class Scene {
 
     // entities
-    private Vector3f background = VectorFactory.blackRgb();
+    private Vector3f background = DefaultAlgebra.blackRgb();
     private Camera camera = new Camera().setTranslation(new Vector3f(0, 2, 2));
     private Light light = new Light().setTranslation(new Vector3f(0, 10, -20));
     private Fog fog = new Fog();
@@ -100,7 +100,7 @@ public class Scene {
             input.handle();
             display.update();
         }
-        Memory.cleanUp();
+        DefaultMemory.cleanUp();
         display.close();
     }
 

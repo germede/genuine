@@ -9,8 +9,8 @@ import org.fluentness.service.shader.AbstractShader;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import static org.fluentness.service.algebra.MatrixFactory.projectionMatrix;
-import static org.fluentness.service.algebra.MatrixFactory.viewMatrix;
+import static org.fluentness.service.algebra.DefaultAlgebra.projectionMatrix;
+import static org.fluentness.service.algebra.DefaultAlgebra.viewMatrix;
 
 public abstract class AbstractRender<S extends AbstractShader, O> implements Render<O> {
 

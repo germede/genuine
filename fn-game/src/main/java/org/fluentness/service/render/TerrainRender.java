@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL13;
 
 import java.util.List;
 
-import static org.fluentness.service.algebra.MatrixFactory.transformationMatrix;
+import static org.fluentness.service.algebra.DefaultAlgebra.transformationMatrix;
 
 public class TerrainRender extends AbstractRender<TerrainShader, List<Terrain>> {
 

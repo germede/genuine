@@ -175,18 +175,6 @@ public class Matrix4f {
         return result;
     }
 
-    public Matrix4f translate(float x, float y, float z) {
-        return multiply(MatrixFactory.translationMatrix(x, y, z));
-    }
-
-    public Matrix4f rotate(float angle, float x, float y, float z) {
-        return multiply(MatrixFactory.rotationMatrix(angle, x, y, z));
-    }
-
-    public Matrix4f scale(float x, float y, float z) {
-        return multiply(MatrixFactory.scaleMatrix(x, y, z));
-    }
-
     public void toBuffer(FloatBuffer buffer) {
         buffer.put(m00).put(m10).put(m20).put(m30);
         buffer.put(m01).put(m11).put(m21).put(m31);

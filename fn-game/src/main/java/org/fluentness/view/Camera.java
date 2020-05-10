@@ -1,12 +1,12 @@
 package org.fluentness.view;
 
+import org.fluentness.service.algebra.DefaultAlgebra;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.service.algebra.VectorFactory;
 
 public class Camera implements SceneElement {
 
-    private Vector3f translation = VectorFactory.zeroVector3f();
-    private Vector3f rotation = VectorFactory.zeroVector3f();
+    private Vector3f translation = DefaultAlgebra.zeroVector3f();
+    private Vector3f rotation = DefaultAlgebra.zeroVector3f();
 
     private  float aspect = 16f / 9f;
     private  float fov = 70;

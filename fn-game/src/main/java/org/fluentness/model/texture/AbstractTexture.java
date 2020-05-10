@@ -1,6 +1,6 @@
 package org.fluentness.model.texture;
 
-import org.fluentness.service.memory.Memory;
+import org.fluentness.service.memory.DefaultMemory;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,7 +18,7 @@ public abstract class AbstractTexture {
 
     public AbstractTexture(String texturePath) {
         id = load(texturePath);
-        Memory.texture(id);
+        DefaultMemory.texture(id);
     }
 
     public int getId() {

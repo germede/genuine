@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL13;
 import java.util.List;
 import java.util.Map;
 
-import static org.fluentness.service.algebra.MatrixFactory.transformationMatrix;
+import static org.fluentness.service.algebra.DefaultAlgebra.transformationMatrix;
 
 public class EntityRender extends AbstractRender<EntityShader, Map<ShapeModel, List<Entity>>> {
 

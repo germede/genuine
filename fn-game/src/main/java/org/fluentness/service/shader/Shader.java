@@ -2,9 +2,9 @@ package org.fluentness.service.shader;
 
 import org.fluentness.service.algebra.Matrix4f;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.service.memory.BufferFactory;
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
+import org.fluentness.service.memory.DefaultMemory;
 import org.lwjgl.opengl.GL20;
 
 import java.nio.FloatBuffer;
@@ -39,7 +39,7 @@ public interface Shader extends Service {
     }
 
     default void set(int uniform, Matrix4f matrix) {
-        FloatBuffer buffer = BufferFactory.matrix4fBuffer();
+        FloatBuffer buffer = DefaultMemory.matrix4fBuffer();
         matrix.toBuffer(buffer);
         GL20.glUniformMatrix4fv(uniform, false, buffer);
     }

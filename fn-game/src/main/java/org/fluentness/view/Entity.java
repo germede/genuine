@@ -1,15 +1,15 @@
 package org.fluentness.view;
 
+import org.fluentness.service.algebra.DefaultAlgebra;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.service.algebra.VectorFactory;
 import org.fluentness.model.shape.ShapeModel;
 
 public class Entity implements SceneElement {
 
     private ShapeModel model;
 
-    private Vector3f translation = VectorFactory.zeroVector3f();
-    private Vector3f rotation =  VectorFactory.zeroVector3f();
+    private Vector3f translation = DefaultAlgebra.zeroVector3f();
+    private Vector3f rotation =  DefaultAlgebra.zeroVector3f();
     private float scale = 1;
 
     private float shineDamper = 1;

@@ -1,7 +1,9 @@
 package org.fluentness.service.algebra;
 
-public final class MatrixFactory {
-    public static Matrix4f translationMatrix(float x, float y, float z) {
+public class DefaultAlgebra implements Algebra {
+
+    @Override
+    public Matrix4f translationMatrix(float x, float y, float z) {
         Matrix4f translation = new Matrix4f();
 
         translation.m03 = x;
@@ -11,7 +13,8 @@ public final class MatrixFactory {
         return translation;
     }
 
-    public static Matrix4f rotationMatrix(float angle, float x, float y, float z) {
+    @Override
+    public Matrix4f rotationMatrix(float angle, float x, float y, float z) {
         Matrix4f rotation = new Matrix4f();
 
         float c = (float) Math.cos(Math.toRadians(angle));
@@ -37,7 +40,8 @@ public final class MatrixFactory {
         return rotation;
     }
 
-    public static Matrix4f scaleMatrix(float x, float y, float z) {
+    @Override
+    public Matrix4f scaleMatrix(float x, float y, float z) {
         Matrix4f scaling = new Matrix4f();
 
         scaling.m00 = x;
@@ -47,7 +51,8 @@ public final class MatrixFactory {
         return scaling;
     }
 
-    public static Matrix4f orthographicMatrix(float left, float right, float bottom, float top, float near, float far) {
+    @Override
+    public Matrix4f orthographicMatrix(float left, float right, float bottom, float top, float near, float far) {
         Matrix4f ortho = new Matrix4f();
 
         float tx = -(right + left) / (right - left);
@@ -64,7 +69,8 @@ public final class MatrixFactory {
         return ortho;
     }
 
-    public static Matrix4f frustumMatrix(float left, float right, float bottom, float top, float near, float far) {
+    @Override
+    public Matrix4f frustumMatrix(float left, float right, float bottom, float top, float near, float far) {
         Matrix4f frustum = new Matrix4f();
 
         float a = (right + left) / (right - left);
@@ -84,16 +90,21 @@ public final class MatrixFactory {
         return frustum;
     }
 
-    public static Matrix4f transformationMatrix(Vector3f translation, Vector3f rotation, float scale) {
-        return new Matrix4f()
-            .translate(translation.x, translation.y, translation.z)
-            .rotate(rotation.x, 1, 0, 0)
-            .rotate(rotation.y, 0, 1, 0)
-            .rotate(rotation.z, 0, 0, 1)
-            .scale(scale, scale, scale);
+    @Override
+    public Matrix4f transformationMatrix(Vector3f translation, Vector3f rotation, float scale) {
+        Matrix4f matrix4f = new Matrix4f();
+
+        matrix4f = matrix4f.multiply(translationMatrix(translation.x, translation.y, translation.z));
+        matrix4f = matrix4f.multiply(rotationMatrix(rotation.x, 1, 0, 0));
+        matrix4f = matrix4f.multiply(rotationMatrix(rotation.y, 0, 1, 0));
+        matrix4f = matrix4f.multiply(rotationMatrix(rotation.z, 0, 0, 1));
+        matrix4f = matrix4f.multiply(scaleMatrix(scale, scale, scale));
+
+        return matrix4f;
     }
 
-    public static Matrix4f projectionMatrix(float fov, float aspect, float near, float far) {
+    @Override
+    public Matrix4f projectionMatrix(float fov, float aspect, float near, float far) {
         float f = (float) (1f / Math.tan(Math.toRadians(fov) / 2f));
 
         Matrix4f perspective = new Matrix4f();
@@ -108,12 +119,50 @@ public final class MatrixFactory {
         return perspective;
     }
 
-    public static Matrix4f viewMatrix(Vector3f translation, Vector3f rotation) {
-        return new Matrix4f()
-            .rotate(rotation.x, 1, 0, 0)
-            .rotate(rotation.y, 0, 1, 0)
-            .rotate(rotation.z, 0, 0, 1)
-            .translate(-translation.x, -translation.y, -translation.z);
+    @Override
+    public Matrix4f viewMatrix(Vector3f translation, Vector3f rotation) {
+        Matrix4f matrix4f = new Matrix4f();
+
+        matrix4f = matrix4f.multiply(rotationMatrix(rotation.x, 1, 0, 0));
+        matrix4f = matrix4f.multiply(rotationMatrix(rotation.y, 0, 1, 0));
+        matrix4f = matrix4f.multiply(rotationMatrix(rotation.z, 0, 0, 1));
+        matrix4f = matrix4f.multiply(translationMatrix(-translation.x, -translation.y, -translation.z));
+
+        return matrix4f;
     }
 
+    @Override
+    public Vector2f zeroVector2f() {
+        return new Vector2f(0, 0);
+    }
+
+    @Override
+    public Vector3f zeroVector3f() {
+        return new Vector3f(0, 0, 0);
+    }
+
+    @Override
+    public Vector4f zeroVector4f() {
+        return new Vector4f(0, 0, 0, 0);
+    }
+
+    @Override
+    public Vector3f whiteRgb() {
+        return new Vector3f(1, 1, 1);
+    }
+
+    @Override
+    public Vector3f blackRgb() {
+        return new Vector3f(0, 0, 0);
+    }
+
+    @Override
+    public Vector4f whiteRgba() {
+        return new Vector4f(1, 1, 1, 1);
+    }
+
+    @Override
+    public Vector4f blackRgba() {
+        return new Vector4f(0, 0, 0, 1);
+    }
 }

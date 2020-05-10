@@ -1,58 +1,25 @@
 package org.fluentness.service.memory;
 
-import org.fluentness.service.shader.AbstractShader;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL15;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
+import org.fluentness.service.Service;
+import org.fluentness.service.shader.Shader;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
-public final class Memory {
+public interface Memory extends Service {
+    void vao(int vao);
 
-    private Memory() {
+    void vbo(int vbo);
 
-    }
+    void texture(int texture);
 
-    private static final List<Integer> vaos = new LinkedList<>();
-    private static final List<Integer> vbos = new LinkedList<>();
-    private static final List<Integer> textures = new LinkedList<>();
-    private static final List<AbstractShader> shaders = new LinkedList<AbstractShader>();
+    void shader(Shader shader);
 
-    public static void vao(int vao) {
-        vaos.add(vao);
-    }
+    void cleanUp();
 
-    public static void vbo(int vbo) {
-        vbos.add(vbo);
-    }
+    FloatBuffer floatBuffer(float... data);
 
-    public static void texture(int texture) {
-        textures.add(texture);
-    }
+    IntBuffer intBuffer(int... data);
 
-    public static void shader(AbstractShader shader) {
-        shaders.add(shader);
-    }
-
-    public static void cleanUp() {
-        for (int vao : vaos) {
-            GL30.glDeleteVertexArrays(vao);
-        }
-        for (int vbo : vbos) {
-            GL15.glDeleteBuffers(vbo);
-        }
-        for (int texture : textures) {
-            GL11.glDeleteTextures(texture);
-        }
-        for (AbstractShader shader: shaders) {
-            shader.stop();
-            GL20.glDetachShader(shader.getProgram(), shader.getVertexShader());
-            GL20.glDetachShader(shader.getProgram(), shader.getFragmentShader());
-            GL20.glDeleteShader(shader.getVertexShader());
-            GL20.glDeleteShader(shader.getFragmentShader());
-            GL20.glDeleteProgram(shader.getProgram());
-        }
-    }
+    FloatBuffer matrix4fBuffer();
 }

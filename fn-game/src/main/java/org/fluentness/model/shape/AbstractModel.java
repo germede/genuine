@@ -1,7 +1,6 @@
 package org.fluentness.model.shape;
 
-import org.fluentness.service.memory.BufferFactory;
-import org.fluentness.service.memory.Memory;
+import org.fluentness.service.memory.DefaultMemory;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
@@ -20,13 +19,13 @@ public abstract class AbstractModel {
     protected void loadVao() {
         vertexCount = indices.length;
         vao = GL30.glGenVertexArrays();
-        Memory.vao(vao);
+        DefaultMemory.vao(vao);
 
         GL30.glBindVertexArray(vao);
         int vbo = GL15.glGenBuffers();
-        Memory.vbo(vbo);
+        DefaultMemory.vbo(vbo);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vbo);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, BufferFactory.intBuffer(indices), GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, DefaultMemory.intBuffer(indices), GL15.GL_STATIC_DRAW);
         loadVBO(0, 3, vertices);
         loadVBO(1, 2, textures);
         loadVBO(2, 3, normals);
@@ -35,9 +34,9 @@ public abstract class AbstractModel {
 
     private void loadVBO(int attributeNumber, int coordinateSize, float[] data) {
         int vbo = GL15.glGenBuffers();
-        Memory.vbo(vbo);
+        DefaultMemory.vbo(vbo);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, BufferFactory.floatBuffer(data), GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, DefaultMemory.floatBuffer(data), GL15.GL_STATIC_DRAW);
         GL20.glVertexAttribPointer(attributeNumber, coordinateSize, GL11.GL_FLOAT, false, 0, 0);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }

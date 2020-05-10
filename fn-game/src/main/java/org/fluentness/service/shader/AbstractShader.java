@@ -1,6 +1,6 @@
 package org.fluentness.service.shader;
 
-import org.fluentness.service.memory.Memory;
+import org.fluentness.service.memory.DefaultMemory;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
@@ -21,7 +21,7 @@ public abstract class AbstractShader implements Shader {
         GL20.glLinkProgram(program);
         GL20.glValidateProgram(program);
 
-        Memory.shader(this);
+        DefaultMemory.shader(this);
     }
     public final int transformationMatrix = getUniformLocation("transformationMatrix");
     public final int projectionMatrix = getUniformLocation("projectionMatrix");

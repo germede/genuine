@@ -1,7 +1,7 @@
 package org.fluentness.view;
 
+import org.fluentness.service.algebra.DefaultAlgebra;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.service.algebra.VectorFactory;
 import org.fluentness.model.shape.TerrainModel;
 import org.fluentness.model.texture.TerrainTexture;
 
@@ -15,7 +15,7 @@ public class Terrain implements SceneElement {
     private final TerrainTexture[] textures;
 
     private Vector3f translation;
-    private Vector3f rotation = VectorFactory.zeroVector3f();
+    private Vector3f rotation = DefaultAlgebra.zeroVector3f();
     private float scale = 1;
 
     public Terrain(int gridX, int gridZ, TerrainTexture... textures) {

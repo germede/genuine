@@ -1,12 +1,12 @@
 package org.fluentness.view;
 
+import org.fluentness.service.algebra.DefaultAlgebra;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.service.algebra.VectorFactory;
 
 public class Light implements SceneElement {
 
-    private Vector3f translation = VectorFactory.zeroVector3f();
-    private Vector3f colour = VectorFactory.whiteRgb();
+    private Vector3f translation = DefaultAlgebra.zeroVector3f();
+    private Vector3f colour = DefaultAlgebra.whiteRgb();
     private float ambientLight = 0.5f;
 
     public Vector3f getTranslation() {
