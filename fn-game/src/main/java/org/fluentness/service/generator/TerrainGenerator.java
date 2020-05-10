@@ -1,5 +1,6 @@
 package org.fluentness.service.generator;
 
+import org.fluentness.model.RawShape;
 import org.fluentness.model.Shape;
 import org.fluentness.service.loader.Loader;
 
@@ -47,6 +48,6 @@ public class TerrainGenerator implements Generator {
                 indices[pointer++] = bottomRight;
             }
         }
-        return new Shape(loader.loadShape(vertices, textures, normals, indices), vertexCount);
+        return loader.loadShape(new RawShape(vertices, textures, normals, indices));
     }
 }

@@ -3,8 +3,8 @@ package org.fluentness.service.loader;
 import org.fluentness.model.Shape;
 import org.fluentness.model.Texture;
 import org.fluentness.service.memory.Memory;
-import org.fluentness.service.parser.RawShape;
-import org.fluentness.service.parser.RawTexture;
+import org.fluentness.model.RawShape;
+import org.fluentness.model.RawTexture;
 import org.fluentness.service.parser.ShapeParser;
 import org.fluentness.service.parser.TextureParser;
 import org.lwjgl.opengl.GL11;
@@ -28,12 +28,18 @@ public class DefaultLoader implements Loader {
 
     @Override
     public Shape loadShape(String path) {
-        RawShape rawShape = shapeParser.parse(path);
+        return loadShape(shapeParser.parse(path));
+    }
 
+    @Override
+    public Shape loadShape(RawShape rawShape) {
+
+        // load vao
         int vertexCount = rawShape.getIndices().length;
         int vao = GL30.glGenVertexArrays();
         memory.vao(vao);
 
+        // load vbos
         GL30.glBindVertexArray(vao);
         int vbo = GL15.glGenBuffers();
         memory.vbo(vbo);

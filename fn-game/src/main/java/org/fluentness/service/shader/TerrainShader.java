@@ -1,5 +1,8 @@
 package org.fluentness.service.shader;
 
+import org.fluentness.service.display.Display;
+import org.fluentness.service.memory.Memory;
+
 public class TerrainShader extends AbstractShader {
 
     public final int blendMap = getUniformLocation("blendMap");
@@ -8,6 +11,10 @@ public class TerrainShader extends AbstractShader {
     public final int greenTexture = getUniformLocation("greenTexture");
     public final int blueTexture = getUniformLocation("blueTexture");
     public final int repeatTextures = getUniformLocation("repeatTextures");
+
+    public TerrainShader(Memory memory, Display display) {
+        super(memory, display);
+    }
 
     @Override
     protected String getVertexShaderPath() {

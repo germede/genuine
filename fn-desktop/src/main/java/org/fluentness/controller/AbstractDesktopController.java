@@ -10,10 +10,21 @@ import java.lang.annotation.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public abstract class AbstractDesktopController<V extends AbstractDesktopView> extends AbstractViewController<V> {
+public abstract class AbstractDesktopController<V extends AbstractDesktopView> implements Controller {
+
+    private final V view;
 
     public AbstractDesktopController(V view) {
-        super(view, Action.class);
+        this.view = view;
+    }
+
+    public V getView() {
+        return view;
+    }
+
+    @Override
+    public final Class<? extends Annotation> getActionClass() {
+        return Action.class;
     }
 
     @Target(ElementType.METHOD)

@@ -2,6 +2,7 @@ package com.sample.repository;
 
 import org.fluentness.model.Shape;
 import org.fluentness.model.Texture;
+import org.fluentness.repository.AbstractReadRepository;
 import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.service.loader.Loader;
@@ -10,8 +11,7 @@ import org.fluentness.view.entity.Terrain;
 
 import java.util.Random;
 
-public class EntityRepository {
-
+public class EntityRepository extends AbstractReadRepository {
 
     private final Random random = new Random();
 

@@ -6,6 +6,7 @@ import org.fluentness.service.Service;
 import org.fluentness.service.algebra.DefaultAlgebra;
 import org.fluentness.service.display.Display;
 import org.fluentness.service.display.GlfwDisplay;
+import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.service.loader.DefaultLoader;
 import org.fluentness.service.memory.DefaultMemory;
@@ -23,16 +24,17 @@ public abstract class AbstractGame implements Application {
     @Override
     public Provider<Service> services() {
         return Application.super.services()
-            .add(DefaultMemory.class)
-            .add(DefaultAlgebra.class)
+            .add(TerrainGenerator.class)
+            .add(DefaultLoader.class)
             .add(ShapeParser.class)
             .add(TextureParser.class)
-            .add(DefaultLoader.class)
-            .add(GlfwDisplay.class)
-            .add(EntityShader.class)
-            .add(TerrainShader.class)
             .add(EntityRender.class)
             .add(TerrainRender.class)
+            .add(EntityShader.class)
+            .add(TerrainShader.class)
+            .add(GlfwDisplay.class)
+            .add(DefaultAlgebra.class)
+            .add(DefaultMemory.class)
             ;
     }
 
@@ -52,7 +54,7 @@ public abstract class AbstractGame implements Application {
 
         while (!display.shouldClose()) {
             display.clear(scene.getBackground().getColour());
-            input.handle();
+            input.handle(display.getWindow());
             terrainRender.render(scene);
             entityRender.render(scene);
             display.update();

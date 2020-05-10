@@ -21,10 +21,9 @@ public class Input extends GLFWKeyCallback {
         System.out.println("INPUT!");
     }
 
-    public void handle() {
+    public void handle(long window) {
         Vector3f translation = scene.getCamera().getTranslation();
         Vector3f rotation = scene.getCamera().getRotation();
-        long window = scene.getDisplay().getWindow();
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
             translation.z -= CAMERA_STEP;

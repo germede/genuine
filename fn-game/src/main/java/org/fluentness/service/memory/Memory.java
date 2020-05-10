@@ -20,6 +20,4 @@ public interface Memory extends Service {
     FloatBuffer floatBuffer(float... data);
 
     IntBuffer intBuffer(int... data);
-
-    FloatBuffer matrix4fBuffer();
 }

@@ -1,5 +1,6 @@
 package org.fluentness.service.parser;
 
+import org.fluentness.model.RawShape;
 import org.fluentness.service.algebra.Vector2f;
 import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.log.Log;
@@ -47,7 +48,7 @@ public class ShapeParser implements Parser {
     }
 
     private void process(String model) throws IOException {
-        reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/models/" + model)));
+        reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/shapes/" + model)));
         clear();
         readLists();
         readFaces();

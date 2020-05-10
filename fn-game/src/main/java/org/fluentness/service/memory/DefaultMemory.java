@@ -15,7 +15,6 @@ import java.util.List;
 
 public class DefaultMemory implements Memory {
 
-    private final FloatBuffer MATRIX_4F_BUFFER = BufferUtils.createFloatBuffer(16);
 
     private final List<Integer> vaos = new LinkedList<>();
     private final List<Integer> vbos = new LinkedList<>();
@@ -82,8 +81,4 @@ public class DefaultMemory implements Memory {
         return buffer;
     }
 
-    @Override
-    public FloatBuffer matrix4fBuffer() {
-        return MATRIX_4F_BUFFER;
-    }
 }

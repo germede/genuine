@@ -1,4 +1,4 @@
-package org.fluentness.service.parser;
+package org.fluentness.model;
 
 public class RawShape {
 

@@ -3,6 +3,7 @@ package org.fluentness.service.injection;
 import org.fluentness.Application;
 import org.fluentness.ApplicationComponent;
 import org.fluentness.Fluentness;
+import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
 
@@ -33,10 +34,10 @@ public final class FinalInjection implements Injection {
 
     private <I extends ApplicationComponent> void inject(List<Class<? extends I>> classes) throws InjectionException {
         List<Class<? extends I>> notInstantiated = new LinkedList<>();
-        List<Class<? extends I>> keysToIgnore = new LinkedList<>();
+        List<Class<? extends I>> singleServices = new LinkedList<>();
         for (Class<? extends I> clazz : classes) {
             Class key = getKey(clazz);
-            if (!keysToIgnore.contains(key)) {
+            if (!singleServices.contains(key)) {
                 Object instance = instantiate(clazz);
                 if (instance instanceof Class) {
                     notInstantiated.add(clazz);
@@ -46,13 +47,13 @@ public final class FinalInjection implements Injection {
                     }
                     Fluentness.instances.put(key, instance);
                 }
-                keysToIgnore.add(key);
+                singleServices.add(key);
             }
         }
         if (notInstantiated.size() > 0) {
             if (notInstantiated.size() >= classes.size()) {
                 throw new InjectionException(
-                    "Cannot resolve dependency instantiating [%s]. Possible cause: Circle dependency.",
+                    "Cannot resolve dependencies instantiating of [%s], possible causes: Circle dependency or dependency not declared in application",
                     notInstantiated.stream().map(Class::getSimpleName).collect(Collectors.joining(", "))
                 );
             }
@@ -68,10 +69,10 @@ public final class FinalInjection implements Injection {
         while (!currentClass.equals(Object.class)) {
             for (Class anInterface : currentClass.getInterfaces()) {
                 if (anInterface.equals(Service.class)) {
-                    return currentClass;
+                    return currentClass.isAnnotationPresent(MultiService.class) ? aClass : currentClass;
                 }
                 if (Service.class.isAssignableFrom(anInterface)) {
-                    return anInterface;
+                    return anInterface.isAnnotationPresent(MultiService.class) ? aClass : anInterface;
                 }
             }
             currentClass = currentClass.getSuperclass();
@@ -92,7 +93,14 @@ public final class FinalInjection implements Injection {
                 Class<?> type = parameters[i].getType();
                 if (Fluentness.instances.containsKey(type)) {
                     result[i] = Fluentness.instances.get(type);
+                } else if (!ApplicationComponent.class.isAssignableFrom(type)) {
+                    throw new InjectionException(
+                        "All constructor parameters must be ApplicationComponents, %s's '%s' isn't",
+                        aClass.getSimpleName(),
+                        parameters[i].getName()
+                    );
                 } else {
+                    // could not be instantiated, return type and try again later
                     return type;
                 }
             }

@@ -1,11 +1,13 @@
 package com.sample;
 
 import com.sample.controller.GameController;
+import com.sample.repository.EntityRepository;
 import com.sample.view.GameView;
 import org.fluentness.AbstractGame;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.controller.Controller;
+import org.fluentness.repository.Repository;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.view.View;
 
@@ -15,6 +17,13 @@ public class Game extends AbstractGame {
     public Provider<Controller> controllers() {
         return super.controllers()
             .add(GameController.class)
+            ;
+    }
+
+    @Override
+    public Provider<Repository> repositories() {
+        return super.repositories()
+            .add(EntityRepository.class)
             ;
     }
 

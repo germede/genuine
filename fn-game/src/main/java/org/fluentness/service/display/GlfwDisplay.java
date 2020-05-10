@@ -1,6 +1,7 @@
 package org.fluentness.service.display;
 
 import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.service.configuration.Configuration;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -18,7 +19,7 @@ public class GlfwDisplay implements Display {
     // strong references avoiding garbage collector to delete them
     private final GLFWErrorCallback errorCallback;
 
-    public GlfwDisplay(String title) {
+    public GlfwDisplay(Configuration configuration) {
         glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
 
         glfwInit();
@@ -26,7 +27,7 @@ public class GlfwDisplay implements Display {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        window = glfwCreateWindow(width, height, title, 0, 0);
+        window = glfwCreateWindow(configuration.get(WIDTH), configuration.get(HEIGHT), configuration.get(TITLE), 0, 0);
         glfwMakeContextCurrent(window);
         GL.createCapabilities();
         glfwShowWindow(window);

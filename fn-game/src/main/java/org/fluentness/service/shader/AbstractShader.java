@@ -1,6 +1,7 @@
 package org.fluentness.service.shader;
 
-import org.fluentness.service.memory.DefaultMemory;
+import org.fluentness.service.display.Display;
+import org.fluentness.service.memory.Memory;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
@@ -17,11 +18,8 @@ public abstract class AbstractShader implements Shader {
     {
         GL20.glAttachShader(program, vertexShader);
         GL20.glAttachShader(program, fragmentShader);
-
         GL20.glLinkProgram(program);
         GL20.glValidateProgram(program);
-
-        DefaultMemory.shader(this);
     }
     public final int transformationMatrix = getUniformLocation("transformationMatrix");
     public final int projectionMatrix = getUniformLocation("projectionMatrix");
@@ -35,6 +33,11 @@ public abstract class AbstractShader implements Shader {
     public final int fogDensity = getUniformLocation("fogDensity");
     public final int fogGradient = getUniformLocation("fogGradient");
     public final int skyColour = getUniformLocation("skyColour");
+
+    public AbstractShader(Memory memory, Display display) {
+        memory.shader(this);
+        // display is not needed, just guarantee that shader is constructed after display
+    }
 
     @Override
     public int getProgram() {
