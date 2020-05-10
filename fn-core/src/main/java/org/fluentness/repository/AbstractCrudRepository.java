@@ -7,13 +7,13 @@ import org.fluentness.service.persistence.Persistence;
 
 import java.util.List;
 
-public abstract class AbstractRepository<M extends Model> implements Repository {
+public abstract class AbstractCrudRepository<M extends Model> implements Repository {
 
     protected final Persistence persistence;
     protected final Log log;
     protected final Class<M> modelClass;
 
-    public AbstractRepository(Persistence persistence, Log log, Class<M> modelClass) {
+    public AbstractCrudRepository(Persistence persistence, Log log, Class<M> modelClass) {
         this.persistence = persistence;
         this.log = log;
         this.modelClass = modelClass;

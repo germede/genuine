@@ -2,7 +2,7 @@ package org.fluentness.controller;
 
 import org.fluentness.Fluentness;
 import org.fluentness.model.Model;
-import org.fluentness.repository.Repository;
+import org.fluentness.repository.AbstractCrudRepository;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.persistence.Persistence;
@@ -119,9 +119,9 @@ public final class DefaultConsoleController extends AbstractConsoleController {
             System.err.println(JdbcPersistence.class.getSimpleName() + " is not being used, ignoring");
             return;
         }
-        List<Class> modelClasses = Fluentness.getInstances(Repository.class)
+        List<Class> modelClasses = Fluentness.getInstances(AbstractCrudRepository.class)
             .stream()
-            .map(Repository::getModelClass)
+            .map(AbstractCrudRepository::getModelClass)
             .collect(Collectors.toList());
 
         StringBuilder builder = new StringBuilder();
