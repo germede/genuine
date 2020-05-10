@@ -25,17 +25,8 @@ public abstract class AbstractGameController<V extends AbstractGameView> impleme
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     protected @interface Action {
-
         String selector();
-
     }
 
-    public void run() {
-
-    }
-
-    protected void loop() {
-
-    }
 
 }

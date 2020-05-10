@@ -1,25 +1,17 @@
 package com.sample.repository;
 
-import org.fluentness.model.Shape;
-import org.fluentness.model.Texture;
-import org.fluentness.repository.AbstractReadRepository;
-import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.repository.AbstractGameRepository;
 import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.view.entity.Entity;
 import org.fluentness.view.entity.Terrain;
 
-import java.util.Random;
+public class GameRepository extends AbstractGameRepository {
 
-public class EntityRepository extends AbstractReadRepository {
-
-    private final Random random = new Random();
-
-    private final Loader loader;
     private final TerrainGenerator terrainGenerator;
 
-    public EntityRepository(Loader loader, TerrainGenerator terrainGenerator) {
-        this.loader = loader;
+    public GameRepository(Loader loader, TerrainGenerator terrainGenerator) {
+        super(loader);
         this.terrainGenerator = terrainGenerator;
     }
 
@@ -33,7 +25,6 @@ public class EntityRepository extends AbstractReadRepository {
 
     public Entity[] flowers() {
         return randomize("plants/highGrass.obj", "plants/flower.png", 30);
-
     }
 
     public Entity[] ferns() {
@@ -54,21 +45,4 @@ public class EntityRepository extends AbstractReadRepository {
         )};
     }
 
-    private Entity[] randomize(String modelPath, String texturePath, int count) {
-        Shape shape = loader.loadShape(modelPath);
-        Texture texture = loader.loadTexture(texturePath);
-        Entity[] trees = new Entity[count];
-        for (int i = 0; i < trees.length; i++) {
-            int max = 1000;
-            int min = -1000;
-            trees[i] = new Entity(
-                shape,
-                texture,
-                new Vector3f(random.nextInt(max - min) + min, 0, random.nextInt(max - min) + min),
-                new Vector3f(0, random.nextFloat() * 180f, 0),
-                random.nextFloat() * 10
-            );
-        }
-        return trees;
-    }
 }

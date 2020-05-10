@@ -1,7 +1,7 @@
 package com.sample;
 
 import com.sample.controller.GameController;
-import com.sample.repository.EntityRepository;
+import com.sample.repository.GameRepository;
 import com.sample.view.GameView;
 import org.fluentness.AbstractGame;
 import org.fluentness.Fluentness;
@@ -23,7 +23,7 @@ public class Game extends AbstractGame {
     @Override
     public Provider<Repository> repositories() {
         return super.repositories()
-            .add(EntityRepository.class)
+            .add(GameRepository.class)
             ;
     }
 
