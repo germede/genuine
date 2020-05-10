@@ -2,24 +2,37 @@ package org.fluentness.service.display;
 
 import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.log.Log;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11C.GL_FALSE;
 
 public class GlfwDisplay implements Display {
 
-    private final int width = 1280;
-    private final int height = 720;
-    private final int maxFps = 120;
+    private long lastTime = System.currentTimeMillis();
+    private int fps;
 
     private final long window;
     // strong references avoiding garbage collector to delete them
     private final GLFWErrorCallback errorCallback;
 
-    public GlfwDisplay(Configuration configuration) {
+    private final Log log;
+
+    public GlfwDisplay(Configuration configuration, Log log) {
+        this.log = log;
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                log.debug("%s FPS", fps);
+            }
+        }, 0, 1000);
+
         glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
 
         glfwInit();
@@ -31,6 +44,11 @@ public class GlfwDisplay implements Display {
         glfwMakeContextCurrent(window);
         GL.createCapabilities();
         glfwShowWindow(window);
+    }
+
+    @Override
+    public int getFps() {
+        return fps;
     }
 
     @Override
@@ -47,6 +65,10 @@ public class GlfwDisplay implements Display {
 
     @Override
     public void update() {
+        long currentTime = System.currentTimeMillis();
+        fps = (int) (1 / ((currentTime - lastTime) / 1000d));
+        lastTime = currentTime;
+
         glfwPollEvents();
         glfwSwapBuffers(window);
     }

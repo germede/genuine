@@ -10,6 +10,8 @@ public interface Display extends Service {
     Setting<Integer> WIDTH = new Setting<>(720);
     Setting<Integer> HEIGHT = new Setting<>(480);
 
+    int getFps();
+
     long getWindow();
 
     void clear(Vector3f background);

@@ -7,23 +7,23 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
+import java.util.logging.*;
 
 public class JulLog implements Log {
 
-    protected final java.util.logging.Logger logger;
+    protected final Logger logger;
 
     public JulLog(Configuration configuration) throws Exception {
         // retrieve log level
         Level julLevel = configuration.get(LEVEL).toJulLevel();
 
         // init jul logger
-        logger = java.util.logging.Logger.getGlobal();
+        logger = Logger.getGlobal();
         logger.setUseParentHandlers(false);
         Arrays.stream(logger.getHandlers()).forEach(logger::removeHandler);
         logger.setLevel(julLevel);
+
+        JulFormatter formatter = new JulFormatter();
 
         // console logging
         if (configuration.get(CONSOLE)) {
@@ -33,7 +33,7 @@ public class JulLog implements Log {
                     super.setOutputStream(System.out);
                 }
             };
-            consoleHandler.setFormatter(new JulFormatter());
+            consoleHandler.setFormatter(formatter);
             consoleHandler.setLevel(julLevel);
             logger.addHandler(consoleHandler);
         }
@@ -51,7 +51,7 @@ public class JulLog implements Log {
                 file.createNewFile();
                 fileHandler = new FileHandler(logFilePath);
             }
-            fileHandler.setFormatter(new JulFormatter());
+            fileHandler.setFormatter(formatter);
             fileHandler.setLevel(julLevel);
             logger.addHandler(fileHandler);
 
