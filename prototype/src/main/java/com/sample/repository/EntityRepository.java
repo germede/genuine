@@ -4,7 +4,7 @@ import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.view.entity.Entity;
 import org.fluentness.view.entity.Terrain;
 import org.fluentness.model.shape.ShapeModel;
-import org.fluentness.service.parser.ObjParser;
+import org.fluentness.service.parser.ShapeParser;
 import org.fluentness.service.parser.Parser;
 import org.fluentness.model.texture.TerrainTexture;
 
@@ -14,7 +14,7 @@ public class EntityRepository {
 
 
 
-    private final Parser parser = new ObjParser();
+    private final Parser parser = new ShapeParser(log);
     private final Random random = new Random();
     private final int count = 100;
     private final int max = 1000;

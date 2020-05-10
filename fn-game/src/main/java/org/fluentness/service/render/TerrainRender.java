@@ -29,7 +29,7 @@ public class TerrainRender extends AbstractRender<TerrainShader, List<Terrain>> 
     public void render(List<Terrain> terrainList) {
         shader.start();
         for (Terrain terrain : terrainList) {
-            bind(terrain.getModel().getVao());
+            bind(terrain.getShape().getVao());
             bindTextures(terrain.getRepeatTextures(), terrain.getTextures());
             renderTerrain(terrain);
             unbind();
@@ -59,6 +59,6 @@ public class TerrainRender extends AbstractRender<TerrainShader, List<Terrain>> 
         shader.set(shader.shineDamper, 1);
         shader.set(shader.reflectivity, 0);
 
-        GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+        GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.getShape().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
     }
 }

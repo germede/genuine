@@ -17,7 +17,7 @@ public class Texture {
     private final boolean hasTransparency = false;
     private final boolean lightUniformly;
 
-    public Texture(int id, boolean hasTransparency, boolean lightUniformly) {
+    public Texture(int id, boolean hasTransparency) {
         id = load(texturePath);
         DefaultMemory.texture(id);
         lightUniformly = hasTransparency; // todo make it light uniformly only when using multi-faced models

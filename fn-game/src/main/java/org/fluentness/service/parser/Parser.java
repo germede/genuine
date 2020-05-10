@@ -1,12 +1,11 @@
 package org.fluentness.service.parser;
 
-import org.fluentness.model.Shape;
+import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 
-public interface Parser extends Service {
+@MultiService
+public interface Parser<R> extends Service {
 
-    Shape loadShape(String model, String texture);
-
-    Texture loadShape(String model, String texture);
+    R parse(String path);
 
 }

@@ -1,32 +1,51 @@
 package org.fluentness.view.entity;
 
 import org.fluentness.model.Shape;
-import org.fluentness.service.algebra.DefaultAlgebra;
+import org.fluentness.model.Texture;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.model.shape.ShapeModel;
 import org.fluentness.view.SceneElement;
 
 public class Entity implements SceneElement {
 
     private Shape shape;
+    private Texture texture;
 
-    private Vector3f translation = DefaultAlgebra.zeroVector3f();
-    private Vector3f rotation =  DefaultAlgebra.zeroVector3f();
+    private Vector3f translation;
+    private Vector3f rotation;
     private float scale = 1;
 
     private float shineDamper = 1;
     private float reflectivity = 0;
 
-    public Entity(ShapeModel shape) {
+    public Entity(Shape shape, Texture texture) {
         this.shape = shape;
+        this.texture = texture;
+        this.translation = new Vector3f(0, 0, 0);
+        this.rotation = new Vector3f(0, 0, 0);
     }
 
-    public ShapeModel getShape() {
+    public Entity(Shape shape, Texture texture, Vector3f translation, Vector3f rotation) {
+        this.shape = shape;
+        this.texture = texture;
+        this.translation = translation;
+        this.rotation = rotation;
+    }
+
+    public Shape getShape() {
         return shape;
     }
 
-    public Entity setShape(ShapeModel shape) {
+    public Entity setShape(Shape shape) {
         this.shape = shape;
+        return this;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public Entity setTexture(Texture texture) {
+        this.texture = texture;
         return this;
     }
 

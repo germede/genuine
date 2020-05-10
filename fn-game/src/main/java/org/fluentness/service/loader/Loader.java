@@ -1,9 +1,13 @@
 package org.fluentness.service.loader;
 
+import org.fluentness.model.Shape;
+import org.fluentness.model.Texture;
 import org.fluentness.service.Service;
 
 public interface Loader extends Service {
 
-    int loadShape(float[] vertices, float[] textures, float[] normals, int[] indices);
+    Shape loadShape(String path);
+
+    Texture loadTexture(String path);
 
 }

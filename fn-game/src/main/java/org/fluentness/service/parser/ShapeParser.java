@@ -2,10 +2,11 @@ package org.fluentness.service.parser;
 
 import org.fluentness.service.algebra.Vector2f;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.model.shape.ShapeModel;
-import org.fluentness.model.texture.ObjectTexture;
+import org.fluentness.service.log.Log;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
-public class ObjParser implements Parser {
+public class ShapeParser implements Parser {
 
     private BufferedReader reader;
 
@@ -27,21 +28,29 @@ public class ObjParser implements Parser {
     private float[] normalsArray;
     private int[] indicesArray;
 
-    @Override
-    public ShapeModel loadShape(String model, String texture) {
-        process(model);
-        return new ShapeModel(verticesArray, texturesArray, normalsArray, indicesArray, new ObjectTexture(texture));
+    private final Log log;
+
+    public ShapeParser(Log log) {
+        this.log = log;
     }
 
-    private void process(String model) {
+    @Override
+    public RawShape parse(String path) {
         try {
-            reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/models/" + model)));
-            clear();
-            readLists();
-            readFaces();
+            process(path);
+            return new RawShape(verticesArray, texturesArray, normalsArray, indicesArray);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
+            System.exit(-1);
         }
+        return null;
+    }
+
+    private void process(String model) throws IOException {
+        reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/models/" + model)));
+        clear();
+        readLists();
+        readFaces();
     }
 
     private void clear() {
@@ -107,4 +116,5 @@ public class ObjParser implements Parser {
         normalsArray[index * 3 + 1] = normal.y;
         normalsArray[index * 3 + 2] = normal.z;
     }
+
 }

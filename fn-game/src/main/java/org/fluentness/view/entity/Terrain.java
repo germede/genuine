@@ -1,45 +1,33 @@
 package org.fluentness.view.entity;
 
-import org.fluentness.service.algebra.DefaultAlgebra;
+import org.fluentness.model.Shape;
+import org.fluentness.model.Texture;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.service.generator.TerrainGenerator;
-import org.fluentness.model.texture.TerrainTexture;
 import org.fluentness.view.SceneElement;
 
 public class Terrain implements SceneElement {
 
-    private final int vertexCount = 128;
-    private final float size = 2200;
-    private float repeatTextures = 40;
-
-    private final TerrainGenerator model;
-    private final TerrainTexture[] textures;
+    private final Shape shape;
+    private final Texture[] textures;
 
     private Vector3f translation;
-    private Vector3f rotation = DefaultAlgebra.zeroVector3f();
+    private Vector3f rotation;
     private float scale = 1;
 
-    public Terrain(int gridX, int gridZ, TerrainTexture... textures) {
-        translation = new Vector3f(gridX * size - size / 2, 0, gridZ * size - size / 2);
+    private float repeatTextures = 40;
 
-        model = new TerrainGenerator(vertexCount, size);
+    public Terrain(Shape shape, float size, int gridX, int gridZ, Texture... textures) {
+        this.shape = shape;
         this.textures = textures;
+        this.translation = new Vector3f(gridX * size - size / 2, 0, gridZ * size - size / 2);
+        this.rotation = new Vector3f(0,0,0);
     }
 
-    public float getRepeatTextures() {
-        return repeatTextures;
+    public Shape getShape() {
+        return shape;
     }
 
-    public Terrain setRepeatTextures(float repeatTextures) {
-        this.repeatTextures = repeatTextures;
-        return this;
-    }
-
-    public TerrainGenerator getModel() {
-        return model;
-    }
-
-    public TerrainTexture[] getTextures() {
+    public Texture[] getTextures() {
         return textures;
     }
 
@@ -67,6 +55,15 @@ public class Terrain implements SceneElement {
 
     public Terrain setScale(float scale) {
         this.scale = scale;
+        return this;
+    }
+
+    public float getRepeatTextures() {
+        return repeatTextures;
+    }
+
+    public Terrain setRepeatTextures(float repeatTextures) {
+        this.repeatTextures = repeatTextures;
         return this;
     }
 }
