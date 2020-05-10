@@ -1,6 +1,6 @@
 package org.fluentness.service.shader;
 
-import org.fluentness.engine.memory.Memory;
+import org.fluentness.service.memory.Memory;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 

@@ -1,23 +1,23 @@
 package org.fluentness.service.render;
 
-import org.fluentness.engine.AbstractScene;
-import org.fluentness.engine.algebra.Vector3f;
-import org.fluentness.engine.entity.Camera;
-import org.fluentness.engine.entity.Fog;
-import org.fluentness.engine.entity.Light;
+import org.fluentness.view.Scene;
+import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.view.Camera;
+import org.fluentness.view.Fog;
+import org.fluentness.view.Light;
 import org.fluentness.service.shader.AbstractShader;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import static org.fluentness.engine.algebra.MatrixFactory.projectionMatrix;
-import static org.fluentness.engine.algebra.MatrixFactory.viewMatrix;
+import static org.fluentness.service.algebra.MatrixFactory.projectionMatrix;
+import static org.fluentness.service.algebra.MatrixFactory.viewMatrix;
 
 public abstract class AbstractRender<S extends AbstractShader, O> implements Render<O> {
 
     protected final S shader;
-    protected final AbstractScene scene;
+    protected final Scene scene;
 
-    public AbstractRender(S shader, AbstractScene scene) {
+    public AbstractRender(S shader, Scene scene) {
         this.shader = shader;
         this.scene = scene;
 

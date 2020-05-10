@@ -1,9 +1,9 @@
 package org.fluentness.service.parser;
 
-import org.fluentness.engine.algebra.Vector2f;
-import org.fluentness.engine.algebra.Vector3f;
-import org.fluentness.engine.model.ObjectModel;
-import org.fluentness.engine.texture.ObjectTexture;
+import org.fluentness.service.algebra.Vector2f;
+import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.model.shape.ShapeModel;
+import org.fluentness.model.texture.ObjectTexture;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -28,9 +28,9 @@ public class ObjParser implements Parser {
     private int[] indicesArray;
 
     @Override
-    public ObjectModel load(String model, String texture) {
+    public ShapeModel load(String model, String texture) {
         process(model);
-        return new ObjectModel(verticesArray, texturesArray, normalsArray, indicesArray, new ObjectTexture(texture));
+        return new ShapeModel(verticesArray, texturesArray, normalsArray, indicesArray, new ObjectTexture(texture));
     }
 
     private void process(String model) {

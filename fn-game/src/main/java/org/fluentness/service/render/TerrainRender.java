@@ -1,19 +1,19 @@
 package org.fluentness.service.render;
 
-import org.fluentness.engine.AbstractScene;
-import org.fluentness.engine.entity.Terrain;
+import org.fluentness.view.Scene;
+import org.fluentness.view.Terrain;
 import org.fluentness.service.shader.TerrainShader;
-import org.fluentness.engine.texture.TerrainTexture;
+import org.fluentness.model.texture.TerrainTexture;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
 import java.util.List;
 
-import static org.fluentness.engine.algebra.MatrixFactory.transformationMatrix;
+import static org.fluentness.service.algebra.MatrixFactory.transformationMatrix;
 
 public class TerrainRender extends AbstractRender<TerrainShader, List<Terrain>> {
 
-    public TerrainRender(AbstractScene scene) {
+    public TerrainRender(Scene scene) {
         super(new TerrainShader(), scene);
 
         // bind multi-texture slots to uniform

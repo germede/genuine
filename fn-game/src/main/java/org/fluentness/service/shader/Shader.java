@@ -1,8 +1,8 @@
 package org.fluentness.service.shader;
 
-import org.fluentness.engine.algebra.Matrix4f;
-import org.fluentness.engine.algebra.Vector3f;
-import org.fluentness.engine.memory.BufferFactory;
+import org.fluentness.service.algebra.Matrix4f;
+import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.service.memory.BufferFactory;
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 import org.lwjgl.opengl.GL20;
