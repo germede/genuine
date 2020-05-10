@@ -6,15 +6,12 @@ import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.configuration.DefaultConfiguration;
-import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.service.log.JulLog;
 import org.fluentness.service.persistence.FilePersistence;
 import org.fluentness.service.translator.DefaultTranslator;
 
 public interface Application {
-
-    Setting<String> NAME = new Setting<>("Fluentness application");
 
     default void configure(Configuration configuration) {
 

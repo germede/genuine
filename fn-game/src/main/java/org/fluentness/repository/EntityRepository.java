@@ -1,8 +1,8 @@
 package org.fluentness.repository;
 
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.view.Entity;
-import org.fluentness.view.Terrain;
+import org.fluentness.view.entity.Entity;
+import org.fluentness.view.entity.Terrain;
 import org.fluentness.model.shape.ShapeModel;
 import org.fluentness.service.parser.ObjParser;
 import org.fluentness.service.parser.Parser;

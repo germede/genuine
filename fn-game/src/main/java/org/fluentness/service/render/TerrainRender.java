@@ -1,7 +1,7 @@
 package org.fluentness.service.render;
 
 import org.fluentness.view.Scene;
-import org.fluentness.view.Terrain;
+import org.fluentness.view.entity.Terrain;
 import org.fluentness.service.shader.TerrainShader;
 import org.fluentness.model.texture.TerrainTexture;
 import org.lwjgl.opengl.GL11;

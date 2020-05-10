@@ -2,9 +2,9 @@ package org.fluentness.service.render;
 
 import org.fluentness.view.Scene;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.view.Camera;
-import org.fluentness.view.Fog;
-import org.fluentness.view.Light;
+import org.fluentness.view.environment.Camera;
+import org.fluentness.view.environment.Fog;
+import org.fluentness.view.environment.Light;
 import org.fluentness.service.shader.AbstractShader;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;

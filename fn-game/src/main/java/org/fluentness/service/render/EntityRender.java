@@ -1,7 +1,7 @@
 package org.fluentness.service.render;
 
 import org.fluentness.view.Scene;
-import org.fluentness.view.Entity;
+import org.fluentness.view.entity.Entity;
 import org.fluentness.model.shape.ShapeModel;
 import org.fluentness.service.shader.EntityShader;
 import org.fluentness.model.texture.ObjectTexture;

@@ -9,6 +9,11 @@ import org.fluentness.service.display.Display;
 import org.fluentness.service.display.GlfwDisplay;
 import org.fluentness.service.render.EntityRender;
 import org.fluentness.service.render.TerrainRender;
+import org.fluentness.view.entity.Entity;
+import org.fluentness.view.entity.Terrain;
+import org.fluentness.view.environment.Camera;
+import org.fluentness.view.environment.Fog;
+import org.fluentness.view.environment.Light;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
 import java.util.*;

@@ -1,9 +1,10 @@
-package org.fluentness.view;
+package org.fluentness.view.entity;
 
 import org.fluentness.service.algebra.DefaultAlgebra;
 import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.model.shape.TerrainModel;
 import org.fluentness.model.texture.TerrainTexture;
+import org.fluentness.view.SceneElement;
 
 public class Terrain implements SceneElement {
 
