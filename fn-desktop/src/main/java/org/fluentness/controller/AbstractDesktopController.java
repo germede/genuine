@@ -18,7 +18,7 @@ public abstract class AbstractDesktopController<V extends AbstractDesktopView> i
         this.view = view;
     }
 
-    public V getView() {
+    public final V getView() {
         return view;
     }
 

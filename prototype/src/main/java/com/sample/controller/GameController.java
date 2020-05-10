@@ -10,4 +10,8 @@ public class GameController extends AbstractGameController<GameView> {
     }
 
 
+    @Override
+    public void loop() {
+
+    }
 }

@@ -12,7 +12,7 @@ public abstract class AbstractMobileController<V extends AbstractMobileView> imp
         this.view = view;
     }
 
-    public V getView() {
+    public final V getView() {
         return view;
     }
 

@@ -34,7 +34,7 @@ public abstract class AbstractWebController<V extends AbstractWebView> implement
         });
     }
 
-    public V getView() {
+    public final V getView() {
         return view;
     }
 

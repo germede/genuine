@@ -12,7 +12,7 @@ public abstract class AbstractGameController<V extends AbstractGameView> impleme
         this.view = view;
     }
 
-    public V getView() {
+    public final V getView() {
         return view;
     }
 
@@ -21,12 +21,13 @@ public abstract class AbstractGameController<V extends AbstractGameView> impleme
         return Action.class;
     }
 
-
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     protected @interface Action {
+
         String selector();
     }
 
+    public abstract void loop();
 
 }

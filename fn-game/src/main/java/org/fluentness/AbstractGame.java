@@ -45,7 +45,8 @@ public abstract class AbstractGame implements Application {
         TerrainRender terrainRender = Fluentness.getInstance(TerrainRender.class);
         EntityRender entityRender = Fluentness.getInstance(EntityRender.class);
         Memory memory = Fluentness.getInstance(Memory.class);
-        Scene scene = (Scene) Fluentness.getInstances(AbstractGameController.class).get(0).getView().getTemplate();
+        AbstractGameController controller = Fluentness.getInstances(AbstractGameController.class).get(0);
+        Scene scene = (Scene) controller.getView().getTemplate();
 
 
         // todo integrate into controller
@@ -55,6 +56,7 @@ public abstract class AbstractGame implements Application {
         while (!display.shouldClose()) {
             display.clear(scene.getBackground().getColour());
             input.handle(display.getWindow());
+            controller.loop();
             terrainRender.render(scene);
             entityRender.render(scene);
             display.update();
