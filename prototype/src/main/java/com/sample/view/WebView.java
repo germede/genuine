@@ -1,6 +1,5 @@
 package com.sample.view;
 
-import com.sample.Desktop;
 import org.fluentness.view.AbstractWebView;
 
 import static com.sample.service.Translation.*;
@@ -24,7 +23,7 @@ public class WebView extends AbstractWebView {
                 ),
                 body(
                     nav(
-                        a(ID + "index", CLASS + "brand", Desktop.class.getSimpleName()),
+                        a(ID + "index", CLASS + "brand", "WorkStation"),
 
                         input(ID + "burger", TYPE + "checkbox", CLASS + "show"),
                         label(FOR + "burger", CLASS + "burger pseudo button", _menu),
