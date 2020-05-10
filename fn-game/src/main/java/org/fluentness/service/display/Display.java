@@ -12,6 +12,8 @@ public interface Display extends Service {
 
     int getFps();
 
+    float getDelta();
+
     long getWindow();
 
     void clear(Vector3f background);

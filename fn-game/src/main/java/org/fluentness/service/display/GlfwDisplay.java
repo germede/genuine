@@ -23,6 +23,8 @@ public class GlfwDisplay implements Display {
     private final GLFWErrorCallback errorCallback;
 
     private final Log log;
+    private long currentTime;
+    private float delta;
 
     public GlfwDisplay(Configuration configuration, Log log) {
         this.log = log;
@@ -52,6 +54,11 @@ public class GlfwDisplay implements Display {
     }
 
     @Override
+    public float getDelta() {
+        return delta;
+    }
+
+    @Override
     public long getWindow() {
         return window;
     }
@@ -66,7 +73,8 @@ public class GlfwDisplay implements Display {
     @Override
     public void update() {
         long currentTime = System.currentTimeMillis();
-        fps = (int) (1 / ((currentTime - lastTime) / 1000d));
+        delta = (currentTime - lastTime) / 1000f;
+        fps = (int) (1 / delta);
         lastTime = currentTime;
 
         glfwPollEvents();
