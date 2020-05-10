@@ -1,11 +1,10 @@
-package org.fluentness.view.scene.entity;
+package org.fluentness.view.entity;
 
 import org.fluentness.model.Shape;
 import org.fluentness.model.Texture;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.view.scene.SceneElement;
 
-public class Terrain implements SceneElement {
+public class Terrain {
 
     private final Shape shape;
     private final Texture[] textures;

@@ -8,6 +8,8 @@ import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.controller.Controller;
 import org.fluentness.repository.Repository;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.display.Display;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.view.View;
 
@@ -32,6 +34,11 @@ public class Game extends AbstractGame {
         return super.views()
             .add(GameView.class)
             ;
+    }
+
+    @Override
+    public void configure(Configuration configuration) {
+        configuration.set(Display.TITLE, "Forest");
     }
 
     public static void main(String[] args) throws FluentnessException {

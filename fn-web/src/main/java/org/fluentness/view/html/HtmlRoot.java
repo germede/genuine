@@ -1,10 +1,10 @@
 package org.fluentness.view.html;
 
-import org.fluentness.view.WebTemplate;
+import org.fluentness.view.RootWebView;
 
-public class HtmlTemplate extends Html implements WebTemplate {
+public class HtmlRoot extends Html implements RootWebView {
 
-    public HtmlTemplate(CharSequence[] html) {
+    public HtmlRoot(CharSequence[] html) {
         super("html", html);
     }
 

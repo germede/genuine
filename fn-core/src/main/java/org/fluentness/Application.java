@@ -8,7 +8,6 @@ import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.configuration.DefaultConfiguration;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.service.log.JulLog;
-import org.fluentness.service.persistence.FilePersistence;
 import org.fluentness.service.translator.DefaultTranslator;
 import org.fluentness.view.View;
 
@@ -32,7 +31,6 @@ public interface Application {
         return new Provider<Service>()
             .add(DefaultConfiguration.class)
             .add(JulLog.class)
-            .add(FilePersistence.class)
             .add(DefaultTranslator.class)
             ;
     }

@@ -1,6 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.view.scene.Scene;
+import org.fluentness.view.AbstractGameView;
 import org.fluentness.service.algebra.Vector3f;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
@@ -10,9 +10,9 @@ public class Input extends GLFWKeyCallback {
 
     private static final int CAMERA_STEP = 5;
 
-    private final Scene scene;
+    private final AbstractGameView scene;
 
-    public Input(Scene scene) {
+    public Input(AbstractGameView scene) {
         this.scene = scene;
     }
 

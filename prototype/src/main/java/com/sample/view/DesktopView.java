@@ -1,38 +1,37 @@
 package com.sample.view;
 
 import org.fluentness.view.AbstractDesktopView;
-import org.fluentness.view.DesktopTemplate;
-import org.fluentness.view.swing.Swing;
+import org.fluentness.view.Swing.Swing;
 
 import javax.swing.*;
 
-import static org.fluentness.view.swing.SwingAttribute.CLASS;
-import static org.fluentness.view.swing.SwingAttribute.ID;
-import static org.fluentness.view.swing.SwingFactory.*;
+import static org.fluentness.view.Swing.SwingAttribute.CLASS;
+import static org.fluentness.view.Swing.SwingAttribute.ID;
 
 public class DesktopView extends AbstractDesktopView {
 
-    @Override
-    public DesktopTemplate getTemplate() {
-        return frame(ID + "Fluentness rocks",
-            panel(ID + "panel1", CLASS + "panel",
-                panel(CLASS + "panel",
-                    button(ID + "daButton", "Test button"),
-                    colorChooser(),
-                    table(
-                        header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
-                        row(1, "John", 40.0, false),
-                        row(2, "Rambo", 70.0, false),
-                        row(2, "Rambo", 70.0, false),
-                        row(2, "Rambo", 70.0, false),
-                        row(2, "Rambo", 70.0, false),
-                        row(2, "Rambo", 70.0, false),
-                        row(2, "Rambo", 70.0, false),
-                        row(3, "Zorro", 60.0, true)
-                    )
-                )//.flowLayout()
-            )//.borderLayout(BorderLayout.NORTH, BorderLayout.SOUTH)
-        );//.bounds(0, 0, 800, 600).center().minimumSize(300, 300).menuBar(topBar());
+    public DesktopView() {
+        super(
+            frame(ID + "Fluentness rocks",
+                panel(ID + "panel1", CLASS + "panel",
+                    panel(CLASS + "panel",
+                        button(ID + "daButton", "Test button"),
+                        colorChooser(),
+                        table(
+                            header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
+                            row(1, "John", 40.0, false),
+                            row(2, "Rambo", 70.0, false),
+                            row(2, "Rambo", 70.0, false),
+                            row(2, "Rambo", 70.0, false),
+                            row(2, "Rambo", 70.0, false),
+                            row(2, "Rambo", 70.0, false),
+                            row(2, "Rambo", 70.0, false),
+                            row(3, "Zorro", 60.0, true)
+                        )
+                    )//.flowLayout()
+                )//.borderLayout(BorderLayout.NORTH, BorderLayout.SOUTH)
+            )
+        );
     }
 
     private Swing<JMenuBar> topBar() {

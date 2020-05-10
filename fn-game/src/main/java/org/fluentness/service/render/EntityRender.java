@@ -4,8 +4,8 @@ import org.fluentness.model.Shape;
 import org.fluentness.model.Texture;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.EntityShader;
-import org.fluentness.view.scene.Scene;
-import org.fluentness.view.scene.entity.Entity;
+import org.fluentness.view.AbstractGameView;
+import org.fluentness.view.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
@@ -19,7 +19,7 @@ public class EntityRender extends AbstractRender<EntityShader> {
     }
 
     @Override
-    public void render(Scene scene) {
+    public void render(AbstractGameView scene) {
         shader.start();
         Map<Shape, List<Entity>> entities = scene.getEntities();
         for (Shape shape : entities.keySet()) {

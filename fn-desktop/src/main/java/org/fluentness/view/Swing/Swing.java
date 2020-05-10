@@ -1,6 +1,4 @@
-package org.fluentness.view.swing;
-
-import org.fluentness.view.Template;
+package org.fluentness.view.Swing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Swing<V extends Container> implements Template {
+public class Swing<V extends Container> implements CharSequence {
 
     private static final Map<String, Swing> ID_MAP = new HashMap<>();
-    private static final Map<String, List<Swing>> CLASS_MAP = new HashMap<>();
+    private static final Map<String, java.util.List<Swing>> CLASS_MAP = new HashMap<>();
 
     public static Swing getById(String id) {
         return ID_MAP.get(id);
@@ -24,7 +22,7 @@ public class Swing<V extends Container> implements Template {
 
     protected V view;
 
-    Swing(V view, CharSequence... swings) {
+    public Swing(V view, CharSequence... swings) {
         this.view = view;
         handleSwings(swings);
     }
@@ -75,6 +73,7 @@ public class Swing<V extends Container> implements Template {
         return view;
     }
 
+
     // ==== instead of layout()
 //    public Self borderLayout(String... arrangements) {
 //        view.setLayout(new BorderLayout());
@@ -101,4 +100,18 @@ public class Swing<V extends Container> implements Template {
 //        return (Self) this;
 //    }
 
+    @Override
+    public int length() {
+        return 0;
+    }
+
+    @Override
+    public char charAt(int i) {
+        return 0;
+    }
+
+    @Override
+    public CharSequence subSequence(int i, int i1) {
+        return null;
+    }
 }

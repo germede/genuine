@@ -17,7 +17,7 @@ import org.fluentness.service.render.EntityRender;
 import org.fluentness.service.render.TerrainRender;
 import org.fluentness.service.shader.EntityShader;
 import org.fluentness.service.shader.TerrainShader;
-import org.fluentness.view.scene.Scene;
+import org.fluentness.view.AbstractGameView;
 
 public abstract class AbstractGame implements Application {
 
@@ -46,7 +46,7 @@ public abstract class AbstractGame implements Application {
         EntityRender entityRender = Fluentness.getInstance(EntityRender.class);
         Memory memory = Fluentness.getInstance(Memory.class);
         AbstractGameController controller = Fluentness.getInstances(AbstractGameController.class).get(0);
-        Scene scene = (Scene) controller.getView().getTemplate();
+        AbstractGameView scene = controller.getView();
 
 
         // todo integrate into controller

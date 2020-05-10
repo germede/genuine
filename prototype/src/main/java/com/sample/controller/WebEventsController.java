@@ -10,9 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.fluentness.view.AbstractWebView.*;
 import static org.fluentness.view.html.HtmlAttribute.CLASS;
 import static org.fluentness.view.html.HtmlAttribute.HREF;
-import static org.fluentness.view.html.HtmlFactory.*;
 
 public class WebEventsController extends AbstractWebController<WebView> {
 

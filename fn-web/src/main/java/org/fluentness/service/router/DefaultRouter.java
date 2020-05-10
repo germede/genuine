@@ -2,13 +2,11 @@ package org.fluentness.service.router;
 
 import org.fluentness.Fluentness;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.view.WebTemplate;
-import org.fluentness.view.AbstractWebView;
-import org.fluentness.view.html.HtmlAttribute;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.server.*;
+import org.fluentness.view.html.HtmlAttribute;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +19,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Map;
 
-import static org.fluentness.view.html.HtmlFactory.div;
+import static org.fluentness.view.AbstractWebView.ACTION_RESULT;
+import static org.fluentness.view.AbstractWebView.div;
 
 public class DefaultRouter implements Router {
 
@@ -60,6 +59,7 @@ public class DefaultRouter implements Router {
             log.error(cause);
         }
 
+        // try to handle errors
         if (response.getCode() >= 400 && routes.containsKey("GET /" + response.getCode())) {
             response = executeWebAction(routes.get("GET /" + response.getCode()), request);
         }
@@ -105,9 +105,7 @@ public class DefaultRouter implements Router {
             returned = action.getParameterCount() > 0 ?
                 action.invoke(webController, args) :
                 action.invoke(webController);
-            if (returned instanceof String) {
-                return request.makeResponse(ResponseStatusCode.OK).setBody((String) returned);
-            } else if (returned instanceof CharSequence) {
+            if (returned instanceof CharSequence) {
                 return handleWebView(request, webController, (CharSequence) returned);
             } else if (returned instanceof Integer) {
                 return request.makeResponse((int) returned);
@@ -148,17 +146,19 @@ public class DefaultRouter implements Router {
 
     private Response handleWebView(Request request, AbstractWebController webController, CharSequence returned) {
         String render;
+        // todo fix translation
+
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
         } else {
+            render = webController.getView().getRootWebView().toString();
             if (configuration.get(SINGLE_PAGE_MODE)) {
-                AbstractWebView.actionResult.set(div(HtmlAttribute.ID + "ajax-placeholder", returned.toString()));
-                render = webController.getView().getTemplate().toString();
-                render = render.replace("</head>", configuration.get(AJAX_HANDLER) + "</head>");
+                render = render
+                    .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")
+                    .replace(ACTION_RESULT, div(HtmlAttribute.ID + "ajax-placeholder", returned.toString()))
+                ;
             } else {
-                AbstractWebView.actionResult.set(returned.toString());
-                WebTemplate template = webController.getView().getTemplate();
-                render = template.toString();
+                render = render.replace(ACTION_RESULT, returned.toString());
             }
         }
         return request

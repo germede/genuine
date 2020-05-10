@@ -9,7 +9,6 @@ public class GameController extends AbstractGameController<GameView> {
         super(view);
     }
 
-
     @Override
     public void loop() {
 

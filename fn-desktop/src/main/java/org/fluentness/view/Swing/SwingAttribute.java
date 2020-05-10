@@ -1,4 +1,4 @@
-package org.fluentness.view.swing;
+package org.fluentness.view.Swing;
 
 public enum SwingAttribute {
     ID,

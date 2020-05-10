@@ -1,8 +1,6 @@
-package org.fluentness.view.scene.environment;
+package org.fluentness.view.environment;
 
-import org.fluentness.view.scene.SceneElement;
-
-public class Fog implements SceneElement {
+public class Fog {
 
     private float density;
     private float gradient;

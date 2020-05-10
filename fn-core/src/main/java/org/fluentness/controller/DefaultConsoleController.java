@@ -3,7 +3,6 @@ package org.fluentness.controller;
 import org.fluentness.Fluentness;
 import org.fluentness.model.Model;
 import org.fluentness.repository.AbstractCrudRepository;
-import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.persistence.Persistence;
 
@@ -19,14 +18,6 @@ import java.util.stream.Collectors;
 import static org.fluentness.service.log.AnsiColor.*;
 
 public final class DefaultConsoleController extends AbstractConsoleController {
-
-    private Configuration configuration;
-    private Persistence persistence;
-
-    public DefaultConsoleController(Configuration configuration, Persistence persistence) {
-        this.configuration = configuration;
-        this.persistence = persistence;
-    }
 
     @Action(description = "Prints all available console actions")
     void help() {
@@ -115,6 +106,7 @@ public final class DefaultConsoleController extends AbstractConsoleController {
 
     @Action(category = "sql", description = "Prints out required create sql statements based on existing Models")
     void schema() {
+        Persistence persistence = Fluentness.getInstance(Persistence.class);
         if (!(persistence instanceof JdbcPersistence)) {
             System.err.println(JdbcPersistence.class.getSimpleName() + " is not being used, ignoring");
             return;

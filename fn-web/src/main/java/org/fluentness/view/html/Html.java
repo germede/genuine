@@ -1,13 +1,8 @@
 package org.fluentness.view.html;
 
-import org.fluentness.Fluentness;
-import org.fluentness.controller.AbstractWebController;
-import org.fluentness.service.translator.Translator;
-import org.fluentness.view.Template;
+import static org.fluentness.view.html.HtmlAttribute.SEPARATOR;
 
-import static org.fluentness.view.html.HtmlAttribute.*;
-
-public abstract class Html implements Template {
+public abstract class Html implements CharSequence {
 
     protected final String tag;
     protected final StringBuilder attributes;
@@ -18,41 +13,31 @@ public abstract class Html implements Template {
         attributes = new StringBuilder();
         inner = new StringBuilder();
 
-        Translator translator = Fluentness.getInstance(Translator.class);
-        String[] languages = AbstractWebController.request.get().getLanguages();
-
         for (CharSequence item : html) {
             String render = item.toString();
+            // if attribute
             if (render.startsWith(HtmlAttribute.SEPARATOR)) {
-                // if attribute
                 render = render.substring(SEPARATOR.length());
                 String[] split = render.split(SEPARATOR);
-                String key = split[0];
-                String value = split.length == 2 ? translator.translate(split[1], languages) : "";
-                if (key.equals("id")) {
-                    handleIdAttribute(value);
-                }
-                attributes.append(' ').append(key).append("=\"").append(value).append("\"");
+                attributes.append(' ').append(split[0]).append("=").append(split.length == 2 ? "\"" + split[1] + "\"" : "");
             } else {
-                // if inner html, do translation
-                inner.append(translator.translate(render, languages));
+                inner.append(render);
             }
         }
     }
 
-    private void handleIdAttribute(String value) {
-        if (AbstractWebController.methodPathMap.containsKey(value)) {
-            String path = AbstractWebController.methodPathMap.get(value);
-            if(tag.equals("form")) {
-                attributes.append(" action=\"").append(path).append("\"");
-            } else {
-                attributes.append(" href=\"").append(path).append("\"");
-            }
-
-            if (AbstractWebController.request.get().getUri().toString().startsWith(path)) {
-                attributes.append(" data=\"").append("current").append("\"");
-            }
-        }
+    @Override
+    public int length() {
+        return 0;
     }
 
+    @Override
+    public char charAt(int i) {
+        return 0;
+    }
+
+    @Override
+    public CharSequence subSequence(int i, int i1) {
+        return null;
+    }
 }

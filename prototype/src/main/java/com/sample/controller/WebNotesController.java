@@ -6,8 +6,8 @@ import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.html.Html;
 
 import static com.sample.service.Translation.*;
+import static org.fluentness.view.AbstractWebView.*;
 import static org.fluentness.view.html.HtmlAttribute.CLASS;
-import static org.fluentness.view.html.HtmlFactory.*;
 
 public class WebNotesController extends AbstractWebController<WebView> {
 

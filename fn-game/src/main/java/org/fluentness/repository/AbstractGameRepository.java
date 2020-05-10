@@ -4,7 +4,7 @@ import org.fluentness.model.Shape;
 import org.fluentness.model.Texture;
 import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.loader.Loader;
-import org.fluentness.view.scene.entity.Entity;
+import org.fluentness.view.entity.Entity;
 
 import java.util.Random;
 
