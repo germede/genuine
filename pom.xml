@@ -20,6 +20,7 @@
 
     <properties>
         <revision>0.1.0</revision>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <packaging>pom</packaging>
@@ -28,7 +29,6 @@
         <url>https://github.com/germede/fluentness/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
-
 
     <dependencies>
         <!--Test dependencies-->
@@ -56,13 +56,9 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
-                    <encoding>UTF-8</encoding>
-                    <parameters>true</parameters>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>
