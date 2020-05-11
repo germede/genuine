@@ -2,11 +2,11 @@ package org.fluentness.service.render;
 
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
-import org.fluentness.controller.AbstractGame;
+import org.fluentness.controller.Scene;
 
 @MultiService
 public interface Render extends Service {
 
-    void render(AbstractGame scene);
+    void render(Scene scene);
 
 }

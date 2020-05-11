@@ -3,7 +3,7 @@ package org.fluentness.service.render;
 import org.fluentness.repository.Texture;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.TerrainShader;
-import org.fluentness.controller.AbstractGame;
+import org.fluentness.controller.Scene;
 import org.fluentness.controller.entity.Terrain;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -24,7 +24,7 @@ public class TerrainRender extends AbstractRender<TerrainShader> {
     }
 
     @Override
-    public void render(AbstractGame scene) {
+    public void render(Scene scene) {
         shader.start();
         for (Terrain terrain : scene.getTerrains()) {
             bind(terrain.getShape().getId(),scene);

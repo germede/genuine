@@ -1,40 +1,39 @@
 package com.sample.controller;
 
 import org.fluentness.controller.AbstractDesktop;
-import org.fluentness.controller.swing.Swing;
+import org.fluentness.controller.DesktopView;
 
 import javax.swing.*;
 
-import static org.fluentness.controller.swing.SwingAttribute.CLASS;
-import static org.fluentness.controller.swing.SwingAttribute.ID;
-
 public class Desktop extends AbstractDesktop {
 
-    public Desktop() {
-        super(
-            frame(ID + "Fluentness rocks",
-                panel(ID + "panel1", CLASS + "panel",
-                    panel(CLASS + "panel",
-                        button(ID + "daButton", "Test button"),
-                        colorChooser(),
-                        table(
-                            header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
-                            row(1, "John", 40.0, false),
-                            row(2, "Rambo", 70.0, false),
-                            row(2, "Rambo", 70.0, false),
-                            row(2, "Rambo", 70.0, false),
-                            row(2, "Rambo", 70.0, false),
-                            row(2, "Rambo", 70.0, false),
-                            row(2, "Rambo", 70.0, false),
-                            row(3, "Zorro", 60.0, true)
-                        )
-                    )//.flowLayout()
-                )//.borderLayout(BorderLayout.NORTH, BorderLayout.SOUTH)
-            )
+    JPanel panel1;
+    JPanel panel2;
+
+    @Override
+    public DesktopView render() {
+        return frame("My frame",
+            panel1 = panel(
+                panel2 = panel(
+                    button("Test button"),
+                    colorChooser(),
+                    table(
+                        header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),
+                        row(1, "John", 40.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(2, "Rambo", 70.0, false),
+                        row(3, "Zorro", 60.0, true)
+                    )
+                )//.flowLayout()
+            )//.borderLayout(BorderLayout.NORTH, BorderLayout.SOUTH)
         );
     }
 
-    private Swing<JMenuBar> topBar() {
+    private JMenuBar menuBar() {
         return menuBar(
             menu("File",
                 menuItem("Load"),//.accelerator(KeyStroke.getKeyStroke('C')),

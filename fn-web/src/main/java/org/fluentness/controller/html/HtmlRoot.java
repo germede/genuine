@@ -1,8 +1,8 @@
 package org.fluentness.controller.html;
 
-import org.fluentness.controller.RootWebView;
+import org.fluentness.controller.WebView;
 
-public class HtmlRoot extends Html implements RootWebView {
+public class HtmlRoot extends Html implements WebView {
 
     public HtmlRoot(CharSequence[] html) {
         super("html", html);

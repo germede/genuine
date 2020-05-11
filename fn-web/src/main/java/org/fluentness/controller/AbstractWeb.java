@@ -9,15 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class AbstractWeb implements View {
+public abstract class AbstractWeb implements Template<WebView> {
 
     public static final String ACTION_RESULT = "###ACTION_RESULT###";
-
-    private final RootWebView rootWebView;
-
-    public AbstractWeb(RootWebView rootWebView) {
-        this.rootWebView = rootWebView;
-    }
 
     public static <T, V extends CharSequence> CharSequence forEach(Iterable<T> iterable, Function<T, V> function) {
         List<V> result = new LinkedList<>();
@@ -520,9 +514,5 @@ public abstract class AbstractWeb implements View {
 
     public static Html wbr(CharSequence... html) {
         return new HtmlEmpty("wbr", html);
-    }
-
-    public RootWebView getRootWebView() {
-        return rootWebView;
     }
 }

@@ -1,186 +1,184 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.swing.Swing;
-import org.fluentness.controller.swing.SwingWindow;
+import org.fluentness.controller.swing.SwingView;
 
 import javax.swing.*;
+import java.awt.*;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
-public abstract class AbstractDesktop implements View {
+public abstract class AbstractDesktop implements Template<DesktopView> {
 
-    private final RootDesktopView rootDesktopView;
-
-    public AbstractDesktop(RootDesktopView rootDesktopView) {
-        this.rootDesktopView = rootDesktopView;
-    }
-
-    public RootDesktopView getRootDesktopView() {
-        return rootDesktopView;
-    }
-
-    protected static SwingWindow window(Swing content) {
+    protected static SwingView window(Container container) {
         JWindow item = new JWindow();
-        item.setContentPane(content.getView());
+        item.setContentPane(container);
         item.pack();
-        return new SwingWindow(item, content);
+        return new SwingView(item);
     }
 
-    protected static SwingWindow frame(String title, Swing content) {
+    protected static SwingView frame(String title, Container container) {
         JFrame item = new JFrame(title);
-        item.setContentPane(content.getView());
+        item.setContentPane(container);
         item.setDefaultCloseOperation(EXIT_ON_CLOSE);
         item.pack();
-        return new SwingWindow(item, content);
+        return new SwingView(item);
     }
 
-    protected static SwingWindow dialog(Swing content) {
+    protected static SwingView dialog(Container container) {
         JDialog item = new JDialog();
-        item.setContentPane(content.getView());
+        item.setContentPane(container);
         item.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         item.pack();
-        return new SwingWindow(item, content);
+        return new SwingView(item);
     }
 
-    protected static Swing applet(CharSequence... swing) {
-        return new Swing(new JApplet(), swing);
+    protected static JApplet applet(Container... swing) {
+        return addChild(new JApplet(), swing);
     }
 
-    protected static Swing button(CharSequence... swing) {
-        return new Swing(new JButton(), swing);
+    protected static JButton button(String text) {
+        return new JButton(text);
     }
 
-    protected static Swing checkBox(CharSequence... swing) {
-        return new Swing(new JCheckBox(), swing);
+    protected static AbstractButton[] buttonGroup(AbstractButton... buttons) {
+        ButtonGroup buttonGroup = new ButtonGroup();
+        for (AbstractButton button : buttons) {
+            buttonGroup.add(button);
+        }
+        return buttons;
     }
 
-    protected static Swing checkBoxMenuItem(CharSequence... swing) {
-        return new Swing(new JCheckBoxMenuItem(), swing);
+    protected static JCheckBox checkBox(Container... swing) {
+        return addChild(new JCheckBox(), swing);
     }
 
-    protected static Swing colorChooser(CharSequence... swing) {
-        return new Swing(new JColorChooser(), swing);
+    protected static JCheckBoxMenuItem checkBoxMenuItem(String text) {
+        return new JCheckBoxMenuItem(text);
     }
 
-    protected static Swing comboBox(CharSequence... swing) {
-        return new Swing(new JComboBox(), swing);
+    protected static JColorChooser colorChooser() {
+        return new JColorChooser();
     }
 
-    protected static Swing desktopPane(CharSequence... swing) {
-        return new Swing(new JDesktopPane(), swing);
+    protected static JComboBox comboBox(Container... swing) {
+        return addChild(new JComboBox(), swing);
     }
 
-    protected static Swing editorPane(CharSequence... swing) {
-        return new Swing(new JEditorPane(), swing);
+    protected static JDesktopPane desktopPane(Container... swing) {
+        return addChild(new JDesktopPane(), swing);
     }
 
-    protected static Swing fileChooser(CharSequence... swing) {
-        return new Swing(new JFileChooser(), swing);
+    protected static JEditorPane editorPane(Container... swing) {
+        return addChild(new JEditorPane(), swing);
     }
 
-    protected static Swing formattedTextField(CharSequence... swing) {
-        return new Swing(new JFormattedTextField(), swing);
+    protected static JFileChooser fileChooser(Container... swing) {
+        return addChild(new JFileChooser(), swing);
     }
 
-    protected static Swing internalFrame(CharSequence... swing) {
-        return new Swing(new JInternalFrame(), swing);
+    protected static JFormattedTextField formattedTextField(Container... swing) {
+        return addChild(new JFormattedTextField(), swing);
     }
 
-    protected static Swing label(CharSequence... swing) {
-        return new Swing(new JLabel(), swing);
+    protected static JInternalFrame internalFrame(Container... swing) {
+        return addChild(new JInternalFrame(), swing);
     }
 
-    protected static Swing layer(CharSequence... swing) {
-        return new Swing(new JLayer(), swing);
+    protected static JLabel label(Container... swing) {
+        return addChild(new JLabel(), swing);
     }
 
-    protected static Swing layeredPane(CharSequence... swing) {
-        return new Swing(new JLayeredPane(), swing);
+    protected static JLayer layer(Container... swing) {
+        return addChild(new JLayer(), swing);
     }
 
-    protected static Swing list(CharSequence... swing) {
-        return new Swing(new JList(), swing);
+    protected static JLayeredPane layeredPane(Container... swing) {
+        return addChild(new JLayeredPane(), swing);
     }
 
-    protected static Swing menu(CharSequence... swing) {
-        return new Swing(new JMenu(), swing);
+    protected static JList list(Container... swing) {
+        return addChild(new JList(), swing);
     }
 
-    protected static Swing menuBar(CharSequence... swing) {
-        return new Swing(new JMenuBar(), swing);
+    protected static JMenu menu(String title, Container... swing) {
+        return addChild(new JMenu(title), swing);
     }
 
-    protected static Swing menuItem(CharSequence... swing) {
-        return new Swing(new JMenuItem(), swing);
+    protected static JMenuBar menuBar(Container... swing) {
+        return addChild(new JMenuBar(), swing);
     }
 
-    protected static Swing optionPane(CharSequence... swing) {
-        return new Swing(new JOptionPane(), swing);
+    protected static JMenuItem menuItem(String text) {
+        return new JMenuItem(text);
     }
 
-    protected static Swing panel(CharSequence... swing) {
-        return new Swing(new JPanel(), swing);
+    protected static JOptionPane optionPane(Container... swing) {
+        return addChild(new JOptionPane(), swing);
     }
 
-    protected static Swing passwordField(CharSequence... swing) {
-        return new Swing(new JPasswordField(), swing);
+    protected static JPanel panel(Container... swing) {
+        return addChild(new JPanel(), swing);
     }
 
-    protected static Swing popupMenu(CharSequence... swing) {
-        return new Swing(new JPopupMenu(), swing);
+    protected static JPasswordField passwordField(Container... swing) {
+        return addChild(new JPasswordField(), swing);
     }
 
-    protected static Swing progressBar(CharSequence... swing) {
-        return new Swing(new JProgressBar(), swing);
+    protected static JPopupMenu popupMenu(Container... swing) {
+        return addChild(new JPopupMenu(), swing);
     }
 
-    protected static Swing radioButton(CharSequence... swing) {
-        return new Swing(new JRadioButton(), swing);
+    protected static JProgressBar progressBar(Container... swing) {
+        return addChild(new JProgressBar(), swing);
     }
 
-    protected static Swing radioButtonMenuItem(CharSequence... swing) {
-        return new Swing(new JRadioButtonMenuItem(), swing);
+    protected static JRadioButton radioButton(Container... swing) {
+        return addChild(new JRadioButton(), swing);
     }
 
-    protected static Swing rootPane(CharSequence... swing) {
-        return new Swing(new JRootPane(), swing);
+    protected static JRadioButtonMenuItem radioButtonMenuItem(Container... swing) {
+        return addChild(new JRadioButtonMenuItem(), swing);
     }
 
-    protected static Swing scrollBar(CharSequence... swing) {
-        return new Swing(new JScrollBar(), swing);
+    protected static JRootPane rootPane(Container... swing) {
+        return addChild(new JRootPane(), swing);
     }
 
-    protected static Swing scrollPane(CharSequence... swing) {
-        return new Swing(new JScrollPane(), swing);
+    protected static JScrollBar scrollBar(Container... swing) {
+        return addChild(new JScrollBar(), swing);
     }
 
-    protected static Swing separator(CharSequence... swing) {
-        return new Swing(new JSeparator(), swing);
+    protected static JScrollPane scrollPane(Container... swing) {
+        return addChild(new JScrollPane(), swing);
     }
 
-    protected static Swing slider(CharSequence... swing) {
-        return new Swing(new JSlider(), swing);
+    protected static JSeparator separator(Container... swing) {
+        return addChild(new JSeparator(), swing);
     }
 
-    protected static Swing spinner(CharSequence... swing) {
-        return new Swing(new JSpinner(), swing);
+    protected static JSlider slider(Container... swing) {
+        return addChild(new JSlider(), swing);
     }
 
-    protected static Swing splitPane(CharSequence... swing) {
-        return new Swing(new JSplitPane(), swing);
+    protected static JSpinner spinner(Container... swing) {
+        return addChild(new JSpinner(), swing);
     }
 
-    protected static Swing tabbedPane(CharSequence... swing) {
-        return new Swing(new JTabbedPane(), swing);
+    protected static JSplitPane splitPane(Container... swing) {
+        return addChild(new JSplitPane(), swing);
     }
 
-    protected static Swing table(CharSequence... swing) {
-        return new Swing(new JTable(), swing);
+    protected static JTabbedPane tabbedPane(Container... swing) {
+        return addChild(new JTabbedPane(), swing);
     }
 
-    protected static Swing<JTable> table(String[] header, Object[]... rows) {
-        return new Swing(new JTable(rows, header));
+    protected static JTable table(Container... swing) {
+        return addChild(new JTable(), swing);
+    }
+
+    protected static JTable table(String[] header, Object[]... rows) {
+        return new JTable(rows, header);
     }
 
     protected static String[] header(String... columnTitles) {
@@ -191,44 +189,43 @@ public abstract class AbstractDesktop implements View {
         return cells;
     }
 
-    protected static Swing textArea(CharSequence... swing) {
-        return new Swing(new JTextArea(), swing);
+    protected static JTextArea textArea(Container... swing) {
+        return addChild(new JTextArea(), swing);
     }
 
-    protected static Swing textField(CharSequence... swing) {
-        return new Swing(new JTextField(), swing);
+    protected static JTextField textField(Container... swing) {
+        return addChild(new JTextField(), swing);
     }
 
-    protected static Swing textPane(CharSequence... swing) {
-        return new Swing(new JTextPane(), swing);
+    protected static JTextPane textPane(Container... swing) {
+        return addChild(new JTextPane(), swing);
     }
 
-    protected static Swing toggleButton(CharSequence... swing) {
-        return new Swing(new JToggleButton(), swing);
+    protected static JToggleButton toggleButton(Container... swing) {
+        return addChild(new JToggleButton(), swing);
     }
 
-    protected static Swing toolBar(CharSequence... swing) {
-        return new Swing(new JToolBar(), swing);
+    protected static JToolBar toolBar(Container... swing) {
+        return addChild(new JToolBar(), swing);
     }
 
-    protected static Swing toolTip(CharSequence... swing) {
-        return new Swing(new JToolTip(), swing);
+    protected static JToolTip toolTip(Container... swing) {
+        return addChild(new JToolTip(), swing);
     }
 
-    protected static Swing tree(CharSequence... swing) {
-        return new Swing(new JTree(), swing);
+    protected static JTree tree(Container... swing) {
+        return addChild(new JTree(), swing);
     }
 
-    protected static Swing viewport(CharSequence... swing) {
-        return new Swing(new JViewport(), swing);
+    protected static JViewport viewport(Container... swing) {
+        return addChild(new JViewport(), swing);
     }
 
-    protected static Swing<AbstractButton>[] buttonGroup(Swing<AbstractButton>... buttons) {
-        ButtonGroup buttonGroup = new ButtonGroup();
-        for (Swing<AbstractButton> button : buttons) {
-            buttonGroup.add(button.getView());
+    private static <C extends Container> C addChild(C container, Container[] containers) {
+        for (Container swing : containers) {
+            container.add(swing);
         }
-        return buttons;
+        return container;
     }
 
 }

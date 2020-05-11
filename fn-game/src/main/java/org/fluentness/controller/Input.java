@@ -9,9 +9,9 @@ public class Input extends GLFWKeyCallback {
 
     private static final int CAMERA_STEP = 5;
 
-    private final AbstractGame scene;
+    private final Scene scene;
 
-    public Input(AbstractGame scene) {
+    public Input(Scene scene) {
         this.scene = scene;
     }
 

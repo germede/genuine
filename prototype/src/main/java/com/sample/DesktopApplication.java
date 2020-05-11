@@ -9,7 +9,7 @@ import org.fluentness.FluentnessException;
 import org.fluentness.controller.Controller;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.injection.Provider;
-import org.fluentness.controller.View;
+import org.fluentness.controller.Template;
 
 public class DesktopApplication extends AbstractDesktopApplication {
 
@@ -21,7 +21,7 @@ public class DesktopApplication extends AbstractDesktopApplication {
     }
 
     @Override
-    public Provider<View> views() {
+    public Provider<Template> views() {
         return super.views()
             .add(com.sample.controller.Desktop.class)
             ;

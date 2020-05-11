@@ -10,7 +10,7 @@ import org.fluentness.repository.Repository;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.display.Display;
 import org.fluentness.service.injection.Provider;
-import org.fluentness.controller.View;
+import org.fluentness.controller.Template;
 
 public class GameApplication extends AbstractGameApplication {
 
@@ -29,7 +29,7 @@ public class GameApplication extends AbstractGameApplication {
     }
 
     @Override
-    public Provider<View> views() {
+    public Provider<Template> views() {
         return super.views()
             .add(com.sample.controller.Game.class)
             ;

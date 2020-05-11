@@ -2,7 +2,7 @@ package org.fluentness.controller;
 
 import java.lang.annotation.*;
 
-public abstract class AbstractGameController<V extends AbstractGame> implements Controller {
+public abstract class AbstractGameController<V extends Scene> implements Controller {
 
     protected final V view;
 

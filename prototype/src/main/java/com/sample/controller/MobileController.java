@@ -1,6 +1,5 @@
 package com.sample.controller;
 
-import android.widget.TextView;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
@@ -19,12 +18,4 @@ public class MobileController extends AbstractMobileController<Mobile> {
 //        }
     }
 
-    private static  final TextView reference = null;
-
-    @Action(selector = "")
-    public void test(TextView textView) {
-        if (textView == reference) {
-
-        }
-    }
 }
