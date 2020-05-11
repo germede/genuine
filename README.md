@@ -7,7 +7,6 @@ dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS a
 * Scale from small to fully-featured with very small footprint (few dependencies), yet out-of-the-box runnable applications.
 * Respect standards and coding guidelines as far as possible, but applying the framework well-defined architecture.
 * Enjoy the advantages of developing software using Java such as: type safety, performance, maturity, wide acceptance and knowledge, nice support of functional programming, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
-Just try the prototype module out.
 
 ## In a nutshell
 ![Fluentness architecture](fn-core/src/main/resources/img/architecture.svg?raw=true "Fluentness architecture")
@@ -25,7 +24,16 @@ git clone https://github.com/germede/Fluentness
 cd Fluentness && mvn clean install
 ```
 
-### 3. :rocket: Bootstrap your application 
+### 3. :arrow_forward: Test the prototype in any of it flavours
+After executing
+```bash
+mvn clean package
+```
+on the main Fluentness folder. A stand-alone jar-with-dependencies (fat-jar) inside the prototype/target folder should have been created. Run it using:
+```bash
+java -jar <name_of_the_jar>.jar
+```
+### 4. :rocket: Bootstrap your application using the archetype
 Navigate to your project root directory and execute following:
 ```bash
 mvn archetype:generate                                  \
@@ -38,26 +46,27 @@ mvn archetype:generate                                  \
 ```
 This will generate a naked project based on the project's Maven archetype.
 Hit <kbd>Enter</kbd> when confirmation needed.    
-Run the main method on DummyApp.java with your favourite IDE.  
 
-### 4. :books: Read the docs
+### 5. :pencil: Use an IDE to develop your own application 
+Just open the generated Maven folder in an IDE / editor of your choice. I personally recommend you Intellij IDEA Community, because it integrates with Maven projects very well. 
+
+### 6. :books: Read the docs
 Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) further on how the prototype application was developed. Even if this framework is intended to have no big learning curve, some documentation is always helpful.  
 
-### 5. :busts_in_silhouette: Have fun and contribute 
+### 7. :busts_in_silhouette: Have fun and contribute 
 Please feel free to open a [new issue](https://github.com/germede/Fluentness/issues/new) 
-or a [pull request](https://github.com/germede/Fluentness/compare) directly on GitHub.  
+or a [pull request](https://github.com/germede/Fluentness/compare) directly on GitHub.  Give a star if you enjoy this project. Contact me if you have any idea on how to improve it.
 
-Give a star if you enjoy this project. Contact me if you have any idea on how to improve it.
-
-## Dependencies
-This project is based on these open-source technologies:
-- [OpenJDK](https://openjdk.java.net/) , language level 8 
-- [Maven](https://maven.apache.org/) with PLUGINS for building and distributing the framework itself, projects based on it and their dependencies
-- The Android platform
+## Attributions
+This project uses the following open-source software:
+- [OpenJDK](https://openjdk.java.net/), currently language level 8 
+- Apache [Maven](https://maven.apache.org/)
+- [OpenGL](https://www.opengl.org/) and its libraries [LWJGL](https://www.lwjgl.org/) and [GLFW](https://www.glfw.org/)
+- The [Android](https://www.android.com) platform
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
 - [Inkscape](https://inkscape.org/) with fonts Arial, [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the art logos
-- A lot of engagement :muscle:
+- And of course a lot of engagement :muscle:
 
 ## Copyright
 Copyright © 2020 Gerardo Medina.  
-This project is licensed under the EUPL (1.2 or later).
+This project is licensed under the terms of the EUPL (1.2 or later).
