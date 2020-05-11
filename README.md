@@ -14,7 +14,7 @@ maturity, wide acceptance and knowledge, nice support of functional programming
 , "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
 
 ## In a nutshell
-![Fluentness architecture](fn-core/src/main/resources/img/architecture.png?raw=true "Fluentness architecture")
+![Fluentness architecture](fn-core/src/main/resources/img/architecture.svg?raw=true "Fluentness architecture")
  
 
 ## Quickstart
