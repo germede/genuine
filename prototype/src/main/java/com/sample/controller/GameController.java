@@ -10,6 +10,6 @@ public class GameController extends AbstractGameController<Game> {
 
     @Override
     public void loop() {
-        view.light.getAmbientLight();
+        game.light.getAmbientLight();
     }
 }

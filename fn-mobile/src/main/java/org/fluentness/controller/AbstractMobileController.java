@@ -4,16 +4,16 @@ import android.view.View;
 
 import java.lang.annotation.*;
 
-public abstract class AbstractMobileController<V extends AbstractMobile> implements Controller {
+public abstract class AbstractMobileController<M extends AbstractMobile> implements Controller {
 
-    private final V view;
+    private final M mobile;
 
-    public AbstractMobileController(V view) {
-        this.view = view;
+    public AbstractMobileController(M mobile) {
+        this.mobile = mobile;
     }
 
-    public final V getView() {
-        return view;
+    public final M getMobile() {
+        return mobile;
     }
 
     @Override

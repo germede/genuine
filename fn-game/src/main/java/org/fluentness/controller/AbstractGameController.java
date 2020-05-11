@@ -2,16 +2,16 @@ package org.fluentness.controller;
 
 import java.lang.annotation.*;
 
-public abstract class AbstractGameController<V extends Scene> implements Controller {
+public abstract class AbstractGameController<V extends AbstractGame> implements Controller {
 
-    protected final V view;
+    protected final V game;
 
-    public AbstractGameController(V view) {
-        this.view = view;
+    public AbstractGameController(V game) {
+        this.game = game;
     }
 
-    public final V getView() {
-        return view;
+    public final V getGame() {
+        return game;
     }
 
     @Override

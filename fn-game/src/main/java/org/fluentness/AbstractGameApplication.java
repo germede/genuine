@@ -51,7 +51,7 @@ public abstract class AbstractGameApplication implements Application {
         EntityRender entityRender = Fluentness.getInstance(EntityRender.class);
         Memory memory = Fluentness.getInstance(Memory.class);
         AbstractGameController controller = Fluentness.getInstances(AbstractGameController.class).get(0);
-        Scene scene = controller.getView();
+        Scene scene = controller.getGame();
 
 
         // todo integrate into controller

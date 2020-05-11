@@ -24,7 +24,7 @@ public class MainActivity extends android.app.Activity {
 
             AbstractMobile.context = this;
             // todo manage more controllers and views
-            AndroidView androidView = (AndroidView) Fluentness.getInstances(AbstractMobileController.class).get(0).getView().render();
+            AndroidView androidView = (AndroidView) Fluentness.getInstances(AbstractMobileController.class).get(0).getMobile().render();
             Intent intent = new Intent(this, androidView.getClass());
             startActivity(intent);
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | FluentnessException | PackageManager.NameNotFoundException e) {

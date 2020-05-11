@@ -12,16 +12,16 @@ import java.util.Map;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
-public abstract class AbstractWebController<V extends AbstractWeb> implements Controller {
+public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
 
-    private final V view;
+    private final W web;
 
     public static final Map<String, Method> pathMethodMap = new HashMap<>();
     public static final Map<String, String> methodPathMap = new HashMap<>();
     public static final ThreadLocal<Request> request = new ThreadLocal<>();
 
-    public AbstractWebController(V view) {
-        this.view = view;
+    public AbstractWebController(W web) {
+        this.web = web;
         Constructor<?>[] constructors = getClass().getConstructors();
         Arrays.stream(getActions()).forEach(action -> {
             Action annotation = action.getAnnotation(Action.class);
@@ -33,8 +33,8 @@ public abstract class AbstractWebController<V extends AbstractWeb> implements Co
         });
     }
 
-    public final V getView() {
-        return view;
+    public final W getWeb() {
+        return web;
     }
 
     @Override

@@ -151,7 +151,7 @@ public class DefaultRouter implements Router {
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
         } else {
-            render = webController.getView().getWebView().toString();
+            render = webController.getWeb().getWebView().toString();
             if (configuration.get(SINGLE_PAGE_MODE)) {
                 render = render
                     .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")
