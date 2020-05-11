@@ -7,8 +7,9 @@ import org.fluentness.service.configuration.Setting;
 public interface Display extends Service {
 
     Setting<String> TITLE = new Setting<>("MyGame");
-    Setting<Integer> WIDTH = new Setting<>(720);
-    Setting<Integer> HEIGHT = new Setting<>(480);
+    Setting<Integer> WIDTH = new Setting<>(1024);
+    Setting<Integer> HEIGHT = new Setting<>(768);
+    Setting<Boolean> FULLSCREEN = new Setting<>(false);
 
     int getFps();
 

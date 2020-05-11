@@ -1,6 +1,7 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractGameController;
+import org.fluentness.controller.Controller;
 import org.fluentness.controller.Input;
 import org.fluentness.service.Service;
 import org.fluentness.service.algebra.DefaultAlgebra;
@@ -20,6 +21,10 @@ import org.fluentness.service.shader.TerrainShader;
 import org.fluentness.view.AbstractGameView;
 
 public abstract class AbstractGame implements Application {
+
+    public AbstractGame(Provider<Controller> controllers) {
+
+    }
 
     @Override
     public Provider<Service> services() {

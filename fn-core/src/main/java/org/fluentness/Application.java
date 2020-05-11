@@ -1,44 +1,39 @@
 package org.fluentness;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.DefaultConsoleController;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
-import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.configuration.DefaultConfiguration;
+import org.fluentness.service.configuration.Configurator;
 import org.fluentness.service.injection.Provider;
-import org.fluentness.service.log.JulLog;
-import org.fluentness.service.translator.DefaultTranslator;
-import org.fluentness.view.View;
 
 public interface Application {
 
     // todo make provider method safer using no return type for all providers
-    default Provider<Controller> controllers() {
-        return new Provider<Controller>()
-            .add(DefaultConsoleController.class);
-    }
+//    default Provider controllers(Class<? extends C>... controllers) {
+//        return new Provider<C>()
+//            .add((Class<? extends C>) DefaultConsoleController.class);
+//    }
+//
+//    static Provider<V> views() {
+//        return new Provider<>();
+//    }
+//
+//    static Provider<R> repositories() {
+//        return new Provider<>();
+//    }
+//
+//    static Provider<S> services() {
+//        return new Provider<Service>()
+//            .add(DefaultConfiguration.class)
+//            .add(JulLog.class)
+//            .add(DefaultTranslator.class)
+//            ;
+//    }
 
-    default Provider<View> views() {
-        return new Provider<>();
-    }
-
-    default Provider<Repository> repositories() {
-        return new Provider<>();
-    }
-
-    default Provider<Service> services() {
-        return new Provider<Service>()
-            .add(DefaultConfiguration.class)
-            .add(JulLog.class)
-            .add(DefaultTranslator.class)
-            ;
-    }
-
-    default void configure(Configuration configuration) {
-
-    }
-
+    Provider<? extends Service> getServices();
+    Provider<Repository> getRepositories();
+    Provider<Controller> getControllers();
+    Configurator getConfigurator();
 
     void run(String[] args) throws Exception;
 }

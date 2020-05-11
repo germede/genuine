@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 
 public abstract class AbstractGameController<V extends AbstractGameView> implements Controller {
 
-    private final V view;
+    protected final V view;
 
     public AbstractGameController(V view) {
         this.view = view;
@@ -26,6 +26,7 @@ public abstract class AbstractGameController<V extends AbstractGameView> impleme
     protected @interface Action {
 
         String selector();
+        // for onclick or keyboard events.
     }
 
     public abstract void loop();

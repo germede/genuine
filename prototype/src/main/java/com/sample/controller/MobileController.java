@@ -1,5 +1,6 @@
 package com.sample.controller;
 
+import android.widget.TextView;
 import com.sample.view.MobileView;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.service.log.Log;
@@ -19,4 +20,12 @@ public class MobileController extends AbstractMobileController<MobileView> {
 //        }
     }
 
+    private static  final TextView reference = null;
+
+    @Action(selector = "")
+    public void test(TextView textView) {
+        if (textView == reference) {
+
+        }
+    }
 }

@@ -42,7 +42,13 @@ public class GlfwDisplay implements Display {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        window = glfwCreateWindow(configuration.get(WIDTH), configuration.get(HEIGHT), configuration.get(TITLE), 0, 0);
+        window = glfwCreateWindow(
+            configuration.get(WIDTH),
+            configuration.get(HEIGHT),
+            configuration.get(TITLE),
+            configuration.get(FULLSCREEN) ? glfwGetPrimaryMonitor() : 0,
+            0
+        );
         glfwMakeContextCurrent(window);
         GL.createCapabilities();
         glfwShowWindow(window);

@@ -39,6 +39,9 @@ public class Game extends AbstractGame {
     @Override
     public void configure(Configuration configuration) {
         configuration.set(Display.TITLE, "Forest");
+        configuration.set(Display.WIDTH, 1920);
+        configuration.set(Display.HEIGHT, 1080);
+        configuration.set(Display.FULLSCREEN, true);
     }
 
     public static void main(String[] args) throws FluentnessException {
