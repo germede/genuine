@@ -2,7 +2,6 @@ package org.fluentness.controller;
 
 import org.fluentness.service.server.Request;
 import org.fluentness.service.server.RequestMethod;
-import org.fluentness.view.AbstractWebView;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Constructor;
@@ -13,7 +12,7 @@ import java.util.Map;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
-public abstract class AbstractWebController<V extends AbstractWebView> implements Controller {
+public abstract class AbstractWebController<V extends AbstractWeb> implements Controller {
 
     private final V view;
 

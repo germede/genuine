@@ -1,7 +1,7 @@
 package org.fluentness.service.generator;
 
-import org.fluentness.model.RawShape;
-import org.fluentness.model.Shape;
+import org.fluentness.repository.RawShape;
+import org.fluentness.repository.Shape;
 import org.fluentness.service.loader.Loader;
 
 public class TerrainGenerator implements Generator {

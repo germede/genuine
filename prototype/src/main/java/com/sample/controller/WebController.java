@@ -1,15 +1,14 @@
 package com.sample.controller;
 
-import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 
 import static com.sample.service.Translation.*;
 
-public class WebController extends AbstractWebController<WebView> {
+public class WebController extends AbstractWebController<Web> {
 
     @BasePath("/")
-    public WebController(WebView webView) {
-        super(webView);
+    public WebController(Web web) {
+        super(web);
     }
 
     @Action

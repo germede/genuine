@@ -84,7 +84,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <!--Replace with your own-->
-                            <mainClass>com.sample.Desktop</mainClass>
+                            <mainClass>com.sample.DesktopApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

@@ -1,6 +1,6 @@
 package org.fluentness.service.generator;
 
-import org.fluentness.model.Shape;
+import org.fluentness.repository.Shape;
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 

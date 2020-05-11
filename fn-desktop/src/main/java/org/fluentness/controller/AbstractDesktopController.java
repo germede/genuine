@@ -1,7 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.view.AbstractDesktopView;
-import org.fluentness.view.Swing.Swing;
+import org.fluentness.controller.Swing.Swing;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -10,7 +9,7 @@ import java.lang.annotation.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public abstract class AbstractDesktopController<V extends AbstractDesktopView> implements Controller {
+public abstract class AbstractDesktopController<V extends AbstractDesktop> implements Controller {
 
     private final V view;
 

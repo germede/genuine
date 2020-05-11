@@ -1,6 +1,5 @@
 package org.fluentness.repository;
 
-import org.fluentness.model.Model;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Condition;
 import org.fluentness.service.persistence.Persistence;

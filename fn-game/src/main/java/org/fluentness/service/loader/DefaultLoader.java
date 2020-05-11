@@ -1,10 +1,10 @@
 package org.fluentness.service.loader;
 
-import org.fluentness.model.Shape;
-import org.fluentness.model.Texture;
+import org.fluentness.repository.Shape;
+import org.fluentness.repository.Texture;
 import org.fluentness.service.memory.Memory;
-import org.fluentness.model.RawShape;
-import org.fluentness.model.RawTexture;
+import org.fluentness.repository.RawShape;
+import org.fluentness.repository.RawTexture;
 import org.fluentness.service.parser.ShapeParser;
 import org.fluentness.service.parser.TextureParser;
 import org.lwjgl.opengl.GL11;

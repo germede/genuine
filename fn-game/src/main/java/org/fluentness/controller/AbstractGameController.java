@@ -1,10 +1,8 @@
 package org.fluentness.controller;
 
-import org.fluentness.view.AbstractGameView;
-
 import java.lang.annotation.*;
 
-public abstract class AbstractGameController<V extends AbstractGameView> implements Controller {
+public abstract class AbstractGameController<V extends AbstractGame> implements Controller {
 
     protected final V view;
 

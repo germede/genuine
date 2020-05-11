@@ -1,8 +1,7 @@
 package com.sample.controller;
 
-import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.view.html.Html;
+import org.fluentness.controller.html.Html;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -10,15 +9,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.fluentness.view.AbstractWebView.*;
-import static org.fluentness.view.html.HtmlAttribute.CLASS;
-import static org.fluentness.view.html.HtmlAttribute.HREF;
+import static org.fluentness.controller.AbstractWeb.*;
+import static org.fluentness.controller.html.HtmlAttribute.CLASS;
+import static org.fluentness.controller.html.HtmlAttribute.HREF;
 
-public class WebEventsController extends AbstractWebController<WebView> {
+public class WebEventsController extends AbstractWebController<Web> {
 
     @BasePath("/events")
-    public WebEventsController(WebView webView) {
-        super(webView);
+    public WebEventsController(Web web) {
+        super(web);
     }
 
     @Action

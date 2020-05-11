@@ -1,11 +1,10 @@
 package org.fluentness.controller;
 
 import android.view.View;
-import org.fluentness.view.AbstractMobileView;
 
 import java.lang.annotation.*;
 
-public abstract class AbstractMobileController<V extends AbstractMobileView> implements Controller {
+public abstract class AbstractMobileController<V extends AbstractMobile> implements Controller {
 
     private final V view;
 

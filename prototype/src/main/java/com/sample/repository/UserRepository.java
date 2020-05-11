@@ -1,6 +1,5 @@
 package com.sample.repository;
 
-import com.sample.model.User;
 import org.fluentness.repository.AbstractCrudRepository;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;

@@ -6,7 +6,7 @@ import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.server.*;
-import org.fluentness.view.html.HtmlAttribute;
+import org.fluentness.controller.html.HtmlAttribute;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Map;
 
-import static org.fluentness.view.AbstractWebView.ACTION_RESULT;
-import static org.fluentness.view.AbstractWebView.div;
+import static org.fluentness.controller.AbstractWeb.ACTION_RESULT;
+import static org.fluentness.controller.AbstractWeb.div;
 
 public class DefaultRouter implements Router {
 

@@ -2,11 +2,11 @@ package org.fluentness.service.render;
 
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.AbstractShader;
-import org.fluentness.view.AbstractGameView;
-import org.fluentness.view.environment.Background;
-import org.fluentness.view.environment.Camera;
-import org.fluentness.view.environment.Fog;
-import org.fluentness.view.environment.Light;
+import org.fluentness.controller.AbstractGame;
+import org.fluentness.controller.environment.Background;
+import org.fluentness.controller.environment.Camera;
+import org.fluentness.controller.environment.Fog;
+import org.fluentness.controller.environment.Light;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
@@ -20,7 +20,7 @@ public abstract class AbstractRender<S extends AbstractShader> implements Render
         this.shader = shader;
     }
 
-    protected void bind(int vaoId, AbstractGameView scene) {
+    protected void bind(int vaoId, AbstractGame scene) {
 
         GL30.glBindVertexArray(vaoId);
         GL20.glEnableVertexAttribArray(0);

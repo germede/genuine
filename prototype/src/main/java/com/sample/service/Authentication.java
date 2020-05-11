@@ -1,6 +1,6 @@
 package com.sample.service;
 
-import com.sample.model.User;
+import com.sample.repository.User;
 import org.fluentness.service.authentication.BasicAuthentication;
 import org.fluentness.service.persistence.Persistence;
 
