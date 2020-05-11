@@ -3,7 +3,7 @@ package org.fluentness.service.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultConfiguration implements Configuration {
+public class ConfigurationImpl implements Configuration {
 
     private final Map<Setting, Object> settings = new HashMap<>();
 
@@ -18,7 +18,7 @@ public class DefaultConfiguration implements Configuration {
     }
 
     @Override
-    public final <T> DefaultConfiguration set(Setting<T> setting, T value) {
+    public final <T> ConfigurationImpl set(Setting<T> setting, T value) {
         settings.put(setting, value);
         return this;
     }

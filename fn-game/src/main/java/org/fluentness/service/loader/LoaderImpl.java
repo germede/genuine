@@ -14,13 +14,13 @@ import org.lwjgl.opengl.GL30;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class DefaultLoader implements Loader {
+public class LoaderImpl implements Loader {
 
     private final Memory memory;
     private final ShapeParser shapeParser;
     private final TextureParser textureParser;
 
-    public DefaultLoader(Memory memory, ShapeParser shapeParser, TextureParser textureParser) {
+    public LoaderImpl(Memory memory, ShapeParser shapeParser, TextureParser textureParser) {
         this.memory = memory;
         this.shapeParser = shapeParser;
         this.textureParser = textureParser;

@@ -1,28 +1,25 @@
 package org.fluentness;
 
-import org.fluentness.controller.AbstractWebController;
-import org.fluentness.repository.AbstractCrudRepository;
-import org.fluentness.service.WebService;
-import org.fluentness.service.configuration.Configurator;
+import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.service.mail.SocketMail;
-import org.fluentness.service.router.DefaultRouter;
+import org.fluentness.service.router.RouterImpl;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.SunServer;
 
-public abstract class AbstractWebApplication extends AbstractApplication<WebService, AbstractCrudRepository, AbstractWebController> {
+public abstract class AbstractWebApplication implements Application {
 
+    @Override
+    public void provide(Provider provider) {
+        provider
+            .service(RouterImpl.class)
+            .service(SunServer.class)
+            .service(SocketMail.class);
+    }
 
-    public AbstractWebApplication(Provider<WebService> services,
-                                  Provider<AbstractCrudRepository> repositories,
-                                  Provider<AbstractWebController> controllers,
-                                  Configurator configurator) {
-        super(
-            services.add(DefaultRouter.class).add(SunServer.class).add(SocketMail.class),
-            repositories,
-            controllers,
-            configurator
-        );
+    @Override
+    public void configure(Configuration configuration) {
+
     }
 
     @Override
@@ -30,9 +27,4 @@ public abstract class AbstractWebApplication extends AbstractApplication<WebServ
         Fluentness.getInstance(Server.class).start();
     }
 
-    @FunctionalInterface
-    public  interface ProviderLambda<A extends ApplicationComponent> {
-        Provider<A> provide(Provider<A> provider);
-
-    }
 }

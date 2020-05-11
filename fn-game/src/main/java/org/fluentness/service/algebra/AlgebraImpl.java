@@ -1,6 +1,6 @@
 package org.fluentness.service.algebra;
 
-public class DefaultAlgebra implements Algebra {
+public class AlgebraImpl implements Algebra {
 
     @Override
     public Matrix4f translationMatrix(float x, float y, float z) {

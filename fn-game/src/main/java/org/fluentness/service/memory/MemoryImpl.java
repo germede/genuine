@@ -13,7 +13,7 @@ import java.nio.IntBuffer;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DefaultMemory implements Memory {
+public class MemoryImpl implements Memory {
 
 
     private final List<Integer> vaos = new LinkedList<>();

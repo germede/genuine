@@ -22,7 +22,7 @@ import java.util.Map;
 import static org.fluentness.controller.AbstractWeb.ACTION_RESULT;
 import static org.fluentness.controller.AbstractWeb.div;
 
-public class DefaultRouter implements Router {
+public class RouterImpl implements Router {
 
     private final Authentication authentication;
     private final Log log;
@@ -30,7 +30,7 @@ public class DefaultRouter implements Router {
 
     private final Map<String, Method> routes;
 
-    public DefaultRouter(Authentication authentication, Log log, Configuration configuration) {
+    public RouterImpl(Authentication authentication, Log log, Configuration configuration) {
         this.authentication = authentication;
         this.log = log;
         this.configuration = configuration;
@@ -151,7 +151,7 @@ public class DefaultRouter implements Router {
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
         } else {
-            render = webController.getWeb().getWebView().toString();
+            render = webController.getWeb().render().toString();
             if (configuration.get(SINGLE_PAGE_MODE)) {
                 render = render
                     .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")

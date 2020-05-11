@@ -4,8 +4,8 @@ import org.fluentness.controller.AbstractGameController;
 
 public class GameController extends AbstractGameController<Game> {
 
-    public GameController(Game view) {
-        super(view);
+    public GameController(Game game) {
+        super(game);
     }
 
     @Override

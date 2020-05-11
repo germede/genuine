@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.service.injection.FinalInjection;
+import org.fluentness.service.injection.InjectionImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ public final class Fluentness {
 
     public static final Map<Class, Object> instances = new HashMap<>();
 
-    public static <A extends ApplicationComponent> List<A> getInstances(Class<A> parent) {
+    public static <A extends Application.Component> List<A> getInstances(Class<A> parent) {
         List<A> list = new ArrayList<>();
         for (Object value : instances.values()) {
             if (parent.isAssignableFrom(value.getClass())) {
@@ -21,7 +21,7 @@ public final class Fluentness {
         return list;
     }
 
-    public static <A extends ApplicationComponent> A getInstance(Class<A> parent) {
+    public static <A extends Application.Component> A getInstance(Class<A> parent) {
         return (A) instances.get(parent);
     }
 
@@ -32,7 +32,7 @@ public final class Fluentness {
     private Fluentness(Application application, String[] args) throws FluentnessException {
         try {
 
-            new FinalInjection(application).inject();
+            new InjectionImpl(application).inject();
             Map<Class, Object> instances = Fluentness.instances;
             application.run(args);
         } catch (Throwable cause) {

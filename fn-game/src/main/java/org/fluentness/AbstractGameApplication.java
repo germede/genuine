@@ -1,46 +1,47 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractGameController;
-import org.fluentness.controller.Controller;
 import org.fluentness.controller.Input;
-import org.fluentness.service.Service;
-import org.fluentness.service.algebra.DefaultAlgebra;
+import org.fluentness.controller.Scene;
+import org.fluentness.service.algebra.AlgebraImpl;
+import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.display.Display;
 import org.fluentness.service.display.GlfwDisplay;
 import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.service.injection.Provider;
-import org.fluentness.service.loader.DefaultLoader;
-import org.fluentness.service.memory.DefaultMemory;
+import org.fluentness.service.loader.LoaderImpl;
 import org.fluentness.service.memory.Memory;
+import org.fluentness.service.memory.MemoryImpl;
 import org.fluentness.service.parser.ShapeParser;
 import org.fluentness.service.parser.TextureParser;
 import org.fluentness.service.render.EntityRender;
 import org.fluentness.service.render.TerrainRender;
 import org.fluentness.service.shader.EntityShader;
 import org.fluentness.service.shader.TerrainShader;
-import org.fluentness.controller.Scene;
 
 public abstract class AbstractGameApplication implements Application {
 
-    public AbstractGameApplication(Provider<Controller> controllers) {
 
+    @Override
+    public void provide(Provider provider) {
+        provider
+            .service(TerrainGenerator.class)
+            .service(LoaderImpl.class)
+            .service(ShapeParser.class)
+            .service(TextureParser.class)
+            .service(EntityRender.class)
+            .service(TerrainRender.class)
+            .service(EntityShader.class)
+            .service(TerrainShader.class)
+            .service(GlfwDisplay.class)
+            .service(AlgebraImpl.class)
+            .service(MemoryImpl.class)
+        ;
     }
 
     @Override
-    public Provider<Service> services() {
-        return Application.super.services()
-            .add(TerrainGenerator.class)
-            .add(DefaultLoader.class)
-            .add(ShapeParser.class)
-            .add(TextureParser.class)
-            .add(EntityRender.class)
-            .add(TerrainRender.class)
-            .add(EntityShader.class)
-            .add(TerrainShader.class)
-            .add(GlfwDisplay.class)
-            .add(DefaultAlgebra.class)
-            .add(DefaultMemory.class)
-            ;
+    public void configure(Configuration configuration) {
+
     }
 
     @Override
@@ -51,7 +52,7 @@ public abstract class AbstractGameApplication implements Application {
         EntityRender entityRender = Fluentness.getInstance(EntityRender.class);
         Memory memory = Fluentness.getInstance(Memory.class);
         AbstractGameController controller = Fluentness.getInstances(AbstractGameController.class).get(0);
-        Scene scene = controller.getGame();
+        Scene scene = (Scene) controller.getGame().render();
 
 
         // todo integrate into controller

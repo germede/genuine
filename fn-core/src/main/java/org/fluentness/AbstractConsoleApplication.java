@@ -1,11 +1,23 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractConsoleController;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.injection.Provider;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 
 public abstract class AbstractConsoleApplication implements Application {
+
+    @Override
+    public void provide(Provider provider) {
+
+    }
+
+    @Override
+    public void configure(Configuration configuration) {
+
+    }
 
     @Override
     public final void run(String[] args) throws Exception {

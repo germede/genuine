@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 import static org.fluentness.service.log.AnsiColor.*;
 
-public final class DefaultConsoleController extends AbstractConsoleController {
+public final class ConsoleController extends AbstractConsoleController {
 
     @Action(description = "Prints all available console actions")
     void help() {

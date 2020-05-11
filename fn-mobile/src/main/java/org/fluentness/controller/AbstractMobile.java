@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.fluentness.controller.android.AndroidView;
 
-public abstract class AbstractMobile implements Template<MobileView> {
+public abstract class AbstractMobile implements ViewHolder<MobileView> {
 
     public static Context context;
 

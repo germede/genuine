@@ -1,6 +1,6 @@
 package org.fluentness.service;
 
-import org.fluentness.ApplicationComponent;
+import org.fluentness.Application;
 
-public interface Service extends ApplicationComponent {
+public interface Service extends Application.Component {
 }

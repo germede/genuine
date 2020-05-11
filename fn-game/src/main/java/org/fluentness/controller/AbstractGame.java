@@ -7,7 +7,7 @@ import org.fluentness.controller.environment.Camera;
 import org.fluentness.controller.environment.Fog;
 import org.fluentness.controller.environment.Light;
 
-public abstract class AbstractGame implements Template<GameView> {
+public abstract class AbstractGame implements ViewHolder<GameView> {
 
     protected static Scene scene(Background background, Camera camera, Light light, Fog fog, Terrain[] terrains, Entity[]... entities) {
         return new Scene(background, camera, light, fog, terrains, entities);

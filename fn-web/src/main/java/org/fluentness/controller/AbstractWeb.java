@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class AbstractWeb implements Template<WebView> {
+public abstract class AbstractWeb implements ViewHolder<WebView> {
 
     public static final String ACTION_RESULT = "###ACTION_RESULT###";
 

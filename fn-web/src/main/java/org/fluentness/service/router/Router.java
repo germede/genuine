@@ -1,11 +1,11 @@
 package org.fluentness.service.router;
 
-import org.fluentness.service.WebService;
+import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.server.Request;
 import org.fluentness.service.server.Response;
 
-public interface Router extends WebService {
+public interface Router extends Service {
 
     Setting<String> RESPONSE_ENCODING = new Setting<>("UTF-8");
     Setting<Boolean> SINGLE_PAGE_MODE = new Setting<>(true);

@@ -2,7 +2,7 @@ package org.fluentness.service.translator;
 
 import static org.fluentness.service.translator.TranslationFactory.SEPARATOR;
 
-public abstract class AbstractTranslator implements Translator {
+public class TranslatorImpl implements Translator {
 
     @Override
     public String translate(String translation, String... sortedLanguages) {
@@ -19,5 +19,4 @@ public abstract class AbstractTranslator implements Translator {
         }
         return translation;
     }
-
 }

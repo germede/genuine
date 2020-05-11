@@ -1,11 +1,16 @@
 package org.fluentness.service.injection;
 
 import org.fluentness.Application;
-import org.fluentness.ApplicationComponent;
 import org.fluentness.Fluentness;
+import org.fluentness.controller.ConsoleController;
+import org.fluentness.controller.Controller;
+import org.fluentness.controller.ViewHolder;
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.configuration.ConfigurationImpl;
+import org.fluentness.service.log.JulLog;
+import org.fluentness.service.translator.TranslatorImpl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,23 +21,30 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class FinalInjection implements Injection {
+public final class InjectionImpl implements Injection {
 
     private final Application application;
 
-    public FinalInjection(Application application) {
+    public InjectionImpl(Application application) {
         this.application = application;
     }
 
     @Override
     public void inject() throws InjectionException {
-        inject(application.services().get());
-        inject(application.repositories().get());
-        inject(application.views().get());
-        inject(application.controllers().get());
+        Provider provider = new Provider()
+            .service(ConfigurationImpl.class)
+            .service(TranslatorImpl.class)
+            .service(JulLog.class)
+            .controller(ConsoleController.class);
+
+        application.provide(provider);
+
+        inject(provider.getServices());
+        inject(provider.getRepositories());
+        inject(provider.getControllers());
     }
 
-    private <I extends ApplicationComponent> void inject(List<Class<? extends I>> classes) throws InjectionException {
+    private <I extends Application.Component> void inject(List<Class<? extends I>> classes) throws InjectionException {
         List<Class<? extends I>> notInstantiated = new LinkedList<>();
         List<Class<? extends I>> singleServices = new LinkedList<>();
         for (Class<? extends I> clazz : classes) {
@@ -93,12 +105,21 @@ public final class FinalInjection implements Injection {
                 Class<?> type = parameters[i].getType();
                 if (Fluentness.instances.containsKey(type)) {
                     result[i] = Fluentness.instances.get(type);
-                } else if (!ApplicationComponent.class.isAssignableFrom(type)) {
+                } else if (!Application.Component.class.isAssignableFrom(type)) {
                     throw new InjectionException(
                         "All constructor parameters must be ApplicationComponents, %s's '%s' isn't",
                         aClass.getSimpleName(),
                         parameters[i].getName()
                     );
+                } else if (ViewHolder.class.isAssignableFrom(type)) {
+                    if (Controller.class.isAssignableFrom(aClass)) {
+                        result[i] = instantiate(type);
+                    } else {
+                        throw new InjectionException(
+                            "%s depends on a View: Views can only be dependencies of controllers per definition!",
+                            aClass
+                        );
+                    }
                 } else {
                     // could not be instantiated, return type and try again later
                     return type;

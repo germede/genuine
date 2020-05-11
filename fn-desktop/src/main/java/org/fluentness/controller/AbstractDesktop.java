@@ -8,7 +8,7 @@ import java.awt.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
-public abstract class AbstractDesktop implements Template<DesktopView> {
+public abstract class AbstractDesktop implements ViewHolder<DesktopView> {
 
     protected static SwingView window(Container container) {
         JWindow item = new JWindow();
