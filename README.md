@@ -1,20 +1,16 @@
 ![Fluentness logo](fn-core/src/main/resources/img/logo-fancy.gif?raw=true "Fluentness logo")
 
 Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
-multi-platform, consistent and flexible Java development framework. After a quick-start you'll be able to:
-* develop rich desktop applications based on Swing without headaches, 
-dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls
-or maybe the next top Android native mobile app
-* scale from small XML-based REST-Web-Services to fully-featured enterprise Apps 
-with very small footprint (few dependencies), yet out-of-the-box runnable as in Spring Boot
-* respect standards and coding guidelines as far as possible, but applying own, 
-well-defined [Architecture](https://github.com/germede/Fluentness/wiki/Architecture)
-* enjoy the advantages of developing in Java such as: type safety, performance, 
-maturity, wide acceptance and knowledge, nice support of functional programming
-, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
+multi-platform, consistent and flexible Java-based development framework. After a quick-start you'll be able to:
+* Develop rich desktop applications based on Swing without headaches, 
+dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls, the next top Android native mobile app or maybe a nice-looking, high-performing Game using OpenGL.
+* Scale from small to fully-featured with very small footprint (few dependencies), yet out-of-the-box runnable applications.
+* Respect standards and coding guidelines as far as possible, but applying the framework well-defined architecture.
+* Enjoy the advantages of developing software using Java such as: type safety, performance, maturity, wide acceptance and knowledge, nice support of functional programming, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
+Just try the prototype module out.
 
 ## In a nutshell
-![Fluentness architecture](fn-core/src/main/resources/img/architecture.png?raw=true "Fluentness architecture")
+![Fluentness architecture](fn-core/src/main/resources/img/architecture.svg?raw=true "Fluentness architecture")
  
 
 ## Quickstart
@@ -45,8 +41,7 @@ Hit <kbd>Enter</kbd> when confirmation needed.
 Run the main method on DummyApp.java with your favourite IDE.  
 
 ### 4. :books: Read the docs
-Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) how the prototype library application was developed. 
-Even if this framework is intended to be easy for newbies to learn, some documentation is always helpful.  
+Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) further on how the prototype application was developed. Even if this framework is intended to have no big learning curve, some documentation is always helpful.  
 
 ### 5. :busts_in_silhouette: Have fun and contribute 
 Please feel free to open a [new issue](https://github.com/germede/Fluentness/issues/new) 
