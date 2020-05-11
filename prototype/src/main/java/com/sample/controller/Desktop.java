@@ -1,12 +1,12 @@
 package com.sample.controller;
 
 import org.fluentness.controller.AbstractDesktop;
-import org.fluentness.controller.Swing.Swing;
+import org.fluentness.controller.swing.Swing;
 
 import javax.swing.*;
 
-import static org.fluentness.controller.Swing.SwingAttribute.CLASS;
-import static org.fluentness.controller.Swing.SwingAttribute.ID;
+import static org.fluentness.controller.swing.SwingAttribute.CLASS;
+import static org.fluentness.controller.swing.SwingAttribute.ID;
 
 public class Desktop extends AbstractDesktop {
 

@@ -1,4 +1,4 @@
-package org.fluentness.controller.Swing;
+package org.fluentness.controller.swing;
 
 public enum SwingAttribute {
     ID,

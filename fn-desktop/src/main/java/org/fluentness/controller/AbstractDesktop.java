@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.Swing.Swing;
-import org.fluentness.controller.Swing.SwingWindow;
+import org.fluentness.controller.swing.Swing;
+import org.fluentness.controller.swing.SwingWindow;
 
 import javax.swing.*;
 

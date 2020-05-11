@@ -1,6 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.Swing.Swing;
+import org.fluentness.controller.swing.Swing;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
