@@ -24,14 +24,14 @@ git clone https://github.com/germede/Fluentness
 cd Fluentness && mvn clean install
 ```
 
-### 3. :arrow_forward: Test the prototype in any of it flavours
+### 3. :arrow_forward: Test the prototype in any of its flavours
 After executing
 ```bash
-mvn clean package
+mvn clean package -Dflavour=[console|desktop|game|mobile|web]
 ```
-on the main Fluentness folder. A stand-alone jar-with-dependencies (fat-jar) inside the prototype/target folder should have been created. Run it using:
+a stand-alone jar-with-dependencies (fat-jar) inside the prototype/target folder should have been built. Run it using:
 ```bash
-java -jar <name_of_the_jar>.jar
+java -jar <name_of_the_jar_file>.jar
 ```
 ### 4. :rocket: Bootstrap your application using the archetype
 Navigate to your project root directory and execute following:
