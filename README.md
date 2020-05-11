@@ -20,19 +20,6 @@ maturity, wide acceptance and knowledge, nice support of functional programming
 2. WORK IN PROGRESS
  
 
-## Decalogue
-// todo move into wiki
->**F**orce your code to be compact, yet legible  
->**L**oose coupling of application components  
->**U**se static factories, avoiding the new operator  
->**E**mbrace constructor-based dependency injection  
->**N**otice how unit tests help assure software quality    
->**T**ry to avoid comments and anti-patterns  
->**N**ame every component as if it were your child    
->**E**ndorse convention over configuration  
->**S**upply your own implementation only when needed    
->**S**tart applying SOLID, KISS and DRY principles
-
 ## Quickstart
 
 ### 1. :arrow_down: Clone this repository 
