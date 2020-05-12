@@ -17,7 +17,7 @@ public abstract class AbstractConsoleController implements Controller {
         Arrays.stream(getActions()).forEach(action -> nameActionMap.put(action.getName(), action));
     }
 
-    private Method[] getActions() {
+    public Method[] getActions() {
         return Arrays.stream(this.getClass().getDeclaredMethods())
             .filter(method -> method.isAnnotationPresent(Action.class))
             .toArray(Method[]::new);

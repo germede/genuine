@@ -25,9 +25,9 @@ public class GameApplication extends AbstractGameApplication {
         super.configure(configuration);
         configuration
             .set(Display.TITLE, "Forest")
-            .set(Display.WIDTH, 1920)
-            .set(Display.HEIGHT, 1080)
-            .set(Display.FULLSCREEN, true)
+            .set(Display.WIDTH, 720)
+            .set(Display.HEIGHT, 480)
+            .set(Display.FULLSCREEN, false)
         ;
     }
 

@@ -17,12 +17,12 @@ import java.util.Map;
 
 public class Scene implements GameView {
 
-    private Background background;
-    private Camera camera;
-    private Light light;
-    private Fog fog;
-    private final List<Terrain> terrains = new LinkedList<>();
-    private final Map<Shape, List<Entity>> entities = new HashMap<>();
+    public Background background;
+    public Camera camera;
+    public Light light;
+    public Fog fog;
+    public final List<Terrain> terrains = new LinkedList<>();
+    public final Map<Shape, List<Entity>> entities = new HashMap<>();
 
     public Scene(SceneElement[] sceneElements) {
         for (SceneElement sceneElement : sceneElements) {
@@ -53,54 +53,14 @@ public class Scene implements GameView {
         }
     }
 
-    public Background getBackground() {
-        return background;
-    }
-
-    public void setBackground(Background background) {
-        this.background = background;
-    }
-
-    public Camera getCamera() {
-        return camera;
-    }
-
-    public void setCamera(Camera camera) {
-        this.camera = camera;
-    }
-
-    public Light getLight() {
-        return light;
-    }
-
-    public void setLight(Light light) {
-        this.light = light;
-    }
-
-    public Fog getFog() {
-        return fog;
-    }
-
-    public void setFog(Fog fog) {
-        this.fog = fog;
-    }
-
-    public List<Terrain> getTerrains() {
-        return terrains;
-    }
-
     public void addTerrain(Terrain terrain) {
         terrains.add(terrain);
     }
 
-    public Map<Shape, List<Entity>> getEntities() {
-        return entities;
-    }
-
     public void addEntity(Entity entity) {
-        if (!this.entities.containsKey(entity.getShape())) {
-            this.entities.put(entity.getShape(), new LinkedList<>());
+        if (!this.entities.containsKey(entity.shape)) {
+            this.entities.put(entity.shape, new LinkedList<>());
         }
-        this.entities.get(entity.getShape()).add(entity);
+        this.entities.get(entity.shape).add(entity);
     }
 }

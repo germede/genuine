@@ -8,5 +8,5 @@ public interface Configuration extends Service {
 
     <T> T get(Setting<T> setting);
 
-    <T> ConfigurationImpl set(Setting<T> setting, T value);
+    <T> Configuration set(Setting<T> setting, T value);
 }

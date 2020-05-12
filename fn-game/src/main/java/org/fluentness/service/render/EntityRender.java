@@ -21,10 +21,10 @@ public class EntityRender extends AbstractRender<EntityShader> {
     @Override
     public void render(Scene scene) {
         shader.start();
-        Map<Shape, List<Entity>> entities = scene.getEntities();
+        Map<Shape, List<Entity>> entities = scene.entities;
         for (Shape shape : entities.keySet()) {
             bind(shape.getId(), scene);
-            bindTexture(entities.get(shape).get(0).getTexture());
+            bindTexture(entities.get(shape).get(0).texture);
             for (Entity entity : entities.get(shape)) {
                 renderEntity(entity);
             }
@@ -48,11 +48,11 @@ public class EntityRender extends AbstractRender<EntityShader> {
     }
 
     private void renderEntity(Entity entity) {
-        shader.set(shader.transformationMatrix, algebra.transformationMatrix(entity.getTranslation(), entity.getRotation(), entity.getScale()));
-        shader.set(shader.shineDamper, entity.getShineDamper());
-        shader.set(shader.reflectivity, entity.getReflectivity());
+        shader.set(shader.transformationMatrix, algebra.transformationMatrix(entity.translation, entity.rotation, entity.scale));
+        shader.set(shader.shineDamper, entity.shineDamper);
+        shader.set(shader.reflectivity, entity.reflectivity);
 
-        GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getShape().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+        GL11.glDrawElements(GL11.GL_TRIANGLES, entity.shape.vertexCount, GL11.GL_UNSIGNED_INT, 0);
     }
 
 }

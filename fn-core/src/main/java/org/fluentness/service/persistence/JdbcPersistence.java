@@ -141,10 +141,12 @@ public class JdbcPersistence implements Persistence {
                     preparedParameters[i] = resultSet.getDate(name);
                 }
             }
-            M m = (M) constructor.newInstance(preparedParameters);
-            m.setId(resultSet.getInt(getIdName()));
-            return m;
-        } catch (SQLException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            M model = (M) constructor.newInstance(preparedParameters);
+            Field id = model.getClass().getField("id");
+            id.setAccessible(true);
+            id.set(model,resultSet.getInt(getIdName()));
+            return model;
+        } catch (SQLException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchFieldException e) {
             log.error(e);
         }
         return null;

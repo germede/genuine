@@ -17,10 +17,7 @@ public class GameRepository extends AbstractGameRepository {
     }
 
     public Player player() {
-        return new Player(
-            loader.loadShape("bunny.obj"),
-            loader.loadTexture("white.png")
-        );
+        return new Player(loader.loadShape("bunny.obj"), loader.loadTexture("white.png"));
     }
 
     public Entity[] lowPolyTrees() {

@@ -6,6 +6,7 @@ import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.log.Log;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -61,7 +62,9 @@ public class FilePersistence implements Persistence {
     public int persist(Model model) {
         try {
             if (model.getId() == 0) {
-                model.setId(getNewID(model));
+                Field id = model.getClass().getField("id");
+                id.setAccessible(true);
+                id.set(model,getNewID(model));
             }
             FileOutputStream fileOut = new FileOutputStream(getFile(model.getClass(), model.getId()));
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -69,7 +72,7 @@ public class FilePersistence implements Persistence {
             out.close();
             fileOut.close();
             return 1;
-        } catch (IOException e) {
+        } catch (IOException | IllegalAccessException | NoSuchFieldException e) {
             log.error(e);
         }
         return 0;

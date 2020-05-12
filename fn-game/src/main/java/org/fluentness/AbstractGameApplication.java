@@ -54,7 +54,7 @@ public abstract class AbstractGameApplication implements Application {
         Scene scene = (Scene) controller.getGame().render();
 
         while (!display.shouldClose()) {
-            display.clear(scene.getBackground().getColour());
+            display.clear(scene.background.colour);
             controller.loop();
             terrainRender.render(scene);
             entityRender.render(scene);

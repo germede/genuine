@@ -6,5 +6,4 @@ public interface Model extends Serializable {
 
     int getId();
 
-    void setId(int id);
 }

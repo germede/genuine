@@ -3,9 +3,10 @@ package com.sample.controller;
 import com.sample.repository.GameRepository;
 import org.fluentness.controller.AbstractGame;
 import org.fluentness.controller.GameView;
+import org.fluentness.controller.scene.Scene;
 import org.fluentness.controller.scene.camera.Camera;
-import org.fluentness.controller.scene.light.Light;
 import org.fluentness.controller.scene.entity.Player;
+import org.fluentness.controller.scene.light.Light;
 
 public class Game extends AbstractGame {
 
@@ -14,14 +15,14 @@ public class Game extends AbstractGame {
         this.gameRepository = gameRepository;
     }
 
-
+    Scene scene;
     Light light;
     Camera camera;
     Player player;
 
     @Override
     public GameView render() {
-        return scene(
+        return scene = scene(
             background(0, 0, 0.7f),
             camera = camera(0, 50, 0),
             light = light(0, 0, 0),

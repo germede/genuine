@@ -17,11 +17,6 @@ public class Texture implements Model {
         return id;
     }
 
-    @Override
-    public void setId(int id) {
-
-    }
-
     public boolean hasTransparency() {
         return hasTransparency;
     }
