@@ -33,13 +33,14 @@ public abstract class AbstractWebController<W extends AbstractWeb> implements Co
         });
     }
 
-    public final W getWeb() {
-        return web;
+    public Method[] getActions() {
+        return Arrays.stream(this.getClass().getDeclaredMethods())
+            .filter(method -> method.isAnnotationPresent(Action.class))
+            .toArray(Method[]::new);
     }
 
-    @Override
-    public final Class<? extends Annotation> getActionClass() {
-        return Action.class;
+    public final W getWeb() {
+        return web;
     }
 
     @Target(ElementType.METHOD)

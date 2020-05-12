@@ -1,7 +1,6 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractGameController;
-import org.fluentness.controller.Input;
 import org.fluentness.controller.scene.Scene;
 import org.fluentness.service.algebra.AlgebraImpl;
 import org.fluentness.service.configuration.Configuration;
@@ -54,14 +53,8 @@ public abstract class AbstractGameApplication implements Application {
         AbstractGameController controller = Fluentness.getInstances(AbstractGameController.class).get(0);
         Scene scene = (Scene) controller.getGame().render();
 
-
-        // todo integrate into controller
-        //glfwSetKeyCallback(display.getWindow(), glfwKeyCallback);
-        Input input = new Input(scene);
-
         while (!display.shouldClose()) {
             display.clear(scene.getBackground().getColour());
-            input.handle(display.getWindow());
             controller.loop();
             terrainRender.render(scene);
             entityRender.render(scene);

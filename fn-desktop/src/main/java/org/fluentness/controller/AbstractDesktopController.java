@@ -14,11 +14,6 @@ public abstract class AbstractDesktopController<D extends AbstractDesktop> imple
         return desktop;
     }
 
-    @Override
-    public final Class<? extends Annotation> getActionClass() {
-        return Action.class;
-    }
-
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     protected @interface Action {

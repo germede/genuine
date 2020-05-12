@@ -16,11 +16,6 @@ public abstract class AbstractMobileController<M extends AbstractMobile> impleme
         return mobile;
     }
 
-    @Override
-    public final Class<? extends Annotation> getActionClass() {
-        return Action.class;
-    }
-
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     protected @interface Action {
