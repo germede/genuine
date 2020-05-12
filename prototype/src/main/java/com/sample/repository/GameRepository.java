@@ -1,8 +1,8 @@
 package com.sample.repository;
 
-import org.fluentness.controller.scene.Entity;
-import org.fluentness.controller.scene.Player;
-import org.fluentness.controller.scene.Terrain;
+import org.fluentness.controller.scene.entity.Entity;
+import org.fluentness.controller.scene.entity.Player;
+import org.fluentness.controller.scene.terrain.Terrain;
 import org.fluentness.repository.AbstractGameRepository;
 import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.service.loader.Loader;

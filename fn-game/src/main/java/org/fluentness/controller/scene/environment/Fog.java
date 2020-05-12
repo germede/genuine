@@ -1,4 +1,6 @@
-package org.fluentness.controller.scene;
+package org.fluentness.controller.scene.environment;
+
+import org.fluentness.controller.scene.SceneElement;
 
 public class Fog implements SceneElement {
 

@@ -1,5 +1,7 @@
-package org.fluentness.controller.scene;
+package org.fluentness.controller.scene.entity;
 
+import org.fluentness.controller.scene.Scene;
+import org.fluentness.controller.scene.SceneElement;
 import org.fluentness.repository.Shape;
 import org.fluentness.repository.Texture;
 import org.fluentness.service.algebra.Vector3f;

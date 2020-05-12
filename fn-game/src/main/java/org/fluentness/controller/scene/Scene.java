@@ -1,6 +1,13 @@
 package org.fluentness.controller.scene;
 
 import org.fluentness.controller.GameView;
+import org.fluentness.controller.scene.camera.Camera;
+import org.fluentness.controller.scene.entity.Entities;
+import org.fluentness.controller.scene.entity.Entity;
+import org.fluentness.controller.scene.environment.Background;
+import org.fluentness.controller.scene.environment.Fog;
+import org.fluentness.controller.scene.light.Light;
+import org.fluentness.controller.scene.terrain.Terrain;
 import org.fluentness.repository.Shape;
 
 import java.util.HashMap;

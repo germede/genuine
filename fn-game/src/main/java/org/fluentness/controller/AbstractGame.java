@@ -1,12 +1,12 @@
 package org.fluentness.controller;
 
 import org.fluentness.controller.scene.SceneElement;
-import org.fluentness.controller.scene.Entities;
-import org.fluentness.controller.scene.Entity;
-import org.fluentness.controller.scene.Background;
-import org.fluentness.controller.scene.Camera;
-import org.fluentness.controller.scene.Fog;
-import org.fluentness.controller.scene.Light;
+import org.fluentness.controller.scene.entity.Entities;
+import org.fluentness.controller.scene.entity.Entity;
+import org.fluentness.controller.scene.environment.Background;
+import org.fluentness.controller.scene.camera.Camera;
+import org.fluentness.controller.scene.environment.Fog;
+import org.fluentness.controller.scene.light.Light;
 import org.fluentness.controller.scene.Scene;
 
 public abstract class AbstractGame implements ViewHolder<GameView> {

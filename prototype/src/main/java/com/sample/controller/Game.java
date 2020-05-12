@@ -3,9 +3,9 @@ package com.sample.controller;
 import com.sample.repository.GameRepository;
 import org.fluentness.controller.AbstractGame;
 import org.fluentness.controller.GameView;
-import org.fluentness.controller.scene.Camera;
-import org.fluentness.controller.scene.Light;
-import org.fluentness.controller.scene.Player;
+import org.fluentness.controller.scene.camera.Camera;
+import org.fluentness.controller.scene.light.Light;
+import org.fluentness.controller.scene.entity.Player;
 
 public class Game extends AbstractGame {
 

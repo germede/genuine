@@ -1,5 +1,6 @@
-package org.fluentness.controller.scene;
+package org.fluentness.controller.scene.camera;
 
+import org.fluentness.controller.scene.SceneElement;
 import org.fluentness.service.algebra.Vector3f;
 
 public class Camera implements SceneElement {
