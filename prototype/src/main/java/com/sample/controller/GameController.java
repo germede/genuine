@@ -14,11 +14,12 @@ public class GameController extends AbstractGameController<Game> {
 
     @Override
     public void loop() {
-        game.player.move(display.getDelta(),
+        game.player.control(display.getDelta(),
             isKeyPressed(GLFW_KEY_W),
             isKeyPressed(GLFW_KEY_A),
             isKeyPressed(GLFW_KEY_S),
-            isKeyPressed(GLFW_KEY_D)
+            isKeyPressed(GLFW_KEY_D),
+            isKeyPressed(GLFW_KEY_SPACE)
         );
 
         game.camera.move(display.getDelta(),

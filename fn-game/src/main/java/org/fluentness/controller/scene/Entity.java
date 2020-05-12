@@ -6,6 +6,8 @@ import org.fluentness.service.algebra.Vector3f;
 
 public class Entity implements SceneElement {
 
+    private Scene scene;
+
     private Shape shape;
     private Texture texture;
 
@@ -13,8 +15,13 @@ public class Entity implements SceneElement {
     private Vector3f rotation;
     private float scale;
 
-    protected int translationStep = 200;
-    protected int rotationStep = 200;
+    private int translationSpeed = 200;
+    private int rotationSpeed = 200;
+
+    private int jumpPower = 100;
+    private int gravity = -250;
+    private boolean isJumping = false;
+    private int jumpSpeed = 0;
 
     private float shineDamper = 1;
     private float reflectivity = 0;
@@ -35,22 +42,33 @@ public class Entity implements SceneElement {
         this.scale = scale;
     }
 
-    public void move(float delta, boolean up, boolean left, boolean down, boolean right) {
+    public void control(float delta, boolean up, boolean left, boolean down, boolean right, boolean jump) {
         float translationSpeed;
         float rotationSpeed;
 
-        if (down) translationSpeed = translationStep;
-        else if (up) translationSpeed = -translationStep;
+        if (down) translationSpeed = this.translationSpeed;
+        else if (up) translationSpeed = -this.translationSpeed;
         else translationSpeed = 0;
-
-        if (left) rotationSpeed = rotationStep;
-        else if (right) rotationSpeed = -rotationStep;
-        else rotationSpeed = 0;
-
         float distance = translationSpeed * delta;
         translation.x += (float) (distance * Math.sin(Math.toRadians(rotation.y)));
         translation.z += (float) (distance * Math.cos(Math.toRadians(rotation.y)));
+
+        if (left) rotationSpeed = this.rotationSpeed;
+        else if (right) rotationSpeed = -this.rotationSpeed;
+        else rotationSpeed = 0;
         rotation.y += rotationSpeed * delta;
+
+        if (jump && !isJumping) {
+            jumpSpeed = jumpPower;
+            isJumping = true;
+        }
+        jumpSpeed += gravity * delta;
+        translation.y += jumpSpeed * delta;
+        if (translation.y <= 0) {
+            jumpSpeed = 0;
+            translation.y = 0;
+            isJumping = false;
+        }
     }
 
     public Shape getShape() {
@@ -93,20 +111,28 @@ public class Entity implements SceneElement {
         this.scale = scale;
     }
 
-    public int getTranslationStep() {
-        return translationStep;
+    public int getTranslationSpeed() {
+        return translationSpeed;
     }
 
-    public void setTranslationStep(int translationStep) {
-        this.translationStep = translationStep;
+    public void setTranslationSpeed(int translationSpeed) {
+        this.translationSpeed = translationSpeed;
     }
 
-    public int getRotationStep() {
-        return rotationStep;
+    public int getJumpPower() {
+        return jumpPower;
     }
 
-    public void setRotationStep(int rotationStep) {
-        this.rotationStep = rotationStep;
+    public void setJumpPower(int jumpPower) {
+        this.jumpPower = jumpPower;
+    }
+
+    public int getGravity() {
+        return gravity;
+    }
+
+    public void setGravity(int gravity) {
+        this.gravity = gravity;
     }
 
     public float getShineDamper() {
