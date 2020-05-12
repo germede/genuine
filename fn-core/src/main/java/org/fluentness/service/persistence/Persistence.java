@@ -7,16 +7,14 @@ import java.util.List;
 
 public interface Persistence extends Service {
 
+    String ID_NAME = "id";
+
     default String getTableName(Model model) {
         return getTableName(model.getClass());
     }
 
     default String getTableName(Class<? extends Model> modelClass) {
         return modelClass.getSimpleName().toLowerCase();
-    }
-
-    default String getIdName() {
-        return "id";
     }
 
     <M extends Model> M retrieve(Class<M> modelClass, int id);

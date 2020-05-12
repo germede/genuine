@@ -123,7 +123,7 @@ public final class ConsoleController extends AbstractConsoleController {
             List<Field> foreignKeys = new LinkedList<>();
 
             builder.append("CREATE TABLE ").append(persistence.getTableName(modelClass)).append(" ( \n");
-            builder.append("    ").append(persistence.getIdName()).append(" INT AUTO_INCREMENT PRIMARY KEY,\n");
+            builder.append("    ").append(persistence.ID_NAME).append(" INT AUTO_INCREMENT PRIMARY KEY,\n");
             Field[] declaredFields = modelClass.getDeclaredFields();
             for (int i = 0, declaredFieldsLength = declaredFields.length; i < declaredFieldsLength; i++) {
                 Field field = declaredFields[i];
@@ -148,7 +148,7 @@ public final class ConsoleController extends AbstractConsoleController {
                     .append(") REFERENCES ")
                     .append(persistence.getTableName((Class<? extends Model>) field.getType()))
                     .append("(")
-                    .append(persistence.getIdName())
+                    .append(persistence.ID_NAME)
                     .append(") ON UPDATE cascade ")
                     .append("ON DELETE cascade")
                     .append(i == foreignKeysSize - 1 ? "\n" : ",\n");

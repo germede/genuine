@@ -47,7 +47,7 @@ public class JdbcPersistence implements Persistence {
     public <M extends Model> M retrieve(Class<M> modelClass, int id) {
         List<M> retrieve = retrieve(
             modelClass,
-            "SELECT * FROM " + getTableName(modelClass) + " WHERE " + getIdName() + " = " + id
+            "SELECT * FROM " + getTableName(modelClass) + " WHERE " + ID_NAME + " = " + id
         );
         return retrieve.size() > 0 ? retrieve.get(0) : null;
     }
@@ -96,7 +96,7 @@ public class JdbcPersistence implements Persistence {
     @Override
     public <M extends Model> int remove(Class<M> modelClass, int id) {
         try (Statement statement = connection.createStatement()) {
-            String sql = "DELETE FROM " + getTableName(modelClass) + " WHERE " + getIdName() + " = " + id;
+            String sql = "DELETE FROM " + getTableName(modelClass) + " WHERE " + ID_NAME + " = " + id;
             log.debug(sql);
             return statement.executeUpdate(sql);
         } catch (Exception e) {
@@ -144,7 +144,7 @@ public class JdbcPersistence implements Persistence {
             M model = (M) constructor.newInstance(preparedParameters);
             Field id = model.getClass().getField("id");
             id.setAccessible(true);
-            id.set(model,resultSet.getInt(getIdName()));
+            id.set(model,resultSet.getInt(ID_NAME));
             return model;
         } catch (SQLException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchFieldException e) {
             log.error(e);
