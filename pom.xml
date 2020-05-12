@@ -46,7 +46,6 @@
         </dependency>
     </dependencies>
 
-    <!--With parameters (making web action method references work on runtime)-->
     <build>
         <plugins>
             <plugin>
