@@ -4,8 +4,8 @@ import org.fluentness.repository.Shape;
 import org.fluentness.repository.Texture;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.EntityShader;
-import org.fluentness.controller.Scene;
-import org.fluentness.controller.entity.Entity;
+import org.fluentness.controller.scene.Scene;
+import org.fluentness.controller.scene.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 

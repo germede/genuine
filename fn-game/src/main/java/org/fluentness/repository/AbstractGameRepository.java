@@ -2,7 +2,7 @@ package org.fluentness.repository;
 
 import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.loader.Loader;
-import org.fluentness.controller.entity.Entity;
+import org.fluentness.controller.scene.entity.Entity;
 
 import java.util.Random;
 

@@ -1,8 +1,9 @@
-package org.fluentness.controller.environment;
+package org.fluentness.controller.scene.environment;
 
+import org.fluentness.controller.scene.SceneElement;
 import org.fluentness.service.algebra.Vector3f;
 
-public class Background {
+public class Background implements SceneElement {
 
     private Vector3f colour = new Vector3f(1,1,1);
 

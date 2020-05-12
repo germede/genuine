@@ -2,11 +2,11 @@ package org.fluentness.service.render;
 
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.AbstractShader;
-import org.fluentness.controller.Scene;
-import org.fluentness.controller.environment.Background;
-import org.fluentness.controller.environment.Camera;
-import org.fluentness.controller.environment.Fog;
-import org.fluentness.controller.environment.Light;
+import org.fluentness.controller.scene.Scene;
+import org.fluentness.controller.scene.environment.Background;
+import org.fluentness.controller.scene.environment.Camera;
+import org.fluentness.controller.scene.environment.Fog;
+import org.fluentness.controller.scene.environment.Light;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 

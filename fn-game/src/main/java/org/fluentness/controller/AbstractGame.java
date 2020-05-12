@@ -1,16 +1,18 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.entity.Entity;
-import org.fluentness.controller.entity.Terrain;
-import org.fluentness.controller.environment.Background;
-import org.fluentness.controller.environment.Camera;
-import org.fluentness.controller.environment.Fog;
-import org.fluentness.controller.environment.Light;
+import org.fluentness.controller.scene.SceneElement;
+import org.fluentness.controller.scene.entity.Entities;
+import org.fluentness.controller.scene.entity.Entity;
+import org.fluentness.controller.scene.environment.Background;
+import org.fluentness.controller.scene.environment.Camera;
+import org.fluentness.controller.scene.environment.Fog;
+import org.fluentness.controller.scene.environment.Light;
+import org.fluentness.controller.scene.Scene;
 
 public abstract class AbstractGame implements ViewHolder<GameView> {
 
-    protected static Scene scene(Background background, Camera camera, Light light, Fog fog, Terrain[] terrains, Entity[]... entities) {
-        return new Scene(background, camera, light, fog, terrains, entities);
+    protected static Scene scene(SceneElement... sceneElements) {
+        return new Scene(sceneElements);
     }
 
     protected static Background background(float r, float g, float b) {
@@ -29,4 +31,7 @@ public abstract class AbstractGame implements ViewHolder<GameView> {
         return new Fog(density, gradient);
     }
 
+    protected static Entities entities(Entity[]... entities) {
+        return new Entities(entities);
+    }
 }

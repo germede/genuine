@@ -1,5 +1,6 @@
 package org.fluentness.controller;
 
+import org.fluentness.controller.scene.Scene;
 import org.fluentness.service.algebra.Vector3f;
 import org.lwjgl.glfw.GLFWKeyCallback;
 

@@ -1,8 +1,9 @@
-package org.fluentness.controller.environment;
+package org.fluentness.controller.scene.environment;
 
+import org.fluentness.controller.scene.SceneElement;
 import org.fluentness.service.algebra.Vector3f;
 
-public class Camera {
+public class Camera implements SceneElement {
 
     private Vector3f translation;
     private Vector3f rotation = new Vector3f(0,0,0);

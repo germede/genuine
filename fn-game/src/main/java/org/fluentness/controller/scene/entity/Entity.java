@@ -1,10 +1,11 @@
-package org.fluentness.controller.entity;
+package org.fluentness.controller.scene.entity;
 
+import org.fluentness.controller.scene.SceneElement;
 import org.fluentness.repository.Shape;
 import org.fluentness.repository.Texture;
 import org.fluentness.service.algebra.Vector3f;
 
-public class Entity {
+public class Entity implements SceneElement {
 
     private Shape shape;
     private Texture texture;
