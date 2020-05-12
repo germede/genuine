@@ -73,4 +73,8 @@ public class Vector3f {
         buffer.flip();
     }
 
+    @Override
+    public String toString() {
+        return "Vector3f{" + "x=" + x + ", y=" + y + ", z=" + z + '}';
+    }
 }

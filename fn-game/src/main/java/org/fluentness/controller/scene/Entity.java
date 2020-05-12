@@ -13,6 +13,9 @@ public class Entity implements SceneElement {
     private Vector3f rotation;
     private float scale;
 
+    protected int translationStep = 200;
+    protected int rotationStep = 200;
+
     private float shineDamper = 1;
     private float reflectivity = 0;
 
@@ -32,66 +35,93 @@ public class Entity implements SceneElement {
         this.scale = scale;
     }
 
+    public void move(float delta, boolean up, boolean left, boolean down, boolean right) {
+        float translationSpeed;
+        float rotationSpeed;
+
+        if (down) translationSpeed = translationStep;
+        else if (up) translationSpeed = -translationStep;
+        else translationSpeed = 0;
+
+        if (left) rotationSpeed = rotationStep;
+        else if (right) rotationSpeed = -rotationStep;
+        else rotationSpeed = 0;
+
+        float distance = translationSpeed * delta;
+        translation.x += (float) (distance * Math.sin(Math.toRadians(rotation.y)));
+        translation.z += (float) (distance * Math.cos(Math.toRadians(rotation.y)));
+        rotation.y += rotationSpeed * delta;
+    }
+
     public Shape getShape() {
         return shape;
     }
 
-    public Entity setShape(Shape shape) {
+    public void setShape(Shape shape) {
         this.shape = shape;
-        return this;
     }
 
     public Texture getTexture() {
         return texture;
     }
 
-    public Entity setTexture(Texture texture) {
+    public void setTexture(Texture texture) {
         this.texture = texture;
-        return this;
     }
 
     public Vector3f getTranslation() {
         return translation;
     }
 
-    public Entity setTranslation(Vector3f translation) {
+    public void setTranslation(Vector3f translation) {
         this.translation = translation;
-        return this;
     }
 
     public Vector3f getRotation() {
         return rotation;
     }
 
-    public Entity setRotation(Vector3f rotation) {
+    public void setRotation(Vector3f rotation) {
         this.rotation = rotation;
-        return this;
     }
 
     public float getScale() {
         return scale;
     }
 
-    public Entity setScale(float scale) {
+    public void setScale(float scale) {
         this.scale = scale;
-        return this;
+    }
+
+    public int getTranslationStep() {
+        return translationStep;
+    }
+
+    public void setTranslationStep(int translationStep) {
+        this.translationStep = translationStep;
+    }
+
+    public int getRotationStep() {
+        return rotationStep;
+    }
+
+    public void setRotationStep(int rotationStep) {
+        this.rotationStep = rotationStep;
     }
 
     public float getShineDamper() {
         return shineDamper;
     }
 
-    public Entity setShineDamper(float shineDamper) {
+    public void setShineDamper(float shineDamper) {
         this.shineDamper = shineDamper;
-        return this;
     }
 
     public float getReflectivity() {
         return reflectivity;
     }
 
-    public Entity setReflectivity(float reflectivity) {
+    public void setReflectivity(float reflectivity) {
         this.reflectivity = reflectivity;
-        return this;
     }
 }

@@ -1,10 +1,11 @@
 package com.sample.repository;
 
+import org.fluentness.controller.scene.Entity;
+import org.fluentness.controller.scene.Player;
+import org.fluentness.controller.scene.Terrain;
 import org.fluentness.repository.AbstractGameRepository;
 import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.service.loader.Loader;
-import org.fluentness.controller.scene.Entity;
-import org.fluentness.controller.scene.Terrain;
 
 public class GameRepository extends AbstractGameRepository {
 
@@ -15,8 +16,11 @@ public class GameRepository extends AbstractGameRepository {
         this.terrainGenerator = terrainGenerator;
     }
 
-    public Entity[] character() {
-        return randomize("bunny.obj", "white.png", 1);
+    public Player player() {
+        return new Player(
+            loader.loadShape("bunny.obj"),
+            loader.loadTexture("white.png")
+        );
     }
 
     public Entity[] lowPolyTrees() {
