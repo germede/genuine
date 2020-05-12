@@ -1,6 +1,4 @@
-package org.fluentness.controller.scene.entity;
-
-import org.fluentness.controller.scene.SceneElement;
+package org.fluentness.controller.scene;
 
 public class Entities implements SceneElement {
 

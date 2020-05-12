@@ -1,4 +1,4 @@
-package org.fluentness.controller.scene.entity;
+package org.fluentness.controller.scene;
 
 import org.fluentness.repository.Shape;
 import org.fluentness.repository.Texture;

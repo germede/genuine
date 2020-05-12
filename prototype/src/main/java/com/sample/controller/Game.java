@@ -3,7 +3,7 @@ package com.sample.controller;
 import com.sample.repository.GameRepository;
 import org.fluentness.controller.AbstractGame;
 import org.fluentness.controller.GameView;
-import org.fluentness.controller.scene.environment.Light;
+import org.fluentness.controller.scene.Light;
 
 public class Game extends AbstractGame {
 

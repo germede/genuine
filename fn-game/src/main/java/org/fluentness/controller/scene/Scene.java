@@ -1,13 +1,6 @@
 package org.fluentness.controller.scene;
 
 import org.fluentness.controller.GameView;
-import org.fluentness.controller.scene.entity.Entities;
-import org.fluentness.controller.scene.entity.Entity;
-import org.fluentness.controller.scene.entity.Terrain;
-import org.fluentness.controller.scene.environment.Background;
-import org.fluentness.controller.scene.environment.Camera;
-import org.fluentness.controller.scene.environment.Fog;
-import org.fluentness.controller.scene.environment.Light;
 import org.fluentness.repository.Shape;
 
 import java.util.HashMap;
@@ -41,6 +34,8 @@ public class Scene implements GameView {
             fog = (Fog) sceneElement;
         } else if (sceneElement instanceof Terrain) {
             addTerrain((Terrain) sceneElement);
+        } else if (sceneElement instanceof Entity) {
+            addEntity((Entity) sceneElement);
         } else if (sceneElement instanceof Entities) {
             Entities entities = (Entities) sceneElement;
             for (Entity[] entitiesArray : entities.getEntities()) {

@@ -3,8 +3,8 @@ package com.sample.repository;
 import org.fluentness.repository.AbstractGameRepository;
 import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.service.loader.Loader;
-import org.fluentness.controller.scene.entity.Entity;
-import org.fluentness.controller.scene.entity.Terrain;
+import org.fluentness.controller.scene.Entity;
+import org.fluentness.controller.scene.Terrain;
 
 public class GameRepository extends AbstractGameRepository {
 
