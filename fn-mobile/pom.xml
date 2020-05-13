@@ -7,7 +7,7 @@
     <parent>
         <artifactId>fluentness</artifactId>
         <groupId>org.fluentness</groupId>
-        <version>${revision}</version>
+        <version>${projectVersion}</version>
     </parent>
 
     <artifactId>fn-mobile</artifactId>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.fluentness</groupId>
             <artifactId>fn-core</artifactId>
-            <version>${revision}</version>
+            <version>${projectVersion}</version>
         </dependency>
         <!--Last available API level on Maven central.
         However, the used target SDK version is set actually in Android-Maven-Plugin-->

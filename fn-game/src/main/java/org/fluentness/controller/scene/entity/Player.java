@@ -1,4 +1,4 @@
-package org.fluentness.controller.lwjgl.entity;
+package org.fluentness.controller.scene.entity;
 
 import org.fluentness.repository.shape.Shape;
 import org.fluentness.repository.texture.Texture;

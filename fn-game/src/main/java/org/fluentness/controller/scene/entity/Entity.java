@@ -1,6 +1,6 @@
-package org.fluentness.controller.lwjgl.entity;
+package org.fluentness.controller.scene.entity;
 
-import org.fluentness.controller.lwjgl.SceneElement;
+import org.fluentness.controller.scene.SceneElement;
 import org.fluentness.repository.shape.Shape;
 import org.fluentness.repository.texture.Texture;
 import org.fluentness.service.algebra.Vector3f;

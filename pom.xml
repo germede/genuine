@@ -6,7 +6,7 @@
 
     <groupId>org.fluentness</groupId>
     <artifactId>fluentness</artifactId>
-    <version>${revision}</version>
+    <version>${projectVersion}</version>
 
     <modules>
         <module>archetype</module>
@@ -19,8 +19,10 @@
     </modules>
 
     <properties>
-        <revision>0.1.0</revision>
+        <projectVersion>0.1.0</projectVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <compilerPluginVersion>3.7.0</compilerPluginVersion>
+        <languageLevel>8</languageLevel>
     </properties>
 
     <packaging>pom</packaging>
@@ -51,10 +53,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>${compilerPluginVersion}</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>${languageLevel}</source>
+                    <target>${languageLevel}</target>
                 </configuration>
             </plugin>
         </plugins>

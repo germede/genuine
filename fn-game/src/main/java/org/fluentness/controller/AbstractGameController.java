@@ -2,9 +2,12 @@ package org.fluentness.controller;
 
 import org.fluentness.service.display.Display;
 
+import java.lang.annotation.*;
+import java.util.Arrays;
+
 import static org.lwjgl.glfw.GLFW.*;
 
-public abstract class AbstractGameController<V extends AbstractGame> implements Controller {
+public abstract class AbstractGameController<V extends AbstractGame> implements ActionController {
 
     protected final V game;
     protected final Display display;
@@ -12,6 +15,44 @@ public abstract class AbstractGameController<V extends AbstractGame> implements 
     public AbstractGameController(V game, Display display) {
         this.game = game;
         this.display = display;
+
+        Arrays.stream(getActions()).forEach(action -> {
+//
+//            switch (action.getAnnotation(Action.class).input()) {
+//                case KEY:
+//                    glfwSetKeyCallback(display.getWindow(), this::keyInput);
+//
+//            }
+//
+//
+//            glfwSetCharCallback(display.getWindow(), methodReference);
+//            glfwSetCharModsCallback(display.getWindow(), methodReference);
+//            glfwSetMouseButtonCallback(display.getWindow(), methodReference);
+//            glfwSetCursorPosCallback(display.getWindow(), methodReference);
+//            glfwSetCursorEnterCallback(display.getWindow(), methodReference);
+//            glfwSetScrollCallback(display.getWindow(), methodReference);
+//            glfwSetDropCallback(display.getWindow(), methodReference);
+//            glfwSetJoystickCallback(methodReference);
+
+        });
+    }
+
+
+    @Override
+    public final Class<? extends Annotation> getActionClass() {
+        return Action.class;
+    }
+
+    public enum Input {
+        KEY,
+        CHAR,
+        CHAR_MODS,
+        MOUSE_BUTTON,
+        CURSOR_POS,
+        CURSOR_ENTER,
+        SCROLL,
+        DROP,
+        JOYSTICK,
     }
 
     public final V getGame() {
@@ -39,6 +80,5 @@ public abstract class AbstractGameController<V extends AbstractGame> implements 
         glfwGetCursorPos(display.getWindow(), null, posHolder);
         return posHolder[0];
     }
-
 
 }

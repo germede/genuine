@@ -3,9 +3,9 @@ package com.sample.repository;
 import org.fluentness.repository.Repository;
 import org.fluentness.repository.shape.Shape;
 import org.fluentness.repository.texture.Texture;
-import org.fluentness.controller.lwjgl.entity.Entity;
-import org.fluentness.controller.lwjgl.entity.Player;
-import org.fluentness.controller.lwjgl.terrain.Terrain;
+import org.fluentness.controller.scene.entity.Entity;
+import org.fluentness.controller.scene.entity.Player;
+import org.fluentness.controller.scene.terrain.Terrain;
 import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.service.loader.Loader;
 

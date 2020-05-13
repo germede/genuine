@@ -1,7 +1,7 @@
-package org.fluentness.controller.lwjgl.camera;
+package org.fluentness.controller.scene.camera;
 
-import org.fluentness.controller.lwjgl.SceneElement;
-import org.fluentness.controller.lwjgl.entity.Entity;
+import org.fluentness.controller.scene.SceneElement;
+import org.fluentness.controller.scene.entity.Entity;
 import org.fluentness.service.algebra.Vector3f;
 
 public class Camera implements SceneElement {

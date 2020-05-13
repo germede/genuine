@@ -1,6 +1,6 @@
-package org.fluentness.controller.lwjgl.environment;
+package org.fluentness.controller.scene.environment;
 
-import org.fluentness.controller.lwjgl.SceneElement;
+import org.fluentness.controller.scene.SceneElement;
 import org.fluentness.service.algebra.Vector3f;
 
 public class Background implements SceneElement {

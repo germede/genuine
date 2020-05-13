@@ -1,22 +1,15 @@
 package com.sample.controller;
 
 import org.fluentness.controller.AbstractGameController;
+import org.fluentness.controller.Action;
 import org.fluentness.service.display.Display;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class GameController extends AbstractGameController<Game> {
 
-    private double dy;
-    private double dx;
-
     public GameController(Game game, Display display) {
         super(game, display);
-//        keyListener();
-    }
-
-    public void doSomething(int key, int scancode, int action, int mods) {
-        System.out.println("yes");
     }
 
     @Override
@@ -28,10 +21,18 @@ public class GameController extends AbstractGameController<Game> {
             isKeyPressed(GLFW_KEY_SPACE) ? 200 : 0
         );
         game.camera.follow(game.player,
-            (float) dy,
+            0,
             0,
             0
         );
     }
+
+
+    @Action(input = Input.SCROLL)
+    public void scrollListener(long display, double dx, double dy) {
+        game.camera.zoom -= dy*10;
+    }
+
+
 
 }

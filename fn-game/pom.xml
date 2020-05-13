@@ -7,10 +7,11 @@
     <parent>
         <artifactId>fluentness</artifactId>
         <groupId>org.fluentness</groupId>
-        <version>${revision}</version>
+        <version>${projectVersion}</version>
     </parent>
 
     <artifactId>fn-game</artifactId>
+
     <packaging>jar</packaging>
 
     <properties>
@@ -22,7 +23,7 @@
         <dependency>
             <groupId>org.fluentness</groupId>
             <artifactId>fn-core</artifactId>
-            <version>${revision}</version>
+            <version>${projectVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
@@ -58,5 +59,19 @@
             <classifier>natives-${platform}</classifier>
         </dependency>
     </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compilerPluginVersion}</version>
+                <configuration>
+                    <compilerArgs>-proc:none</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
