@@ -14,14 +14,4 @@ public class DesktopController extends AbstractDesktopController<Desktop> {
         System.out.println("test");
     }
 
-    @Override
-    public Class<? extends Annotation> getActionClass() {
-        return Action.class;
-    }
-
-    @Target(ElementType.METHOD)
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface Action {
-
-    }
 }

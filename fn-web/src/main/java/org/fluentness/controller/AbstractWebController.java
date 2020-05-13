@@ -44,7 +44,7 @@ public abstract class AbstractWebController<W extends AbstractWeb> implements Co
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface Action {
+    protected @interface Action {
 
         String path() default "";
 

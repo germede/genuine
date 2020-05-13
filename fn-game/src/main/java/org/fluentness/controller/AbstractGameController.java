@@ -20,6 +20,10 @@ public abstract class AbstractGameController<V extends AbstractGame> implements 
         Arrays.stream(getActions()).forEach(action -> action.getAnnotation(Action.class).value().setCallback(display.getWindow(), this, action));
     }
 
+    public void loop() {
+
+    }
+
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     protected @interface Action {

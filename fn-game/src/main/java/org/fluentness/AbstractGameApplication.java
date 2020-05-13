@@ -57,6 +57,7 @@ public abstract class AbstractGameApplication implements Application {
             display.clear(scene.background.colour);
             terrainRender.render(scene);
             entityRender.render(scene);
+            controller.loop();
             display.update();
         }
         memory.cleanUp();

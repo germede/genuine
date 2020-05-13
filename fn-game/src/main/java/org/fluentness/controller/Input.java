@@ -6,8 +6,7 @@ import java.lang.reflect.Method;
 import static org.lwjgl.glfw.GLFW.*;
 
 public enum Input {
-    LOOP("()"),
-    KEY("(int,int,int)"),
+    KEY("(int,int,int,int)"),
     CHAR("(int)"),
     CHAR_MODS("(int,int)"),
     MOUSE_BUTTON("(int,int,int)"),
@@ -30,9 +29,6 @@ public enum Input {
 
     public void setCallback(long window, AbstractGameController controller, Method action) {
         switch (this) {
-            case LOOP:
-                glfwSetWindowRefreshCallback(window, l -> invokeAction(controller, action));
-                break;
             case KEY:
                 glfwSetKeyCallback(window, (l, i, i1, i2, i3) -> invokeAction(controller, action, i, i1, i2, i3));
                 break;
@@ -62,7 +58,6 @@ public enum Input {
                 break;
         }
     }
-
 
     private void invokeAction(AbstractGameController controller, Method action, Object... parameters) {
         try {
