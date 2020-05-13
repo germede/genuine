@@ -18,8 +18,8 @@ public class Camera implements SceneElement {
     public float rotationSpeed = 200;
 
     public float zoom = 200;
-    public float pitch;
-    public float yaw;
+    public float followPitch = 0;
+    public float followYaw = 0;
 
     public Camera(float x, float y, float z) {
         this.translation = new Vector3f(x, y, z);
@@ -32,18 +32,15 @@ public class Camera implements SceneElement {
         rotation.y += this.rotationSpeed * leftRight * delta;
     }
 
-    public void follow(Entity entity, float zoom, float pitch, float yaw) {
-        this.zoom += zoom;
-        this.pitch += pitch;
-        this.yaw += yaw;
-
-        float verticalDistance = (float) (this.zoom * Math.sin(Math.toRadians(rotation.x + pitch)));
+    public void follow(Entity entity) {
+        rotation.x = followPitch;
+        float verticalDistance = (float) (this.zoom * Math.sin(Math.toRadians(rotation.x)));
         float horizontalDistance = (float) (this.zoom * Math.cos(Math.toRadians(rotation.x)));
-        float offsetX = horizontalDistance * (float) Math.sin(Math.toRadians(entity.rotation.y + yaw));
-        float offsetZ = horizontalDistance * (float) Math.cos(Math.toRadians(entity.rotation.y + yaw));
+        float offsetX = horizontalDistance * (float) Math.sin(Math.toRadians(entity.rotation.y + followYaw));
+        float offsetZ = horizontalDistance * (float) Math.cos(Math.toRadians(entity.rotation.y + followYaw));
         translation.x = entity.translation.x - offsetX;
         translation.y = entity.translation.y + verticalDistance;
         translation.z = entity.translation.z - offsetZ;
-        rotation.y = 180 - entity.rotation.y + yaw;
+        rotation.y = 180 - entity.rotation.y - followYaw;
     }
 }

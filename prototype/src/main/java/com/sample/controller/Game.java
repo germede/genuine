@@ -26,7 +26,7 @@ public class Game extends AbstractGame {
             background(0, 0, 0.7f),
             camera = camera(0, 50, 0),
             light = light(0, 0, 0),
-            fog(0.0012f, 5.0f),
+            fog(0.0006f, 5.0f),
             gameRepository.terrain(),
             player = gameRepository.player(),
             entities(

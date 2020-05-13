@@ -1,10 +1,11 @@
 package org.fluentness.service.loader;
 
-import org.fluentness.repository.shape.Shape;
-import org.fluentness.repository.texture.Texture;
-import org.fluentness.service.memory.Memory;
 import org.fluentness.repository.shape.RawShape;
+import org.fluentness.repository.shape.Shape;
 import org.fluentness.repository.texture.RawTexture;
+import org.fluentness.repository.texture.Texture;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.memory.Memory;
 import org.fluentness.service.parser.ShapeParser;
 import org.fluentness.service.parser.TextureParser;
 import org.lwjgl.opengl.GL11;
@@ -13,14 +14,18 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL14.GL_TEXTURE_LOD_BIAS;
+import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 public class LoaderImpl implements Loader {
 
+    private final Configuration configuration;
     private final Memory memory;
     private final ShapeParser shapeParser;
     private final TextureParser textureParser;
 
-    public LoaderImpl(Memory memory, ShapeParser shapeParser, TextureParser textureParser) {
+    public LoaderImpl(Configuration configuration, Memory memory, ShapeParser shapeParser, TextureParser textureParser) {
+        this.configuration = configuration;
         this.memory = memory;
         this.shapeParser = shapeParser;
         this.textureParser = textureParser;
@@ -69,10 +74,15 @@ public class LoaderImpl implements Loader {
         int texture = glGenTextures();
         memory.texture(texture);
 
+
         glBindTexture(GL_TEXTURE_2D, texture);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, rawTexture.getWidth(), rawTexture.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, rawTexture.getPixels());
+        glGenerateMipmap(GL_TEXTURE_2D);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, configuration.get(MIPMAP_BIAS));
         glBindTexture(GL_TEXTURE_2D, 0);
 
         return new Texture(texture, rawTexture.hasTransparency());
