@@ -1,6 +1,6 @@
-package org.fluentness.controller.scene.environment;
+package org.fluentness.controller.lwjgl.environment;
 
-import org.fluentness.controller.scene.SceneElement;
+import org.fluentness.controller.lwjgl.SceneElement;
 
 public class Fog implements SceneElement {
 

@@ -1,31 +1,29 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.repository.Model;
+import org.fluentness.repository.CrudModel;
 import org.fluentness.service.Service;
 
 import java.util.List;
 
 public interface Persistence extends Service {
 
-    String ID_NAME = "id";
-
-    default String getTableName(Model model) {
-        return getTableName(model.getClass());
+    default String getTableName(CrudModel crudModel) {
+        return getTableName(crudModel.getClass());
     }
 
-    default String getTableName(Class<? extends Model> modelClass) {
+    default String getTableName(Class<? extends CrudModel> modelClass) {
         return modelClass.getSimpleName().toLowerCase();
     }
 
-    <M extends Model> M retrieve(Class<M> modelClass, int id);
+    <M extends CrudModel> M retrieve(Class<M> modelClass, int id);
 
-    <M extends Model> List<M> retrieve(Class<M> modelClass, Condition... conditions);
+    <M extends CrudModel> List<M> retrieve(Class<M> modelClass, Condition... conditions);
 
-    int persist(Model model);
+    int persist(CrudModel crudModel);
 
-    <M extends Model> int remove(Class<M> modelClass, int id);
+    <M extends CrudModel> int remove(Class<M> modelClass, int id);
 
-    default int remove(Model model) {
-        return remove(model.getClass(), model.getId());
+    default int remove(CrudModel crudModel) {
+        return remove(crudModel.getClass(), crudModel.getId());
     }
 }

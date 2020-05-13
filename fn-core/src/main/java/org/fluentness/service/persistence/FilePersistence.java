@@ -1,12 +1,11 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.repository.Model;
+import org.fluentness.repository.CrudModel;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.log.Log;
 
 import java.io.*;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -35,7 +34,7 @@ public class FilePersistence implements Persistence {
     }
 
     @Override
-    public <M extends Model> M retrieve(Class<M> modelClass, int id) {
+    public <M extends CrudModel> M retrieve(Class<M> modelClass, int id) {
         try {
             FileInputStream fileIn = new FileInputStream(getFile(modelClass, id));
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -50,7 +49,7 @@ public class FilePersistence implements Persistence {
     }
 
     @Override
-    public <M extends Model> List<M> retrieve(Class<M> modelClass, Condition... conditions) {
+    public <M extends CrudModel> List<M> retrieve(Class<M> modelClass, Condition... conditions) {
         // todo implement conditions
         File[] records = new File(getFileDirectory(modelClass)).listFiles();
         return Arrays.stream(records != null ? records : new File[0])
@@ -59,42 +58,40 @@ public class FilePersistence implements Persistence {
     }
 
     @Override
-    public int persist(Model model) {
+    public int persist(CrudModel crudModel) {
         try {
-            if (model.getId() == 0) {
-                Field id = model.getClass().getField("id");
-                id.setAccessible(true);
-                id.set(model,getNewID(model));
+            if (crudModel.getId() == 0) {
+                crudModel.setId(getNewID(crudModel));
             }
-            FileOutputStream fileOut = new FileOutputStream(getFile(model.getClass(), model.getId()));
+            FileOutputStream fileOut = new FileOutputStream(getFile(crudModel.getClass(), crudModel.getId()));
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(model);
+            out.writeObject(crudModel);
             out.close();
             fileOut.close();
             return 1;
-        } catch (IOException | IllegalAccessException | NoSuchFieldException e) {
+        } catch (IOException e) {
             log.error(e);
         }
         return 0;
     }
 
     @Override
-    public <M extends Model> int remove(Class<M> modelClass, int id) {
+    public <M extends CrudModel> int remove(Class<M> modelClass, int id) {
         return getFile(modelClass,id).delete() ? 1 : 0;
     }
 
-    private int getNewID(Model model) {
+    private int getNewID(CrudModel crudModel) {
         try {
             // search for an unused id
-            String[] list = new File(getFileDirectory(model.getClass())).list();
+            String[] list = new File(getFileDirectory(crudModel.getClass())).list();
             int id;
             if (list != null) {
                 id = list.length;
-                while (getFile(model.getClass(), id).exists()) {
+                while (getFile(crudModel.getClass(), id).exists()) {
                     id++;
                 }
             } else {
-                Files.createDirectory(Paths.get(getFileDirectory(model.getClass())));
+                Files.createDirectory(Paths.get(getFileDirectory(crudModel.getClass())));
                 id = 1;
             }
             return id;
@@ -104,11 +101,11 @@ public class FilePersistence implements Persistence {
         return 0;
     }
 
-    private File getFile(Class<? extends Model> modelClass, int id) {
+    private File getFile(Class<? extends CrudModel> modelClass, int id) {
         return new File(getFileDirectory(modelClass), "/" + id);
     }
 
-    private <M extends Model> String getFileDirectory(Class<M> modelClass) {
+    private <M extends CrudModel> String getFileDirectory(Class<M> modelClass) {
         return dataDirectory + "/" + getTableName(modelClass);
     }
 }

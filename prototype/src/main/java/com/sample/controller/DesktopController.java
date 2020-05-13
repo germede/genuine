@@ -8,7 +8,6 @@ public class DesktopController extends AbstractDesktopController<Desktop> {
         super(desktop);
     }
 
-    @Action(selector = "#daButton", event = Event.CLICK)
     void test() {
         System.out.println("test");
     }

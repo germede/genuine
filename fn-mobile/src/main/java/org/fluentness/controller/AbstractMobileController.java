@@ -1,9 +1,5 @@
 package org.fluentness.controller;
 
-import android.view.View;
-
-import java.lang.annotation.*;
-
 public abstract class AbstractMobileController<M extends AbstractMobile> implements Controller {
 
     private final M mobile;
@@ -14,12 +10,6 @@ public abstract class AbstractMobileController<M extends AbstractMobile> impleme
 
     public final M getMobile() {
         return mobile;
-    }
-
-    @Target(ElementType.METHOD)
-    @Retention(RetentionPolicy.RUNTIME)
-    protected @interface Action {
-        Class<? extends View> selector();
     }
 
 

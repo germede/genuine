@@ -1,6 +1,6 @@
-package org.fluentness.controller.scene.entity;
+package org.fluentness.controller.lwjgl.entity;
 
-import org.fluentness.controller.scene.SceneElement;
+import org.fluentness.controller.lwjgl.SceneElement;
 
 public class Entities implements SceneElement {
 

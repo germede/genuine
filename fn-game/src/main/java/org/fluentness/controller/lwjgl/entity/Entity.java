@@ -1,8 +1,8 @@
-package org.fluentness.controller.scene.entity;
+package org.fluentness.controller.lwjgl.entity;
 
-import org.fluentness.controller.scene.SceneElement;
-import org.fluentness.repository.Shape;
-import org.fluentness.repository.Texture;
+import org.fluentness.controller.lwjgl.SceneElement;
+import org.fluentness.repository.shape.Shape;
+import org.fluentness.repository.texture.Texture;
 import org.fluentness.service.algebra.Vector3f;
 
 public class Entity implements SceneElement {
@@ -14,10 +14,6 @@ public class Entity implements SceneElement {
     public Vector3f rotation;
     public float scale;
 
-    public float translationSpeed = 200;
-    public float rotationSpeed = 200;
-
-    public float jumpPower = 100;
     public float gravity = -250;
     public float jumpSpeed = 0;
     public boolean isJumping = false;
@@ -34,13 +30,13 @@ public class Entity implements SceneElement {
     }
 
     public void control(float delta, float upDown, float leftRight, float jump) {
-        float distance = -this.translationSpeed * upDown * delta;
+        float distance = upDown * delta;
         translation.x += (float) (distance * Math.sin(Math.toRadians(rotation.y)));
         translation.z += (float) (distance * Math.cos(Math.toRadians(rotation.y)));
-        rotation.y += -this.rotationSpeed * leftRight * delta;
+        rotation.y += -leftRight * delta;
 
         if (jump > 0 && !isJumping) {
-            jumpSpeed = jumpPower * jump;
+            jumpSpeed = 200;
             isJumping = true;
         }
         jumpSpeed += gravity * delta;

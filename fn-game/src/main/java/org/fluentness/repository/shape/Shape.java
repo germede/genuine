@@ -1,6 +1,8 @@
-package org.fluentness.repository;
+package org.fluentness.repository.shape;
 
-public class Shape implements Model {
+import org.fluentness.repository.CrudModel;
+
+public class Shape implements CrudModel {
 
     private final int id;
     public final int vertexCount;

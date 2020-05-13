@@ -1,23 +1,32 @@
 package com.sample.repository;
 
-import org.fluentness.controller.scene.entity.Entity;
-import org.fluentness.controller.scene.entity.Player;
-import org.fluentness.controller.scene.terrain.Terrain;
-import org.fluentness.repository.AbstractGameRepository;
+import org.fluentness.repository.Repository;
+import org.fluentness.repository.shape.Shape;
+import org.fluentness.repository.texture.Texture;
+import org.fluentness.controller.lwjgl.entity.Entity;
+import org.fluentness.controller.lwjgl.entity.Player;
+import org.fluentness.controller.lwjgl.terrain.Terrain;
 import org.fluentness.service.generator.TerrainGenerator;
 import org.fluentness.service.loader.Loader;
 
-public class GameRepository extends AbstractGameRepository {
+import java.util.Random;
 
+public class GameRepository implements Repository {
+
+    private final Loader loader;
     private final TerrainGenerator terrainGenerator;
 
+    private final Random random = new Random();
+
     public GameRepository(Loader loader, TerrainGenerator terrainGenerator) {
-        super(loader);
+        this.loader = loader;
         this.terrainGenerator = terrainGenerator;
     }
 
     public Player player() {
-        return new Player(loader.loadShape("bunny.obj"), loader.loadTexture("white.png"));
+        Player player = new Player(loader.loadShape("bunny.obj"), loader.loadTexture("white.png"));
+        player.rotation.y = 180;
+        return player;
     }
 
     public Entity[] lowPolyTrees() {
@@ -50,5 +59,21 @@ public class GameRepository extends AbstractGameRepository {
         );
     }
 
+
+    protected Entity[] randomize(String modelPath, String texturePath, int count) {
+        Shape shape = loader.loadShape(modelPath);
+        Texture texture = loader.loadTexture(texturePath);
+        Entity[] entities = new Entity[count];
+        for (int i = 0; i < entities.length; i++) {
+            int max = 1000;
+            int min = -1000;
+            entities[i] = new Entity(shape, texture);
+            entities[i].translation.x = random.nextInt(max - min) + min;
+            entities[i].translation.z = random.nextInt(max - min) + min;
+            entities[i].rotation.y = random.nextFloat() * 180f;
+            entities[i].scale = random.nextFloat() * 10;
+        }
+        return entities;
+    }
 
 }

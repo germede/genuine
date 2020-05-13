@@ -1,23 +1,18 @@
 package com.sample.repository;
 
-import org.fluentness.repository.Model;
+import org.fluentness.repository.AbstractCrudModel;
 
-public class Note implements Model {
+public class Note extends AbstractCrudModel {
 
-    private int id;
     private String title;
     private String description;
     private User user;
 
-    public Note(String title, String description, User user) {
+    public Note(int id, String title, String description, User user) {
+        super(id);
         this.title = title;
         this.description = description;
         this.user = user;
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
 
     public String getTitle() {

@@ -1,4 +1,6 @@
-package org.fluentness.repository;
+package org.fluentness.repository.texture;
+
+import org.fluentness.repository.Model;
 
 public class Texture implements Model {
 
@@ -12,7 +14,6 @@ public class Texture implements Model {
         lightUniformly = hasTransparency; // todo make it light uniformly only when using multi-faced models
     }
 
-    @Override
     public int getId() {
         return id;
     }

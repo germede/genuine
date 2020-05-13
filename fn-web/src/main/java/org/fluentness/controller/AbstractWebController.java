@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
-public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
+public abstract class AbstractWebController<W extends AbstractWeb> implements ActionController {
 
     private final W web;
 
@@ -33,10 +33,9 @@ public abstract class AbstractWebController<W extends AbstractWeb> implements Co
         });
     }
 
-    public Method[] getActions() {
-        return Arrays.stream(this.getClass().getDeclaredMethods())
-            .filter(method -> method.isAnnotationPresent(Action.class))
-            .toArray(Method[]::new);
+    @Override
+    public final Class<? extends Annotation> getActionClass() {
+        return Action.class;
     }
 
     public final W getWeb() {

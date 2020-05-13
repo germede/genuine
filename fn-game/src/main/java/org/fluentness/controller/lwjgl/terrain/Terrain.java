@@ -1,8 +1,8 @@
-package org.fluentness.controller.scene.terrain;
+package org.fluentness.controller.lwjgl.terrain;
 
-import org.fluentness.controller.scene.SceneElement;
-import org.fluentness.repository.Shape;
-import org.fluentness.repository.Texture;
+import org.fluentness.controller.lwjgl.SceneElement;
+import org.fluentness.repository.shape.Shape;
+import org.fluentness.repository.texture.Texture;
 import org.fluentness.service.algebra.Vector3f;
 
 public class Terrain implements SceneElement {

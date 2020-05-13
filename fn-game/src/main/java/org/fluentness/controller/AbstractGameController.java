@@ -1,6 +1,5 @@
 package org.fluentness.controller;
 
-import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.display.Display;
 
 import static org.lwjgl.glfw.GLFW.*;

@@ -1,6 +1,8 @@
-package org.fluentness.repository;
+package org.fluentness.repository.shape;
 
-public class RawShape {
+import org.fluentness.repository.Model;
+
+public class RawShape implements Model {
 
     private final float[] vertices;
     private final float[] textures;

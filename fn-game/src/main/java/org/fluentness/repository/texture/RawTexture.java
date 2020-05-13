@@ -1,6 +1,8 @@
-package org.fluentness.repository;
+package org.fluentness.repository.texture;
 
-public class RawTexture {
+import org.fluentness.repository.Model;
+
+public class RawTexture implements Model {
 
     private final int width;
     private final int height;

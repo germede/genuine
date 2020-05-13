@@ -1,6 +1,6 @@
-package org.fluentness.controller.scene.light;
+package org.fluentness.controller.lwjgl.light;
 
-import org.fluentness.controller.scene.SceneElement;
+import org.fluentness.controller.lwjgl.SceneElement;
 import org.fluentness.service.algebra.Vector3f;
 
 public class Light implements SceneElement {

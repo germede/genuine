@@ -1,6 +1,6 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.repository.Model;
+import org.fluentness.repository.CrudModel;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.log.Log;
@@ -44,16 +44,16 @@ public class JdbcPersistence implements Persistence {
     }
 
     @Override
-    public <M extends Model> M retrieve(Class<M> modelClass, int id) {
+    public <M extends CrudModel> M retrieve(Class<M> modelClass, int id) {
         List<M> retrieve = retrieve(
             modelClass,
-            "SELECT * FROM " + getTableName(modelClass) + " WHERE " + ID_NAME + " = " + id
+            "SELECT * FROM " + getTableName(modelClass) + " WHERE " + CrudModel.ID_NAME + " = " + id
         );
         return retrieve.size() > 0 ? retrieve.get(0) : null;
     }
 
     @Override
-    public <M extends Model> List<M> retrieve(Class<M> modelClass, Condition... conditions) {
+    public <M extends CrudModel> List<M> retrieve(Class<M> modelClass, Condition... conditions) {
         return retrieve(
             modelClass,
             conditions.length > 0 ?
@@ -64,21 +64,21 @@ public class JdbcPersistence implements Persistence {
     }
 
     @Override
-    public int persist(Model model) {
+    public int persist(CrudModel crudModel) {
         // pre-build sql
-        String into = Arrays.stream(model.getClass().getDeclaredFields()).map(Field::getName).collect(Collectors.joining(","));
+        String into = Arrays.stream(crudModel.getClass().getDeclaredFields()).map(Field::getName).collect(Collectors.joining(","));
         StringBuilder update = new StringBuilder();
         StringBuilder insert = new StringBuilder();
-        Field[] declaredFields = model.getClass().getDeclaredFields();
+        Field[] declaredFields = crudModel.getClass().getDeclaredFields();
         try {
             for (int i = 0; i < declaredFields.length; i++) {
                 Field field = declaredFields[i];
                 field.setAccessible(true);
-                insert.append(i == 0 ? "'" : ", '").append(field.get(model)).append("'");
-                update.append(i == 0 ? "" : ", ").append(field.getName()).append(" = '").append(field.get(model)).append("'");
+                insert.append(i == 0 ? "'" : ", '").append(field.get(crudModel)).append("'");
+                update.append(i == 0 ? "" : ", ").append(field.getName()).append(" = '").append(field.get(crudModel)).append("'");
             }
 
-            String sql = "INSERT INTO " + getTableName(model) + "(" + into + ") " +
+            String sql = "INSERT INTO " + getTableName(crudModel) + "(" + into + ") " +
                 "VALUES (" + insert + ") " +
                 "ON DUPLICATE KEY UPDATE " + update;
             log.debug(sql);
@@ -94,9 +94,9 @@ public class JdbcPersistence implements Persistence {
     }
 
     @Override
-    public <M extends Model> int remove(Class<M> modelClass, int id) {
+    public <M extends CrudModel> int remove(Class<M> modelClass, int id) {
         try (Statement statement = connection.createStatement()) {
-            String sql = "DELETE FROM " + getTableName(modelClass) + " WHERE " + ID_NAME + " = " + id;
+            String sql = "DELETE FROM " + getTableName(modelClass) + " WHERE " + CrudModel.ID_NAME + " = " + id;
             log.debug(sql);
             return statement.executeUpdate(sql);
         } catch (Exception e) {
@@ -105,7 +105,7 @@ public class JdbcPersistence implements Persistence {
         return 0;
     }
 
-    private <M extends Model> List<M> retrieve(Class<M> modelClass, String sql) {
+    private <M extends CrudModel> List<M> retrieve(Class<M> modelClass, String sql) {
         List<M> result = new LinkedList<>();
         ResultSet resultSet = null;
         try {
@@ -120,7 +120,7 @@ public class JdbcPersistence implements Persistence {
         return result;
     }
 
-    private <M extends Model> M instantiate(Class<M> modelClass, ResultSet resultSet) {
+    private <M extends CrudModel> M instantiate(Class<M> modelClass, ResultSet resultSet) {
         try {
             Constructor constructor = modelClass.getConstructors()[0];
             Parameter[] parameters = constructor.getParameters();
@@ -142,11 +142,9 @@ public class JdbcPersistence implements Persistence {
                 }
             }
             M model = (M) constructor.newInstance(preparedParameters);
-            Field id = model.getClass().getField("id");
-            id.setAccessible(true);
-            id.set(model,resultSet.getInt(ID_NAME));
+            model.setId(resultSet.getInt(CrudModel.ID_NAME));
             return model;
-        } catch (SQLException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchFieldException e) {
+        } catch (SQLException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             log.error(e);
         }
         return null;

@@ -61,7 +61,7 @@ public class WebUsersController extends AbstractWebController {
 
     @Action(path = "/new")
     Html newUser(String username, String password) {
-        userRepository.insert(new User(username, password));
+        userRepository.insert(new User(0, username, password));
         return users();
     }
 

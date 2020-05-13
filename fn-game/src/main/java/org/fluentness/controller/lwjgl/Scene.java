@@ -1,14 +1,14 @@
-package org.fluentness.controller.scene;
+package org.fluentness.controller.lwjgl;
 
 import org.fluentness.controller.GameView;
-import org.fluentness.controller.scene.camera.Camera;
-import org.fluentness.controller.scene.entity.Entities;
-import org.fluentness.controller.scene.entity.Entity;
-import org.fluentness.controller.scene.environment.Background;
-import org.fluentness.controller.scene.environment.Fog;
-import org.fluentness.controller.scene.light.Light;
-import org.fluentness.controller.scene.terrain.Terrain;
-import org.fluentness.repository.Shape;
+import org.fluentness.controller.lwjgl.camera.Camera;
+import org.fluentness.controller.lwjgl.entity.Entities;
+import org.fluentness.controller.lwjgl.entity.Entity;
+import org.fluentness.controller.lwjgl.environment.Background;
+import org.fluentness.controller.lwjgl.environment.Fog;
+import org.fluentness.controller.lwjgl.light.Light;
+import org.fluentness.controller.lwjgl.terrain.Terrain;
+import org.fluentness.repository.shape.Shape;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -1,9 +1,6 @@
 package org.fluentness.repository;
 
-import java.io.Serializable;
+public interface Model {
 
-public interface Model extends Serializable {
-
-    int getId();
 
 }

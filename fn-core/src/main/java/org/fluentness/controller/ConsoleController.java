@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.Fluentness;
-import org.fluentness.repository.Model;
+import org.fluentness.repository.CrudModel;
 import org.fluentness.repository.AbstractCrudRepository;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.persistence.Persistence;
@@ -117,13 +117,13 @@ public final class ConsoleController extends AbstractConsoleController {
             .collect(Collectors.toList());
 
         StringBuilder builder = new StringBuilder();
-        for (Class<? extends Model> modelClass : modelClasses) {
+        for (Class<? extends CrudModel> modelClass : modelClasses) {
 
             // todo improve sorting depending on foreign
             List<Field> foreignKeys = new LinkedList<>();
 
             builder.append("CREATE TABLE ").append(persistence.getTableName(modelClass)).append(" ( \n");
-            builder.append("    ").append(persistence.ID_NAME).append(" INT AUTO_INCREMENT PRIMARY KEY,\n");
+            builder.append("    ").append(CrudModel.ID_NAME).append(" INT AUTO_INCREMENT PRIMARY KEY,\n");
             Field[] declaredFields = modelClass.getDeclaredFields();
             for (int i = 0, declaredFieldsLength = declaredFields.length; i < declaredFieldsLength; i++) {
                 Field field = declaredFields[i];
@@ -133,7 +133,7 @@ public final class ConsoleController extends AbstractConsoleController {
                     builder.append("VARCHAR(255) NOT NULL");
                 } else if (int.class.isAssignableFrom(type)) {
                     builder.append("INT NOT NULL");
-                } else if (Model.class.isAssignableFrom(type)) {
+                } else if (CrudModel.class.isAssignableFrom(type)) {
                     builder.append("INT NOT NULL");
                     foreignKeys.add(field);
                 }
@@ -146,9 +146,9 @@ public final class ConsoleController extends AbstractConsoleController {
                     .append("    FOREIGN KEY (")
                     .append(field.getName())
                     .append(") REFERENCES ")
-                    .append(persistence.getTableName((Class<? extends Model>) field.getType()))
+                    .append(persistence.getTableName((Class<? extends CrudModel>) field.getType()))
                     .append("(")
-                    .append(persistence.ID_NAME)
+                    .append(CrudModel.ID_NAME)
                     .append(") ON UPDATE cascade ")
                     .append("ON DELETE cascade")
                     .append(i == foreignKeysSize - 1 ? "\n" : ",\n");

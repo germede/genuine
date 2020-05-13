@@ -1,21 +1,16 @@
 package com.sample.repository;
 
-import org.fluentness.repository.Model;
+import org.fluentness.repository.AbstractCrudModel;
 
-public class User implements Model{
+public class User extends AbstractCrudModel {
 
-    private int id;
     private String username;
     private String password;
 
-    public User(String username, String password) {
+    public User(int id, String username, String password) {
+        super(id);
         this.username = username;
         this.password = password;
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
 
     public String getUsername() {
