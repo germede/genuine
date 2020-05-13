@@ -7,9 +7,6 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11C.GL_FALSE;
 
@@ -23,17 +20,11 @@ public class GlfwDisplay implements Display {
     private final GLFWErrorCallback errorCallback;
 
     private final Log log;
-    private long currentTime;
     private float delta;
+    private float totalDelta;
 
     public GlfwDisplay(Configuration configuration, Log log) {
         this.log = log;
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                log.debug("%s FPS", fps);
-            }
-        }, 0, 1000);
 
         glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
 
@@ -80,8 +71,13 @@ public class GlfwDisplay implements Display {
     public void update() {
         long currentTime = System.currentTimeMillis();
         delta = (currentTime - lastTime) / 1000f;
+        totalDelta += delta;
         fps = (int) (1 / delta);
         lastTime = currentTime;
+        if (totalDelta > 1) {
+            log.debug("%s FPS", fps);
+            totalDelta = 0;
+        }
 
         glfwPollEvents();
         glfwSwapBuffers(window);
