@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractConsoleController implements ActionController {
+public abstract class AbstractConsoleController implements Controller {
 
     public static final Map<String, Method> nameActionMap = new HashMap<>();
 

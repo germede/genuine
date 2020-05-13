@@ -1,9 +1,10 @@
 package com.sample.controller;
 
 import org.fluentness.controller.AbstractGameController;
-import org.fluentness.controller.Action;
 import org.fluentness.service.display.Display;
 
+import static org.fluentness.controller.Input.LOOP;
+import static org.fluentness.controller.Input.SCROLL;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class GameController extends AbstractGameController<Game> {
@@ -12,9 +13,8 @@ public class GameController extends AbstractGameController<Game> {
         super(game, display);
     }
 
-    @Override
+    @Action(LOOP)
     public void loop() {
-
         game.player.control(display.getDelta(),
             isKeyPressed(GLFW_KEY_W) ? 200 : isKeyPressed(GLFW_KEY_S) ? -200 : 0,
             isKeyPressed(GLFW_KEY_D) ? 200 : isKeyPressed(GLFW_KEY_A) ? -200 : 0,
@@ -28,8 +28,8 @@ public class GameController extends AbstractGameController<Game> {
     }
 
 
-    @Action(input = Input.SCROLL)
-    public void scrollListener(long display, double dx, double dy) {
+    @Action(SCROLL)
+    public void scrollListener(double dx, double dy) {
         game.camera.zoom -= dy*10;
     }
 

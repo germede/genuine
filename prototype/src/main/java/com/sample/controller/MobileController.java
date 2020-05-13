@@ -4,6 +4,8 @@ import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
 
+import java.lang.annotation.Annotation;
+
 public class MobileController extends AbstractMobileController<Mobile> {
 
     public MobileController(Mobile mobile, Log log, Persistence persistence) {
@@ -18,4 +20,8 @@ public class MobileController extends AbstractMobileController<Mobile> {
 //        }
     }
 
+    @Override
+    public Class<? extends Annotation> getActionClass() {
+        return null;
+    }
 }

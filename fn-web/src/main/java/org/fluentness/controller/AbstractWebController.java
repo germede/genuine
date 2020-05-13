@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
-public abstract class AbstractWebController<W extends AbstractWeb> implements ActionController {
+public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
 
     private final W web;
 
