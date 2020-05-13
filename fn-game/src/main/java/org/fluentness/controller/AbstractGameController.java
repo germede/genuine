@@ -1,5 +1,6 @@
 package org.fluentness.controller;
 
+import org.fluentness.controller.input.Input;
 import org.fluentness.service.display.Display;
 
 import java.lang.annotation.*;

@@ -3,7 +3,7 @@ package com.sample.controller;
 import org.fluentness.controller.AbstractGameController;
 import org.fluentness.service.display.Display;
 
-import static org.fluentness.controller.Input.*;
+import static org.fluentness.controller.input.Input.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class GameController extends AbstractGameController<Game> {
@@ -27,7 +27,7 @@ public class GameController extends AbstractGameController<Game> {
     }
 
     @Action(SCROLL)
-    public void scrollListener(double dx, double dy) {
+    void scrollListener(double dx, double dy) {
         game.camera.zoom -= dy*10;
     }
 

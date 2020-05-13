@@ -1,6 +1,6 @@
 package org.fluentness.controller.scene;
 
-import org.fluentness.controller.GameView;
+import org.fluentness.controller.input.GameView;
 import org.fluentness.controller.scene.camera.Camera;
 import org.fluentness.controller.scene.entity.Entities;
 import org.fluentness.controller.scene.entity.Entity;

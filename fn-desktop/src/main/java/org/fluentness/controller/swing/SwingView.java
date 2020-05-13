@@ -10,6 +10,7 @@ public class SwingView implements DesktopView {
 
     public SwingView(Window window) {
         this.window = window;
+        this.window.setVisible(true);
     }
 
     public Window getWindow() {

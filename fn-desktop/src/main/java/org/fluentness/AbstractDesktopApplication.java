@@ -25,8 +25,7 @@ public abstract class AbstractDesktopApplication implements Application {
         List<AbstractDesktopController> instances = Fluentness.getInstances(AbstractDesktopController.class);
         for (AbstractDesktopController controller : instances) {
 //                controller.getDesktop().getStyle().apply();
-//            controller.getView().getTemplate().render();
-//            controller.setListeners();
+            controller.getDesktop().render();
         }
     }
 }

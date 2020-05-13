@@ -1,4 +1,6 @@
-package org.fluentness.controller;
+package org.fluentness.controller.input;
+
+import org.fluentness.controller.AbstractGameController;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
