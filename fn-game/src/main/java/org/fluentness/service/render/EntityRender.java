@@ -1,6 +1,6 @@
 package org.fluentness.service.render;
 
-import org.fluentness.repository.shape.Shape;
+import org.fluentness.repository.mesh.Mesh;
 import org.fluentness.repository.texture.Texture;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.EntityShader;
@@ -21,11 +21,11 @@ public class EntityRender extends AbstractRender<EntityShader> {
     @Override
     public void render(Scene scene) {
         shader.start();
-        Map<Shape, List<Entity>> entities = scene.entities;
-        for (Shape shape : entities.keySet()) {
-            bind(shape.getId(), scene);
-            bindTexture(entities.get(shape).get(0).texture);
-            for (Entity entity : entities.get(shape)) {
+        Map<Mesh, List<Entity>> entities = scene.entities;
+        for (Mesh mesh : entities.keySet()) {
+            bind(mesh.getId(), scene);
+            bindTexture(entities.get(mesh).get(0).texture);
+            for (Entity entity : entities.get(mesh)) {
                 renderEntity(entity);
             }
             unbind();
@@ -52,7 +52,7 @@ public class EntityRender extends AbstractRender<EntityShader> {
         shader.set(shader.shineDamper, entity.shineDamper);
         shader.set(shader.reflectivity, entity.reflectivity);
 
-        GL11.glDrawElements(GL11.GL_TRIANGLES, entity.shape.vertexCount, GL11.GL_UNSIGNED_INT, 0);
+        GL11.glDrawElements(GL11.GL_TRIANGLES, entity.mesh.vertexCount, GL11.GL_UNSIGNED_INT, 0);
     }
 
 }

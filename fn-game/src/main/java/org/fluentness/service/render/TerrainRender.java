@@ -27,7 +27,7 @@ public class TerrainRender extends AbstractRender<TerrainShader> {
     public void render(Scene scene) {
         shader.start();
         for (Terrain terrain : scene.terrains) {
-            bind(terrain.shape.getId(),scene);
+            bind(terrain.mesh.getId(),scene);
             bindTextures(terrain.repeatTextures, terrain.textures);
             renderTerrain(terrain);
             unbind();
@@ -57,6 +57,6 @@ public class TerrainRender extends AbstractRender<TerrainShader> {
         shader.set(shader.shineDamper, 1);
         shader.set(shader.reflectivity, 0);
 
-        GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.shape.vertexCount, GL11.GL_UNSIGNED_INT, 0);
+        GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.mesh.vertexCount, GL11.GL_UNSIGNED_INT, 0);
     }
 }

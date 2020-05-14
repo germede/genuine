@@ -65,7 +65,7 @@ public final class InjectionImpl implements Injection {
         if (notInstantiated.size() > 0) {
             if (notInstantiated.size() >= classes.size()) {
                 throw new InjectionException(
-                    "Cannot resolve dependencies instantiating of [%s], possible causes: Circle dependency or dependency not declared in application",
+                    "Cannot resolve dependencies instantiating [%s], possible causes: Circle dependency or dependency not declared in application",
                     notInstantiated.stream().map(Class::getSimpleName).collect(Collectors.joining(", "))
                 );
             }

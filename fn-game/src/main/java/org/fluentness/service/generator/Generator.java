@@ -1,13 +1,9 @@
 package org.fluentness.service.generator;
 
-import org.fluentness.repository.shape.Shape;
-import org.fluentness.service.MultiService;
+import org.fluentness.controller.scene.terrain.Terrain;
 import org.fluentness.service.Service;
 
-@MultiService
 public interface Generator extends Service {
 
-    Shape generate(float size, float maxHeight, String heightMapPath);
-
-    Shape generate(float size, int vertexCount);
+    Terrain generate(int gridX, int gridZ, float size, float maxHeight, String heightMapPath, String... texturePaths);
 }

@@ -1,6 +1,6 @@
 package org.fluentness.service.parser;
 
-import org.fluentness.repository.shape.RawShape;
+import org.fluentness.repository.mesh.RawMesh;
 import org.fluentness.service.algebra.Vector2f;
 import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.log.Log;
@@ -15,7 +15,7 @@ import java.util.List;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
-public class ShapeParser implements Parser {
+public class MeshParser implements Parser {
 
     private BufferedReader reader;
 
@@ -31,15 +31,15 @@ public class ShapeParser implements Parser {
 
     private final Log log;
 
-    public ShapeParser(Log log) {
+    public MeshParser(Log log) {
         this.log = log;
     }
 
     @Override
-    public RawShape parse(String path) {
+    public RawMesh parse(String path) {
         try {
             process(path);
-            return new RawShape(verticesArray, texturesArray, normalsArray, indicesArray);
+            return new RawMesh(verticesArray, texturesArray, normalsArray, indicesArray);
         } catch (IOException e) {
             log.error(e);
             System.exit(-1);
@@ -48,7 +48,7 @@ public class ShapeParser implements Parser {
     }
 
     private void process(String model) throws IOException {
-        reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/shapes/" + model)));
+        reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/meshs/" + model)));
         clear();
         readLists();
         readFaces();

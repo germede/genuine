@@ -6,12 +6,12 @@ import org.fluentness.service.algebra.AlgebraImpl;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.display.Display;
 import org.fluentness.service.display.GlfwDisplay;
-import org.fluentness.service.generator.TerrainGenerator;
+import org.fluentness.service.generator.GeneratorImpl;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.service.loader.LoaderImpl;
 import org.fluentness.service.memory.Memory;
 import org.fluentness.service.memory.MemoryImpl;
-import org.fluentness.service.parser.ShapeParser;
+import org.fluentness.service.parser.MeshParser;
 import org.fluentness.service.parser.TextureParser;
 import org.fluentness.service.render.EntityRender;
 import org.fluentness.service.render.TerrainRender;
@@ -24,9 +24,9 @@ public abstract class AbstractGameApplication implements Application {
     @Override
     public void provide(Provider provider) {
         provider
-            .service(TerrainGenerator.class)
+            .service(GeneratorImpl.class)
             .service(LoaderImpl.class)
-            .service(ShapeParser.class)
+            .service(MeshParser.class)
             .service(TextureParser.class)
             .service(EntityRender.class)
             .service(TerrainRender.class)

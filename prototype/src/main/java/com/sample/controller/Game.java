@@ -7,6 +7,7 @@ import org.fluentness.controller.scene.Scene;
 import org.fluentness.controller.scene.camera.Camera;
 import org.fluentness.controller.scene.entity.Player;
 import org.fluentness.controller.scene.light.Light;
+import org.fluentness.controller.scene.terrain.Terrain;
 
 public class Game extends AbstractGame {
 
@@ -15,6 +16,8 @@ public class Game extends AbstractGame {
         this.gameRepository = gameRepository;
     }
 
+
+    Terrain terrain;
     Scene scene;
     Light light;
     Camera camera;
@@ -27,7 +30,7 @@ public class Game extends AbstractGame {
             camera = camera(0, 50, 0),
             light = light(0, 0, 0),
             fog(0.0012f, 5.0f),
-            gameRepository.terrain(),
+            terrain = gameRepository.terrain(),
             player = gameRepository.player(),
             entities(
                 gameRepository.lowPolyTrees(),

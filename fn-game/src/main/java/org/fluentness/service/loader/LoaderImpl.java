@@ -1,12 +1,12 @@
 package org.fluentness.service.loader;
 
-import org.fluentness.repository.shape.RawShape;
-import org.fluentness.repository.shape.Shape;
+import org.fluentness.repository.mesh.RawMesh;
+import org.fluentness.repository.mesh.Mesh;
 import org.fluentness.repository.texture.RawTexture;
 import org.fluentness.repository.texture.Texture;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.memory.Memory;
-import org.fluentness.service.parser.ShapeParser;
+import org.fluentness.service.parser.MeshParser;
 import org.fluentness.service.parser.TextureParser;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
@@ -21,26 +21,26 @@ public class LoaderImpl implements Loader {
 
     private final Configuration configuration;
     private final Memory memory;
-    private final ShapeParser shapeParser;
+    private final MeshParser meshParser;
     private final TextureParser textureParser;
 
-    public LoaderImpl(Configuration configuration, Memory memory, ShapeParser shapeParser, TextureParser textureParser) {
+    public LoaderImpl(Configuration configuration, Memory memory, MeshParser meshParser, TextureParser textureParser) {
         this.configuration = configuration;
         this.memory = memory;
-        this.shapeParser = shapeParser;
+        this.meshParser = meshParser;
         this.textureParser = textureParser;
     }
 
     @Override
-    public Shape loadShape(String path) {
-        return loadShape(shapeParser.parse(path));
+    public Mesh loadShape(String path) {
+        return loadShape(meshParser.parse(path));
     }
 
     @Override
-    public Shape loadShape(RawShape rawShape) {
+    public Mesh loadShape(RawMesh rawMesh) {
 
         // load vao
-        int vertexCount = rawShape.getIndices().length;
+        int vertexCount = rawMesh.getIndices().length;
         int vao = GL30.glGenVertexArrays();
         memory.vao(vao);
 
@@ -49,13 +49,13 @@ public class LoaderImpl implements Loader {
         int vbo = GL15.glGenBuffers();
         memory.vbo(vbo);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vbo);
-        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, memory.intBuffer(rawShape.getIndices()), GL15.GL_STATIC_DRAW);
-        loadVbo(0, 3, rawShape.getVertices());
-        loadVbo(1, 2, rawShape.getTextures());
-        loadVbo(2, 3, rawShape.getNormals());
+        GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, memory.intBuffer(rawMesh.getIndices()), GL15.GL_STATIC_DRAW);
+        loadVbo(0, 3, rawMesh.getVertices());
+        loadVbo(1, 2, rawMesh.getTextures());
+        loadVbo(2, 3, rawMesh.getNormals());
         GL30.glBindVertexArray(0);
 
-        return new Shape(vao, vertexCount);
+        return new Mesh(vao, vertexCount);
     }
 
     private void loadVbo(int attributeNumber, int coordinateSize, float[] data) {

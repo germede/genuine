@@ -1,13 +1,13 @@
 package org.fluentness.controller.scene.entity;
 
 import org.fluentness.controller.scene.SceneElement;
-import org.fluentness.repository.shape.Shape;
+import org.fluentness.repository.mesh.Mesh;
 import org.fluentness.repository.texture.Texture;
 import org.fluentness.service.algebra.Vector3f;
 
 public class Entity implements SceneElement {
 
-    public Shape shape;
+    public Mesh mesh;
     public Texture texture;
 
     public Vector3f translation;
@@ -16,13 +16,14 @@ public class Entity implements SceneElement {
 
     public float gravity = -250;
     public float jumpSpeed = 0;
+    public float floor = 0;
     public boolean isJumping = false;
 
     public float shineDamper = 1;
     public float reflectivity = 0;
 
-    public Entity(Shape shape, Texture texture) {
-        this.shape = shape;
+    public Entity(Mesh mesh, Texture texture) {
+        this.mesh = mesh;
         this.texture = texture;
         this.translation = new Vector3f(0, 0, 0);
         this.rotation = new Vector3f(0, 0, 0);
@@ -41,9 +42,9 @@ public class Entity implements SceneElement {
         }
         jumpSpeed += gravity * delta;
         translation.y += jumpSpeed * delta;
-        if (translation.y <= 0) {
+        if (translation.y <= floor) {
             jumpSpeed = 0;
-            translation.y = 0;
+            translation.y = floor;
             isJumping = false;
         }
     }

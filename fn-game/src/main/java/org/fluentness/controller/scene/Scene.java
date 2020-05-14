@@ -8,7 +8,7 @@ import org.fluentness.controller.scene.environment.Background;
 import org.fluentness.controller.scene.environment.Fog;
 import org.fluentness.controller.scene.light.Light;
 import org.fluentness.controller.scene.terrain.Terrain;
-import org.fluentness.repository.shape.Shape;
+import org.fluentness.repository.mesh.Mesh;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -22,7 +22,7 @@ public class Scene implements GameView {
     public Light light;
     public Fog fog;
     public final List<Terrain> terrains = new LinkedList<>();
-    public final Map<Shape, List<Entity>> entities = new HashMap<>();
+    public final Map<Mesh, List<Entity>> entities = new HashMap<>();
 
     public Scene(SceneElement[] sceneElements) {
         for (SceneElement sceneElement : sceneElements) {
@@ -58,9 +58,9 @@ public class Scene implements GameView {
     }
 
     public void addEntity(Entity entity) {
-        if (!this.entities.containsKey(entity.shape)) {
-            this.entities.put(entity.shape, new LinkedList<>());
+        if (!this.entities.containsKey(entity.mesh)) {
+            this.entities.put(entity.mesh, new LinkedList<>());
         }
-        this.entities.get(entity.shape).add(entity);
+        this.entities.get(entity.mesh).add(entity);
     }
 }

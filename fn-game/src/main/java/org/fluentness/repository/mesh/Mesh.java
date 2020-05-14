@@ -1,13 +1,13 @@
-package org.fluentness.repository.shape;
+package org.fluentness.repository.mesh;
 
 import org.fluentness.repository.CrudModel;
 
-public class Shape implements CrudModel {
+public class Mesh implements CrudModel {
 
     private final int id;
     public final int vertexCount;
 
-    public Shape(int id, int vertexCount) {
+    public Mesh(int id, int vertexCount) {
         this.id = id;
         this.vertexCount = vertexCount;
     }

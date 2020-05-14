@@ -1,12 +1,12 @@
 package org.fluentness.controller.scene.entity;
 
-import org.fluentness.repository.shape.Shape;
+import org.fluentness.repository.mesh.Mesh;
 import org.fluentness.repository.texture.Texture;
 
 public class Player extends Entity {
 
-    public Player(Shape shape, Texture texture) {
-        super(shape, texture);
+    public Player(Mesh mesh, Texture texture) {
+        super(mesh, texture);
     }
 
 }
