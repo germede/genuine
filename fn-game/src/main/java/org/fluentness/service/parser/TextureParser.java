@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.IntBuffer;
 
 public class TextureParser implements Parser<RawTexture> {
 
@@ -39,8 +38,7 @@ public class TextureParser implements Parser<RawTexture> {
 
                 pixels[i] = a << 24 | b << 16 | g << 8 | r;
             }
-            IntBuffer pixelss = ByteBuffer.allocateDirect(pixels.length << 2).order(ByteOrder.nativeOrder()).asIntBuffer();
-            pixelss.put(pixels).flip();
+            ByteBuffer.allocateDirect(pixels.length << 2).order(ByteOrder.nativeOrder()).asIntBuffer().put(pixels).flip();
             return new RawTexture(width, height, pixels, hasTransparency);
         } catch (IOException e) {
             log.error(e);

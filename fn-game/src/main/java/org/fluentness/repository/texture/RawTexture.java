@@ -31,4 +31,5 @@ public class RawTexture implements Model {
     public boolean hasTransparency() {
         return hasTransparency;
     }
+
 }

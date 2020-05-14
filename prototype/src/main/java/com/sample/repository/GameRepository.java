@@ -24,7 +24,7 @@ public class GameRepository implements Repository {
     }
 
     public Player player() {
-        Player player = new Player(loader.loadShape("bunny.obj"), loader.loadTexture("white.png"));
+        Player player = new Player(loader.loadShape("dragon.obj"), loader.loadTexture("white.png"));
         player.rotation.y = 180;
         return player;
     }
@@ -47,7 +47,7 @@ public class GameRepository implements Repository {
 
     public Terrain terrain() {
         return new Terrain(
-            terrainGenerator.generate(128, 2000),
+            terrainGenerator.generate(2000, 128, "terrains/maps/heightMap.png"),
             2000,
             0,
             0,

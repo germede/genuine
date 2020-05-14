@@ -7,5 +7,7 @@ import org.fluentness.service.Service;
 @MultiService
 public interface Generator extends Service {
 
-    Shape generate(int vertexCount, float size);
+    Shape generate(float size, float maxHeight, String heightMapPath);
+
+    Shape generate(float size, int vertexCount);
 }
