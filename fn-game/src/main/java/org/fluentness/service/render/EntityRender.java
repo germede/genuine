@@ -1,11 +1,10 @@
 package org.fluentness.service.render;
 
-import org.fluentness.repository.mesh.Mesh;
+import org.fluentness.controller.scene.Scene;
+import org.fluentness.controller.scene.entity.Entity;
 import org.fluentness.repository.texture.Texture;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.EntityShader;
-import org.fluentness.controller.scene.Scene;
-import org.fluentness.controller.scene.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
@@ -21,11 +20,12 @@ public class EntityRender extends AbstractRender<EntityShader> {
     @Override
     public void render(Scene scene) {
         shader.start();
-        Map<Mesh, List<Entity>> entities = scene.entities;
-        for (Mesh mesh : entities.keySet()) {
-            bind(mesh.getId(), scene);
-            bindTexture(entities.get(mesh).get(0).texture);
-            for (Entity entity : entities.get(mesh)) {
+        Map<String, List<Entity>> entities = scene.entities;
+        for (String key : entities.keySet()) {
+            Entity entity1 = entities.get(key).get(0);
+            bind(entity1.mesh.getId(), scene);
+            bindTexture(entity1.texture);
+            for (Entity entity : entities.get(key)) {
                 renderEntity(entity);
             }
             unbind();
