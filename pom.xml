@@ -57,6 +57,7 @@
                 <configuration>
                     <source>${languageLevel}</source>
                     <target>${languageLevel}</target>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
         </plugins>

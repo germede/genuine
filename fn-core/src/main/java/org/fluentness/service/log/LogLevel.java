@@ -1,7 +1,5 @@
 package org.fluentness.service.log;
 
-import android.util.Log;
-
 import java.util.logging.Level;
 
 import static org.fluentness.service.log.AnsiColor.*;
@@ -19,22 +17,6 @@ public enum LogLevel {
                         julLevel.equals(Level.WARNING) ? WARNING :
                                 julLevel.equals(Level.SEVERE) ? ERROR :
                                         LogLevel.NONE;
-    }
-
-    public static LogLevel fromAndroidPriority(int androidPriority) {
-        switch (androidPriority) {
-            case Log.ASSERT:
-            case Log.ERROR:
-                return ERROR;
-            case Log.WARN:
-                return WARNING;
-            case Log.INFO:
-                return INFO;
-            case Log.DEBUG:
-            case Log.VERBOSE:
-            default:
-                return DEBUG;
-        }
     }
 
     private AnsiColor ansiColor;
@@ -71,11 +53,4 @@ public enum LogLevel {
                                         Level.OFF;
     }
 
-    public int toAndroidPriority() {
-        return this.equals(LogLevel.DEBUG) ? Log.DEBUG :
-                this.equals(LogLevel.INFO) ? Log.INFO :
-                        this.equals(LogLevel.WARNING) ? Log.WARN :
-                                this.equals(LogLevel.ERROR) ? Log.ERROR :
-                                        Log.ASSERT;
-    }
 }
