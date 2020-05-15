@@ -139,7 +139,7 @@ public class RouterImpl implements Router {
             } else if (float.class.isAssignableFrom(type)) {
                 result[i] = request.hasParameter(name) ? Float.parseFloat(request.getParameter(name)) : 0.0f;
             } else if (boolean.class.isAssignableFrom(type)) {
-                result[i] = request.hasParameter(name) ? Boolean.parseBoolean(request.getParameter(name)) : false;
+                result[i] = request.hasParameter(name) && Boolean.parseBoolean(request.getParameter(name));
             } else if (Date.class.isAssignableFrom(type)) {
                 result[i] = request.hasParameter(name) ? Date.parse(request.getParameter(name)) : new Date(0);
             }
@@ -149,16 +149,14 @@ public class RouterImpl implements Router {
 
     private Response handleWebView(Request request, AbstractWebController webController, CharSequence returned) {
         String render;
-        // todo fix translation
+        if (returned instanceof String) {
+            returned = translator.translate((String) returned, request.getLanguages());
+        }
 
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
         } else {
-
-//            render = translator.translate(
-            render =    webController.getWeb().render().toString();
-//            );
-
+            render = webController.getWeb().render().toString();
             if (configuration.get(SINGLE_PAGE_MODE)) {
                 render = render
                     .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")
