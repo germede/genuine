@@ -5,7 +5,7 @@ import org.fluentness.service.server.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-public abstract class BasicAuthentication implements Authentication {
+public abstract class AbstractBasicAuthentication implements Authentication {
 
     @Override
     public boolean authorize(Request request) {

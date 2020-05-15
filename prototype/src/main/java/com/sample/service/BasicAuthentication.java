@@ -1,16 +1,16 @@
 package com.sample.service;
 
 import com.sample.repository.User;
-import org.fluentness.service.authentication.BasicAuthentication;
+import org.fluentness.service.authentication.AbstractBasicAuthentication;
 import org.fluentness.service.persistence.Persistence;
 
 import static org.fluentness.repository.AbstractCrudRepository.eq;
 
-public class Authentication extends BasicAuthentication {
+public class BasicAuthentication extends AbstractBasicAuthentication {
 
     private final Persistence persistence;
 
-    public Authentication(Persistence persistence) {
+    public BasicAuthentication(Persistence persistence) {
         this.persistence = persistence;
     }
 

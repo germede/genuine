@@ -1,7 +1,7 @@
 package org.fluentness.service;
 
-import static org.fluentness.service.translator.TranslationFactory.de;
-import static org.fluentness.service.translator.TranslationFactory.es;
+import static org.fluentness.service.translator.AbstractStringTranslator.de;
+import static org.fluentness.service.translator.AbstractStringTranslator.es;
 
 public class Translation {
 // todo make interface?

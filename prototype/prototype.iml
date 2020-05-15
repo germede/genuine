@@ -13,13 +13,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="fn-core" />
     <orderEntry type="module" module-name="fn-desktop" />
-    <orderEntry type="module" module-name="fn-game" />
-    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl:3.2.3" level="project" />
-    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl:natives-linux:3.2.3" level="project" />
-    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-opengl:3.2.3" level="project" />
-    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-opengl:natives-linux:3.2.3" level="project" />
-    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-glfw:3.2.3" level="project" />
-    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-glfw:natives-linux:3.2.3" level="project" />
     <orderEntry type="module" module-name="fn-mobile" />
     <orderEntry type="module" module-name="fn-web" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.17" level="project" />

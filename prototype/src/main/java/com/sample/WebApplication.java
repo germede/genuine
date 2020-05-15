@@ -6,7 +6,8 @@ import com.sample.controller.WebNotesController;
 import com.sample.controller.WebUsersController;
 import com.sample.repository.NoteRepository;
 import com.sample.repository.UserRepository;
-import com.sample.service.Authentication;
+import com.sample.service.BasicAuthentication;
+import com.sample.service.StringTranslator;
 import org.fluentness.AbstractWebApplication;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
@@ -25,7 +26,8 @@ public class WebApplication extends AbstractWebApplication {
         super.provide(provider);
         provider
             .service(JdbcPersistence.class)
-            .service(Authentication.class)
+            .service(BasicAuthentication.class)
+            .service(StringTranslator.class)
             .repository(NoteRepository.class)
             .repository(UserRepository.class)
             .controller(WebController.class)

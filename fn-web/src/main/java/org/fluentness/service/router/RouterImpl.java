@@ -2,11 +2,12 @@ package org.fluentness.service.router;
 
 import org.fluentness.Fluentness;
 import org.fluentness.controller.AbstractWebController;
+import org.fluentness.controller.html.HtmlAttribute;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.server.*;
-import org.fluentness.controller.html.HtmlAttribute;
+import org.fluentness.service.translator.Translator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,13 +28,15 @@ public class RouterImpl implements Router {
     private final Authentication authentication;
     private final Log log;
     private final Configuration configuration;
+    private final Translator translator;
 
     private final Map<String, Method> routes;
 
-    public RouterImpl(Authentication authentication, Log log, Configuration configuration) {
+    public RouterImpl(Authentication authentication, Log log, Configuration configuration, Translator translator) {
         this.authentication = authentication;
         this.log = log;
         this.configuration = configuration;
+        this.translator = translator;
 
         this.routes = AbstractWebController.pathMethodMap;
     }
@@ -151,7 +154,11 @@ public class RouterImpl implements Router {
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
         } else {
-            render = webController.getWeb().render().toString();
+
+//            render = translator.translate(
+            render =    webController.getWeb().render().toString();
+//            );
+
             if (configuration.get(SINGLE_PAGE_MODE)) {
                 render = render
                     .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")

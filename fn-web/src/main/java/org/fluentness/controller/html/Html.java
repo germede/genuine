@@ -1,5 +1,9 @@
 package org.fluentness.controller.html;
 
+import org.fluentness.Fluentness;
+import org.fluentness.controller.AbstractWebController;
+import org.fluentness.service.translator.Translator;
+
 import static org.fluentness.controller.html.HtmlAttribute.SEPARATOR;
 
 public abstract class Html implements CharSequence {
@@ -13,8 +17,16 @@ public abstract class Html implements CharSequence {
         attributes = new StringBuilder();
         inner = new StringBuilder();
 
+        Translator translator = Fluentness.getInstance(Translator.class);
+
         for (CharSequence item : html) {
-            String render = item.toString();
+            String render;
+            if (translator != null && item instanceof String) {
+                render = translator.translate(item.toString(), AbstractWebController.request.get().getLanguages());
+            } else {
+                render = item.toString();
+            }
+
             // if attribute
             if (render.startsWith(HtmlAttribute.SEPARATOR)) {
                 render = render.substring(SEPARATOR.length());

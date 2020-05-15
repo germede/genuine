@@ -28,11 +28,6 @@
         </dependency>
         <dependency>
             <groupId>org.fluentness</groupId>
-            <artifactId>fn-game</artifactId>
-            <version>${projectVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fluentness</groupId>
             <artifactId>fn-mobile</artifactId>
             <version>${projectVersion}</version>
         </dependency>

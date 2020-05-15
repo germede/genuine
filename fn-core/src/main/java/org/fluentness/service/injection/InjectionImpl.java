@@ -10,7 +10,6 @@ import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.configuration.ConfigurationImpl;
 import org.fluentness.service.log.JulLog;
-import org.fluentness.service.translator.TranslatorImpl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -33,7 +32,6 @@ public final class InjectionImpl implements Injection {
     public void inject() throws InjectionException {
         Provider provider = new Provider()
             .service(ConfigurationImpl.class)
-            .service(TranslatorImpl.class)
             .service(JulLog.class)
             .controller(ConsoleController.class);
 

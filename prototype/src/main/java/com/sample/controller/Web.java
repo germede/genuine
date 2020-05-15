@@ -3,7 +3,7 @@ package com.sample.controller;
 import org.fluentness.controller.AbstractWeb;
 import org.fluentness.controller.WebView;
 
-import static com.sample.service.Translation.*;
+import static com.sample.service.StringTranslator.*;
 import static org.fluentness.controller.html.HtmlAttribute.*;
 
 public class Web extends AbstractWeb {
