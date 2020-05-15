@@ -5,7 +5,7 @@ import org.junit.Test;
 public class GameTest {
 
     @Test
-    public void launchTest() throws FluentnessException {
+    public void visualTest() throws FluentnessException {
         GameApplication.main(null);
     }
 }
