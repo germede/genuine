@@ -1,4 +1,4 @@
-package com.sample.repository;
+package org.fluentness.repository;
 
 import org.fluentness.controller.scene.entity.Entity;
 import org.fluentness.controller.scene.entity.Player;

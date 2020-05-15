@@ -1,6 +1,6 @@
-package com.sample.controller;
+package org.fluentness.controller;
 
-import com.sample.repository.GameRepository;
+import org.fluentness.repository.GameRepository;
 import org.fluentness.controller.AbstractGame;
 import org.fluentness.controller.input.GameView;
 import org.fluentness.controller.scene.Scene;

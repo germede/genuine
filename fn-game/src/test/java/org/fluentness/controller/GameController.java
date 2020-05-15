@@ -1,4 +1,4 @@
-package com.sample.controller;
+package org.fluentness.controller;
 
 import org.fluentness.controller.AbstractGameController;
 import org.fluentness.service.animator.Animator;
