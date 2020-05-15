@@ -12,7 +12,7 @@ public class WebController extends AbstractWebController<Web> {
         super(web);
     }
 
-    @Action
+    @Action(path = "index")
     String index() {
         return _welcome_message;
     }

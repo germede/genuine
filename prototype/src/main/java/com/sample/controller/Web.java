@@ -25,14 +25,13 @@ public class Web extends AbstractWeb {
             body(
                 nav(
                     a(ID + "index", CLASS + "brand", "WorkStation"),
-
                     input(ID + "burger", TYPE + "checkbox", CLASS + "show"),
                     label(FOR + "burger", CLASS + "burger pseudo button", _menu),
                     div(CLASS + "menu",
-                        a(ID + "notes", CLASS + "pseudo button", _notes),
-                        a(ID + "events", CLASS + "pseudo button", _events),
-                        a(ID + "bookmarks", CLASS + "pseudo button", "Bookmarks"),
-                        a(ID + "users", CLASS + "pseudo button", _users)
+                        action("notes", CLASS + "pseudo button", _notes),
+                        action("events", CLASS + "pseudo button", _events),
+                        action("bookmarks", CLASS + "pseudo button", "Bookmarks"),
+                        action("users", CLASS + "pseudo button", _users)
                     )
                 ),
                 div(CLASS + "flex wrapper",

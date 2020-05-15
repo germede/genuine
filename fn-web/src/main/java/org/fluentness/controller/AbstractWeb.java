@@ -1,9 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.html.Html;
-import org.fluentness.controller.html.HtmlContainer;
-import org.fluentness.controller.html.HtmlEmpty;
-import org.fluentness.controller.html.HtmlRoot;
+import org.fluentness.controller.html.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +30,10 @@ public abstract class AbstractWeb implements ViewHolder<WebView> {
 
     public static Html a(CharSequence... html) {
         return new HtmlContainer("a", html);
+    }
+
+    public static Html action(String actionName, CharSequence... html) {
+        return new HtmlAction(actionName, html);
     }
 
     public static Html abbr(CharSequence... html) {
