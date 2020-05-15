@@ -1,6 +1,7 @@
 package com.sample.controller;
 
 import org.fluentness.controller.AbstractGameController;
+import org.fluentness.service.animator.Animator;
 import org.fluentness.service.display.Display;
 
 import static org.fluentness.controller.input.Input.KEY;
@@ -9,11 +10,14 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class GameController extends AbstractGameController<Game> {
 
-    private double lastCursorPositionX, lastCursorPositionY;
+    private final Animator animator;
 
-    public GameController(Game game, Display display) {
+    public GameController(Game game, Display display, Animator animator) {
         super(game, display);
+        this.animator = animator;
     }
+
+    private double lastCursorPositionX, lastCursorPositionY;
 
     @Override
     public void loop() {
@@ -52,7 +56,7 @@ public class GameController extends AbstractGameController<Game> {
 
     @Action(SCROLL)
     void scrollListener(double dx, double dy) {
-        game.camera.zoom -= dy * 10;
+        animator.animate(Animator.BEZIER, game.camera.zoom, game.camera.zoom + (float) -dy * 50, y -> game.camera.zoom = y, 300);
     }
 
     @Action(KEY)

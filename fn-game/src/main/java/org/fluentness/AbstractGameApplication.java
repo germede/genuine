@@ -3,6 +3,8 @@ package org.fluentness;
 import org.fluentness.controller.AbstractGameController;
 import org.fluentness.controller.scene.Scene;
 import org.fluentness.service.algebra.AlgebraImpl;
+import org.fluentness.service.animator.Animator;
+import org.fluentness.service.animator.AnimatorImpl;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.display.Display;
 import org.fluentness.service.display.GlfwDisplay;
@@ -34,6 +36,7 @@ public abstract class AbstractGameApplication implements Application {
             .service(TerrainShader.class)
             .service(GlfwDisplay.class)
             .service(AlgebraImpl.class)
+            .service(AnimatorImpl.class)
             .service(MemoryImpl.class)
         ;
     }
@@ -50,6 +53,7 @@ public abstract class AbstractGameApplication implements Application {
         TerrainRender terrainRender = Fluentness.getInstance(TerrainRender.class);
         EntityRender entityRender = Fluentness.getInstance(EntityRender.class);
         Memory memory = Fluentness.getInstance(Memory.class);
+        Animator animator = Fluentness.getInstance(Animator.class);
         AbstractGameController controller = Fluentness.getInstances(AbstractGameController.class).get(0);
         Scene scene = (Scene) controller.getGame().render();
 
@@ -58,6 +62,7 @@ public abstract class AbstractGameApplication implements Application {
             terrainRender.render(scene);
             entityRender.render(scene);
             controller.loop();
+            animator.step();
             display.update();
         }
         memory.cleanUp();
