@@ -1,18 +1,14 @@
 package org.fluentness.controller;
 
 import org.fluentness.Fluentness;
-import org.fluentness.repository.CrudModel;
 import org.fluentness.repository.AbstractCrudRepository;
+import org.fluentness.repository.CrudModel;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.persistence.Persistence;
 
-import javax.swing.*;
-import java.awt.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static org.fluentness.service.log.AnsiColor.*;
@@ -65,44 +61,44 @@ public final class ConsoleController extends AbstractConsoleController {
         });
     }
 
-    @Action(category = "html", description = "Converts normal html code into Fluentness compilable code")
-    void convert() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-
-        JFrame frame = new JFrame();
-        JTextPane input = new JTextPane();
-        JButton button = new JButton("Convert");
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(1000, 300));
-
-        ScrollPane inputScroll = new ScrollPane();
-        inputScroll.add(input);
-
-        frame.setLayout(new BorderLayout());
-        frame.add(inputScroll, BorderLayout.CENTER);
-        frame.add(button, BorderLayout.SOUTH);
-
-        frame.pack();
-        frame.setVisible(true);
-
-        button.addActionListener(e -> {
-            final Pattern TAG_PATTERN = Pattern.compile("<(?!!)(?!/)\\s*([a-zA-Z0-9]+)(.*?)>(.+)<");
-            final Pattern ATTRIBUTE_PATTERN = Pattern.compile("(\\S+)=['\"]{1}([^>]*?)['\"]{1}");
-
-            String text = input.getText().replaceAll("<(\\w+)\\s", "$1(");
-            text = text.replaceAll("\\s(\\w+)=\"([\\w\\s]+)\"", "$1 + \"$2\", ");
-            text = text.replaceAll("</\\w*>", "),");
-            text = text.replaceAll(">", "");
-            // todo improve
-
-            input.setText(text);
-        });
-    }
+//    @Action(category = "html", description = "Converts normal html code into Fluentness compilable code")
+//    void convert() {
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+//            e.printStackTrace();
+//        }
+//
+//        JFrame frame = new JFrame();
+//        JTextPane input = new JTextPane();
+//        JButton button = new JButton("Convert");
+//
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setPreferredSize(new Dimension(1000, 300));
+//
+//        ScrollPane inputScroll = new ScrollPane();
+//        inputScroll.add(input);
+//
+//        frame.setLayout(new BorderLayout());
+//        frame.add(inputScroll, BorderLayout.CENTER);
+//        frame.add(button, BorderLayout.SOUTH);
+//
+//        frame.pack();
+//        frame.setVisible(true);
+//
+//        button.addActionListener(e -> {
+//            final Pattern TAG_PATTERN = Pattern.compile("<(?!!)(?!/)\\s*([a-zA-Z0-9]+)(.*?)>(.+)<");
+//            final Pattern ATTRIBUTE_PATTERN = Pattern.compile("(\\S+)=['\"]{1}([^>]*?)['\"]{1}");
+//
+//            String text = input.getText().replaceAll("<(\\w+)\\s", "$1(");
+//            text = text.replaceAll("\\s(\\w+)=\"([\\w\\s]+)\"", "$1 + \"$2\", ");
+//            text = text.replaceAll("</\\w*>", "),");
+//            text = text.replaceAll(">", "");
+//            // todo improve
+//
+//            input.setText(text);
+//        });
+//    }
 
     @Action(category = "sql", description = "Prints out required create sql statements based on existing Models")
     void schema() {

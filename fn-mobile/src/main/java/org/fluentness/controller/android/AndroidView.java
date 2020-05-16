@@ -1,18 +1,18 @@
 package org.fluentness.controller.android;
 
-import android.app.Activity;
+import android.view.View;
 import org.fluentness.controller.MobileView;
 
 public class AndroidView implements MobileView {
 
-    private final Activity activity;
+    private final View view;
 
-    public AndroidView(Activity activity) {
-        this.activity = activity;
+    public AndroidView(View view) {
+        this.view = view;
     }
 
-    public Activity getActivity() {
-        return activity;
+    public View getView() {
+        return view;
     }
 
 }

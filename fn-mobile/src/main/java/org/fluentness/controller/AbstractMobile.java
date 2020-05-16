@@ -1,6 +1,5 @@
 package org.fluentness.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,8 +11,7 @@ public abstract class AbstractMobile implements ViewHolder<MobileView> {
     public static Context context;
 
     protected static MobileView activity(View rootView) {
-        Activity activity = new Activity();
-        return new AndroidView(activity);
+        return new AndroidView(rootView);
     }
 
     protected static LinearLayout linearLayout(View... views) {

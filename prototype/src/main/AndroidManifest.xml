@@ -4,7 +4,7 @@
         android:label="Test">
         <activity
                 android:name="org.fluentness.controller.android.MainActivity"
-                android:label="com.sample.WorkStation">
+                android:label="com.sample.MobileApplication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

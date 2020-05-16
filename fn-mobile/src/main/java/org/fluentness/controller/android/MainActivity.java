@@ -1,6 +1,5 @@
 package org.fluentness.controller.android;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import org.fluentness.Application;
@@ -9,6 +8,8 @@ import org.fluentness.FluentnessException;
 import org.fluentness.controller.AbstractMobile;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.service.log.Log;
+
+import java.util.List;
 
 public class MainActivity extends android.app.Activity {
 
@@ -24,9 +25,9 @@ public class MainActivity extends android.app.Activity {
 
             AbstractMobile.context = this;
             // todo manage more controllers and views
-            AndroidView androidView = (AndroidView) Fluentness.getInstances(AbstractMobileController.class).get(0).getMobile().render();
-            Intent intent = new Intent(this, androidView.getClass());
-            startActivity(intent);
+            List<AbstractMobileController> instances = Fluentness.getInstances(AbstractMobileController.class);
+            AndroidView androidView = (AndroidView) instances.get(0).getMobile().render();
+            setContentView(androidView.getView());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | FluentnessException | PackageManager.NameNotFoundException e) {
             Log log = Fluentness.getInstance(Log.class);
             if (log != null) {
