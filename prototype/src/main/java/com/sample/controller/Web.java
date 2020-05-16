@@ -28,17 +28,17 @@ public class Web extends AbstractWeb {
                     label(FOR + "burger", CLASS + "burger pseudo button", _menu),
                     div(CLASS + "menu",
                         action(WebController.class, "index", CLASS + "pseudo button", "WorkStation"),
-                        action(WebEmailController.class, "files", CLASS + "pseudo button", _email),
+                        action(WebFilesController.class, "files", CLASS + "pseudo button", _files),
                         action(WebEmailController.class, "email", CLASS + "pseudo button", _email),
-                        action(WebEventsController.class, "events", CLASS + "pseudo button", _events),
-                        action(WebEventsController.class, "contacts", CLASS + "pseudo button", _events),
-                        action(WebEventsController.class, "tasks", CLASS + "pseudo button", _events),
+                        action(WebCalendarController.class, "month", CLASS + "pseudo button", _calendar),
+                        action(WebContactsController.class, "contacts", CLASS + "pseudo button", _contacts),
+                        action(WebTasksController.class, "tasks", CLASS + "pseudo button", _tasks),
                         action(WebNotesController.class, "notes", CLASS + "pseudo button", _notes),
-                        action(WebUsersController.class, "bookmarks", CLASS + "pseudo button", _users),
-                        action(WebUsersController.class, "passwords", CLASS + "pseudo button", _users),
+                        action(WebBookmarksController.class, "bookmarks", CLASS + "pseudo button", _bookmarks),
+                        action(WebPasswordsController.class, "passwords", CLASS + "pseudo button", _passwords),
                         div(CLASS + "right",
-                            action(WebUsersController.class, "users", CLASS + "pseudo button right", _users),
-                            action(WebUsersController.class, "settings", CLASS + "pseudo button right", _users)
+                            action(WebSettingsController.class, "users", CLASS + "pseudo button right", _users),
+                            action(WebSettingsController.class, "settings", CLASS + "pseudo button right", _settings)
                         )
                     )
                 ),

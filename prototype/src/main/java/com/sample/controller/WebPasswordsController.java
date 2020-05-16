@@ -13,15 +13,15 @@ import static org.fluentness.controller.AbstractWeb.*;
 import static org.fluentness.controller.html.HtmlAttribute.CLASS;
 import static org.fluentness.controller.html.HtmlAttribute.HREF;
 
-public class WebEventsController extends AbstractWebController<Web> {
+public class WebPasswordsController extends AbstractWebController<Web> {
 
-    @BasePath("/events")
-    public WebEventsController(Web web) {
+    @BasePath("/calendar")
+    public WebPasswordsController(Web web) {
         super(web);
     }
 
     @Action
-    Html events(int year, int month) {
+    Html month(int year, int month) {
         YearMonth current = (year == 0 && month == 0) ? YearMonth.now() : YearMonth.of(year, month);
         YearMonth previous = current.minusMonths(1);
         YearMonth next = current.plusMonths(1);
@@ -31,10 +31,10 @@ public class WebEventsController extends AbstractWebController<Web> {
                 i(CLASS + "icono-calendar"),
                 current.format(DateTimeFormatter.ofPattern("MMMM y", request.get().getLocale())),
                 div(CLASS + "right",
-                    a(HREF + "/events?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),
+                    a(HREF + "/calendar/month?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),
                         i(CLASS + "icono-caretLeftCircle")
                     ),
-                    a(HREF + "/events?year=" + next.getYear() + "&month=" + next.getMonthValue(),
+                    a(HREF + "/calendar/month?year=" + next.getYear() + "&month=" + next.getMonthValue(),
                         i(CLASS + "icono-caretRightCircle")
                     )
                 )
@@ -50,7 +50,6 @@ public class WebEventsController extends AbstractWebController<Web> {
     }
 
     private List<LocalDate> getDays(YearMonth month) {
-
         List<LocalDate> days = new LinkedList<>();
         LocalDate firstDay = month.atDay(1);
         LocalDate lastDay = month.atDay(month.lengthOfMonth());
@@ -64,7 +63,6 @@ public class WebEventsController extends AbstractWebController<Web> {
         for (int k = 1; k < 8 - lastDay.getDayOfWeek().getValue(); k++) {
             days.add(lastDay.plusDays(k));
         }
-
         return days;
     }
 

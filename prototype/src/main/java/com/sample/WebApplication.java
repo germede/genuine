@@ -29,9 +29,9 @@ public class WebApplication extends AbstractWebApplication {
             .repository(UserRepository.class)
             .controller(WebController.class)
             .controller(WebEmailController.class)
-            .controller(WebEventsController.class)
+            .controller(WebCalendarController.class)
             .controller(WebNotesController.class)
-            .controller(WebUsersController.class)
+            .controller(WebSettingsController.class)
         ;
     }
 

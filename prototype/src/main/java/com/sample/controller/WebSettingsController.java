@@ -9,12 +9,12 @@ import static com.sample.service.StringTranslator.*;
 import static org.fluentness.controller.AbstractWeb.*;
 import static org.fluentness.controller.html.HtmlAttribute.*;
 
-public class WebUsersController extends AbstractWebController {
+public class WebSettingsController extends AbstractWebController {
 
     private final UserRepository userRepository;
 
     @BasePath("/users")
-    public WebUsersController(Web web, UserRepository userRepository) {
+    public WebSettingsController(Web web, UserRepository userRepository) {
         super(web);
         this.userRepository = userRepository;
     }
@@ -39,7 +39,7 @@ public class WebUsersController extends AbstractWebController {
             div(CLASS + "modal",
                 input(ID + "new-user-modal", TYPE + "checkbox"),
                 label(FOR + "new-user-modal", CLASS + "overlay"),
-                form(ID + "newUser", METHOD + "GET",
+                form(ACTION + "/users/create", METHOD + "GET",
                     article(
                         header(
                             h3(_create),
@@ -59,14 +59,14 @@ public class WebUsersController extends AbstractWebController {
         );
     }
 
-    @Action(path = "/new")
-    Html newUser(String username, String password) {
+    @Action
+    Html create(String username, String password) {
         userRepository.insert(new User(0, username, password));
         return users();
     }
 
-    @Action(path = "/delete")
-    Html deleteUser(int id) {
+    @Action
+    Html delete(int id) {
         userRepository.delete(id);
         return users();
     }

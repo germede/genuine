@@ -11,15 +11,17 @@ public abstract class AbstractWeb implements ViewHolder<WebView> {
     public static final String ACTION_RESULT = "###ACTION_RESULT###";
 
     public static <T, V extends CharSequence> CharSequence forEach(Iterable<T> iterable, Function<T, V> function) {
-        List<V> result = new LinkedList<>();
-        iterable.forEach(t -> result.add(function.apply(t)));
+        List<String> result = new LinkedList<>();
+        for (T t : iterable) {
+            result.add(function.apply(t).toString());
+        }
         return String.join("", result);
     }
 
     public static <T, V extends CharSequence> CharSequence forEach(T[] iterable, Function<T, V> function) {
-        List<V> result = new LinkedList<>();
+        List<String> result = new LinkedList<>();
         for (T t : iterable) {
-            result.add(function.apply(t));
+            result.add(function.apply(t).toString());
         }
         return String.join("", result);
     }
