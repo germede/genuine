@@ -23,6 +23,8 @@ public class StringTranslator extends AbstractStringTranslator {
         _page_not_found = "Page not found" + de("Seite nicht gefunden") + es("Página no encontrada"),
         _server_error = "Server error" + de("Server-Fehler") + es("Error de servidor"),
 
+    _email = "Email" + de("E-Mail") + es("E-mail"),
+
     _events = "Events" + de("Ereignisse") + es("Eventos"),
 
     _notes = "Notes" + de("Notizen") + es("Notas"),

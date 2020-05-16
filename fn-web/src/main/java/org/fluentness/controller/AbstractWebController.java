@@ -25,11 +25,12 @@ public abstract class AbstractWebController<W extends AbstractWeb> implements Co
         Constructor<?>[] constructors = getClass().getConstructors();
         Arrays.stream(getActions()).forEach(action -> {
             Action annotation = action.getAnnotation(Action.class);
+            String actionPath = annotation.path().equals("") ? "/" + action.getName() : annotation.path();
             String path = constructors[0].isAnnotationPresent(BasePath.class) ?
-                constructors[0].getAnnotation(BasePath.class).value() + annotation.path() :
-                annotation.path();
+                constructors[0].getAnnotation(BasePath.class).value() + actionPath :
+                actionPath;
             pathMethodMap.put(annotation.method() + " " + path, action);
-            methodPathMap.put(action.getName(), path);
+            methodPathMap.put(this.getClass().getCanonicalName() + action.getName(), path);
         });
     }
 

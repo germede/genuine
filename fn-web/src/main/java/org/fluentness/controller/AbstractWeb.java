@@ -32,8 +32,8 @@ public abstract class AbstractWeb implements ViewHolder<WebView> {
         return new HtmlContainer("a", html);
     }
 
-    public static Html action(String actionName, CharSequence... html) {
-        return new HtmlAction(actionName, html);
+    public static Html action(Class<? extends Controller> controller, String action, CharSequence... html) {
+        return new HtmlAction(controller, action, html);
     }
 
     public static Html abbr(CharSequence... html) {

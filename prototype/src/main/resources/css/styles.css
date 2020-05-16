@@ -1,6 +1,6 @@
 body {
-    background: #111;
-    color: #fff;
+    #background: #111;
+    #color: #fff;
 }
 
 nav {
@@ -23,16 +23,31 @@ nav .menu > * {
 
 nav .show ~ .menu {
     left: 0;
-    right: 30%;
-    max-width: 100%;
-    width: auto;
+    right: 0;
+    width: 100%;
     transform-origin: left;
     background: transparent;
-    transition: all 1s ease;
+    transition: all .25s ease;
+}
+
+nav .menu > *:first-child {
+    font-weight: 700;
+}
+
+nav .show ~ .menu > .right {
+    bottom: 0;
+    right: 0;
+    position: absolute;
 }
 
 nav .show:checked ~ .menu {
+    max-height: 100vh;
     background: #333;
+}
+
+nav .show:checked ~ .menu > * {
+    transform: none !important;
+    transition: none !important;
 }
 
 nav .menu a[data=current] {

@@ -6,9 +6,11 @@ import java.util.Properties;
 
 public class CheckingEmails {
 
-    public static void check(String host, String storeType, String user,
-                             String password)
-    {
+    public String check(String user, String password) {
+        String host = "imap.gmail.com";// change accordingly
+        String mailStoreType = "imap";
+
+        StringBuilder text = new StringBuilder();
         try {
 
             //create properties field
@@ -30,40 +32,31 @@ public class CheckingEmails {
 
             // retrieve the messages from the folder in an array and print it
             Message[] messages = emailFolder.getMessages();
-            System.out.println("messages.length---" + messages.length);
+            text.append("messages.length---" + messages.length);
+            text.append("\n");
 
             for (int i = 0, n = messages.length; i < n; i++) {
                 Message message = messages[i];
-                System.out.println("---------------------------------");
-                System.out.println("Email Number " + (i + 1));
-                System.out.println("Subject: " + message.getSubject());
-                System.out.println("From: " + message.getFrom()[0]);
-                System.out.println("Text: " + message.getContent().toString());
+                text.append("---------------------------------");
+                text.append("\n");
+                text.append("Email Number " + (i + 1));
+                text.append("\n");
+                text.append("Subject: " + message.getSubject());
+                text.append("\n");
+                text.append("From: " + message.getFrom()[0]);
+                text.append("\n");
+                text.append("Text: " + message.getContent().toString());
 
             }
 
             //close the store and folder objects
             emailFolder.close(false);
             store.close();
-
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        } catch (MessagingException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return text.toString();
     }
 
-    public static void main(String[] args) {
-
-        String host = "imap.gmail.com";// change accordingly
-        String mailStoreType = "imap";
-        String username = "";// change accordingly
-        String password = "";// change accordingly
-
-        check(host, mailStoreType, username, password);
-
-    }
 
 }

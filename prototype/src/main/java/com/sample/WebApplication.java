@@ -1,9 +1,6 @@
 package com.sample;
 
-import com.sample.controller.WebController;
-import com.sample.controller.WebEventsController;
-import com.sample.controller.WebNotesController;
-import com.sample.controller.WebUsersController;
+import com.sample.controller.*;
 import com.sample.repository.NoteRepository;
 import com.sample.repository.UserRepository;
 import com.sample.service.BasicAuthentication;
@@ -31,6 +28,7 @@ public class WebApplication extends AbstractWebApplication {
             .repository(NoteRepository.class)
             .repository(UserRepository.class)
             .controller(WebController.class)
+            .controller(WebEmailController.class)
             .controller(WebEventsController.class)
             .controller(WebNotesController.class)
             .controller(WebUsersController.class)

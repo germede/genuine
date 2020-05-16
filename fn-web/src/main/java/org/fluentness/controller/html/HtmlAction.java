@@ -1,11 +1,15 @@
 package org.fluentness.controller.html;
 
 import org.fluentness.controller.AbstractWebController;
+import org.fluentness.controller.Controller;
+
+import java.util.Map;
 
 public class HtmlAction extends HtmlContainer {
 
-    public HtmlAction(String actionName, CharSequence[] html) {
+    public HtmlAction(Class<? extends Controller> controller, String actionName, CharSequence[] html) {
         super("a", html);
-        attributes.append(" href=\"").append(AbstractWebController.methodPathMap.get(actionName)).append("\"");
+        Map<String, String> methodPathMap = AbstractWebController.methodPathMap;
+        attributes.append(" href=\"").append(methodPathMap.get(controller.getCanonicalName() + actionName)).append("\"");
     }
 }

@@ -24,14 +24,22 @@ public class Web extends AbstractWeb {
             ),
             body(
                 nav(
-                    a(ID + "index", CLASS + "brand", "WorkStation"),
                     input(ID + "burger", TYPE + "checkbox", CLASS + "show"),
                     label(FOR + "burger", CLASS + "burger pseudo button", _menu),
                     div(CLASS + "menu",
-                        action("notes", CLASS + "pseudo button", _notes),
-                        action("events", CLASS + "pseudo button", _events),
-                        action("bookmarks", CLASS + "pseudo button", "Bookmarks"),
-                        action("users", CLASS + "pseudo button", _users)
+                        action(WebController.class, "index", CLASS + "pseudo button", "WorkStation"),
+                        action(WebEmailController.class, "files", CLASS + "pseudo button", _email),
+                        action(WebEmailController.class, "email", CLASS + "pseudo button", _email),
+                        action(WebEventsController.class, "events", CLASS + "pseudo button", _events),
+                        action(WebEventsController.class, "contacts", CLASS + "pseudo button", _events),
+                        action(WebEventsController.class, "tasks", CLASS + "pseudo button", _events),
+                        action(WebNotesController.class, "notes", CLASS + "pseudo button", _notes),
+                        action(WebUsersController.class, "bookmarks", CLASS + "pseudo button", _users),
+                        action(WebUsersController.class, "passwords", CLASS + "pseudo button", _users),
+                        div(CLASS + "right",
+                            action(WebUsersController.class, "users", CLASS + "pseudo button right", _users),
+                            action(WebUsersController.class, "settings", CLASS + "pseudo button right", _users)
+                        )
                     )
                 ),
                 div(CLASS + "flex wrapper",
