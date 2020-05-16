@@ -30,7 +30,7 @@ public class Web extends AbstractWeb {
                         action(WebController.class, "index", CLASS + "pseudo button", "WorkStation"),
                         action(WebFilesController.class, "files", CLASS + "pseudo button", _files),
                         action(WebEmailController.class, "email", CLASS + "pseudo button", _email),
-                        action(WebCalendarController.class, "month", CLASS + "pseudo button", _calendar),
+                        action(WebCalendarController.class, "calendar", CLASS + "pseudo button", _calendar),
                         action(WebContactsController.class, "contacts", CLASS + "pseudo button", _contacts),
                         action(WebTasksController.class, "tasks", CLASS + "pseudo button", _tasks),
                         action(WebNotesController.class, "notes", CLASS + "pseudo button", _notes),
@@ -42,7 +42,7 @@ public class Web extends AbstractWeb {
                         )
                     )
                 ),
-                div(CLASS + "flex wrapper",
+                div(CLASS + "wrapper card",
                     ACTION_RESULT
                 )
             )

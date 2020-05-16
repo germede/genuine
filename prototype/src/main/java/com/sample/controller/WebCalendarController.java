@@ -21,15 +21,17 @@ public class WebCalendarController extends AbstractWebController<Web> {
     }
 
     @Action
-    Html month(int year, int month) {
+    Html calendar(int year, int month) {
         YearMonth current = (year == 0 && month == 0) ? YearMonth.now() : YearMonth.of(year, month);
         YearMonth previous = current.minusMonths(1);
         YearMonth next = current.plusMonths(1);
         List<LocalDate> days = getDays(current);
         return div(CLASS + "calendar",
-            h2(
-                i(CLASS + "icono-calendar"),
-                current.format(DateTimeFormatter.ofPattern("MMMM y", request.get().getLocale())),
+            header(
+                h2(
+                    i(CLASS + "icono-calendar"),
+                    current.format(DateTimeFormatter.ofPattern("MMMM y", request.get().getLocale()))
+                ),
                 div(CLASS + "right",
                     a(HREF + "/calendar/month?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),
                         i(CLASS + "icono-caretLeftCircle")

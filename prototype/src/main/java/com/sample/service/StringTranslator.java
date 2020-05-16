@@ -41,7 +41,7 @@ public class StringTranslator extends AbstractStringTranslator {
 
     _passwords = "Passwords" + de("Passwörter") + es("Contraseñas"),
 
-    _settings = "Settings" + de("Einstellungen") + es("Configuracion"),
+    _settings = "Settings" + de("Einstellungen") + es("Configuración"),
         _users = "Users" + de("Benutzer") + es("Usuarios"),
         _user_username = "Username" + de("Benutzername") + es("Nombre de usuario"),
         _user_password = "Password" + de("Passwort") + es("Contraseña");

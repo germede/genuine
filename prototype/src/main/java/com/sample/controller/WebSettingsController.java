@@ -22,20 +22,21 @@ public class WebSettingsController extends AbstractWebController {
     @Action
     Html users() {
         return div(
+            header(
+                h2(i(CLASS + "icono-user"), _users),
+                label(FOR + "new-user-modal", CLASS + "right button success", _create)
+            ),
             table(
                 forEach(userRepository.select(), user ->
                     tr(
-                        td(i(CLASS + "icono-user"), user.getUsername()),
+                        td(user.getUsername()),
                         td(CLASS + "right",
-                            a(HREF + "/users/delete?id=" + user.getId(),
-                                i(CLASS + "icono-trash")
-                            ),
-                            i(CLASS + "icono-sliders")
+                            i(CLASS + "icono-sliders"),
+                            a(HREF + "/users/delete?id=" + user.getId(), i(CLASS + "icono-trash"))
                         )
                     )
                 )
             ),
-            label(FOR + "new-user-modal", CLASS + "button full", i(CLASS + "icono-plusCircle"), _create),
             div(CLASS + "modal",
                 input(ID + "new-user-modal", TYPE + "checkbox"),
                 label(FOR + "new-user-modal", CLASS + "overlay"),
