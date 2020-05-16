@@ -6,7 +6,7 @@
 
     <groupId>org.fluentness</groupId>
     <artifactId>fluentness</artifactId>
-    <version>${projectVersion}</version>
+    <version>${revision}</version>
 
     <modules>
         <module>archetype</module>
@@ -19,7 +19,7 @@
     </modules>
 
     <properties>
-        <projectVersion>0.1.0</projectVersion>
+        <revision>0.1.0</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <compilerPluginVersion>3.7.0</compilerPluginVersion>
         <languageLevel>8</languageLevel>

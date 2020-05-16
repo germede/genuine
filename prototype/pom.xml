@@ -7,7 +7,7 @@
     <parent>
         <artifactId>fluentness</artifactId>
         <groupId>org.fluentness</groupId>
-        <version>${projectVersion}</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>prototype</artifactId>
@@ -19,22 +19,22 @@
         <dependency>
             <groupId>org.fluentness</groupId>
             <artifactId>fn-core</artifactId>
-            <version>${projectVersion}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.fluentness</groupId>
             <artifactId>fn-desktop</artifactId>
-            <version>${projectVersion}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.fluentness</groupId>
             <artifactId>fn-mobile</artifactId>
-            <version>${projectVersion}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.fluentness</groupId>
             <artifactId>fn-web</artifactId>
-            <version>${projectVersion}</version>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>
