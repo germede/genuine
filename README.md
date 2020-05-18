@@ -1,5 +1,7 @@
 ![Fluentness logo](fn-core/src/main/resources/img/logo-fancy.gif?raw=true "Fluentness logo")
 
+##WIP
+
 Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
 multi-platform, consistent and flexible Java-based development framework. After a quick-start you'll be able to:
 * Develop rich desktop applications based on Swing without headaches, 
