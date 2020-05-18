@@ -1,10 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.input.Input;
 import org.fluentness.service.display.Display;
-
-import java.lang.annotation.*;
-import java.util.Arrays;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -18,27 +14,13 @@ public abstract class AbstractGameController<V extends AbstractGame> implements 
     public AbstractGameController(V game, Display display) {
         this.game = game;
         this.display = display;
-        Arrays.stream(getActions()).forEach(action -> action.getAnnotation(Action.class).value().setCallback(display.getWindow(), this, action));
-    }
-
-    public void loop() {
-
-    }
-
-    @Target(ElementType.METHOD)
-    @Retention(RetentionPolicy.RUNTIME)
-    protected @interface Action {
-        Input value();
-    }
-
-    @Override
-    public final Class<? extends Annotation> getActionClass() {
-        return Action.class;
     }
 
     public final V getGame() {
         return game;
     }
+
+    public abstract void loop();
 
     protected final boolean isKeyPressed(int key) {
         return glfwGetKey(display.getWindow(), key) == GLFW_PRESS;

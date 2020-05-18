@@ -4,7 +4,7 @@ import org.fluentness.Application;
 import org.fluentness.Fluentness;
 import org.fluentness.controller.ConsoleController;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.ViewHolder;
+import org.fluentness.controller.View;
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
@@ -109,7 +109,7 @@ public final class InjectionImpl implements Injection {
                         aClass.getSimpleName(),
                         parameters[i].getName()
                     );
-                } else if (ViewHolder.class.isAssignableFrom(type)) {
+                } else if (View.class.isAssignableFrom(type)) {
                     if (Controller.class.isAssignableFrom(aClass)) {
                         result[i] = instantiate(type);
                     } else {

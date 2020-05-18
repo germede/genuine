@@ -1,27 +1,22 @@
 package com.sample.controller;
 
+import android.view.View;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
 
-import java.lang.annotation.Annotation;
-
 public class MobileController extends AbstractMobileController<Mobile> {
+
+    private final Log log;
 
     public MobileController(Mobile mobile, Log log, Persistence persistence) {
         super(mobile);
-
-//        persistence.persist(new User("test", "test"));
-//        persistence.persist(new User("test2", "test2"));
-//        persistence.persist(new User("test3", "test3"));
-//
-//        for (User user : persistence.retrieve(User.class)) {
-//            log.error("TEST", user.getId() + " " + user.getUsername());
-//        }
+        this.log = log;
+        mobile.uno.setOnClickListener(this::test);
     }
 
-    @Override
-    public Class<? extends Annotation> getActionClass() {
-        return null;
+    public void test(View view) {
+        log.error("TEST");
     }
+
 }

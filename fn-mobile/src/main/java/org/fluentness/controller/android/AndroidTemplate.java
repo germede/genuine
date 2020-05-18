@@ -1,13 +1,13 @@
 package org.fluentness.controller.android;
 
 import android.view.View;
-import org.fluentness.controller.MobileView;
+import org.fluentness.controller.MobileTemplate;
 
-public class AndroidView implements MobileView {
+public class AndroidTemplate implements MobileTemplate {
 
     private final View view;
 
-    public AndroidView(View view) {
+    public AndroidTemplate(View view) {
         this.view = view;
     }
 

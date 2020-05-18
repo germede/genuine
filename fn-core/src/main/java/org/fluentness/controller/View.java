@@ -1,4 +1,9 @@
 package org.fluentness.controller;
 
-public interface View {
+import org.fluentness.Application;
+
+public interface View<V extends Template> extends Application.Component {
+
+    V getTemplate();
+
 }

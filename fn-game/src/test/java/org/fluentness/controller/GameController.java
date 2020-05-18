@@ -1,11 +1,8 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.AbstractGameController;
 import org.fluentness.service.animator.Animator;
 import org.fluentness.service.display.Display;
 
-import static org.fluentness.controller.input.Input.KEY;
-import static org.fluentness.controller.input.Input.SCROLL;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class GameController extends AbstractGameController<Game> {
@@ -15,6 +12,9 @@ public class GameController extends AbstractGameController<Game> {
     public GameController(Game game, Display display, Animator animator) {
         super(game, display);
         this.animator = animator;
+
+        glfwSetKeyCallback(display.getWindow(), this::keyListener);
+        glfwSetScrollCallback(display.getWindow(), this::scrollListener);
     }
 
     private double lastCursorPositionX, lastCursorPositionY;
@@ -54,13 +54,11 @@ public class GameController extends AbstractGameController<Game> {
         game.camera.follow(game.player);
     }
 
-    @Action(SCROLL)
-    void scrollListener(double dx, double dy) {
+    private void scrollListener(long window, double dx, double dy) {
         animator.animate(Animator.BEZIER, game.camera.zoom, game.camera.zoom + (float) -dy * 50, y -> game.camera.zoom = y, 300);
     }
 
-    @Action(KEY)
-    void keyListener(int key, int ignore1, int ignore2, int ignore3) {
+    private void keyListener(long window, int key, int ignore1, int ignore2, int ignore3) {
         switch (key) {
             case GLFW_KEY_UP:
                 game.light.translation.z -= 10;

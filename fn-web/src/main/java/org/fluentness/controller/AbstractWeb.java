@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class AbstractWeb implements ViewHolder<WebView> {
+public abstract class AbstractWeb implements View<WebTemplate> {
 
     public static final String ACTION_RESULT = "###ACTION_RESULT###";
 
@@ -26,8 +26,8 @@ public abstract class AbstractWeb implements ViewHolder<WebView> {
         return String.join("", result);
     }
 
-    public static HtmlRoot html(CharSequence... html) {
-        return new HtmlRoot(html);
+    public static HtmlTemplate html(CharSequence... html) {
+        return new HtmlTemplate(html);
     }
 
     public static Html a(CharSequence... html) {

@@ -55,7 +55,7 @@ public abstract class AbstractGameApplication implements Application {
         Memory memory = Fluentness.getInstance(Memory.class);
         Animator animator = Fluentness.getInstance(Animator.class);
         AbstractGameController controller = Fluentness.getInstances(AbstractGameController.class).get(0);
-        Scene scene = (Scene) controller.getGame().render();
+        Scene scene = (Scene) controller.getGame().getTemplate();
 
         while (!display.shouldClose()) {
             display.clear(scene.background.colour);

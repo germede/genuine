@@ -10,6 +10,8 @@ import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.injection.Provider;
 import org.fluentness.service.persistence.JdbcPersistence;
 
+import javax.swing.*;
+
 public class DesktopApplication extends AbstractDesktopApplication {
 
     @Override
@@ -38,6 +40,11 @@ public class DesktopApplication extends AbstractDesktopApplication {
     }
 
     public static void main(String[] args) throws FluentnessException {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
         Fluentness.launch(new DesktopApplication(), args);
     }
 }

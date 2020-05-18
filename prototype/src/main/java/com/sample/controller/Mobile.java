@@ -1,30 +1,23 @@
 package com.sample.controller;
 
-import android.graphics.Color;
 import android.widget.TextView;
 import org.fluentness.controller.AbstractMobile;
-import org.fluentness.controller.MobileView;
+import org.fluentness.controller.MobileTemplate;
 
 public class Mobile extends AbstractMobile {
 
-    private TextView uno;
-    private TextView dos;
-    private TextView tres;
+    TextView uno;
+    TextView dos;
+    TextView tres;
 
     @Override
-    public MobileView render() {
+    public MobileTemplate getTemplate() {
         return activity(
             linearLayout(
                 uno = text("uno"),
                 dos = text("dos"),
-                tres = text("tres"),
-                calendar()
+                tres = text("tres")
             )
         );
-    }
-
-    @Override
-    public void style() {
-        uno.setTextColor(Color.RED);
     }
 }

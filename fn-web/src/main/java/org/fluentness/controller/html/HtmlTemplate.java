@@ -1,10 +1,10 @@
 package org.fluentness.controller.html;
 
-import org.fluentness.controller.WebView;
+import org.fluentness.controller.WebTemplate;
 
-public class HtmlRoot extends Html implements WebView {
+public class HtmlTemplate extends Html implements WebTemplate {
 
-    public HtmlRoot(CharSequence[] html) {
+    public HtmlTemplate(CharSequence[] html) {
         super("html", html);
     }
 
@@ -12,4 +12,5 @@ public class HtmlRoot extends Html implements WebView {
     public String toString() {
         return "<!DOCTYPE html><" + tag + attributes + ">" + inner + "</" + tag + ">";
     }
+
 }

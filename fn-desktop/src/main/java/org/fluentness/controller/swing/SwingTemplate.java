@@ -1,14 +1,14 @@
 package org.fluentness.controller.swing;
 
-import org.fluentness.controller.DesktopView;
+import org.fluentness.controller.DesktopTemplate;
 
 import java.awt.*;
 
-public class SwingView implements DesktopView {
+public class SwingTemplate implements DesktopTemplate {
 
     private final Window window;
 
-    public SwingView(Window window) {
+    public SwingTemplate(Window window) {
         this.window = window;
         this.window.setVisible(true);
     }
@@ -16,4 +16,5 @@ public class SwingView implements DesktopView {
     public Window getWindow() {
         return window;
     }
+
 }

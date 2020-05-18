@@ -1,6 +1,6 @@
 package org.fluentness.controller.scene;
 
-import org.fluentness.controller.input.GameView;
+import org.fluentness.controller.GameTemplate;
 import org.fluentness.controller.scene.camera.Camera;
 import org.fluentness.controller.scene.entity.Entities;
 import org.fluentness.controller.scene.entity.Entity;
@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Scene implements GameView {
+public class Scene implements GameTemplate {
 
     public Background background;
     public Camera camera;
@@ -69,4 +69,5 @@ public class Scene implements GameView {
     private String getMapKey(Mesh mesh, Texture texture) {
         return mesh.getId() + "-" + texture.getId();
     }
+
 }

@@ -1,6 +1,5 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.input.GameView;
 import org.fluentness.controller.scene.SceneElement;
 import org.fluentness.controller.scene.entity.Entities;
 import org.fluentness.controller.scene.entity.Entity;
@@ -10,7 +9,7 @@ import org.fluentness.controller.scene.environment.Fog;
 import org.fluentness.controller.scene.light.Light;
 import org.fluentness.controller.scene.Scene;
 
-public abstract class AbstractGame implements ViewHolder<GameView> {
+public abstract class AbstractGame implements View<GameTemplate> {
 
     protected Scene scene(SceneElement... sceneElements) {
         return new Scene(sceneElements);

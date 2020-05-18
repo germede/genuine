@@ -21,14 +21,13 @@ public class MainActivity extends android.app.Activity {
             String applicationClassName = getPackageManager().getActivityInfo(getComponentName(), 0).nonLocalizedLabel.toString();
             Class<? extends Application> applicationClass = (Class<? extends Application>) Class.forName(applicationClassName);
             Application application = applicationClass.newInstance();
+            AbstractMobile.context = this;
             Fluentness.launch(application);
 
-            AbstractMobile.context = this;
             // todo manage more controllers and views
             List<AbstractMobileController> instances = Fluentness.getInstances(AbstractMobileController.class);
             AbstractMobile mobile = instances.get(0).getMobile();
-            AndroidView androidView = (AndroidView) mobile.render();
-            mobile.style();
+            AndroidTemplate androidView = (AndroidTemplate) mobile.getRenderedView();
             setContentView(androidView.getView());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | FluentnessException | PackageManager.NameNotFoundException e) {
             Log log = Fluentness.getInstance(Log.class);

@@ -156,7 +156,7 @@ public class RouterImpl implements Router {
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
         } else {
-            render = webController.getWeb().render().toString();
+            render = webController.getWeb().getTemplate().toString();
             if (configuration.get(SINGLE_PAGE_MODE)) {
                 render = render
                     .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")

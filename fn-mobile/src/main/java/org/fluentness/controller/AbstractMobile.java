@@ -3,16 +3,24 @@ package org.fluentness.controller;
 import android.content.Context;
 import android.view.View;
 import android.widget.*;
-import org.fluentness.controller.android.AndroidView;
+import org.fluentness.controller.android.AndroidTemplate;
 
-public abstract class AbstractMobile implements ViewHolder<MobileView> {
+public abstract class AbstractMobile extends AbstractPrerenderedView<MobileTemplate> {
 
     public static Context context;
 
-    public abstract void style();
+    private final MobileTemplate renderedView;
 
-    protected static MobileView activity(View rootView) {
-        return new AndroidView(rootView);
+    public AbstractMobile() {
+        this.renderedView = getTemplate();
+    }
+
+    public MobileTemplate getRenderedView() {
+        return renderedView;
+    }
+
+    protected static MobileTemplate activity(View rootView) {
+        return new AndroidTemplate(rootView);
     }
 
     protected static AdapterViewFlipper adapterViewFlipper() {

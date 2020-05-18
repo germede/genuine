@@ -1,7 +1,7 @@
 package com.sample.controller;
 
 import org.fluentness.controller.AbstractWeb;
-import org.fluentness.controller.WebView;
+import org.fluentness.controller.WebTemplate;
 
 import static com.sample.service.StringTranslator.*;
 import static org.fluentness.controller.html.HtmlAttribute.*;
@@ -9,7 +9,7 @@ import static org.fluentness.controller.html.HtmlAttribute.*;
 public class Web extends AbstractWeb {
 
     @Override
-    public WebView render() {
+    public WebTemplate getTemplate() {
         return html(
             head(
                 title("The book library made with Fluentness"),

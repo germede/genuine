@@ -1,7 +1,7 @@
 package com.sample.controller;
 
 import org.fluentness.controller.AbstractDesktop;
-import org.fluentness.controller.DesktopView;
+import org.fluentness.controller.DesktopTemplate;
 
 import javax.swing.*;
 
@@ -9,13 +9,14 @@ public class Desktop extends AbstractDesktop {
 
     JPanel panel1;
     JPanel panel2;
+    JButton button;
 
     @Override
-    public DesktopView render() {
+    public DesktopTemplate getTemplate() {
         return frame("My frame",
             panel1 = panel(
                 panel2 = panel(
-                    button("Test button"),
+                    button = button("Test button"),
                     colorChooser(),
                     table(
                         header("Spalte1", "Spalte2", "Spalte3", "Spalte4"),

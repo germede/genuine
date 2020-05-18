@@ -1,6 +1,6 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.swing.SwingView;
+import org.fluentness.controller.swing.SwingTemplate;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,29 +8,29 @@ import java.awt.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
-public abstract class AbstractDesktop implements ViewHolder<DesktopView> {
+public abstract class AbstractDesktop extends AbstractPrerenderedView<DesktopTemplate> {
 
-    protected SwingView window(Container container) {
+    protected SwingTemplate window(Container container) {
         JWindow item = new JWindow();
         item.setContentPane(container);
         item.pack();
-        return new SwingView(item);
+        return new SwingTemplate(item);
     }
 
-    protected SwingView frame(String title, Container container) {
+    protected SwingTemplate frame(String title, Container container) {
         JFrame item = new JFrame(title);
         item.setContentPane(container);
         item.setDefaultCloseOperation(EXIT_ON_CLOSE);
         item.pack();
-        return new SwingView(item);
+        return new SwingTemplate(item);
     }
 
-    protected SwingView dialog(Container container) {
+    protected SwingTemplate dialog(Container container) {
         JDialog item = new JDialog();
         item.setContentPane(container);
         item.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         item.pack();
-        return new SwingView(item);
+        return new SwingTemplate(item);
     }
 
     protected JApplet applet(Container... swing) {
