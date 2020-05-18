@@ -13,8 +13,4 @@ public abstract class AbstractPrerenderedView<V extends Template> implements Vie
         return template;
     }
 
-    @Override
-    public V getTemplate() {
-        return template;
-    }
 }

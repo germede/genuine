@@ -12,12 +12,12 @@
 
     <artifactId>prototype</artifactId>
 
-    <!--Even if packaging is set to apk, a ready-to-use jar file (for non-Android platforms) will be generated-->
-    <packaging>apk</packaging>
+    <packaging>${packaging}</packaging>
 
     <properties>
-        <lwjgl.version>3.2.3</lwjgl.version>
-        <platform>linux</platform>
+        <!--Default properties that may be overwritten by profiles-->
+        <mainClass>com.sample.ConsoleApplication</mainClass>
+        <packaging>jar</packaging>
     </properties>
 
     <dependencies>
@@ -47,45 +47,11 @@
             <artifactId>fn-web</artifactId>
             <version>${revision}</version>
         </dependency>
-
-        <!--Driver for JdbcPersistence-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.17</version>
-        </dependency>
-
-        <!--lwjgl native libraries-->
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl</artifactId>
-            <version>${lwjgl.version}</version>
-            <classifier>natives-${platform}</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-opengl</artifactId>
-            <version>${lwjgl.version}</version>
-            <classifier>natives-${platform}</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-glfw</artifactId>
-            <version>${lwjgl.version}</version>
-            <classifier>natives-${platform}</classifier>
-        </dependency>
-
-        <!--Android dependencies-->
-        <dependency>
-            <groupId>com.google.android</groupId>
-            <artifactId>android</artifactId>
-            <version>4.1.1.4</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
+
     <build>
         <plugins>
-            <!--In order to make standalone jars, assembly plugin is used for including dependencies-->
+            <!--In order to make standalone jars, assembly plugin is used for including all dependencies-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -100,12 +66,12 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <finalName>${project.artifactId}-${project.version}-${project.activeProfiles[0].id}</finalName>
                     <archive>
                         <index>true</index>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <!--Replace with your own-->
-                            <mainClass>com.sample.DesktopApplication</mainClass>
+                            <mainClass>${mainClass}</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -113,34 +79,123 @@
                     </descriptorRefs>
                 </configuration>
             </plugin>
-
-            <!--In order to build android apks, deploy and run them-->
-            <plugin>
-                <groupId>com.simpligility.maven.plugins</groupId>
-                <artifactId>android-maven-plugin</artifactId>
-                <version>4.6.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <!--Older version of this plugin used dex android "compiler" by default, which is
-                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8-->
-                    <dexCompiler>d8</dexCompiler>
-                    <dexMultiDex>true</dexMultiDex>
-                    <outputApk>${project.build.directory}/${project.artifactId}.apk</outputApk>
-                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
-                    <sdk>
-                        <!--Only works with API level 28-->
-                        <platform>28</platform>
-                        <!--Replace with your own path or export ANDROID_HOME-->
-                        <path>/home/germede/Android/Sdk</path>
-                    </sdk>
-                    <artifactSet>
-                        <excludes>
-                            <exclude>mysql:mysql-connector-java:8.0.17</exclude>
-                            <exclude>javax.mail:mail:1.4.7</exclude>
-                        </excludes>
-                    </artifactSet>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>console</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>desktop</id>
+            <properties>
+                <mainClass>com.sample.DesktopApplication</mainClass>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>8.0.17</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>game</id>
+            <properties>
+                <mainClass>com.sample.GameApplication</mainClass>
+                <lwjgl.version>3.2.3</lwjgl.version>
+                <platform>linux</platform>
+            </properties>
+            <dependencies>
+                <!--lwjgl native libraries-->
+                <dependency>
+                    <groupId>org.lwjgl</groupId>
+                    <artifactId>lwjgl</artifactId>
+                    <version>${lwjgl.version}</version>
+                    <classifier>natives-${platform}</classifier>
+                </dependency>
+                <dependency>
+                    <groupId>org.lwjgl</groupId>
+                    <artifactId>lwjgl-opengl</artifactId>
+                    <version>${lwjgl.version}</version>
+                    <classifier>natives-${platform}</classifier>
+                </dependency>
+                <dependency>
+                    <groupId>org.lwjgl</groupId>
+                    <artifactId>lwjgl-glfw</artifactId>
+                    <version>${lwjgl.version}</version>
+                    <classifier>natives-${platform}</classifier>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>mobile</id>
+            <properties>
+                <mainClass>com.sample.MobileApplication</mainClass>
+                <packaging>apk</packaging>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.google.android</groupId>
+                    <artifactId>android</artifactId>
+                    <version>4.1.1.4</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.simpligility.maven.plugins</groupId>
+                        <artifactId>android-maven-plugin</artifactId>
+                        <version>4.6.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <!--Older version of this plugin used dex android "compiler" by default, which is
+                            incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8-->
+                            <dexCompiler>d8</dexCompiler>
+                            <dexMultiDex>true</dexMultiDex>
+                            <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+                            <sdk>
+                                <!--Only works with API level 28-->
+                                <platform>28</platform>
+                                <!--Replace with your own path or export ANDROID_HOME-->
+                                <path>/home/germede/Android/Sdk</path>
+                            </sdk>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>mysql:mysql-connector-java:8.0.17</exclude>
+                                    <exclude>org.lwjgl:lwjgl:3.2.3</exclude>
+                                    <exclude>org.lwjgl:lwjgl-opengl:3.2.3</exclude>
+                                    <exclude>org.lwjgl:lwjgl-glfw:3.2.3</exclude>
+                                </excludes>
+                            </artifactSet>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>web</id>
+            <properties>
+                <mainClass>com.sample.WebApplication</mainClass>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>8.0.17</version>
+                </dependency>
+            </dependencies>
+<!--            todo exclude resources which aren't being used, maybe in the fn-components-->
+        </profile>
+    </profiles>
 </project>
+
+

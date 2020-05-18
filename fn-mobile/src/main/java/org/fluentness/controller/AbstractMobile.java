@@ -9,16 +9,6 @@ public abstract class AbstractMobile extends AbstractPrerenderedView<MobileTempl
 
     public static Context context;
 
-    private final MobileTemplate renderedView;
-
-    public AbstractMobile() {
-        this.renderedView = getTemplate();
-    }
-
-    public MobileTemplate getRenderedView() {
-        return renderedView;
-    }
-
     protected static MobileTemplate activity(View rootView) {
         return new AndroidTemplate(rootView);
     }
