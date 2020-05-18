@@ -1,5 +1,6 @@
-package org.fluentness.controller;
+package com.sample.controller;
 
+import org.fluentness.controller.AbstractGameController;
 import org.fluentness.service.animator.Animator;
 import org.fluentness.service.display.Display;
 

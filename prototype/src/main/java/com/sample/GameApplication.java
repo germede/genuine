@@ -1,7 +1,10 @@
-package org.fluentness;
+package com.sample;
 
-import org.fluentness.controller.GameController;
-import org.fluentness.repository.GameRepository;
+import com.sample.controller.GameController;
+import com.sample.repository.GameRepository;
+import org.fluentness.AbstractGameApplication;
+import org.fluentness.Fluentness;
+import org.fluentness.FluentnessException;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.display.Display;
 import org.fluentness.service.injection.Provider;

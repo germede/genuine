@@ -15,7 +15,13 @@
     <!--Even if packaging is set to apk, a ready-to-use jar file (for non-Android platforms) will be generated-->
     <packaging>apk</packaging>
 
+    <properties>
+        <lwjgl.version>3.2.3</lwjgl.version>
+        <platform>linux</platform>
+    </properties>
+
     <dependencies>
+        <!--Framework dependencies-->
         <dependency>
             <groupId>org.fluentness</groupId>
             <artifactId>fn-core</artifactId>
@@ -24,6 +30,11 @@
         <dependency>
             <groupId>org.fluentness</groupId>
             <artifactId>fn-desktop</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentness</groupId>
+            <artifactId>fn-game</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
@@ -37,16 +48,34 @@
             <version>${revision}</version>
         </dependency>
 
+        <!--Driver for JdbcPersistence-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
         </dependency>
+
+        <!--lwjgl native libraries-->
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-${platform}</classifier>
         </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-opengl</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-${platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-${platform}</classifier>
+        </dependency>
+
+        <!--Android dependencies-->
         <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>

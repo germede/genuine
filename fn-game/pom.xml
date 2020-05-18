@@ -16,7 +16,6 @@
 
     <properties>
         <lwjgl.version>3.2.3</lwjgl.version>
-        <platform>linux</platform>
     </properties>
 
     <dependencies>
@@ -32,46 +31,14 @@
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl</artifactId>
-            <version>${lwjgl.version}</version>
-            <classifier>natives-${platform}</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-opengl</artifactId>
-            <version>${lwjgl.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-opengl</artifactId>
-            <version>${lwjgl.version}</version>
-            <classifier>natives-${platform}</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-glfw</artifactId>
             <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-glfw</artifactId>
             <version>${lwjgl.version}</version>
-            <classifier>natives-${platform}</classifier>
         </dependency>
     </dependencies>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compilerPluginVersion}</version>
-                <configuration>
-                    <compilerArgs>-proc:none</compilerArgs>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
