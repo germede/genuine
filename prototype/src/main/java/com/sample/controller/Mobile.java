@@ -1,5 +1,6 @@
 package com.sample.controller;
 
+import android.graphics.Color;
 import android.widget.TextView;
 import org.fluentness.controller.AbstractMobile;
 import org.fluentness.controller.MobileView;
@@ -16,8 +17,14 @@ public class Mobile extends AbstractMobile {
             linearLayout(
                 uno = text("uno"),
                 dos = text("dos"),
-                tres = text("tres")
+                tres = text("tres"),
+                calendar()
             )
         );
+    }
+
+    @Override
+    public void style() {
+        uno.setTextColor(Color.RED);
     }
 }
