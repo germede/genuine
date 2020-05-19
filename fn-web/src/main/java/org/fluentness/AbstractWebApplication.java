@@ -5,7 +5,7 @@ import org.fluentness.service.injection.Provider;
 import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.router.RouterImpl;
 import org.fluentness.service.server.Server;
-import org.fluentness.service.server.ServerImpl;
+import org.fluentness.service.server.SunServer;
 
 public abstract class AbstractWebApplication implements Application {
 
@@ -13,7 +13,7 @@ public abstract class AbstractWebApplication implements Application {
     public void provide(Provider provider) {
         provider
             .service(RouterImpl.class)
-            .service(ServerImpl.class)
+            .service(SunServer.class)
             .service(SocketMail.class);
     }
 

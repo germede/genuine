@@ -3,15 +3,14 @@ package org.fluentness.controller;
 import org.fluentness.service.server.Request;
 import org.fluentness.service.server.RequestMethod;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.fluentness.service.server.RequestMethod.GET;
 
 public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
 
@@ -51,7 +50,7 @@ public abstract class AbstractWebController<W extends AbstractWeb> implements Co
 
         String path() default "";
 
-        String method() default RequestMethod.GET;
+        RequestMethod method() default GET;
 
         boolean authenticate() default true;
 

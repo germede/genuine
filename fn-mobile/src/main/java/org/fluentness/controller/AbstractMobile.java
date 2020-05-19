@@ -2,7 +2,6 @@ package org.fluentness.controller;
 
 import android.content.Context;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.*;
 import org.fluentness.controller.android.AndroidTemplate;
 
@@ -258,10 +257,6 @@ public abstract class AbstractMobile extends AbstractPrerenderedView<MobileTempl
 
     protected static ViewSwitcher viewSwitcher() {
         return new ViewSwitcher(context);
-    }
-
-    protected static WebView webView() {
-        return new WebView(context);
     }
 
     protected static ZoomButton zoomButton() {

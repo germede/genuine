@@ -60,10 +60,9 @@ Please feel free to open a [new issue](https://github.com/germede/Fluentness/iss
 or a [pull request](https://github.com/germede/Fluentness/compare) directly on GitHub.  Give a star if you enjoy this project. Contact me if you have any idea on how to improve it.
 
 ## Attributions
-This project relies on the following open-source technologies:
+This project uses the following open-source software:
 - [OpenJDK](https://openjdk.java.net/), currently language level 8 
 - Apache [Maven](https://maven.apache.org/)
-- [NanoHTTPD](https://github.com/NanoHttpd/nanohttpd)
 - [OpenGL](https://www.opengl.org/) and its libraries [LWJGL](https://www.lwjgl.org/) and [GLFW](https://www.glfw.org/)
 - The [Android](https://www.android.com) platform
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing

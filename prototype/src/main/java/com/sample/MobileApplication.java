@@ -1,6 +1,6 @@
 package com.sample;
 
-import com.sample.controller.*;
+import com.sample.controller.MobileController;
 import com.sample.repository.NoteRepository;
 import com.sample.repository.UserRepository;
 import org.fluentness.AbstractMobileApplication;
@@ -16,11 +16,6 @@ public class MobileApplication extends AbstractMobileApplication {
         provider
             .repository(NoteRepository.class)
             .repository(UserRepository.class)
-            .controller(WebController.class)
-            .controller(WebEmailController.class)
-            .controller(WebCalendarController.class)
-            .controller(WebNotesController.class)
-            .controller(WebSettingsController.class)
             .controller(MobileController.class)
         ;
     }

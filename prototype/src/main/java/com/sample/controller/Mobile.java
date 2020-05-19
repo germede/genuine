@@ -1,17 +1,23 @@
 package com.sample.controller;
 
-import android.webkit.WebView;
+import android.widget.TextView;
 import org.fluentness.controller.AbstractMobile;
 import org.fluentness.controller.MobileTemplate;
 
 public class Mobile extends AbstractMobile {
 
-    WebView webView;
+    TextView uno;
+    TextView dos;
+    TextView tres;
 
     @Override
     public MobileTemplate getTemplate() {
         return activity(
-            webView = webView()
+            linearLayout(
+                uno = text("uno"),
+                dos = text("dos"),
+                tres = text("tres")
+            )
         );
     }
 }
