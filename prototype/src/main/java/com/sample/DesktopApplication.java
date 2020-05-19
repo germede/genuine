@@ -8,6 +8,7 @@ import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.injection.Provider;
+import org.fluentness.service.persistence.FilePersistence;
 import org.fluentness.service.persistence.JdbcPersistence;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public class DesktopApplication extends AbstractDesktopApplication {
     public void provide(Provider provider) {
         super.provide(provider);
         provider
-            .service(JdbcPersistence.class)
+            .service(FilePersistence.class)
             .repository(UserRepository.class)
             .repository(NoteRepository.class)
             .controller(DesktopController.class)

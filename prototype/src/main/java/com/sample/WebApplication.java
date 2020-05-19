@@ -40,7 +40,6 @@ public class WebApplication extends AbstractWebApplication {
         super.configure(configuration);
         configuration
             .set(Server.PORT, 8000)
-            .set(Server.HOST, "0.0.0.0")
             .set(Router.SINGLE_PAGE_MODE, false)
             .set(Log.LEVEL, LogLevel.DEBUG)
             .set(Log.CONSOLE, true)

@@ -1,18 +1,29 @@
 package org.fluentness.service.server;
 
 import java.io.InputStream;
-import java.net.URI;
+import java.sql.Date;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public interface Request {
 
+    String getMethod();
+
+    String getUri();
+
+    Map<String, String> getHeaders();
+
+    Map<String, String> getParameters();
+
+    InputStream getInputStream();
+
+    Response makeResponse(ResponseStatusCode statusCode, String mimeType, String body);
+
     default String[] getLanguages() {
-        List<String> languageList = getHeaders().get(RequestHeader.ACCEPT_LANGUAGE.toString());
-        if (languageList.size() > 0) {
-            return Locale.LanguageRange.parse(languageList.get(0))
+        String languageList = getHeaders().getOrDefault(RequestHeader.ACCEPT_LANGUAGE, "");
+        if (languageList.length() > 0) {
+            return Locale.LanguageRange.parse(languageList)
                 .stream()
                 .sorted(Comparator.comparingDouble(Locale.LanguageRange::getWeight))
                 .map(Locale.LanguageRange::getRange)
@@ -22,29 +33,24 @@ public interface Request {
     }
 
     default Locale getLocale() {
-        return Locale.forLanguageTag(getLanguages()[getLanguages().length-1]);
+        return Locale.forLanguageTag(getLanguages()[getLanguages().length - 1]);
     }
 
-    default String getHeader(RequestHeader requestHeader) {
-        List<String> elements = getHeaders().get(requestHeader.toString());
-        return elements != null ? String.join("", elements) : null;
+    default Object getParameter(Class tClass, String name) {
+        Map<String, String> parameters = getParameters();
+        if (Request.class.isAssignableFrom(tClass)) {
+            return this;
+        } else if (tClass.equals(String.class)) {
+            return parameters.getOrDefault(name, "");
+        } else if (int.class.isAssignableFrom(tClass)) {
+            return parameters.containsKey(name) ? Integer.parseInt(parameters.get(name)) : 0;
+        } else if (float.class.isAssignableFrom(tClass)) {
+            return parameters.containsKey(name) ? Float.parseFloat(parameters.get(name)) : 0.0f;
+        } else if (boolean.class.isAssignableFrom(tClass)) {
+            return parameters.containsKey(name) && Boolean.parseBoolean(parameters.get(name));
+        } else if (Date.class.isAssignableFrom(tClass)) {
+            return parameters.containsKey(name) ? Date.parse(parameters.get(name)) : new Date(0);
+        }
+        return null;
     }
-
-    default Response makeResponse(ResponseStatusCode code) {
-        return makeResponse(code.toInt());
-    }
-
-    RequestMethod getMethod();
-
-    Map<String, List<String>> getHeaders();
-
-    URI getUri();
-
-    boolean hasParameter(String name);
-
-    String getParameter(String name);
-
-    InputStream getBody();
-
-    Response makeResponse(int code);
 }

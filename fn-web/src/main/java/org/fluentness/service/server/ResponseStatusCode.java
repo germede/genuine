@@ -1,10 +1,11 @@
 package org.fluentness.service.server;
 
-public enum ResponseStatusCode {
+import fi.iki.elonen.NanoHTTPD;
+
+public enum ResponseStatusCode implements NanoHTTPD.Response.IStatus {
     CONTINUE(100),
     SWITCHING_PROTOCOLS(101),
     PROCESSING(102),
-
     OK(200),
     CREATED(201),
     ACCEPTED(202),
@@ -15,7 +16,6 @@ public enum ResponseStatusCode {
     MULTI_STATUS(207),
     ALREADY_REPORTED(208),
     IM_USED(226),
-
     MULTIPLE_CHOICES(300),
     MOVED_PERMANENTLY(301),
     FOUND(302),
@@ -24,7 +24,6 @@ public enum ResponseStatusCode {
     USE_PROXY(305),
     TEMPORARY_REDIRECT(307),
     PERMANENT_REDIRECT(308),
-
     BAD_REQUEST(400),
     UNAUTHORIZED(401),
     PAYMENT_REQUIRED(402),
@@ -55,7 +54,6 @@ public enum ResponseStatusCode {
     CONNECTION_CLOSED_WITHOUT_RESPONSE(444),
     UNAVAILABLE_FOR_LEGAL_REASONS(451),
     CLIENT_CLOSED_REQUEST(499),
-
     INTERNAL_SERVER_ERROR(500),
     NOT_IMPLEMENTED(501),
     BAD_GATEWAY(502),
@@ -69,13 +67,19 @@ public enum ResponseStatusCode {
     NETWORK_AUTHENTICATION_REQUIRED(511),
     NETWORK_CONNECT_TIMEOUT_ERROR(599);
 
-    private final int code;
+    private final int i;
 
-    ResponseStatusCode(int code) {
-        this.code = code;
+    ResponseStatusCode(int i) {
+        this.i = i;
     }
 
-    public int toInt() {
-        return code;
+    @Override
+    public String getDescription() {
+        return name();
+    }
+
+    @Override
+    public int getRequestStatus() {
+        return i;
     }
 }
