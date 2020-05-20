@@ -1,15 +1,12 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractGameController;
-import org.fluentness.view.scene.Scene;
 import org.fluentness.service.algebra.AlgebraImpl;
 import org.fluentness.service.animator.Animator;
 import org.fluentness.service.animator.AnimatorImpl;
-import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.display.Display;
 import org.fluentness.service.display.GlfwDisplay;
 import org.fluentness.service.generator.GeneratorImpl;
-import org.fluentness.service.injection.Provider;
 import org.fluentness.service.loader.LoaderImpl;
 import org.fluentness.service.memory.Memory;
 import org.fluentness.service.memory.MemoryImpl;
@@ -19,32 +16,25 @@ import org.fluentness.service.render.EntityRender;
 import org.fluentness.service.render.TerrainRender;
 import org.fluentness.service.shader.EntityShader;
 import org.fluentness.service.shader.TerrainShader;
+import org.fluentness.view.scene.Scene;
 
+@Src(
+    services = {
+        GeneratorImpl.class,
+        LoaderImpl.class,
+        MeshParser.class,
+        TextureParser.class,
+        EntityRender.class,
+        TerrainRender.class,
+        EntityShader.class,
+        TerrainShader.class,
+        GlfwDisplay.class,
+        AlgebraImpl.class,
+        AnimatorImpl.class,
+        MemoryImpl.class,
+    }
+)
 public abstract class AbstractGameApplication implements Application {
-
-
-    @Override
-    public void provide(Provider provider) {
-        provider
-            .service(GeneratorImpl.class)
-            .service(LoaderImpl.class)
-            .service(MeshParser.class)
-            .service(TextureParser.class)
-            .service(EntityRender.class)
-            .service(TerrainRender.class)
-            .service(EntityShader.class)
-            .service(TerrainShader.class)
-            .service(GlfwDisplay.class)
-            .service(AlgebraImpl.class)
-            .service(AnimatorImpl.class)
-            .service(MemoryImpl.class)
-        ;
-    }
-
-    @Override
-    public void configure(Configuration configuration) {
-
-    }
 
     @Override
     public void run(String[] args) throws Exception {

@@ -2,14 +2,12 @@ package org.fluentness.service.injection;
 
 import org.fluentness.Application;
 import org.fluentness.Fluentness;
-import org.fluentness.controller.ConsoleController;
+import org.fluentness.Src;
 import org.fluentness.controller.Controller;
-import org.fluentness.view.View;
+import org.fluentness.repository.Repository;
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
-import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.configuration.ConfigurationImpl;
-import org.fluentness.service.log.JulLog;
+import org.fluentness.view.View;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -30,31 +28,55 @@ public final class InjectionImpl implements Injection {
 
     @Override
     public void inject() throws InjectionException {
-        Provider provider = new Provider()
-            .service(ConfigurationImpl.class)
-            .service(JulLog.class)
-            .controller(ConsoleController.class);
-
-        application.provide(provider);
-
-        inject(provider.getServices());
-        inject(provider.getRepositories());
-        inject(provider.getControllers());
+        inject(retrieve(Service.class));
+        inject(retrieve(Repository.class));
+        inject(retrieve(Controller.class));
     }
 
-    private <I extends Application.Component> void inject(List<Class<? extends I>> classes) throws InjectionException {
-        List<Class<? extends I>> notInstantiated = new LinkedList<>();
-        List<Class<? extends I>> singleServices = new LinkedList<>();
-        for (Class<? extends I> clazz : classes) {
+    private <C extends Application.Component> List<Class<? extends C>> retrieve(Class<C> component) {
+        List<Class<? extends C>> result = new LinkedList<>();
+        Class<?> currentClass = application.getClass();
+        while (true) {
+            // switch components
+            if (currentClass.isAnnotationPresent(Src.class)) {
+                if (component.equals(Service.class)) {
+                    Class<? extends Service>[] services = currentClass.getAnnotation(Src.class).services();
+                    Arrays.stream(services).forEach(aClass -> result.add((Class<? extends C>) aClass));
+                } else if (component.equals(Repository.class)) {
+                    Class<? extends Repository>[] repositories = currentClass.getAnnotation(Src.class).repositories();
+                    Arrays.stream(repositories).forEach(aClass -> result.add((Class<? extends C>) aClass));
+                } else if (component.equals(Controller.class)) {
+                    Class<? extends Controller>[] controllers = currentClass.getAnnotation(Src.class).controllers();
+                    Arrays.stream(controllers).forEach(aClass -> result.add((Class<? extends C>) aClass));
+                }
+            }
+            // recursion upwards in the class hierarchy
+            if (currentClass.getSuperclass() != null && Application.class.isAssignableFrom(currentClass.getSuperclass())) {
+                currentClass = currentClass.getSuperclass();
+            } else if (currentClass.getInterfaces().length > 0) {
+                for (Class anInterface : currentClass.getInterfaces()) {
+                    if (Application.class.isAssignableFrom(anInterface)) {
+                        currentClass = anInterface;
+                        break;
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+
+    private <C extends Application.Component> void inject(List<Class<? extends C>> classes) throws InjectionException {
+        List<Class<? extends C>> notInstantiated = new LinkedList<>();
+        List<Class<? extends C>> singleServices = new LinkedList<>();
+        for (Class<? extends C> clazz : classes) {
             Class key = getKey(clazz);
             if (!singleServices.contains(key)) {
                 Object instance = instantiate(clazz);
                 if (instance instanceof Class) {
                     notInstantiated.add(clazz);
                 } else {
-                    if (instance instanceof Configuration) {
-                        application.configure((Configuration) instance);
-                    }
                     Fluentness.instances.put(key, instance);
                 }
                 singleServices.add(key);

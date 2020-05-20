@@ -31,7 +31,6 @@ public final class Fluentness {
 
     private Fluentness(Application application, String[] args) throws FluentnessException {
         try {
-
             new InjectionImpl(application).inject();
             Map<Class, Object> instances = Fluentness.instances;
             application.run(args);
