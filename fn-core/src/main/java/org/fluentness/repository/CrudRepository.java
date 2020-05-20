@@ -1,5 +1,7 @@
 package org.fluentness.repository;
 
+import org.fluentness.model.CrudModel;
+
 import java.util.List;
 
 public interface CrudRepository<M extends CrudModel> extends Repository {

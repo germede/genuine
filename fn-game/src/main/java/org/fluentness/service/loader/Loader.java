@@ -1,8 +1,8 @@
 package org.fluentness.service.loader;
 
-import org.fluentness.repository.mesh.RawMesh;
-import org.fluentness.repository.mesh.Mesh;
-import org.fluentness.repository.texture.Texture;
+import org.fluentness.model.mesh.RawMesh;
+import org.fluentness.model.mesh.Mesh;
+import org.fluentness.model.texture.Texture;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
 

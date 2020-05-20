@@ -1,7 +1,8 @@
 package com.sample.controller;
 
+import com.sample.view.Web;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.controller.html.Html;
+import org.fluentness.view.html.Html;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -9,9 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.fluentness.controller.AbstractWeb.*;
-import static org.fluentness.controller.html.HtmlAttribute.CLASS;
-import static org.fluentness.controller.html.HtmlAttribute.HREF;
+import static org.fluentness.view.AbstractWeb.*;
+import static org.fluentness.view.html.HtmlAttribute.CLASS;
+import static org.fluentness.view.html.HtmlAttribute.HREF;
 
 public class WebPasswordsController extends AbstractWebController<Web> {
 

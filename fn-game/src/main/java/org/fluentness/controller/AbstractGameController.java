@@ -1,6 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.service.display.Display;
+import org.fluentness.view.AbstractGame;
 
 import static org.lwjgl.glfw.GLFW.*;
 

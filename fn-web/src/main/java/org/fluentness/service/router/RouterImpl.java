@@ -2,7 +2,7 @@ package org.fluentness.service.router;
 
 import org.fluentness.Fluentness;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.controller.html.HtmlAttribute;
+import org.fluentness.view.html.HtmlAttribute;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
@@ -20,8 +20,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Map;
 
-import static org.fluentness.controller.AbstractWeb.ACTION_RESULT;
-import static org.fluentness.controller.AbstractWeb.div;
+import static org.fluentness.view.AbstractWeb.ACTION_RESULT;
+import static org.fluentness.view.AbstractWeb.div;
 
 public class RouterImpl implements Router {
 

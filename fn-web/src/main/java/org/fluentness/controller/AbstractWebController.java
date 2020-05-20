@@ -2,6 +2,7 @@ package org.fluentness.controller;
 
 import org.fluentness.service.server.Request;
 import org.fluentness.service.server.RequestMethod;
+import org.fluentness.view.AbstractWeb;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Constructor;

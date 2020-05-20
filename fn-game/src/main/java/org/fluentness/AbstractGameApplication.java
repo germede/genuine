@@ -1,7 +1,7 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractGameController;
-import org.fluentness.controller.scene.Scene;
+import org.fluentness.view.scene.Scene;
 import org.fluentness.service.algebra.AlgebraImpl;
 import org.fluentness.service.animator.Animator;
 import org.fluentness.service.animator.AnimatorImpl;

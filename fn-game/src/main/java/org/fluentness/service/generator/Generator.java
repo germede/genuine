@@ -1,6 +1,6 @@
 package org.fluentness.service.generator;
 
-import org.fluentness.controller.scene.terrain.Terrain;
+import org.fluentness.view.scene.terrain.Terrain;
 import org.fluentness.service.Service;
 
 public interface Generator extends Service {

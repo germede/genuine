@@ -1,6 +1,6 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.repository.CrudModel;
+import org.fluentness.model.CrudModel;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.log.Log;

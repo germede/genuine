@@ -1,10 +1,10 @@
 package org.fluentness.service.render;
 
-import org.fluentness.repository.texture.Texture;
+import org.fluentness.model.texture.Texture;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.TerrainShader;
-import org.fluentness.controller.scene.Scene;
-import org.fluentness.controller.scene.terrain.Terrain;
+import org.fluentness.view.scene.Scene;
+import org.fluentness.view.scene.terrain.Terrain;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 

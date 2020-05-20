@@ -2,7 +2,7 @@ package org.fluentness.controller;
 
 import org.fluentness.Fluentness;
 import org.fluentness.repository.AbstractCrudRepository;
-import org.fluentness.repository.CrudModel;
+import org.fluentness.model.CrudModel;
 import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.persistence.Persistence;
 

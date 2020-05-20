@@ -1,8 +1,8 @@
 package org.fluentness.service.render;
 
-import org.fluentness.controller.scene.Scene;
-import org.fluentness.controller.scene.entity.Entity;
-import org.fluentness.repository.texture.Texture;
+import org.fluentness.view.scene.Scene;
+import org.fluentness.view.scene.entity.Entity;
+import org.fluentness.model.texture.Texture;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.EntityShader;
 import org.lwjgl.opengl.GL11;

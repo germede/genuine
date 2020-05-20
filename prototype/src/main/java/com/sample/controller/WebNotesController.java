@@ -1,12 +1,13 @@
 package com.sample.controller;
 
 import com.sample.repository.NoteRepository;
+import com.sample.view.Web;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.controller.html.Html;
+import org.fluentness.view.html.Html;
 
 import static com.sample.service.StringTranslator.*;
-import static org.fluentness.controller.AbstractWeb.*;
-import static org.fluentness.controller.html.HtmlAttribute.CLASS;
+import static org.fluentness.view.AbstractWeb.*;
+import static org.fluentness.view.html.HtmlAttribute.CLASS;
 
 public class WebNotesController extends AbstractWebController<Web> {
 

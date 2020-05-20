@@ -1,11 +1,12 @@
 package com.sample.controller;
 
+import com.sample.view.Web;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.controller.html.Html;
+import org.fluentness.view.html.Html;
 
-import static org.fluentness.controller.AbstractWeb.form;
-import static org.fluentness.controller.AbstractWeb.input;
-import static org.fluentness.controller.html.HtmlAttribute.*;
+import static org.fluentness.view.AbstractWeb.form;
+import static org.fluentness.view.AbstractWeb.input;
+import static org.fluentness.view.html.HtmlAttribute.*;
 
 public class WebEmailController extends AbstractWebController {
 

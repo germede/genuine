@@ -1,6 +1,6 @@
 package org.fluentness.service.render;
 
-import org.fluentness.controller.scene.Scene;
+import org.fluentness.view.scene.Scene;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.AbstractShader;
 import org.lwjgl.opengl.GL20;

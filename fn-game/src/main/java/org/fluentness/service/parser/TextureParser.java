@@ -1,6 +1,6 @@
 package org.fluentness.service.parser;
 
-import org.fluentness.repository.texture.RawTexture;
+import org.fluentness.model.texture.RawTexture;
 import org.fluentness.service.log.Log;
 
 import javax.imageio.ImageIO;

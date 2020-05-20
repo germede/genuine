@@ -1,11 +1,11 @@
 package com.sample.repository;
 
-import org.fluentness.controller.scene.entity.Entity;
-import org.fluentness.controller.scene.entity.Player;
-import org.fluentness.controller.scene.terrain.Terrain;
+import org.fluentness.view.scene.entity.Entity;
+import org.fluentness.view.scene.entity.Player;
+import org.fluentness.view.scene.terrain.Terrain;
 import org.fluentness.repository.Repository;
-import org.fluentness.repository.mesh.Mesh;
-import org.fluentness.repository.texture.Texture;
+import org.fluentness.model.mesh.Mesh;
+import org.fluentness.model.texture.Texture;
 import org.fluentness.service.generator.Generator;
 import org.fluentness.service.loader.Loader;
 

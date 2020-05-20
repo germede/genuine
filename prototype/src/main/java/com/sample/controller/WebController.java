@@ -1,5 +1,6 @@
 package com.sample.controller;
 
+import com.sample.view.Web;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.service.translator.Translator;
 

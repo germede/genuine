@@ -4,7 +4,7 @@ import org.fluentness.Application;
 import org.fluentness.Fluentness;
 import org.fluentness.controller.ConsoleController;
 import org.fluentness.controller.Controller;
-import org.fluentness.controller.View;
+import org.fluentness.view.View;
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Configuration;
