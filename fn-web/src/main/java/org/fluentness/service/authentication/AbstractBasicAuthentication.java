@@ -10,8 +10,7 @@ public abstract class AbstractBasicAuthentication implements Authentication {
     @Override
     public boolean authorize(Request request) {
         String authorizationHeader = request.getHeader(RequestHeader.AUTHORIZATION);
-        String prefix = AuthenticationType.BASIC.toString();
-        if (authorizationHeader != null && authorizationHeader.startsWith(prefix)) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Basic ")) {
             String[] credentials = new String(
                 Base64.getDecoder().decode(
                     authorizationHeader.substring(5).trim()
@@ -25,9 +24,7 @@ public abstract class AbstractBasicAuthentication implements Authentication {
 
     @Override
     public Response demandCredentials(Request request) {
-        return request.makeResponse(ResponseStatusCode.UNAUTHORIZED).addHeader(
-            ResponseHeader.WWW_AUTHENTICATE, AuthenticationType.BASIC.toString()
-        );
+        return request.makeResponse(ResponseStatusCode.UNAUTHORIZED).addHeader(ResponseHeader.WWW_AUTHENTICATE, "Basic ");
     }
 
     protected abstract boolean authorize(String username, String password);
