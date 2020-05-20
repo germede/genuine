@@ -3,7 +3,7 @@ package org.fluentness.view.scene.entity;
 import org.fluentness.view.scene.SceneElement;
 import org.fluentness.model.mesh.Mesh;
 import org.fluentness.model.texture.Texture;
-import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.model.algebra.Vector3f;
 
 public class Entity implements SceneElement {
 

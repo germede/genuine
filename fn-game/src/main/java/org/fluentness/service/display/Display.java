@@ -1,7 +1,7 @@
 package org.fluentness.service.display;
 
 import org.fluentness.service.Service;
-import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.model.algebra.Vector3f;
 import org.fluentness.service.configuration.Setting;
 
 public interface Display extends Service {

@@ -1,15 +1,7 @@
 package org.fluentness.controller;
 
-import org.fluentness.Fluentness;
-import org.fluentness.repository.AbstractCrudRepository;
-import org.fluentness.model.CrudModel;
-import org.fluentness.service.persistence.JdbcPersistence;
-import org.fluentness.service.persistence.Persistence;
-
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.fluentness.service.log.AnsiColor.*;
 
@@ -29,13 +21,8 @@ public final class ConsoleController extends AbstractConsoleController {
 
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
-        List<Method> actions = new LinkedList<>();
-        for (AbstractConsoleController controller : Fluentness.getInstances(AbstractConsoleController.class)) {
-            actions.addAll(Arrays.asList(controller.getActions()));
-        }
-
         // categorize console actions
-        for (Method action : actions) {
+        for (Method action : getActions()) {
             String category = action.getAnnotation(Action.class).category();
             if (!categorizedConsoleActions.containsKey(category)) {
                 categorizedConsoleActions.put(category, new ArrayList<>());
@@ -61,8 +48,8 @@ public final class ConsoleController extends AbstractConsoleController {
         });
     }
 
-//    @Action(category = "html", description = "Converts normal html code into Fluentness compilable code")
-//    void convert() {
+    @Action(category = "html", description = "Converts normal html code into Fluentness compilable code")
+    void convert() {
 //        try {
 //            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
@@ -98,59 +85,59 @@ public final class ConsoleController extends AbstractConsoleController {
 //
 //            input.setText(text);
 //        });
-//    }
+    }
 
     @Action(category = "sql", description = "Prints out required create sql statements based on existing Models")
     void schema() {
-        Persistence persistence = Fluentness.getInstance(Persistence.class);
-        if (!(persistence instanceof JdbcPersistence)) {
-            System.err.println(JdbcPersistence.class.getSimpleName() + " is not being used, ignoring");
-            return;
-        }
-        List<Class> modelClasses = Fluentness.getInstances(AbstractCrudRepository.class)
-            .stream()
-            .map(AbstractCrudRepository::getModelClass)
-            .collect(Collectors.toList());
-
-        StringBuilder builder = new StringBuilder();
-        for (Class<? extends CrudModel> modelClass : modelClasses) {
-
-            // todo improve sorting depending on foreign
-            List<Field> foreignKeys = new LinkedList<>();
-
-            builder.append("CREATE TABLE ").append(persistence.getTableName(modelClass)).append(" ( \n");
-            builder.append("    ").append(CrudModel.ID_NAME).append(" INT AUTO_INCREMENT PRIMARY KEY,\n");
-            Field[] declaredFields = modelClass.getDeclaredFields();
-            for (int i = 0, declaredFieldsLength = declaredFields.length; i < declaredFieldsLength; i++) {
-                Field field = declaredFields[i];
-                builder.append("    ").append(field.getName()).append(" ");
-                Class<?> type = field.getType();
-                if (type.equals(String.class)) {
-                    builder.append("VARCHAR(255) NOT NULL");
-                } else if (int.class.isAssignableFrom(type)) {
-                    builder.append("INT NOT NULL");
-                } else if (CrudModel.class.isAssignableFrom(type)) {
-                    builder.append("INT NOT NULL");
-                    foreignKeys.add(field);
-                }
-                builder.append(i == declaredFieldsLength - 1 && foreignKeys.isEmpty() ? "\n" : ",\n");
-            }
-
-            for (int i = 0, foreignKeysSize = foreignKeys.size(); i < foreignKeysSize; i++) {
-                Field field = foreignKeys.get(i);
-                builder
-                    .append("    FOREIGN KEY (")
-                    .append(field.getName())
-                    .append(") REFERENCES ")
-                    .append(persistence.getTableName((Class<? extends CrudModel>) field.getType()))
-                    .append("(")
-                    .append(CrudModel.ID_NAME)
-                    .append(") ON UPDATE cascade ")
-                    .append("ON DELETE cascade")
-                    .append(i == foreignKeysSize - 1 ? "\n" : ",\n");
-            }
-            builder.append(");\n");
-        }
-        System.out.println(builder.toString());
+//        Persistence persistence = Fluentness.getInstance(Persistence.class);
+//        if (!(persistence instanceof JdbcPersistence)) {
+//            System.err.println(JdbcPersistence.class.getSimpleName() + " is not being used, ignoring");
+//            return;
+//        }
+//        List<Class> modelClasses = Fluentness.getInstances(AbstractCrudRepository.class)
+//            .stream()
+//            .map(AbstractCrudRepository::getModelClass)
+//            .collect(Collectors.toList());
+//
+//        StringBuilder builder = new StringBuilder();
+//        for (Class<? extends CrudModel> modelClass : modelClasses) {
+//
+//            // todo improve sorting depending on foreign
+//            List<Field> foreignKeys = new LinkedList<>();
+//
+//            builder.append("CREATE TABLE ").append(persistence.getTableName(modelClass)).append(" ( \n");
+//            builder.append("    ").append(CrudModel.ID_NAME).append(" INT AUTO_INCREMENT PRIMARY KEY,\n");
+//            Field[] declaredFields = modelClass.getDeclaredFields();
+//            for (int i = 0, declaredFieldsLength = declaredFields.length; i < declaredFieldsLength; i++) {
+//                Field field = declaredFields[i];
+//                builder.append("    ").append(field.getName()).append(" ");
+//                Class<?> type = field.getType();
+//                if (type.equals(String.class)) {
+//                    builder.append("VARCHAR(255) NOT NULL");
+//                } else if (int.class.isAssignableFrom(type)) {
+//                    builder.append("INT NOT NULL");
+//                } else if (CrudModel.class.isAssignableFrom(type)) {
+//                    builder.append("INT NOT NULL");
+//                    foreignKeys.add(field);
+//                }
+//                builder.append(i == declaredFieldsLength - 1 && foreignKeys.isEmpty() ? "\n" : ",\n");
+//            }
+//
+//            for (int i = 0, foreignKeysSize = foreignKeys.size(); i < foreignKeysSize; i++) {
+//                Field field = foreignKeys.get(i);
+//                builder
+//                    .append("    FOREIGN KEY (")
+//                    .append(field.getName())
+//                    .append(") REFERENCES ")
+//                    .append(persistence.getTableName((Class<? extends CrudModel>) field.getType()))
+//                    .append("(")
+//                    .append(CrudModel.ID_NAME)
+//                    .append(") ON UPDATE cascade ")
+//                    .append("ON DELETE cascade")
+//                    .append(i == foreignKeysSize - 1 ? "\n" : ",\n");
+//            }
+//            builder.append(");\n");
+//        }
+//        System.out.println(builder.toString());
     }
 }

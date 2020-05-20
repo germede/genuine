@@ -1,6 +1,5 @@
 package org.fluentness.view.html;
 
-import org.fluentness.Fluentness;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.service.translator.Translator;
 
@@ -17,7 +16,8 @@ public abstract class Html implements CharSequence {
         attributes = new StringBuilder();
         inner = new StringBuilder();
 
-        Translator translator = Fluentness.getInstance(Translator.class);
+        Translator translator = null;
+//        Translator translator = Fluentness.getInstance(Translator.class);
 
         for (CharSequence item : html) {
             String render;

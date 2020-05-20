@@ -2,7 +2,7 @@ package org.fluentness.view.scene.camera;
 
 import org.fluentness.view.scene.SceneElement;
 import org.fluentness.view.scene.entity.Entity;
-import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.model.algebra.Vector3f;
 
 public class Camera implements SceneElement {
 

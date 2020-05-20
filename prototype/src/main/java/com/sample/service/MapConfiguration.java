@@ -1,6 +1,6 @@
 package com.sample.service;
 
-import org.fluentness.service.configuration.ConfigurationImpl;
+import org.fluentness.service.configuration.AbstractMapConfiguration;
 import org.fluentness.service.display.Display;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.log.LogLevel;
@@ -8,7 +8,7 @@ import org.fluentness.service.persistence.JdbcPersistence;
 import org.fluentness.service.router.Router;
 import org.fluentness.service.server.Server;
 
-public class MapConfiguration extends ConfigurationImpl {
+public class MapConfiguration extends AbstractMapConfiguration {
 
     public MapConfiguration() {
         set(Server.PORT, 8000);
@@ -28,6 +28,5 @@ public class MapConfiguration extends ConfigurationImpl {
         set(Display.HEIGHT, 900);
         set(Display.FULLSCREEN, false);
     }
-
 
 }

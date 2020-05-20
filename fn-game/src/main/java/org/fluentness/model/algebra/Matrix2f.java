@@ -1,11 +1,11 @@
-package org.fluentness.service.algebra;
+package org.fluentness.model.algebra;
 
 import java.nio.FloatBuffer;
 
 public class Matrix2f {
 
-    private float m00, m01;
-    private float m10, m11;
+    public float m00, m01;
+    public float m10, m11;
 
     public Matrix2f() {
         setIdentity();

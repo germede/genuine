@@ -18,6 +18,8 @@
         <!--Default properties that may be overwritten by profiles-->
         <mainClass>com.sample.ConsoleApplication</mainClass>
         <packaging>jar</packaging>
+        <lwjgl.version>3.2.3</lwjgl.version>
+        <platform>linux</platform>
     </properties>
 
     <dependencies>
@@ -52,6 +54,25 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-${platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-opengl</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-${platform}</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-${platform}</classifier>
         </dependency>
     </dependencies>
 

@@ -1,13 +1,12 @@
 package org.fluentness.service.router;
 
-import org.fluentness.Fluentness;
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.view.html.HtmlAttribute;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.server.*;
 import org.fluentness.service.translator.Translator;
+import org.fluentness.view.html.HtmlAttribute;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -98,9 +97,10 @@ public class RouterImpl implements Router {
     }
 
     private Response executeWebAction(Method action, Request request) {
-        AbstractWebController webController = Fluentness.getInstance(
-            (Class<? extends AbstractWebController>) action.getDeclaringClass()
-        );
+        AbstractWebController webController = null;
+//        AbstractWebController webController = Fluentness.getInstance(
+//            (Class<? extends AbstractWebController>) action.getDeclaringClass()
+//        );
         action.setAccessible(true);
         Object[] args = prepareArgs(action, request);
         Object returned = null;

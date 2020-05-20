@@ -1,6 +1,6 @@
 package org.fluentness.service.display;
 
-import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.model.algebra.Vector3f;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.lwjgl.glfw.GLFWErrorCallback;

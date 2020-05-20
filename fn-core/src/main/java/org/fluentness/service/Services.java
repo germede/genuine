@@ -9,5 +9,6 @@ import java.lang.annotation.Target;
 // instantiated, just like controllers and repositories
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface MultiService {
+public @interface Services {
+    Class<? extends Service>[] value();
 }

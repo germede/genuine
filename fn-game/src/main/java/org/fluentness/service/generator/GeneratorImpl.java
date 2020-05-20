@@ -4,7 +4,7 @@ import org.fluentness.view.scene.terrain.Terrain;
 import org.fluentness.model.mesh.RawMesh;
 import org.fluentness.model.texture.RawTexture;
 import org.fluentness.model.texture.Texture;
-import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.model.algebra.Vector3f;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.service.parser.TextureParser;
 
