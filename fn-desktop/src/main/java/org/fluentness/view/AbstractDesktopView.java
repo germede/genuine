@@ -28,8 +28,8 @@ public abstract class AbstractDesktopView extends AbstractView {
     }
 
     @Override
-    protected LinearLayout linearLayout(Component... components) {
-        return new SwingLinearLayout(components);
+    protected LinearLayout linearLayout(int orientation, Component... components) {
+        return new SwingLinearLayout(orientation, components);
     }
 
     @Override

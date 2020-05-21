@@ -8,8 +8,8 @@ public class SwingLinearLayout extends JPanel implements LinearLayout{
 
     private final BoxLayout layoutManager;
 
-    public SwingLinearLayout(Component[] components) {
-        setLayout(layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS));
+    public SwingLinearLayout(int orientation, Component[] components) {
+        setLayout(layoutManager = new BoxLayout(this, orientation));
         for (Component component : components) {
             add(component);
         }

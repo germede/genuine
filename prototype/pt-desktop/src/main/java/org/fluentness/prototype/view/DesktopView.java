@@ -5,6 +5,8 @@ import org.fluentness.view.component.Button;
 import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
 
+import static org.fluentness.view.container.LinearLayout.*;
+
 public class DesktopView extends AbstractDesktopView {
 
     public Button button1;
@@ -16,7 +18,7 @@ public class DesktopView extends AbstractDesktopView {
 
     @Override
     protected Container structure() {
-        return root = linearLayout(
+        return root = linearLayout(HORIZONTAL,
             button1 = button("one"),
             button("two"),
             button("three")
