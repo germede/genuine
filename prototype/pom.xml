@@ -16,7 +16,7 @@
 
     <properties>
         <!--Default properties that may be overwritten by profiles-->
-        <mainClass>com.sample.ConsoleApplication</mainClass>
+        <mainClass>com.sample.Console</mainClass>
         <packaging>jar</packaging>
         <lwjgl.version>3.2.3</lwjgl.version>
         <platform>linux</platform>
@@ -120,7 +120,7 @@
         <profile>
             <id>desktop</id>
             <properties>
-                <mainClass>com.sample.DesktopApplication</mainClass>
+                <mainClass>com.sample.Desktop</mainClass>
             </properties>
             <dependencies>
                 <dependency>
@@ -134,7 +134,7 @@
         <profile>
             <id>game</id>
             <properties>
-                <mainClass>com.sample.GameApplication</mainClass>
+                <mainClass>com.sample.Game</mainClass>
                 <lwjgl.version>3.2.3</lwjgl.version>
                 <platform>linux</platform>
             </properties>
@@ -164,7 +164,7 @@
         <profile>
             <id>mobile</id>
             <properties>
-                <mainClass>com.sample.MobileApplication</mainClass>
+                <mainClass>com.sample.Mobile</mainClass>
                 <packaging>apk</packaging>
             </properties>
             <dependencies>
@@ -210,7 +210,7 @@
         <profile>
             <id>web</id>
             <properties>
-                <mainClass>com.sample.WebApplication</mainClass>
+                <mainClass>com.sample.Web</mainClass>
             </properties>
             <dependencies>
                 <dependency>

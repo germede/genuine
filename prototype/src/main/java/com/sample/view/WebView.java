@@ -1,16 +1,16 @@
 package com.sample.view;
 
 import com.sample.controller.*;
-import org.fluentness.view.AbstractWeb;
-import org.fluentness.view.WebTemplate;
+import org.fluentness.view.AbstractWebView;
+import org.fluentness.view.template.Template;
 
 import static com.sample.service.StringTranslator.*;
 import static org.fluentness.view.html.HtmlAttribute.*;
 
-public class Web extends AbstractWeb {
+public class WebView extends AbstractWebView {
 
     @Override
-    public WebTemplate getTemplate() {
+    protected Template template() {
         return html(
             head(
                 title("The book library made with Fluentness"),
@@ -48,6 +48,11 @@ public class Web extends AbstractWeb {
                 )
             )
         );
+    }
+
+    @Override
+    protected void style() {
+
     }
 
 }

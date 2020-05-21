@@ -1,24 +1,24 @@
 package org.fluentness.controller;
 
 import org.fluentness.service.display.Display;
-import org.fluentness.view.AbstractGame;
+import org.fluentness.view.AbstractGameView;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public abstract class AbstractGameController<V extends AbstractGame> implements Controller {
+public abstract class AbstractGameController<V extends AbstractGameView> implements Controller {
 
     private final double[] posHolder = new double[1];
 
-    protected final V game;
+    protected final V gameView;
     protected final Display display;
 
-    public AbstractGameController(V game, Display display) {
-        this.game = game;
+    public AbstractGameController(V gameView, Display display) {
+        this.gameView = gameView;
         this.display = display;
     }
 
-    public final V getGame() {
-        return game;
+    public final V getGameView() {
+        return gameView;
     }
 
     public abstract void loop();

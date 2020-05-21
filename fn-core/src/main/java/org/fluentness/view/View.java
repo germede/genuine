@@ -1,7 +1,9 @@
 package org.fluentness.view;
 
-public interface View<V extends Template>  {
+import org.fluentness.view.template.Template;
 
-    V getTemplate();
+public interface View  {
+
+    Template getTemplate();
 
 }

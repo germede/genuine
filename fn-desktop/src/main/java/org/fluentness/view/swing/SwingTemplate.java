@@ -1,20 +1,21 @@
 package org.fluentness.view.swing;
 
-import org.fluentness.view.DesktopTemplate;
+import org.fluentness.view.container.Container;
+import org.fluentness.view.template.Template;
 
-import java.awt.*;
+import javax.swing.*;
 
-public class SwingTemplate implements DesktopTemplate {
+public class SwingTemplate extends JFrame implements Template {
 
-    private final Window window;
-
-    public SwingTemplate(Window window) {
-        this.window = window;
-        this.window.setVisible(true);
+    public SwingTemplate(String title, Container container) {
+        super(title);
+        setContentPane((java.awt.Container) container);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
-    public Window getWindow() {
-        return window;
+    public void render() {
+        setVisible(true);
     }
 
 }

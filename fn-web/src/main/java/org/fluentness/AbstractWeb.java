@@ -12,12 +12,12 @@ import org.fluentness.service.server.SunServer;
     SunServer.class,
     SocketMail.class,
 })
-public abstract class AbstractWebApplication implements Application {
+public abstract class AbstractWeb implements Application {
 
     private final Server server;
     private final AbstractWebController[] controllers;
 
-    public AbstractWebApplication(Server server, AbstractWebController... controllers) {
+    public AbstractWeb(Server server, AbstractWebController... controllers) {
         this.server = server;
         this.controllers = controllers;
     }

@@ -1,13 +1,32 @@
 package org.fluentness.view;
 
 import org.fluentness.controller.Controller;
+import org.fluentness.view.component.Button;
+import org.fluentness.view.component.Component;
+import org.fluentness.view.container.Container;
+import org.fluentness.view.container.LinearLayout;
 import org.fluentness.view.html.*;
+import org.fluentness.view.template.Template;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class AbstractWeb implements View<WebTemplate> {
+public abstract class AbstractWebView extends AbstractView {
+    @Override
+    protected Template template(String title, Container container) {
+        return null;
+    }
+
+    @Override
+    protected LinearLayout linearLayout(Component... components) {
+        return null;
+    }
+
+    @Override
+    protected Button button(String text) {
+        return null;
+    }
 
     public static final String ACTION_RESULT = "###ACTION_RESULT###";
 

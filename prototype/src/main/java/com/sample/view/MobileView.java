@@ -1,17 +1,17 @@
 package com.sample.view;
 
 import android.widget.TextView;
-import org.fluentness.view.AbstractMobile;
-import org.fluentness.view.MobileTemplate;
+import org.fluentness.view.AbstractMobileView;
+import org.fluentness.view.template.Template;
 
-public class Mobile extends AbstractMobile {
+public class MobileView extends AbstractMobileView {
 
     public TextView uno;
     public TextView dos;
     public TextView tres;
 
     @Override
-    public MobileTemplate getTemplate() {
+    protected Template template() {
         return activity(
             linearLayout(
                 uno = text("uno"),
@@ -19,5 +19,10 @@ public class Mobile extends AbstractMobile {
                 tres = text("tres")
             )
         );
+    }
+
+    @Override
+    protected void style() {
+
     }
 }

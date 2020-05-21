@@ -32,12 +32,12 @@ import org.fluentness.service.shader.TerrainShader;
     MemoryImpl.class,
     ManagerImpl.class,
 })
-public abstract class AbstractGameApplication implements Application {
+public abstract class AbstractGame implements Application {
 
     private final Manager manager;
     private final AbstractGameController controller;
 
-    public AbstractGameApplication(Manager manager, AbstractGameController controller) {
+    public AbstractGame(Manager manager, AbstractGameController controller) {
         this.manager = manager;
         this.controller = controller;
     }

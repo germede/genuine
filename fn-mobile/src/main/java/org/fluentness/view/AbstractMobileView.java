@@ -4,10 +4,28 @@ import android.content.Context;
 import android.view.View;
 import android.widget.*;
 import org.fluentness.view.android.AndroidTemplate;
+import org.fluentness.view.component.Component;
+import org.fluentness.view.container.Container;
+import org.fluentness.view.template.Template;
 
-public abstract class AbstractMobile extends AbstractPrerenderedView<MobileTemplate> {
+public abstract class AbstractMobileView extends AbstractView {
 
     public static Context context;
+
+    @Override
+    public Template template(String title, Container container) {
+        return null;
+    }
+
+    @Override
+    public org.fluentness.view.container.LinearLayout linearLayout(Component... components) {
+        return null;
+    }
+
+    @Override
+    public org.fluentness.view.component.Button button(String text) {
+        return null;
+    }
 
     protected static MobileTemplate activity(View rootView) {
         return new AndroidTemplate(rootView);

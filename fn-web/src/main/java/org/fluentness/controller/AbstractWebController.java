@@ -2,7 +2,7 @@ package org.fluentness.controller;
 
 import org.fluentness.service.server.Request;
 import org.fluentness.service.server.RequestMethod;
-import org.fluentness.view.AbstractWeb;
+import org.fluentness.view.AbstractWebView;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Constructor;
@@ -13,16 +13,16 @@ import java.util.Map;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
-public abstract class AbstractWebController<W extends AbstractWeb> implements Controller {
+public abstract class AbstractWebController<W extends AbstractWebView> implements Controller {
 
-    private final W web;
+    private final W webView;
 
     public static final Map<String, Method> pathMethodMap = new HashMap<>();
     public static final Map<String, String> methodPathMap = new HashMap<>();
     public static final ThreadLocal<Request> request = new ThreadLocal<>();
 
-    public AbstractWebController(W web) {
-        this.web = web;
+    public AbstractWebController(W webView) {
+        this.webView = webView;
         Constructor<?>[] constructors = getClass().getConstructors();
         Arrays.stream(getActions()).forEach(action -> {
             Action annotation = action.getAnnotation(Action.class);
@@ -35,8 +35,8 @@ public abstract class AbstractWebController<W extends AbstractWeb> implements Co
         });
     }
 
-    public final W getWeb() {
-        return web;
+    public final W getWebView() {
+        return webView;
     }
 
     private Method[] getActions() {

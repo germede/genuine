@@ -1,19 +1,19 @@
 package com.sample.controller;
 
 import android.view.View;
-import com.sample.view.Mobile;
+import com.sample.view.MobileView;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
 
-public class MobileController extends AbstractMobileController<Mobile> {
+public class MobileController extends AbstractMobileController<MobileView> {
 
     private final Log log;
 
-    public MobileController(Mobile mobile, Log log, Persistence persistence) {
-        super(mobile);
+    public MobileController(MobileView mobileView, Log log, Persistence persistence) {
+        super(mobileView);
         this.log = log;
-        mobile.uno.setOnClickListener(this::test);
+        mobileView.uno.setOnClickListener(this::test);
     }
 
     public void test(View view) {

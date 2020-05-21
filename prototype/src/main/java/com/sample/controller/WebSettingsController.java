@@ -2,12 +2,12 @@ package com.sample.controller;
 
 import com.sample.model.User;
 import com.sample.repository.UserRepository;
-import com.sample.view.Web;
+import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.html.Html;
 
 import static com.sample.service.StringTranslator.*;
-import static org.fluentness.view.AbstractWeb.*;
+import static org.fluentness.view.AbstractWebView.*;
 import static org.fluentness.view.html.HtmlAttribute.*;
 
 public class WebSettingsController extends AbstractWebController {
@@ -15,7 +15,7 @@ public class WebSettingsController extends AbstractWebController {
     private final UserRepository userRepository;
 
     @BasePath("/users")
-    public WebSettingsController(Web web, UserRepository userRepository) {
+    public WebSettingsController(WebView web, UserRepository userRepository) {
         super(web);
         this.userRepository = userRepository;
     }

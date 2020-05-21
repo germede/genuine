@@ -1,17 +1,22 @@
 package org.fluentness.controller;
 
-import org.fluentness.view.AbstractDesktop;
+import org.fluentness.view.AbstractDesktopView;
+import org.fluentness.view.event.Clickable;
+import org.fluentness.controller.action.OnClickAction;
 
-public abstract class AbstractDesktopController<D extends AbstractDesktop> implements Controller {
+import javax.swing.*;
 
-    private final D desktop;
+public abstract class AbstractDesktopController<V extends AbstractDesktopView> extends AbstractController<V> {
 
-    public AbstractDesktopController(D desktop) {
-        this.desktop = desktop;
+    public AbstractDesktopController(V view) {
+        super(view);
     }
 
-    public final D getDesktop() {
-        return desktop;
+    protected void onClick(Clickable clickable, OnClickAction onClickAction) {
+        if (clickable instanceof JButton) {
+            ((JButton) clickable).addActionListener(actionEvent -> onClickAction.handle());
+        }
+
     }
 
 }

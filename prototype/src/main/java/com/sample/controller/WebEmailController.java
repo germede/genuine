@@ -1,17 +1,17 @@
 package com.sample.controller;
 
-import com.sample.view.Web;
+import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.html.Html;
 
-import static org.fluentness.view.AbstractWeb.form;
-import static org.fluentness.view.AbstractWeb.input;
+import static org.fluentness.view.AbstractWebView.form;
+import static org.fluentness.view.AbstractWebView.input;
 import static org.fluentness.view.html.HtmlAttribute.*;
 
 public class WebEmailController extends AbstractWebController {
 
     @BasePath("/email")
-    public WebEmailController(Web web) {
+    public WebEmailController(WebView web) {
         super(web);
     }
 

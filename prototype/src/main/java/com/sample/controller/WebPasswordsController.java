@@ -1,6 +1,6 @@
 package com.sample.controller;
 
-import com.sample.view.Web;
+import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.html.Html;
 
@@ -10,14 +10,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.fluentness.view.AbstractWeb.*;
+import static org.fluentness.view.AbstractWebView.*;
 import static org.fluentness.view.html.HtmlAttribute.CLASS;
 import static org.fluentness.view.html.HtmlAttribute.HREF;
 
-public class WebPasswordsController extends AbstractWebController<Web> {
+public class WebPasswordsController extends AbstractWebController<WebView> {
 
     @BasePath("/calendar")
-    public WebPasswordsController(Web web) {
+    public WebPasswordsController(WebView web) {
         super(web);
     }
 

@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class AbstractConsoleApplication implements Application {
+public abstract class AbstractConsole implements Application {
 
     private final Map<Class<? extends AbstractConsoleController>, AbstractConsoleController> controllers;
     private final Map<String, Method> nameActionMap = new HashMap<>();
 
-    public AbstractConsoleApplication(AbstractConsoleController... controllers) {
+    public AbstractConsole(AbstractConsoleController... controllers) {
         Arrays.stream(controllers).forEach(controller ->
             Arrays.stream(controller.getActions()).forEach(action ->
                 nameActionMap.put(action.getName(), action)

@@ -1,17 +1,17 @@
 package org.fluentness.controller;
 
-import org.fluentness.view.AbstractMobile;
+import org.fluentness.view.AbstractMobileView;
 
-public abstract class AbstractMobileController<M extends AbstractMobile> implements Controller {
+public abstract class AbstractMobileController<M extends AbstractMobileView> implements Controller {
 
-    protected final M mobile;
+    protected final M mobileView;
 
-    public AbstractMobileController(M mobile) {
-        this.mobile = mobile;
+    public AbstractMobileController(M mobileView) {
+        this.mobileView = mobileView;
     }
 
-    public final M getMobile() {
-        return mobile;
+    public final M getMobileView() {
+        return mobileView;
     }
 
 

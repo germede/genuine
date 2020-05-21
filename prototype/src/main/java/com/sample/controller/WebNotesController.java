@@ -1,20 +1,20 @@
 package com.sample.controller;
 
 import com.sample.repository.NoteRepository;
-import com.sample.view.Web;
+import com.sample.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.html.Html;
 
 import static com.sample.service.StringTranslator.*;
-import static org.fluentness.view.AbstractWeb.*;
+import static org.fluentness.view.AbstractWebView.*;
 import static org.fluentness.view.html.HtmlAttribute.CLASS;
 
-public class WebNotesController extends AbstractWebController<Web> {
+public class WebNotesController extends AbstractWebController<WebView> {
 
     private final NoteRepository noteRepository;
 
     @BasePath("/notes")
-    public WebNotesController(Web web, NoteRepository noteRepository) {
+    public WebNotesController(WebView web, NoteRepository noteRepository) {
         super(web);
         this.noteRepository = noteRepository;
     }

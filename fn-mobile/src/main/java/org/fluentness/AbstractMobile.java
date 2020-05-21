@@ -8,7 +8,7 @@ import org.fluentness.service.persistence.AndroidPersistence;
     AndroidLog.class,
     AndroidPersistence.class,
 })
-public abstract class AbstractMobileApplication implements Application {
+public abstract class AbstractMobile implements Application {
 
     @Override
     public void run(String[] args) throws Exception {

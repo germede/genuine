@@ -19,8 +19,8 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.util.Map;
 
-import static org.fluentness.view.AbstractWeb.ACTION_RESULT;
-import static org.fluentness.view.AbstractWeb.div;
+import static org.fluentness.view.AbstractWebView.ACTION_RESULT;
+import static org.fluentness.view.AbstractWebView.div;
 
 public class RouterImpl implements Router {
 
@@ -156,7 +156,7 @@ public class RouterImpl implements Router {
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
         } else {
-            render = webController.getWeb().getTemplate().toString();
+            render = webController.getWebView().getTemplate().toString();
             if (configuration.get(SINGLE_PAGE_MODE)) {
                 render = render
                     .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")
