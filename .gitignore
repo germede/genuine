@@ -3,6 +3,7 @@
 .run/
 target/
 database/
+prototype/gen/*
 *.iws
 *.ipr
 *.class

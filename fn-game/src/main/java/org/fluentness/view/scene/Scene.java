@@ -75,9 +75,4 @@ public class Scene implements Container {
     public void add(Component component) {
 
     }
-
-    @Override
-    public void add(Container container) {
-
-    }
 }

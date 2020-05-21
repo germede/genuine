@@ -18,9 +18,4 @@ public class HtmlRoot extends Html implements Container {
     public void add(Component component) {
 
     }
-
-    @Override
-    public void add(Container container) {
-
-    }
 }

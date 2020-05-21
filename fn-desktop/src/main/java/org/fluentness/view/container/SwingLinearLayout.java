@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class SwingLinearLayout extends JPanel implements LinearLayout{
 
-    private BoxLayout layoutManager;
+    private final BoxLayout layoutManager;
 
     public SwingLinearLayout(Component[] components) {
         setLayout(layoutManager = new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -16,8 +16,8 @@ public class SwingLinearLayout extends JPanel implements LinearLayout{
     }
 
     @Override
-    public Orientation getOrientation() {
-        return layoutManager.getAxis() == BoxLayout.Y_AXIS ? Orientation.VERTICAL : Orientation.HORIZONTAL;
+    public int getOrientation() {
+        return layoutManager.getAxis();
     }
 
     @Override
@@ -26,12 +26,7 @@ public class SwingLinearLayout extends JPanel implements LinearLayout{
     }
 
     @Override
-    public void add(Container container) {
-        add((java.awt.Container)container);
-    }
-
-    @Override
-    public void addBorder(int top, int left, int bottom, int right) {
+    public void padding(int top, int left, int bottom, int right) {
         setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
     }
 }

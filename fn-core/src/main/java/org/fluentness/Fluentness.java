@@ -13,6 +13,8 @@ import java.util.Map;
 
 public final class Fluentness {
 
+    public static Application application;
+
     public static void launch(Class<? extends Application> applicationClass, String[] args) throws FluentnessException {
         new Fluentness(applicationClass, args);
     }
@@ -23,7 +25,8 @@ public final class Fluentness {
     public Fluentness(Class<? extends Application> applicationClass, String[] args) throws FluentnessException {
         try {
             aliases(applicationClass);
-            instantiate(applicationClass).run(args);
+            application = instantiate(applicationClass);
+            application.run(args);
         } catch (Throwable cause) {
             throw new FluentnessException(cause);
         }
