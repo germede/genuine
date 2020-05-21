@@ -5,7 +5,8 @@ import org.fluentness.view.component.Button;
 import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
 
-import static org.fluentness.view.container.LinearLayout.*;
+import static org.fluentness.prototype.service.Localization.*;
+import static org.fluentness.view.container.LinearLayout.HORIZONTAL;
 
 public class DesktopView extends AbstractDesktopView {
 
@@ -19,9 +20,9 @@ public class DesktopView extends AbstractDesktopView {
     @Override
     protected Container structure() {
         return root = linearLayout(HORIZONTAL,
-            button1 = button("one"),
-            button("two"),
-            button("three")
+            button1 = button(_accept),
+            button(_cancel),
+            button(_welcome_message)
         );
     }
 

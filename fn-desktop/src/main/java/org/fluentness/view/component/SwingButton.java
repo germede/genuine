@@ -12,4 +12,9 @@ public class SwingButton extends JButton implements Button {
     public void setText(CharSequence text) {
         setText(text.toString());
     }
+
+    @Override
+    public void onClick(OnClickAction<Button> onClickAction) {
+        addActionListener(button -> onClickAction.handle(this));
+    }
 }

@@ -6,7 +6,7 @@ import org.fluentness.prototype.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.html.Html;
 
-import static org.fluentness.prototype.service.StringTranslator.*;
+import static org.fluentness.prototype.service.Localization.*;
 import static org.fluentness.view.AbstractWebView.*;
 import static org.fluentness.view.html.HtmlAttribute.*;
 

@@ -1,8 +1,8 @@
 package org.fluentness.view.container;
 
-import org.fluentness.view.style.Bordeable;
+import org.fluentness.view.style.Paddingable;
 
-public interface LinearLayout extends Container, Bordeable {
+public interface LinearLayout extends Container, Paddingable {
 
     int HORIZONTAL = 0;
     int VERTICAL = 1;

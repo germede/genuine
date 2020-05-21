@@ -1,6 +1,7 @@
 package org.fluentness;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import org.fluentness.view.AbstractMobileView;
 
@@ -25,10 +26,12 @@ public class MainActivity extends android.app.Activity {
             args[0] = new String[] {};
             main.invoke(null, args);
 
-            View androidView = ((AbstractMobile) Fluentness.application).getController().getMobileView().getAndroidView();
+            AbstractMobile application = (AbstractMobile) Fluentness.application;
+            AbstractMobileView view = (AbstractMobileView) application.getController().getView();
+            View androidView = view.getAndroidView();
             setContentView(androidView);
         } catch (ClassNotFoundException | IllegalAccessException | NameNotFoundException | NoSuchMethodException | InvocationTargetException e) {
-            android.util.Log.e(this.getClass().getSimpleName(), "Exception", e);
+            Log.e(this.getClass().getSimpleName(), "Exception", e);
         }
     }
 }

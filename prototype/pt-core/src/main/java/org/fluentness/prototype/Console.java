@@ -4,10 +4,10 @@ import org.fluentness.AbstractConsole;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.controller.ConsoleController;
-import org.fluentness.prototype.service.StringTranslator;
+import org.fluentness.prototype.service.Localization;
 import org.fluentness.service.Services;
 
-@Services(StringTranslator.class)
+@Services(Localization.class)
 public class Console extends AbstractConsole {
 
     public Console(ConsoleController consoleController) {

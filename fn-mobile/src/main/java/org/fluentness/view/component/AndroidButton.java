@@ -9,4 +9,9 @@ public class AndroidButton extends android.widget.Button implements Button {
         super(context);
         setText(text);
     }
+
+    @Override
+    public void onClick(OnClickAction<Button> onClickAction) {
+        setOnClickListener(view -> onClickAction.handle(this));
+    }
 }

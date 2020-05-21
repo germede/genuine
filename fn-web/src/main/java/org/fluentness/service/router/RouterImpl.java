@@ -5,7 +5,6 @@ import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.server.*;
-import org.fluentness.service.translator.Translator;
 import org.fluentness.view.html.HtmlAttribute;
 
 import java.io.BufferedReader;
@@ -27,15 +26,13 @@ public class RouterImpl implements Router {
     private final Authentication authentication;
     private final Log log;
     private final Configuration configuration;
-    private final Translator translator;
 
     private final Map<String, Method> routes;
 
-    public RouterImpl(Authentication authentication, Log log, Configuration configuration, Translator translator) {
+    public RouterImpl(Authentication authentication, Log log, Configuration configuration) {
         this.authentication = authentication;
         this.log = log;
         this.configuration = configuration;
-        this.translator = translator;
 
         this.routes = AbstractWebController.pathMethodMap;
     }
@@ -149,10 +146,6 @@ public class RouterImpl implements Router {
 
     private Response handleWebView(Request request, AbstractWebController webController, CharSequence returned) {
         String render;
-        if (returned instanceof String) {
-            returned = translator.translate((String) returned, request.getLanguages());
-        }
-
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
         } else {

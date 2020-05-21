@@ -5,21 +5,20 @@ import org.fluentness.view.component.Button;
 import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
 
+import static org.fluentness.prototype.service.Localization.*;
 import static org.fluentness.view.container.LinearLayout.VERTICAL;
 
 public class MobileView extends AbstractMobileView {
 
     private LinearLayout root;
-    public Button uno;
-    public Button dos;
-    public Button tres;
+    public Button button1;
 
     @Override
     protected Container structure() {
         return root = linearLayout(VERTICAL,
-            uno = button("uno"),
-            dos = button("dos"),
-            tres = button("tres")
+            button1 = button(_accept),
+            button(_cancel),
+            button(_welcome_message)
         );
     }
 
