@@ -1,7 +1,6 @@
-package org.fluentness.view.swing;
+package org.fluentness.view.template;
 
 import org.fluentness.view.container.Container;
-import org.fluentness.view.template.Template;
 
 import javax.swing.*;
 

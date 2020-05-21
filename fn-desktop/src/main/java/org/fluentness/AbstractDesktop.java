@@ -1,7 +1,7 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractDesktopController;
-import org.fluentness.view.swing.SwingTemplate;
+import org.fluentness.view.template.SwingTemplate;
 
 public abstract class AbstractDesktop implements Application {
 

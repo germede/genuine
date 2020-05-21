@@ -6,7 +6,7 @@ import org.fluentness.view.component.SwingButton;
 import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
 import org.fluentness.view.container.SwingLinearLayout;
-import org.fluentness.view.swing.SwingTemplate;
+import org.fluentness.view.template.SwingTemplate;
 import org.fluentness.view.template.Template;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.view.AbstractDesktopView;
-import org.fluentness.view.event.Clickable;
+import org.fluentness.view.interaction.Clickable;
 import org.fluentness.controller.action.OnClickAction;
 
 import javax.swing.*;

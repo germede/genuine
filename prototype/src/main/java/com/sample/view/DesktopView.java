@@ -23,7 +23,7 @@ public class DesktopView extends AbstractDesktopView {
 
     @Override
     protected void style() {
-        root.addBorder(50,50,50,50);
+        root.addBorder(50, 50, 50, 50);
     }
 
 //

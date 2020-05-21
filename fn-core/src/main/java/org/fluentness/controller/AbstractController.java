@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.view.View;
-import org.fluentness.view.event.Clickable;
+import org.fluentness.view.interaction.Clickable;
 import org.fluentness.controller.action.OnClickAction;
 
 public abstract class AbstractController<V extends View> implements Controller {
