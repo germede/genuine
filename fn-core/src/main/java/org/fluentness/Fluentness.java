@@ -1,7 +1,11 @@
 package org.fluentness;
 
+import org.fluentness.controller.Controller;
+import org.fluentness.model.Model;
+import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.service.Services;
+import org.fluentness.view.View;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +17,16 @@ import java.util.Map;
 
 public final class Fluentness {
 
+    private static final Class<?>[] injectionPriority = new Class[]{
+        Service.class,
+        Model.class,
+        Repository.class,
+        View.class,
+        Controller.class,
+        Application.class,
+    };
     public static Application application;
+
 
     public static void launch(Class<? extends Application> applicationClass, String[] args) throws FluentnessException {
         new Fluentness(applicationClass, args);
@@ -21,6 +34,7 @@ public final class Fluentness {
 
     private final Map<Class, Class> aliases = new HashMap<>();
     private final Map<Class, Object> instances = new HashMap<>();
+
 
     public Fluentness(Class<? extends Application> applicationClass, String[] args) throws FluentnessException {
         try {
@@ -76,10 +90,22 @@ public final class Fluentness {
         Object[] result = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
             Class<?> type = parameters[i].getType();
+            validateDependency(constructor.getDeclaringClass(), type);
             if (instances.containsKey(type)) result[i] = instances.get(type);
             else result[i] = instantiate(aliases.getOrDefault(type, type));
         }
         return result;
+    }
+
+    private void validateDependency(Class<?> dependant, Class<?> dependency) throws FluentnessException {
+        int dependantPriority = -1, dependencyPriority = -1;
+        for (int i = 0; i < injectionPriority.length; i++) {
+            if (injectionPriority[i].isAssignableFrom(dependant)) dependantPriority = i;
+            if (injectionPriority[i].isAssignableFrom(dependency)) dependencyPriority = i;
+        }
+        if (dependantPriority < dependencyPriority) {
+            throw new FluentnessException("A %s cannot depend on a %s", dependant.getSimpleName(), dependency.getSimpleName());
+        }
     }
 
     private Class getKey(Class aClass) {
