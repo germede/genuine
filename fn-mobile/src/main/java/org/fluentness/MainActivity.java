@@ -1,8 +1,7 @@
-package org.fluentness.view.android;
+package org.fluentness;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import org.fluentness.Application;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.view.AbstractMobileView;
 
@@ -25,8 +24,8 @@ public class MainActivity extends android.app.Activity {
             List<AbstractMobileController> instances = null;
 //            List<AbstractMobileController> instances = Fluentness.getInstances(AbstractMobileController.class);
             AbstractMobileView mobile = instances.get(0).getMobileView();
-            AndroidTemplate androidView = (AndroidTemplate) mobile.getTemplate();
-            setContentView(androidView.getView());
+//            AndroidTemplate androidView = (AndroidTemplate) mobile.getTemplate();
+//            setContentView(androidView.getView());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | PackageManager.NameNotFoundException e) {
 //            Log log = Fluentness.getInstance(Log.class);
 //            if (log != null) {

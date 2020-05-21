@@ -2,22 +2,24 @@ package com.sample.view;
 
 import org.fluentness.view.AbstractDesktopView;
 import org.fluentness.view.component.Button;
+import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
-import org.fluentness.view.template.Template;
 
 public class DesktopView extends AbstractDesktopView {
 
     public Button button1;
     private LinearLayout root;
 
+    public DesktopView() {
+        super("My Desktop View");
+    }
+
     @Override
-    protected Template template() {
-        return template("My new template",
-            root = linearLayout(
-                button1 = button("one"),
-                button("two"),
-                button("three")
-            )
+    protected Container structure() {
+        return root = linearLayout(
+            button1 = button("one"),
+            button("two"),
+            button("three")
         );
     }
 

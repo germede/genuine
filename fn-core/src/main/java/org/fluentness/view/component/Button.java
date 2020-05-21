@@ -4,8 +4,8 @@ import org.fluentness.view.interaction.Clickable;
 
 public interface Button extends Component, Clickable {
 
-    String getText();
+    CharSequence getText();
 
-    void setText(String text);
+    void setText(CharSequence text);
 
 }

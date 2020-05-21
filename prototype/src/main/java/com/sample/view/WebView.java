@@ -2,7 +2,7 @@ package com.sample.view;
 
 import com.sample.controller.*;
 import org.fluentness.view.AbstractWebView;
-import org.fluentness.view.template.Template;
+import org.fluentness.view.container.Container;
 
 import static com.sample.service.StringTranslator.*;
 import static org.fluentness.view.html.HtmlAttribute.*;
@@ -10,7 +10,7 @@ import static org.fluentness.view.html.HtmlAttribute.*;
 public class WebView extends AbstractWebView {
 
     @Override
-    protected Template template() {
+    protected Container structure() {
         return html(
             head(
                 title("The book library made with Fluentness"),

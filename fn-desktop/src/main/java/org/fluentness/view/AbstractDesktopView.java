@@ -3,28 +3,28 @@ package org.fluentness.view;
 import org.fluentness.view.component.Button;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.SwingButton;
-import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
 import org.fluentness.view.container.SwingLinearLayout;
-import org.fluentness.view.template.SwingTemplate;
-import org.fluentness.view.template.Template;
 
 import javax.swing.*;
 
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+
 public abstract class AbstractDesktopView extends AbstractView {
 
-    public AbstractDesktopView() {
+    public AbstractDesktopView(CharSequence title) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        ((SwingTemplate)template).pack();
-    }
-
-    @Override
-    protected Template template(String title, Container container) {
-        return new SwingTemplate(title, container);
+        JFrame jFrame = new JFrame(title.toString());
+        jFrame.setContentPane((java.awt.Container) structure());
+        jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        jFrame.setLocationRelativeTo(null);
+        style();
+        jFrame.pack();
+        jFrame.setVisible(true);
     }
 
     @Override
@@ -33,7 +33,7 @@ public abstract class AbstractDesktopView extends AbstractView {
     }
 
     @Override
-    protected Button button(String text) {
+    protected Button button(CharSequence text) {
         return new SwingButton(text);
     }
 

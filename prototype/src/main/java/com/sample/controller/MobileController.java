@@ -13,7 +13,7 @@ public class MobileController extends AbstractMobileController<MobileView> {
     public MobileController(MobileView mobileView, Log log, Persistence persistence) {
         super(mobileView);
         this.log = log;
-        mobileView.uno.setOnClickListener(this::test);
+//        mobileView.uno.setOnClickListener(this::test);
     }
 
     public void test(View view) {

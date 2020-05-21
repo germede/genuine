@@ -3,20 +3,14 @@ package org.fluentness.view;
 import org.fluentness.controller.Controller;
 import org.fluentness.view.component.Button;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
 import org.fluentness.view.html.*;
-import org.fluentness.view.template.Template;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
 public abstract class AbstractWebView extends AbstractView {
-    @Override
-    protected Template template(String title, Container container) {
-        return null;
-    }
 
     @Override
     protected LinearLayout linearLayout(Component... components) {
@@ -24,7 +18,7 @@ public abstract class AbstractWebView extends AbstractView {
     }
 
     @Override
-    protected Button button(String text) {
+    protected Button button(CharSequence text) {
         return null;
     }
 
@@ -46,8 +40,8 @@ public abstract class AbstractWebView extends AbstractView {
         return String.join("", result);
     }
 
-    public static HtmlTemplate html(CharSequence... html) {
-        return new HtmlTemplate(html);
+    public static HtmlRoot html(CharSequence... html) {
+        return new HtmlRoot(html);
     }
 
     public static Html a(CharSequence... html) {

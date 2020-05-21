@@ -1,20 +1,13 @@
 package org.fluentness.view;
 
 import android.content.Context;
-import org.fluentness.view.component.Button;
+import org.fluentness.view.component.AndroidButton;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
-import org.fluentness.view.template.Template;
 
 public abstract class AbstractMobileView extends AbstractView {
 
     public static Context context;
-
-    @Override
-    protected Template template(String title, Container container) {
-        return null;
-    }
 
     @Override
     protected LinearLayout linearLayout(Component... components) {
@@ -22,8 +15,8 @@ public abstract class AbstractMobileView extends AbstractView {
     }
 
     @Override
-    protected Button button(String text) {
-        return null;
+    protected AndroidButton button(CharSequence text) {
+        return new AndroidButton(context, text);
     }
 
 }

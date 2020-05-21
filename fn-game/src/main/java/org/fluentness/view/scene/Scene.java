@@ -1,6 +1,9 @@
 package org.fluentness.view.scene;
 
-import org.fluentness.view.GameTemplate;
+import org.fluentness.model.mesh.Mesh;
+import org.fluentness.model.texture.Texture;
+import org.fluentness.view.component.Component;
+import org.fluentness.view.container.Container;
 import org.fluentness.view.scene.camera.Camera;
 import org.fluentness.view.scene.entity.Entities;
 import org.fluentness.view.scene.entity.Entity;
@@ -8,15 +11,13 @@ import org.fluentness.view.scene.environment.Background;
 import org.fluentness.view.scene.environment.Fog;
 import org.fluentness.view.scene.light.Light;
 import org.fluentness.view.scene.terrain.Terrain;
-import org.fluentness.model.mesh.Mesh;
-import org.fluentness.model.texture.Texture;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Scene implements GameTemplate {
+public class Scene implements Container {
 
     public Background background;
     public Camera camera;
@@ -70,4 +71,13 @@ public class Scene implements GameTemplate {
         return mesh.getId() + "-" + texture.getId();
     }
 
+    @Override
+    public void add(Component component) {
+
+    }
+
+    @Override
+    public void add(Container container) {
+
+    }
 }

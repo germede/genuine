@@ -2,17 +2,15 @@ package org.fluentness.view;
 
 import org.fluentness.view.component.Button;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
+import org.fluentness.view.scene.Scene;
 import org.fluentness.view.scene.SceneElement;
+import org.fluentness.view.scene.camera.Camera;
 import org.fluentness.view.scene.entity.Entities;
 import org.fluentness.view.scene.entity.Entity;
 import org.fluentness.view.scene.environment.Background;
-import org.fluentness.view.scene.camera.Camera;
 import org.fluentness.view.scene.environment.Fog;
 import org.fluentness.view.scene.light.Light;
-import org.fluentness.view.scene.Scene;
-import org.fluentness.view.template.Template;
 
 public abstract class AbstractGameView extends AbstractView {
 
@@ -41,17 +39,12 @@ public abstract class AbstractGameView extends AbstractView {
     }
 
     @Override
-    protected Template template(String title, Container container) {
-        return null;
-    }
-
-    @Override
     protected LinearLayout linearLayout(Component... components) {
         return null;
     }
 
     @Override
-    protected Button button(String text) {
+    protected Button button(CharSequence text) {
         return null;
     }
 }

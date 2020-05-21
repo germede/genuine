@@ -2,12 +2,12 @@ package com.sample.view;
 
 import com.sample.repository.GameRepository;
 import org.fluentness.view.AbstractGameView;
+import org.fluentness.view.container.Container;
 import org.fluentness.view.scene.Scene;
 import org.fluentness.view.scene.camera.Camera;
 import org.fluentness.view.scene.entity.Player;
 import org.fluentness.view.scene.light.Light;
 import org.fluentness.view.scene.terrain.Terrain;
-import org.fluentness.view.template.Template;
 
 public class GameView extends AbstractGameView {
 
@@ -24,7 +24,7 @@ public class GameView extends AbstractGameView {
     public Player player;
 
     @Override
-    protected Template template() {
+    protected Container structure() {
         return scene = scene(
             background(0, 0, 0.7f),
             camera = camera(0, 50, 0),

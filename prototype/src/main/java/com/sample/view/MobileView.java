@@ -1,23 +1,21 @@
 package com.sample.view;
 
-import android.widget.TextView;
 import org.fluentness.view.AbstractMobileView;
-import org.fluentness.view.template.Template;
+import org.fluentness.view.component.Button;
+import org.fluentness.view.container.Container;
 
 public class MobileView extends AbstractMobileView {
 
-    public TextView uno;
-    public TextView dos;
-    public TextView tres;
+    public Button uno;
+    public Button dos;
+    public Button tres;
 
     @Override
-    protected Template template() {
-        return activity(
-            linearLayout(
-                uno = text("uno"),
-                dos = text("dos"),
-                tres = text("tres")
-            )
+    protected Container structure() {
+        return linearLayout(
+            uno = button("uno"),
+            dos = button("dos"),
+            tres = button("tres")
         );
     }
 
