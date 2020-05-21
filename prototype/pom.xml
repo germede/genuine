@@ -11,7 +11,8 @@
     </parent>
 
     <artifactId>prototype</artifactId>
-    <version>${revision}</version>
+
+    <packaging>pom</packaging>
 
     <modules>
         <module>pt-core</module>
@@ -21,6 +22,39 @@
         <module>pt-web</module>
     </modules>
 
-    <packaging>pom</packaging>
+    <properties>
+        <mainClass></mainClass>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>
+                <inherited>true</inherited>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -8,7 +8,6 @@ import org.fluentness.service.persistence.FilePersistence;
 @Services({
     ConfigurationImpl.class,
     JulLog.class,
-    FilePersistence.class,
 })
 public interface Application {
 

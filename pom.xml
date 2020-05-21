@@ -8,6 +8,8 @@
     <artifactId>fluentness</artifactId>
     <version>${revision}</version>
 
+    <packaging>pom</packaging>
+
     <modules>
         <module>archetype</module>
         <module>fn-core</module>
@@ -25,7 +27,6 @@
         <languageLevel>8</languageLevel>
     </properties>
 
-    <packaging>pom</packaging>
 
     <issueManagement>
         <url>https://github.com/germede/fluentness/issues</url>
