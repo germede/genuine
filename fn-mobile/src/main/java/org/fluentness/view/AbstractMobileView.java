@@ -23,8 +23,8 @@ public abstract class AbstractMobileView extends AbstractView {
     }
 
     @Override
-    protected LinearLayout linearLayout(Component... components) {
-        return new AndroidLinearLayout(context, components);
+    protected LinearLayout linearLayout(int orientation, Component... components) {
+        return new AndroidLinearLayout(context, orientation, components);
     }
 
     @Override

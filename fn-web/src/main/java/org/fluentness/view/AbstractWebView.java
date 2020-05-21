@@ -1,26 +1,13 @@
 package org.fluentness.view;
 
 import org.fluentness.controller.Controller;
-import org.fluentness.view.component.Button;
-import org.fluentness.view.component.Component;
-import org.fluentness.view.container.LinearLayout;
 import org.fluentness.view.html.*;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class AbstractWebView extends AbstractView {
-
-    @Override
-    protected LinearLayout linearLayout(Component... components) {
-        return null;
-    }
-
-    @Override
-    protected Button button(CharSequence text) {
-        return null;
-    }
+public abstract class AbstractWebView implements View {
 
     public static final String ACTION_RESULT = "###ACTION_RESULT###";
 

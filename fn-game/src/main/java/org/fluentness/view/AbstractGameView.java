@@ -1,8 +1,5 @@
 package org.fluentness.view;
 
-import org.fluentness.view.component.Button;
-import org.fluentness.view.component.Component;
-import org.fluentness.view.container.LinearLayout;
 import org.fluentness.view.scene.Scene;
 import org.fluentness.view.scene.SceneElement;
 import org.fluentness.view.scene.camera.Camera;
@@ -12,7 +9,7 @@ import org.fluentness.view.scene.environment.Background;
 import org.fluentness.view.scene.environment.Fog;
 import org.fluentness.view.scene.light.Light;
 
-public abstract class AbstractGameView extends AbstractView {
+public abstract class AbstractGameView implements View {
 
     protected Scene scene(SceneElement... sceneElements) {
         return new Scene(sceneElements);
@@ -38,13 +35,4 @@ public abstract class AbstractGameView extends AbstractView {
         return new Entities(entities);
     }
 
-    @Override
-    protected LinearLayout linearLayout(Component... components) {
-        return null;
-    }
-
-    @Override
-    protected Button button(CharSequence text) {
-        return null;
-    }
 }

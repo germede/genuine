@@ -4,6 +4,8 @@ import org.fluentness.view.AbstractMobileView;
 import org.fluentness.view.component.Button;
 import org.fluentness.view.container.Container;
 
+import static org.fluentness.view.container.LinearLayout.VERTICAL;
+
 public class MobileView extends AbstractMobileView {
 
     public Button uno;
@@ -12,7 +14,7 @@ public class MobileView extends AbstractMobileView {
 
     @Override
     protected Container structure() {
-        return linearLayout(
+        return linearLayout(VERTICAL,
             uno = button("uno"),
             dos = button("dos"),
             tres = button("tres")

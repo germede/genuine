@@ -21,7 +21,9 @@ public class MainActivity extends android.app.Activity {
             String applicationClassName = getPackageManager().getActivityInfo(getComponentName(), 0).nonLocalizedLabel.toString();
             Class<? extends Application> applicationClass = (Class<? extends Application>) Class.forName(applicationClassName);
             Method main = applicationClass.getMethod("main", String[].class);
-            main.invoke(null, new String[]{});
+            final Object[] args = new Object[1];
+            args[0] = new String[] {};
+            main.invoke(null, args);
 
             View androidView = ((AbstractMobile) Fluentness.application).getController().getMobileView().getAndroidView();
             setContentView(androidView);
