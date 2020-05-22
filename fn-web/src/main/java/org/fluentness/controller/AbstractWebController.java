@@ -1,5 +1,6 @@
 package org.fluentness.controller;
 
+import org.fluentness.service.dispatcher.DynamicDispatcher;
 import org.fluentness.view.AbstractWebView;
 
 import java.lang.annotation.ElementType;
@@ -9,29 +10,21 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
 public abstract class AbstractWebController<W extends AbstractWebView> implements Controller {
 
     private final W webView;
+    protected final DynamicDispatcher dispatcher;
 
-    public static final Map<String, Method> pathMethodMap = new HashMap<>();
-    public static final Map<String, String> methodPathMap = new HashMap<>();
-
-    public AbstractWebController(W webView) {
+    public AbstractWebController(W webView, DynamicDispatcher dispatcher) {
         this.webView = webView;
+        this.dispatcher = dispatcher;
         Constructor<?>[] constructors = getClass().getConstructors();
         Arrays.stream(getActions()).forEach(action -> {
             Action annotation = action.getAnnotation(Action.class);
-            String actionPath = annotation.path().equals("") ? "/" + action.getName() : annotation.path();
-            String path = constructors[0].isAnnotationPresent(BasePath.class) ?
-                constructors[0].getAnnotation(BasePath.class).value() + actionPath :
-                actionPath;
-            pathMethodMap.put(annotation.method() + " " + path, action);
-            methodPathMap.put(this.getClass().getCanonicalName() + action.getName(), path);
+            dispatcher.addRoute(annotation.method(), annotation.path(), action, this);
         });
     }
 
@@ -41,27 +34,15 @@ public abstract class AbstractWebController<W extends AbstractWebView> implement
 
     private Method[] getActions() {
         return Arrays.stream(this.getClass().getDeclaredMethods())
-            .filter(method -> method.isAnnotationPresent(Action.class))
-            .toArray(Method[]::new);
+                .filter(method -> method.isAnnotationPresent(Action.class))
+                .toArray(Method[]::new);
     }
 
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     protected @interface Action {
-
-        String path() default "";
+        String path();
 
         String method() default GET;
-
-        boolean authenticate() default true;
-
-        boolean cache() default true;
     }
-
-    @Target(ElementType.CONSTRUCTOR)
-    @Retention(RetentionPolicy.RUNTIME)
-    protected @interface BasePath {
-        String value();
-    }
-
 }

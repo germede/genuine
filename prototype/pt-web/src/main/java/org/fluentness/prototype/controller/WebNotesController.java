@@ -3,6 +3,7 @@ package org.fluentness.prototype.controller;
 import org.fluentness.prototype.repository.NoteRepository;
 import org.fluentness.prototype.view.WebView;
 import org.fluentness.controller.AbstractWebController;
+import org.fluentness.service.dispatcher.DynamicDispatcher;
 import org.fluentness.view.html.Html;
 
 import static org.fluentness.prototype.service.Localization.*;
@@ -13,13 +14,12 @@ public class WebNotesController extends AbstractWebController<WebView> {
 
     private final NoteRepository noteRepository;
 
-    @BasePath("/notes")
-    public WebNotesController(WebView web, NoteRepository noteRepository) {
-        super(web);
+    public WebNotesController(WebView web, DynamicDispatcher dispatcher,  NoteRepository noteRepository) {
+        super(web, dispatcher);
         this.noteRepository = noteRepository;
     }
 
-    @Action
+    @Action(path = "/notes")
     Html notes() {
         return div(
             table(

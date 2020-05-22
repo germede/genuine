@@ -4,9 +4,9 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.dispatcher.Dispatcher;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.log.LogLevel;
-import org.fluentness.service.dispatcher.Dispatcher;
 
 import java.io.File;
 import java.util.Arrays;
@@ -17,19 +17,19 @@ public class TomcatServer extends Handler implements Server {
 
     private final Log log;
 
-    private final Tomcat server;
+    private final Tomcat tomcat;
 
     public TomcatServer(Configuration configuration, Log log, Dispatcher[] dispatchers) {
         this.log = log;
 
-        server = new Tomcat();
-        server.setPort(configuration.get(PORT));
-        server.getHost().setAppBase(".");
+        tomcat = new Tomcat();
+        tomcat.setPort(configuration.get(PORT));
+        tomcat.getHost().setAppBase(".");
 
-        Context ctx = server.addContext(configuration.get(CONTEXT), new File(".").getAbsolutePath());
+        Context dynamicContext = tomcat.addContext(configuration.get(CONTEXT), new File(".").getAbsolutePath());
         for (Dispatcher dispatcher : dispatchers) {
-            Tomcat.addServlet(ctx, dispatcher.getClass().getSimpleName(), dispatcher);
-            ctx.addServletMappingDecoded(dispatcher.getDispatcherBasePath(), dispatcher.getClass().getSimpleName());
+            Tomcat.addServlet(dynamicContext, dispatcher.getClass().getName(), dispatcher);
+            dynamicContext.addServletMappingDecoded(dispatcher.getUrlPattern(), dispatcher.getClass().getName());
         }
 
         java.util.logging.Logger tomcatLogger = java.util.logging.Logger.getLogger("");
@@ -39,20 +39,20 @@ public class TomcatServer extends Handler implements Server {
 
     @Override
     public void start() throws LifecycleException {
-        server.start();
+        tomcat.start();
         log.info(
             "Tomcat Server is listening, visit http://%s:%s/",
-            server.getHost().getName(),
-            server.getConnector().getPort()
+            tomcat.getHost().getName(),
+            tomcat.getConnector().getPort()
         );
-        new Thread(() -> server.getServer().await()).start();
+        new Thread(() -> tomcat.getServer().await()).start();
     }
 
     @Override
     public void stop() {
-        if (server != null) {
+        if (tomcat != null) {
             try {
-                server.stop();
+                tomcat.stop();
             } catch (LifecycleException e) {
                 log.error(e);
             }

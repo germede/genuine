@@ -1,8 +1,9 @@
 .idea/*
-.idea_modules/*
 .run/
+temp/
 target/
-database/
+tomcat.8000/
+.idea_modules/*
 prototype/gen/*
 *.iws
 *.ipr

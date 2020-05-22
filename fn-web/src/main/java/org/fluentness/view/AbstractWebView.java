@@ -35,10 +35,6 @@ public abstract class AbstractWebView implements View {
         return new HtmlContainer("a", html);
     }
 
-    public static Html action(Class<? extends Controller> controller, String action, CharSequence... html) {
-        return new HtmlAction(controller, action, html);
-    }
-
     public static Html abbr(CharSequence... html) {
         return new HtmlContainer("abbr", html);
     }
