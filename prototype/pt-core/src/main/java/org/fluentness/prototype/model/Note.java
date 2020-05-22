@@ -1,19 +1,24 @@
 package org.fluentness.prototype.model;
 
-import org.fluentness.model.AbstractCrudModel;
+import org.fluentness.model.Model;
 
-public class Note extends AbstractCrudModel {
+import javax.persistence.*;
 
+@Entity
+public class Note implements Model {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column
     private String title;
-    private String description;
-    private User user;
 
-    public Note(int id, String title, String description, User user) {
-        super(id);
-        this.title = title;
-        this.description = description;
-        this.user = user;
-    }
+    @Column
+    private String description;
+
+    @ManyToOne
+    private User user;
 
     public String getTitle() {
         return title;

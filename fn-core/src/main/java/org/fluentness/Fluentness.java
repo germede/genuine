@@ -18,8 +18,8 @@ import java.util.Map;
 public final class Fluentness {
 
     private static final Class<?>[] injectionPriority = new Class[]{
-        Service.class,
         Model.class,
+        Service.class,
         Repository.class,
         View.class,
         Controller.class,
@@ -74,7 +74,7 @@ public final class Fluentness {
 
     private Constructor getConstructor(Class aClass) throws FluentnessException {
         if (Modifier.isInterface(aClass.getModifiers()))
-            throw new FluentnessException("%s cannot be an interface in order to be instantiated", aClass.getSimpleName());
+            throw new FluentnessException("%s cannot be an interface in order to be instantiated. Forgot to declare service implementation?", aClass.getSimpleName());
         if (Modifier.isAbstract(aClass.getModifiers()))
             throw new FluentnessException("%s cannot be abstract in order to be instantiated", aClass.getSimpleName());
         if (!Modifier.isPublic(aClass.getModifiers()))

@@ -1,10 +1,13 @@
 package org.fluentness.prototype;
 
-import org.fluentness.prototype.controller.DesktopController;
 import org.fluentness.AbstractDesktop;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
+import org.fluentness.prototype.controller.DesktopController;
+import org.fluentness.prototype.service.MapConfiguration;
+import org.fluentness.service.Services;
 
+@Services(MapConfiguration.class)
 public class Desktop extends AbstractDesktop {
 
     public Desktop(DesktopController controller) {

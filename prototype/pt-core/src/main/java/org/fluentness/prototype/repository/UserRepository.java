@@ -1,13 +1,15 @@
 package org.fluentness.prototype.repository;
 
 import org.fluentness.prototype.model.User;
-import org.fluentness.repository.AbstractCrudRepository;
+import org.fluentness.repository.AbstractRepository;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
 
-public class UserRepository extends AbstractCrudRepository<User> {
+import java.sql.SQLException;
 
-    public UserRepository(Persistence persistence, Log log) {
+public class UserRepository extends AbstractRepository<User> {
+
+    public UserRepository(Persistence persistence, Log log) throws SQLException {
         super(persistence, log, User.class);
     }
 }

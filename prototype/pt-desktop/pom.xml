@@ -29,6 +29,7 @@
             <artifactId>fn-desktop</artifactId>
             <version>${revision}</version>
         </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

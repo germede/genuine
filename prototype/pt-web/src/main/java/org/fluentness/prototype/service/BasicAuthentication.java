@@ -1,21 +1,23 @@
 package org.fluentness.prototype.service;
 
 import org.fluentness.prototype.model.User;
+import org.fluentness.prototype.repository.UserRepository;
 import org.fluentness.service.authentication.AbstractBasicAuthentication;
-import org.fluentness.service.persistence.Persistence;
 
-import static org.fluentness.repository.AbstractCrudRepository.eq;
+import java.util.List;
 
 public class BasicAuthentication extends AbstractBasicAuthentication {
 
-    private final Persistence persistence;
+    private final UserRepository userRepository;
 
-    public BasicAuthentication(Persistence persistence) {
-        this.persistence = persistence;
+    public BasicAuthentication(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     protected boolean authorize(String username, String password) {
-        return persistence.retrieve(User.class, eq("username", username), eq("password", password)).size() > 0;
+        List<User> users = userRepository.selectByField("username", username);
+        // todo check password
+        return users.size() > 0;
     }
 }

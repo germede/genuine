@@ -1,13 +1,15 @@
 package org.fluentness.prototype.repository;
 
 import org.fluentness.prototype.model.Note;
-import org.fluentness.repository.AbstractCrudRepository;
+import org.fluentness.repository.AbstractRepository;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
 
-public class NoteRepository extends AbstractCrudRepository<Note> {
+import java.sql.SQLException;
 
-    public NoteRepository(Persistence persistence, Log log) {
+public class NoteRepository extends AbstractRepository<Note> {
+
+    public NoteRepository(Persistence persistence, Log log) throws SQLException {
         super(persistence, log, Note.class);
     }
 }

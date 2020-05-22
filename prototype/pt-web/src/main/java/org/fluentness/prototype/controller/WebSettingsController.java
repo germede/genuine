@@ -28,7 +28,7 @@ public class WebSettingsController extends AbstractWebController {
                 label(FOR + "new-user-modal", CLASS + "right button success", _create)
             ),
             table(
-                forEach(userRepository.select(), user ->
+                forEach(userRepository.selectAll(), user ->
                     tr(
                         td(user.getUsername()),
                         td(CLASS + "right",

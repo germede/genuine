@@ -29,7 +29,7 @@ public class WebNotesController extends AbstractWebController<WebView> {
                     th("")
                 ),
                 tbody(
-                    forEach(noteRepository.select(), note ->
+                    forEach(noteRepository.selectAll(), note ->
                         tr(
                             td(note.getTitle()),
                             td(note.getDescription()),

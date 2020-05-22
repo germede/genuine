@@ -1,16 +1,24 @@
 package org.fluentness.prototype.model;
 
-import org.fluentness.model.AbstractCrudModel;
+import org.fluentness.model.Model;
 
-public class User extends AbstractCrudModel {
+import javax.persistence.*;
 
+@Entity
+public class User implements Model {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column
     private String username;
+
+    @Column
     private String password;
 
-    public User(int id, String username, String password) {
-        super(id);
-        this.username = username;
-        this.password = password;
+    public long getId() {
+        return id;
     }
 
     public String getUsername() {

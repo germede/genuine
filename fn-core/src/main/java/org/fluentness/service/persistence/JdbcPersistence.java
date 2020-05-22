@@ -1,152 +1,41 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.model.CrudModel;
+import com.j256.ormlite.db.DatabaseType;
+import com.j256.ormlite.db.DatabaseTypeUtils;
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.j256.ormlite.support.ConnectionSource;
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.log.Log;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Parameter;
-import java.sql.*;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.sql.SQLException;
 
 public class JdbcPersistence implements Persistence {
 
-    public static final Setting<String> DRIVER = new Setting<>("mysql");
-    public static final Setting<String> HOST = new Setting<>("localhost");
-    public static final Setting<Integer> PORT = new Setting<>(3306);
-    public static final Setting<String> URL_PARAMETER_QUERY = new Setting<>("");
-    public static final Setting<String> DATABASE = new Setting<>();
-    public static final Setting<String> USERNAME = new Setting<>();
-    public static final Setting<String> PASSWORD = new Setting<>();
-
-    private final Log log;
-
-    private Connection connection;
+    private JdbcPooledConnectionSource connectionSource;
 
     public JdbcPersistence(Configuration configuration, Log log) throws SQLException {
-        this.log = log;
-        if (configuration.has(DATABASE) && configuration.has(USERNAME) && configuration.has(PASSWORD)) {
-            String url = "jdbc:" + configuration.get(DRIVER) + "://" + configuration.get(HOST) + ":" + configuration.get(PORT) + "/" + configuration.get(DATABASE) + configuration.get(URL_PARAMETER_QUERY);
-            connection = DriverManager.getConnection(
-                url,
-                configuration.get(USERNAME),
-                configuration.get(PASSWORD)
+        if (configuration.has(DRIVER) && configuration.has(HOST) && configuration.has(PORT) && configuration.has(DATABASE)) {
+            String url = String.format("jdbc:%s://%s:%d/%s%s",
+                configuration.get(DRIVER),
+                configuration.get(HOST),
+                configuration.get(PORT),
+                configuration.get(DATABASE),
+                configuration.get(URL_PARAMETER_QUERY)
             );
+            DatabaseType databaseType = DatabaseTypeUtils.createDatabaseType(url);
+            if (configuration.has(USERNAME) && configuration.has(PASSWORD)) {
+                connectionSource = new JdbcPooledConnectionSource(url, configuration.get(USERNAME), configuration.get(PASSWORD), databaseType);
+            } else {
+                connectionSource = new JdbcPooledConnectionSource(url, databaseType);
+            }
         } else {
-            log.warning("No database connection initialized due to lacking configuration");
+            log.warning("Persistence not initialized due to lacking configuration");
         }
     }
+
 
     @Override
-    public <M extends CrudModel> M retrieve(Class<M> modelClass, int id) {
-        List<M> retrieve = retrieve(
-            modelClass,
-            "SELECT * FROM " + getTableName(modelClass) + " WHERE " + CrudModel.ID_NAME + " = " + id
-        );
-        return retrieve.size() > 0 ? retrieve.get(0) : null;
-    }
-
-    @Override
-    public <M extends CrudModel> List<M> retrieve(Class<M> modelClass, Condition... conditions) {
-        return retrieve(
-            modelClass,
-            conditions.length > 0 ?
-                "SELECT * FROM " + getTableName(modelClass) + " WHERE " +
-                    Arrays.stream(conditions).map(Condition::toString).collect(Collectors.joining(" AND ")) :
-                "SELECT * FROM " + getTableName(modelClass)
-        );
-    }
-
-    @Override
-    public int persist(CrudModel crudModel) {
-        // pre-build sql
-        String into = Arrays.stream(crudModel.getClass().getDeclaredFields()).map(Field::getName).collect(Collectors.joining(","));
-        StringBuilder update = new StringBuilder();
-        StringBuilder insert = new StringBuilder();
-        Field[] declaredFields = crudModel.getClass().getDeclaredFields();
-        try {
-            for (int i = 0; i < declaredFields.length; i++) {
-                Field field = declaredFields[i];
-                field.setAccessible(true);
-                insert.append(i == 0 ? "'" : ", '").append(field.get(crudModel)).append("'");
-                update.append(i == 0 ? "" : ", ").append(field.getName()).append(" = '").append(field.get(crudModel)).append("'");
-            }
-
-            String sql = "INSERT INTO " + getTableName(crudModel) + "(" + into + ") " +
-                "VALUES (" + insert + ") " +
-                "ON DUPLICATE KEY UPDATE " + update;
-            log.debug(sql);
-            try (Statement statement = connection.createStatement()) {
-                return statement.executeUpdate(sql);
-            } catch (Exception e) {
-                log.error(e);
-            }
-        } catch (IllegalAccessException e) {
-            log.error(e);
-        }
-        return 0;
-    }
-
-    @Override
-    public <M extends CrudModel> int remove(Class<M> modelClass, int id) {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "DELETE FROM " + getTableName(modelClass) + " WHERE " + CrudModel.ID_NAME + " = " + id;
-            log.debug(sql);
-            return statement.executeUpdate(sql);
-        } catch (Exception e) {
-            log.error(e);
-        }
-        return 0;
-    }
-
-    private <M extends CrudModel> List<M> retrieve(Class<M> modelClass, String sql) {
-        List<M> result = new LinkedList<>();
-        ResultSet resultSet = null;
-        try {
-            log.debug(sql);
-            resultSet = connection.createStatement().executeQuery(sql);
-            while (resultSet.next()) {
-                result.add(instantiate(modelClass, resultSet));
-            }
-        } catch (SQLException e) {
-            log.error(e);
-        }
-        return result;
-    }
-
-    private <M extends CrudModel> M instantiate(Class<M> modelClass, ResultSet resultSet) {
-        try {
-            Constructor constructor = modelClass.getConstructors()[0];
-            Parameter[] parameters = constructor.getParameters();
-            Object[] preparedParameters = new Object[constructor.getParameterCount()];
-            for (int i = 0; i < parameters.length; i++) {
-                Parameter parameter = parameters[i];
-                String name = parameter.getName();
-                Class<?> type = parameter.getType();
-                if (type.equals(String.class)) {
-                    preparedParameters[i] = resultSet.getString(name);
-                } else if (int.class.isAssignableFrom(type)) {
-                    preparedParameters[i] = resultSet.getInt(name);
-                } else if (float.class.isAssignableFrom(type)) {
-                    preparedParameters[i] = resultSet.getFloat(name);
-                } else if (boolean.class.isAssignableFrom(type)) {
-                    preparedParameters[i] = resultSet.getBoolean(name);
-                } else if (Date.class.isAssignableFrom(type)) {
-                    preparedParameters[i] = resultSet.getDate(name);
-                }
-            }
-            M model = (M) constructor.newInstance(preparedParameters);
-            model.setId(resultSet.getInt(CrudModel.ID_NAME));
-            return model;
-        } catch (SQLException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-            log.error(e);
-        }
-        return null;
+    public ConnectionSource getConnectionSource() {
+        return connectionSource;
     }
 }
