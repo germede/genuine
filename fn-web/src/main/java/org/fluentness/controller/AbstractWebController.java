@@ -1,10 +1,11 @@
 package org.fluentness.controller;
 
-import org.fluentness.service.server.Request;
-import org.fluentness.service.server.RequestMethod;
 import org.fluentness.view.AbstractWebView;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -19,7 +20,6 @@ public abstract class AbstractWebController<W extends AbstractWebView> implement
 
     public static final Map<String, Method> pathMethodMap = new HashMap<>();
     public static final Map<String, String> methodPathMap = new HashMap<>();
-    public static final ThreadLocal<Request> request = new ThreadLocal<>();
 
     public AbstractWebController(W webView) {
         this.webView = webView;
@@ -51,7 +51,7 @@ public abstract class AbstractWebController<W extends AbstractWebView> implement
 
         String path() default "";
 
-        RequestMethod method() default GET;
+        String method() default GET;
 
         boolean authenticate() default true;
 

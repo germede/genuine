@@ -1,4 +1,4 @@
-package org.fluentness.view.interaction;
+package org.fluentness.view.action;
 
 public interface Clickable<C extends Clickable> {
 

@@ -9,6 +9,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.fluentness.view.AbstractWebView.*;
 import static org.fluentness.view.html.HtmlAttribute.CLASS;
@@ -31,7 +32,7 @@ public class WebCalendarController extends AbstractWebController<WebView> {
             header(
                 h2(
                     i(CLASS + "icono-calendar"),
-                    current.format(DateTimeFormatter.ofPattern("MMMM y", request.get().getLocale()))
+                    current.format(DateTimeFormatter.ofPattern("MMMM y", Locale.getDefault()))
                 ),
                 div(CLASS + "right",
                     a(HREF + "/calendar/month?year=" + previous.getYear() + "&month=" + previous.getMonthValue(),

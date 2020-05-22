@@ -2,6 +2,7 @@ package org.fluentness.prototype.controller;
 
 import org.fluentness.prototype.view.WebView;
 import org.fluentness.controller.AbstractWebController;
+import org.fluentness.service.mail.CheckingEmails;
 import org.fluentness.view.html.Html;
 
 import static org.fluentness.view.AbstractWebView.form;

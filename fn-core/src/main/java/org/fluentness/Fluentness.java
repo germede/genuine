@@ -91,8 +91,18 @@ public final class Fluentness {
         for (int i = 0; i < parameters.length; i++) {
             Class<?> type = parameters[i].getType();
             validateDependency(constructor.getDeclaringClass(), type);
-            if (instances.containsKey(type)) result[i] = instances.get(type);
-            else result[i] = instantiate(aliases.getOrDefault(type, type));
+
+            if (type.isAssignableFrom(Object[].class)) {
+                int ia = 0;
+            }
+
+
+
+            if (instances.containsKey(type)) {
+                result[i] = instances.get(type);
+            } else {
+                result[i] = instantiate(aliases.getOrDefault(type, type));
+            }
         }
         return result;
     }

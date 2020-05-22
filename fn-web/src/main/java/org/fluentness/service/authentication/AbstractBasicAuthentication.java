@@ -1,5 +1,7 @@
 package org.fluentness.service.authentication;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.fluentness.service.server.*;
 
 import java.nio.charset.StandardCharsets;
@@ -8,7 +10,7 @@ import java.util.Base64;
 public abstract class AbstractBasicAuthentication implements Authentication {
 
     @Override
-    public boolean authorize(Request request) {
+    public boolean authorize(HttpServletRequest request) {
         String authorizationHeader = request.getHeader(RequestHeader.AUTHORIZATION);
         if (authorizationHeader != null && authorizationHeader.startsWith("Basic ")) {
             String[] credentials = new String(
@@ -23,8 +25,8 @@ public abstract class AbstractBasicAuthentication implements Authentication {
     }
 
     @Override
-    public Response demandCredentials(Request request) {
-        return request.makeResponse(ResponseStatusCode.UNAUTHORIZED).addHeader(ResponseHeader.WWW_AUTHENTICATE, "Basic ");
+    public void demandCredentials(HttpServletResponse response) {
+        response.addHeader(ResponseHeader.WWW_AUTHENTICATE, "Basic ");
     }
 
     protected abstract boolean authorize(String username, String password);

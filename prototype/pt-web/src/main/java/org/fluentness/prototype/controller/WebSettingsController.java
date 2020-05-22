@@ -63,7 +63,10 @@ public class WebSettingsController extends AbstractWebController {
 
     @Action
     Html create(String username, String password) {
-        userRepository.insert(new User(0, username, password));
+        User model = new User();
+        model.setUsername(username);
+        model.setPassword(password);
+        userRepository.insert(model);
         return users();
     }
 

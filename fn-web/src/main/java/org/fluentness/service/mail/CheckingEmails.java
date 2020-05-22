@@ -1,4 +1,4 @@
-package org.fluentness.prototype.controller;
+package org.fluentness.service.mail;
 
 
 import javax.mail.*;
