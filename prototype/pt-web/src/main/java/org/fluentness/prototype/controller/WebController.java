@@ -12,7 +12,7 @@ public class WebController extends AbstractWebController<WebView> {
         super(webView, dispatcher);
     }
 
-    @Action(path = "/index")
+    @Action(path = "/")
     String index() {
         return _welcome_message.toString();
     }
