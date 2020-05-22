@@ -6,7 +6,7 @@ import org.apache.catalina.startup.Tomcat;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.log.LogLevel;
-import org.fluentness.service.servlet.Servlet;
+import org.fluentness.service.dispatcher.Dispatcher;
 
 import java.io.File;
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class TomcatServer extends Handler implements Server {
 
     private final Tomcat server;
 
-    public TomcatServer(Configuration configuration, Log log, Servlet[] servlets) {
+    public TomcatServer(Configuration configuration, Log log, Dispatcher[] dispatchers) {
         this.log = log;
 
         server = new Tomcat();
@@ -27,9 +27,9 @@ public class TomcatServer extends Handler implements Server {
         server.getHost().setAppBase(".");
 
         Context ctx = server.addContext(configuration.get(CONTEXT), new File(".").getAbsolutePath());
-        for (Servlet servlet : servlets) {
-            Tomcat.addServlet(ctx, servlet.getClass().getSimpleName(), servlet);
-            ctx.addServletMappingDecoded("/static", servlet.getClass().getSimpleName());
+        for (Dispatcher dispatcher : dispatchers) {
+            Tomcat.addServlet(ctx, dispatcher.getClass().getSimpleName(), dispatcher);
+            ctx.addServletMappingDecoded(dispatcher.getDispatcherBasePath(), dispatcher.getClass().getSimpleName());
         }
 
         java.util.logging.Logger tomcatLogger = java.util.logging.Logger.getLogger("");

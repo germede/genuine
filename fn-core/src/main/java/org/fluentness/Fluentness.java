@@ -3,17 +3,13 @@ package org.fluentness;
 import org.fluentness.controller.Controller;
 import org.fluentness.model.Model;
 import org.fluentness.repository.Repository;
+import org.fluentness.service.AllowMultipleImplementations;
 import org.fluentness.service.Service;
 import org.fluentness.service.Services;
 import org.fluentness.view.View;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.*;
+import java.util.*;
 
 public final class Fluentness {
 
@@ -32,13 +28,13 @@ public final class Fluentness {
         new Fluentness(applicationClass, args);
     }
 
-    private final Map<Class, Class> aliases = new HashMap<>();
+    private final Map<Class, List<Class>> serviceImplementations = new HashMap<>();
     private final Map<Class, Object> instances = new HashMap<>();
 
 
     public Fluentness(Class<? extends Application> applicationClass, String[] args) throws FluentnessException {
         try {
-            aliases(applicationClass);
+            retrieveServiceImplementations(applicationClass);
             application = instantiate(applicationClass);
             application.run(args);
         } catch (Throwable cause) {
@@ -46,26 +42,40 @@ public final class Fluentness {
         }
     }
 
-    private void aliases(Class<? extends Application> aClass) throws FluentnessException {
-        do {
-            if (aClass.isAnnotationPresent(Services.class)) {
-                Arrays.stream(aClass.getAnnotation(Services.class).value())
-                    .forEach(service -> aliases.putIfAbsent(getKey(service), service));
+    private void retrieveServiceImplementations(Class<? extends Application> applicationClass) throws FluentnessException {
+        List<Class<?>> applicationHierarchy = new LinkedList<>();
+        applicationHierarchy.add(Application.class);
+        applicationHierarchy.add(applicationClass.getSuperclass());
+        applicationHierarchy.add(applicationClass);
+
+        applicationHierarchy.stream().filter(clazz -> clazz.isAnnotationPresent(Services.class)).forEach(clazz -> {
+            for (Class<? extends Service> service : clazz.getAnnotation(Services.class).value()) {
+                Class key = getKey(service);
+                if (!serviceImplementations.containsKey(key)) serviceImplementations.put(key, new LinkedList<>());
+                List<Class> implementations = serviceImplementations.get(key);
+                if (!key.isAnnotationPresent(AllowMultipleImplementations.class)) implementations.clear();
+                implementations.add(service);
             }
-            aClass = (Class<? extends Application>) aClass.getSuperclass();
-        } while (aClass != null && Application.class.isAssignableFrom(aClass));
-        Arrays.stream(Application.class.getAnnotation(Services.class).value())
-            .forEach(service -> aliases.putIfAbsent(getKey(service), service));
+        });
     }
 
     private <T> T instantiate(Class<T> aClass) throws FluentnessException {
         Constructor constructor = getConstructor(aClass);
         try {
             T instance;
-            if (constructor.getParameterCount() == 0) instance = aClass.newInstance();
-            else instance = (T) constructor.newInstance(getParameters(constructor));
-            instances.put(getKey(aClass), instance);
-            instances.put(aClass, instance);
+            if (constructor.getParameterCount() == 0) {
+                instance = aClass.newInstance();
+            } else {
+                instance = (T) constructor.newInstance(getParameters(constructor));
+            }
+
+            Class key = getKey(aClass);
+            if (Service.class.isAssignableFrom(aClass) && !key.isAnnotationPresent(AllowMultipleImplementations.class)) {
+                instances.put(key, instance);
+            } else {
+                instances.put(aClass, instance);
+            }
+
             return instance;
         } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
             throw new FluentnessException(e);
@@ -73,12 +83,6 @@ public final class Fluentness {
     }
 
     private Constructor getConstructor(Class aClass) throws FluentnessException {
-        if (Modifier.isInterface(aClass.getModifiers()))
-            throw new FluentnessException("%s cannot be an interface in order to be instantiated. Forgot to declare service implementation?", aClass.getSimpleName());
-        if (Modifier.isAbstract(aClass.getModifiers()))
-            throw new FluentnessException("%s cannot be abstract in order to be instantiated", aClass.getSimpleName());
-        if (!Modifier.isPublic(aClass.getModifiers()))
-            throw new FluentnessException("%s must be public in order to be instantiated", aClass.getSimpleName());
         return Arrays.stream(aClass.getConstructors())
             .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
             .findFirst()
@@ -89,19 +93,27 @@ public final class Fluentness {
         Parameter[] parameters = constructor.getParameters();
         Object[] result = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
-            Class<?> type = parameters[i].getType();
-            validateDependency(constructor.getDeclaringClass(), type);
+            Class<?> parameterClass = parameters[i].getType();
 
-            if (type.isAssignableFrom(Object[].class)) {
-                int ia = 0;
-            }
+            if (instances.containsKey(parameterClass)) {
+                result[i] = instances.get(parameterClass);
+            } else if (parameterClass.isArray()) {
+                Class<?> arrayType = parameterClass.getComponentType();
+                validateDependency(constructor.getDeclaringClass(), arrayType);
+                List<Class> classes = serviceImplementations.get(arrayType);
 
-
-
-            if (instances.containsKey(type)) {
-                result[i] = instances.get(type);
+                result[i] = Array.newInstance(arrayType, classes.size());
+                for (int j = 0; j < classes.size(); j++) {
+                    ((Object[]) result[i])[j] = instantiate(classes.get(j));
+                }
             } else {
-                result[i] = instantiate(aliases.getOrDefault(type, type));
+                validateDependency(constructor.getDeclaringClass(), parameterClass);
+                List<Class> implementations = serviceImplementations.get(parameterClass);
+                result[i] = instantiate(
+                    implementations != null && implementations.size() > 0 ?
+                        implementations.get(0) :
+                        parameterClass
+                );
             }
         }
         return result;

@@ -1,4 +1,4 @@
-package org.fluentness.service.servlet;
+package org.fluentness.service.dispatcher;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public class ServletImpl extends HttpServlet implements Servlet {
+public class StaticDispatcher extends HttpServlet implements Dispatcher {
 
     private final Authentication authentication;
     private final Log log;
@@ -22,7 +22,7 @@ public class ServletImpl extends HttpServlet implements Servlet {
 
     private final Map<String, Method> routes;
 
-    public ServletImpl(Authentication authentication, Log log, Configuration configuration) {
+    public StaticDispatcher(Authentication authentication, Log log, Configuration configuration) {
         this.authentication = authentication;
         this.log = log;
         this.configuration = configuration;
@@ -31,11 +31,16 @@ public class ServletImpl extends HttpServlet implements Servlet {
     }
 
     @Override
+    public String getDispatcherBasePath() {
+        return "/static";
+    }
+
+    @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter writer = response.getWriter();
 
         writer.println("<html><title>Welcome</title><body>");
-        writer.println("<h1>Have a Great Day!</h1>");
+        writer.println("<h1>Have a Great Day! I'm static</h1>");
         writer.println("</body></html>");;
 
 //        AbstractWebController.request.set(request);

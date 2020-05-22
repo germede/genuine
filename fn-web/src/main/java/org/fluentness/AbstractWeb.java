@@ -6,13 +6,13 @@ import org.fluentness.service.authentication.AuthenticationImpl;
 import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.TomcatServer;
-import org.fluentness.service.servlet.ServletImpl;
-import org.fluentness.service.servlet.StaticServlet;
+import org.fluentness.service.dispatcher.DynamicDispatcher;
+import org.fluentness.service.dispatcher.StaticDispatcher;
 
 @Services({
     AuthenticationImpl.class,
-    ServletImpl.class,
-    StaticServlet.class,
+    DynamicDispatcher.class,
+    StaticDispatcher.class,
     TomcatServer.class,
     SocketMail.class,
 })
