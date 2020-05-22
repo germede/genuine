@@ -1,12 +1,11 @@
 package org.fluentness.service.memory;
 
-import org.fluentness.service.Service;
 import org.fluentness.service.shader.Shader;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-public interface Memory extends Service {
+public interface Memory {
     void vao(int vao);
 
     void vbo(int vbo);

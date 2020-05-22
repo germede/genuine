@@ -4,10 +4,7 @@ import org.fluentness.AbstractDesktop;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
 import org.fluentness.prototype.controller.DesktopController;
-import org.fluentness.prototype.service.MapConfiguration;
-import org.fluentness.service.Services;
 
-@Services(MapConfiguration.class)
 public class Desktop extends AbstractDesktop {
 
     public Desktop(DesktopController controller) {
@@ -17,4 +14,5 @@ public class Desktop extends AbstractDesktop {
     public static void main(String[] args) throws FluentnessException {
         Fluentness.launch(Desktop.class, args);
     }
+
 }

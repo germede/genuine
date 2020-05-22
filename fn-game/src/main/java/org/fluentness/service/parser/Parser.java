@@ -1,8 +1,6 @@
 package org.fluentness.service.parser;
 
-import org.fluentness.service.Service;
-
-public interface Parser<R> extends Service {
+public interface Parser<R> {
 
     R parse(String path);
 

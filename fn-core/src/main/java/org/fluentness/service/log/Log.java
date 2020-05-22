@@ -1,9 +1,8 @@
 package org.fluentness.service.log;
 
-import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
 
-public interface Log extends Service {
+public interface Log {
 
     Setting<LogLevel> LEVEL = new Setting<>(LogLevel.DEBUG);
     Setting<Boolean> CONSOLE = new Setting<>(true);

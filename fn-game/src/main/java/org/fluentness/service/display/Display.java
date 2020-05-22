@@ -1,10 +1,9 @@
 package org.fluentness.service.display;
 
-import org.fluentness.service.Service;
 import org.fluentness.model.algebra.Vector3f;
 import org.fluentness.service.configuration.Setting;
 
-public interface Display extends Service {
+public interface Display {
 
     Setting<String> TITLE = new Setting<>("MyGame");
     Setting<Integer> WIDTH = new Setting<>(1024);

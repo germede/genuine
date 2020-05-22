@@ -1,21 +1,8 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.service.Services;
-import org.fluentness.service.authentication.AuthenticationImpl;
-import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.server.Server;
-import org.fluentness.service.server.TomcatServer;
-import org.fluentness.service.dispatcher.DynamicDispatcher;
-import org.fluentness.service.dispatcher.StaticDispatcher;
 
-@Services({
-    AuthenticationImpl.class,
-    DynamicDispatcher.class,
-    StaticDispatcher.class,
-    TomcatServer.class,
-    SocketMail.class,
-})
 public abstract class AbstractWeb implements Application {
 
     private final Server server;
@@ -27,8 +14,12 @@ public abstract class AbstractWeb implements Application {
     }
 
     @Override
-    public final void run(String[] args) throws Exception {
-        server.start();
+    public final void run(String[] args) {
+        try {
+            server.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

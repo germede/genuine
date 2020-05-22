@@ -1,11 +1,10 @@
 package org.fluentness.service.server;
 
-import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
 
 import javax.net.ssl.SSLContext;
 
-public interface Server extends Service {
+public interface Server {
 
     Setting<Integer> PORT = new Setting<>(8080);
     Setting<String> CONTEXT = new Setting<>("");

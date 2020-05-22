@@ -2,9 +2,7 @@ package org.fluentness.service.authentication;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.fluentness.service.Service;
-
-public interface Authentication extends Service {
+public interface Authentication {
 
     boolean authorize(HttpServletRequest request);
 

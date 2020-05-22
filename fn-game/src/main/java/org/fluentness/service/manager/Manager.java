@@ -1,9 +1,7 @@
 package org.fluentness.service.manager;
 
 import org.fluentness.controller.AbstractGameController;
-import org.fluentness.service.Service;
-
-public interface Manager extends Service {
+public interface Manager {
 
     void manage(AbstractGameController controller);
 }
