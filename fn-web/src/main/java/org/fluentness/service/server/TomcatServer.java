@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
-public class TomcatServer extends Handler implements Server {
+public class TomcatServer implements Server {
 
     private final Log log;
 
@@ -34,7 +34,22 @@ public class TomcatServer extends Handler implements Server {
 
         java.util.logging.Logger tomcatLogger = java.util.logging.Logger.getLogger("");
         Arrays.stream(tomcatLogger.getHandlers()).forEach(tomcatLogger::removeHandler);
-        tomcatLogger.addHandler(this);
+        tomcatLogger.addHandler(new Handler() {
+            @Override
+            public void publish(LogRecord record) {
+                log.log(LogLevel.fromJulLevel(record.getLevel()), record.getMessage());
+            }
+
+            @Override
+            public void flush() {
+
+            }
+
+            @Override
+            public void close() throws SecurityException {
+
+            }
+        });
     }
 
     @Override
@@ -59,20 +74,5 @@ public class TomcatServer extends Handler implements Server {
         } else {
             log.warning("Server was stopped without being started");
         }
-    }
-
-    @Override
-    public void publish(LogRecord record) {
-        log.log(LogLevel.fromJulLevel(record.getLevel()), record.getMessage());
-    }
-
-    @Override
-    public void flush() {
-
-    }
-
-    @Override
-    public void close() throws SecurityException {
-
     }
 }

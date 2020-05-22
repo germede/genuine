@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.logging.*;
 
 public class JulLog implements Log {
@@ -14,10 +15,9 @@ public class JulLog implements Log {
     protected final Logger logger;
 
     public JulLog(Configuration configuration) throws Exception {
-        // retrieve log level
+
         Level julLevel = configuration.get(LEVEL).toJulLevel();
 
-        // init jul logger
         logger = Logger.getGlobal();
         logger.setUseParentHandlers(false);
         Arrays.stream(logger.getHandlers()).forEach(logger::removeHandler);
@@ -31,6 +31,15 @@ public class JulLog implements Log {
                 @Override
                 protected synchronized void setOutputStream(OutputStream outputStream) throws SecurityException {
                     super.setOutputStream(System.out);
+                }
+
+                @Override
+                public void publish(LogRecord record) {
+                    String loggerName = record.getLoggerName();
+                    if (loggerName.startsWith("java.awt") || loggerName.startsWith("sun") || loggerName.startsWith("javax.swing")) {
+                        return;
+                    }
+                    super.publish(record);
                 }
             };
             consoleHandler.setFormatter(formatter);

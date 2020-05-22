@@ -17,10 +17,12 @@ public class DesktopController extends AbstractDesktopController<DesktopView> {
     }
 
     private void onButtonClick(Button button) {
+        User model = new User();
+        model.setUsername("test");
+        userRepository.insert(model);
         for (User user : userRepository.selectAll()) {
             System.out.println(user.getUsername());
         }
-        System.out.println("TEST");
     }
 
 

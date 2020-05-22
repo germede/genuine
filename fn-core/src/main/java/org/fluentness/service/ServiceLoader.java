@@ -1,28 +1,29 @@
 package org.fluentness.service;
 
-import org.fluentness.Fluentness;
+import org.fluentness.service.configuration.Configuration;
+import org.fluentness.service.log.Log;
+import org.fluentness.service.persistence.Persistence;
 
-import java.io.*;
-import java.net.URISyntaxException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 public final class ServiceLoader {
 
     private static final String SERVICE_PREFIX = "META-INF/services/";
-    private static final Set<String> SERVICES = new HashSet<>();
+    private static final Set<Class> SERVICES = new HashSet<>();
 
-    public static void registerService(String interfaceFqcn) {
-        SERVICES.add(interfaceFqcn);
+    public static void registerService(Class serviceInterface) {
+        SERVICES.add(serviceInterface);
     }
 
     static {
-        registerService("org.fluentness.service.log.Log");
-        registerService("org.fluentness.service.configuration.Configuration");
-        registerService("org.fluentness.service.persistence.Persistence");
+        registerService(Log.class);
+        registerService(Configuration.class);
+        registerService(Persistence.class);
     }
 
     private final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -30,8 +31,7 @@ public final class ServiceLoader {
 
     public ServiceLoader() {
         try {
-            for (String className : SERVICES) {
-                Class clazz = Class.forName(className);
+            for (Class clazz : SERVICES) {
                 services.put(clazz, loadImplementations(clazz));
             }
         } catch (ClassNotFoundException | IOException e) {

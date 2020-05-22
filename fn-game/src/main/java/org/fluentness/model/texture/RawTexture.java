@@ -2,7 +2,7 @@ package org.fluentness.model.texture;
 
 import org.fluentness.model.Model;
 
-public class RawTexture implements Model {
+public class RawTexture {
 
     private final int width;
     private final int height;

@@ -2,7 +2,7 @@ package org.fluentness.model.texture;
 
 import org.fluentness.model.Model;
 
-public class Texture implements Model {
+public class Texture {
 
     private final int id;
     private final boolean hasTransparency;

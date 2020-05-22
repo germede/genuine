@@ -2,14 +2,13 @@ package org.fluentness.repository;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
-import org.fluentness.model.Model;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class AbstractRepository<M extends Model> implements Repository<M> {
+public abstract class AbstractRepository<M> implements Repository<M> {
 
     protected final Dao<M, Long> dao;
     protected final Log log;

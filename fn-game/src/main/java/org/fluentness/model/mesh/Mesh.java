@@ -2,7 +2,7 @@ package org.fluentness.model.mesh;
 
 import org.fluentness.model.Model;
 
-public class Mesh implements Model {
+public class Mesh {
 
     private final int id;
     public final int vertexCount;

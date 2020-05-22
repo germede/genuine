@@ -5,7 +5,7 @@ import org.fluentness.service.configuration.Setting;
 
 import java.lang.reflect.Method;
 
-public interface Dispatcher extends jakarta.servlet.Servlet, Service {
+public interface Dispatcher extends jakarta.servlet.Servlet {
 
     Setting<String> RESPONSE_ENCODING = new Setting<>("UTF-8");
     Setting<Boolean> SINGLE_PAGE_MODE = new Setting<>(true);

@@ -1,11 +1,9 @@
 package org.fluentness.prototype.model;
 
-import org.fluentness.model.Model;
-
 import javax.persistence.*;
 
 @Entity
-public class Note implements Model {
+public class Note {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

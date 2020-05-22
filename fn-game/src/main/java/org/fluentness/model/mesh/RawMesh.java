@@ -2,7 +2,7 @@ package org.fluentness.model.mesh;
 
 import org.fluentness.model.Model;
 
-public class RawMesh implements Model {
+public class RawMesh {
 
     private final float[] vertices;
     private final float[] textures;
