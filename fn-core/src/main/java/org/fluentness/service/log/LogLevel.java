@@ -11,14 +11,6 @@ public enum LogLevel {
     INFO(BLUE),
     DEBUG(GREEN);
 
-    public static LogLevel fromJulLevel(Level julLevel) {
-        return julLevel.equals(Level.ALL) || julLevel.equals(Level.FINEST) || julLevel.equals(Level.FINER) || julLevel.equals(Level.FINE) ? DEBUG :
-                julLevel.equals(Level.CONFIG) || julLevel.equals(Level.INFO) ? INFO :
-                        julLevel.equals(Level.WARNING) ? WARNING :
-                                julLevel.equals(Level.SEVERE) ? ERROR :
-                                        LogLevel.NONE;
-    }
-
     private AnsiColor ansiColor;
 
     LogLevel(AnsiColor ansiColor) {
@@ -43,6 +35,14 @@ public enum LogLevel {
             default:
                 return "NONE";
         }
+    }
+
+    public static LogLevel fromJulLevel(Level julLevel) {
+        return julLevel.equals(Level.ALL) || julLevel.equals(Level.FINEST) || julLevel.equals(Level.FINER) || julLevel.equals(Level.FINE) ? DEBUG :
+            julLevel.equals(Level.CONFIG) || julLevel.equals(Level.INFO) ? INFO :
+                julLevel.equals(Level.WARNING) ? WARNING :
+                    julLevel.equals(Level.SEVERE) ? ERROR :
+                        LogLevel.NONE;
     }
 
     public Level toJulLevel() {
