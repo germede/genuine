@@ -48,8 +48,8 @@ public class WebSettingsController extends AbstractWebController {
                             label(FOR + "new-user-modal", CLASS + "close", "&times;")
                         ),
                         section(CLASS + "content",
-                            input(NAME + "username", TYPE + "text", PLACEHOLDER + _user_username),
-                            input(NAME + "password", TYPE + "password", PLACEHOLDER + _user_password)
+                            input(NAME + "username", TYPE + "text",  _user_username),
+                            input(NAME + "password", TYPE + "password",  _user_password)
                         ),
                         footer(
                             label(FOR + "new-user-modal", CLASS + "button", _cancel),
