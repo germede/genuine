@@ -1,4 +1,4 @@
-![Fluentness logo](fn-core/src/main/resources/img/logo-fancy.gif?raw=true "Fluentness logo")
+![Fluentness logo](fn-core/src/main/resources/img/logo.png?raw=true "Fluentness logo")
 
 ##WIP
 
@@ -61,12 +61,13 @@ or a [pull request](https://github.com/germede/Fluentness/compare) directly on G
 
 ## Attributions
 This project relies on the following open-source technologies:
-- [OpenJDK](https://openjdk.java.net/), currently language level 8 
+- [OpenJDK](https://openjdk.java.net/) at language level 8 
 - Apache [Maven](https://maven.apache.org/)
+- [ORMLite](https://ormlite.com/) and the Java Persitence API
 - [OpenGL](https://www.opengl.org/) and its libraries [LWJGL](https://www.lwjgl.org/) and [GLFW](https://www.glfw.org/)
 - The [Android](https://www.android.com) platform
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
-- [Inkscape](https://inkscape.org/) with fonts Arial, [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) and [Furore](https://www.fontsquirrel.com/fonts/furore) for the art logos
+- Font [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) for the logo
 - And of course a lot of engagement :muscle:
 
 ## Copyright
