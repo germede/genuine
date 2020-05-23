@@ -2,7 +2,6 @@ package org.fluentness.controller.event;
 
 import org.fluentness.controller.WebController;
 import org.fluentness.view.AbstractWebView;
-import org.fluentness.view.component.HtmlAttribute;
 import org.fluentness.view.component.HtmlComponent;
 
 import java.util.Collection;
@@ -23,9 +22,11 @@ public abstract class AbstractEventWebController<W extends AbstractWebView> exte
         return events.values();
     }
 
-    public final W main(String eventId) {
+    public final Object main(String eventId) {
         if (events.containsKey(eventId)) {
+            JavaScriptCommand.clear();
             events.get(eventId).getEvent().handle();
+            return JavaScriptCommand.getCommands();
         }
         return view;
     }
@@ -42,7 +43,6 @@ public abstract class AbstractEventWebController<W extends AbstractWebView> exte
 
     private void addEvent(HtmlComponent clickable, Event event, String eventName) {
         int componentId = clickable.getId();
-        clickable.addAttribute(HtmlAttribute.ID + String.valueOf(componentId));
         String eventId = componentId + eventName;
         events.put(eventId, new JavaScriptEvent(componentId, eventName, eventId, event));
     }

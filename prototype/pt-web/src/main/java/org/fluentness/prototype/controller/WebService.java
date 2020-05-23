@@ -5,9 +5,9 @@ import org.fluentness.prototype.view.WebView;
 
 import static org.fluentness.prototype.service.Localization.*;
 
-public class WebActionController extends AbstractActionWebController<WebView> {
+public class WebService extends AbstractActionWebController<WebView> {
 
-    public WebActionController() {
+    public WebService() {
         super("/action");
     }
 

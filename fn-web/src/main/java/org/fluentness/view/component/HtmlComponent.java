@@ -10,12 +10,8 @@ public class HtmlComponent implements CharSequence, Component {
 
     static int HTML_ID = 0;
     protected final int id = HTML_ID++;
-
-    public int getId() {
-        return id;
-    }
-
     protected final String tag;
+
     protected final Map<String, String> attributes = new HashMap<>();
 
     public HtmlComponent(String tag) {
@@ -25,6 +21,14 @@ public class HtmlComponent implements CharSequence, Component {
     public HtmlComponent(String tag, String[] attributes) {
         this(tag);
         Arrays.stream(attributes).forEach(this::addAttribute);
+    }
+
+    {
+        addAttribute(HtmlAttribute.ID + String.valueOf(id));
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void addAttribute(String attribute) {

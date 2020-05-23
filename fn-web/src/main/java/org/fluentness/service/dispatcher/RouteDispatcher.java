@@ -3,7 +3,6 @@ package org.fluentness.service.dispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.fluentness.controller.WebController;
-import org.fluentness.controller.event.AbstractEventWebController;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
@@ -16,10 +15,6 @@ import java.lang.reflect.Parameter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.fluentness.view.AbstractWebView.ACTION_RESULT;
-import static org.fluentness.view.AbstractWebView.div;
-import static org.fluentness.view.component.HtmlAttribute.ID;
 
 public class RouteDispatcher extends AbstractDispatcher {
 
@@ -57,8 +52,10 @@ public class RouteDispatcher extends AbstractDispatcher {
             Object returned = action.getParameterCount() > 0 ?
                 action.invoke(controller, args) :
                 action.invoke(controller);
-            if (returned instanceof AbstractWebView) {
-                handleWebView(response, controller, (AbstractWebView) returned);
+            if (returned instanceof CharSequence) {
+                respond(response, returned.toString());
+            } else if (returned instanceof AbstractWebView) {
+                respond(response, ((AbstractWebView)returned).getHtml());
             } else if (returned instanceof Integer) {
                 response.setStatus((Integer) returned);
             }
@@ -92,19 +89,7 @@ public class RouteDispatcher extends AbstractDispatcher {
         return result;
     }
 
-    private void handleWebView(HttpServletResponse response,
-                               WebController webController,
-                               AbstractWebView returned) throws IOException {
-        String render = ((AbstractWebView) ((AbstractEventWebController) webController).getView()).getHtml();
-        if (configuration.get(SINGLE_PAGE_MODE)) {
-            render = render
-                .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")
-                .replace(ACTION_RESULT, div(ID + "ajax-placeholder", returned.toString()))
-            ;
-        } else {
-            render = render.replace(ACTION_RESULT, returned.toString());
-        }
-
+    private void respond(HttpServletResponse response, String render) throws IOException {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("text/html");
         response.setCharacterEncoding(configuration.get(RESPONSE_ENCODING));
