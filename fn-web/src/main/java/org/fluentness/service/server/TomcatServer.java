@@ -6,12 +6,8 @@ import org.apache.catalina.startup.Tomcat;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.dispatcher.Dispatcher;
 import org.fluentness.service.log.Log;
-import org.fluentness.service.log.LogLevel;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 public class TomcatServer implements Server {
 
@@ -32,24 +28,6 @@ public class TomcatServer implements Server {
             dynamicContext.addServletMappingDecoded(dispatcher.getUrlPattern(), dispatcher.getClass().getName());
         }
 
-        java.util.logging.Logger tomcatLogger = java.util.logging.Logger.getLogger("");
-        Arrays.stream(tomcatLogger.getHandlers()).forEach(tomcatLogger::removeHandler);
-        tomcatLogger.addHandler(new Handler() {
-            @Override
-            public void publish(LogRecord record) {
-                log.log(LogLevel.fromJulLevel(record.getLevel()), record.getMessage());
-            }
-
-            @Override
-            public void flush() {
-
-            }
-
-            @Override
-            public void close() throws SecurityException {
-
-            }
-        });
     }
 
     @Override
@@ -72,7 +50,7 @@ public class TomcatServer implements Server {
                 log.error(e);
             }
         } else {
-            log.warning("Server was stopped without being started");
+            log.warn("Server was stopped without being started");
         }
     }
 }

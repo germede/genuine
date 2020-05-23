@@ -2,33 +2,33 @@ package org.fluentness.service.log;
 
 import org.fluentness.service.configuration.Setting;
 
+import static org.fluentness.service.log.LogLevel.*;
+
 public interface Log {
 
-    Setting<LogLevel> LEVEL = new Setting<>(LogLevel.DEBUG);
+    Setting<LogLevel> LEVEL = new Setting<>(INFO);
     Setting<Boolean> CONSOLE = new Setting<>(true);
     Setting<String> FILE = new Setting<>();
 
-    static String getLoggerCaller() {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        for (StackTraceElement stackTraceElement : stackTrace) {
-            if (!stackTraceElement.getClassName().startsWith("java.lang.Thread") &&
-                    !stackTraceElement.getClassName().startsWith("java.util.logging") &&
-                    !stackTraceElement.getClassName().startsWith("org.fluentness.service.log")) {
-                return stackTraceElement.getClassName().replaceAll(".*\\.", "");
-            }
-        }
-        return "Log";
+    default void trace(String message, Object... parameters) {
+        log(TRACE, message, parameters);
     }
 
-    void log(LogLevel logLevel, String message, Object... parameters);
+    default void debug(String message, Object... parameters) {
+        log(DEBUG, message, parameters);
+    }
 
-    void debug(String message, Object... parameters);
+    default void info(String message, Object... parameters) {
+        log(INFO, message, parameters);
+    }
 
-    void info(String message, Object... parameters);
+    default void warn(String message, Object... parameters) {
+        log(WARN, message, parameters);
+    }
 
-    void warning(String message, Object... parameters);
-
-    void error(String message, Object... parameters);
+    default void error(String message, Object... parameters) {
+        log(LogLevel.ERROR, message, parameters);
+    }
 
     default void error(Throwable throwable) {
         StringBuilder errorMsg = new StringBuilder();
@@ -56,5 +56,7 @@ public interface Log {
         }
         error(errorMsg.toString());
     }
+
+    void log(LogLevel level, String message, Object[] parameters);
 }
 

@@ -1,15 +1,11 @@
 package org.fluentness.prototype.service;
 
-import org.fluentness.service.configuration.AbstractMapConfiguration;
+import org.fluentness.service.configuration.AbstractConfiguration;
 import org.fluentness.service.persistence.Persistence;
-import org.fluentness.service.dispatcher.Dispatcher;
-import org.fluentness.service.server.Server;
 
-public class MapConfiguration extends AbstractMapConfiguration {
+public class Configuration extends AbstractConfiguration {
 
-    public MapConfiguration() {
-        set(Server.PORT, 8000);
-        set(Dispatcher.SINGLE_PAGE_MODE, false);
+    public Configuration() {
         set(Persistence.DRIVER, "mysql");
         set(Persistence.HOST, "localhost");
         set(Persistence.PORT, 3306);

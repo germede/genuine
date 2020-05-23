@@ -6,6 +6,18 @@ import java.util.Map;
 
 public abstract class AbstractLocalization implements Localization {
 
+    public static final Translation
+        _submit = msg("Submit", de("Absenden"), es("Enviar")),
+        _search = msg("Search", de("Suchen"), es("Buscar")),
+        _accept = msg("Accept", de("Akzeptieren"), es("Aceptar")),
+        _cancel = msg("Cancel", de("Abbrechen"), es("Cancelar")),
+        _select = msg("Select", de("Auswählen"), es("Seleccionar")),
+        _create = msg("Create", de("Erstellen"), es("Crear")),
+        _update = msg("Update", de("Editieren"), es("Editar")),
+        _delete = msg("Delete", de("Entfernen"), es("Eliminar")),
+        _previous = msg("Previous", de("Vorheriger"), es("Anterior")),
+        _next = msg("Next", de("Nächster"), es("Siguiente"));
+
     protected static Translation msg(String defaultTranslation, Map.Entry<String, String>... translations) {
         return new Translation(defaultTranslation, translations);
     }

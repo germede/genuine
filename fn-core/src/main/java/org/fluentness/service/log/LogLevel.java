@@ -1,17 +1,16 @@
 package org.fluentness.service.log;
 
-import java.util.logging.Level;
-
 import static org.fluentness.service.log.AnsiColor.*;
 
 public enum LogLevel {
     NONE(null),
     ERROR(RED),
-    WARNING(YELLOW),
+    WARN(YELLOW),
     INFO(BLUE),
-    DEBUG(GREEN);
+    DEBUG(GREEN),
+    TRACE(WHITE);
 
-    private AnsiColor ansiColor;
+    private final AnsiColor ansiColor;
 
     LogLevel(AnsiColor ansiColor) {
         this.ansiColor = ansiColor;
@@ -28,7 +27,7 @@ public enum LogLevel {
                 return "DBUG";
             case INFO:
                 return "INFO";
-            case WARNING:
+            case WARN:
                 return "WARN";
             case ERROR:
                 return "ERRO";
@@ -36,21 +35,4 @@ public enum LogLevel {
                 return "NONE";
         }
     }
-
-    public static LogLevel fromJulLevel(Level julLevel) {
-        return julLevel.equals(Level.ALL) || julLevel.equals(Level.FINEST) || julLevel.equals(Level.FINER) || julLevel.equals(Level.FINE) ? DEBUG :
-            julLevel.equals(Level.CONFIG) || julLevel.equals(Level.INFO) ? INFO :
-                julLevel.equals(Level.WARNING) ? WARNING :
-                    julLevel.equals(Level.SEVERE) ? ERROR :
-                        LogLevel.NONE;
-    }
-
-    public Level toJulLevel() {
-        return this.equals(LogLevel.DEBUG) ? Level.ALL :
-                this.equals(LogLevel.INFO) ? Level.INFO :
-                        this.equals(LogLevel.WARNING) ? Level.WARNING :
-                                this.equals(LogLevel.ERROR) ? Level.SEVERE :
-                                        Level.OFF;
-    }
-
 }

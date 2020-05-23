@@ -3,7 +3,7 @@ package org.fluentness.service.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractMapConfiguration implements Configuration {
+public abstract class AbstractConfiguration implements Configuration {
 
     private final Map<Setting, Object> settings = new HashMap<>();
 
@@ -17,7 +17,7 @@ public abstract class AbstractMapConfiguration implements Configuration {
         return settings.containsKey(setting) ? (T) settings.get(setting) : setting.getFallback();
     }
 
-    protected final <T> AbstractMapConfiguration set(Setting<T> setting, T value) {
+    protected final <T> AbstractConfiguration set(Setting<T> setting, T value) {
         settings.put(setting, value);
         return this;
     }

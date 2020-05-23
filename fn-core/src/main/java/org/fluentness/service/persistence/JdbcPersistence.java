@@ -32,9 +32,8 @@ public class JdbcPersistence implements Persistence {
             } else {
                 connectionSource = new JdbcPooledConnectionSource(url, databaseType);
             }
-            LoggerFactory.getLogger("com.j256.ormlite.logger.JavaUtilLog").info("test");
         } else {
-            log.warning("Persistence not initialized due to lacking configuration");
+            log.warn("Persistence not initialized due to lacking configuration");
         }
     }
 

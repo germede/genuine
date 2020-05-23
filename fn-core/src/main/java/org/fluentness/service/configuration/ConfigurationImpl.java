@@ -1,6 +1,6 @@
 package org.fluentness.service.configuration;
 
-public class ConfigurationImpl extends AbstractMapConfiguration {
+public class ConfigurationImpl extends AbstractConfiguration {
 
 
 }
