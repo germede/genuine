@@ -1,6 +1,8 @@
 package org.fluentness.service.configuration;
 
-public interface Configuration {
+import org.fluentness.service.Service;
+
+public interface Configuration extends Service {
 
     <T> boolean has(Setting<T> setting);
 

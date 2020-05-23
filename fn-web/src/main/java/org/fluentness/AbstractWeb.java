@@ -1,20 +1,22 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractWebController;
-import org.fluentness.service.ServiceLoader;
-import org.fluentness.service.authentication.Authentication;
-import org.fluentness.service.dispatcher.Dispatcher;
-import org.fluentness.service.mail.Mail;
+import org.fluentness.service.Services;
+import org.fluentness.service.authentication.AuthenticationImpl;
+import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.server.Server;
+import org.fluentness.service.server.TomcatServer;
+import org.fluentness.service.dispatcher.DynamicDispatcher;
+import org.fluentness.service.dispatcher.StaticDispatcher;
 
+@Services({
+    AuthenticationImpl.class,
+    DynamicDispatcher.class,
+    StaticDispatcher.class,
+    TomcatServer.class,
+    SocketMail.class,
+})
 public abstract class AbstractWeb implements Application {
-
-    static {
-        ServiceLoader.registerService(Authentication.class);
-        ServiceLoader.registerService(Dispatcher.class);
-        ServiceLoader.registerService(Mail.class);
-        ServiceLoader.registerService(Server.class);
-    }
 
     private final Server server;
     private final AbstractWebController[] controllers;

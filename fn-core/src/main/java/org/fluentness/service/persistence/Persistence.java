@@ -1,9 +1,10 @@
 package org.fluentness.service.persistence;
 
 import com.j256.ormlite.support.ConnectionSource;
+import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
 
-public interface Persistence {
+public interface Persistence extends Service {
 
     Setting<String> DRIVER = new Setting<>();
     Setting<String> HOST = new Setting<>();

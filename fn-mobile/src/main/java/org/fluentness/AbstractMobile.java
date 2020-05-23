@@ -1,7 +1,12 @@
 package org.fluentness;
 
 import org.fluentness.controller.AbstractMobileController;
+import org.fluentness.service.Services;
+import org.fluentness.service.log.AndroidLog;
 
+@Services({
+    AndroidLog.class,
+})
 public abstract class AbstractMobile implements Application {
 
     private final AbstractMobileController controller;
@@ -15,7 +20,7 @@ public abstract class AbstractMobile implements Application {
     }
 
     @Override
-    public void run(String[] args) {
+    public void run(String[] args) throws Exception {
 
     }
 }

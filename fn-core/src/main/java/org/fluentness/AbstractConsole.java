@@ -2,7 +2,6 @@ package org.fluentness;
 
 import org.fluentness.controller.AbstractConsoleController;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,15 +24,11 @@ public abstract class AbstractConsole implements Application {
     }
 
     @Override
-    public final void run(String[] args) {
+    public final void run(String[] args) throws Exception {
         if (args == null) throw new IllegalArgumentException("Passed args array was null");
         String name = args.length == 0 || !nameActionMap.containsKey(args[0]) ? "help" : args[0];
         Method toExecute = nameActionMap.get(name);
         toExecute.setAccessible(true);
-        try {
-            toExecute.invoke(controllers.get(toExecute.getDeclaringClass()));
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        toExecute.invoke(controllers.get(toExecute.getDeclaringClass()));
     }
 }

@@ -1,6 +1,8 @@
 package org.fluentness.service.animator;
 
-public interface Animator {
+import org.fluentness.service.Service;
+
+public interface Animator extends Service {
 
     AnimationFunction LINEAR = t -> t;
     AnimationFunction BEZIER = t -> t * t * (3.0f - 2.0f * t);

@@ -2,7 +2,9 @@ package org.fluentness.service.algebra;
 
 import org.fluentness.model.algebra.Matrix4f;
 import org.fluentness.model.algebra.Vector3f;
-public interface Algebra {
+import org.fluentness.service.Service;
+
+public interface Algebra extends Service {
 
     Matrix4f translationMatrix(float x, float y, float z);
 
