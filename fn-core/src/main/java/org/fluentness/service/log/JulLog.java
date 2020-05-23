@@ -97,17 +97,17 @@ public class JulLog implements Log {
             level.equals(DEBUG) ? Level.FINE :
                 level.equals(INFO) ? Level.INFO :
                     level.equals(WARN) ? Level.WARNING :
-                        level.equals(LogLevel.ERROR) ? Level.SEVERE :
+                        level.equals(FATAL) || level.equals(LogLevel.ERROR) ? Level.SEVERE :
                             Level.OFF;
     }
 
     static LogLevel toLogLevel(Level julLevel) {
-        return julLevel.equals(Level.ALL) || julLevel.equals(Level.FINEST) ? TRACE :
+        return julLevel.equals(Level.ALL) || julLevel.equals(Level.FINEST) || julLevel.equals(Level.FINER) ? TRACE :
             julLevel.equals(Level.FINE) ? DEBUG :
                 julLevel.equals(Level.CONFIG) || julLevel.equals(Level.INFO) ? INFO :
                     julLevel.equals(Level.WARNING) ? WARN :
                         julLevel.equals(Level.SEVERE) ? ERROR :
-                            LogLevel.NONE;
+                            INFO;
     }
 
 }

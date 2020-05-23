@@ -2,15 +2,13 @@ package org.fluentness;
 
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.service.Services;
-import org.fluentness.service.authentication.AuthenticationImpl;
+import org.fluentness.service.dispatcher.DynamicDispatcher;
+import org.fluentness.service.dispatcher.StaticDispatcher;
 import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.TomcatServer;
-import org.fluentness.service.dispatcher.DynamicDispatcher;
-import org.fluentness.service.dispatcher.StaticDispatcher;
 
 @Services({
-    AuthenticationImpl.class,
     DynamicDispatcher.class,
     StaticDispatcher.class,
     TomcatServer.class,

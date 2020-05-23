@@ -3,9 +3,11 @@ package org.fluentness.service.log;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
 
+import static org.fluentness.service.log.LogLevel.*;
+
 public interface Log extends Service {
 
-    Setting<LogLevel> LEVEL = new Setting<>(INFO);
+    Setting<LogLevel> LEVEL = new Setting<>(TRACE);
     Setting<Boolean> CONSOLE = new Setting<>(true);
     Setting<String> FILE = new Setting<>();
 
@@ -30,6 +32,18 @@ public interface Log extends Service {
     }
 
     default void error(Throwable throwable) {
+        error(getCompleteStackTrace(throwable));
+    }
+
+    default void fatal(String message, Object... parameters) {
+        log(LogLevel.ERROR, message, parameters);
+    }
+
+    default void fatal(Throwable throwable) {
+        fatal(getCompleteStackTrace(throwable));
+    }
+
+    static String getCompleteStackTrace(Throwable throwable) {
         StringBuilder errorMsg = new StringBuilder();
         while (true) {
             if (throwable.getMessage() == null) {
@@ -53,8 +67,9 @@ public interface Log extends Service {
                 break;
             }
         }
-        error(errorMsg.toString());
+        return errorMsg.toString();
     }
+
 
     void log(LogLevel level, String message, Object[] parameters);
 }

@@ -6,6 +6,7 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
+import static org.fluentness.service.log.AnsiColor.RED;
 import static org.fluentness.service.log.AnsiColor.RESET;
 
 public class JulFormatter extends Formatter {
@@ -26,7 +27,9 @@ public class JulFormatter extends Formatter {
         builder.append(logLevel.toString());
         builder.append(RESET);
         builder.append(" | ");
+        builder.append(logLevel.equals(LogLevel.FATAL) ? RED : "");
         builder.append(logRecord.getMessage());
+        builder.append(logLevel.equals(LogLevel.FATAL) ? RESET : "");
         builder.append("\n");
         return builder.toString();
     }

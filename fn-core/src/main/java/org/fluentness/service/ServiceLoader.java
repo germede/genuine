@@ -1,5 +1,7 @@
 package org.fluentness.service;
 
+import org.fluentness.Application;
+import org.fluentness.FluentnessException;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
@@ -13,48 +15,34 @@ import java.util.*;
 
 public final class ServiceLoader {
 
-    private static final String SERVICE_PREFIX = "META-INF/services/";
-    private static final Set<Class> SERVICES = new HashSet<>();
-
-    public static void registerService(Class serviceInterface) {
-        SERVICES.add(serviceInterface);
-    }
-
-    static {
-        registerService(Log.class);
-        registerService(Configuration.class);
-        registerService(Persistence.class);
-    }
-
-    private final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
     private final Map<Class, List<Class>> services = new HashMap<>();
 
-    public ServiceLoader() {
-        try {
-            for (Class clazz : SERVICES) {
-                services.put(clazz, loadImplementations(clazz));
+    public ServiceLoader(Class<? extends Application> applicationClass) {
+        List<Class<?>> applicationHierarchy = new LinkedList<>();
+        applicationHierarchy.add(Application.class);
+        applicationHierarchy.add(applicationClass.getSuperclass());
+        applicationHierarchy.add(applicationClass);
+
+        applicationHierarchy.stream().filter(clazz -> clazz.isAnnotationPresent(Services.class)).forEach(clazz -> {
+            for (Class<? extends Service> service : clazz.getAnnotation(Services.class).value()) {
+                Class key = getKey(service);
+                if (!services.containsKey(key)) services.put(key, new LinkedList<>());
+                List<Class> implementations = services.get(key);
+                if (!key.isAnnotationPresent(AllowMultipleImplementations.class)) implementations.clear();
+                implementations.add(service);
             }
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
-    private <S> List<Class> loadImplementations(Class<S> service) throws IOException, ClassNotFoundException {
-        List<Class> implementations = new LinkedList<>();
-        String servicePath = SERVICE_PREFIX + service.getName();
-        Enumeration<URL> urls = classLoader.getResources(servicePath);
-        while (urls.hasMoreElements()) {
-            URL url = urls.nextElement();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-                line = line.trim();
-                if (line.length() > 0 && line.charAt(0) != '#') {
-                    Class<? extends S> e = (Class<? extends S>) Class.forName(line);
-                    implementations.add(e);
-                }
+    private Class getKey(Class aClass) {
+        if (!Service.class.isAssignableFrom(aClass)) return aClass;
+        do {
+            for (Class anInterface : aClass.getInterfaces()) {
+                if (anInterface.equals(Service.class)) return aClass;
+                if (Service.class.isAssignableFrom(anInterface)) return anInterface;
             }
-        }
-        return implementations;
+        } while ((aClass = aClass.getSuperclass()) != null);
+        return Service.class;
     }
 
     public Map<Class, List<Class>> getServices() {

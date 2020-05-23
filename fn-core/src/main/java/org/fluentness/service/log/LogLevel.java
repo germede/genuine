@@ -3,17 +3,21 @@ package org.fluentness.service.log;
 import static org.fluentness.service.log.AnsiColor.*;
 
 public enum LogLevel {
-    NONE(null),
-    ERROR(RED),
-    WARN(YELLOW),
-    INFO(BLUE),
-    DEBUG(GREEN),
-    TRACE(WHITE);
+    TRACE(WHITE, "TRACE", 6),
+    DEBUG(CYAN, "DEBUG", 5),
+    INFO(BLUE, "INFO ", 4),
+    WARN(YELLOW, "WARN ", 3),
+    ERROR(RED, "ERROR", 2),
+    FATAL(RED, "FATAL", 1);
 
     private final AnsiColor ansiColor;
+    private final String toString;
+    private final int priority;
 
-    LogLevel(AnsiColor ansiColor) {
+    LogLevel(AnsiColor ansiColor, String toString, int priority) {
         this.ansiColor = ansiColor;
+        this.toString = toString;
+        this.priority = priority;
     }
 
     public AnsiColor getAnsiColor() {
@@ -22,17 +26,10 @@ public enum LogLevel {
 
     @Override
     public String toString() {
-        switch (this) {
-            case DEBUG:
-                return "DBUG";
-            case INFO:
-                return "INFO";
-            case WARN:
-                return "WARN";
-            case ERROR:
-                return "ERRO";
-            default:
-                return "NONE";
-        }
+        return toString;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 }
