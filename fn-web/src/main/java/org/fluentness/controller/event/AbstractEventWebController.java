@@ -1,6 +1,5 @@
 package org.fluentness.controller.event;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.fluentness.controller.WebController;
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.HtmlAttribute;
@@ -24,9 +23,10 @@ public abstract class AbstractEventWebController<W extends AbstractWebView> exte
         return events.values();
     }
 
-    public final W main(HttpServletRequest request) {
-
-
+    public final W main(String eventId) {
+        if (events.containsKey(eventId)) {
+            events.get(eventId).getEvent().handle();
+        }
         return view;
     }
 
@@ -37,11 +37,14 @@ public abstract class AbstractEventWebController<W extends AbstractWebView> exte
 
     @Override
     protected void onClick(Clickable clickable, OnClickEvent onClickEvent) {
-        String event = "click";
-        int componentId = ((HtmlComponent) clickable).getId();
-        ((HtmlComponent) clickable).addAttribute(HtmlAttribute.ID + String.valueOf(componentId));
-        String eventId = componentId + event;
-        events.put(eventId, new JavaScriptEvent(componentId, event, eventId));
+        addEvent((HtmlComponent) clickable, onClickEvent, "click");
+    }
+
+    private void addEvent(HtmlComponent clickable, Event event, String eventName) {
+        int componentId = clickable.getId();
+        clickable.addAttribute(HtmlAttribute.ID + String.valueOf(componentId));
+        String eventId = componentId + eventName;
+        events.put(eventId, new JavaScriptEvent(componentId, eventName, eventId, event));
     }
 
 }

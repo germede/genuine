@@ -11,7 +11,7 @@ public class WebEventController extends AbstractEventWebController<WebView> {
     }
 
     private void doNothing() {
-        System.out.println("test");
+
     }
 
 }

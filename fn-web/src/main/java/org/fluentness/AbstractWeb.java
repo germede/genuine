@@ -41,7 +41,7 @@ public abstract class AbstractWeb implements Application {
         try {
             for (WebController controller : controllers) {
                 if (controller instanceof AbstractEventWebController) {
-                    routeDispatcher.addRoute("GET", controller.getPath(), controller.getClass().getMethod("main", HttpServletRequest.class), controller);
+                    routeDispatcher.addRoute("GET", controller.getPath(), controller.getClass().getMethod("main", String.class), controller);
                     for (JavaScriptEvent event : (Iterable<JavaScriptEvent>) ((AbstractEventWebController) controller).getEvents()) {
                         eventDispatcher.addEvent(event);
                     }
