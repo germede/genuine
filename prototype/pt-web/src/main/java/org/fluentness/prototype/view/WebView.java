@@ -1,6 +1,7 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractWebView;
+import org.fluentness.view.component.HtmlButton;
 import org.fluentness.view.container.HtmlContainer;
 
 import static org.fluentness.view.component.HtmlAttribute.*;
@@ -8,20 +9,23 @@ import static org.fluentness.view.container.LinearLayout.VERTICAL;
 
 public class WebView extends AbstractWebView {
 
+    public HtmlButton button1;
+
     public WebView() {
         super(
             title("The book library made with Fluentness"),
             meta(NAME + "lang", CONTENT + "en"),
             meta(CHARSET + "UTF-8"),
             meta(NAME + "viewport", CONTENT + "width=device-width, initial-scale=1"),
-            link(REL + "stylesheet", TYPE + "text/css", HREF + "https://unpkg.com/chota@latest")
+            link(REL + "stylesheet", TYPE + "text/css", HREF + "https://unpkg.com/chota@latest"),
+            script(SRC + "/javaScript")
         );
     }
 
     @Override
     protected HtmlContainer structure() {
         return linearLayout(VERTICAL,
-            button("one"),
+            button1 = button("one"),
             button("two"),
             button("three")
         );

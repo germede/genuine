@@ -3,6 +3,8 @@ package org.fluentness.view.container;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.HtmlComponent;
 
+import java.util.Arrays;
+
 public class HtmlContainer extends HtmlComponent implements Container {
 
     private final StringBuilder inner = new StringBuilder();
@@ -21,6 +23,11 @@ public class HtmlContainer extends HtmlComponent implements Container {
         }
     }
 
+    public HtmlContainer(String tag, String... inner) {
+        super(tag);
+        Arrays.stream(inner).forEach(this::addAttribute);
+    }
+
     @Override
     public String toString() {
         if (innerHtml != null) {
@@ -28,7 +35,7 @@ public class HtmlContainer extends HtmlComponent implements Container {
                 this.inner.append(item.toString());
             }
         }
-        return "<" + tag + attributes + ">" + inner + "</" + tag + ">";
+        return super.toString() + inner + "</" + tag + ">";
     }
 
     @Override

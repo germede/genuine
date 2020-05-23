@@ -3,6 +3,7 @@ package org.fluentness;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.service.Services;
 import org.fluentness.service.dispatcher.DynamicDispatcher;
+import org.fluentness.service.dispatcher.JavaScriptDispatcher;
 import org.fluentness.service.dispatcher.StaticDispatcher;
 import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.server.Server;
@@ -11,6 +12,7 @@ import org.fluentness.service.server.TomcatServer;
 @Services({
     DynamicDispatcher.class,
     StaticDispatcher.class,
+    JavaScriptDispatcher.class,
     TomcatServer.class,
     SocketMail.class,
 })

@@ -13,6 +13,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.fluentness.view.AbstractWebView.ACTION_RESULT;
 import static org.fluentness.view.AbstractWebView.div;
@@ -21,6 +23,9 @@ import static org.fluentness.view.component.HtmlAttribute.ID;
 public class DynamicDispatcher extends AbstractDispatcher {
 
     private final Configuration configuration;
+
+    protected final Map<String, Method> routes = new HashMap<>();
+    protected final Map<Method, AbstractWebController> controllers = new HashMap<>();
 
     public DynamicDispatcher(Authentication[] authentications, Log log, Configuration configuration) {
         super(authentications, log);
@@ -32,22 +37,32 @@ public class DynamicDispatcher extends AbstractDispatcher {
         return "/*";
     }
 
+    public final void addRoute(String method, String path, Method action, AbstractWebController controller) {
+        routes.put(method + " " + getUrlPattern().replace("/*", "") + path, action);
+        controllers.put(action, controller);
+    }
+
     @Override
     protected void dispatch(HttpServletRequest request, HttpServletResponse response) throws InvocationTargetException, IllegalAccessException, IOException {
+        String path = request.getMethod() + " " + request.getRequestURI();
 
-        String key = request.getMethod() + " " + request.getRequestURI();
-        Method action = routes.get(key);
-        AbstractWebController controller = controllers.get(action);
+        if (routes.containsKey(path)) {
+            String key = request.getMethod() + " " + request.getRequestURI();
+            Method action = routes.get(key);
+            AbstractWebController controller = controllers.get(action);
 
-        action.setAccessible(true);
-        Object[] args = prepareArgs(action, request);
-        Object returned = action.getParameterCount() > 0 ?
+            action.setAccessible(true);
+            Object[] args = prepareArgs(action, request);
+            Object returned = action.getParameterCount() > 0 ?
                 action.invoke(controller, args) :
                 action.invoke(controller);
-        if (returned instanceof CharSequence) {
-            handleWebView(request, response, controller, (CharSequence) returned);
-        } else if (returned instanceof Integer) {
-            response.setStatus((Integer) returned);
+            if (returned instanceof CharSequence) {
+                handleWebView(request, response, controller, (CharSequence) returned);
+            } else if (returned instanceof Integer) {
+                response.setStatus((Integer) returned);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
@@ -87,8 +102,8 @@ public class DynamicDispatcher extends AbstractDispatcher {
             render = webController.getWebView().getHtml();
             if (configuration.get(SINGLE_PAGE_MODE)) {
                 render = render
-                        .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")
-                        .replace(ACTION_RESULT, div(ID + "ajax-placeholder", returned.toString()))
+                    .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")
+                    .replace(ACTION_RESULT, div(ID + "ajax-placeholder", returned.toString()))
                 ;
             } else {
                 render = render.replace(ACTION_RESULT, returned.toString());

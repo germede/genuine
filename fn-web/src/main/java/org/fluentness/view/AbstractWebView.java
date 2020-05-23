@@ -16,17 +16,21 @@ public abstract class AbstractWebView extends AbstractView<
     HtmlLinearLayout
     > {
 
-    private final String html;
+    private final HtmlContainer html;
+    private String renderedHtml;
 
     public AbstractWebView(HtmlComponent... headComponents) {
-        this.html = "<!DOCTYPE html>" + new HtmlContainer("html",
+        this.html = new HtmlContainer("html",
             new HtmlContainer("head", headComponents),
             new HtmlContainer("body", structure())
-        ).toString();
+        );
     }
 
     public String getHtml() {
-        return html;
+        if (renderedHtml == null) {
+            renderedHtml = "<!DOCTYPE html>" + html.toString();
+        }
+        return renderedHtml;
     }
 
     @Override
@@ -59,8 +63,8 @@ public abstract class AbstractWebView extends AbstractView<
         return new HtmlComponent("noscript", attributes);
     }
 
-    protected static HtmlComponent script(HtmlComponent... components) {
-        return new HtmlContainer("script", components);
+    protected static HtmlComponent script(String... attributes) {
+        return new HtmlContainer("script", attributes);
     }
 
     protected static HtmlComponent style(String... attributes) {

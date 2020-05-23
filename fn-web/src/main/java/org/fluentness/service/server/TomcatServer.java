@@ -22,10 +22,10 @@ public class TomcatServer implements Server {
         tomcat.setPort(configuration.get(PORT));
         tomcat.getHost().setAppBase(".");
 
-        Context dynamicContext = tomcat.addContext(configuration.get(CONTEXT), new File(".").getAbsolutePath());
+        Context context = tomcat.addContext(configuration.get(CONTEXT), new File(".").getAbsolutePath());
         for (Dispatcher dispatcher : dispatchers) {
-            Tomcat.addServlet(dynamicContext, dispatcher.getClass().getName(), dispatcher);
-            dynamicContext.addServletMappingDecoded(dispatcher.getUrlPattern(), dispatcher.getClass().getName());
+            Tomcat.addServlet(context, dispatcher.getClass().getName(), dispatcher);
+            context.addServletMappingDecoded(dispatcher.getUrlPattern(), dispatcher.getClass().getName());
         }
 
     }

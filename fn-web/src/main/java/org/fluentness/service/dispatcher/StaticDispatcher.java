@@ -43,7 +43,6 @@ public class StaticDispatcher extends AbstractDispatcher {
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
-        super.service(request, response);
     }
 
 }

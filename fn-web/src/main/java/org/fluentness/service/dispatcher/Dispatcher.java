@@ -16,5 +16,4 @@ public interface Dispatcher extends jakarta.servlet.Servlet, Service {
 
     String getUrlPattern();
 
-    void addRoute(String method, String path, Method action, AbstractWebController controller);
 }
