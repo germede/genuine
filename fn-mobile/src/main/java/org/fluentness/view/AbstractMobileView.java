@@ -15,7 +15,6 @@ public abstract class AbstractMobileView extends AbstractView {
 
     public AbstractMobileView() {
         androidView = (View) structure();
-        style();
     }
 
     public View getAndroidView() {

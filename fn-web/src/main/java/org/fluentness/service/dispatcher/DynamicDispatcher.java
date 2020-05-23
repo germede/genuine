@@ -16,7 +16,7 @@ import java.util.Date;
 
 import static org.fluentness.view.AbstractWebView.ACTION_RESULT;
 import static org.fluentness.view.AbstractWebView.div;
-import static org.fluentness.view.html.HtmlAttribute.ID;
+import static org.fluentness.view.component.HtmlAttribute.ID;
 
 public class DynamicDispatcher extends AbstractDispatcher {
 
@@ -84,7 +84,7 @@ public class DynamicDispatcher extends AbstractDispatcher {
         if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
             render = returned.toString();
         } else {
-            render = webController.getWebView().toString();
+            render = webController.getWebView().getHtml();
             if (configuration.get(SINGLE_PAGE_MODE)) {
                 render = render
                         .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")

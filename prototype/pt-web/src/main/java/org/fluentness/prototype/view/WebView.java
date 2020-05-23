@@ -1,22 +1,37 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractWebView;
+import org.fluentness.view.container.HtmlContainer;
+
+import static org.fluentness.view.component.HtmlAttribute.*;
+import static org.fluentness.view.container.LinearLayout.VERTICAL;
 
 public class WebView extends AbstractWebView {
+
+    public WebView() {
+        super(
+            title("The book library made with Fluentness"),
+            meta(NAME + "lang", CONTENT + "en"),
+            meta(CHARSET + "UTF-8"),
+            meta(NAME + "viewport", CONTENT + "width=device-width, initial-scale=1"),
+            link(REL + "stylesheet", TYPE + "text/css", HREF + "https://unpkg.com/chota@latest")
+        );
+    }
+
+    @Override
+    protected HtmlContainer structure() {
+        return linearLayout(VERTICAL,
+            button("one"),
+            button("two"),
+            button("three")
+        );
+    }
 //
 //    @Override
 //    protected Container structure() {
 //        return html(
 //            head(
-//                title("The book library made with Fluentness"),
-//                meta(NAME + "lang", CONTENT + "en"),
-//                meta(CHARSET + "UTF-8"),
-//                meta(NAME + "viewport", CONTENT + "width=device-width, initial-scale=1"),
-//                link(REL + "stylesheet", TYPE + "text/css", HREF + "https://cdn.jsdelivr.net/npm/picnic"),
-//                link(REL + "stylesheet", TYPE + "text/css", HREF + "https://icono-49d6.kxcdn.com/icono.min.css"),
-//                link(REL + "stylesheet", TYPE + "text/css", HREF + "/resources/css/styles.css"),
 //
-//                script(SRC + "/resources/js/script.min.js", "-")
 //            ),
 //            body(
 //                nav(

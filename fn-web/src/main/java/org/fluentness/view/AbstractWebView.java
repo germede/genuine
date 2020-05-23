@@ -1,13 +1,75 @@
 package org.fluentness.view;
 
-import org.fluentness.controller.Controller;
-import org.fluentness.view.html.*;
+import org.fluentness.view.component.HtmlButton;
+import org.fluentness.view.component.HtmlComponent;
+import org.fluentness.view.container.HtmlContainer;
+import org.fluentness.view.container.HtmlLinearLayout;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class AbstractWebView implements View {
+public abstract class AbstractWebView extends AbstractView<
+    HtmlComponent,
+    HtmlContainer,
+    HtmlButton,
+    HtmlLinearLayout
+    > {
+
+    private final String html;
+
+    public AbstractWebView(HtmlComponent... headComponents) {
+        this.html = "<!DOCTYPE html>" + new HtmlContainer("html",
+            new HtmlContainer("head", headComponents),
+            new HtmlContainer("body", structure())
+        ).toString();
+    }
+
+    public String getHtml() {
+        return html;
+    }
+
+    @Override
+    protected HtmlButton button(CharSequence text) {
+        return new HtmlButton(text);
+    }
+
+    @Override
+    protected HtmlLinearLayout linearLayout(int orientation, HtmlComponent... components) {
+        return new HtmlLinearLayout(orientation, components);
+    }
+
+    protected static HtmlComponent title(CharSequence text) {
+        return new HtmlContainer("title", text);
+    }
+
+    protected static HtmlComponent base(String... attributes) {
+        return new HtmlComponent("base", attributes);
+    }
+
+    protected static HtmlComponent link(String... attributes) {
+        return new HtmlComponent("link", attributes);
+    }
+
+    protected static HtmlComponent meta(String... attributes) {
+        return new HtmlComponent("meta", attributes);
+    }
+
+    protected static HtmlComponent noscript(String... attributes) {
+        return new HtmlComponent("noscript", attributes);
+    }
+
+    protected static HtmlComponent script(HtmlComponent... components) {
+        return new HtmlContainer("script", components);
+    }
+
+    protected static HtmlComponent style(String... attributes) {
+        return new HtmlComponent("style", attributes);
+    }
+
+    protected static HtmlComponent template(String... attributes) {
+        return new HtmlComponent("template", attributes);
+    }
 
     public static final String ACTION_RESULT = "###ACTION_RESULT###";
 
@@ -27,492 +89,452 @@ public abstract class AbstractWebView implements View {
         return String.join("", result);
     }
 
-    public static HtmlRoot html(CharSequence... html) {
-        return new HtmlRoot(html);
-    }
-
-    public static Html a(CharSequence... html) {
+    public static HtmlContainer a(CharSequence... html) {
         return new HtmlContainer("a", html);
     }
 
-    public static Html abbr(CharSequence... html) {
+    public static HtmlContainer abbr(CharSequence... html) {
         return new HtmlContainer("abbr", html);
     }
 
-    public static Html acronym(CharSequence... html) {
+    public static HtmlContainer acronym(CharSequence... html) {
         return new HtmlContainer("acronym", html);
     }
 
-    public static Html address(CharSequence... html) {
+    public static HtmlContainer address(CharSequence... html) {
         return new HtmlContainer("address", html);
     }
 
-    public static Html applet(CharSequence... html) {
+    public static HtmlContainer applet(CharSequence... html) {
         return new HtmlContainer("applet", html);
     }
 
-    public static Html article(CharSequence... html) {
+    public static HtmlContainer article(CharSequence... html) {
         return new HtmlContainer("article", html);
     }
 
-    public static Html aside(CharSequence... html) {
+    public static HtmlContainer aside(CharSequence... html) {
         return new HtmlContainer("aside", html);
     }
 
-    public static Html audio(CharSequence... html) {
+    public static HtmlContainer audio(CharSequence... html) {
         return new HtmlContainer("audio", html);
     }
 
-    public static Html b(CharSequence... html) {
+    public static HtmlContainer b(CharSequence... html) {
         return new HtmlContainer("b", html);
     }
 
-    public static Html basefont(CharSequence... html) {
+    public static HtmlContainer basefont(CharSequence... html) {
         return new HtmlContainer("basefont", html);
     }
 
-    public static Html bdi(CharSequence... html) {
+    public static HtmlContainer bdi(CharSequence... html) {
         return new HtmlContainer("bdi", html);
     }
 
-    public static Html bdo(CharSequence... html) {
+    public static HtmlContainer bdo(CharSequence... html) {
         return new HtmlContainer("bdo", html);
     }
 
-    public static Html big(CharSequence... html) {
+    public static HtmlContainer big(CharSequence... html) {
         return new HtmlContainer("big", html);
     }
 
-    public static Html blockquote(CharSequence... html) {
+    public static HtmlContainer blockquote(CharSequence... html) {
         return new HtmlContainer("blockquote", html);
     }
 
-    public static Html body(CharSequence... html) {
+    public static HtmlContainer body(CharSequence... html) {
         return new HtmlContainer("body", html);
     }
 
-    public static Html button(CharSequence... html) {
-        return new HtmlContainer("button", html);
-    }
-
-    public static Html canvas(CharSequence... html) {
+    public static HtmlContainer canvas(CharSequence... html) {
         return new HtmlContainer("canvas", html);
     }
 
-    public static Html caption(CharSequence... html) {
+    public static HtmlContainer caption(CharSequence... html) {
         return new HtmlContainer("caption", html);
     }
 
-    public static Html center(CharSequence... html) {
+    public static HtmlContainer center(CharSequence... html) {
         return new HtmlContainer("center", html);
     }
 
-    public static Html cite(CharSequence... html) {
+    public static HtmlContainer cite(CharSequence... html) {
         return new HtmlContainer("cite", html);
     }
 
-    public static Html code(CharSequence... html) {
+    public static HtmlContainer code(CharSequence... html) {
         return new HtmlContainer("code", html);
     }
 
-    public static Html colgroup(CharSequence... html) {
+    public static HtmlContainer colgroup(CharSequence... html) {
         return new HtmlContainer("colgroup", html);
     }
 
-    public static Html data(CharSequence... html) {
+    public static HtmlContainer data(CharSequence... html) {
         return new HtmlContainer("data", html);
     }
 
-    public static Html datalist(CharSequence... html) {
+    public static HtmlContainer datalist(CharSequence... html) {
         return new HtmlContainer("datalist", html);
     }
 
-    public static Html dd(CharSequence... html) {
+    public static HtmlContainer dd(CharSequence... html) {
         return new HtmlContainer("dd", html);
     }
 
-    public static Html del(CharSequence... html) {
+    public static HtmlContainer del(CharSequence... html) {
         return new HtmlContainer("del", html);
     }
 
-    public static Html details(CharSequence... html) {
+    public static HtmlContainer details(CharSequence... html) {
         return new HtmlContainer("details", html);
     }
 
-    public static Html dfn(CharSequence... html) {
+    public static HtmlContainer dfn(CharSequence... html) {
         return new HtmlContainer("dfn", html);
     }
 
-    public static Html dialog(CharSequence... html) {
+    public static HtmlContainer dialog(CharSequence... html) {
         return new HtmlContainer("dialog", html);
     }
 
-    public static Html dir(CharSequence... html) {
+    public static HtmlContainer dir(CharSequence... html) {
         return new HtmlContainer("dir", html);
     }
 
-    public static Html div(CharSequence... html) {
+    public static HtmlContainer div(CharSequence... html) {
         return new HtmlContainer("div", html);
     }
 
-    public static Html dl(CharSequence... html) {
+    public static HtmlContainer dl(CharSequence... html) {
         return new HtmlContainer("dl", html);
     }
 
-    public static Html dt(CharSequence... html) {
+    public static HtmlContainer dt(CharSequence... html) {
         return new HtmlContainer("dt", html);
     }
 
-    public static Html em(CharSequence... html) {
+    public static HtmlContainer em(CharSequence... html) {
         return new HtmlContainer("em", html);
     }
 
-    public static Html fieldset(CharSequence... html) {
+    public static HtmlContainer fieldset(CharSequence... html) {
         return new HtmlContainer("fieldset", html);
     }
 
-    public static Html figcaption(CharSequence... html) {
+    public static HtmlContainer figcaption(CharSequence... html) {
         return new HtmlContainer("figcaption", html);
     }
 
-    public static Html figure(CharSequence... html) {
+    public static HtmlContainer figure(CharSequence... html) {
         return new HtmlContainer("figure", html);
     }
 
-    public static Html font(CharSequence... html) {
+    public static HtmlContainer font(CharSequence... html) {
         return new HtmlContainer("font", html);
     }
 
-    public static Html footer(CharSequence... html) {
+    public static HtmlContainer footer(CharSequence... html) {
         return new HtmlContainer("footer", html);
     }
 
-    public static Html form(CharSequence... html) {
+    public static HtmlContainer form(CharSequence... html) {
         return new HtmlContainer("form", html);
     }
 
-    public static Html frame(CharSequence... html) {
+    public static HtmlContainer frame(CharSequence... html) {
         return new HtmlContainer("frame", html);
     }
 
-    public static Html frameset(CharSequence... html) {
+    public static HtmlContainer frameset(CharSequence... html) {
         return new HtmlContainer("frameset", html);
     }
 
-    public static Html h1(CharSequence... html) {
+    public static HtmlContainer h1(CharSequence... html) {
         return new HtmlContainer("h1", html);
     }
 
-    public static Html h2(CharSequence... html) {
+    public static HtmlContainer h2(CharSequence... html) {
         return new HtmlContainer("h2", html);
     }
 
-    public static Html h3(CharSequence... html) {
+    public static HtmlContainer h3(CharSequence... html) {
         return new HtmlContainer("h3", html);
     }
 
-    public static Html h4(CharSequence... html) {
+    public static HtmlContainer h4(CharSequence... html) {
         return new HtmlContainer("h4", html);
     }
 
-    public static Html h5(CharSequence... html) {
+    public static HtmlContainer h5(CharSequence... html) {
         return new HtmlContainer("h5", html);
     }
 
-    public static Html h6(CharSequence... html) {
+    public static HtmlContainer h6(CharSequence... html) {
         return new HtmlContainer("h6", html);
     }
 
-    public static Html head(CharSequence... html) {
+    public static HtmlContainer head(CharSequence... html) {
         return new HtmlContainer("head", html);
     }
 
-    public static Html header(CharSequence... html) {
+    public static HtmlContainer header(CharSequence... html) {
         return new HtmlContainer("header", html);
     }
 
-    public static Html i(CharSequence... html) {
+    public static HtmlContainer i(CharSequence... html) {
         return new HtmlContainer("i", html);
     }
 
-    public static Html iframe(CharSequence... html) {
+    public static HtmlContainer iframe(CharSequence... html) {
         return new HtmlContainer("iframe", html);
     }
 
-    public static Html ins(CharSequence... html) {
+    public static HtmlContainer ins(CharSequence... html) {
         return new HtmlContainer("ins", html);
     }
 
-    public static Html kbd(CharSequence... html) {
+    public static HtmlContainer kbd(CharSequence... html) {
         return new HtmlContainer("kbd", html);
     }
 
-    public static Html label(CharSequence... html) {
+    public static HtmlContainer label(CharSequence... html) {
         return new HtmlContainer("label", html);
     }
 
-    public static Html legend(CharSequence... html) {
+    public static HtmlContainer legend(CharSequence... html) {
         return new HtmlContainer("legend", html);
     }
 
-    public static Html li(CharSequence... html) {
+    public static HtmlContainer li(CharSequence... html) {
         return new HtmlContainer("li", html);
     }
 
-    public static Html main(CharSequence... html) {
+    public static HtmlContainer main(CharSequence... html) {
         return new HtmlContainer("main", html);
     }
 
-    public static Html map(CharSequence... html) {
+    public static HtmlContainer map(CharSequence... html) {
         return new HtmlContainer("map", html);
     }
 
-    public static Html mark(CharSequence... html) {
+    public static HtmlContainer mark(CharSequence... html) {
         return new HtmlContainer("mark", html);
     }
 
-    public static Html meter(CharSequence... html) {
+    public static HtmlContainer meter(CharSequence... html) {
         return new HtmlContainer("meter", html);
     }
 
-    public static Html nav(CharSequence... html) {
+    public static HtmlContainer nav(CharSequence... html) {
         return new HtmlContainer("nav", html);
     }
 
-    public static Html noframes(CharSequence... html) {
+    public static HtmlContainer noframes(CharSequence... html) {
         return new HtmlContainer("noframes", html);
     }
 
-    public static Html noscript(CharSequence... html) {
-        return new HtmlContainer("noscript", html);
-    }
-
-    public static Html object(CharSequence... html) {
+    public static HtmlContainer object(CharSequence... html) {
         return new HtmlContainer("object", html);
     }
 
-    public static Html ol(CharSequence... html) {
+    public static HtmlContainer ol(CharSequence... html) {
         return new HtmlContainer("ol", html);
     }
 
-    public static Html optgroup(CharSequence... html) {
+    public static HtmlContainer optgroup(CharSequence... html) {
         return new HtmlContainer("optgroup", html);
     }
 
-    public static Html option(CharSequence... html) {
+    public static HtmlContainer option(CharSequence... html) {
         return new HtmlContainer("option", html);
     }
 
-    public static Html output(CharSequence... html) {
+    public static HtmlContainer output(CharSequence... html) {
         return new HtmlContainer("output", html);
     }
 
-    public static Html p(CharSequence... html) {
+    public static HtmlContainer p(CharSequence... html) {
         return new HtmlContainer("p", html);
     }
 
-    public static Html picture(CharSequence... html) {
+    public static HtmlContainer picture(CharSequence... html) {
         return new HtmlContainer("picture", html);
     }
 
-    public static Html pre(CharSequence... html) {
+    public static HtmlContainer pre(CharSequence... html) {
         return new HtmlContainer("pre", html);
     }
 
-    public static Html progress(CharSequence... html) {
+    public static HtmlContainer progress(CharSequence... html) {
         return new HtmlContainer("progress", html);
     }
 
-    public static Html q(CharSequence... html) {
+    public static HtmlContainer q(CharSequence... html) {
         return new HtmlContainer("q", html);
     }
 
-    public static Html rp(CharSequence... html) {
+    public static HtmlContainer rp(CharSequence... html) {
         return new HtmlContainer("rp", html);
     }
 
-    public static Html rt(CharSequence... html) {
+    public static HtmlContainer rt(CharSequence... html) {
         return new HtmlContainer("rt", html);
     }
 
-    public static Html ruby(CharSequence... html) {
+    public static HtmlContainer ruby(CharSequence... html) {
         return new HtmlContainer("ruby", html);
     }
 
-    public static Html s(CharSequence... html) {
+    public static HtmlContainer s(CharSequence... html) {
         return new HtmlContainer("s", html);
     }
 
-    public static Html samp(CharSequence... html) {
+    public static HtmlContainer samp(CharSequence... html) {
         return new HtmlContainer("samp", html);
     }
 
-    public static Html script(CharSequence... html) {
-        return new HtmlContainer("script", html);
-    }
-
-    public static Html section(CharSequence... html) {
+    public static HtmlContainer section(CharSequence... html) {
         return new HtmlContainer("section", html);
     }
 
-    public static Html select(CharSequence... html) {
+    public static HtmlContainer select(CharSequence... html) {
         return new HtmlContainer("select", html);
     }
 
-    public static Html small(CharSequence... html) {
+    public static HtmlContainer small(CharSequence... html) {
         return new HtmlContainer("small", html);
     }
 
-    public static Html span(CharSequence... html) {
+    public static HtmlContainer span(CharSequence... html) {
         return new HtmlContainer("span", html);
     }
 
-    public static Html strike(CharSequence... html) {
+    public static HtmlContainer strike(CharSequence... html) {
         return new HtmlContainer("strike", html);
     }
 
-    public static Html strong(CharSequence... html) {
+    public static HtmlContainer strong(CharSequence... html) {
         return new HtmlContainer("strong", html);
     }
 
-    public static Html style(CharSequence... html) {
-        return new HtmlContainer("style", html);
-    }
-
-    public static Html sub(CharSequence... html) {
+    public static HtmlContainer sub(CharSequence... html) {
         return new HtmlContainer("sub", html);
     }
 
-    public static Html summary(CharSequence... html) {
+    public static HtmlContainer summary(CharSequence... html) {
         return new HtmlContainer("summary", html);
     }
 
-    public static Html sup(CharSequence... html) {
+    public static HtmlContainer sup(CharSequence... html) {
         return new HtmlContainer("sup", html);
     }
 
-    public static Html svg(CharSequence... html) {
+    public static HtmlContainer svg(CharSequence... html) {
         return new HtmlContainer("svg", html);
     }
 
-    public static Html table(CharSequence... html) {
+    public static HtmlContainer table(CharSequence... html) {
         return new HtmlContainer("table", html);
     }
 
-    public static Html tbody(CharSequence... html) {
+    public static HtmlContainer tbody(CharSequence... html) {
         return new HtmlContainer("tbody", html);
     }
 
-    public static Html td(CharSequence... html) {
+    public static HtmlContainer td(CharSequence... html) {
         return new HtmlContainer("td", html);
     }
 
-    public static Html template(CharSequence... html) {
-        return new HtmlContainer("template", html);
-    }
-
-    public static Html textarea(CharSequence... html) {
+    public static HtmlContainer textarea(CharSequence... html) {
         return new HtmlContainer("textarea", html);
     }
 
-    public static Html tfoot(CharSequence... html) {
+    public static HtmlContainer tfoot(CharSequence... html) {
         return new HtmlContainer("tfoot", html);
     }
 
-    public static Html th(CharSequence... html) {
+    public static HtmlContainer th(CharSequence... html) {
         return new HtmlContainer("th", html);
     }
 
-    public static Html thead(CharSequence... html) {
+    public static HtmlContainer thead(CharSequence... html) {
         return new HtmlContainer("thead", html);
     }
 
-    public static Html time(CharSequence... html) {
+    public static HtmlContainer time(CharSequence... html) {
         return new HtmlContainer("time", html);
     }
 
-    public static Html title(CharSequence... html) {
-        return new HtmlContainer("title", html);
-    }
-
-    public static Html tr(CharSequence... html) {
+    public static HtmlContainer tr(CharSequence... html) {
         return new HtmlContainer("tr", html);
     }
 
-    public static Html tt(CharSequence... html) {
+    public static HtmlContainer tt(CharSequence... html) {
         return new HtmlContainer("tt", html);
     }
 
-    public static Html u(CharSequence... html) {
+    public static HtmlContainer u(CharSequence... html) {
         return new HtmlContainer("u", html);
     }
 
-    public static Html ul(CharSequence... html) {
+    public static HtmlContainer ul(CharSequence... html) {
         return new HtmlContainer("ul", html);
     }
 
-    public static Html var(CharSequence... html) {
+    public static HtmlContainer var(CharSequence... html) {
         return new HtmlContainer("var", html);
     }
 
-    public static Html video(CharSequence... html) {
+    public static HtmlContainer video(CharSequence... html) {
         return new HtmlContainer("video", html);
     }
-
     // empty html views
-    public static Html area(CharSequence... html) {
-        return new HtmlEmpty("area", html);
+
+    public static HtmlComponent area(String... attributes) {
+        return new HtmlComponent("area", attributes);
     }
 
-    public static Html base(CharSequence... html) {
-        return new HtmlEmpty("base", html);
+    public static HtmlComponent br(String... attributes) {
+        return new HtmlComponent("br", attributes);
     }
 
-    public static Html br(CharSequence... html) {
-        return new HtmlEmpty("br", html);
+    public static HtmlComponent col(String... attributes) {
+        return new HtmlComponent("col", attributes);
     }
 
-    public static Html col(CharSequence... html) {
-        return new HtmlEmpty("col", html);
+    public static HtmlComponent embed(String... attributes) {
+        return new HtmlComponent("embed", attributes);
     }
 
-    public static Html embed(CharSequence... html) {
-        return new HtmlEmpty("embed", html);
+    public static HtmlComponent hr(String... attributes) {
+        return new HtmlComponent("hr", attributes);
     }
 
-    public static Html hr(CharSequence... html) {
-        return new HtmlEmpty("hr", html);
+    public static HtmlComponent img(String... attributes) {
+        return new HtmlComponent("img", attributes);
     }
 
-    public static Html img(CharSequence... html) {
-        return new HtmlEmpty("img", html);
+    public static HtmlComponent input(String... attributes) {
+        return new HtmlComponent("input", attributes);
     }
 
-    public static Html input(CharSequence... html) {
-        return new HtmlEmpty("input", html);
+    public static HtmlComponent param(String... attributes) {
+        return new HtmlComponent("param", attributes);
     }
 
-    public static Html link(CharSequence... html) {
-        return new HtmlEmpty("link", html);
+    public static HtmlComponent source(String... attributes) {
+        return new HtmlComponent("source", attributes);
     }
 
-    public static Html meta(CharSequence... html) {
-        return new HtmlEmpty("meta", html);
+    public static HtmlComponent track(String... attributes) {
+        return new HtmlComponent("track", attributes);
     }
 
-    public static Html param(CharSequence... html) {
-        return new HtmlEmpty("param", html);
-    }
-
-    public static Html source(CharSequence... html) {
-        return new HtmlEmpty("source", html);
-    }
-
-    public static Html track(CharSequence... html) {
-        return new HtmlEmpty("track", html);
-    }
-
-    public static Html wbr(CharSequence... html) {
-        return new HtmlEmpty("wbr", html);
+    public static HtmlComponent wbr(String... attributes) {
+        return new HtmlComponent("wbr", attributes);
     }
 }

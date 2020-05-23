@@ -3,7 +3,7 @@ package org.fluentness.prototype.controller;
 import org.fluentness.prototype.view.WebView;
 import org.fluentness.controller.AbstractWebController;
 import org.fluentness.service.dispatcher.DynamicDispatcher;
-import org.fluentness.view.html.Html;
+import org.fluentness.view.container.HtmlContainer;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static org.fluentness.view.AbstractWebView.*;
-import static org.fluentness.view.html.HtmlAttribute.CLASS;
-import static org.fluentness.view.html.HtmlAttribute.HREF;
+import static org.fluentness.view.component.HtmlAttribute.CLASS;
+import static org.fluentness.view.component.HtmlAttribute.HREF;
 
 public class WebCalendarController extends AbstractWebController<WebView> {
 
@@ -23,7 +23,7 @@ public class WebCalendarController extends AbstractWebController<WebView> {
     }
 
     @Action(path = "/calendar")
-    Html calendar(int year, int month) {
+    HtmlContainer calendar(int year, int month) {
         YearMonth current = (year == 0 && month == 0) ? YearMonth.now() : YearMonth.of(year, month);
         YearMonth previous = current.minusMonths(1);
         YearMonth next = current.plusMonths(1);

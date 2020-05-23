@@ -5,15 +5,20 @@ import org.fluentness.view.component.Component;
 import org.fluentness.view.container.Container;
 import org.fluentness.view.container.LinearLayout;
 
-public abstract class AbstractView implements View {
+public abstract class AbstractView<
+    C extends Component,
+    Co extends Container,
+    B extends Button,
+    LL extends LinearLayout
+    >
 
-    protected abstract Container structure();
+    implements View {
 
-    protected abstract void style();
+    protected abstract Co structure();
 
-    protected abstract LinearLayout linearLayout(int orientation, Component... components);
+    protected abstract LL linearLayout(int orientation, C... components);
 
-    protected abstract Button button(CharSequence text);
+    protected abstract B button(CharSequence text);
 
 
 }

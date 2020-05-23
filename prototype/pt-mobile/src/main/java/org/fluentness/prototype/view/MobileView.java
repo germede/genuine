@@ -13,6 +13,11 @@ public class MobileView extends AbstractMobileView {
     private LinearLayout root;
     public Button button1;
 
+    public MobileView() {
+        super();
+        root.padding(20,20,20,20);
+    }
+
     @Override
     protected Container structure() {
         return root = linearLayout(VERTICAL,
@@ -22,8 +27,4 @@ public class MobileView extends AbstractMobileView {
         );
     }
 
-    @Override
-    protected void style() {
-        root.padding(20,20,20,20);
-    }
 }

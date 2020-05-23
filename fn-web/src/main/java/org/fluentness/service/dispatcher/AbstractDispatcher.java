@@ -37,13 +37,13 @@ public abstract class AbstractDispatcher extends HttpServlet implements Dispatch
             String path = request.getMethod() + " " + request.getRequestURI();
             if (routes.containsKey(path)) {
                 boolean isAuthorized = true;
-                for (Authentication authentication : authentications) {
-                    if (!authentication.authorize(request)) {
-                        authentication.demandCredentials(response);
-                        isAuthorized = false;
-                        break;
-                    }
-                }
+//                for (Authentication authentication : authentications) {
+//                    if (!authentication.authorize(request)) {
+//                        authentication.demandCredentials(response);
+//                        isAuthorized = false;
+//                        break;
+//                    }
+//                }
                 if (isAuthorized) {
                     dispatch(request, response);
                 }
