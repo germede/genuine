@@ -25,6 +25,8 @@ public class JulFormatter extends Formatter {
         builder.append(RESET);
         builder.append(" | ");
         builder.append(logLevel.equals(LogLevel.ERROR) ? RED : "");
+        builder.append(Log.getLoggerCaller());
+        builder.append(": ");
         builder.append(logRecord.getMessage());
         builder.append(logLevel.equals(LogLevel.ERROR) ? RESET : "");
         builder.append("\n");

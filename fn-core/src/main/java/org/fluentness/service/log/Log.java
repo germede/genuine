@@ -8,6 +8,18 @@ public interface Log {
     Setting<Boolean> CONSOLE = new Setting<>(true);
     Setting<String> FILE = new Setting<>();
 
+    static String getLoggerCaller() {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        for (StackTraceElement stackTraceElement : stackTrace) {
+            if (!stackTraceElement.getClassName().startsWith("java.lang.Thread") &&
+                    !stackTraceElement.getClassName().startsWith("java.util.logging") &&
+                    !stackTraceElement.getClassName().startsWith("org.fluentness.service.log")) {
+                return stackTraceElement.getClassName().replaceAll(".*\\.", "");
+            }
+        }
+        return "Log";
+    }
+
     void log(LogLevel logLevel, String message, Object... parameters);
 
     void debug(String message, Object... parameters);
