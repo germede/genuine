@@ -1,5 +1,6 @@
 package org.fluentness.service.log;
 
+import com.j256.ormlite.logger.LoggerFactory;
 import org.fluentness.service.configuration.Configuration;
 
 import java.io.File;
@@ -67,6 +68,8 @@ public class JulLog implements Log {
     }
 
     private void bridge(Level julLevel) {
+        System.setProperty(LoggerFactory.LOG_TYPE_SYSTEM_PROPERTY, LoggerFactory.LogType.JAVA_UTIL.name());
+
         Logger defaultLogger = Logger.getLogger("");
         defaultLogger.setLevel(julLevel);
         Arrays.stream(defaultLogger.getHandlers()).forEach(defaultLogger::removeHandler);

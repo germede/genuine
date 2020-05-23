@@ -25,7 +25,6 @@ public class JdbcPersistence implements Persistence {
                 configuration.get(DATABASE),
                 configuration.get(URL_PARAMETER_QUERY)
             );
-            System.setProperty(LoggerFactory.LOG_TYPE_SYSTEM_PROPERTY, LoggerFactory.LogType.JAVA_UTIL.name());
             DatabaseType databaseType = DatabaseTypeUtils.createDatabaseType(url);
             if (configuration.has(USERNAME) && configuration.has(PASSWORD)) {
                 connectionSource = new JdbcPooledConnectionSource(url, configuration.get(USERNAME), configuration.get(PASSWORD), databaseType);

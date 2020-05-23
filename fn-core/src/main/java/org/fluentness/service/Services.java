@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// By using this annotation on the service interfaces, all provided service implementations are
-// instantiated, just like controllers and repositories
+// By using this annotation on the application class hierarchy,
+// the provided service implementations are registered for possible instantiation
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Services {

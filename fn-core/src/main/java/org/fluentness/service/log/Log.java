@@ -7,7 +7,7 @@ import static org.fluentness.service.log.LogLevel.*;
 
 public interface Log extends Service {
 
-    Setting<LogLevel> LEVEL = new Setting<>(TRACE);
+    Setting<LogLevel> LEVEL = new Setting<>(DEBUG);
     Setting<Boolean> CONSOLE = new Setting<>(true);
     Setting<String> FILE = new Setting<>();
 
