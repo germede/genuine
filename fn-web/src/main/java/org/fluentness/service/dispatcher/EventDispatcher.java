@@ -2,22 +2,22 @@ package org.fluentness.service.dispatcher;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.fluentness.controller.event.JavaScriptEvent;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.log.Log;
-import org.fluentness.view.action.Clickable;
 
 import java.io.IOException;
 
-public class JavaScriptDispatcher extends AbstractDispatcher {
+public class EventDispatcher extends AbstractDispatcher {
 
-    private static String javaScript = "";
+    private String javaScript = "";
 
-    public static void registerClickAction(int id, Clickable.OnClickAction onClickAction) {
-        javaScript += "console.log(" + id + ");";
+    public EventDispatcher(Authentication[] authentications, Log log) {
+        super(authentications, log);
     }
 
-    public JavaScriptDispatcher(Authentication[] authentications, Log log) {
-        super(authentications, log);
+    public void addEvent(JavaScriptEvent event) {
+        javaScript += "console.log(" + event.getId() + ");";
     }
 
     @Override

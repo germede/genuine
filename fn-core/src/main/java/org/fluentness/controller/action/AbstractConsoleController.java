@@ -1,21 +1,18 @@
-package org.fluentness.controller;
+package org.fluentness.controller.action;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.fluentness.controller.Controller;
+
+import java.lang.annotation.*;
 import java.lang.reflect.Method;
 import java.util.*;
 
 import static org.fluentness.service.log.AnsiColor.*;
 import static org.fluentness.service.log.AnsiColor.RESET;
 
-public abstract class AbstractConsoleController implements Controller {
+public abstract class AbstractConsoleController extends AbstractActionController {
 
-    public Method[] getActions() {
-        return Arrays.stream(this.getClass().getMethods())
-            .filter(method -> method.isAnnotationPresent(Action.class))
-            .toArray(Method[]::new);
+    public AbstractConsoleController() {
+        super(Action.class);
     }
 
     @Target(ElementType.METHOD)

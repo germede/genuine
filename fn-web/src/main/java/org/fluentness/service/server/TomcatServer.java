@@ -5,6 +5,8 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.dispatcher.Dispatcher;
+import org.fluentness.service.dispatcher.EventDispatcher;
+import org.fluentness.service.dispatcher.RouteDispatcher;
 import org.fluentness.service.log.Log;
 
 import java.io.File;
@@ -12,6 +14,8 @@ import java.io.File;
 public class TomcatServer implements Server {
 
     private final Log log;
+    private RouteDispatcher routeDispatcher;
+    private EventDispatcher eventDispatcher;
 
     private final Tomcat tomcat;
 
@@ -24,6 +28,9 @@ public class TomcatServer implements Server {
 
         Context context = tomcat.addContext(configuration.get(CONTEXT), new File(".").getAbsolutePath());
         for (Dispatcher dispatcher : dispatchers) {
+            if (dispatcher instanceof RouteDispatcher) this.routeDispatcher = (RouteDispatcher) dispatcher;
+            if (dispatcher instanceof EventDispatcher) this.eventDispatcher = (EventDispatcher) dispatcher;
+
             Tomcat.addServlet(context, dispatcher.getClass().getName(), dispatcher);
             context.addServletMappingDecoded(dispatcher.getUrlPattern(), dispatcher.getClass().getName());
         }
@@ -52,5 +59,15 @@ public class TomcatServer implements Server {
         } else {
             log.warn("Server was stopped without being started");
         }
+    }
+
+    @Override
+    public EventDispatcher getEventDispatcher() {
+        return eventDispatcher;
+    }
+
+    @Override
+    public RouteDispatcher getRouteDispatcher() {
+        return routeDispatcher;
     }
 }

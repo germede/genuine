@@ -1,6 +1,6 @@
 package org.fluentness;
 
-import org.fluentness.controller.AbstractConsoleController;
+import org.fluentness.controller.action.AbstractConsoleController;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

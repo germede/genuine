@@ -1,8 +1,8 @@
 package org.fluentness.view.component;
 
-import org.fluentness.view.action.Clickable;
+import org.fluentness.controller.event.Clickable;
 
-public interface Button extends Component, Clickable<Button> {
+public interface Button extends Component, Clickable {
 
     CharSequence getText();
 

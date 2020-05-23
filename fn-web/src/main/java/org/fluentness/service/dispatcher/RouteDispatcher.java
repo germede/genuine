@@ -2,11 +2,12 @@ package org.fluentness.service.dispatcher;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.fluentness.controller.AbstractWebController;
+import org.fluentness.controller.WebController;
+import org.fluentness.controller.event.AbstractEventWebController;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
-import org.fluentness.service.server.RequestHeader;
+import org.fluentness.view.AbstractWebView;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -20,14 +21,14 @@ import static org.fluentness.view.AbstractWebView.ACTION_RESULT;
 import static org.fluentness.view.AbstractWebView.div;
 import static org.fluentness.view.component.HtmlAttribute.ID;
 
-public class DynamicDispatcher extends AbstractDispatcher {
+public class RouteDispatcher extends AbstractDispatcher {
 
     private final Configuration configuration;
 
     protected final Map<String, Method> routes = new HashMap<>();
-    protected final Map<Method, AbstractWebController> controllers = new HashMap<>();
+    protected final Map<Method, WebController> controllers = new HashMap<>();
 
-    public DynamicDispatcher(Authentication[] authentications, Log log, Configuration configuration) {
+    public RouteDispatcher(Authentication[] authentications, Log log, Configuration configuration) {
         super(authentications, log);
         this.configuration = configuration;
     }
@@ -37,7 +38,7 @@ public class DynamicDispatcher extends AbstractDispatcher {
         return "/*";
     }
 
-    public final void addRoute(String method, String path, Method action, AbstractWebController controller) {
+    public final void addRoute(String method, String path, Method action, WebController controller) {
         routes.put(method + " " + getUrlPattern().replace("/*", "") + path, action);
         controllers.put(action, controller);
     }
@@ -49,15 +50,15 @@ public class DynamicDispatcher extends AbstractDispatcher {
         if (routes.containsKey(path)) {
             String key = request.getMethod() + " " + request.getRequestURI();
             Method action = routes.get(key);
-            AbstractWebController controller = controllers.get(action);
+            WebController controller = controllers.get(action);
 
             action.setAccessible(true);
             Object[] args = prepareArgs(action, request);
             Object returned = action.getParameterCount() > 0 ?
                 action.invoke(controller, args) :
                 action.invoke(controller);
-            if (returned instanceof CharSequence) {
-                handleWebView(request, response, controller, (CharSequence) returned);
+            if (returned instanceof AbstractWebView) {
+                handleWebView(response, controller, (AbstractWebView) returned);
             } else if (returned instanceof Integer) {
                 response.setStatus((Integer) returned);
             }
@@ -91,24 +92,19 @@ public class DynamicDispatcher extends AbstractDispatcher {
         return result;
     }
 
-    private void handleWebView(HttpServletRequest request,
-                               HttpServletResponse response,
-                               AbstractWebController webController,
-                               CharSequence returned) throws IOException {
-        String render;
-        if (request.getHeader(RequestHeader.X_REQUESTED_WITH) != null) {
-            render = returned.toString();
+    private void handleWebView(HttpServletResponse response,
+                               WebController webController,
+                               AbstractWebView returned) throws IOException {
+        String render = ((AbstractWebView) ((AbstractEventWebController) webController).getView()).getHtml();
+        if (configuration.get(SINGLE_PAGE_MODE)) {
+            render = render
+                .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")
+                .replace(ACTION_RESULT, div(ID + "ajax-placeholder", returned.toString()))
+            ;
         } else {
-            render = webController.getWebView().getHtml();
-            if (configuration.get(SINGLE_PAGE_MODE)) {
-                render = render
-                    .replace("</head>", configuration.get(AJAX_HANDLER) + "</head>")
-                    .replace(ACTION_RESULT, div(ID + "ajax-placeholder", returned.toString()))
-                ;
-            } else {
-                render = render.replace(ACTION_RESULT, returned.toString());
-            }
+            render = render.replace(ACTION_RESULT, returned.toString());
         }
+
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("text/html");
         response.setCharacterEncoding(configuration.get(RESPONSE_ENCODING));

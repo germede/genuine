@@ -1,23 +1,14 @@
 package org.fluentness.prototype.controller;
 
+import org.fluentness.controller.action.AbstractActionWebController;
 import org.fluentness.prototype.view.WebView;
-import org.fluentness.controller.AbstractWebController;
-import org.fluentness.service.dispatcher.DynamicDispatcher;
-import org.fluentness.view.component.Button;
 
 import static org.fluentness.prototype.service.Localization.*;
 
-public class WebController extends AbstractWebController<WebView> {
+public class WebActionController extends AbstractActionWebController<WebView> {
 
-    public WebController(WebView webView, DynamicDispatcher dispatcher) {
-        super(webView, dispatcher);
-
-        webView.button1.onClick(this::doNothing);
-
-    }
-
-    private void doNothing(Button button) {
-
+    public WebActionController() {
+        super("/action");
     }
 
     @Action(path = "/")

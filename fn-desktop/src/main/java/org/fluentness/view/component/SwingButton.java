@@ -1,5 +1,7 @@
 package org.fluentness.view.component;
 
+import org.fluentness.controller.event.OnClickEvent;
+
 import javax.swing.*;
 
 public class SwingButton extends JButton implements Button {
@@ -14,7 +16,7 @@ public class SwingButton extends JButton implements Button {
     }
 
     @Override
-    public void onClick(OnClickAction<Button> onClickAction) {
-        addActionListener(button -> onClickAction.handle(this));
+    public void onClick(OnClickEvent<Button> onClickEvent) {
+        addActionListener(button -> onClickEvent.handle(this));
     }
 }

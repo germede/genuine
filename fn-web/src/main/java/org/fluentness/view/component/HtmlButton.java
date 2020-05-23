@@ -1,6 +1,5 @@
 package org.fluentness.view.component;
 
-import org.fluentness.service.dispatcher.JavaScriptDispatcher;
 import org.fluentness.view.container.HtmlContainer;
 
 public class HtmlButton extends HtmlContainer implements Button {
@@ -20,11 +19,5 @@ public class HtmlButton extends HtmlContainer implements Button {
     @Override
     public void setText(CharSequence text) {
 
-    }
-
-    @Override
-    public void onClick(OnClickAction<Button> onClickAction) {
-        addAttribute(HtmlAttribute.ID + String.valueOf(id));
-        JavaScriptDispatcher.registerClickAction(id, onClickAction);
     }
 }

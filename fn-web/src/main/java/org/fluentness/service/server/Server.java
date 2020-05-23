@@ -2,6 +2,8 @@ package org.fluentness.service.server;
 
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
+import org.fluentness.service.dispatcher.RouteDispatcher;
+import org.fluentness.service.dispatcher.EventDispatcher;
 
 import javax.net.ssl.SSLContext;
 
@@ -14,4 +16,7 @@ public interface Server extends Service {
     void start() throws Exception;
 
     void stop();
+
+    EventDispatcher getEventDispatcher();
+    RouteDispatcher getRouteDispatcher();
 }

@@ -29,9 +29,4 @@ public class HtmlLinearLayout extends HtmlContainer implements LinearLayout {
     public void add(Component component) {
 
     }
-
-    @Override
-    public void padding(int top, int left, int bottom, int right) {
-
-    }
 }

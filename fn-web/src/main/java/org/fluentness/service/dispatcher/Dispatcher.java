@@ -1,11 +1,8 @@
 package org.fluentness.service.dispatcher;
 
-import org.fluentness.controller.AbstractWebController;
 import org.fluentness.service.AllowMultipleImplementations;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
-
-import java.lang.reflect.Method;
 
 @AllowMultipleImplementations
 public interface Dispatcher extends jakarta.servlet.Servlet, Service {
