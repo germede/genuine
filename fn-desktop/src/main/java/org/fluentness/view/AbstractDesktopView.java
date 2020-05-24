@@ -12,18 +12,24 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public abstract class AbstractDesktopView extends AbstractView {
 
+    private JFrame jFrame;
+
     public AbstractDesktopView(CharSequence title) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        JFrame jFrame = new JFrame(title.toString());
+        jFrame = new JFrame(title.toString());
         jFrame.setContentPane((java.awt.Container) structure());
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
+    }
+
+    public JFrame getJFrame() {
         jFrame.pack();
         jFrame.setVisible(true);
+        return jFrame;
     }
 
     @Override

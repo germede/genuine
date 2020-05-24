@@ -1,9 +1,9 @@
 package org.fluentness.prototype.controller;
 
-import org.fluentness.controller.event.AbstractEventWebController;
+import org.fluentness.controller.event.AbstractWebController;
 import org.fluentness.prototype.view.WebView;
 
-public class IndexController extends AbstractEventWebController<WebView> {
+public class IndexController extends AbstractWebController<WebView> {
 
     public IndexController(WebView view) {
         super(view, "/");

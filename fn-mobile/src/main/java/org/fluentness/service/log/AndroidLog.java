@@ -13,33 +13,9 @@ public class AndroidLog implements Log {
     }
 
     @Override
-    public void trace(String message, Object... parameters) {
-        log(DEBUG, message, parameters);
-    }
-
-    @Override
-    public void debug(String message, Object... parameters) {
-        log(DEBUG, message, parameters);
-    }
-
-    @Override
-    public void info(String message, Object... parameters) {
-        log(INFO, message, parameters);
-    }
-
-    @Override
-    public void warn(String message, Object... parameters) {
-        log(WARN, message, parameters);
-    }
-
-    @Override
-    public void error(String message, Object... parameters) {
-        log(ERROR, message, parameters);
-    }
-
-    private void log(LogLevel logLevel, String message, Object... parameters) {
+    public void log(LogLevel logLevel, String message, Object... parameters) {
         if (toAndroidPriority(logLevel) >= androidPriority) {
-            android.util.Log.println(toAndroidPriority(logLevel), Log.getLoggerCaller(), String.format(message, parameters));
+            android.util.Log.println(toAndroidPriority(logLevel), "Fluentness", String.format(message, parameters));
         }
     }
 

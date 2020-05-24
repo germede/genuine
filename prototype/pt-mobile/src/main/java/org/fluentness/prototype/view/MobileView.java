@@ -15,7 +15,7 @@ public class MobileView extends AbstractMobileView {
 
     public MobileView() {
         super();
-        root.padding(20,20,20,20);
+        root.setPadding(20,20,20,20);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class AndroidLinearLayout extends android.widget.LinearLayout implements 
     }
 
     @Override
-    public void padding(int top, int left, int bottom, int right) {
-        setPadding(left, top, right, bottom);
+    public void setPadding(int top, int left, int bottom, int right) {
+        super.setPadding(left, top, right, bottom);
     }
 }

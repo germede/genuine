@@ -28,10 +28,6 @@ public class DesktopView extends AbstractDesktopView {
         );
     }
 
-    protected void style() {
-
-    }
-
 //
 //
 //    public JPanel panel1;

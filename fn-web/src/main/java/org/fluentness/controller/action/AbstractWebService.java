@@ -7,11 +7,11 @@ import java.lang.annotation.*;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
-public abstract class AbstractActionWebController<W extends AbstractWebView> extends AbstractActionController implements WebController {
+public abstract class AbstractWebService<W extends AbstractWebView> extends AbstractActionController implements WebController {
 
     private final String path;
 
-    public AbstractActionWebController(String path) {
+    public AbstractWebService(String path) {
         super(Action.class);
         this.path = path;
     }

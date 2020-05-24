@@ -2,7 +2,6 @@ package org.fluentness.view.component;
 
 
 import android.content.Context;
-import org.fluentness.controller.event.OnClickEvent;
 
 public class AndroidButton extends android.widget.Button implements Button {
 
@@ -11,8 +10,4 @@ public class AndroidButton extends android.widget.Button implements Button {
         setText(text);
     }
 
-    @Override
-    public void onClick(OnClickEvent<Button> onClickEvent) {
-        setOnClickListener(view -> onClickEvent.handle(this));
-    }
 }
