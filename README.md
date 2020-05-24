@@ -1,6 +1,6 @@
 ![Fluentness logo](fn-core/src/main/resources/img/logo.png?raw=true "Fluentness logo")
 
-##WIP
+## In a nutshell
 
 Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
 multi-platform, consistent and flexible Java-based development framework. After a quick-start you'll be able to:
@@ -9,10 +9,6 @@ dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS a
 * Scale from small to fully-featured with very small footprint (few dependencies), yet out-of-the-box runnable applications.
 * Respect standards and coding guidelines as far as possible, but applying the framework well-defined architecture.
 * Enjoy the advantages of developing software using Java such as: type safety, performance, maturity, wide acceptance and knowledge, nice support of functional programming, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
-
-## In a nutshell
-![Fluentness architecture](fn-core/src/main/resources/img/architecture.svg?raw=true "Fluentness architecture")
- 
 
 ## Quickstart
 
