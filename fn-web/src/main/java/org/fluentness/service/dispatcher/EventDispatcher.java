@@ -8,29 +8,25 @@ import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.log.Log;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class EventDispatcher extends AbstractDispatcher {
 
-    private final String sendFunction = "function send(eventId) {" +
-        "    var xhttp = new XMLHttpRequest();" +
-        "    xhttp.onreadystatechange = function () {" +
-        "        if (this.readyState == 4 && (this.status >= 200 || this.status < 300)) {" +
-        "            console.log(this.responseText);" +
-        "        }" +
-        "    };" +
-        "    xhttp.open('GET', window.location.href + '?eventId=' + eventId , true);" +
-        "    xhttp.setRequestHeader('http_x_requested_with', 'true');" +
-        "    xhttp.send();" +
-        "}";
-    private String eventListeners = "";
 
-    public EventDispatcher(Authentication[] authentications, Log log) {
+    private String javaScriptCommands;
+    private String javaScriptEvents;
+
+    public EventDispatcher(Authentication[] authentications, Log log) throws URISyntaxException, IOException {
         super(authentications, log);
+        javaScriptCommands = new String(Files.readAllBytes(Paths.get(getClass().getResource("/js/javaScript-commands.js").toURI())));
+        javaScriptEvents = "";
     }
 
     public void addEvent(JavaScriptEvent event) {
-        eventListeners += String.format(
-            "document.getElementById(%d).addEventListener('%s', function() { send('%s'); });",
+        javaScriptEvents += String.format(
+            "    document.getElementById(%d).addEventListener('%s', function() { send('%s'); });\n",
             event.getId(),
             event.getEventName(),
             event.getEventId()
@@ -46,10 +42,10 @@ public class EventDispatcher extends AbstractDispatcher {
     protected void dispatch(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setStatus(HttpServletResponse.SC_OK);
         ServletOutputStream out = response.getOutputStream();
-        out.print(sendFunction);
-        out.print("window.onload = function() {");
-        out.print(eventListeners);
-        out.print("}");
+        out.print(javaScriptCommands);
+        out.print("window.onload = function() {\n");
+        out.print(javaScriptEvents);
+        out.print("}\n");
         response.setContentType("application/javascript");
     }
 

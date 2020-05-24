@@ -16,7 +16,7 @@ public abstract class AbstractDesktopController<D extends AbstractDesktopView> e
     @Override
     protected void onClick(Clickable clickable, OnClickEvent onClickEvent) {
         if (clickable instanceof JButton) {
-            ((JButton)clickable).addActionListener(e -> onClickEvent.handle());
+            ((JButton) clickable).addActionListener(button -> onClickEvent.handle());
         }
     }
 }

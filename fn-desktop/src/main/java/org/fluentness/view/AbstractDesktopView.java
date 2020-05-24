@@ -22,7 +22,6 @@ public abstract class AbstractDesktopView extends AbstractView {
         jFrame.setContentPane((java.awt.Container) structure());
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
-        style();
         jFrame.pack();
         jFrame.setVisible(true);
     }

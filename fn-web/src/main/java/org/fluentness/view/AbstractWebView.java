@@ -9,6 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
+import static org.fluentness.view.component.HtmlAttribute.*;
+import static org.fluentness.view.component.HtmlAttribute.SRC;
+
 public abstract class AbstractWebView extends AbstractView<
     HtmlComponent,
     HtmlContainer,
@@ -19,9 +22,17 @@ public abstract class AbstractWebView extends AbstractView<
     private final HtmlContainer html;
     private String renderedHtml;
 
-    public AbstractWebView(HtmlComponent... headComponents) {
+    public AbstractWebView(String title, HtmlComponent... headComponents) {
+        HtmlComponent[] finalHeadComponents = new HtmlComponent[headComponents.length + 2];
+        finalHeadComponents[0] = title(title);
+        for (int i = 1, headComponentsLength = headComponents.length; i < headComponentsLength; i++) {
+            finalHeadComponents[i] = headComponents[i - 1];
+        }
+        finalHeadComponents[finalHeadComponents.length - 2] = link(REL + "stylesheet", TYPE + "text/css", HREF + "https://unpkg.com/chota@latest");
+        finalHeadComponents[finalHeadComponents.length - 1] = script(SRC + "/javaScript");
+
         this.html = new HtmlContainer("html",
-            new HtmlContainer("head", headComponents),
+            new HtmlContainer("head", finalHeadComponents),
             new HtmlContainer("body", structure())
         );
     }

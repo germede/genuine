@@ -9,7 +9,7 @@ public interface Dispatcher extends jakarta.servlet.Servlet, Service {
 
     Setting<String> RESPONSE_ENCODING = new Setting<>("UTF-8");
     Setting<Boolean> SINGLE_PAGE_MODE = new Setting<>(true);
-    Setting<String> AJAX_HANDLER = new Setting<>("<script src=\"/resources/js/ajax-handler.js\"></script>");
+    Setting<String> AJAX_HANDLER = new Setting<>("<script src=\"/resources/js/javaScript-commands.js\"></script>");
 
     String getUrlPattern();
 

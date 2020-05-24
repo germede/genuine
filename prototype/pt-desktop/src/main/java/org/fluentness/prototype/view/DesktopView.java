@@ -10,11 +10,13 @@ import static org.fluentness.view.container.LinearLayout.HORIZONTAL;
 
 public class DesktopView extends AbstractDesktopView {
 
-    public Button button1;
+
     private LinearLayout root;
+    public Button button1;
 
     public DesktopView() {
         super("My Desktop View");
+        root.setPadding(50, 50, 50, 50);
     }
 
     @Override
@@ -26,9 +28,8 @@ public class DesktopView extends AbstractDesktopView {
         );
     }
 
-    @Override
     protected void style() {
-        root.padding(50, 50, 50, 50);
+
     }
 
 //

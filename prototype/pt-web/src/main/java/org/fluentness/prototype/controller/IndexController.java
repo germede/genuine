@@ -12,6 +12,7 @@ public class IndexController extends AbstractEventWebController<WebView> {
 
     private void doNothing() {
         view.button1.setText("HA!");
+        view.root.add(view.button1);
     }
 
 }

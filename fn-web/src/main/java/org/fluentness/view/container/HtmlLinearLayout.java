@@ -1,11 +1,11 @@
 package org.fluentness.view.container;
 
-import org.fluentness.view.component.Component;
 import org.fluentness.view.component.HtmlComponent;
 
 import static org.fluentness.view.component.HtmlAttribute.CLASS;
+import static org.fluentness.view.component.HtmlAttribute.STYLE;
 
-public class HtmlLinearLayout extends HtmlContainer implements LinearLayout {
+public class HtmlLinearLayout extends HtmlContainer implements LinearLayout<HtmlComponent> {
 
     private final int orientation;
 
@@ -26,7 +26,7 @@ public class HtmlLinearLayout extends HtmlContainer implements LinearLayout {
     }
 
     @Override
-    public void add(Component component) {
-
+    public void setPadding(int top, int left, int bottom, int right) {
+        addAttribute(STYLE + String.format("padding: %d %d %d %d !important;", top, left, bottom, right));
     }
 }

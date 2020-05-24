@@ -26,7 +26,7 @@ public class SwingLinearLayout extends JPanel implements LinearLayout{
     }
 
     @Override
-    public void padding(int top, int left, int bottom, int right) {
+    public void setPadding(int top, int left, int bottom, int right) {
         setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));
     }
 }

@@ -19,6 +19,6 @@ public class HtmlButton extends HtmlContainer implements Button {
 
     @Override
     public void setText(CharSequence text) {
-        JavaScriptCommand.addCommand(JavaScriptCommand.CHANGE_INNER, getId(), text);
+        JavaScriptCommand.changeInner(getId(), text);
     }
 }

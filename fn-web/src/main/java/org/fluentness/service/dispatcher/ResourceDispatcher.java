@@ -10,20 +10,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-public class StaticDispatcher extends AbstractDispatcher {
+public class ResourceDispatcher extends AbstractDispatcher {
 
-    public StaticDispatcher(Authentication[] authentications, Log log) {
+    public static final String RESOURCES = "/resources/";
+
+    public ResourceDispatcher(Authentication[] authentications, Log log) {
         super(authentications, log);
     }
 
     @Override
     public String getUrlPattern() {
-        return "/static/*";
+        return RESOURCES + "*";
     }
 
     @Override
     protected void dispatch(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-        String filePath = request.getRequestURI().replace("/static/", "");
+        String filePath = request.getRequestURI().replace(RESOURCES, "");
         InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(filePath);
         if (resourceAsStream != null) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8));

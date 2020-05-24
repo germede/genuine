@@ -1,6 +1,5 @@
 package org.fluentness;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.fluentness.controller.WebController;
 import org.fluentness.controller.action.AbstractActionWebController;
 import org.fluentness.controller.event.AbstractEventWebController;
@@ -8,7 +7,7 @@ import org.fluentness.controller.event.JavaScriptEvent;
 import org.fluentness.service.Services;
 import org.fluentness.service.dispatcher.EventDispatcher;
 import org.fluentness.service.dispatcher.RouteDispatcher;
-import org.fluentness.service.dispatcher.StaticDispatcher;
+import org.fluentness.service.dispatcher.ResourceDispatcher;
 import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.TomcatServer;
@@ -17,7 +16,7 @@ import java.util.Arrays;
 
 @Services({
     RouteDispatcher.class,
-    StaticDispatcher.class,
+    ResourceDispatcher.class,
     EventDispatcher.class,
     TomcatServer.class,
     SocketMail.class,

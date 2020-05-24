@@ -1,11 +1,11 @@
 package org.fluentness.view.container;
 
-import org.fluentness.view.component.Component;
+import org.fluentness.controller.event.JavaScriptCommand;
 import org.fluentness.view.component.HtmlComponent;
 
 import java.util.Arrays;
 
-public class HtmlContainer extends HtmlComponent implements Container {
+public class HtmlContainer extends HtmlComponent implements Container<HtmlComponent> {
 
     private final StringBuilder inner = new StringBuilder();
     private HtmlComponent[] innerHtml;
@@ -39,7 +39,7 @@ public class HtmlContainer extends HtmlComponent implements Container {
     }
 
     @Override
-    public void add(Component component) {
-        this.inner.append(component.toString());
+    public void add(HtmlComponent component) {
+        JavaScriptCommand.appendChild(id, component);
     }
 }
