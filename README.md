@@ -1,14 +1,11 @@
 ![Fluentness logo](fn-core/src/main/resources/img/logo.png?raw=true "Fluentness logo")
 
-## In a nutshell
-
-Fluentness is intended to be an open-source, all-rounder, easy-to-learn, fully-integrated, 
-multi-platform, consistent and flexible Java-based development framework. After a quick-start you'll be able to:
-* Develop rich desktop applications based on Swing without headaches, 
-dynamic Single-Page-Web-Apps, using code-based, on-the-fly generated HTML, CSS and AJAX calls, the next top Android native mobile app or maybe a nice-looking, high-performing Game using OpenGL.
-* Scale from small to fully-featured with very small footprint (few dependencies), yet out-of-the-box runnable applications.
-* Respect standards and coding guidelines as far as possible, but applying the framework well-defined architecture.
-* Enjoy the advantages of developing software using Java such as: type safety, performance, maturity, wide acceptance and knowledge, nice support of functional programming, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
+The project in a nutshell:
+* It adapts to the target platform implementation. No matter which one you're developing for: A text is a text, a button is a button, regardless of wether programming an LWJGL-based game, a pure desktop Swing, an HTML/CSS/JS-based web or a mobile native Android app.
+* It provides you a common language rather than requiring you to learn many DSL. No more static HTML-files or -templates, interaction definition using JS-code or configuration and localization .properties-files.  
+* It scales from small micro-services to fully-featured web applications with a very small footprint, yet out-of-the-box runnable applications with few dependencies.
+* It respects standards and coding guidelines as far as possible, but applies a well-defined own architecture.
+* It enjoys the advantages of developing Java software such as: strict object-orientation, type safety, performance, maturity, wide acceptance and knowledge, nice support of functional programming, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
 
 ## Quickstart
 
@@ -55,17 +52,17 @@ Read in the [project's wiki](https://github.com/germede/Fluentness/wiki) further
 Please feel free to open a [new issue](https://github.com/germede/Fluentness/issues/new) 
 or a [pull request](https://github.com/germede/Fluentness/compare) directly on GitHub.  Give a star if you enjoy this project. Contact me if you have any idea on how to improve it.
 
-## Attributions
+## Acknowledgments
 This project relies on the following open-source technologies:
 - [OpenJDK](https://openjdk.java.net/) at language level 8 
 - Apache [Maven](https://maven.apache.org/)
 - [ORMLite](https://ormlite.com/) and the Java Persitence API
-- [OpenGL](https://www.opengl.org/) and its libraries [LWJGL](https://www.lwjgl.org/) and [GLFW](https://www.glfw.org/)
+- [OpenGL](https://www.opengl.org/) and libraries [LWJGL](https://www.lwjgl.org/) and [GLFW](https://www.glfw.org/)
 - The [Android](https://www.android.com) platform
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
 - Font [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) for the logo
 - And of course a lot of engagement :muscle:
 
 ## Copyright
+This project is licensed under the terms of the EUPL (1.2 or later).  
 Copyright © 2020 Gerardo Medina.  
-This project is licensed under the terms of the EUPL (1.2 or later).

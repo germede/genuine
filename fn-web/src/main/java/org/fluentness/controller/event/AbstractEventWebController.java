@@ -8,12 +8,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractWebController<W extends AbstractWebView> extends AbstractEventController<W> implements WebController {
+public abstract class AbstractEventWebController<W extends AbstractWebView> extends AbstractEventController<W> implements WebController {
 
     private final String path;
     private final Map<String, JavaScriptEvent> events = new HashMap<>();
 
-    public AbstractWebController(W view, String path) {
+    public AbstractEventWebController(W view, String path) {
         super(view);
         this.path = path;
     }

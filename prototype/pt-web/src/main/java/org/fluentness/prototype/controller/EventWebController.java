@@ -1,11 +1,11 @@
 package org.fluentness.prototype.controller;
 
-import org.fluentness.controller.event.AbstractWebController;
+import org.fluentness.controller.event.AbstractEventWebController;
 import org.fluentness.prototype.view.WebView;
 
-public class IndexController extends AbstractWebController<WebView> {
+public class EventWebController extends AbstractEventWebController<WebView> {
 
-    public IndexController(WebView view) {
+    public EventWebController(WebView view) {
         super(view, "/");
         onClick(view.button1, this::doNothing);
     }

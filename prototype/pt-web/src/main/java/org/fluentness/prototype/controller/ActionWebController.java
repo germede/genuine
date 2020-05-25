@@ -1,13 +1,12 @@
 package org.fluentness.prototype.controller;
 
-import org.fluentness.controller.action.AbstractWebService;
-import org.fluentness.prototype.view.WebView;
+import org.fluentness.controller.action.AbstractActionWebController;
 
 import static org.fluentness.prototype.service.Localization.*;
 
-public class WebService extends AbstractWebService<WebView> {
+public class ActionWebController extends AbstractActionWebController {
 
-    public WebService() {
+    public ActionWebController() {
         super("/action");
     }
 

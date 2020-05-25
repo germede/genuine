@@ -1,17 +1,19 @@
 package org.fluentness.controller.action;
 
 import org.fluentness.controller.WebController;
-import org.fluentness.view.AbstractWebView;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
-public abstract class AbstractWebService<W extends AbstractWebView> extends AbstractActionController implements WebController {
+public abstract class AbstractActionWebController extends AbstractActionController implements WebController {
 
     private final String path;
 
-    public AbstractWebService(String path) {
+    public AbstractActionWebController(String path) {
         super(Action.class);
         this.path = path;
     }
