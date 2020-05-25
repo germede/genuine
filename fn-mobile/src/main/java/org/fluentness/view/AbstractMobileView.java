@@ -2,13 +2,20 @@ package org.fluentness.view;
 
 import android.content.Context;
 import android.view.View;
-import org.fluentness.view.component.AndroidButton;
-import org.fluentness.view.component.Button;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.container.AndroidLinearLayout;
-import org.fluentness.view.container.LinearLayout;
+import org.fluentness.view.component.container.AndroidLinearLayout;
+import org.fluentness.view.component.container.Container;
+import org.fluentness.view.component.table.AndroidTable;
+import org.fluentness.view.component.text.AndroidButton;
 
-public abstract class AbstractMobileView extends AbstractView {
+public abstract class AbstractMobileView extends AbstractView<
+    Component,
+    Container,
+    AndroidButton,
+    AndroidTable,
+    AndroidLinearLayout
+    >
+{
 
     public static Context context;
     private final View androidView;
@@ -22,13 +29,17 @@ public abstract class AbstractMobileView extends AbstractView {
     }
 
     @Override
-    protected LinearLayout linearLayout(int orientation, Component... components) {
+    protected AndroidLinearLayout linearLayout(int orientation, Component... components) {
         return new AndroidLinearLayout(context, orientation, components);
     }
 
     @Override
-    protected Button button(CharSequence text) {
+    protected AndroidButton button(CharSequence text) {
         return new AndroidButton(context, text);
     }
 
+    @Override
+    protected AndroidTable table(CharSequence[] header, Object[]... rows) {
+        return null;
+    }
 }

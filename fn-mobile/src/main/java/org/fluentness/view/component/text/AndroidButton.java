@@ -1,4 +1,4 @@
-package org.fluentness.view.component;
+package org.fluentness.view.component.text;
 
 
 import android.content.Context;

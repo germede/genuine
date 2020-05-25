@@ -1,4 +1,4 @@
-package org.fluentness.view.container;
+package org.fluentness.view.component.container;
 
 import org.fluentness.view.component.Component;
 

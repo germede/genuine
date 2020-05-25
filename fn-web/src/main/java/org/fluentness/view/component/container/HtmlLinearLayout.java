@@ -1,9 +1,9 @@
-package org.fluentness.view.container;
+package org.fluentness.view.component.container;
 
 import org.fluentness.view.component.HtmlComponent;
 
-import static org.fluentness.view.component.HtmlAttribute.CLASS;
-import static org.fluentness.view.component.HtmlAttribute.STYLE;
+import static org.fluentness.view.component.HtmlComponent.Attribute.CLASS;
+import static org.fluentness.view.component.HtmlComponent.Attribute.STYLE;
 
 public class HtmlLinearLayout extends HtmlContainer implements LinearLayout<HtmlComponent> {
 

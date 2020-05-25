@@ -1,31 +1,22 @@
-package org.fluentness.view.container;
+package org.fluentness.view.component.container;
 
 import org.fluentness.controller.event.JavaScriptCommand;
 import org.fluentness.view.component.HtmlComponent;
 
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class HtmlContainer extends HtmlComponent implements Container<HtmlComponent> {
 
-    private final StringBuilder inner = new StringBuilder();
-    private HtmlComponent[] innerHtml;
+    protected final StringBuilder inner = new StringBuilder();
+    protected final List<HtmlComponent> innerHtml = new LinkedList<>();
 
-
-    public HtmlContainer(String tag, HtmlComponent... inner) {
-        super(tag);
-        this.innerHtml = inner;
+    public HtmlContainer(String tag, String... attributes) {
+        super(tag, attributes);
     }
 
-    public HtmlContainer(String tag, CharSequence... inner) {
+    public HtmlContainer(String tag) {
         super(tag);
-        for (CharSequence item : inner) {
-            this.inner.append(item);
-        }
-    }
-
-    public HtmlContainer(String tag, String... inner) {
-        super(tag);
-        Arrays.stream(inner).forEach(this::addAttribute);
     }
 
     @Override

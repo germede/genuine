@@ -1,12 +1,13 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractWebView;
-import org.fluentness.view.component.HtmlButton;
-import org.fluentness.view.container.HtmlContainer;
-import org.fluentness.view.container.HtmlLinearLayout;
+import org.fluentness.view.HtmlHeadChildFactory;
+import org.fluentness.view.component.text.HtmlButton;
+import org.fluentness.view.component.container.HtmlContainer;
+import org.fluentness.view.component.container.HtmlLinearLayout;
 
-import static org.fluentness.view.component.HtmlAttribute.*;
-import static org.fluentness.view.container.LinearLayout.VERTICAL;
+import static org.fluentness.view.component.HtmlComponent.Attribute.*;
+import static org.fluentness.view.component.container.LinearLayout.VERTICAL;
 
 public class WebView extends AbstractWebView {
 
@@ -15,9 +16,9 @@ public class WebView extends AbstractWebView {
 
     public WebView() {
         super("Fluentness rocks",
-            meta(NAME + "lang", CONTENT + "en"),
-            meta(CHARSET + "UTF-8"),
-            meta(NAME + "viewport", CONTENT + "width=device-width, initial-scale=1")
+            HtmlHeadChildFactory.meta(NAME + "lang", CONTENT + "en"),
+            HtmlHeadChildFactory.meta(CHARSET + "UTF-8"),
+            HtmlHeadChildFactory.meta(NAME + "viewport", CONTENT + "width=device-width, initial-scale=1")
         );
 
         root.setPadding(50, 50, 50, 50);

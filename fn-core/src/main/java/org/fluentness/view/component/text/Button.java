@@ -1,6 +1,7 @@
-package org.fluentness.view.component;
+package org.fluentness.view.component.text;
 
 import org.fluentness.controller.event.Clickable;
+import org.fluentness.view.component.Component;
 
 public interface Button extends Component, Clickable {
 

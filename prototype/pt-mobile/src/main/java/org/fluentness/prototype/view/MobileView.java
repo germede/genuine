@@ -1,12 +1,12 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractMobileView;
-import org.fluentness.view.component.Button;
-import org.fluentness.view.container.Container;
-import org.fluentness.view.container.LinearLayout;
+import org.fluentness.view.component.text.Button;
+import org.fluentness.view.component.container.Container;
+import org.fluentness.view.component.container.LinearLayout;
 
 import static org.fluentness.prototype.service.Localization.*;
-import static org.fluentness.view.container.LinearLayout.VERTICAL;
+import static org.fluentness.view.component.container.LinearLayout.VERTICAL;
 
 public class MobileView extends AbstractMobileView {
 

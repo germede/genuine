@@ -1,12 +1,14 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractDesktopView;
-import org.fluentness.view.component.Button;
-import org.fluentness.view.container.Container;
-import org.fluentness.view.container.LinearLayout;
+import org.fluentness.view.component.text.Button;
+import org.fluentness.view.component.container.Container;
+import org.fluentness.view.component.container.LinearLayout;
+
+import java.util.Date;
 
 import static org.fluentness.prototype.service.Localization.*;
-import static org.fluentness.view.container.LinearLayout.HORIZONTAL;
+import static org.fluentness.view.component.container.LinearLayout.HORIZONTAL;
 
 public class DesktopView extends AbstractDesktopView {
 
@@ -24,7 +26,12 @@ public class DesktopView extends AbstractDesktopView {
         return root = linearLayout(HORIZONTAL,
             button1 = button(_accept),
             button(_cancel),
-            button(_welcome_message)
+            button(_welcome_message),
+            table(
+                header("this", "is", "a", "header"),
+                row("this", "is", "a", "row"),
+                row(123, false, new Date(0))
+            )
         );
     }
 

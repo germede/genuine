@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.fluentness.view.component.HtmlAttribute.SEPARATOR;
+import static org.fluentness.view.component.HtmlComponent.Attribute.SEPARATOR;
 
 public class HtmlComponent implements CharSequence, Component {
 
@@ -24,7 +24,7 @@ public class HtmlComponent implements CharSequence, Component {
     }
 
     {
-        addAttribute(HtmlAttribute.ID + String.valueOf(id));
+        addAttribute(Attribute.ID + String.valueOf(id));
     }
 
     public int getId() {
@@ -67,5 +67,130 @@ public class HtmlComponent implements CharSequence, Component {
     @Override
     public final CharSequence subSequence(int i, int i1) {
         return null;
+    }
+
+    public enum Attribute {
+        ACCEPT,
+        ACCEPT_CHARSET,
+        ACCESSKEY,
+        ACTION,
+        ALIGN,
+        ALT,
+        ASYNC,
+        AUTOCOMPLETE,
+        AUTOFOCUS,
+        AUTOPLAY,
+        AUTOSAVE,
+        BGCOLOR,
+        BORDER,
+        BUFFERED,
+        CHALLENGE,
+        CHARSET,
+        CHECKED,
+        CITE,
+        CLASS,
+        CODE,
+        CODEBASE,
+        COLOR,
+        COLS,
+        COLSPAN,
+        CONTENT,
+        CONTENTEDITABLE,
+        CONTEXTMENU,
+        CONTROLS,
+        COORDS,
+        CROSSORIGIN,
+        DATA,
+        DATETIME,
+        DEFAULT,
+        DIR,
+        DIRNAME,
+        DISABLED,
+        DOWNLOAD,
+        DRAGGABLE,
+        DROPZONE,
+        ENCTYPE,
+        FOR,
+        FORM,
+        FORMACTION,
+        HEADERS,
+        HEIGHT,
+        HIDDEN,
+        HIGH,
+        HREF,
+        HREFLANG,
+        HTTP_EQUIV,
+        ICON,
+        ID,
+        INTEGRITY,
+        ISMAP,
+        ITEMPROP,
+        KEYTYPE,
+        KIND,
+        LABEL,
+        LANG,
+        LANGUAGE,
+        LIST,
+        LOOP,
+        LOW,
+        MANIFEST,
+        MAX,
+        MAXLENGTH,
+        MEDIA,
+        METHOD,
+        MIN,
+        MULTIPLE,
+        MUTED,
+        NAME,
+        NOVALIDATE,
+        OPEN,
+        OPTIMUM,
+        PATTERN,
+        PING,
+        PLACEHOLDER,
+        POSTER,
+        PRELOAD,
+        RADIOGROUP,
+        READONLY,
+        REL,
+        REQUIRED,
+        REVERSED,
+        ROWS,
+        ROWSPAN,
+        SANDBOX,
+        SCOPE,
+        SCOPED,
+        SEAMLESS,
+        SELECTED,
+        SHAPE,
+        SIZE,
+        SIZES,
+        SLOT,
+        SPAN,
+        SPELLCHECK,
+        SRC,
+        SRCDOC,
+        SRCLANG,
+        SRCSET,
+        START,
+        STEP,
+        STYLE,
+        SUMMARY,
+        TABINDEX,
+        TARGET,
+        TITLE,
+        TYPE,
+        USEMAP,
+        VALUE,
+        WIDTH;
+
+        public static final String SEPARATOR = "#ATTR#";
+
+        @Override
+        public String toString() {
+            return SEPARATOR + name().toLowerCase().replace('_','-') + SEPARATOR;
+        }
+
+
     }
 }

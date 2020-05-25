@@ -1,22 +1,32 @@
 package org.fluentness.view;
 
-import org.fluentness.view.component.Button;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.SwingButton;
-import org.fluentness.view.container.LinearLayout;
-import org.fluentness.view.container.SwingLinearLayout;
+import org.fluentness.view.component.container.Container;
+import org.fluentness.view.component.container.SwingLinearLayout;
+import org.fluentness.view.component.table.SwingTable;
+import org.fluentness.view.component.text.SwingButton;
 
 import javax.swing.*;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public abstract class AbstractDesktopView extends AbstractView {
+public abstract class AbstractDesktopView extends AbstractView<
+    Component,
+    Container,
+    SwingButton,
+    SwingTable,
+    SwingLinearLayout
+    > {
 
     private JFrame jFrame;
 
     public AbstractDesktopView(CharSequence title) {
+        this(title, UIManager.getSystemLookAndFeelClassName());
+    }
+
+    public AbstractDesktopView(CharSequence title, String lookAndFeelClassName) {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(lookAndFeelClassName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
@@ -33,17 +43,21 @@ public abstract class AbstractDesktopView extends AbstractView {
     }
 
     @Override
-    protected LinearLayout linearLayout(int orientation, Component... components) {
+    protected SwingLinearLayout linearLayout(int orientation, Component... components) {
         return new SwingLinearLayout(orientation, components);
     }
 
     @Override
-    protected Button button(CharSequence text) {
+    protected SwingButton button(CharSequence text) {
         return new SwingButton(text);
     }
 
+    @Override
+    protected SwingTable table(CharSequence[] header, Object[]... rows) {
+        return new SwingTable(header, rows);
+    }
 
-//
+    //
 //    protected static org.fluentness.view.SwingTemplate window(java.awt.Container container) {
 //        JWindow item = new JWindow();
 //        item.setContentPane(container);

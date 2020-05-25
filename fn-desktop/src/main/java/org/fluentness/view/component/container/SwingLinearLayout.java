@@ -1,10 +1,11 @@
-package org.fluentness.view.container;
+package org.fluentness.view.component.container;
 
 import org.fluentness.view.component.Component;
+import org.fluentness.view.component.container.LinearLayout;
 
 import javax.swing.*;
 
-public class SwingLinearLayout extends JPanel implements LinearLayout{
+public class SwingLinearLayout extends JPanel implements LinearLayout {
 
     private final BoxLayout layoutManager;
 
