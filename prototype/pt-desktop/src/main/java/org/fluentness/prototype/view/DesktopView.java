@@ -1,6 +1,7 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractDesktopView;
+import org.fluentness.view.component.table.SwingTable;
 import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.container.Container;
 import org.fluentness.view.component.container.LinearLayout;
@@ -15,6 +16,7 @@ public class DesktopView extends AbstractDesktopView {
 
     private LinearLayout root;
     public Button button1;
+    public SwingTable table;
 
     public DesktopView() {
         super("My Desktop View");
@@ -27,7 +29,7 @@ public class DesktopView extends AbstractDesktopView {
             button1 = button(_accept),
             button(_cancel),
             button(_welcome_message),
-            table(
+            table = table(
                 header("this", "is", "a", "header"),
                 row("this", "is", "a", "row"),
                 row(123, false, new Date(0))

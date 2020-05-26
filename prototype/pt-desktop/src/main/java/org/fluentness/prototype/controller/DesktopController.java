@@ -24,6 +24,7 @@ public class DesktopController extends AbstractDesktopController<DesktopView> {
         for (User user : userRepository.selectAll()) {
             System.out.println(user.getUsername());
         }
+        view.table.addRow(2, "asdf", "asdfasdf");
     }
 
 
