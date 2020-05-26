@@ -20,7 +20,7 @@ public class Entity implements SceneElement {
     public boolean isJumping = false;
 
     public float shineDamper = 1;
-    public float reflectivity = 0;
+    public float reflectivity = 0.5f;
 
     public Entity(Mesh mesh, Texture texture) {
         this.mesh = mesh;
@@ -47,6 +47,10 @@ public class Entity implements SceneElement {
             translation.y = floor;
             isJumping = false;
         }
+
+        rotation.x = rotation.x % 360;
+        rotation.y = rotation.y % 360;
+        rotation.z = rotation.z % 360;
     }
 
 }

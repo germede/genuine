@@ -19,6 +19,9 @@ public class Terrain implements SceneElement {
     private final float size;
     private final float[][] heights;
 
+    public float shineDamper = 1;
+    public float reflectivity = 0.5f;
+
     public Terrain(float size, float[][] heights, Mesh mesh, Texture... textures) {
         this.size = size;
         this.heights = heights;

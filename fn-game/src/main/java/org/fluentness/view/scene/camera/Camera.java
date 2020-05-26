@@ -30,6 +30,8 @@ public class Camera implements SceneElement {
         translation.x += (float) (distance * Math.sin(Math.toRadians(-rotation.y)));
         translation.z += (float) (distance * Math.cos(Math.toRadians(-rotation.y)));
         rotation.y += this.rotationSpeed * leftRight * delta;
+
+        moduleRotation();
     }
 
     public void follow(Entity entity) {
@@ -42,5 +44,13 @@ public class Camera implements SceneElement {
         translation.y = entity.translation.y + verticalDistance;
         translation.z = entity.translation.z - offsetZ;
         rotation.y = 180 - entity.rotation.y - followYaw;
+
+        moduleRotation();
+    }
+
+    public void moduleRotation() {
+        rotation.x = rotation.x % 360;
+        rotation.y = rotation.y % 360;
+        rotation.z = rotation.z % 360;
     }
 }

@@ -6,7 +6,7 @@ import org.fluentness.model.algebra.Vector3f;
 public class Light implements SceneElement {
 
     public Vector3f colour = new Vector3f(1,1,1);
-    public float ambientLight = 0.5f;
+    public float ambientLight = 1f;
 
     public Vector3f translation;
 

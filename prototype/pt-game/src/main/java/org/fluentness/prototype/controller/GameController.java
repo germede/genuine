@@ -40,13 +40,17 @@ public class GameController extends AbstractGameController<GameView> {
             if (isKeyPressed(GLFW_KEY_W)) {
                 if (gameView.camera.followPitch > 30) {
                     gameView.camera.followPitch--;
+                    gameView.camera.followPitch%=360;
                 } else if (gameView.camera.followPitch < 28) {
                     gameView.camera.followPitch++;
+                    gameView.camera.followPitch%=360;
                 }
                 if (gameView.camera.followYaw > 1) {
                     gameView.camera.followYaw--;
+                    gameView.camera.followYaw%=360;
                 } else if (gameView.camera.followYaw < -1) {
                     gameView.camera.followYaw++;
+                    gameView.camera.followYaw%=360;
                 }
             }
         }
@@ -61,18 +65,19 @@ public class GameController extends AbstractGameController<GameView> {
     }
 
     private void keyListener(long window, int key, int ignore1, int ignore2, int ignore3) {
+        int z = 100;
         switch (key) {
             case GLFW_KEY_UP:
-                gameView.light.translation.z -= 10;
+                gameView.light.translation.z -= z;
                 break;
             case GLFW_KEY_DOWN:
-                gameView.light.translation.z += 10;
+                gameView.light.translation.z += z;
                 break;
             case GLFW_KEY_RIGHT:
-                gameView.light.translation.x += 10;
+                gameView.light.translation.x += z;
                 break;
             case GLFW_KEY_LEFT:
-                gameView.light.translation.x -= 10;
+                gameView.light.translation.x -= z;
                 break;
         }
     }

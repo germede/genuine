@@ -54,8 +54,8 @@ public class TerrainRender extends AbstractRender<TerrainShader> {
 
     private void renderTerrain(Terrain terrain) {
         shader.set(shader.transformationMatrix, algebra.transformationMatrix(terrain.translation, terrain.rotation, terrain.scale));
-        shader.set(shader.shineDamper, 1);
-        shader.set(shader.reflectivity, 0);
+        shader.set(shader.shineDamper, terrain.shineDamper);
+        shader.set(shader.reflectivity, terrain.reflectivity);
 
         GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.mesh.vertexCount, GL11.GL_UNSIGNED_INT, 0);
     }
