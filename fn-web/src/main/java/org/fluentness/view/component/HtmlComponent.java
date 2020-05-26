@@ -16,6 +16,7 @@ public class HtmlComponent implements CharSequence, Component {
 
     public HtmlComponent(String tag) {
         this.tag = tag;
+        addAttribute(Attribute.ID + String.valueOf(id));
     }
 
     public HtmlComponent(String tag, String[] attributes) {
@@ -23,23 +24,21 @@ public class HtmlComponent implements CharSequence, Component {
         Arrays.stream(attributes).forEach(this::addAttribute);
     }
 
-    {
-        addAttribute(Attribute.ID + String.valueOf(id));
-    }
-
     public int getId() {
         return id;
     }
 
     public void addAttribute(String attribute) {
-        String[] split = attribute.substring(SEPARATOR.length()).split(SEPARATOR);
-        if (split.length == 1) {
-            attributes.put(split[0], null);
-        } else {
-            if (attributes.containsKey(split[0])) {
-                attributes.put(split[0], attributes.get(split[0]) + split[1]);
+        if (attribute.startsWith(SEPARATOR)) {
+            String[] split = attribute.substring(SEPARATOR.length()).split(SEPARATOR);
+            if (split.length == 1) {
+                attributes.put(split[0], null);
             } else {
-                attributes.put(split[0], split[1]);
+                if (attributes.containsKey(split[0])) {
+                    attributes.put(split[0], attributes.get(split[0]) + split[1]);
+                } else {
+                    attributes.put(split[0], split[1]);
+                }
             }
         }
     }
@@ -188,7 +187,7 @@ public class HtmlComponent implements CharSequence, Component {
 
         @Override
         public String toString() {
-            return SEPARATOR + name().toLowerCase().replace('_','-') + SEPARATOR;
+            return SEPARATOR + name().toLowerCase().replace('_', '-') + SEPARATOR;
         }
 
 

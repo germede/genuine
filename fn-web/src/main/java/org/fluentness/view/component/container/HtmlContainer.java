@@ -19,6 +19,24 @@ public class HtmlContainer extends HtmlComponent implements Container<HtmlCompon
         super(tag);
     }
 
+    public HtmlContainer(String tag, CharSequence... html) {
+        super(tag);
+        for (CharSequence charSequence : html) {
+            if (charSequence instanceof HtmlComponent) {
+                // inner html component
+                innerHtml.add((HtmlComponent) charSequence);
+            } else if (charSequence instanceof String) {
+                if (((String) charSequence).startsWith(Attribute.SEPARATOR)) {
+                    // attribute
+                    addAttribute((String) charSequence);
+                } else {
+                    // normal string, append it as child
+                    this.inner.append(charSequence);
+                }
+            }
+        }
+    }
+
     @Override
     public String toString() {
         if (innerHtml != null) {
