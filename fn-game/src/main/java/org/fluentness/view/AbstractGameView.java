@@ -11,6 +11,8 @@ import org.fluentness.view.scene.light.Light;
 
 public abstract class AbstractGameView implements View {
 
+    public abstract Scene scene();
+
     protected Scene scene(SceneElement... sceneElements) {
         return new Scene(sceneElements);
     }

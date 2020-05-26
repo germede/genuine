@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 // multiple implementations will be instantiated when needed and injected when ServiceClass[] constructor parameter
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface AllowMultipleImplementations {
+public @interface MultiService {
 }

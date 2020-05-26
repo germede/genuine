@@ -3,13 +3,16 @@ package org.fluentness;
 import org.fluentness.controller.Controller;
 import org.fluentness.model.Model;
 import org.fluentness.repository.Repository;
-import org.fluentness.service.AllowMultipleImplementations;
+import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 import org.fluentness.service.ServiceLoader;
 import org.fluentness.view.View;
 
 import java.lang.reflect.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class Fluentness {
 
@@ -49,6 +52,9 @@ public final class Fluentness {
             if (constructor.getParameterCount() == 0) instance = aClass.newInstance();
             else instance = (T) constructor.newInstance(getParameters(constructor));
             instances.put(aClass, instance);
+            if (Service.class.isAssignableFrom(aClass) && !aClass.isAnnotationPresent(MultiService.class)) {
+                instances.put(Service.getServiceInterface(aClass), instance);
+            }
             return instance;
         } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
             throw new FluentnessException(e);

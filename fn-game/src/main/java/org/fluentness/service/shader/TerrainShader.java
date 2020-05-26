@@ -1,6 +1,5 @@
 package org.fluentness.service.shader;
 
-import org.fluentness.service.display.Display;
 import org.fluentness.service.memory.Memory;
 
 public class TerrainShader extends AbstractShader {
@@ -12,8 +11,8 @@ public class TerrainShader extends AbstractShader {
     public final int blueTexture = getUniformLocation("blueTexture");
     public final int repeatTextures = getUniformLocation("repeatTextures");
 
-    public TerrainShader(Memory memory, Display display) {
-        super(memory, display);
+    public TerrainShader(Memory memory) {
+        super(memory);
     }
 
     @Override

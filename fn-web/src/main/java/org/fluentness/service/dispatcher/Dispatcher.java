@@ -1,10 +1,10 @@
 package org.fluentness.service.dispatcher;
 
-import org.fluentness.service.AllowMultipleImplementations;
+import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
 
-@AllowMultipleImplementations
+@MultiService
 public interface Dispatcher extends jakarta.servlet.Servlet, Service {
 
     Setting<String> RESPONSE_ENCODING = new Setting<>("UTF-8");

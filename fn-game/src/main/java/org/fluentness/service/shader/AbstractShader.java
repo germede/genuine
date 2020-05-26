@@ -1,6 +1,5 @@
 package org.fluentness.service.shader;
 
-import org.fluentness.service.display.Display;
 import org.fluentness.service.memory.Memory;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -34,7 +33,7 @@ public abstract class AbstractShader implements Shader {
     public final int fogGradient = getUniformLocation("fogGradient");
     public final int skyColour = getUniformLocation("skyColour");
 
-    public AbstractShader(Memory memory, Display display) {
+    public AbstractShader(Memory memory) {
         memory.shader(this);
         // display is not needed, just guarantee that shader is constructed after display
     }

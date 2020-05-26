@@ -27,8 +27,7 @@ public class ManagerImpl implements Manager {
 
     @Override
     public void manage(AbstractGameController controller) {
-        Scene scene = null;
-
+        Scene scene = controller.getGameView().scene();
 
         while (!display.shouldClose()) {
             display.clear(scene.background.colour);

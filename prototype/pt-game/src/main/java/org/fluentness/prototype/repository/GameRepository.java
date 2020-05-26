@@ -2,6 +2,7 @@ package org.fluentness.prototype.repository;
 
 import org.fluentness.model.mesh.Mesh;
 import org.fluentness.model.texture.Texture;
+import org.fluentness.repository.Repository;
 import org.fluentness.service.generator.Generator;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.view.scene.entity.Entity;
@@ -10,7 +11,7 @@ import org.fluentness.view.scene.terrain.Terrain;
 
 import java.util.Random;
 
-public class GameRepository  {
+public class GameRepository implements Repository {
 
     private final Loader loader;
     private final Generator generator;

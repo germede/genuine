@@ -21,28 +21,22 @@ public class GameView extends AbstractGameView {
     public Light light;
     public Camera camera;
     public Player player;
-//
-//    @Override
-//    protected Container structure() {
-//        return scene = scene(
-//            background(0, 0, 0.7f),
-//            camera = camera(0, 50, 0),
-//            light = light(0, 0, 0),
-//            fog(0.0012f, 5.0f),
-//            terrain = gameRepository.terrain(),
-//            player = gameRepository.player(),
-//            entities(
-//                gameRepository.lowPolyTrees(),
-//                gameRepository.highGrasses(),
-//                gameRepository.flowers(),
-//                gameRepository.ferns()
-//            )
-//        );
-//    }
-//
-//    @Override
-//    protected void style() {
-//
-//    }
 
+    @Override
+    public Scene scene() {
+        return scene = scene(
+            background(0, 0, 0.7f),
+            camera = camera(0, 50, 0),
+            light = light(0, 0, 0),
+            fog(0.0012f, 5.0f),
+            terrain = gameRepository.terrain(),
+            player = gameRepository.player(),
+            entities(
+                gameRepository.lowPolyTrees(),
+                gameRepository.highGrasses(),
+                gameRepository.flowers(),
+                gameRepository.ferns()
+            )
+        );
+    }
 }
