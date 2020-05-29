@@ -1,10 +1,10 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractDesktopView;
-import org.fluentness.view.component.table.SwingTable;
-import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.layout.Layout;
 import org.fluentness.view.component.layout.LinearLayout;
+import org.fluentness.view.component.table.Table;
+import org.fluentness.view.component.text.Button;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ public class DesktopView extends AbstractDesktopView {
 
     private LinearLayout root;
     public Button button1;
-    public SwingTable table;
+    public Table table;
 
     public DesktopView() {
         super("My Desktop View");
@@ -33,6 +33,11 @@ public class DesktopView extends AbstractDesktopView {
                 header("this", "is", "a", "header"),
                 row("this", "is", "a", "row"),
                 row(123, false, new Date(0))
+            ),
+            tabLayout(
+                tab("First tab", button("button in tab 1")),
+                tab("Second tab", button("button in tab 2")),
+                tab("Third tab", button("button in tab 3"))
             )
         );
     }

@@ -5,10 +5,8 @@ import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
 import org.fluentness.view.component.layout.HtmlLinearLayout;
 import org.fluentness.view.component.layout.LinearLayout;
-import org.fluentness.view.component.tab.HtmlTab;
-import org.fluentness.view.component.tab.HtmlTabLayout;
-import org.fluentness.view.component.tab.Tab;
-import org.fluentness.view.component.tab.TabLayout;
+import org.fluentness.view.component.layout.HtmlTabLayout;
+import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.table.HtmlTable;
 import org.fluentness.view.component.table.Table;
 import org.fluentness.view.component.text.Button;
@@ -58,12 +56,8 @@ public abstract class AbstractWebView extends AbstractView {
     }
 
     @Override
-    protected TabLayout tabLayout(Tab... tabs) {
+    protected TabLayout tabLayout(TabLayout.Tab... tabs) {
         return new HtmlTabLayout(tabs);
     }
 
-    @Override
-    protected Tab tab(CharSequence name, Component component) {
-        return new HtmlTab(name, component);
-    }
 }

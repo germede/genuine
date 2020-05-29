@@ -20,14 +20,14 @@ public class HtmlComponent implements Component {
         if (id == 0) {
             // only generate id if needed
             id = ID_SEQUENCE++;
-            withAttribute("id", String.valueOf(id));
+            withAttribute("id", id);
         }
         return id;
     }
 
-    public HtmlComponent withAttribute(String key, CharSequence value) {
+    public HtmlComponent withAttribute(String key, Object value) {
         if (attributes.containsKey(key)) attributes.put(key, attributes.get(key) + " " + value);
-        else attributes.put(key, value);
+        else attributes.put(key, String.valueOf(value));
         return this;
     }
 

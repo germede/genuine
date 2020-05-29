@@ -1,18 +1,18 @@
-package org.fluentness.view.component.container;
+package org.fluentness.view.component.layout;
 
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.layout.LinearLayout;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class SwingLinearLayout extends JPanel implements LinearLayout {
+public class SwingLinearLayout extends JPanel implements LinearLayout<Container> {
 
     private final BoxLayout layoutManager;
 
     public SwingLinearLayout(int orientation, Component[] components) {
         setLayout(layoutManager = new BoxLayout(this, orientation));
         for (Component component : components) {
-            add(component);
+            add((Container) component);
         }
     }
 
@@ -22,8 +22,8 @@ public class SwingLinearLayout extends JPanel implements LinearLayout {
     }
 
     @Override
-    public void add(Component component) {
-        add((java.awt.Container)component);
+    public void add(Container child) {
+        super.add(child);
     }
 
     @Override

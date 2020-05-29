@@ -1,7 +1,6 @@
 package org.fluentness.view;
 
-import org.fluentness.view.component.tab.Tab;
-import org.fluentness.view.component.tab.TabLayout;
+import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.LinearLayout;
@@ -31,12 +30,11 @@ public abstract class AbstractView
         return cells;
     }
 
-    protected abstract TabLayout tabLayout(Tab... tabs);
+    protected abstract TabLayout tabLayout(TabLayout.Tab... tabs);
 
-    protected abstract Tab tab(CharSequence name, Component component);
-
-
-
+    protected final <C> TabLayout.Tab<C> tab(CharSequence name, C content) {
+        return new TabLayout.Tab<>(name, content);
+    }
 
     public <T, V extends CharSequence> CharSequence forEach(Iterable<T> iterable, Function<T, V> function) {
         List<String> result = new LinkedList<>();
