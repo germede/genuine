@@ -26,11 +26,11 @@ public abstract class AbstractWebView extends AbstractView {
                 .withInner(new HtmlComponent("link")
                     .withAttribute("rel", "stylesheet")
                     .withAttribute("type", "text/css")
-                    .withAttribute("href", "https://unpkg.com/chota@latest")
+                    .withAttribute("href", "/resources/css/main.css")
                 )
                 .withInner(headComponents)
                 .withInner(new HtmlContainer("script")
-                    .withAttribute("src", "/javascript")
+                    .withAttribute("src", "/javaScript")
                 ))
             .withInner(new HtmlContainer("body").withInner((HtmlComponent) structure()));
     }

@@ -1,3 +1,4 @@
+/*NAVIGATION*/
 .nav {
     display: flex;
     min-height: 5rem;
@@ -71,53 +72,59 @@
     margin: auto 1rem;
 }
 
-.tab-layout figure {
-   display: block;
-   margin-left: 0;
-   border-bottom: 1px solid silver;
-   clear: both;
+/*TABS*/
+.tab-layout > figure {
+    display: block;
 }
 
-.tab-layout > input,
-.tab-layout figure > div { display: none; }
+.tab-layout > input, .tab-layout figure > div {
+    display: none;
+}
 
-.tab-layout figure>div {
-  padding: 20px;
-  width: 100%;
-  border: 1px solid silver;
-  background: #fff;
-  line-height: 1.5em;
-  letter-spacing: 0.3px;
-  color: #444;
+#tab1:checked ~ figure > .tab1,
+#tab2:checked ~ figure > .tab2,
+#tab3:checked ~ figure > .tab3,
+#tab4:checked ~ figure > .tab4,
+#tab5:checked ~ figure > .tab5,
+#tab6:checked ~ figure > .tab6,
+#tab7:checked ~ figure > .tab7,
+#tab8:checked ~ figure > .tab8,
+#tab9:checked ~ figure > .tab9,
+#tab10:checked ~ figure > .tab10,
+#tab11:checked ~ figure > .tab11,
+#tab12:checked ~ figure > .tab12 {
+    display: block;
+}
+
+#tab1:checked ~ .tabs > label[for="tab1"],
+#tab2:checked ~ .tabs > label[for="tab2"],
+#tab3:checked ~ .tabs > label[for="tab3"],
+#tab4:checked ~ .tabs > label[for="tab4"],
+#tab5:checked ~ .tabs > label[for="tab5"],
+#tab6:checked ~ .tabs > label[for="tab6"],
+#tab7:checked ~ .tabs > label[for="tab7"],
+#tab8:checked ~ .tabs > label[for="tab8"],
+#tab9:checked ~ .tabs > label[for="tab9"],
+#tab10:checked ~ .tabs > label[for="tab10"],
+#tab11:checked ~ .tabs > label[for="tab11"],
+#tab12:checked ~ .tabs > label[for="tab12"] {
+    opacity: 1;
+    border-bottom: 2px solid var(--color-primary);
 }
 
 .tabs {
     display: flex;
 }
 
-.tabs a {
+.tabs > label {
+    flex: 1 1 auto;
     text-decoration: none;
-}
-
-.tabs > .dropdown > summary,
-.tabs > a {
     padding: 1rem 2rem;
-    flex: 0 1 auto;
     color: var(--color-darkGrey);
     border-bottom: 2px solid var(--color-lightGrey);
     text-align: center;
 }
 
-.tabs > a.active,
-.tabs > a:hover {
-    opacity: 1;
+.tabs > label:hover {
     border-bottom: 2px solid var(--color-darkGrey);
-}
-
-.tabs > a.active {
-    border-color: var(--color-primary);
-}
-
-.tabs.is-full a {
-    flex: 1 1 auto;
 }

@@ -5,18 +5,23 @@ import java.util.Map;
 
 public class HtmlComponent implements Component {
 
-    static int HTML_ID = 0;
-    protected final int id = HTML_ID++;
+    private static int ID_SEQUENCE = 0;
+
+    protected int id;
     protected final String tag;
 
     private final Map<String, CharSequence> attributes = new HashMap<>();
 
     public HtmlComponent(String tag) {
         this.tag = tag;
-        withAttribute("id", String.valueOf(id));
     }
 
     public int getId() {
+        if (id == 0) {
+            // only generate id if needed
+            id = ID_SEQUENCE++;
+            withAttribute("id", String.valueOf(id));
+        }
         return id;
     }
 
