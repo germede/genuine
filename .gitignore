@@ -7,3 +7,4 @@ prototype/gen/*
 *.iws
 *.ipr
 *.class
+prototype/pt-mobile/gen-external-apklibs

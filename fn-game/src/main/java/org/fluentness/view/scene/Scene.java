@@ -3,7 +3,7 @@ package org.fluentness.view.scene;
 import org.fluentness.model.mesh.Mesh;
 import org.fluentness.model.texture.Texture;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.container.Container;
+import org.fluentness.view.component.layout.Layout;
 import org.fluentness.view.scene.camera.Camera;
 import org.fluentness.view.scene.entity.Entities;
 import org.fluentness.view.scene.entity.Entity;
@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Scene implements Container {
+public class Scene implements Layout {
 
     public Background background;
     public Camera camera;

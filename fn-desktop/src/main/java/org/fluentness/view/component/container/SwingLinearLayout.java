@@ -1,7 +1,7 @@
 package org.fluentness.view.component.container;
 
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.container.LinearLayout;
+import org.fluentness.view.component.layout.LinearLayout;
 
 import javax.swing.*;
 

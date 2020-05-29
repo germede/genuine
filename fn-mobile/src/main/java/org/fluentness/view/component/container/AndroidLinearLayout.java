@@ -3,6 +3,7 @@ package org.fluentness.view.component.container;
 import android.content.Context;
 import android.view.View;
 import org.fluentness.view.component.Component;
+import org.fluentness.view.component.layout.LinearLayout;
 
 public class AndroidLinearLayout extends android.widget.LinearLayout implements LinearLayout {
 

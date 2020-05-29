@@ -1,7 +1,7 @@
 package org.fluentness.view.component.text;
 
 import org.fluentness.controller.event.JavaScriptCommand;
-import org.fluentness.view.component.container.HtmlContainer;
+import org.fluentness.view.component.HtmlContainer;
 
 public class HtmlButton extends HtmlContainer implements Button {
 
@@ -9,7 +9,7 @@ public class HtmlButton extends HtmlContainer implements Button {
 
     public HtmlButton(CharSequence text) {
         super("button");
-        inner.append(text);
+        withInner(text);
         this.text = text;
     }
 

@@ -1,7 +1,7 @@
 package org.fluentness.view;
 
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.container.Container;
+import org.fluentness.view.component.layout.Layout;
 import org.fluentness.view.component.container.SwingLinearLayout;
 import org.fluentness.view.component.table.SwingTable;
 import org.fluentness.view.component.text.SwingButton;
@@ -12,7 +12,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public abstract class AbstractDesktopView extends AbstractView<
     Component,
-    Container,
+    Layout,
     SwingButton,
     SwingTable,
     SwingLinearLayout

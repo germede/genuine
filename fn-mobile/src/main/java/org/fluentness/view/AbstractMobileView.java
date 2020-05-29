@@ -4,13 +4,13 @@ import android.content.Context;
 import android.view.View;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.container.AndroidLinearLayout;
-import org.fluentness.view.component.container.Container;
+import org.fluentness.view.component.layout.Layout;
 import org.fluentness.view.component.table.AndroidTable;
 import org.fluentness.view.component.text.AndroidButton;
 
 public abstract class AbstractMobileView extends AbstractView<
     Component,
-    Container,
+    Layout,
     AndroidButton,
     AndroidTable,
     AndroidLinearLayout

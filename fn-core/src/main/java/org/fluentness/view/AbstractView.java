@@ -1,32 +1,27 @@
 package org.fluentness.view;
 
+import org.fluentness.view.component.tab.Tab;
+import org.fluentness.view.component.tab.TabLayout;
 import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.container.Container;
-import org.fluentness.view.component.container.LinearLayout;
+import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.table.Table;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class AbstractView<
-    C extends Component,
-    Co extends Container,
-    B extends Button,
-    T extends Table,
-    LL extends LinearLayout
-    >
+public abstract class AbstractView
 
     implements View {
 
-    protected abstract Co structure();
+    protected abstract Component structure();
 
-    protected abstract LL linearLayout(int orientation, C... components);
+    protected abstract LinearLayout linearLayout(int orientation, Component... components);
 
-    protected abstract B button(CharSequence text);
+    protected abstract Button button(CharSequence text);
 
-    protected abstract T table(CharSequence[] header, Object[]... rows);
+    protected abstract Table table(CharSequence[] header, Object[]... rows);
 
     protected final CharSequence[] header(CharSequence... columns) {
         return columns;
@@ -35,6 +30,12 @@ public abstract class AbstractView<
     protected final Object[] row(Object... cells) {
         return cells;
     }
+
+    protected abstract TabLayout tabLayout(Tab... tabs);
+
+    protected abstract Tab tab(CharSequence name, Component component);
+
+
 
 
     public <T, V extends CharSequence> CharSequence forEach(Iterable<T> iterable, Function<T, V> function) {

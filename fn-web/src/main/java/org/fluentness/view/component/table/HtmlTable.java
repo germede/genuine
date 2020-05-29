@@ -1,12 +1,8 @@
 package org.fluentness.view.component.table;
 
-import org.fluentness.view.HtmlFactory;
-import org.fluentness.view.component.HtmlComponent;
-import org.fluentness.view.component.container.HtmlContainer;
+import org.fluentness.view.component.HtmlContainer;
 
 import java.util.Arrays;
-
-import static org.fluentness.view.HtmlFactory.*;
 
 public class HtmlTable extends HtmlContainer implements Table {
 
@@ -17,20 +13,18 @@ public class HtmlTable extends HtmlContainer implements Table {
     public HtmlTable(CharSequence[] header, Object[][] rows) {
         super("table");
 
-        thead = thead(
-            Arrays.stream(header).map(HtmlFactory::th).toArray(CharSequence[]::new)
-        );
-        innerHtml.add(thead);
-
-        HtmlComponent[] tbodyInnerHtml = new HtmlComponent[rows.length];
-        for (int i = 0; i < rows.length; i++) {
-            Object[] row = rows[i];
-            tbodyInnerHtml[i] = tr(
-                Arrays.stream(row).map(String::valueOf).map(HtmlFactory::td).toArray(CharSequence[]::new)
-            );
+        thead = new HtmlContainer("thead");
+        tbody = new HtmlContainer("tbody");
+        Arrays.stream(header).forEach(item -> thead.withInner(new HtmlContainer("th").withInner(item)));
+        for (Object[] row : rows) {
+            HtmlContainer tr = new HtmlContainer("tr");
+            for (Object cell : row) {
+                tr.withInner(new HtmlContainer("td").withInner(String.valueOf(cell)));
+            }
+            tbody.withInner(tr);
         }
-        tbody = tbody(tbodyInnerHtml);
-        innerHtml.add(tbody);
+        withInner(thead);
+        withInner(tbody);
     }
 
     @Override

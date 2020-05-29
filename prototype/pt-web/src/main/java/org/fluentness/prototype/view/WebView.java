@@ -1,35 +1,28 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractWebView;
-import org.fluentness.view.component.container.HtmlContainer;
-import org.fluentness.view.component.container.HtmlLinearLayout;
-import org.fluentness.view.component.table.HtmlTable;
-import org.fluentness.view.component.text.HtmlButton;
+import org.fluentness.view.component.Component;
+import org.fluentness.view.component.layout.LinearLayout;
+import org.fluentness.view.component.table.Table;
+import org.fluentness.view.component.text.Button;
 
 import java.util.Date;
 
-import static org.fluentness.view.HtmlFactory.meta;
-import static org.fluentness.view.component.HtmlComponent.Attribute.*;
-import static org.fluentness.view.component.container.LinearLayout.VERTICAL;
+import static org.fluentness.view.component.layout.LinearLayout.VERTICAL;
 
 public class WebView extends AbstractWebView {
 
-    public HtmlButton button1;
-    public HtmlLinearLayout root;
-    public HtmlTable table;
+    public Button button1;
+    public LinearLayout root;
+    public Table table;
 
     public WebView() {
-        super("Fluentness rocks",
-            meta(NAME + "lang", CONTENT + "en"),
-            meta(CHARSET + "UTF-8"),
-            meta(NAME + "viewport", CONTENT + "width=device-width, initial-scale=1")
-        );
-
+        super("Fluentness rocks");
         root.setPadding(50, 50, 50, 50);
     }
 
     @Override
-    protected HtmlContainer structure() {
+    protected Component structure() {
         return root = linearLayout(VERTICAL,
             button1 = button("one"),
             button("two"),
@@ -38,6 +31,11 @@ public class WebView extends AbstractWebView {
                 header("this", "is", "a", "header"),
                 row("this", "is", "a", "row"),
                 row(123, false, new Date(0))
+            ),
+            tabLayout(
+                tab("First tab", button("button in tab 1")),
+                tab("Second tab", button("button in tab 2")),
+                tab("Third tab", button("button in tab 3"))
             )
         );
     }

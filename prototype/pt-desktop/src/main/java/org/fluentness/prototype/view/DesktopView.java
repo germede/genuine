@@ -3,13 +3,13 @@ package org.fluentness.prototype.view;
 import org.fluentness.view.AbstractDesktopView;
 import org.fluentness.view.component.table.SwingTable;
 import org.fluentness.view.component.text.Button;
-import org.fluentness.view.component.container.Container;
-import org.fluentness.view.component.container.LinearLayout;
+import org.fluentness.view.component.layout.Layout;
+import org.fluentness.view.component.layout.LinearLayout;
 
 import java.util.Date;
 
 import static org.fluentness.prototype.service.Localization.*;
-import static org.fluentness.view.component.container.LinearLayout.HORIZONTAL;
+import static org.fluentness.view.component.layout.LinearLayout.HORIZONTAL;
 
 public class DesktopView extends AbstractDesktopView {
 
@@ -24,7 +24,7 @@ public class DesktopView extends AbstractDesktopView {
     }
 
     @Override
-    protected Container structure() {
+    protected Layout structure() {
         return root = linearLayout(HORIZONTAL,
             button1 = button(_accept),
             button(_cancel),
