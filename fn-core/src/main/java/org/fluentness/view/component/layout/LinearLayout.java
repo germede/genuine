@@ -1,6 +1,8 @@
 package org.fluentness.view.component.layout;
 
-public interface LinearLayout<C> extends Layout<C> {
+import org.fluentness.view.component.Component;
+
+public interface LinearLayout extends Component {
 
     int HORIZONTAL = 0;
     int VERTICAL = 1;
@@ -8,5 +10,7 @@ public interface LinearLayout<C> extends Layout<C> {
     int getOrientation();
 
     void setPadding(int top, int left, int bottom, int right);
+
+    void appendChild(Component child);
 
 }

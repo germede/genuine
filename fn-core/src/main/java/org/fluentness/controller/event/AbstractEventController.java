@@ -15,6 +15,6 @@ public abstract class AbstractEventController<V extends View> implements Control
         return view;
     }
 
-    protected abstract void onClick(Clickable clickable, OnClickEvent onClickEvent);
+    protected abstract void onClick(Clickable clickable, Handler handler);
 
 }

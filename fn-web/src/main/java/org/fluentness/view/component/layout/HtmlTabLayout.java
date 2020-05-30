@@ -16,11 +16,12 @@ public class HtmlTabLayout extends HtmlContainer implements TabLayout {
             String tabId = "tab" + (i + 1);
 
             // tab control
-            withInner(new HtmlComponent("input")
+            HtmlComponent input = new HtmlComponent("input");
+            withInner(input
                 .withAttribute("id", tabId)
-                .withAttribute("checked", String.valueOf(i == 0))
                 .withAttribute("type", "radio")
                 .withAttribute("name", "tabs"));
+            if (i == 0) input.withAttribute("checked", null);
             // tab name
             nav.withInner(new HtmlContainer("label")
                 .withInner(tab.getName())
@@ -35,7 +36,7 @@ public class HtmlTabLayout extends HtmlContainer implements TabLayout {
     }
 
     @Override
-    public void setActive(Tab tab) {
+    public void setActive(int tabIndex) {
 
     }
 }

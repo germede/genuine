@@ -21,7 +21,7 @@ public class HtmlTable extends HtmlContainer implements Table {
             for (Object cell : row) {
                 tr.withInner(new HtmlContainer("td").withInner(String.valueOf(cell)));
             }
-            tbody.withInner(tr);
+            tbody.withInner(tr).setParent(tbody);
         }
         withInner(thead);
         withInner(tbody);

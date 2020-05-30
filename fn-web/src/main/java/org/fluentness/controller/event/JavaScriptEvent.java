@@ -2,31 +2,31 @@ package org.fluentness.controller.event;
 
 public class JavaScriptEvent {
 
-    private final int id;
-    private final String eventName;
-    private final String eventId;
-    private final Event event;
+    private final String id;
+    private final String componentXpath;
+    private final String eventType;
+    private final Handler handler;
 
-    public JavaScriptEvent(int id, String eventName, String eventId, Event event) {
-        this.id = id;
-        this.eventName = eventName;
-        this.eventId = eventId;
-        this.event = event;
+    public JavaScriptEvent(String componentXpath, int componentId, String eventType, Handler handler) {
+        this.id = componentId + eventType;
+        this.componentXpath = componentXpath;
+        this.eventType = eventType;
+        this.handler = handler;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getComponentXpath() {
+        return componentXpath;
     }
 
-    public String getEventId() {
-        return eventId;
+    public String getEventType() {
+        return eventType;
     }
 
-    public Event getEvent() {
-        return event;
+    public Handler getHandler() {
+        return handler;
     }
 }

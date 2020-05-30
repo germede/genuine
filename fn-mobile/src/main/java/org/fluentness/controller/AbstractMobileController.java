@@ -3,7 +3,7 @@ package org.fluentness.controller;
 import android.view.View;
 import org.fluentness.controller.event.AbstractEventController;
 import org.fluentness.controller.event.Clickable;
-import org.fluentness.controller.event.OnClickEvent;
+import org.fluentness.controller.event.Handler;
 import org.fluentness.view.AbstractMobileView;
 
 public abstract class AbstractMobileController<M extends AbstractMobileView> extends AbstractEventController<M> {
@@ -13,9 +13,9 @@ public abstract class AbstractMobileController<M extends AbstractMobileView> ext
     }
 
     @Override
-    protected void onClick(Clickable clickable, OnClickEvent onClickEvent) {
+    protected void onClick(Clickable clickable, Handler handler) {
         if( clickable instanceof View) {
-            ((View) clickable).setOnClickListener(view -> onClickEvent.handle());
+            ((View) clickable).setOnClickListener(view -> handler.handle());
         }
 
     }

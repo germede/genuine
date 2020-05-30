@@ -1,5 +1,5 @@
 package org.fluentness.controller.event;
 
-public interface Event {
+public interface Handler {
     void handle();
 }

@@ -2,7 +2,7 @@ package org.fluentness.controller;
 
 import org.fluentness.controller.event.AbstractEventController;
 import org.fluentness.controller.event.Clickable;
-import org.fluentness.controller.event.OnClickEvent;
+import org.fluentness.controller.event.Handler;
 import org.fluentness.view.AbstractDesktopView;
 
 import javax.swing.*;
@@ -14,9 +14,9 @@ public abstract class AbstractDesktopController<D extends AbstractDesktopView> e
     }
 
     @Override
-    protected void onClick(Clickable clickable, OnClickEvent onClickEvent) {
+    protected void onClick(Clickable clickable, Handler handler) {
         if (clickable instanceof JButton) {
-            ((JButton) clickable).addActionListener(button -> onClickEvent.handle());
+            ((JButton) clickable).addActionListener(button -> handler.handle());
         }
     }
 }

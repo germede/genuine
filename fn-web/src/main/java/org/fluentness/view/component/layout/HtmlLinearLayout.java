@@ -4,7 +4,7 @@ import org.fluentness.view.component.Component;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
 
-public class HtmlLinearLayout extends HtmlContainer implements LinearLayout<HtmlComponent> {
+public class HtmlLinearLayout extends HtmlContainer implements LinearLayout {
 
     private final int orientation;
 
@@ -31,5 +31,10 @@ public class HtmlLinearLayout extends HtmlContainer implements LinearLayout<Html
     @Override
     public void setPadding(int top, int left, int bottom, int right) {
         withAttribute("style", String.format("padding: %d %d %d %d !important;", top, left, bottom, right));
+    }
+
+    @Override
+    public void appendChild(Component child) {
+        super.append((HtmlComponent) child);
     }
 }

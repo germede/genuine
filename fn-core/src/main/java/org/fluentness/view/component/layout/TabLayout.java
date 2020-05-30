@@ -4,7 +4,7 @@ import org.fluentness.view.component.Component;
 
 public interface TabLayout extends Component {
 
-    void setActive(Tab tab);
+    void setActive(int tabIndex);
 
     class Tab<C> implements Component {
 

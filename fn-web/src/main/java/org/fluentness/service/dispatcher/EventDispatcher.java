@@ -26,10 +26,10 @@ public class EventDispatcher extends AbstractDispatcher {
 
     public void addEvent(JavaScriptEvent event) {
         javaScriptEvents += String.format(
-            "    document.getElementById(%d).addEventListener('%s', function() { send('%s'); });\n",
-            event.getId(),
-            event.getEventName(),
-            event.getEventId()
+            "    getElementByXpath('%s').addEventListener('%s', function() { send('%s'); });\n",
+            event.getComponentXpath(),
+            event.getEventType(),
+            event.getId()
         );
     }
 

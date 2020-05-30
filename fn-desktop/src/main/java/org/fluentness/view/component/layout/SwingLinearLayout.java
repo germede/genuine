@@ -5,7 +5,7 @@ import org.fluentness.view.component.Component;
 import javax.swing.*;
 import java.awt.*;
 
-public class SwingLinearLayout extends JPanel implements LinearLayout<Container> {
+public class SwingLinearLayout extends JPanel implements LinearLayout {
 
     private final BoxLayout layoutManager;
 
@@ -22,8 +22,8 @@ public class SwingLinearLayout extends JPanel implements LinearLayout<Container>
     }
 
     @Override
-    public void add(Container child) {
-        super.add(child);
+    public void appendChild(Component child) {
+        super.add((java.awt.Component) child);
     }
 
     @Override

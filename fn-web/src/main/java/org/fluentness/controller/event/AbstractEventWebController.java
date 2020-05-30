@@ -25,7 +25,7 @@ public abstract class AbstractEventWebController<W extends AbstractWebView> exte
     public final Object main(String eventId) {
         if (events.containsKey(eventId)) {
             JavaScriptCommand.clear();
-            events.get(eventId).getEvent().handle();
+            events.get(eventId).getHandler().handle();
             return JavaScriptCommand.getCommands();
         }
         return view;
@@ -37,14 +37,13 @@ public abstract class AbstractEventWebController<W extends AbstractWebView> exte
     }
 
     @Override
-    protected void onClick(Clickable clickable, OnClickEvent onClickEvent) {
-        addEvent((HtmlComponent) clickable, onClickEvent, "click");
+    protected void onClick(Clickable clickable, Handler handler) {
+        addEvent((HtmlComponent) clickable, "click", handler);
     }
 
-    private void addEvent(HtmlComponent clickable, Event event, String eventName) {
-        int componentId = clickable.getId();
-        String eventId = componentId + eventName;
-        events.put(eventId, new JavaScriptEvent(componentId, eventName, eventId, event));
+    private void addEvent(HtmlComponent clickable, String eventType, Handler handler) {
+        JavaScriptEvent event = new JavaScriptEvent(clickable.getXpath(), clickable.getId(), eventType, handler);
+        events.put(event.getId(), event);
     }
 
 }

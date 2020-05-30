@@ -1,8 +1,8 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractMobileView;
+import org.fluentness.view.component.Component;
 import org.fluentness.view.component.text.Button;
-import org.fluentness.view.component.layout.Layout;
 import org.fluentness.view.component.layout.LinearLayout;
 
 import static org.fluentness.prototype.service.Localization.*;
@@ -19,7 +19,7 @@ public class MobileView extends AbstractMobileView {
     }
 
     @Override
-    protected Layout structure() {
+    protected Component structure() {
         return root = linearLayout(VERTICAL,
             button1 = button(_accept),
             button(_cancel),

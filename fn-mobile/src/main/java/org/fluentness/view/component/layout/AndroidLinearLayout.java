@@ -10,12 +10,13 @@ public class AndroidLinearLayout extends android.widget.LinearLayout implements 
         super(AbstractMobileView.context);
         setOrientation(orientation);
         for (Component component : components) {
-            add(component);
+            appendChild(component);
         }
     }
 
-    public void add(Component component) {
-        addView((View) component);
+    @Override
+    public void appendChild(Component child) {
+        addView((View) child);
     }
 
     @Override
@@ -23,8 +24,4 @@ public class AndroidLinearLayout extends android.widget.LinearLayout implements 
         super.setPadding(left, top, right, bottom);
     }
 
-    @Override
-    public void add(Object child) {
-
-    }
 }

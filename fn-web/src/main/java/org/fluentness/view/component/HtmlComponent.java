@@ -7,8 +7,9 @@ public class HtmlComponent implements Component {
 
     private static int ID_SEQUENCE = 0;
 
-    protected int id;
+    protected int id = ++ID_SEQUENCE;
     protected final String tag;
+    private HtmlComponent parent;
 
     private final Map<String, CharSequence> attributes = new HashMap<>();
 
@@ -17,12 +18,28 @@ public class HtmlComponent implements Component {
     }
 
     public int getId() {
-        if (id == 0) {
-            // only generate id if needed
-            id = ID_SEQUENCE++;
-            withAttribute("id", id);
-        }
         return id;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public String getXpath() {
+        int siblingIndex = 1;
+        if (parent instanceof HtmlContainer) {
+            for (HtmlComponent htmlComponent : ((HtmlContainer) parent).getInnerHtml()) {
+                if (htmlComponent.equals(this)) break;
+                if (htmlComponent.getTag().equals(this.getTag())) siblingIndex++;
+            }
+        }
+        return parent == null ?
+            tag + "[" + siblingIndex + "]" :
+            parent.getXpath() + "/" + (tag + "[" + siblingIndex + "]");
+    }
+
+    public void setParent(HtmlComponent parent) {
+        this.parent = parent;
     }
 
     public HtmlComponent withAttribute(String key, Object value) {

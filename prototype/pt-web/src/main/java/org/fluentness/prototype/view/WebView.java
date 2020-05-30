@@ -13,6 +13,7 @@ import static org.fluentness.view.component.layout.LinearLayout.VERTICAL;
 public class WebView extends AbstractWebView {
 
     public Button button1;
+    public Button button2;
     public LinearLayout root;
     public Table table;
 
@@ -25,7 +26,7 @@ public class WebView extends AbstractWebView {
     protected Component structure() {
         return root = linearLayout(VERTICAL,
             button1 = button("one"),
-            button("two"),
+            button2 = button("two"),
             button("three"),
             table = table(
                 header("this", "is", "a", "header"),

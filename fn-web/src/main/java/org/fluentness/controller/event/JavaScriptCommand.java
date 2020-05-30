@@ -18,16 +18,16 @@ public enum JavaScriptCommand {
 
     private static ThreadLocal<List<String>> commandsToSend = new ThreadLocal<>();
 
-    public static void changeInner(int id, CharSequence inner) {
-        addCommand(CHANGE_INNER, id, inner);
+    public static void changeInner(String xpath, CharSequence inner) {
+        addCommand(CHANGE_INNER, xpath, inner);
     }
 
-    public static void appendChild(int id, HtmlComponent child) {
-        addCommand(APPEND_CHILD, id, child);
+    public static void appendChild(String xpath, HtmlComponent child) {
+        addCommand(APPEND_CHILD, xpath, child);
     }
 
-    private static boolean addCommand(JavaScriptCommand command, Object... parameters) {
-        return commandsToSend.get().add(
+    private static void addCommand(JavaScriptCommand command, Object... parameters) {
+        commandsToSend.get().add(
             command.name() + COMMAND_DELIMITER + Arrays.stream(parameters).map(String::valueOf).collect(Collectors.joining(PARAMETER_DELIMITER))
         );
     }
@@ -38,7 +38,7 @@ public enum JavaScriptCommand {
     }
 
     static String getCommands() {
-        return commandsToSend.get().stream().collect(Collectors.joining(COMMANDS_DELIMITER));
+        return String.join(COMMANDS_DELIMITER, commandsToSend.get());
     }
 
 }

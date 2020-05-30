@@ -5,8 +5,8 @@ import static org.fluentness.service.log.AnsiColor.*;
 public enum LogLevel {
     TRACE(WHITE, "TRACE", 6),
     DEBUG(CYAN, "DEBUG", 5),
-    INFO(BLUE, "INFO ", 4),
-    WARN(YELLOW, "WARN ", 3),
+    INFO(BLUE, "INFO.", 4),
+    WARN(YELLOW, "WARN.", 3),
     ERROR(RED, "ERROR", 2),
     FATAL(RED, "FATAL", 1);
 

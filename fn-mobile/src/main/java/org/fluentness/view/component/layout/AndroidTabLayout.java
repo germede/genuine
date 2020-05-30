@@ -19,7 +19,7 @@ public class AndroidTabLayout extends LinearLayout implements TabLayout {
     private int lastActive;
     private int active;
 
-    public AndroidTabLayout(TabLayout.Tab[] tabs) {
+    public AndroidTabLayout(TabLayout.Tab<View>[] tabs) {
         super(AbstractMobileView.context);
         setOrientation(VERTICAL);
 
@@ -45,15 +45,10 @@ public class AndroidTabLayout extends LinearLayout implements TabLayout {
         addView(tabFlipper);
     }
 
-    public void setActive(int active) {
-        lastActive = this.active;
-        this.active = active;
-    }
-
-
     @Override
-    public void setActive(TabLayout.Tab tab) {
-
+    public void setActive(int tabIndex) {
+        lastActive = this.active;
+        this.active = tabIndex;
     }
 
 }
