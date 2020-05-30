@@ -2,7 +2,7 @@ package org.fluentness;
 
 import org.fluentness.controller.WebController;
 import org.fluentness.controller.action.AbstractActionWebController;
-import org.fluentness.controller.event.AbstractEventWebController;
+import org.fluentness.controller.event.AbstractViewWebController;
 import org.fluentness.controller.event.JavaScriptEvent;
 import org.fluentness.service.Services;
 import org.fluentness.service.dispatcher.EventDispatcher;
@@ -39,9 +39,9 @@ public abstract class AbstractWeb implements Application {
     public final void run(String[] args) {
         try {
             for (WebController controller : controllers) {
-                if (controller instanceof AbstractEventWebController) {
+                if (controller instanceof AbstractViewWebController) {
                     routeDispatcher.addRoute("GET", controller.getPath(), controller.getClass().getMethod("main", String.class), controller);
-                    for (JavaScriptEvent event : (Iterable<JavaScriptEvent>) ((AbstractEventWebController) controller).getEvents()) {
+                    for (JavaScriptEvent event : (Iterable<JavaScriptEvent>) ((AbstractViewWebController) controller).getEvents()) {
                         eventDispatcher.addEvent(event);
                     }
                 }

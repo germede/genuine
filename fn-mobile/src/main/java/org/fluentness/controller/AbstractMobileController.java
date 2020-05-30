@@ -1,12 +1,12 @@
 package org.fluentness.controller;
 
 import android.view.View;
-import org.fluentness.controller.event.AbstractEventController;
+import org.fluentness.controller.event.AbstractViewController;
 import org.fluentness.controller.event.Clickable;
 import org.fluentness.controller.event.Handler;
 import org.fluentness.view.AbstractMobileView;
 
-public abstract class AbstractMobileController<M extends AbstractMobileView> extends AbstractEventController<M> {
+public abstract class AbstractMobileController<M extends AbstractMobileView> extends AbstractViewController<M> {
 
     public AbstractMobileController(M view) {
         super(view);

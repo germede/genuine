@@ -5,7 +5,7 @@ import org.fluentness.repository.Repository;
 
 import java.util.List;
 
-public interface CrudRepository<M extends Model> extends Repository {
+public interface ModelRepository<M extends Model> extends Repository {
     M select(long id);
 
     List<M> selectAll();

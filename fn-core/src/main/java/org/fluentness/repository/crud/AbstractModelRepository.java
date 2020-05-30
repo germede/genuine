@@ -9,12 +9,12 @@ import org.fluentness.service.persistence.Persistence;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class AbstractCrudRepository<M extends Model> implements CrudRepository<M> {
+public abstract class AbstractModelRepository<M extends Model> implements ModelRepository<M> {
 
     protected final Dao<M, Long> dao;
     protected final Log log;
 
-    public AbstractCrudRepository(Persistence persistence, Log log, Class<M> modelClass) throws SQLException {
+    public AbstractModelRepository(Persistence persistence, Log log, Class<M> modelClass) throws SQLException {
         this.log = log;
         this.dao = DaoManager.createDao(persistence.getConnectionSource(), modelClass);
     }

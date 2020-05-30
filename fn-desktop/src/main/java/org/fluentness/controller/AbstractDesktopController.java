@@ -1,13 +1,13 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.event.AbstractEventController;
+import org.fluentness.controller.event.AbstractViewController;
 import org.fluentness.controller.event.Clickable;
 import org.fluentness.controller.event.Handler;
 import org.fluentness.view.AbstractDesktopView;
 
 import javax.swing.*;
 
-public abstract class AbstractDesktopController<D extends AbstractDesktopView> extends AbstractEventController<D> {
+public abstract class AbstractDesktopController<D extends AbstractDesktopView> extends AbstractViewController<D> {
 
     public AbstractDesktopController(D view) {
         super(view);

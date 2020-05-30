@@ -1,12 +1,12 @@
 package org.fluentness.prototype.view;
 
-import org.fluentness.view.FluentnessActivity;
 import org.fluentness.view.AbstractMobileView;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.text.Button;
 
-import static org.fluentness.prototype.service.Localization.*;
+import static org.fluentness.prototype.service.Localization._cancel;
+import static org.fluentness.prototype.service.Localization._welcome_message;
 
 public class MobileView extends AbstractMobileView {
 
@@ -28,7 +28,7 @@ public class MobileView extends AbstractMobileView {
                 tab("Second tab", button("button in tab 2")),
                 tab("Third tab", button("button in tab 3"))
             ),
-            FluentnessActivity.navigation
+            navigation()
         );
     }
 

@@ -22,7 +22,7 @@
       <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
     </Profilers>
     <option name="DEEP_LINK" value="" />
-    <option name="ACTIVITY_CLASS" value="org.fluentness.MainActivity" />
+    <option name="ACTIVITY_CLASS" value="org.fluentness.view.FluentnessActivity" />
     <method v="2">
       <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="package -T 4 -pl prototype/pt-mobile -am -Dmaven.test.skip=true" />
     </method>
