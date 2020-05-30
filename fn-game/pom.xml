@@ -14,10 +14,6 @@
 
     <packaging>jar</packaging>
 
-    <properties>
-        <lwjgl.version>3.2.3</lwjgl.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.fluentness</groupId>
@@ -27,17 +23,14 @@
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-opengl</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-glfw</artifactId>
-            <version>${lwjgl.version}</version>
         </dependency>
     </dependencies>
 

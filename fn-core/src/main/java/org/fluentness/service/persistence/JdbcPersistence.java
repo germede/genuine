@@ -3,7 +3,6 @@ package org.fluentness.service.persistence;
 import com.j256.ormlite.db.DatabaseType;
 import com.j256.ormlite.db.DatabaseTypeUtils;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
-import com.j256.ormlite.logger.LoggerFactory;
 import com.j256.ormlite.support.ConnectionSource;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 public class JdbcPersistence implements Persistence {
 
     private final Log log;
-    private JdbcPooledConnectionSource connectionSource;
+    private ConnectionSource connectionSource;
 
     public JdbcPersistence(Configuration configuration, Log log) throws SQLException {
         this.log = log;

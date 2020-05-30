@@ -23,7 +23,12 @@ public class MobileView extends AbstractMobileView {
         return root = linearLayout(VERTICAL,
             button1 = button(_accept),
             button(_cancel),
-            button(_welcome_message)
+            button(_welcome_message),
+            tabLayout(
+                tab("First tab", button("button in tab 1")),
+                tab("Second tab", button("button in tab 2")),
+                tab("Third tab", button("button in tab 3"))
+            )
         );
     }
 

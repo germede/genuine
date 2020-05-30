@@ -2,7 +2,6 @@ package org.fluentness.view.scene;
 
 import org.fluentness.model.mesh.Mesh;
 import org.fluentness.model.texture.Texture;
-import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.Layout;
 import org.fluentness.view.scene.camera.Camera;
 import org.fluentness.view.scene.entity.Entities;
@@ -71,8 +70,9 @@ public class Scene implements Layout {
         return mesh.getId() + "-" + texture.getId();
     }
 
+
     @Override
-    public void add(Component component) {
+    public void add(Object child) {
 
     }
 }

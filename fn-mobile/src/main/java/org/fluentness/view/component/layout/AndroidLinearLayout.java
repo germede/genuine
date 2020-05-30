@@ -1,21 +1,19 @@
-package org.fluentness.view.component.container;
+package org.fluentness.view.component.layout;
 
-import android.content.Context;
 import android.view.View;
+import org.fluentness.view.AbstractMobileView;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.layout.LinearLayout;
 
 public class AndroidLinearLayout extends android.widget.LinearLayout implements LinearLayout {
 
-    public AndroidLinearLayout(Context context, int orientation, Component[] components) {
-        super(context);
+    public AndroidLinearLayout(int orientation, Component[] components) {
+        super(AbstractMobileView.context);
         setOrientation(orientation);
         for (Component component : components) {
             add(component);
         }
     }
 
-    @Override
     public void add(Component component) {
         addView((View) component);
     }
@@ -23,5 +21,10 @@ public class AndroidLinearLayout extends android.widget.LinearLayout implements 
     @Override
     public void setPadding(int top, int left, int bottom, int right) {
         super.setPadding(left, top, right, bottom);
+    }
+
+    @Override
+    public void add(Object child) {
+
     }
 }

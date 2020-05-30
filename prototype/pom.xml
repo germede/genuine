@@ -26,6 +26,18 @@
         <mainClass></mainClass>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!--DB-drivers-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.17</version>
+                <scope>runtime</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>

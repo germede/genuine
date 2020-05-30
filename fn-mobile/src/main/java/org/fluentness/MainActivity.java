@@ -1,5 +1,8 @@
 package org.fluentness;
 
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +13,7 @@ import java.lang.reflect.Method;
 
 import static android.content.pm.PackageManager.NameNotFoundException;
 
-public class MainActivity extends android.app.Activity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +22,8 @@ public class MainActivity extends android.app.Activity {
 
             AbstractMobileView.context = this;
 
-            String applicationClassName = getPackageManager().getActivityInfo(getComponentName(), 0).nonLocalizedLabel.toString();
+            ActivityInfo activityInfo = getPackageManager().getActivityInfo(this.getComponentName(), PackageManager.GET_META_DATA);
+            String applicationClassName = activityInfo.metaData.getString("applicationClassName");
             Class<? extends Application> applicationClass = (Class<? extends Application>) Class.forName(applicationClassName);
             Method main = applicationClass.getMethod("main", String[].class);
             final Object[] args = new Object[1];

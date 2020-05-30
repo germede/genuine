@@ -25,29 +25,76 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <compilerPluginVersion>3.7.0</compilerPluginVersion>
         <languageLevel>8</languageLevel>
-    </properties>
 
+        <junit.version>4.12</junit.version>
+        <mockito-core.version>2.23.4</mockito-core.version>
+        <javax.persistence-api.version>2.2</javax.persistence-api.version>
+        <ormlite.version>5.1</ormlite.version>
+        <lwjgl.version>3.2.3</lwjgl.version>
+        <android.version>4.1.1.4</android.version>
+    </properties>
 
     <issueManagement>
         <url>https://github.com/germede/fluentness/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
 
-    <dependencies>
-        <!--Test dependencies-->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>2.23.4</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <!--Test-->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!--Persistence-->
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>javax.persistence-api</artifactId>
+                <version>${javax.persistence-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.j256.ormlite</groupId>
+                <artifactId>ormlite-jdbc</artifactId>
+                <version>${ormlite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.j256.ormlite</groupId>
+                <artifactId>ormlite-android</artifactId>
+                <version>${ormlite.version}</version>
+            </dependency>
+            <!--Lwjgl-->
+            <dependency>
+                <groupId>org.lwjgl</groupId>
+                <artifactId>lwjgl</artifactId>
+                <version>${lwjgl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lwjgl</groupId>
+                <artifactId>lwjgl-opengl</artifactId>
+                <version>${lwjgl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lwjgl</groupId>
+                <artifactId>lwjgl-glfw</artifactId>
+                <version>${lwjgl.version}</version>
+            </dependency>
+            <!--Android-->
+            <dependency>
+                <groupId>com.google.android</groupId>
+                <artifactId>android</artifactId>
+                <version>${android.version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
