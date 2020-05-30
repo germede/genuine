@@ -6,9 +6,9 @@ import org.fluentness.view.component.Component;
 
 public class AndroidLinearLayout extends android.widget.LinearLayout implements LinearLayout {
 
-    public AndroidLinearLayout(int orientation, Component[] components) {
+    public AndroidLinearLayout(Component[] components) {
         super(AbstractMobileView.context);
-        setOrientation(orientation);
+        setOrientation(android.widget.LinearLayout.VERTICAL);
         for (Component component : components) {
             appendChild(component);
         }

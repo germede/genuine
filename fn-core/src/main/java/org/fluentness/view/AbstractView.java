@@ -16,7 +16,7 @@ public abstract class AbstractView
 
     protected abstract Component structure();
 
-    protected abstract LinearLayout linearLayout(int orientation, Component... components);
+    protected abstract LinearLayout linearLayout(Component... components);
 
     protected abstract Button button(CharSequence text);
 
