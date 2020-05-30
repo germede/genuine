@@ -4,11 +4,9 @@ import org.fluentness.view.component.Component;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
 
-public class HtmlLinearLayout extends HtmlContainer implements LinearLayout {
+public class HtmlNavigation extends HtmlContainer implements Navigation {
 
-    private final int orientation;
-
-    public HtmlLinearLayout(Component[] components) {
+    public HtmlNavigation(Component[] components) {
         super("div");
         withAttribute("class", "row");
         for (Component component : components) {
@@ -18,21 +16,16 @@ public class HtmlLinearLayout extends HtmlContainer implements LinearLayout {
                 withInner(htmlComponent);
             }
         }
-        this.orientation = VERTICAL;
+
     }
 
     @Override
-    public int getOrientation() {
-        return orientation;
+    public void open() {
+
     }
 
     @Override
-    public void setPadding(int top, int left, int bottom, int right) {
-        withAttribute("style", String.format("padding: %d %d %d %d !important;", top, left, bottom, right));
-    }
+    public void close() {
 
-    @Override
-    public void appendChild(Component child) {
-        super.append((HtmlComponent) child);
     }
 }

@@ -8,13 +8,11 @@ import org.fluentness.view.component.text.Button;
 
 import java.util.Date;
 
-import static org.fluentness.view.component.layout.LinearLayout.VERTICAL;
-
 public class WebView extends AbstractWebView {
 
+    public LinearLayout root;
     public Button button1;
     public Button button2;
-    public LinearLayout root;
     public Table table;
 
     public WebView() {
@@ -24,7 +22,8 @@ public class WebView extends AbstractWebView {
 
     @Override
     protected Component structure() {
-        return root = linearLayout(VERTICAL,
+        return root = linearLayout(
+//            navigation(),
             button1 = button("one"),
             button2 = button("two"),
             button("three"),

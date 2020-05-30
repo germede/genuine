@@ -9,14 +9,14 @@ import org.fluentness.service.log.AndroidLog;
 })
 public abstract class AbstractMobile implements Application {
 
-    private final AbstractMobileController controller;
+    private final AbstractMobileController[] controllers;
 
-    public AbstractMobile(AbstractMobileController controller) {
-        this.controller = controller;
+    public AbstractMobile(AbstractMobileController... controllers) {
+        this.controllers = controllers;
     }
 
-    public AbstractMobileController getController() {
-        return controller;
+    public AbstractMobileController[] getControllers() {
+        return controllers;
     }
 
     @Override

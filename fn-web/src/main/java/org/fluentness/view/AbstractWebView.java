@@ -17,7 +17,8 @@ public abstract class AbstractWebView extends AbstractView {
     private final HtmlContainer html;
     private String renderedHtml;
 
-    public AbstractWebView(String title, HtmlComponent... headComponents) {
+    public AbstractWebView(CharSequence title, HtmlComponent... headComponents) {
+        super(title);
         this.html = new HtmlContainer("html")
             .withInner(new HtmlContainer("head")
                 .withInner(new HtmlContainer("title").withInner(title))
@@ -30,7 +31,7 @@ public abstract class AbstractWebView extends AbstractView {
                 .withInner(new HtmlContainer("script")
                     .withAttribute("src", "/javaScript")
                 ))
-            .withInner(new HtmlContainer("body").withInner((HtmlComponent) structure()));
+            .withInner(new HtmlContainer("body").withInner((HtmlComponent) structure()).withAttribute("class", "container"));
     }
 
     public String getHtml() {
@@ -46,8 +47,8 @@ public abstract class AbstractWebView extends AbstractView {
     }
 
     @Override
-    protected LinearLayout linearLayout(int orientation, Component... components) {
-        return new HtmlLinearLayout(orientation, components);
+    protected LinearLayout linearLayout(Component... components) {
+        return new HtmlLinearLayout(components);
     }
 
     @Override

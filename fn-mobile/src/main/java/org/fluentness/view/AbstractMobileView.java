@@ -1,6 +1,5 @@
 package org.fluentness.view;
 
-import android.app.Activity;
 import android.view.View;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.*;
@@ -10,15 +9,20 @@ import org.fluentness.view.component.text.Button;
 
 public abstract class AbstractMobileView extends AbstractView {
 
-    public static Activity context;
     private final View androidView;
 
-    public AbstractMobileView() {
+    public AbstractMobileView(String title) {
+        super(title);
         androidView = (View) structure();
     }
 
     public View getAndroidView() {
         return androidView;
+    }
+
+    @Override
+    protected Navigation navigation() {
+        return FluentnessActivity.navigation;
     }
 
     @Override
@@ -39,9 +43,5 @@ public abstract class AbstractMobileView extends AbstractView {
     @Override
     protected TabLayout tabLayout(TabLayout.Tab... tabs) {
         return new AndroidTabLayout(tabs);
-    }
-
-    protected Navigation navigation(Component handle, Component content) {
-        return new AndroidNavigation((View)content, (View)handle);
     }
 }

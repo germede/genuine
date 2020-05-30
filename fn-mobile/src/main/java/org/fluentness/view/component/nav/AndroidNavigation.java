@@ -1,4 +1,4 @@
-package org.fluentness.view.component.layout;
+package org.fluentness.view.component.nav;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,9 +9,14 @@ import android.view.SoundEffectConstants;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
-import org.fluentness.view.AbstractMobileView;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+import org.fluentness.view.FluentnessActivity;
+import org.fluentness.controller.AbstractMobileController;
+import org.fluentness.view.component.layout.Navigation;
 
-public class AndroidNavigation extends ViewGroup implements Navigation {
+public class AndroidNavigation extends ViewGroup implements Navigation<AbstractMobileController> {
 
     private static final int TAP_THRESHOLD = 6;
     private static final float MAXIMUM_TAP_VELOCITY = 100.0f;
@@ -23,14 +28,14 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
     private static final int EXPANDED_FULL_OPEN = -10001;
     private static final int COLLAPSED_FULL_CLOSED = -10002;
 
-    private final View menu;
-    private final View burger;
+    private final LinearLayout menu;
+    private final Button toggle;
 
     private final Rect mFrame = new Rect();
     private final Rect mInvalidate = new Rect();
     private boolean mTracking;
     private VelocityTracker mVelocityTracker;
-    private final boolean mVertical = false;
+    private final boolean mVertical = true;
     private boolean mExpanded;
     private final int mBottomOffset = 0;
     private final int mTopOffset = 0;
@@ -69,10 +74,25 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
         requestLayout();
     }
 
-    public AndroidNavigation(View menu, View burger) {
-        super(AbstractMobileView.context);
-        this.menu = menu;
-        this.burger = burger;
+    @Override
+    public void addSectionFor(AbstractMobileController controller) {
+        android.widget.Button button = new android.widget.Button(FluentnessActivity.context);
+        button.setText(controller.getView().getTitle());
+        button.setOnClickListener(
+            v -> Toast.makeText(FluentnessActivity.context,
+                controller.getView().getTitle().toString(),
+                Toast.LENGTH_SHORT)
+        );
+        menu.addView(button);
+    }
+
+    public AndroidNavigation() {
+        super(FluentnessActivity.context);
+        this.menu = new LinearLayout(FluentnessActivity.context);
+
+        this.toggle = new Button(FluentnessActivity.context);
+        toggle.setText("TOGGLE");
+        toggle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));;
 
         final float density = getResources().getDisplayMetrics().density;
         mTapThreshold = (int) (TAP_THRESHOLD * density + 0.5f);
@@ -87,7 +107,7 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
 
     @Override
     protected void onFinishInflate() {
-        burger.setOnClickListener(v -> {
+        toggle.setOnClickListener(v -> {
             if (mAnimateOnClick) animateToggle();
             else toggle();
         });
@@ -103,13 +123,13 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
         if (widthSpecMode == MeasureSpec.UNSPECIFIED || heightSpecMode == MeasureSpec.UNSPECIFIED) {
             throw new RuntimeException("SlidingDrawer cannot have UNSPECIFIED dimensions");
         }
-        measureChild(burger, widthMeasureSpec, heightMeasureSpec);
+        measureChild(toggle, widthMeasureSpec, heightMeasureSpec);
         if (mVertical) {
-            int height = heightSpecSize - burger.getMeasuredHeight() - mTopOffset;
+            int height = heightSpecSize - toggle.getMeasuredHeight() - mTopOffset;
             menu.measure(MeasureSpec.makeMeasureSpec(widthSpecSize, MeasureSpec.EXACTLY),
                 MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
         } else {
-            int width = widthSpecSize - burger.getMeasuredWidth() - mTopOffset;
+            int width = widthSpecSize - toggle.getMeasuredWidth() - mTopOffset;
             menu.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
                 MeasureSpec.makeMeasureSpec(heightSpecSize, MeasureSpec.EXACTLY));
         }
@@ -119,7 +139,7 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         final long drawingTime = getDrawingTime();
-        final View handle = this.burger;
+        final View handle = this.toggle;
 
         drawChild(canvas, handle, drawingTime);
 
@@ -145,7 +165,7 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
         if (mTracking) return;
         final int width = r - l;
         final int height = b - t;
-        final View handle = this.burger;
+        final View handle = this.toggle;
         int childWidth = handle.getMeasuredWidth();
         int childHeight = handle.getMeasuredHeight();
         int childLeft;
@@ -175,7 +195,7 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
         float x = event.getX();
         float y = event.getY();
         final Rect frame = mFrame;
-        final View handle = this.burger;
+        final View handle = this.toggle;
         handle.getHitRect(frame);
         if (!mTracking && !frame.contains((int) x, (int) y)) return false;
         if (action == MotionEvent.ACTION_DOWN) {
@@ -183,11 +203,11 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
             handle.setPressed(true);
             prepareContent();
             if (mVertical) {
-                final int top = this.burger.getTop();
+                final int top = this.toggle.getTop();
                 mTouchDelta = (int) y - top;
                 prepareTracking(top);
             } else {
-                final int left = this.burger.getLeft();
+                final int left = this.toggle.getLeft();
                 mTouchDelta = (int) x - left;
                 prepareTracking(left);
             }
@@ -239,8 +259,8 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
                         velocity = -velocity;
                     }
 
-                    final int top = burger.getTop();
-                    final int left = burger.getLeft();
+                    final int top = toggle.getTop();
+                    final int left = toggle.getLeft();
 
                     if (Math.abs(velocity) < mMaximumTapVelocity) {
                         if (vertical ? (mExpanded && top < mTapThreshold + mTopOffset) ||
@@ -348,7 +368,7 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
     }
 
     private void moveHandle(int position) {
-        final View handle = this.burger;
+        final View handle = this.toggle;
         if (mVertical) {
             if (position == EXPANDED_FULL_OPEN) {
                 handle.offsetTopAndBottom(mTopOffset - handle.getTop());
@@ -413,7 +433,7 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
                 content.layout(0, mTopOffset + childHeight, content.getMeasuredWidth(),
                     mTopOffset + childHeight + content.getMeasuredHeight());
             } else {
-                final int childWidth = burger.getWidth();
+                final int childWidth = toggle.getWidth();
                 int width = getRight() - getLeft() - childWidth - mTopOffset;
                 content.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
                     MeasureSpec.makeMeasureSpec(getBottom() - getTop(), MeasureSpec.EXACTLY));
@@ -428,7 +448,7 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
     }
 
     private void stopTracking() {
-        burger.setPressed(false);
+        toggle.setPressed(false);
         mTracking = false;
         if (mVelocityTracker != null) {
             mVelocityTracker.recycle();
@@ -472,8 +492,8 @@ public class AndroidNavigation extends ViewGroup implements Navigation {
 
     public void animateToggle() {
         prepareContent();
-        if (!mExpanded) animateOpen(mVertical ? burger.getTop() : burger.getLeft());
-        else animateClose(mVertical ? burger.getTop() : burger.getLeft());
+        if (!mExpanded) animateOpen(mVertical ? toggle.getTop() : toggle.getLeft());
+        else animateClose(mVertical ? toggle.getTop() : toggle.getLeft());
     }
 
     private void closeDrawer() {

@@ -1,12 +1,12 @@
 package org.fluentness.view.component.text;
 
 
-import org.fluentness.view.AbstractMobileView;
+import org.fluentness.view.FluentnessActivity;
 
 public class AndroidButton extends android.widget.Button implements Button {
 
     public AndroidButton(CharSequence text) {
-        super(AbstractMobileView.context);
+        super(FluentnessActivity.context);
         setText(text);
     }
 

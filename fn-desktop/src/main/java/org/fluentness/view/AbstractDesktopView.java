@@ -23,6 +23,7 @@ public abstract class AbstractDesktopView extends AbstractView {
     }
 
     public AbstractDesktopView(CharSequence title, String lookAndFeelClassName) {
+        super(title);
         try {
             UIManager.setLookAndFeel(lookAndFeelClassName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
@@ -41,8 +42,8 @@ public abstract class AbstractDesktopView extends AbstractView {
     }
 
     @Override
-    protected LinearLayout linearLayout(int orientation, Component... components) {
-        return new SwingLinearLayout(orientation, components);
+    protected LinearLayout linearLayout(Component... components) {
+        return new SwingLinearLayout(components);
     }
 
     @Override
