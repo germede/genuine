@@ -10,6 +10,7 @@ public abstract class AbstractMobileController<M extends AbstractMobileView> ext
 
     public AbstractMobileController(M view) {
         super(view);
+        AbstractMobileView.navigation.addSectionFor(this);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class HtmlLinearLayout extends HtmlContainer implements LinearLayout {
 
     @Override
     public void setPadding(int top, int left, int bottom, int right) {
-        withAttribute("style", String.format("padding: %d %d %d %d !important;", top, left, bottom, right));
+        withAttribute("style", String.format("padding: %dpx %dpx %dpx %dpx !important;", top, left, bottom, right));
     }
 
     @Override

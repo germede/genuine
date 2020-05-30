@@ -1,11 +1,10 @@
 package org.fluentness.view;
 
-import org.fluentness.view.component.layout.Navigation;
-import org.fluentness.view.component.layout.TabLayout;
-import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.LinearLayout;
+import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.table.Table;
+import org.fluentness.view.component.text.Button;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.function.Function;
 
 public abstract class AbstractView implements View {
 
-    private final CharSequence title;
+    protected final CharSequence title;
 
     public AbstractView(CharSequence title) {
         this.title = title;
@@ -23,8 +22,6 @@ public abstract class AbstractView implements View {
     public final CharSequence getTitle() {
         return title;
     }
-
-    protected abstract Navigation navigation();
 
     protected abstract Component structure();
 
@@ -41,6 +38,7 @@ public abstract class AbstractView implements View {
     protected final Object[] row(Object... cells) {
         return cells;
     }
+
     protected abstract TabLayout tabLayout(TabLayout.Tab... tabs);
 
     protected final <C> TabLayout.Tab<C> tab(CharSequence name, C content) {

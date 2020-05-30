@@ -1,4 +1,4 @@
-package org.fluentness.controller.event;
+package org.fluentness.controller.view;
 
 import org.fluentness.view.component.HtmlComponent;
 

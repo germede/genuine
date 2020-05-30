@@ -1,6 +1,9 @@
-package org.fluentness.controller.event;
+package org.fluentness.controller.view;
 
 import org.fluentness.controller.WebController;
+import org.fluentness.controller.event.AbstractViewController;
+import org.fluentness.controller.event.Clickable;
+import org.fluentness.controller.event.Handler;
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.HtmlComponent;
 
@@ -8,14 +11,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractViewWebController<W extends AbstractWebView> extends AbstractViewController<W> implements WebController {
+public abstract class AbstractWebViewController<W extends AbstractWebView> extends AbstractViewController<W> implements WebController {
 
     private final String path;
     private final Map<String, JavaScriptEvent> events = new HashMap<>();
 
-    public AbstractViewWebController(W view, String path) {
+    public AbstractWebViewController(W view, String path) {
         super(view);
         this.path = path;
+        AbstractWebView.navigation.addSectionFor(this);
     }
 
     public final Collection<JavaScriptEvent> getEvents() {
@@ -23,11 +27,13 @@ public abstract class AbstractViewWebController<W extends AbstractWebView> exten
     }
 
     public final Object main(String eventId) {
+        // ajax request
         if (events.containsKey(eventId)) {
             JavaScriptCommand.clear();
             events.get(eventId).getHandler().handle();
             return JavaScriptCommand.getCommands();
         }
+        // normal request
         return view;
     }
 

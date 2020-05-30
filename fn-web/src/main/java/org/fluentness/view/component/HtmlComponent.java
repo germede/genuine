@@ -43,8 +43,8 @@ public class HtmlComponent implements Component {
     }
 
     public HtmlComponent withAttribute(String key, Object value) {
-        if (attributes.containsKey(key)) attributes.put(key, attributes.get(key) + " " + value);
-        else attributes.put(key, String.valueOf(value));
+            if (attributes.containsKey(key)) attributes.put(key, attributes.get(key) + " " + value);
+            else attributes.put(key, String.valueOf(value));
         return this;
     }
 

@@ -4,9 +4,11 @@ import org.fluentness.view.component.Component;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
 import org.fluentness.view.component.layout.HtmlLinearLayout;
-import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.HtmlTabLayout;
+import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.TabLayout;
+import org.fluentness.view.component.nav.HtmlNavigation;
+import org.fluentness.view.component.nav.Navigation;
 import org.fluentness.view.component.table.HtmlTable;
 import org.fluentness.view.component.table.Table;
 import org.fluentness.view.component.text.Button;
@@ -16,6 +18,8 @@ public abstract class AbstractWebView extends AbstractView {
 
     private final HtmlContainer html;
     private String renderedHtml;
+
+    public static final Navigation navigation = new HtmlNavigation();
 
     public AbstractWebView(CharSequence title, HtmlComponent... headComponents) {
         super(title);

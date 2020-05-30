@@ -1,4 +1,4 @@
-package org.fluentness.view.component.layout;
+package org.fluentness.view.component.nav;
 
 import org.fluentness.controller.Controller;
 import org.fluentness.view.component.Component;

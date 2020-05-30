@@ -1,6 +1,6 @@
 package org.fluentness.view.component.text;
 
-import org.fluentness.controller.event.JavaScriptCommand;
+import org.fluentness.controller.view.JavaScriptCommand;
 import org.fluentness.view.component.HtmlContainer;
 
 public class HtmlButton extends HtmlContainer implements Button {

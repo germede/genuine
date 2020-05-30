@@ -18,7 +18,6 @@ public abstract class AbstractDispatcher extends HttpServlet implements Dispatch
         this.log = log;
     }
 
-
     @Override
     protected final void service(HttpServletRequest request, final HttpServletResponse response) throws IOException {
         try {

@@ -21,7 +21,7 @@ public class RouteDispatcher extends AbstractDispatcher {
     private final Configuration configuration;
 
     protected final Map<String, Method> routes = new HashMap<>();
-    protected final Map<Method, WebController> controllers = new HashMap<>();
+    protected final Map<String, WebController> controllers = new HashMap<>();
 
     public RouteDispatcher(Authentication[] authentications, Log log, Configuration configuration) {
         super(authentications, log);
@@ -34,8 +34,9 @@ public class RouteDispatcher extends AbstractDispatcher {
     }
 
     public final void addRoute(String method, String path, Method action, WebController controller) {
-        routes.put(method + " " + getUrlPattern().replace("/*", "") + path, action);
-        controllers.put(action, controller);
+        path = method + " " + getUrlPattern().replace("/*", "") + path;
+        routes.put(path, action);
+        controllers.put(path, controller);
     }
 
     @Override
@@ -43,9 +44,8 @@ public class RouteDispatcher extends AbstractDispatcher {
         String path = request.getMethod() + " " + request.getRequestURI();
 
         if (routes.containsKey(path)) {
-            String key = request.getMethod() + " " + request.getRequestURI();
-            Method action = routes.get(key);
-            WebController controller = controllers.get(action);
+            Method action = routes.get(path);
+            WebController controller = controllers.get(path);
 
             action.setAccessible(true);
             Object[] args = prepareArgs(action, request);

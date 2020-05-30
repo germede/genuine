@@ -1,12 +1,12 @@
 package org.fluentness.prototype.controller;
 
-import org.fluentness.controller.event.AbstractViewWebController;
-import org.fluentness.prototype.view.WebView;
+import org.fluentness.controller.view.AbstractWebViewController;
+import org.fluentness.prototype.view.CalendarView;
 
-public class ViewWebController extends AbstractViewWebController<WebView> {
+public class CalendarController extends AbstractWebViewController<CalendarView> {
 
-    public ViewWebController(WebView view) {
-        super(view, "/");
+    public CalendarController(CalendarView view) {
+        super(view, "/calendar");
         onClick(view.button1, this::doNothing);
         onClick(view.button2, this::doSomething);
     }

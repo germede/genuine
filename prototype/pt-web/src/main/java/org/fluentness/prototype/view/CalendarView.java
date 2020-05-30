@@ -8,27 +8,27 @@ import org.fluentness.view.component.text.Button;
 
 import java.util.Date;
 
-public class WebView extends AbstractWebView {
+public class CalendarView extends AbstractWebView {
 
     public LinearLayout root;
     public Button button1;
     public Button button2;
     public Table table;
 
-    public WebView() {
-        super("Fluentness rocks");
+    public CalendarView() {
+        super("Calendar");
         root.setPadding(50, 50, 50, 50);
     }
 
     @Override
     protected Component structure() {
         return root = linearLayout(
-//            navigation(),
+            navigation,
             button1 = button("one"),
             button2 = button("two"),
             button("three"),
             table = table(
-                header("this", "is", "a", "header"),
+                header("this", "is", "a", "asdf"),
                 row("this", "is", "a", "row"),
                 row(123, false, new Date(0))
             ),

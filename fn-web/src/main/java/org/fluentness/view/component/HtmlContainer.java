@@ -1,9 +1,10 @@
 package org.fluentness.view.component;
 
-import org.fluentness.controller.event.JavaScriptCommand;
+import org.fluentness.controller.view.JavaScriptCommand;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HtmlContainer extends HtmlComponent {
 
@@ -26,8 +27,7 @@ public class HtmlContainer extends HtmlComponent {
 
     public HtmlContainer withInner(HtmlComponent[] inner) {
         for (HtmlComponent htmlComponent : inner) {
-            innerHtml.add(htmlComponent);
-            htmlComponent.setParent(this);
+            withInner(htmlComponent);
         }
         return this;
     }
@@ -38,11 +38,14 @@ public class HtmlContainer extends HtmlComponent {
     }
 
     @Override
+    public HtmlContainer withAttribute(String key, Object value) {
+        return (HtmlContainer) super.withAttribute(key, value);
+    }
+
+    @Override
     public String toString() {
-        for (HtmlComponent item : innerHtml) {
-            this.inner.append(item.toString());
-        }
-        return super.toString() + inner + "</" + tag + ">";
+        return super.toString() +
+            innerHtml.stream().map(HtmlComponent::toString).collect(Collectors.joining()) + inner + "</" + tag + ">";
     }
 
     public void append(HtmlComponent child) {

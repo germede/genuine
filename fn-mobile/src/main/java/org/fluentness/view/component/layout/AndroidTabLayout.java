@@ -6,21 +6,21 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
-import org.fluentness.view.FluentnessActivity;
+import org.fluentness.AbstractMobile;
 
 public class AndroidTabLayout extends LinearLayout implements TabLayout {
 
 
-    private final LinearLayout tabNames = new LinearLayout(FluentnessActivity.context);
-    private final ViewFlipper tabFlipper = new ViewFlipper(FluentnessActivity.context);
-    private final Animation inAnimation = AnimationUtils.loadAnimation(FluentnessActivity.context, android.R.anim.fade_in);
-    private final Animation outAnimation = AnimationUtils.loadAnimation(FluentnessActivity.context, android.R.anim.fade_out);
+    private final LinearLayout tabNames = new LinearLayout(AbstractMobile.context);
+    private final ViewFlipper tabFlipper = new ViewFlipper(AbstractMobile.context);
+    private final Animation inAnimation = AnimationUtils.loadAnimation(AbstractMobile.context, android.R.anim.fade_in);
+    private final Animation outAnimation = AnimationUtils.loadAnimation(AbstractMobile.context, android.R.anim.fade_out);
 
     private int lastActive;
     private int active;
 
     public AndroidTabLayout(TabLayout.Tab<View>[] tabs) {
-        super(FluentnessActivity.context);
+        super(AbstractMobile.context);
         setOrientation(VERTICAL);
 
         tabFlipper.setInAnimation(inAnimation);
@@ -29,7 +29,7 @@ public class AndroidTabLayout extends LinearLayout implements TabLayout {
         tabNames.setOrientation(HORIZONTAL);
         for (int i = 0; i < tabs.length; i++) {
             Tab tab = tabs[i];
-            Button tabName = new Button(FluentnessActivity.context);
+            Button tabName = new Button(AbstractMobile.context);
             tabName.setText(tab.getName());
             tabName.setBackgroundColor(android.R.color.transparent);
             int finalI = i;

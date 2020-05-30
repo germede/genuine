@@ -3,7 +3,7 @@ package org.fluentness.service.dispatcher;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.fluentness.controller.event.JavaScriptEvent;
+import org.fluentness.controller.view.JavaScriptEvent;
 import org.fluentness.service.authentication.Authentication;
 import org.fluentness.service.log.Log;
 

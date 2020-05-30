@@ -3,7 +3,8 @@ package org.fluentness.prototype;
 import org.fluentness.AbstractWeb;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
-import org.fluentness.prototype.controller.ViewWebController;
+import org.fluentness.prototype.controller.CalendarController;
+import org.fluentness.prototype.controller.NotesController;
 import org.fluentness.prototype.service.Configuration;
 import org.fluentness.service.Services;
 import org.fluentness.service.server.Server;
@@ -13,8 +14,8 @@ import org.fluentness.service.server.Server;
 })
 public class Web extends AbstractWeb {
 
-    public Web(Server server, ViewWebController controller) {
-        super(server, controller);
+    public Web(Server server, CalendarController calendarController, NotesController notesController) {
+        super(server, calendarController, notesController);
     }
 
     public static void main(String[] args) throws FluentnessException {

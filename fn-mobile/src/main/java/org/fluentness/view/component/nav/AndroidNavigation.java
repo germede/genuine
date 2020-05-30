@@ -1,20 +1,17 @@
 package org.fluentness.view.component.nav;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.SystemClock;
-import android.view.MotionEvent;
-import android.view.SoundEffectConstants;
-import android.view.VelocityTracker;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import org.fluentness.view.FluentnessActivity;
+import org.fluentness.AbstractMobile;
 import org.fluentness.controller.AbstractMobileController;
-import org.fluentness.view.component.layout.Navigation;
 
 public class AndroidNavigation extends ViewGroup implements Navigation<AbstractMobileController> {
 
@@ -60,6 +57,25 @@ public class AndroidNavigation extends ViewGroup implements Navigation<AbstractM
 
     private final Runnable mSlidingRunnable = this::doAnimation;
 
+    public AndroidNavigation() {
+        super(AbstractMobile.context);
+        this.menu = new LinearLayout(AbstractMobile.context);
+
+        this.toggle = new Button(AbstractMobile.context);
+        toggle.setText("TOGGLE");
+        toggle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));;
+
+        final float density = getResources().getDisplayMetrics().density;
+        mTapThreshold = (int) (TAP_THRESHOLD * density + 0.5f);
+        mMaximumTapVelocity = (int) (MAXIMUM_TAP_VELOCITY * density + 0.5f);
+        mMaximumMinorVelocity = (int) (MAXIMUM_MINOR_VELOCITY * density + 0.5f);
+        mMaximumMajorVelocity = (int) (MAXIMUM_MAJOR_VELOCITY * density + 0.5f);
+        mMaximumAcceleration = (int) (MAXIMUM_ACCELERATION * density + 0.5f);
+        mVelocityUnits = (int) (VELOCITY_UNITS * density + 0.5f);
+
+        setAlwaysDrawnWithCacheEnabled(false);
+    }
+
     @Override
     public void open() {
         openDrawer();
@@ -76,33 +92,14 @@ public class AndroidNavigation extends ViewGroup implements Navigation<AbstractM
 
     @Override
     public void addSectionFor(AbstractMobileController controller) {
-        android.widget.Button button = new android.widget.Button(FluentnessActivity.context);
+        android.widget.Button button = new android.widget.Button(AbstractMobile.context);
         button.setText(controller.getView().getTitle());
         button.setOnClickListener(
-            v -> Toast.makeText(FluentnessActivity.context,
+            v -> Toast.makeText(AbstractMobile.context,
                 controller.getView().getTitle().toString(),
                 Toast.LENGTH_SHORT)
         );
         menu.addView(button);
-    }
-
-    public AndroidNavigation() {
-        super(FluentnessActivity.context);
-        this.menu = new LinearLayout(FluentnessActivity.context);
-
-        this.toggle = new Button(FluentnessActivity.context);
-        toggle.setText("TOGGLE");
-        toggle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));;
-
-        final float density = getResources().getDisplayMetrics().density;
-        mTapThreshold = (int) (TAP_THRESHOLD * density + 0.5f);
-        mMaximumTapVelocity = (int) (MAXIMUM_TAP_VELOCITY * density + 0.5f);
-        mMaximumMinorVelocity = (int) (MAXIMUM_MINOR_VELOCITY * density + 0.5f);
-        mMaximumMajorVelocity = (int) (MAXIMUM_MAJOR_VELOCITY * density + 0.5f);
-        mMaximumAcceleration = (int) (MAXIMUM_ACCELERATION * density + 0.5f);
-        mVelocityUnits = (int) (VELOCITY_UNITS * density + 0.5f);
-
-        setAlwaysDrawnWithCacheEnabled(false);
     }
 
     @Override
@@ -421,6 +418,7 @@ public class AndroidNavigation extends ViewGroup implements Navigation<AbstractM
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void prepareContent() {
         if (mAnimating) return;
         final View content = this.menu;

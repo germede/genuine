@@ -9,11 +9,11 @@ import java.lang.annotation.Target;
 
 import static org.fluentness.service.server.RequestMethod.GET;
 
-public abstract class AbstractActionWebController extends AbstractActionController implements WebController {
+public abstract class AbstractWebActionController extends AbstractActionController implements WebController {
 
     private final String path;
 
-    public AbstractActionWebController(String path) {
+    public AbstractWebActionController(String path) {
         super(Action.class);
         this.path = path;
     }

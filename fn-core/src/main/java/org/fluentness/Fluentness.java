@@ -9,10 +9,8 @@ import org.fluentness.service.ServiceLoader;
 import org.fluentness.view.View;
 
 import java.lang.reflect.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public final class Fluentness {
 
@@ -24,8 +22,6 @@ public final class Fluentness {
         Controller.class,
         Application.class,
     };
-    public static Application application;
-
 
     public static void launch(Class<? extends Application> applicationClass, String[] args) throws FluentnessException {
         new Fluentness(applicationClass, args);
@@ -37,13 +33,11 @@ public final class Fluentness {
     public Fluentness(Class<? extends Application> applicationClass, String[] args) throws FluentnessException {
         try {
             services = new ServiceLoader(applicationClass).getServices();
-            application = instantiate(applicationClass);
-            application.run(args);
+            instantiate(applicationClass).run(args);
         } catch (Throwable cause) {
             throw new FluentnessException(cause);
         }
     }
-
 
     private <T> T instantiate(Class<T> aClass) throws FluentnessException {
         Constructor constructor = getConstructor(aClass);
