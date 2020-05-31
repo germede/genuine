@@ -11,9 +11,9 @@ public class HtmlComponent implements Component {
 
     protected int id = ++ID_SEQUENCE;
     protected final String tag;
-    private HtmlComponent parent;
+    protected HtmlComponent parent;
 
-    private final Map<String, Set<CharSequence>> attributes = new HashMap<>();
+    protected final Map<String, Set<CharSequence>> attributes = new HashMap<>();
 
     public HtmlComponent(String tag) {
         this.tag = tag;
@@ -57,6 +57,6 @@ public class HtmlComponent implements Component {
             attributes.append(' ').append(attribute.getKey())
                 .append(attribute.getValue() != null ? "=\"" + String.join(" ", attribute.getValue()) + "\"" : "");
         }
-        return "<" + tag + attributes + ">";
+        return "<" + tag + attributes + "/>";
     }
 }

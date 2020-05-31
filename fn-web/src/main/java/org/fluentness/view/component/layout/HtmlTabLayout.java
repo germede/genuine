@@ -20,8 +20,9 @@ public class HtmlTabLayout extends HtmlContainer implements TabLayout {
             withInner(input
                 .withAttribute("id", tabId)
                 .withAttribute("type", "radio")
-                .withAttribute("name", "tabs"));
-            if (i == 0) input.withAttribute("checked", null);
+                .withAttribute("name", id)
+            );
+            if (i == 0) input.withAttribute("checked", "");
             // tab name
             nav.withInner(new HtmlContainer("label")
                 .withInner(tab.getName())

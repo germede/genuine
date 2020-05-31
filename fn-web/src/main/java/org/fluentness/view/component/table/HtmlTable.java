@@ -13,9 +13,11 @@ public class HtmlTable extends HtmlContainer implements Table {
     public HtmlTable(CharSequence[] header, Object[][] rows) {
         super("table");
 
-        thead = new HtmlContainer("thead");
+        HtmlContainer headTr = new HtmlContainer("tr");
+        thead = new HtmlContainer("thead").withInner(headTr);
         tbody = new HtmlContainer("tbody");
-        Arrays.stream(header).forEach(item -> thead.withInner(new HtmlContainer("th").withInner(item)));
+
+        Arrays.stream(header).forEach(item -> headTr.withInner(new HtmlContainer("th").withInner(item)));
         for (Object[] row : rows) {
             HtmlContainer tr = new HtmlContainer("tr");
             for (Object cell : row) {

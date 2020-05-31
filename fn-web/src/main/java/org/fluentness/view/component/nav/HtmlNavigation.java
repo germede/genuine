@@ -1,6 +1,7 @@
 package org.fluentness.view.component.nav;
 
 import org.fluentness.controller.view.AbstractWebViewController;
+import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
 
 public class HtmlNavigation extends HtmlContainer implements Navigation<AbstractWebViewController> {
@@ -11,8 +12,14 @@ public class HtmlNavigation extends HtmlContainer implements Navigation<Abstract
     public HtmlNavigation() {
         super("nav");
         withAttribute("class", "nav");
-        withAttribute("role", "navigation");
-        withInner(new HtmlContainer("div").withAttribute("class", "nav-left")
+
+        HtmlContainer navLeft = new HtmlContainer("div").withAttribute("class", "nav-left")
+            .withInner(new HtmlComponent("input").withAttribute("type", "checkbox"))
+            .withInner(new HtmlContainer("span"), new HtmlContainer("span"), new HtmlContainer("span"));
+
+        withInner(navLeft
+
+
             .withInner(brand = new HtmlContainer("a").withAttribute("href", "/"))
             .withInner(tabs = new HtmlContainer("div").withAttribute("class", "tabs"))
         );

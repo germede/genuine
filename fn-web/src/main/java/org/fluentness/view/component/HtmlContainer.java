@@ -4,6 +4,8 @@ import org.fluentness.controller.view.JavaScriptCommand;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class HtmlContainer extends HtmlComponent {
@@ -25,7 +27,7 @@ public class HtmlContainer extends HtmlComponent {
         return this;
     }
 
-    public HtmlContainer withInner(HtmlComponent[] inner) {
+    public HtmlContainer withInner(HtmlComponent... inner) {
         for (HtmlComponent htmlComponent : inner) {
             withInner(htmlComponent);
         }
@@ -44,8 +46,14 @@ public class HtmlContainer extends HtmlComponent {
 
     @Override
     public String toString() {
-        return super.toString() +
-            innerHtml.stream().map(HtmlComponent::toString).collect(Collectors.joining()) + inner + "</" + tag + ">";
+        StringBuilder attributes = new StringBuilder();
+        for (Map.Entry<String, Set<CharSequence>> attribute : this.attributes.entrySet()) {
+            attributes.append(' ').append(attribute.getKey())
+                .append(attribute.getValue() != null ? "=\"" + String.join(" ", attribute.getValue()) + "\"" : "");
+        }
+        return "<" + tag + attributes + ">" +
+            innerHtml.stream().map(HtmlComponent::toString).collect(Collectors.joining()) + inner +
+            "</" + tag + ">";
     }
 
     public void append(HtmlComponent child) {

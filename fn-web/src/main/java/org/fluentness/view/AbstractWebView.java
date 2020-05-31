@@ -14,6 +14,8 @@ import org.fluentness.view.component.table.Table;
 import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.text.HtmlButton;
 
+import java.util.Locale;
+
 public abstract class AbstractWebView extends AbstractView {
 
     private final HtmlContainer html;
@@ -23,7 +25,7 @@ public abstract class AbstractWebView extends AbstractView {
 
     public AbstractWebView(CharSequence title, HtmlComponent... headComponents) {
         super(title);
-        this.html = new HtmlContainer("html")
+        this.html = new HtmlContainer("html").withAttribute("lang", Locale.getDefault().getLanguage())
             .withInner(new HtmlContainer("head")
                 .withInner(new HtmlContainer("title").withInner(title))
                 .withInner(new HtmlComponent("link")
