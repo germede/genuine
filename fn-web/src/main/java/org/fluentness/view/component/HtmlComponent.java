@@ -1,7 +1,9 @@
 package org.fluentness.view.component;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class HtmlComponent implements Component {
 
@@ -11,7 +13,7 @@ public class HtmlComponent implements Component {
     protected final String tag;
     private HtmlComponent parent;
 
-    private final Map<String, CharSequence> attributes = new HashMap<>();
+    private final Map<String, Set<CharSequence>> attributes = new HashMap<>();
 
     public HtmlComponent(String tag) {
         this.tag = tag;
@@ -43,17 +45,17 @@ public class HtmlComponent implements Component {
     }
 
     public HtmlComponent withAttribute(String key, Object value) {
-            if (attributes.containsKey(key)) attributes.put(key, attributes.get(key) + " " + value);
-            else attributes.put(key, String.valueOf(value));
+        if (!attributes.containsKey(key)) attributes.put(key, new HashSet<>());
+        attributes.get(key).add(String.valueOf(value));
         return this;
     }
 
     @Override
     public String toString() {
         StringBuilder attributes = new StringBuilder();
-        for (Map.Entry<String, CharSequence> attribute : this.attributes.entrySet()) {
+        for (Map.Entry<String, Set<CharSequence>> attribute : this.attributes.entrySet()) {
             attributes.append(' ').append(attribute.getKey())
-                .append(attribute.getValue() == null ? "" : "=\"" + attribute.getValue() + "\"");
+                .append(attribute.getValue() != null ? "=\"" + String.join(" ", attribute.getValue()) + "\"" : "");
         }
         return "<" + tag + attributes + ">";
     }

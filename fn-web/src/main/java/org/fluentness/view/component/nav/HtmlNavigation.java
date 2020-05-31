@@ -11,6 +11,7 @@ public class HtmlNavigation extends HtmlContainer implements Navigation<Abstract
     public HtmlNavigation() {
         super("nav");
         withAttribute("class", "nav");
+        withAttribute("role", "navigation");
         withInner(new HtmlContainer("div").withAttribute("class", "nav-left")
             .withInner(brand = new HtmlContainer("a").withAttribute("href", "/"))
             .withInner(tabs = new HtmlContainer("div").withAttribute("class", "tabs"))
@@ -30,6 +31,26 @@ public class HtmlNavigation extends HtmlContainer implements Navigation<Abstract
     @Override
     public void addSectionFor(AbstractWebViewController controller) {
         tabs.withInner(
+            new HtmlContainer("a")
+                .withAttribute("href", controller.getPath())
+                .withInner(controller.getView().getTitle())
+        );tabs.withInner(
+            new HtmlContainer("a")
+                .withAttribute("href", controller.getPath())
+                .withInner(controller.getView().getTitle())
+        );tabs.withInner(
+            new HtmlContainer("a")
+                .withAttribute("href", controller.getPath())
+                .withInner(controller.getView().getTitle())
+        );tabs.withInner(
+            new HtmlContainer("a")
+                .withAttribute("href", controller.getPath())
+                .withInner(controller.getView().getTitle())
+        );tabs.withInner(
+            new HtmlContainer("a")
+                .withAttribute("href", controller.getPath())
+                .withInner(controller.getView().getTitle())
+        );tabs.withInner(
             new HtmlContainer("a")
                 .withAttribute("href", controller.getPath())
                 .withInner(controller.getView().getTitle())
