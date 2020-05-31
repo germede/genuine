@@ -1,12 +1,13 @@
 :root {
     --color-primary: #0080ff;
     --color-secondary: #dddddd;
-    --color-white: #ffffff;
-    --color-lightGrey: #dddddd;
-    --color-grey: #AAAAAA;
-    --color-darkGrey: #444444;
-    --color-error: #ff0000;
     --color-success: #00ff00;
+    --color-warning: #ffff00;
+    --color-danger: #ff0000;
+    --color-light: #ffffff;
+    --color-dark: #333333;
+    --color-transparent: rgba(0, 0, 0, 0);
+    --color-disabled: #AAAAAA;
     --font-family-sans: "Helvetica Neue", sans-serif;
     --font-family-mono: monaco, "Consolas", "Lucida Console", monospace;
     --font-size: 1.6rem;

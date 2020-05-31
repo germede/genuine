@@ -12,7 +12,7 @@ import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.TomcatServer;
 import org.fluentness.view.AbstractWebView;
-import org.fluentness.view.component.nav.HtmlNavigation;
+import org.fluentness.view.component.navigation.HtmlNavigation;
 
 import java.util.Arrays;
 

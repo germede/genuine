@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import org.fluentness.AbstractMobile;
 import org.fluentness.controller.AbstractMobileController;
+import org.fluentness.view.component.navigation.Navigation;
 
 public class AndroidNavigation extends ViewGroup implements Navigation<AbstractMobileController> {
 

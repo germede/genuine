@@ -1,4 +1,4 @@
-package org.fluentness.view.component.nav;
+package org.fluentness.view.component.navigation;
 
 import org.fluentness.controller.view.AbstractWebViewController;
 import org.fluentness.view.component.HtmlComponent;
@@ -11,7 +11,6 @@ public class HtmlNavigation extends HtmlContainer implements Navigation<Abstract
 
     public HtmlNavigation() {
         super("nav");
-        withAttribute("class", "nav");
         withInner(new HtmlContainer("div").withAttribute("class", "container")
             .withInner(new HtmlComponent("input").withAttribute("type", "checkbox").withAttribute("id", "burger"))
             .withInner(tabs = new HtmlContainer("div").withAttribute("class", "tabs")
@@ -37,16 +36,13 @@ public class HtmlNavigation extends HtmlContainer implements Navigation<Abstract
 
     @Override
     public void addSectionFor(AbstractWebViewController controller) {
-        tabs.withInner(
-            new HtmlContainer("a")
-                .withAttribute("href", controller.getPath())
-                .withInner(controller.getView().getTitle())
-        );
-        tabs.withInner(
-            new HtmlContainer("a")
-                .withAttribute("href", controller.getPath())
-                .withInner(controller.getView().getTitle())
-        );
+        if (! controller.getPath().equals("/")) {
+            tabs.withInner(
+                new HtmlContainer("a")
+                    .withAttribute("href", controller.getPath())
+                    .withInner(controller.getView().getTitle())
+            );
+        }
     }
 
     public void setBrand(CharSequence title) {

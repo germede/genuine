@@ -8,4 +8,5 @@ public interface Text extends Component {
 
     void setText(CharSequence text);
 
+
 }

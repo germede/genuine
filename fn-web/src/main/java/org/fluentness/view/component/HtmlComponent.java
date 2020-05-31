@@ -46,7 +46,7 @@ public class HtmlComponent implements Component {
 
     public HtmlComponent withAttribute(String key, Object value) {
         if (!attributes.containsKey(key)) attributes.put(key, new HashSet<>());
-        attributes.get(key).add(String.valueOf(value));
+        attributes.get(key).add(value == null ? "" : String.valueOf(value));
         return this;
     }
 

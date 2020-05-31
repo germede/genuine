@@ -4,7 +4,7 @@ import android.view.View;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.*;
 import org.fluentness.view.component.nav.AndroidNavigation;
-import org.fluentness.view.component.nav.Navigation;
+import org.fluentness.view.component.navigation.Navigation;
 import org.fluentness.view.component.table.Table;
 import org.fluentness.view.component.text.AndroidButton;
 import org.fluentness.view.component.text.Button;

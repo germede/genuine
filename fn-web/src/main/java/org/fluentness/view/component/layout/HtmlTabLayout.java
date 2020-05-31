@@ -9,7 +9,7 @@ public class HtmlTabLayout extends HtmlContainer implements TabLayout {
         super("div");
         withAttribute("class", "tab-layout");
 
-        HtmlContainer nav = (HtmlContainer) new HtmlContainer("nav").withAttribute("class", "tabs");
+        HtmlContainer nav = new HtmlContainer("nav").withAttribute("class", "tabs");
         HtmlContainer figure = new HtmlContainer("figure");
         for (int i = 0; i < tabs.length; i++) {
             Tab tab = tabs[i];
@@ -22,7 +22,7 @@ public class HtmlTabLayout extends HtmlContainer implements TabLayout {
                 .withAttribute("type", "radio")
                 .withAttribute("name", id)
             );
-            if (i == 0) input.withAttribute("checked", "");
+            if (i == 0) input.withAttribute("checked", null);
             // tab name
             nav.withInner(new HtmlContainer("label")
                 .withInner(tab.getName())

@@ -23,6 +23,7 @@ public class AndroidTabLayout extends LinearLayout implements TabLayout {
         super(AbstractMobile.context);
         setOrientation(VERTICAL);
 
+
         tabFlipper.setInAnimation(inAnimation);
         tabFlipper.setOutAnimation(outAnimation);
 

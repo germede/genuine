@@ -6,7 +6,7 @@ public interface TabLayout extends Component {
 
     void setActive(int tabIndex);
 
-    class Tab<C> implements Component {
+    class Tab<C> {
 
         private final CharSequence name;
         private final C content;

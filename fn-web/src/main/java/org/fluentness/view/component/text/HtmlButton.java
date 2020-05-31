@@ -1,25 +1,20 @@
 package org.fluentness.view.component.text;
 
-import org.fluentness.controller.view.JavaScriptCommand;
-import org.fluentness.view.component.HtmlContainer;
+public class HtmlButton extends AbstractHtmlText implements Button {
 
-public class HtmlButton extends HtmlContainer implements Button {
+    private final Type type;
 
-    private final CharSequence text;
-
-    public HtmlButton(CharSequence text) {
-        super("button");
-        withInner(text);
-        this.text = text;
+    public HtmlButton(Type type, CharSequence text) {
+        super("button", text);
+        this.type = type;
+        withAttribute("class", type.name().toLowerCase());
+        if (type.equals(Type.DISABLED)) {
+            withAttribute("disabled", null);
+        }
     }
 
     @Override
-    public CharSequence getText() {
-        return text;
-    }
-
-    @Override
-    public void setText(CharSequence text) {
-        JavaScriptCommand.changeInner(getXpath(), text);
+    public Type getType() {
+        return type;
     }
 }

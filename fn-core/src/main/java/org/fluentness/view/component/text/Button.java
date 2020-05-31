@@ -1,12 +1,21 @@
 package org.fluentness.view.component.text;
 
 import org.fluentness.controller.event.Clickable;
-import org.fluentness.view.component.Component;
 
-public interface Button extends Component, Clickable {
+public interface Button extends Text, Clickable {
 
-    CharSequence getText();
+    enum Type {
+        PRIMARY,
+        SECONDARY,
+        SUCCESS,
+        WARNING,
+        DANGER,
+        LIGHT,
+        DARK,
+        TRANSPARENT,
+        DISABLED,
+    }
 
-    void setText(CharSequence text);
+    Type getType();
 
 }

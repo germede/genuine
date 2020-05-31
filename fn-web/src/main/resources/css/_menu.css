@@ -1,5 +1,5 @@
 /*NAVIGATION*/
-.nav {
+nav:not(.tabs) {
     display: flex;
     min-height: 5rem;
     align-items: stretch;
@@ -7,40 +7,40 @@
     box-shadow: 0 0 0.2em rgba(17, 17, 17, 0.2);
 }
 
-.nav > .container {
+nav > .container {
     display: flex;
 }
 
-.nav a,
-.nav .brand {
+nav a,
+nav .brand {
     text-decoration: none;
     margin: 1rem 2rem 1rem 0;
-    color: var(--color-darkGrey);
+    color: var(--font-color);
 }
 
-.nav .brand {
+nav .brand {
     font-size: 1.25em;
     font-weight: bold;
 }
 
-.nav .brand img {
+nav .brand img {
     padding-right: 1rem;
 }
 
-.nav .button {
+nav .button {
     margin: auto 1rem;
 }
 
-.nav .active:not(.button) {
-    border-bottom: 2px solid var(--color-darkGrey);
+nav .active:not(.button):not(.brand) {
+    border-bottom: 2px solid var(--font-color);
 }
 
-.nav img {
+nav img {
     max-height: 3rem;
 }
 
 /*BURGER-MENU*/
-.nav .burger {
+nav .burger {
     margin: 1rem 0 1rem auto;
     padding-top: 2px;
     display: none;
@@ -50,7 +50,7 @@
     cursor: pointer;
 }
 
-.nav .burger > span {
+nav .burger > span {
     width: 33px;
     height: 4px;
     margin-bottom: 2px;
@@ -63,44 +63,44 @@
     opacity 0.55s ease;
 }
 
-.nav #burger {
+nav #burger {
     display: none;
 }
 
-.nav #burger:checked ~ .burger > span:nth-child(1) {
+nav #burger:checked ~ .burger > span:nth-child(1) {
     opacity: 1;
     transform: rotate(45deg) translate(5px, 5px);
 }
 
-.nav #burger:checked ~ .burger > span:nth-child(2) {
+nav #burger:checked ~ .burger > span:nth-child(2) {
     opacity: 0;
     transform: rotate(0deg) scale(0.2, 0.2);
 }
 
-.nav #burger:checked ~ .burger > span:nth-child(3) {
+nav #burger:checked ~ .burger > span:nth-child(3) {
     transform: rotate(-45deg) translate(6px, -6px);
 }
 
-.nav #burger:checked ~ .tabs > a {
+nav #burger:checked ~ .tabs > a {
     display: block;
 }
 
 @media screen and (max-width: 900px) {
-    .nav,
-    .nav > .container {
+    nav,
+    nav > .container {
         align-items: start;
     }
 
-    .nav .tabs {
+    nav .tabs {
         flex-direction: column;
         align-items: start;
     }
 
-    .nav .tabs > a:not(.brand){
+    nav .tabs > a:not(.brand){
         display: none;
     }
 
-    .nav .burger {
+    nav .burger {
         display: flex;
     }
 }
@@ -155,11 +155,10 @@
     flex: 1 1 auto;
     text-decoration: none;
     padding: 1rem 2rem;
-    color: var(--color-darkGrey);
-    border-bottom: 2px solid var(--color-lightGrey);
+    border-bottom: 2px solid var(--font-color);
     text-align: center;
 }
 
 .tabs > label:hover {
-    border-bottom: 2px solid var(--color-darkGrey);
+    border-bottom: 2px solid var(--color-disabled);
 }

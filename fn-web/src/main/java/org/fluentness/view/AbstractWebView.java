@@ -7,12 +7,13 @@ import org.fluentness.view.component.layout.HtmlLinearLayout;
 import org.fluentness.view.component.layout.HtmlTabLayout;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.TabLayout;
-import org.fluentness.view.component.nav.HtmlNavigation;
-import org.fluentness.view.component.nav.Navigation;
+import org.fluentness.view.component.misc.HtmlSeparator;
+import org.fluentness.view.component.misc.Separator;
+import org.fluentness.view.component.navigation.HtmlNavigation;
+import org.fluentness.view.component.navigation.Navigation;
 import org.fluentness.view.component.table.HtmlTable;
 import org.fluentness.view.component.table.Table;
-import org.fluentness.view.component.text.Button;
-import org.fluentness.view.component.text.HtmlButton;
+import org.fluentness.view.component.text.*;
 
 import java.util.Locale;
 
@@ -51,15 +52,6 @@ public abstract class AbstractWebView extends AbstractView {
         return renderedHtml;
     }
 
-    @Override
-    protected Navigation navigation() {
-        return new HtmlNavigation();
-    }
-
-    @Override
-    protected Button button(CharSequence text) {
-        return new HtmlButton(text);
-    }
 
     @Override
     protected LinearLayout linearLayout(Component... components) {
@@ -67,13 +59,41 @@ public abstract class AbstractWebView extends AbstractView {
     }
 
     @Override
-    protected Table table(CharSequence[] header, Object[]... rows) {
-        return new HtmlTable(header, rows);
+    protected TabLayout tabLayout(TabLayout.Tab... tabs) {
+        return new HtmlTabLayout(tabs);
+    }
+
+
+    @Override
+    protected Separator separator() {
+        return new HtmlSeparator();
     }
 
     @Override
-    protected TabLayout tabLayout(TabLayout.Tab... tabs) {
-        return new HtmlTabLayout(tabs);
+    protected Navigation navigation() {
+        return new HtmlNavigation();
+    }
+
+
+    @Override
+    protected Button button(Button.Type type, CharSequence text) {
+        return new HtmlButton(type, text);
+    }
+
+    @Override
+    protected Heading heading(Heading.Level level, CharSequence text) {
+        return new HtmlHeading(level, text);
+    }
+
+    @Override
+    protected Text text(CharSequence text) {
+        return new HtmlText(text);
+    }
+
+
+    @Override
+    protected Table table(CharSequence[] header, Object[]... rows) {
+        return new HtmlTable(header, rows);
     }
 
 }
