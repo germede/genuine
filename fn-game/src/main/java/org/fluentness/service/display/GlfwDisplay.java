@@ -1,6 +1,6 @@
 package org.fluentness.service.display;
 
-import org.fluentness.model.algebra.Vector3f;
+import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -15,6 +15,7 @@ public class GlfwDisplay implements Display {
     private long lastTime = System.currentTimeMillis();
     private int fps;
 
+    private CharSequence title;
     private final long window;
     // strong references avoiding garbage collector to delete them
     private final GLFWErrorCallback errorCallback;
@@ -36,13 +37,24 @@ public class GlfwDisplay implements Display {
         window = glfwCreateWindow(
             configuration.get(WIDTH),
             configuration.get(HEIGHT),
-            configuration.get(TITLE),
+            "",
             configuration.get(FULLSCREEN) ? glfwGetPrimaryMonitor() : 0,
             0
         );
         glfwMakeContextCurrent(window);
         GL.createCapabilities();
         glfwShowWindow(window);
+    }
+
+    @Override
+    public CharSequence getTitle() {
+        return title;
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        this.title = title;
+        glfwSetWindowTitle(window, title);
     }
 
     @Override
@@ -56,7 +68,7 @@ public class GlfwDisplay implements Display {
     }
 
     @Override
-    public long getWindow() {
+    public long getWindowId() {
         return window;
     }
 

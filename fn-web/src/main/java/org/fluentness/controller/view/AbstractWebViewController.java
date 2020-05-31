@@ -1,9 +1,8 @@
 package org.fluentness.controller.view;
 
 import org.fluentness.controller.WebController;
-import org.fluentness.controller.event.AbstractViewController;
-import org.fluentness.controller.event.Clickable;
-import org.fluentness.controller.event.Handler;
+import org.fluentness.controller.view.event.Clickable;
+import org.fluentness.controller.view.event.Handler;
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.HtmlComponent;
 

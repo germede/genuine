@@ -1,7 +1,5 @@
 package org.fluentness.service.algebra;
 
-import org.fluentness.model.algebra.Matrix4f;
-import org.fluentness.model.algebra.Vector3f;
 import org.fluentness.service.Service;
 
 public interface Algebra extends Service {

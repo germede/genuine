@@ -1,5 +1,6 @@
 package org.fluentness.view;
 
+import org.fluentness.view.component.AbstractComponentView;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
@@ -17,7 +18,7 @@ import org.fluentness.view.component.text.*;
 
 import java.util.Locale;
 
-public abstract class AbstractWebView extends AbstractView {
+public abstract class AbstractWebView extends AbstractComponentView {
 
     private final HtmlContainer html;
     private String renderedHtml;

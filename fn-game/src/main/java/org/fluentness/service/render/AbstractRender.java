@@ -1,8 +1,8 @@
 package org.fluentness.service.render;
 
-import org.fluentness.view.scene.Scene;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.shader.AbstractShader;
+import org.fluentness.view.AbstractGameView;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
@@ -16,7 +16,7 @@ public abstract class AbstractRender<S extends AbstractShader> implements Render
         this.shader = shader;
     }
 
-    protected void bind(int vaoId, Scene scene) {
+    protected void bind(int vaoId, AbstractGameView view) {
 
         GL30.glBindVertexArray(vaoId);
         GL20.glEnableVertexAttribArray(0);
@@ -24,14 +24,14 @@ public abstract class AbstractRender<S extends AbstractShader> implements Render
         GL20.glEnableVertexAttribArray(2);
 
         // todo optimize projectionMatrix, doesn't need to be always generated
-        shader.set(shader.projectionMatrix, algebra.projectionMatrix(scene.camera.fov, scene.camera.aspect, scene.camera.near, scene.camera.far));
-        shader.set(shader.viewMatrix, algebra.viewMatrix(scene.camera.translation, scene.camera.rotation));
-        shader.set(shader.lightPosition, scene.light.translation);
-        shader.set(shader.lightColour, scene.light.colour);
-        shader.set(shader.ambientLight, scene.light.ambientLight);
-        shader.set(shader.fogDensity, scene.fog.density);
-        shader.set(shader.fogGradient, scene.fog.gradient);
-        shader.set(shader.skyColour, scene.background.colour);
+        shader.set(shader.projectionMatrix, algebra.projectionMatrix(view.camera.fov, view.camera.aspect, view.camera.near, view.camera.far));
+        shader.set(shader.viewMatrix, algebra.viewMatrix(view.camera.translation, view.camera.rotation));
+        shader.set(shader.lightPosition, view.light.translation);
+        shader.set(shader.lightColour, view.light.colour);
+        shader.set(shader.ambientLight, view.light.ambientLight);
+        shader.set(shader.fogDensity, view.fog.density);
+        shader.set(shader.fogGradient, view.fog.gradient);
+        shader.set(shader.skyColour, view.background.colour);
 
     }
 

@@ -2,7 +2,7 @@ package org.fluentness.service;
 
 public interface Service {
 
-    static Class getServiceInterface(Class aClass) {
+    static Class<? extends Service> getServiceInterface(Class aClass) {
         if (!Service.class.isAssignableFrom(aClass)) return aClass;
         do {
             for (Class anInterface : aClass.getInterfaces()) {
@@ -11,6 +11,10 @@ public interface Service {
             }
         } while ((aClass = aClass.getSuperclass()) != null);
         return Service.class;
+    }
+
+    default Class<? extends Service> getServiceInterface() {
+        return getServiceInterface(this.getClass());
     }
 
 }

@@ -1,8 +1,7 @@
 package org.fluentness.service.parser;
 
-import org.fluentness.model.mesh.RawMesh;
-import org.fluentness.model.algebra.Vector2f;
-import org.fluentness.model.algebra.Vector3f;
+import org.fluentness.service.algebra.Vector2f;
+import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.log.Log;
 
 import java.io.BufferedReader;

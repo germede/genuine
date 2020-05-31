@@ -1,9 +1,7 @@
 package org.fluentness.service.loader;
 
-import org.fluentness.model.mesh.RawMesh;
-import org.fluentness.model.mesh.Mesh;
-import org.fluentness.model.texture.RawTexture;
-import org.fluentness.model.texture.Texture;
+import org.fluentness.service.parser.RawMesh;
+import org.fluentness.service.parser.RawTexture;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.memory.Memory;
 import org.fluentness.service.parser.MeshParser;
@@ -74,7 +72,6 @@ public class LoaderImpl implements Loader {
         int texture = glGenTextures();
         memory.texture(texture);
 
-
         glBindTexture(GL_TEXTURE_2D, texture);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, rawTexture.getWidth(), rawTexture.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, rawTexture.getPixels());
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -85,6 +82,6 @@ public class LoaderImpl implements Loader {
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, configuration.get(MIPMAP_BIAS));
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        return new Texture(texture, rawTexture.hasTransparency());
+        return new Texture(texture, rawTexture);
     }
 }

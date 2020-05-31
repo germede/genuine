@@ -1,40 +1,62 @@
 package org.fluentness.view;
 
-import org.fluentness.view.scene.Scene;
-import org.fluentness.view.scene.SceneElement;
-import org.fluentness.view.scene.camera.Camera;
-import org.fluentness.view.scene.entity.Entities;
-import org.fluentness.view.scene.entity.Entity;
-import org.fluentness.view.scene.environment.Background;
-import org.fluentness.view.scene.environment.Fog;
-import org.fluentness.view.scene.light.Light;
+import org.fluentness.model.Entity;
+import org.fluentness.model.Terrain;
+import org.fluentness.view.environment.background.Background;
+import org.fluentness.view.environment.camera.Camera;
+import org.fluentness.view.environment.fog.Fog;
+import org.fluentness.view.environment.light.Light;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractGameView implements View {
 
-    public abstract Scene scene();
+    protected final CharSequence title;
+    public final Background background = background();
+    public final Camera camera = camera();
+    public final Light light = light();
+    public final Fog fog = fog();
+    public final List<Terrain> terrains = new LinkedList<>();
+    public final Map<String, List<Entity>> entities = new HashMap<>();
 
-    protected Scene scene(SceneElement... sceneElements) {
-        return new Scene(sceneElements);
+    public AbstractGameView(CharSequence title) {
+        this.title = title;
     }
 
-    protected Background background(float r, float g, float b) {
-        return new Background(r, g, b);
+    @Override
+    public CharSequence getTitle() {
+        return title;
     }
 
-    protected Camera camera(float x, float y, float z) {
-        return new Camera(x, y, z);
+    public Map<String, List<Entity>> getEntities() {
+        return entities;
     }
 
-    protected Light light(float x, float y, float z) {
-        return new Light(x, y, z);
+    public List<Terrain> getTerrains() {
+        return terrains;
     }
 
-    protected Fog fog(float density, float gradient) {
-        return new Fog(density, gradient);
+    protected void addEntity(Entity entity) {
+        String key = entity.mesh.getId() + "-" + entity.texture.getId();
+        if (!this.entities.containsKey(key)) {
+            this.entities.put(key, new LinkedList<>());
+        }
+        this.entities.get(key).add(entity);
     }
 
-    protected Entities entities(Entity[]... entities) {
-        return new Entities(entities);
+    protected void addTerrain(Terrain terrain) {
+        terrains.add(terrain);
     }
+
+    protected abstract Background background();
+
+    protected abstract Camera camera();
+
+    protected abstract Light light();
+
+    protected abstract Fog fog();
 
 }

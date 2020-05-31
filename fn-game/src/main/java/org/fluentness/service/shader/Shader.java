@@ -1,7 +1,7 @@
 package org.fluentness.service.shader;
 
-import org.fluentness.model.algebra.Matrix4f;
-import org.fluentness.model.algebra.Vector3f;
+import org.fluentness.service.algebra.Matrix4f;
+import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 import org.lwjgl.BufferUtils;

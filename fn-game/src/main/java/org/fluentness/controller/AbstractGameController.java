@@ -24,20 +24,20 @@ public abstract class AbstractGameController<V extends AbstractGameView> impleme
     public abstract void loop();
 
     protected final boolean isKeyPressed(int key) {
-        return glfwGetKey(display.getWindow(), key) == GLFW_PRESS;
+        return glfwGetKey(display.getWindowId(), key) == GLFW_PRESS;
     }
 
     protected boolean isMouseButtonPressed(int mouseButton) {
-        return glfwGetMouseButton(display.getWindow(), mouseButton) == 1;
+        return glfwGetMouseButton(display.getWindowId(), mouseButton) == 1;
     }
 
     protected double getCursorPositionX() {
-        glfwGetCursorPos(display.getWindow(), posHolder, null);
+        glfwGetCursorPos(display.getWindowId(), posHolder, null);
         return posHolder[0];
     }
 
     protected double getCursorPositionY() {
-        glfwGetCursorPos(display.getWindow(), null, posHolder);
+        glfwGetCursorPos(display.getWindowId(), null, posHolder);
         return posHolder[0];
     }
 

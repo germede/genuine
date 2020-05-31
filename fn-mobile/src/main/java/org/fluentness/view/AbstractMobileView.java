@@ -1,6 +1,7 @@
 package org.fluentness.view;
 
 import android.view.View;
+import org.fluentness.view.component.AbstractComponentView;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.*;
 import org.fluentness.view.component.nav.AndroidNavigation;
@@ -9,7 +10,7 @@ import org.fluentness.view.component.table.Table;
 import org.fluentness.view.component.text.AndroidButton;
 import org.fluentness.view.component.text.Button;
 
-public abstract class AbstractMobileView extends AbstractView {
+public abstract class AbstractMobileView extends AbstractComponentView {
 
     public static final Navigation navigation = new AndroidNavigation();
     private final View androidView;

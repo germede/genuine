@@ -1,5 +1,9 @@
 package org.fluentness.prototype.controller;
 
+import org.fluentness.model.Player;
+import org.fluentness.model.Terrain;
+import org.fluentness.prototype.repository.PlayerRepository;
+import org.fluentness.prototype.repository.TerrainRepository;
 import org.fluentness.prototype.view.GameView;
 import org.fluentness.controller.AbstractGameController;
 import org.fluentness.service.animator.Animator;
@@ -10,21 +14,25 @@ import static org.lwjgl.glfw.GLFW.*;
 public class GameController extends AbstractGameController<GameView> {
 
     private final Animator animator;
+    private final Player player;
+    private final Terrain terrain;
 
-    public GameController(GameView gameView, Display display, Animator animator) {
+    public GameController(GameView gameView, Display display, Animator animator, PlayerRepository playerRepository, TerrainRepository terrainRepository) {
         super(gameView, display);
         this.animator = animator;
+        this.player = playerRepository.selectAll().get(0);
+        this.terrain = terrainRepository.selectAll().get(0);
 
-        glfwSetKeyCallback(display.getWindow(), this::keyListener);
-        glfwSetScrollCallback(display.getWindow(), this::scrollListener);
+        glfwSetKeyCallback(display.getWindowId(), this::keyListener);
+        glfwSetScrollCallback(display.getWindowId(), this::scrollListener);
     }
 
     private double lastCursorPositionX, lastCursorPositionY;
 
     @Override
     public void loop() {
-        gameView.player.floor = gameView.terrain.getHeightAt(gameView.player.translation.x, gameView.player.translation.z);
-        gameView.player.control(display.getDelta(),
+        player.floor = terrain.getHeightAt(player.translation.x, player.translation.z);
+        player.control(display.getDelta(),
             isKeyPressed(GLFW_KEY_W) ? 200 : isKeyPressed(GLFW_KEY_S) ? -200 : 0,
             isKeyPressed(GLFW_KEY_D) ? 200 : isKeyPressed(GLFW_KEY_A) ? -200 : 0,
             isKeyPressed(GLFW_KEY_SPACE) ? 200 : 0
@@ -57,7 +65,7 @@ public class GameController extends AbstractGameController<GameView> {
         lastCursorPositionX = currentCursorPositionX;
         lastCursorPositionY = currentCursorPositionY;
 
-        gameView.camera.follow(gameView.player);
+        gameView.camera.follow(player);
     }
 
     private void scrollListener(long window, double dx, double dy) {

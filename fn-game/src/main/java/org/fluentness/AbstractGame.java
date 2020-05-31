@@ -5,10 +5,9 @@ import org.fluentness.service.Services;
 import org.fluentness.service.algebra.AlgebraImpl;
 import org.fluentness.service.animator.AnimatorImpl;
 import org.fluentness.service.display.GlfwDisplay;
-import org.fluentness.service.generator.GeneratorImpl;
 import org.fluentness.service.loader.LoaderImpl;
-import org.fluentness.service.manager.Manager;
-import org.fluentness.service.manager.ManagerImpl;
+import org.fluentness.service.looper.Looper;
+import org.fluentness.service.looper.LooperImpl;
 import org.fluentness.service.memory.MemoryImpl;
 import org.fluentness.service.parser.MeshParser;
 import org.fluentness.service.parser.TextureParser;
@@ -18,7 +17,6 @@ import org.fluentness.service.shader.EntityShader;
 import org.fluentness.service.shader.TerrainShader;
 
 @Services({
-    GeneratorImpl.class,
     LoaderImpl.class,
     MeshParser.class,
     TextureParser.class,
@@ -30,21 +28,21 @@ import org.fluentness.service.shader.TerrainShader;
     AlgebraImpl.class,
     AnimatorImpl.class,
     MemoryImpl.class,
-    ManagerImpl.class,
+    LooperImpl.class,
 })
 public abstract class AbstractGame implements Application {
 
-    private final Manager manager;
+    private final Looper looper;
     private final AbstractGameController controller;
 
-    public AbstractGame(Manager manager, AbstractGameController controller) {
-        this.manager = manager;
+    public AbstractGame(Looper looper, AbstractGameController controller) {
+        this.looper = looper;
         this.controller = controller;
     }
 
     @Override
     public void run(String[] args) throws Exception {
-        manager.manage(controller);
+        looper.loop(controller);
     }
 
 }

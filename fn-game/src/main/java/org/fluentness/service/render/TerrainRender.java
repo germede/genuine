@@ -1,10 +1,10 @@
 package org.fluentness.service.render;
 
-import org.fluentness.model.texture.Texture;
+import org.fluentness.model.Terrain;
 import org.fluentness.service.algebra.Algebra;
+import org.fluentness.service.loader.Texture;
 import org.fluentness.service.shader.TerrainShader;
-import org.fluentness.view.scene.Scene;
-import org.fluentness.view.scene.terrain.Terrain;
+import org.fluentness.view.AbstractGameView;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
@@ -24,10 +24,10 @@ public class TerrainRender extends AbstractRender<TerrainShader> {
     }
 
     @Override
-    public void render(Scene scene) {
+    public void render(AbstractGameView view) {
         shader.start();
-        for (Terrain terrain : scene.terrains) {
-            bind(terrain.mesh.getId(),scene);
+        for (Terrain terrain : view.getTerrains()) {
+            bind(terrain.mesh.getId(),view);
             bindTextures(terrain.repeatTextures, terrain.textures);
             renderTerrain(terrain);
             unbind();

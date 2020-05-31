@@ -1,5 +1,11 @@
 package org.fluentness.repository;
 
-public interface Repository {
+import org.fluentness.model.Model;
+
+import java.util.List;
+
+public interface Repository<M extends Model> {
+
+    List<M> selectAll();
 
 }
