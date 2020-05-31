@@ -2,8 +2,8 @@
     --color-primary: #0080ff;
     --color-secondary: #dddddd;
     --color-white: #ffffff;
-    --color-lightGrey: #AAAAAA;
-    --color-grey: #777777;
+    --color-lightGrey: #dddddd;
+    --color-grey: #AAAAAA;
     --color-darkGrey: #444444;
     --color-error: #ff0000;
     --color-success: #00ff00;
@@ -12,4 +12,7 @@
     --font-size: 1.6rem;
     --font-color: #333333;
     --grid-gutter: 2rem;
+    --sm-breakpoint: 600px;
+    --md-breakpoint: 900px;
+    --lg-breakpoint: 1200px;
 }

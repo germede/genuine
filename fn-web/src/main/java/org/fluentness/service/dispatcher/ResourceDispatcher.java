@@ -35,8 +35,9 @@ public class ResourceDispatcher extends AbstractDispatcher {
                 if ((line = reader.readLine()) == null) break;
                 result.append(line);
             }
+            response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getOutputStream().print(result.toString());
+            response.getWriter().print(result.toString());
             response.setContentType(
                 filePath.startsWith("css") ? "text/css" :
                     filePath.startsWith("js") ? "application/javascript" :

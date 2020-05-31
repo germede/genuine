@@ -182,6 +182,7 @@
     display: none !important;
 }
 
+/*ROOT VARIABLES DON'T WORK ON MEDIA QUERIES YET*/
 @media screen and (max-width: 599px) {
     .hide-xs {
         display: none !important;

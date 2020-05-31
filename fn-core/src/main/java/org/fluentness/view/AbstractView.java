@@ -3,6 +3,7 @@ package org.fluentness.view;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.TabLayout;
+import org.fluentness.view.component.nav.Navigation;
 import org.fluentness.view.component.table.Table;
 import org.fluentness.view.component.text.Button;
 
@@ -24,6 +25,8 @@ public abstract class AbstractView implements View {
     }
 
     protected abstract Component structure();
+
+    protected abstract Navigation navigation();
 
     protected abstract LinearLayout linearLayout(Component... components);
 

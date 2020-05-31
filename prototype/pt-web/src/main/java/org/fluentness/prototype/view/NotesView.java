@@ -22,7 +22,6 @@ public class NotesView extends AbstractWebView {
     @Override
     protected Component structure() {
         return root = linearLayout(
-            navigation,
             button1 = button("one"),
             button2 = button("two"),
             button("three"),

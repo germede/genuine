@@ -23,7 +23,7 @@ public abstract class AbstractWebView extends AbstractView {
 
     public static final Navigation navigation = new HtmlNavigation();
 
-    public AbstractWebView(CharSequence title, HtmlComponent... headComponents) {
+    public AbstractWebView(CharSequence title) {
         super(title);
         this.html = new HtmlContainer("html").withAttribute("lang", Locale.getDefault().getLanguage())
             .withInner(new HtmlContainer("head")
@@ -33,11 +33,15 @@ public abstract class AbstractWebView extends AbstractView {
                     .withAttribute("type", "text/css")
                     .withAttribute("href", "/resources/css/main.css")
                 )
-                .withInner(headComponents)
-                .withInner(new HtmlContainer("script")
-                    .withAttribute("src", "/javaScript")
-                ))
-            .withInner(new HtmlContainer("body").withInner((HtmlComponent) structure()).withAttribute("class", "container"));
+                .withInner()
+                .withInner(new HtmlContainer("script").withAttribute("src", "/javaScript"))
+            )
+            .withInner(new HtmlContainer("body")
+                .withInner((HtmlComponent) navigation)
+                .withInner(new HtmlContainer("div").withAttribute("class", "container")
+                    .withInner((HtmlComponent) structure())
+                )
+            );
     }
 
     public String getHtml() {
@@ -45,6 +49,11 @@ public abstract class AbstractWebView extends AbstractView {
             renderedHtml = "<!DOCTYPE html>" + html.toString();
         }
         return renderedHtml;
+    }
+
+    @Override
+    protected Navigation navigation() {
+        return new HtmlNavigation();
     }
 
     @Override
