@@ -14,7 +14,10 @@ import org.fluentness.service.server.Server;
 })
 public class Web extends AbstractWeb {
 
-    public Web(Server server, CalendarController calendarController, NotesController notesController) {
+    public Web(Server server,
+               CalendarController calendarController,
+               NotesController notesController
+    ) {
         super(server, calendarController, notesController);
     }
 
