@@ -31,7 +31,6 @@ public class HtmlNavigation extends HtmlContainer implements Navigation<Abstract
     public void addSectionFor(AbstractWebViewController controller) {
         tabs.withInner(
             new HtmlContainer("a")
-                .withAttribute("class", "active")
                 .withAttribute("href", controller.getPath())
                 .withInner(controller.getView().getTitle())
         );

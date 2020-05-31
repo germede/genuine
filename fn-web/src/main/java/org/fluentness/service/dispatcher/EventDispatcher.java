@@ -14,13 +14,14 @@ import java.nio.file.Paths;
 
 public class EventDispatcher extends AbstractDispatcher {
 
-
     private String javaScriptCommands;
+    private String javaScriptCommons;
     private String javaScriptEvents;
 
     public EventDispatcher(Authentication[] authentications, Log log) throws URISyntaxException, IOException {
         super(authentications, log);
         javaScriptCommands = new String(Files.readAllBytes(Paths.get(getClass().getResource("/js/javaScript-commands.js").toURI())));
+        javaScriptCommons = new String(Files.readAllBytes(Paths.get(getClass().getResource("/js/javaScript-commons.js").toURI())));
         javaScriptEvents = "";
     }
 
@@ -44,6 +45,7 @@ public class EventDispatcher extends AbstractDispatcher {
         ServletOutputStream out = response.getOutputStream();
         out.print(javaScriptCommands);
         out.print("window.onload = function() {\n");
+        out.print(javaScriptCommons);
         out.print(javaScriptEvents);
         out.print("}\n");
         response.setContentType("application/javascript");
