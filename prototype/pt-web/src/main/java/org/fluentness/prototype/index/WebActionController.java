@@ -1,4 +1,4 @@
-package org.fluentness.prototype.controller;
+package org.fluentness.prototype.index;
 
 import org.fluentness.controller.action.AbstractWebActionController;
 

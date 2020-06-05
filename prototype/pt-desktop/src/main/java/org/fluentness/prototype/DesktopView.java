@@ -1,6 +1,7 @@
-package org.fluentness.prototype.view;
+package org.fluentness.prototype;
 
 import org.fluentness.view.AbstractDesktopView;
+import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.Layout;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.table.Table;
@@ -24,8 +25,8 @@ public class DesktopView extends AbstractDesktopView {
     }
 
     @Override
-    protected Layout structure() {
-        return root = linearLayout(HORIZONTAL,
+    protected Component structure() {
+        return root = linearLayout(
             button1 = button(_accept),
             button(_cancel),
             button(_welcome_message),

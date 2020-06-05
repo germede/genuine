@@ -1,9 +1,8 @@
-package org.fluentness.prototype.controller;
+package org.fluentness.prototype;
 
 import org.fluentness.controller.AbstractDesktopController;
-import org.fluentness.prototype.model.User;
-import org.fluentness.prototype.repository.UserRepository;
-import org.fluentness.prototype.view.DesktopView;
+import org.fluentness.prototype.user.User;
+import org.fluentness.prototype.user.UserRepository;
 
 public class DesktopController extends AbstractDesktopController<DesktopView> {
 

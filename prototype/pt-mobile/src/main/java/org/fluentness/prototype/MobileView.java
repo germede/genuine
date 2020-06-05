@@ -1,4 +1,4 @@
-package org.fluentness.prototype.view;
+package org.fluentness.prototype;
 
 import org.fluentness.view.AbstractMobileView;
 import org.fluentness.view.component.Component;

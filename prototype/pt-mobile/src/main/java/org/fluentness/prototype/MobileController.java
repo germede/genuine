@@ -1,7 +1,6 @@
-package org.fluentness.prototype.controller;
+package org.fluentness.prototype;
 
 import org.fluentness.controller.AbstractMobileController;
-import org.fluentness.prototype.view.MobileView;
 import org.fluentness.service.log.Log;
 
 import static org.fluentness.prototype.service.Localization._login;

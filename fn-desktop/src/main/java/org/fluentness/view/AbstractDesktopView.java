@@ -6,6 +6,7 @@ import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.SwingLinearLayout;
 import org.fluentness.view.component.layout.SwingTabLayout;
 import org.fluentness.view.component.layout.TabLayout;
+import org.fluentness.view.component.misc.Separator;
 import org.fluentness.view.component.table.SwingTable;
 import org.fluentness.view.component.table.Table;
 import org.fluentness.view.component.text.Button;
@@ -40,6 +41,11 @@ public abstract class AbstractDesktopView extends AbstractComponentView {
         jFrame.pack();
         jFrame.setVisible(true);
         return jFrame;
+    }
+
+    @Override
+    protected Separator separator() {
+        return null;
     }
 
     @Override

@@ -1,6 +1,5 @@
-package org.fluentness.prototype.repository;
+package org.fluentness.prototype.user;
 
-import org.fluentness.prototype.model.User;
 import org.fluentness.repository.crud.AbstractCrudRepository;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;

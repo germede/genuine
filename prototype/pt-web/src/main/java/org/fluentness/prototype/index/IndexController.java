@@ -1,7 +1,6 @@
-package org.fluentness.prototype.controller;
+package org.fluentness.prototype.index;
 
 import org.fluentness.controller.view.AbstractWebViewController;
-import org.fluentness.prototype.view.IndexView;
 
 public class IndexController extends AbstractWebViewController<IndexView> {
 

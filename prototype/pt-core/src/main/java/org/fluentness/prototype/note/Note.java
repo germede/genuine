@@ -1,6 +1,7 @@
-package org.fluentness.prototype.model;
+package org.fluentness.prototype.note;
 
 import org.fluentness.model.Model;
+import org.fluentness.prototype.user.User;
 
 import javax.persistence.*;
 
@@ -25,23 +26,23 @@ public class Note implements Model {
         return id;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    void setTitle(String title) {
         this.title = title;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
-    public User getUser() {
+    User getUser() {
         return user;
     }
 }

@@ -1,4 +1,4 @@
-package org.fluentness.prototype.view;
+package org.fluentness.prototype.note;
 
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.Component;
@@ -8,15 +8,15 @@ import org.fluentness.view.component.text.Button;
 
 import java.util.Date;
 
-public class CalendarView extends AbstractWebView {
+public class NoteView extends AbstractWebView {
 
-    public LinearLayout root;
-    public Button button1;
-    public Button button2;
-    public Table table;
+    LinearLayout root;
+    Button button1;
+    Button button2;
+    Table table;
 
-    public CalendarView() {
-        super("Calendar");
+    public NoteView() {
+        super("Notes");
     }
 
     @Override
@@ -26,7 +26,7 @@ public class CalendarView extends AbstractWebView {
             button2 = button("two"),
             button("three"),
             table = table(
-                header("this", "is", "a", "asdf"),
+                header("this", "is", "a", "header"),
                 row("this", "is", "a", "row"),
                 row(123, false, new Date(0))
             ),

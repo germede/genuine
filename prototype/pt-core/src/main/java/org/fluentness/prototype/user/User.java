@@ -1,4 +1,4 @@
-package org.fluentness.prototype.model;
+package org.fluentness.prototype.user;
 
 import org.fluentness.model.Model;
 

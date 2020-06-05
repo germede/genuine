@@ -1,4 +1,4 @@
-package org.fluentness.prototype.view;
+package org.fluentness.prototype.index;
 
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.Component;

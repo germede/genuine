@@ -1,6 +1,5 @@
 package org.fluentness.prototype;
 
-import org.fluentness.prototype.controller.MobileController;
 import org.fluentness.AbstractMobile;
 import org.fluentness.Fluentness;
 import org.fluentness.FluentnessException;
