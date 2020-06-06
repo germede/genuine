@@ -1,6 +1,5 @@
 package org.fluentness.service.persistence;
 
-
 import org.fluentness.model.Model;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;

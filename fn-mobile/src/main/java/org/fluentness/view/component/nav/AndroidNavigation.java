@@ -10,7 +10,7 @@ import android.view.*;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import org.fluentness.AbstractMobile;
+import org.fluentness.application.AbstractMobileApplication;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.view.component.navigation.Navigation;
 
@@ -59,10 +59,10 @@ public class AndroidNavigation extends ViewGroup implements Navigation<AbstractM
     private final Runnable mSlidingRunnable = this::doAnimation;
 
     public AndroidNavigation() {
-        super(AbstractMobile.context);
-        this.menu = new LinearLayout(AbstractMobile.context);
+        super(AbstractMobileApplication.context);
+        this.menu = new LinearLayout(AbstractMobileApplication.context);
 
-        this.toggle = new Button(AbstractMobile.context);
+        this.toggle = new Button(AbstractMobileApplication.context);
         toggle.setText("TOGGLE");
         toggle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));;
 
@@ -93,10 +93,10 @@ public class AndroidNavigation extends ViewGroup implements Navigation<AbstractM
 
     @Override
     public void addSectionFor(AbstractMobileController controller) {
-        android.widget.Button button = new android.widget.Button(AbstractMobile.context);
+        android.widget.Button button = new android.widget.Button(AbstractMobileApplication.context);
         button.setText(controller.getView().getTitle());
         button.setOnClickListener(
-            v -> Toast.makeText(AbstractMobile.context,
+            v -> Toast.makeText(AbstractMobileApplication.context,
                 controller.getView().getTitle().toString(),
                 Toast.LENGTH_SHORT)
         );

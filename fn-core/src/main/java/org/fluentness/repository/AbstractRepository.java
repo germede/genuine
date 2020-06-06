@@ -1,16 +1,16 @@
-package org.fluentness.repository.persistence;
+package org.fluentness.repository;
 
 import org.fluentness.model.Model;
 import org.fluentness.service.persistence.Persistence;
 
 import java.util.List;
 
-public abstract class AbstractPersistenceRepository<M extends Model> implements PersistenceRepository<M> {
+public abstract class AbstractRepository<M extends Model> implements Repository<M> {
 
     protected final Class<M> modelClass;
     protected final Persistence persistence;
 
-    public AbstractPersistenceRepository(Persistence persistence, Class<M> modelClass) {
+    public AbstractRepository(Persistence persistence, Class<M> modelClass) {
         this.modelClass = modelClass;
         this.persistence = persistence;
     }

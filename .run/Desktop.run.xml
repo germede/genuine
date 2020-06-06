@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Desktop" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="org.fluentness.prototype.Desktop" />
+  <configuration default="false" name="DesktopApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="org.fluentness.prototype.DesktopApplication" />
     <module name="pt-desktop" />
     <extension name="coverage">
       <pattern>

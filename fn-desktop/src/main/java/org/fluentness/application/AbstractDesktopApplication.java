@@ -1,13 +1,13 @@
-package org.fluentness;
+package org.fluentness.application;
 
 import org.fluentness.controller.AbstractDesktopController;
 import org.fluentness.view.AbstractDesktopView;
 
-public abstract class AbstractDesktop implements Application {
+public abstract class AbstractDesktopApplication implements Application {
 
     private final AbstractDesktopController[] controllers;
 
-    public AbstractDesktop(AbstractDesktopController... controllers) {
+    public AbstractDesktopApplication(AbstractDesktopController... controllers) {
         this.controllers = controllers;
     }
 

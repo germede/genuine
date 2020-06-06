@@ -1,6 +1,6 @@
-package org.fluentness;
+package org.fluentness.application;
 
-import org.fluentness.controller.action.AbstractConsoleController;
+import org.fluentness.controller.AbstractConsoleController;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class AbstractConsole implements Application {
+public abstract class AbstractConsoleApplication implements Application {
 
     private final Map<Class<? extends AbstractConsoleController>, AbstractConsoleController> controllers;
     private final Map<String, Method> nameActionMap = new HashMap<>();
 
-    public AbstractConsole(AbstractConsoleController... controllers) {
+    public AbstractConsoleApplication(AbstractConsoleController... controllers) {
         Arrays.stream(controllers).forEach(controller ->
             Arrays.stream(controller.getActions()).forEach(action ->
                 nameActionMap.put(action.getName(), action)

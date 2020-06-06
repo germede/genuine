@@ -1,7 +1,7 @@
 package org.fluentness.prototype;
 
 import com.j256.ormlite.table.TableUtils;
-import org.fluentness.controller.action.AbstractConsoleController;
+import org.fluentness.controller.AbstractConsoleController;
 import org.fluentness.prototype.note.Note;
 import org.fluentness.prototype.user.User;
 import org.fluentness.service.persistence.Persistence;

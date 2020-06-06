@@ -1,5 +1,10 @@
 package org.fluentness.service;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 public interface Service {
 
     static Class<? extends Service> getServiceInterface(Class aClass) {
@@ -15,5 +20,12 @@ public interface Service {
 
     default Class<? extends Service> getServiceInterface() {
         return getServiceInterface(this.getClass());
+    }
+
+    // By using this annotation on the service interface,
+    // multiple implementations will be instantiated when needed and injected when ServiceClass[] constructor parameter
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    @interface MultiService {
     }
 }

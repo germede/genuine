@@ -6,8 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import org.fluentness.AbstractMobile;
-import org.fluentness.Application;
+import org.fluentness.application.AbstractMobileApplication;
+import org.fluentness.application.Application;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -21,7 +21,7 @@ public class FluentnessActivity extends Activity {
         super.onCreate(savedInstanceState);
         try {
             // context is global, only one activity
-            AbstractMobile.context = this;
+            AbstractMobileApplication.context = this;
 
             // retrieve application class name from manifest and invoke main method
             ActivityInfo activityInfo = getPackageManager().getActivityInfo(this.getComponentName(), PackageManager.GET_META_DATA);
@@ -33,7 +33,7 @@ public class FluentnessActivity extends Activity {
             main.invoke(null, args);
 
             // init first controller view
-            AbstractMobile application = (AbstractMobile) AbstractMobile.application;
+            AbstractMobileApplication application = (AbstractMobileApplication) AbstractMobileApplication.application;
             AbstractMobileView view = (AbstractMobileView) application.getControllers()[0].getView();
             View androidView = view.getAndroidView();
             setContentView(androidView);

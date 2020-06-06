@@ -1,6 +1,7 @@
-package org.fluentness.view.component;
+package org.fluentness.view;
 
 import org.fluentness.view.View;
+import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.misc.Separator;
@@ -14,11 +15,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class AbstractComponentView implements View {
+public abstract class AbstractView implements View {
 
     protected final CharSequence title;
 
-    public AbstractComponentView(CharSequence title) {
+    public AbstractView(CharSequence title) {
         this.title = title;
     }
 

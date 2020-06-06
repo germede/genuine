@@ -1,8 +1,8 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.view.AbstractViewController;
-import org.fluentness.controller.view.event.Clickable;
-import org.fluentness.controller.view.event.Handler;
+import org.fluentness.view.event.AbstractViewController;
+import org.fluentness.view.event.Clickable;
+import org.fluentness.view.event.Handler;
 import org.fluentness.view.AbstractDesktopView;
 
 import javax.swing.*;

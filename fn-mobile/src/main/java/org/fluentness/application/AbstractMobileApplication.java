@@ -1,21 +1,20 @@
-package org.fluentness;
+package org.fluentness.application;
 
 import org.fluentness.controller.AbstractMobileController;
-import org.fluentness.service.Services;
 import org.fluentness.service.log.AndroidLog;
 import org.fluentness.view.FluentnessActivity;
 
-@Services({
+@Application.Services({
     AndroidLog.class,
 })
-public abstract class AbstractMobile implements Application {
+public abstract class AbstractMobileApplication implements Application {
 
-    public static AbstractMobile application;
+    public static AbstractMobileApplication application;
     public static FluentnessActivity context;
 
     private final AbstractMobileController[] controllers;
 
-    public AbstractMobile(AbstractMobileController... controllers) {
+    public AbstractMobileApplication(AbstractMobileController... controllers) {
         this.controllers = controllers;
         application = this;
     }

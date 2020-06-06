@@ -1,6 +1,6 @@
 package org.fluentness.controller.view;
 
-import org.fluentness.controller.view.event.Handler;
+import org.fluentness.view.event.Handler;
 
 public class JavaScriptEvent {
 

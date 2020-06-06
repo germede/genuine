@@ -1,6 +1,5 @@
 package org.fluentness.view;
 
-import org.fluentness.view.component.AbstractComponentView;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.SwingLinearLayout;
@@ -16,7 +15,7 @@ import javax.swing.*;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public abstract class AbstractDesktopView extends AbstractComponentView {
+public abstract class AbstractDesktopView extends AbstractView {
 
     private JFrame jFrame;
 

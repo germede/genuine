@@ -1,7 +1,6 @@
-package org.fluentness;
+package org.fluentness.application;
 
 import org.fluentness.controller.AbstractGameController;
-import org.fluentness.service.Services;
 import org.fluentness.service.algebra.AlgebraImpl;
 import org.fluentness.service.animator.AnimatorImpl;
 import org.fluentness.service.display.GlfwDisplay;
@@ -16,7 +15,7 @@ import org.fluentness.service.render.TerrainRender;
 import org.fluentness.service.shader.EntityShader;
 import org.fluentness.service.shader.TerrainShader;
 
-@Services({
+@Application.Services({
     LoaderImpl.class,
     MeshParser.class,
     TextureParser.class,
@@ -30,12 +29,12 @@ import org.fluentness.service.shader.TerrainShader;
     MemoryImpl.class,
     LooperImpl.class,
 })
-public abstract class AbstractGame implements Application {
+public abstract class AbstractGameApplication implements Application {
 
     private final Looper looper;
     private final AbstractGameController controller;
 
-    public AbstractGame(Looper looper, AbstractGameController controller) {
+    public AbstractGameApplication(Looper looper, AbstractGameController controller) {
         this.looper = looper;
         this.controller = controller;
     }

@@ -2,14 +2,13 @@ package org.fluentness.service.shader;
 
 import org.fluentness.service.algebra.Matrix4f;
 import org.fluentness.service.algebra.Vector3f;
-import org.fluentness.service.MultiService;
 import org.fluentness.service.Service;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
 
 import java.nio.FloatBuffer;
 
-@MultiService
+@Service.MultiService
 public interface Shader extends Service {
 
     FloatBuffer MATRIX_4F_BUFFER = BufferUtils.createFloatBuffer(16);

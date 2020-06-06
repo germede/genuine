@@ -15,7 +15,7 @@
     <packaging>apk</packaging>
 
     <properties>
-        <mainClass>org.fluentness.prototype.Mobile</mainClass>
+        <mainClass>org.fluentness.prototype.MobileApplication</mainClass>
     </properties>
 
     <dependencies>

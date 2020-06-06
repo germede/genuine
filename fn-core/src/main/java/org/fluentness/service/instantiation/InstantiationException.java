@@ -1,7 +1,6 @@
-package org.fluentness;
+package org.fluentness.service.instantiation;
 
-// basic exception class (checked)
-public class FluentnessException extends java.lang.Exception {
+public class InstantiationException extends java.lang.Exception {
 
     private String message;
     private Throwable cause;
@@ -21,11 +20,11 @@ public class FluentnessException extends java.lang.Exception {
         return cause != null ? cause : super.getCause();
     }
 
-    protected FluentnessException(Throwable cause) {
+    InstantiationException(Throwable cause) {
         this.cause = cause;
     }
 
-    protected FluentnessException(String messageToFormat, Object... parameters) {
+    InstantiationException(String messageToFormat, Object... parameters) {
         this.message = String.format(messageToFormat, parameters);
     }
 }

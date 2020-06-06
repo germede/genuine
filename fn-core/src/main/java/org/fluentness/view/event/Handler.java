@@ -1,4 +1,4 @@
-package org.fluentness.controller.view.event;
+package org.fluentness.view.event;
 
 public interface Handler {
     void handle();
