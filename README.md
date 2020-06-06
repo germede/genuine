@@ -1,11 +1,11 @@
 ![Fluentness logo](fn-core/src/main/resources/img/logo.png?raw=true "Fluentness logo")
 
 The project in a nutshell:
-* It adapts to the target platform implementation. No matter which of them one is developing for: A text is a text, a button is a button, regardless of developing a pure desktop Swing, an HTML/CSS/JS-based web or a mobile native Android app.
-* It provides a common language rather than requiring to learn many DSL. No more static HTML-files or -templates, interaction definition using JS-code or configuration and localization .properties-files.  
-* It scales from small micro-services to fully-featured web applications with a very small footprint, yet out-of-the-box runnable applications with few dependencies.
-* It respects standards and coding guidelines as far as possible, but applies a well-defined own architecture.
-* It makes use of the advantages when developing Java software such as: enforced object-orientation, type safety, performance, maturity, wide acceptance, nice support of functional programming, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
+* It **adapts** to the target platform implementation. No matter which of them one is developing for: A text is a text, a button is a button, regardless of developing a pure desktop Swing, an HTML/CSS/JS-based web or a mobile native Android app.
+* It **provides** a common language rather than requiring to learn many DSL. No more static HTML-files or -templates, interaction definition using JS-code or configuration and localization .properties-files.  
+* It **scales** from small micro-services to fully-featured web applications with a very small footprint, yet out-of-the-box runnable applications with few dependencies.
+* It **respects** standards and coding guidelines as far as possible, but applies a well-defined own architecture.
+* It **profits** from Java-based software development: enforced object-orientation, type safety, performance, maturity, wide acceptance, nice support of functional programming and other paradigms, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
 
 ## Quickstart
 
