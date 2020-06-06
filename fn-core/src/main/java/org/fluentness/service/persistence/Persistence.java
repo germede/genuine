@@ -1,8 +1,10 @@
 package org.fluentness.service.persistence;
 
-import com.j256.ormlite.support.ConnectionSource;
+import org.fluentness.model.Model;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
+
+import java.util.List;
 
 public interface Persistence extends Service {
 
@@ -14,5 +16,11 @@ public interface Persistence extends Service {
     Setting<String> USERNAME = new Setting<>();
     Setting<String> PASSWORD = new Setting<>();
 
-    ConnectionSource getConnectionSource();
+    <M extends Model> M retrieve(Class<M> modelClass, long id);
+
+    <M extends Model> List<M> retrieve(Class<M> modelClass, String... conditions);
+
+    int persist(Model model);
+
+    int remove(Model model);
 }

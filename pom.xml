@@ -65,22 +65,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--Persistence-->
-            <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>javax.persistence-api</artifactId>
-                <version>${javax.persistence-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.j256.ormlite</groupId>
-                <artifactId>ormlite-jdbc</artifactId>
-                <version>${ormlite.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.j256.ormlite</groupId>
-                <artifactId>ormlite-android</artifactId>
-                <version>${ormlite.version}</version>
-            </dependency>
             <!--Lwjgl-->
             <dependency>
                 <groupId>org.lwjgl</groupId>

@@ -56,8 +56,7 @@ or a [pull request](https://github.com/germede/Fluentness/compare) directly on G
 This project relies on the following open-source technologies:
 - [OpenJDK](https://openjdk.java.net/) at language level 8 
 - Apache [Maven](https://maven.apache.org/)
-- [ORMLite](https://ormlite.com/) and the Java Persitence API
-- [OpenGL](https://www.opengl.org/) and libraries [LWJGL](https://www.lwjgl.org/) and [GLFW](https://www.glfw.org/)
+- [OpenGL](https://www.opengl.org/) with libraries [LWJGL](https://www.lwjgl.org/) and [GLFW](https://www.glfw.org/)
 - The [Android](https://www.android.com) platform
 - [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
 - Font [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) for the logo

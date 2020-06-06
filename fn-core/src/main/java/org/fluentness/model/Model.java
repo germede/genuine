@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public interface Model extends Serializable {
 
-    long getId();
+    default long getId() throws NoSuchFieldException, IllegalAccessException {
+        return (long) this.getClass().getField("id").get(this);
+    }
 
 }

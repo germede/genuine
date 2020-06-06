@@ -12,15 +12,4 @@
 
     <packaging>jar</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-        </dependency>
-    </dependencies>
-
 </project>
