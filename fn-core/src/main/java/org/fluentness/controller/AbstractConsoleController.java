@@ -1,21 +1,22 @@
 package org.fluentness.controller;
 
-import org.fluentness.controller.Controller;
-
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.fluentness.service.log.AnsiColor.*;
-import static org.fluentness.service.log.AnsiColor.RESET;
 
 public abstract class AbstractConsoleController implements Controller {
 
     @Override
-    public final Method[] getActions() {
+    public final Map<String, Method> getActions() {
         return Arrays.stream(this.getClass().getMethods())
             .filter(method -> method.isAnnotationPresent(Action.class))
-            .toArray(Method[]::new);
+            .collect(Collectors.toMap(Method::getName, method -> method));
     }
 
     @Target(ElementType.METHOD)
@@ -42,7 +43,7 @@ public abstract class AbstractConsoleController implements Controller {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         // categorize console actions
-        for (Method action : getActions()) {
+        for (Method action : getActions().values()) {
             String category = action.getAnnotation(Action.class).category();
             if (!categorizedConsoleActions.containsKey(category)) {
                 categorizedConsoleActions.put(category, new ArrayList<>());

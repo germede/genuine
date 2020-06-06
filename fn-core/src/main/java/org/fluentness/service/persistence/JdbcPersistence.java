@@ -90,7 +90,7 @@ public class JdbcPersistence implements Persistence {
     @Override
     public int remove(Model model) {
         try (Statement statement = connection.createStatement()) {
-            return statement.executeUpdate("DELETE FROM " + model.getClass().getSimpleName().toLowerCase() + " WHERE id = " + model.getId());
+            return statement.executeUpdate("DELETE FROM " + model.getClass().getSimpleName().toLowerCase() + " WHERE id = " + getId(model));
         } catch (Exception e) {
             log.error(e);
         }
@@ -126,5 +126,9 @@ public class JdbcPersistence implements Persistence {
             e.printStackTrace();
         }
         return result;
+    }
+
+    private long getId(Model model) throws NoSuchFieldException, IllegalAccessException {
+        return (long) model.getClass().getField("id").get(this);
     }
 }
