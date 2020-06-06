@@ -1,11 +1,11 @@
 ![Fluentness logo](fn-core/src/main/resources/img/logo.png?raw=true "Fluentness logo")
 
 The project in a nutshell:
-* It adapts to the target platform implementation. No matter which one you're developing for: A text is a text, a button is a button, regardless of wether programming an LWJGL-based game, a pure desktop Swing, an HTML/CSS/JS-based web or a mobile native Android app.
-* It provides you a common language rather than requiring you to learn many DSL. No more static HTML-files or -templates, interaction definition using JS-code or configuration and localization .properties-files.  
+* It adapts to the target platform implementation. No matter which of them one is developing for: A text is a text, a button is a button, regardless of developing a pure desktop Swing, an HTML/CSS/JS-based web or a mobile native Android app.
+* It provides a common language rather than requiring to learn many DSL. No more static HTML-files or -templates, interaction definition using JS-code or configuration and localization .properties-files.  
 * It scales from small micro-services to fully-featured web applications with a very small footprint, yet out-of-the-box runnable applications with few dependencies.
 * It respects standards and coding guidelines as far as possible, but applies a well-defined own architecture.
-* It enjoys the advantages of developing Java software such as: strict object-orientation, type safety, performance, maturity, wide acceptance and knowledge, nice support of functional programming, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
+* It makes use of the advantages when developing Java software such as: enforced object-orientation, type safety, performance, maturity, wide acceptance, nice support of functional programming, "Write once, run everywhere"-philosophy and 3 billion devices running it since decades ;) 
 
 ## Quickstart
 
@@ -55,11 +55,11 @@ or a [pull request](https://github.com/germede/Fluentness/compare) directly on G
 ## Acknowledgments
 This project relies on the following open-source technologies:
 - [OpenJDK](https://openjdk.java.net/) at language level 8 
+- [JUnit](https://junit.org/junit4/) for unit testing
 - Apache [Maven](https://maven.apache.org/)
-- [OpenGL](https://www.opengl.org/) with libraries [LWJGL](https://www.lwjgl.org/) and [GLFW](https://www.glfw.org/)
-- The [Android](https://www.android.com) platform
-- [JUnit](https://junit.org/junit4/) and [Mockito](https://site.mockito.org/) for unit testing
-- Font [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) for the logo
+- [OpenGL](https://www.opengl.org/) + libraries [LWJGL](https://www.lwjgl.org/) and [GLFW](https://www.glfw.org/) [fn-game]
+- The [Android](https://www.android.com) platform [fn-mobile]
+- Font [Scriptina](https://www.fontsquirrel.com/fonts/scriptina) [logo]
 - And of course a lot of engagement :muscle:
 
 ## Copyright
