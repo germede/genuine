@@ -7,7 +7,7 @@ public class ConfigurationTest {
 
     private final Setting<String> stringSetting = new Setting<>("defaultValue");
     private final Setting<Integer> integerSetting = new Setting<>();
-    private final Configuration configuration = new AbstractConfiguration() {
+    private final Configuration configuration = new ConfigurationImpl() {
         @Override
         protected void configure() {
             set(stringSetting, "anotherValue");
@@ -15,13 +15,8 @@ public class ConfigurationTest {
         }
     };
 
-    @Test
-    public void newEmptyConfiguration_noExceptionIsThrown() {
-        new ConfigurationImpl();
-    }
-
     @Test(expected = IllegalArgumentException.class)
-    public void setNullSetting_IllegalArgumentExceptionIsThrown() {
+    public void setNullSetting() {
         new AbstractConfiguration() {
             @Override
             protected void configure() {
@@ -31,12 +26,18 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void hasNull_falseIsReturned() {
+    public void hasNullKey() {
         Assert.assertFalse(configuration.has(null));
     }
 
     @Test
-    public void hasUnsetSetting_falseIsReturned() {
+    public void hasSetSetting() {
+        Assert.assertTrue(configuration.has(stringSetting));
+        Assert.assertTrue(configuration.has(integerSetting));
+    }
+
+    @Test
+    public void hasUnsetSetting() {
         final Setting<String> stringSetting = new Setting<>("defaultValue");
         final Setting<Integer> integerSetting = new Setting<>();
 
@@ -45,13 +46,13 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void hasSetSetting_trueIsReturned() {
-        Assert.assertTrue(configuration.has(stringSetting));
-        Assert.assertTrue(configuration.has(integerSetting));
+    public void getSetSetting() {
+        Assert.assertEquals(configuration.get(stringSetting), "anotherValue");
+        Assert.assertEquals((int) configuration.get(integerSetting), 1234);
     }
 
     @Test
-    public void getUnsetSettingWithDefaultValue_defaultValueIsReturned() {
+    public void getUnsetSettingWithDefaultValue() {
         final Setting<String> stringSetting = new Setting<>("defaultValue");
         final Setting<Integer> integerSetting = new Setting<>(1234);
 
@@ -60,18 +61,12 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void getUnsetSettingWithoutDefaultValue_nullIsReturned() {
+    public void getUnsetSettingWithoutDefaultValue() {
         final Setting<String> stringSetting = new Setting<>();
         final Setting<Integer> integerSetting = new Setting<>();
 
         Assert.assertNull(configuration.get(stringSetting));
         Assert.assertNull(configuration.get(integerSetting));
-    }
-
-    @Test
-    public void getSetSetting_setValueIsReturned() {
-        Assert.assertEquals(configuration.get(stringSetting), "anotherValue");
-        Assert.assertEquals((int) configuration.get(integerSetting), 1234);
     }
 
 }
