@@ -2,11 +2,11 @@ package org.fluentness.prototype.index;
 
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.text.Button;
+import org.fluentness.view.component.text.form.Button;
 
 import java.util.Date;
 
-import static org.fluentness.view.component.text.Button.Type.*;
+import static org.fluentness.view.component.text.form.Button.Type.*;
 import static org.fluentness.view.component.text.Heading.Level.*;
 
 public class IndexView extends AbstractWebView {

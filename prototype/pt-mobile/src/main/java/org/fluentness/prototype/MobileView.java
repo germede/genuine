@@ -3,7 +3,7 @@ package org.fluentness.prototype;
 import org.fluentness.view.AbstractMobileView;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.LinearLayout;
-import org.fluentness.view.component.text.Button;
+import org.fluentness.view.component.text.form.Button;
 
 import static org.fluentness.prototype.service.Localization._cancel;
 import static org.fluentness.prototype.service.Localization._welcome_message;

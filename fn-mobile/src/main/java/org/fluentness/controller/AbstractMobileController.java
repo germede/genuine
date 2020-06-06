@@ -15,6 +15,7 @@ public abstract class AbstractMobileController<M extends AbstractMobileView> ext
 
     @Override
     protected void onClick(Clickable clickable, Handler handler) {
+
         if( clickable instanceof View) {
             ((View) clickable).setOnClickListener(view -> handler.handle());
         }

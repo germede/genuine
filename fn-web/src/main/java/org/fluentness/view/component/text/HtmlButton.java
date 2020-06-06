@@ -1,5 +1,7 @@
 package org.fluentness.view.component.text;
 
+import org.fluentness.view.component.text.form.Button;
+
 public class HtmlButton extends AbstractHtmlText implements Button {
 
     private final Type type;

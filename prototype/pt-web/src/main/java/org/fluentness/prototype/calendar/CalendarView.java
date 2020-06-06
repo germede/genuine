@@ -4,7 +4,7 @@ import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.table.Table;
-import org.fluentness.view.component.text.Button;
+import org.fluentness.view.component.text.form.Button;
 
 import java.util.Date;
 

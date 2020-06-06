@@ -5,12 +5,11 @@ import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.Layout;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.table.Table;
-import org.fluentness.view.component.text.Button;
+import org.fluentness.view.component.text.form.Button;
 
 import java.util.Date;
 
 import static org.fluentness.prototype.service.Localization.*;
-import static org.fluentness.view.component.layout.LinearLayout.HORIZONTAL;
 
 public class DesktopView extends AbstractDesktopView {
 

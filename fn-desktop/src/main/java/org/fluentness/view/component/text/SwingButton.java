@@ -1,5 +1,7 @@
 package org.fluentness.view.component.text;
 
+import org.fluentness.view.component.text.form.Button;
+
 import javax.swing.*;
 
 public class SwingButton extends JButton implements Button {

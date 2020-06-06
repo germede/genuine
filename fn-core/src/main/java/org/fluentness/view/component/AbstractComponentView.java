@@ -6,7 +6,7 @@ import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.misc.Separator;
 import org.fluentness.view.component.navigation.Navigation;
 import org.fluentness.view.component.table.Table;
-import org.fluentness.view.component.text.Button;
+import org.fluentness.view.component.text.form.Button;
 import org.fluentness.view.component.text.Heading;
 import org.fluentness.view.component.text.Text;
 
