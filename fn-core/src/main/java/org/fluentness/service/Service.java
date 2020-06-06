@@ -13,8 +13,4 @@ public interface Service {
         return Service.class;
     }
 
-    default Class<? extends Service> getServiceInterface() {
-        return getServiceInterface(this.getClass());
-    }
-
 }

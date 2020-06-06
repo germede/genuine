@@ -7,6 +7,10 @@ public abstract class AbstractConfiguration implements Configuration {
 
     private final Map<Setting, Object> settings = new HashMap<>();
 
+    public AbstractConfiguration() {
+        configure();
+    }
+
     @Override
     public final <T> boolean has(Setting<T> setting) {
         return settings.containsKey(setting);
@@ -18,8 +22,13 @@ public abstract class AbstractConfiguration implements Configuration {
     }
 
     protected final <T> AbstractConfiguration set(Setting<T> setting, T value) {
+        if (setting == null) {
+            throw new IllegalArgumentException("Passed setting should not be null");
+        }
         settings.put(setting, value);
         return this;
     }
+
+    protected abstract void configure();
 
 }
