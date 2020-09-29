@@ -14,7 +14,7 @@ public abstract class AbstractConsoleApplication implements Application {
 
     public AbstractConsoleApplication(AbstractConsoleController... controllers) {
         Arrays.stream(controllers).forEach(controller -> {
-            actions.putAll(controller.getActions());
+            actions.putAll(controller.getActionMap());
             this.controllers.put(controller.getClass(),controller);
         });
     }

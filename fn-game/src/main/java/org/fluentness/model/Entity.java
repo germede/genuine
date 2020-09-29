@@ -29,11 +29,6 @@ public class Entity implements Model {
         this.scale = 1;
     }
 
-    @Override
-    public long getId() {
-        return 0;
-    }
-
     public void control(float delta, float upDown, float leftRight, float jump) {
         float distance = upDown * delta;
         translation.x += (float) (distance * Math.sin(Math.toRadians(rotation.y)));

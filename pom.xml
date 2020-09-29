@@ -65,6 +65,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--Persistence-->
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>javax.persistence-api</artifactId>
+                <version>${javax.persistence-api.version}</version>
+            </dependency>
             <!--Lwjgl-->
             <dependency>
                 <groupId>org.lwjgl</groupId>

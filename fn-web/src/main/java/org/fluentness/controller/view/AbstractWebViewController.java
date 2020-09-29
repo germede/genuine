@@ -1,11 +1,11 @@
 package org.fluentness.controller.view;
 
+import org.fluentness.controller.AbstractViewController;
 import org.fluentness.controller.WebController;
-import org.fluentness.view.event.AbstractViewController;
-import org.fluentness.view.event.Clickable;
-import org.fluentness.view.event.Handler;
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.HtmlComponent;
+import org.fluentness.view.event.Clickable;
+import org.fluentness.view.event.Handler;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,7 +42,6 @@ public abstract class AbstractWebViewController<W extends AbstractWebView> exten
         return path;
     }
 
-    @Override
     protected void onClick(Clickable clickable, Handler handler) {
         addEvent((HtmlComponent) clickable, "click", handler);
     }

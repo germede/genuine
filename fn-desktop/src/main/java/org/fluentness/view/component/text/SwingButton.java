@@ -1,6 +1,7 @@
 package org.fluentness.view.component.text;
 
 import org.fluentness.view.component.text.form.Button;
+import org.fluentness.view.event.Handler;
 
 import javax.swing.*;
 
@@ -15,4 +16,13 @@ public class SwingButton extends JButton implements Button {
         setText(text.toString());
     }
 
+    @Override
+    public Type getType() {
+        return null;
+    }
+
+    @Override
+    public void onClick(Handler handler) {
+
+    }
 }

@@ -2,14 +2,14 @@ package org.fluentness.prototype;
 
 import org.fluentness.view.AbstractDesktopView;
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.layout.Layout;
 import org.fluentness.view.component.layout.LinearLayout;
+import org.fluentness.view.component.navigation.Navigation;
 import org.fluentness.view.component.table.Table;
+import org.fluentness.view.component.text.Heading;
+import org.fluentness.view.component.text.Text;
 import org.fluentness.view.component.text.form.Button;
 
 import java.util.Date;
-
-import static org.fluentness.prototype.service.Localization.*;
 
 public class DesktopView extends AbstractDesktopView {
 
@@ -26,9 +26,9 @@ public class DesktopView extends AbstractDesktopView {
     @Override
     protected Component structure() {
         return root = linearLayout(
-            button1 = button(_accept),
-            button(_cancel),
-            button(_welcome_message),
+//            button1 = button(_accept),
+//            button(_cancel),
+//            button(_welcome_message),
             table = table(
                 header("this", "is", "a", "header"),
                 row("this", "is", "a", "row"),
@@ -40,6 +40,26 @@ public class DesktopView extends AbstractDesktopView {
                 tab("Third tab", button("button in tab 3"))
             )
         );
+    }
+
+    @Override
+    protected Navigation navigation() {
+        return null;
+    }
+
+    @Override
+    protected Button button(Button.Type type, CharSequence text) {
+        return null;
+    }
+
+    @Override
+    protected Heading heading(Heading.Level level, CharSequence text) {
+        return null;
+    }
+
+    @Override
+    protected Text text(CharSequence text) {
+        return null;
     }
 
 //

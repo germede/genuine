@@ -15,7 +15,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>pt-core</module>
         <module>pt-desktop</module>
         <module>pt-game</module>
         <module>pt-mobile</module>
@@ -40,6 +39,7 @@
 
     <build>
         <plugins>
+            <!--this creates fat-jars-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>

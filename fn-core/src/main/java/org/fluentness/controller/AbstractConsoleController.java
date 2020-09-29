@@ -13,7 +13,7 @@ import static org.fluentness.service.log.AnsiColor.*;
 public abstract class AbstractConsoleController implements Controller {
 
     @Override
-    public final Map<String, Method> getActions() {
+    public final Map<String, Method> getActionMap() {
         return Arrays.stream(this.getClass().getMethods())
             .filter(method -> method.isAnnotationPresent(Action.class))
             .collect(Collectors.toMap(Method::getName, method -> method));
@@ -43,7 +43,7 @@ public abstract class AbstractConsoleController implements Controller {
         Map<String, List<String>> categorizedConsoleActions = new TreeMap<>();
 
         // categorize console actions
-        for (Method action : getActions().values()) {
+        for (Method action : getActionMap().values()) {
             String category = action.getAnnotation(Action.class).category();
             if (!categorizedConsoleActions.containsKey(category)) {
                 categorizedConsoleActions.put(category, new ArrayList<>());

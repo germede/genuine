@@ -21,11 +21,6 @@
     <dependencies>
         <dependency>
             <groupId>org.fluentness</groupId>
-            <artifactId>pt-core</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fluentness</groupId>
             <artifactId>fn-mobile</artifactId>
             <version>${revision}</version>
         </dependency>

@@ -5,12 +5,12 @@ import org.fluentness.service.persistence.Persistence;
 
 import java.util.List;
 
-public abstract class AbstractRepository<M extends Model> implements Repository<M> {
+public abstract class AbstractCrudRepository<M extends Model> implements CrudRepository<M> {
 
     protected final Class<M> modelClass;
     protected final Persistence persistence;
 
-    public AbstractRepository(Persistence persistence, Class<M> modelClass) {
+    public AbstractCrudRepository(Persistence persistence, Class<M> modelClass) {
         this.modelClass = modelClass;
         this.persistence = persistence;
     }

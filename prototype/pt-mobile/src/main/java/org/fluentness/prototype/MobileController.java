@@ -3,8 +3,6 @@ package org.fluentness.prototype;
 import org.fluentness.controller.AbstractMobileController;
 import org.fluentness.service.log.Log;
 
-import static org.fluentness.prototype.service.Localization._login;
-
 public class MobileController extends AbstractMobileController<MobileView> {
 
     public MobileController(MobileView view, Log log) {
@@ -13,6 +11,6 @@ public class MobileController extends AbstractMobileController<MobileView> {
     }
 
     private void changeText() {
-        view.button1.setText(_login);
+//        view.button1.setText(_login);
     }
 }

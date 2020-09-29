@@ -7,7 +7,11 @@ import java.util.stream.Collectors;
 
 public interface Controller {
 
-    default Map<String, Method> getActions() {
+    default Map<String, Method> getActionMap() {
         return Arrays.stream(this.getClass().getMethods()).collect(Collectors.toMap(Method::getName, method -> method));
+    }
+
+    default Method[] getActions() {
+        return this.getClass().getMethods();
     }
 }

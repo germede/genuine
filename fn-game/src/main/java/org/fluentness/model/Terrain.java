@@ -64,8 +64,4 @@ public class Terrain implements Model {
         return l1 * y1 + l2 * y2 + l3 * y3;
     }
 
-    @Override
-    public long getId() {
-        return 0;
-    }
 }

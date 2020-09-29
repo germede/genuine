@@ -1,5 +1,5 @@
 package org.fluentness.controller;
 
-public interface WebController {
+public interface WebController extends Controller{
     String getPath();
 }

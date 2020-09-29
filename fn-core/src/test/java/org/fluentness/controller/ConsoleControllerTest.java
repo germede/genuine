@@ -48,7 +48,7 @@ public class ConsoleControllerTest {
 
     @Test
     public void getActionsOnFullConsoleController() {
-        Map<String, Method> actions = fullConsoleController.getActions();
+        Map<String, Method> actions = fullConsoleController.getActionMap();
 
         Assert.assertTrue(actions.containsKey("aPublicAction"));
         Assert.assertFalse(actions.containsKey("aProtectedAction"));
@@ -64,7 +64,7 @@ public class ConsoleControllerTest {
 
     @Test
     public void getActionsOnEmptyConsoleController() {
-        Map<String, Method> actions = emptyConsoleController.getActions();
+        Map<String, Method> actions = emptyConsoleController.getActionMap();
 
         Assert.assertTrue(actions.containsKey("help"));
         Assert.assertEquals(1, actions.size());
@@ -78,12 +78,12 @@ public class ConsoleControllerTest {
 
     @Test
     public void helpOnBothControllersUsingReflection() throws InvocationTargetException, IllegalAccessException {
-        emptyConsoleController.getActions().get("help").invoke(emptyConsoleController);
-        fullConsoleController.getActions().get("help").invoke(emptyConsoleController);
+        emptyConsoleController.getActionMap().get("help").invoke(emptyConsoleController);
+        fullConsoleController.getActionMap().get("help").invoke(emptyConsoleController);
     }
 
     @Test(expected = NullPointerException.class)
     public void notAnActionOnFullConsoleController() throws InvocationTargetException, IllegalAccessException {
-        emptyConsoleController.getActions().get("notAnAction").invoke(emptyConsoleController);
+        emptyConsoleController.getActionMap().get("notAnAction").invoke(emptyConsoleController);
     }
 }

@@ -47,7 +47,7 @@ public abstract class AbstractWebApplication implements Application {
                     }
                 }
                 if (controller instanceof AbstractWebActionController) {
-                    Arrays.stream(((AbstractWebActionController) controller).getActions()).forEach(action -> {
+                    Arrays.stream(controller.getActions()).forEach(action -> {
                         AbstractWebActionController.Action annotation = action.getAnnotation(AbstractWebActionController.Action.class);
                         routeDispatcher.addRoute(annotation.method(), controller.getPath() + annotation.path(), action, controller);
                     });

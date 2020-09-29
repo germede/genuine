@@ -21,7 +21,6 @@ public class Note implements Model {
     @ManyToOne
     private User user;
 
-    @Override
     public long getId() {
         return id;
     }
