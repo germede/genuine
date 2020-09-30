@@ -11,9 +11,11 @@ public interface CrudRepository<M extends Model> extends Repository<M> {
 
     List<M> selectByField(String field, Object value);
 
-    int insert(M model);
+    int insert(M entity);
 
-    int update(M model);
+    int update(M entity);
 
-    int delete(M model);
+    int delete(M entity);
+
+    int delete(long id);
 }

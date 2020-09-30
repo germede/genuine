@@ -44,4 +44,8 @@ public class Note implements Model {
     User getUser() {
         return user;
     }
+
+    void setUser(User user) {
+        this.user = user;
+    }
 }

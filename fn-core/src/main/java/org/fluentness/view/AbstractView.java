@@ -1,15 +1,14 @@
 package org.fluentness.view;
 
-import org.fluentness.view.View;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.misc.Separator;
 import org.fluentness.view.component.navigation.Navigation;
 import org.fluentness.view.component.table.Table;
-import org.fluentness.view.component.text.form.Button;
 import org.fluentness.view.component.text.Heading;
 import org.fluentness.view.component.text.Text;
+import org.fluentness.view.component.text.form.Button;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -68,21 +67,12 @@ public abstract class AbstractView implements View {
 
     protected abstract Text text(CharSequence text);
 
-
-    public <T, V extends CharSequence> CharSequence forEach(Iterable<T> iterable, Function<T, V> function) {
-        List<String> result = new LinkedList<>();
+    public <T, C extends Component> C[] forEach(Iterable<T> iterable, Function<T, C> function) {
+        List<C> result = new LinkedList<>();
         for (T t : iterable) {
-            result.add(function.apply(t).toString());
+            result.add(function.apply(t));
         }
-        return String.join("", result);
-    }
-
-    public <T, V extends CharSequence> CharSequence forEach(T[] iterable, Function<T, V> function) {
-        List<String> result = new LinkedList<>();
-        for (T t : iterable) {
-            result.add(function.apply(t).toString());
-        }
-        return String.join("", result);
+        return (C[]) result.toArray(new Component[0]);
     }
 
 }

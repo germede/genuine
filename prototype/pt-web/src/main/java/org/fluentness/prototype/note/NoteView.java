@@ -7,10 +7,13 @@ import org.fluentness.view.component.text.form.Button;
 public class NoteView extends AbstractWebView {
 
     Button newButton = button("one");
-    LinearLayout noteList = linearLayout();
+    LinearLayout noteList;
 
-    public NoteView() {
+    public NoteView(NoteRepository noteRepository) {
         super("Notes");
+        noteList = linearLayout(
+            forEach(noteRepository.selectAll(), note -> text(note.getTitle()))
+        );
         structure(
             linearLayout(
                 newButton,

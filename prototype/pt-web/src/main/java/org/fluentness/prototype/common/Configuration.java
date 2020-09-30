@@ -2,6 +2,8 @@ package org.fluentness.prototype.common;
 
 import org.fluentness.service.configuration.AbstractConfiguration;
 import org.fluentness.service.dispatcher.Dispatcher;
+import org.fluentness.service.log.Log;
+import org.fluentness.service.log.LogLevel;
 import org.fluentness.service.persistence.Persistence;
 import org.fluentness.service.server.Server;
 
@@ -11,6 +13,7 @@ public class Configuration extends AbstractConfiguration {
     protected void configure() {
 
         set(Server.PORT, 8000);
+        set(Log.LEVEL, LogLevel.INFO);
         set(Dispatcher.SINGLE_PAGE_MODE, false);
         set(Persistence.DRIVER, "mysql");
         set(Persistence.HOST, "localhost");
