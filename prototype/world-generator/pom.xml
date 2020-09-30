@@ -10,7 +10,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>pt-game</artifactId>
+    <artifactId>world-generator</artifactId>
 
     <packaging>jar</packaging>
 
@@ -23,9 +23,15 @@
     <dependencies>
         <dependency>
             <groupId>org.fluentness</groupId>
+            <artifactId>fn-desktop</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentness</groupId>
             <artifactId>fn-game</artifactId>
             <version>${revision}</version>
         </dependency>
+        <!--Native lwjgl libraries-->
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>

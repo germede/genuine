@@ -1,4 +1,4 @@
-package org.fluentness.prototype;
+package org.fluentness.prototype.swing;
 
 import org.fluentness.controller.AbstractDesktopController;
 

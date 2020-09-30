@@ -10,7 +10,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>pt-web</artifactId>
+    <artifactId>fluentcloud</artifactId>
 
     <packaging>jar</packaging>
 

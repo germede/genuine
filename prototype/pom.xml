@@ -15,10 +15,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>pt-desktop</module>
-        <module>pt-game</module>
-        <module>pt-mobile</module>
-        <module>pt-web</module>
+        <module>fluentcloud</module>
+        <module>shopping-list-app</module>
+        <module>world-generator</module>
     </modules>
 
     <properties>

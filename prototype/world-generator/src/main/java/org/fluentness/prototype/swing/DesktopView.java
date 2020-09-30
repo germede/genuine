@@ -1,4 +1,4 @@
-package org.fluentness.prototype;
+package org.fluentness.prototype.swing;
 
 import org.fluentness.view.AbstractDesktopView;
 import org.fluentness.view.component.Component;
