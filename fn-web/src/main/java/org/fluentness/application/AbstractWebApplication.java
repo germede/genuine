@@ -37,17 +37,13 @@ public abstract class AbstractWebApplication implements Application {
     }
 
     @Override
-    public final void run(String[] args) {
-        try {
-            for (WebController controller : controllers) {
-                handleWebViewController(controller);
-                handleWebActionController(controller);
-            }
-            ((HtmlNavigation)AbstractWebView.navigation).setBrand(this.getClass().getSimpleName());
-            server.start();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public final void run(String[] args) throws Exception {
+        for (WebController controller : controllers) {
+            handleWebViewController(controller);
+            handleWebActionController(controller);
         }
+        ((HtmlNavigation) AbstractWebView.navigation).setBrand(this.getClass().getSimpleName());
+        server.start();
     }
 
     private void handleWebActionController(WebController controller) {

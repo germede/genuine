@@ -46,8 +46,8 @@ public abstract class AbstractWebViewController<W extends AbstractWebView> exten
         addEvent((HtmlComponent) clickable, "click", handler);
     }
 
-    private void addEvent(HtmlComponent clickable, String eventType, Handler handler) {
-        JavaScriptEvent event = new JavaScriptEvent(clickable.getXpath(), clickable.getId(), eventType, handler);
+    private void addEvent(HtmlComponent component, String eventType, Handler handler) {
+        JavaScriptEvent event = new JavaScriptEvent(component.getXpath(), component.getId(), eventType, handler);
         events.put(event.getId(), event);
     }
 

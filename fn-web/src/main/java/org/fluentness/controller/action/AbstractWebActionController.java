@@ -25,7 +25,6 @@ public abstract class AbstractWebActionController implements WebController {
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Action {
-
         String path();
 
         String method() default GET;
