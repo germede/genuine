@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>fluentcloud</module>
+        <module>home-cloud</module>
         <module>shopping-list-app</module>
         <module>world-generator</module>
     </modules>

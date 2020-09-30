@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ConsoleApplication" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="org.fluentness.prototype.ConsoleApplication" />
-    <module name="fluentcloud" />
+    <module name="home-cloud" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.fluentness.prototype.swing.*" />
