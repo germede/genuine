@@ -40,23 +40,31 @@ public abstract class AbstractWebApplication implements Application {
     public final void run(String[] args) {
         try {
             for (WebController controller : controllers) {
-                if (controller instanceof AbstractWebViewController) {
-                    routeDispatcher.addRoute("GET", controller.getPath(), controller.getClass().getMethod("main", String.class), controller);
-                    for (JavaScriptEvent event : (Iterable<JavaScriptEvent>) ((AbstractWebViewController) controller).getEvents()) {
-                        eventDispatcher.addEvent(event);
-                    }
-                }
-                if (controller instanceof AbstractWebActionController) {
-                    Arrays.stream(controller.getActions()).forEach(action -> {
-                        AbstractWebActionController.Action annotation = action.getAnnotation(AbstractWebActionController.Action.class);
-                        routeDispatcher.addRoute(annotation.method(), controller.getPath() + annotation.path(), action, controller);
-                    });
-                }
+                handleWebViewController(controller);
+                handleWebActionController(controller);
             }
             ((HtmlNavigation)AbstractWebView.navigation).setBrand(this.getClass().getSimpleName());
             server.start();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void handleWebActionController(WebController controller) {
+        if (controller instanceof AbstractWebActionController) {
+            Arrays.stream(controller.getActions()).forEach(action -> {
+                AbstractWebActionController.Action annotation = action.getAnnotation(AbstractWebActionController.Action.class);
+                routeDispatcher.addRoute(annotation.method(), controller.getPath() + annotation.path(), action, controller);
+            });
+        }
+    }
+
+    private void handleWebViewController(WebController controller) throws NoSuchMethodException {
+        if (controller instanceof AbstractWebViewController) {
+            routeDispatcher.addRoute("GET", controller.getPath(), controller.getClass().getMethod("main", String.class), controller);
+            for (JavaScriptEvent event : (Iterable<JavaScriptEvent>) ((AbstractWebViewController) controller).getEvents()) {
+                eventDispatcher.addEvent(event);
+            }
         }
     }
 
