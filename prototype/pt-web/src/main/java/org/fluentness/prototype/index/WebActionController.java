@@ -2,7 +2,7 @@ package org.fluentness.prototype.index;
 
 import org.fluentness.controller.action.AbstractWebActionController;
 
-import static org.fluentness.prototype.service.Localization.*;
+import static org.fluentness.prototype.common.Localization.*;
 
 public class WebActionController extends AbstractWebActionController {
 

@@ -1,4 +1,4 @@
-package org.fluentness.prototype.service;
+package org.fluentness.prototype.common;
 
 import org.fluentness.service.authentication.AbstractBasicAuthentication;
 import org.fluentness.service.persistence.Persistence;

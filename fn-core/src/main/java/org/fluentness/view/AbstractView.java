@@ -28,9 +28,7 @@ public abstract class AbstractView implements View {
         return title;
     }
 
-
-    protected abstract Component structure();
-
+    protected abstract void structure(Component component);
 
     protected abstract LinearLayout linearLayout(Component... components);
 
@@ -45,7 +43,6 @@ public abstract class AbstractView implements View {
 
 
     protected abstract Navigation navigation();
-
 
     protected abstract Table table(CharSequence[] header, Object[]... rows);
 

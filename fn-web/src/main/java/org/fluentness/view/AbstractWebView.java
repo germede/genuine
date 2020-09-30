@@ -25,6 +25,8 @@ public abstract class AbstractWebView extends AbstractView {
 
     public static final Navigation navigation = new HtmlNavigation();
 
+    private final HtmlContainer structureContainer;
+
     public AbstractWebView(CharSequence title) {
         super(title);
         this.html = new HtmlContainer("html").withAttribute("lang", Locale.getDefault().getLanguage())
@@ -40,10 +42,13 @@ public abstract class AbstractWebView extends AbstractView {
             )
             .withInner(new HtmlContainer("body")
                 .withInner((HtmlComponent) navigation)
-                .withInner(new HtmlContainer("div").withAttribute("class", "container")
-                    .withInner((HtmlComponent) structure())
-                )
+                .withInner(structureContainer = new HtmlContainer("div").withAttribute("class", "container"))
             );
+    }
+
+    @Override
+    protected void structure(Component structure) {
+        structureContainer.withInner((HtmlComponent) structure);
     }
 
     public String getHtml() {
