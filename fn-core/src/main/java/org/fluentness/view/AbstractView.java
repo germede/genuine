@@ -27,7 +27,7 @@ public abstract class AbstractView implements View {
         return title;
     }
 
-    protected abstract void structure(Component component);
+    protected abstract Component structure();
 
     protected abstract LinearLayout linearLayout(Component... components);
 

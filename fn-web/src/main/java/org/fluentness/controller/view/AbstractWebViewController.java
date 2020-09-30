@@ -1,5 +1,6 @@
 package org.fluentness.controller.view;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.fluentness.controller.AbstractViewController;
 import org.fluentness.controller.WebController;
 import org.fluentness.view.AbstractWebView;
@@ -22,18 +23,14 @@ public abstract class AbstractWebViewController<W extends AbstractWebView> exten
         AbstractWebView.navigation.addSectionFor(this);
     }
 
-    public final Collection<JavaScriptEvent> getEvents() {
-        return events.values();
-    }
-
-    public final Object main(String eventId) {
-        // ajax request
+    public final Object main(String eventId, HttpServletRequest request) {
+        // dynamic ajax request
         if (events.containsKey(eventId)) {
             JavaScriptCommand.clear();
             events.get(eventId).getHandler().handle();
             return JavaScriptCommand.getCommands();
         }
-        // normal request
+        // first static request
         return view;
     }
 
@@ -42,13 +39,21 @@ public abstract class AbstractWebViewController<W extends AbstractWebView> exten
         return path;
     }
 
-    protected void onClick(Clickable clickable, Handler handler) {
+    protected final void onPageLoad(Handler handler) {
+        events.put("-1null", new JavaScriptEvent(null, -1, null, handler));
+    }
+
+    protected final void onClick(Clickable clickable, Handler handler) {
         addEvent((HtmlComponent) clickable, "click", handler);
     }
 
     private void addEvent(HtmlComponent component, String eventType, Handler handler) {
         JavaScriptEvent event = new JavaScriptEvent(component.getXpath(), component.getId(), eventType, handler);
         events.put(event.getId(), event);
+    }
+
+    public final Collection<JavaScriptEvent> getEvents() {
+        return events.values();
     }
 
 }

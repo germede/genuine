@@ -16,7 +16,7 @@ public enum JavaScriptCommand {
     private static final String COMMAND_DELIMITER = "@@@";
     private static final String PARAMETER_DELIMITER = "###";
 
-    private static ThreadLocal<List<String>> commandsToSend = new ThreadLocal<>();
+    private static final ThreadLocal<List<String>> commands = new ThreadLocal<>();
 
     public static void changeInner(String xpath, CharSequence inner) {
         addCommand(CHANGE_INNER, xpath, inner);
@@ -27,18 +27,18 @@ public enum JavaScriptCommand {
     }
 
     private static void addCommand(JavaScriptCommand command, Object... parameters) {
-        commandsToSend.get().add(
+        commands.get().add(
             command.name() + COMMAND_DELIMITER + Arrays.stream(parameters).map(String::valueOf).collect(Collectors.joining(PARAMETER_DELIMITER))
         );
     }
 
     static void clear() {
-        commandsToSend.remove();
-        commandsToSend.set(new LinkedList<>());
+        commands.remove();
+        commands.set(new LinkedList<>());
     }
 
     static String getCommands() {
-        return String.join(COMMANDS_DELIMITER, commandsToSend.get());
+        return String.join(COMMANDS_DELIMITER, commands.get());
     }
 
 }

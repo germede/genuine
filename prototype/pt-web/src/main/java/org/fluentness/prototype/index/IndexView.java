@@ -1,6 +1,7 @@
 package org.fluentness.prototype.index;
 
 import org.fluentness.view.AbstractWebView;
+import org.fluentness.view.component.Component;
 import org.fluentness.view.component.text.form.Button;
 
 import java.util.Date;
@@ -14,51 +15,51 @@ public class IndexView extends AbstractWebView {
 
     public IndexView() {
         super("Index");
-        structure(
-            linearLayout(
-                button1 = button("one"),
-                button("two"),
-                button("three"),
-                table(
-                    header("this", "is", "a", "asdf"),
-                    row("this", "is", "a", "row"),
-                    row(123, false, new Date(0))
-                ),
-                tabLayout(
-                    tab("First tab", button("button in tab 1")),
-                    tab("Second tab", button("button in tab 2")),
-                    tab("Third tab", button("button in tab 3"))
-                ),
-                separator(),
-                linearLayout(heading("Headings"),
-                    heading(H1, "H1 heading"),
-                    heading(H2, "H2 heading"),
-                    heading(H3, "H3 heading"),
-                    heading(H4, "H4 heading"),
-                    heading(H5, "H5 heading"),
-                    heading(H6, "H6 heading")
-                ),
-                separator(),
-                linearLayout(
-                    heading(H1, "Texts"),
-                    text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
-                ),
-                separator(),
-                linearLayout(heading("Buttons"),
-                    button(PRIMARY, "Primary"),
-                    button(SECONDARY, "Secondary"),
-                    button(SUCCESS, "Success"),
-                    button(WARNING, "Warning"),
-                    button(DANGER, "Danger"),
-                    button(LIGHT, "Light"),
-                    button(DARK, "Dark"),
-                    button(TRANSPARENT, "Transparent"),
-                    button(DISABLED, "Disabled")
-                )
-            )
-        )
-        ;
     }
 
 
+    @Override
+    protected Component structure() {
+        return linearLayout(
+            button1 = button("one"),
+            button("two"),
+            button("three"),
+            table(
+                header("this", "is", "a", "asdf"),
+                row("this", "is", "a", "row"),
+                row(123, false, new Date(0))
+            ),
+            tabLayout(
+                tab("First tab", button("button in tab 1")),
+                tab("Second tab", button("button in tab 2")),
+                tab("Third tab", button("button in tab 3"))
+            ),
+            separator(),
+            linearLayout(heading("Headings"),
+                heading(H1, "H1 heading"),
+                heading(H2, "H2 heading"),
+                heading(H3, "H3 heading"),
+                heading(H4, "H4 heading"),
+                heading(H5, "H5 heading"),
+                heading(H6, "H6 heading")
+            ),
+            separator(),
+            linearLayout(
+                heading(H1, "Texts"),
+                text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
+            ),
+            separator(),
+            linearLayout(heading("Buttons"),
+                button(PRIMARY, "Primary"),
+                button(SECONDARY, "Secondary"),
+                button(SUCCESS, "Success"),
+                button(WARNING, "Warning"),
+                button(DANGER, "Danger"),
+                button(LIGHT, "Light"),
+                button(DARK, "Dark"),
+                button(TRANSPARENT, "Transparent"),
+                button(DISABLED, "Disabled")
+            )
+        );
+    }
 }

@@ -8,6 +8,10 @@ public class CalendarView extends AbstractWebView {
         super(null);
     }
 
+    @Override
+    protected Component structure() {
+        return null;
+    }
 
 
 //

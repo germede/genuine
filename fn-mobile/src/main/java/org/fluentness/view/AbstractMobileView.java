@@ -42,4 +42,5 @@ public abstract class AbstractMobileView extends AbstractView {
     protected TabLayout tabLayout(TabLayout.Tab... tabs) {
         return new AndroidTabLayout(tabs);
     }
+
 }

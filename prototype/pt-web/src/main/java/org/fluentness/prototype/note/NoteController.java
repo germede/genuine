@@ -3,6 +3,7 @@ package org.fluentness.prototype.note;
 import org.fluentness.controller.view.AbstractWebViewController;
 import org.fluentness.prototype.user.User;
 import org.fluentness.prototype.user.UserRepository;
+import org.fluentness.view.component.text.HtmlText;
 
 public class NoteController extends AbstractWebViewController<NoteView> {
 
@@ -13,7 +14,15 @@ public class NoteController extends AbstractWebViewController<NoteView> {
         super(view, "/notes");
         this.noteRepository = noteRepository;
         this.userRepository = userRepository;
+
+        onPageLoad(this::loadNotes);
         onClick(view.newButton, this::replaceText);
+    }
+
+    private void loadNotes() {
+        noteRepository.selectAll().forEach(
+            note -> view.noteList.appendChild(new HtmlText(note.getTitle()))
+        );
     }
 
     private void replaceText() {

@@ -25,7 +25,12 @@ public class EventDispatcher extends AbstractDispatcher {
         javaScriptEvents = "";
     }
 
-    public void addEvent(JavaScriptEvent event) {
+    public void addEventListener(JavaScriptEvent event) {
+        if (event.getId().equals("-1null")) {
+            // onpageload ajax event, which is always executed)
+            javaScriptEvents += "    send('-1null');";
+            return;
+        }
         javaScriptEvents += String.format(
             "    getElementByXpath('%s').addEventListener('%s', function() { send('%s'); });\n",
             event.getComponentXpath(),
