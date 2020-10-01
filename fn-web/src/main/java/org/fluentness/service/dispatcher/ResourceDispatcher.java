@@ -2,7 +2,7 @@ package org.fluentness.service.dispatcher;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.fluentness.service.authentication.Authentication;
+import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.log.Log;
 
 import java.io.BufferedReader;
@@ -14,8 +14,8 @@ public class ResourceDispatcher extends AbstractDispatcher {
 
     public static final String RESOURCES = "/resources/";
 
-    public ResourceDispatcher(Authentication[] authentications, Log log) {
-        super(authentications, log);
+    public ResourceDispatcher(Authenticator[] authenticators, Log log) {
+        super(authenticators, log);
     }
 
     @Override

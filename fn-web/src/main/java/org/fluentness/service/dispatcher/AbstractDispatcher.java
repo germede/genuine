@@ -3,18 +3,18 @@ package org.fluentness.service.dispatcher;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.fluentness.service.authentication.Authentication;
+import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.log.Log;
 
 import java.io.IOException;
 
 public abstract class AbstractDispatcher extends HttpServlet implements Dispatcher {
 
-    protected final Authentication[] authentications;
+    protected final Authenticator[] authenticators;
     protected final Log log;
 
-    public AbstractDispatcher(Authentication[] authentications, Log log) {
-        this.authentications = authentications;
+    public AbstractDispatcher(Authenticator[] authenticators, Log log) {
+        this.authenticators = authenticators;
         this.log = log;
     }
 
@@ -22,13 +22,12 @@ public abstract class AbstractDispatcher extends HttpServlet implements Dispatch
     protected final void service(HttpServletRequest request, final HttpServletResponse response) throws IOException {
         try {
             boolean isAuthorized = true;
-//                for (Authentication authentication : authentications) {
-//                    if (!authentication.authorize(request)) {
-//                        authentication.demandCredentials(response);
-//                        isAuthorized = false;
-//                        break;
-//                    }
-//                }
+            for (Authenticator authenticator : authenticators) {
+                if (!authenticator.authorize(request, response)) {
+                    isAuthorized = false;
+                    break;
+                }
+            }
             if (isAuthorized) {
                 dispatch(request, response);
             }

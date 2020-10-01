@@ -4,7 +4,7 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.fluentness.controller.view.JavaScriptEvent;
-import org.fluentness.service.authentication.Authentication;
+import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.log.Log;
 
 import java.io.IOException;
@@ -18,8 +18,8 @@ public class EventDispatcher extends AbstractDispatcher {
     private String javaScriptCommons;
     private String javaScriptEvents;
 
-    public EventDispatcher(Authentication[] authentications, Log log) throws URISyntaxException, IOException {
-        super(authentications, log);
+    public EventDispatcher(Authenticator[] authenticators, Log log) throws URISyntaxException, IOException {
+        super(authenticators, log);
         javaScriptCommands = new String(Files.readAllBytes(Paths.get(getClass().getResource("/js/javaScript-commands.js").toURI())));
         javaScriptCommons = new String(Files.readAllBytes(Paths.get(getClass().getResource("/js/javaScript-commons.js").toURI())));
         javaScriptEvents = "";

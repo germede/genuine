@@ -3,7 +3,7 @@ package org.fluentness.service.dispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.fluentness.controller.WebController;
-import org.fluentness.service.authentication.Authentication;
+import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.fluentness.view.AbstractWebView;
@@ -23,8 +23,8 @@ public class RouteDispatcher extends AbstractDispatcher {
     protected final Map<String, Method> routes = new HashMap<>();
     protected final Map<String, WebController> controllers = new HashMap<>();
 
-    public RouteDispatcher(Authentication[] authentications, Log log, Configuration configuration) {
-        super(authentications, log);
+    public RouteDispatcher(Authenticator[] authenticators, Log log, Configuration configuration) {
+        super(authenticators, log);
         this.configuration = configuration;
     }
 

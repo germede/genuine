@@ -38,6 +38,8 @@ public class NoteController extends AbstractWebViewController<NoteView> {
         note.setUser(user);
         userRepository.insert(user);
         noteRepository.insert(note);
-        view.newButton.setText("HA!");
+
+        view.noteList.appendChild(new HtmlText(note.getTitle()));
+//        view.newButton.setText("HA!");
     }
 }
