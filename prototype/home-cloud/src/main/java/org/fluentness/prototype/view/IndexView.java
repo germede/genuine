@@ -1,4 +1,4 @@
-package org.fluentness.prototype.index;
+package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.Component;
@@ -11,7 +11,7 @@ import static org.fluentness.view.component.text.form.Button.Type.*;
 
 public class IndexView extends AbstractWebView {
 
-    Button button1;
+    public Button button1;
 
     public IndexView() {
         super("Index");

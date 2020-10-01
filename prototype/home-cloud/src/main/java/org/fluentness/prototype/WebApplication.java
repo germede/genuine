@@ -4,9 +4,9 @@ import org.fluentness.application.AbstractWebApplication;
 import org.fluentness.Fluentness;
 import org.fluentness.application.Application;
 import org.fluentness.service.instantiation.InstantiationException;
-import org.fluentness.prototype.index.IndexController;
-import org.fluentness.prototype.note.NoteController;
-import org.fluentness.prototype.common.Configuration;
+import org.fluentness.prototype.controller.IndexController;
+import org.fluentness.prototype.controller.NoteController;
+import org.fluentness.prototype.service.Configuration;
 import org.fluentness.service.server.Server;
 
 @Application.Services({

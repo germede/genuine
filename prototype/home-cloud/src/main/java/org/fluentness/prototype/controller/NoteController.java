@@ -1,8 +1,11 @@
-package org.fluentness.prototype.note;
+package org.fluentness.prototype.controller;
 
 import org.fluentness.controller.view.AbstractWebViewController;
-import org.fluentness.prototype.user.User;
-import org.fluentness.prototype.user.UserRepository;
+import org.fluentness.prototype.model.Note;
+import org.fluentness.prototype.repository.NoteRepository;
+import org.fluentness.prototype.view.NoteView;
+import org.fluentness.prototype.model.User;
+import org.fluentness.prototype.repository.UserRepository;
 import org.fluentness.view.component.text.HtmlText;
 
 public class NoteController extends AbstractWebViewController<NoteView> {

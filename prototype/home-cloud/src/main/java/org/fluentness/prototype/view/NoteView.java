@@ -1,4 +1,4 @@
-package org.fluentness.prototype.note;
+package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.Component;
@@ -7,13 +7,11 @@ import org.fluentness.view.component.text.form.Button;
 
 public class NoteView extends AbstractWebView {
 
-    private final NoteRepository noteRepository;
-    Button newButton;
-    LinearLayout noteList;
+    public Button newButton;
+    public LinearLayout noteList;
 
-    public NoteView(NoteRepository noteRepository) {
+    public NoteView() {
         super("Notes");
-        this.noteRepository = noteRepository;
     }
 
     @Override

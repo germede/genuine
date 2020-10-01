@@ -1,4 +1,4 @@
-package org.fluentness.prototype.common;
+package org.fluentness.prototype.service;
 
 import org.fluentness.service.configuration.AbstractConfiguration;
 import org.fluentness.service.dispatcher.Dispatcher;

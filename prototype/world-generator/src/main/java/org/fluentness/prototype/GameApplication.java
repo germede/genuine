@@ -5,7 +5,7 @@ import org.fluentness.Fluentness;
 import org.fluentness.application.Application;
 import org.fluentness.service.instantiation.InstantiationException;
 import org.fluentness.prototype.controller.GameController;
-import org.fluentness.prototype.common.Configuration;
+import org.fluentness.prototype.service.Configuration;
 import org.fluentness.service.looper.Looper;
 
 @Application.Services(Configuration.class)

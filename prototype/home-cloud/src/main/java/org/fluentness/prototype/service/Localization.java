@@ -1,4 +1,4 @@
-package org.fluentness.prototype.common;
+package org.fluentness.prototype.service;
 
 import org.fluentness.service.localization.AbstractLocalization;
 import org.fluentness.service.localization.Translation;

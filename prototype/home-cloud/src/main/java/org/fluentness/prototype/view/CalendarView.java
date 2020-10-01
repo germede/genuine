@@ -1,4 +1,4 @@
-package org.fluentness.prototype.calendar;
+package org.fluentness.prototype.view;
 
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.Component;
