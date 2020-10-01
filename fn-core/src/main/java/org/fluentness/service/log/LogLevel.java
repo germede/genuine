@@ -1,35 +1,51 @@
 package org.fluentness.service.log;
 
+import java.util.logging.Level;
+
 import static org.fluentness.service.log.AnsiColor.*;
 
 public enum LogLevel {
-    TRACE(WHITE, "TRACE", 6),
-    DEBUG(CYAN, "DEBUG", 5),
-    INFO(BLUE, "INFO.", 4),
-    WARN(YELLOW, "WARN.", 3),
-    ERROR(RED, "ERROR", 2),
-    FATAL(RED, "FATAL", 1);
+    TRACE(WHITE),
+    DEBUG(CYAN),
+    INFO(BLUE),
+    WARNING(YELLOW),
+    ERROR(RED),
+    FATAL(RED);
 
     private final AnsiColor ansiColor;
-    private final String toString;
-    private final int priority;
 
-    LogLevel(AnsiColor ansiColor, String toString, int priority) {
+    LogLevel(AnsiColor ansiColor) {
         this.ansiColor = ansiColor;
-        this.toString = toString;
-        this.priority = priority;
     }
 
+    public static LogLevel toLogLevel(Level julLevel) {
+        return julLevel.equals(Level.ALL) || julLevel.equals(Level.FINEST) || julLevel.equals(Level.FINER) ? TRACE :
+            julLevel.equals(Level.FINE) ? DEBUG :
+                julLevel.equals(Level.CONFIG) || julLevel.equals(Level.INFO) ? INFO :
+                    julLevel.equals(Level.WARNING) ? WARNING :
+                        julLevel.equals(Level.SEVERE) ? ERROR :
+                            INFO;
+    }
+
+    public Level toJulLevel() {
+        switch (this) {
+            case TRACE:
+                return Level.ALL;
+            case DEBUG:
+                return Level.FINE;
+            case INFO:
+                return Level.INFO;
+            case WARNING:
+                return Level.WARNING;
+            case FATAL:
+            case ERROR:
+                return Level.SEVERE;
+            default:
+                return Level.OFF;
+        }
+    }
     public AnsiColor getAnsiColor() {
         return ansiColor;
     }
 
-    @Override
-    public String toString() {
-        return toString;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
 }

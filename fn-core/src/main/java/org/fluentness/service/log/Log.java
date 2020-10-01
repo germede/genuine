@@ -7,7 +7,7 @@ import static org.fluentness.service.log.LogLevel.*;
 
 public interface Log extends Service {
 
-    Setting<LogLevel> LEVEL = new Setting<>(DEBUG);
+    Setting<LogLevel> LEVEL = new Setting<>(INFO);
     Setting<Boolean> CONSOLE = new Setting<>(true);
     Setting<String> FILE = new Setting<>();
 
@@ -23,8 +23,8 @@ public interface Log extends Service {
         log(INFO, message, parameters);
     }
 
-    default void warn(String message, Object... parameters) {
-        log(WARN, message, parameters);
+    default void warning(String message, Object... parameters) {
+        log(WARNING, message, parameters);
     }
 
     default void error(String message, Object... parameters) {

@@ -22,7 +22,7 @@ public class AndroidLog implements Log {
     protected int toAndroidPriority(LogLevel logLevel) {
         return logLevel.equals(LogLevel.DEBUG) ? android.util.Log.DEBUG :
             logLevel.equals(INFO) ? android.util.Log.INFO :
-                logLevel.equals(WARN) ? android.util.Log.WARN :
+                logLevel.equals(WARNING) ? android.util.Log.WARN :
                     logLevel.equals(ERROR) ? android.util.Log.ERROR :
                         android.util.Log.ASSERT;
     }

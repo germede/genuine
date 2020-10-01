@@ -57,7 +57,7 @@ public class TomcatServer implements Server {
                 log.error(e);
             }
         } else {
-            log.warn("Server was stopped without being started");
+            log.warning("Server was stopped without being started");
         }
     }
 

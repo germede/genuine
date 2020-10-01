@@ -22,6 +22,8 @@ public class JdbcPersistence implements Persistence {
                 configuration.get(DATABASE),
                 configuration.get(URL_PARAMETER_QUERY)
             );
+            // set ormlite log level to the same of Fluentness log
+            System.setProperty("com.j256.ormlite.logger.level", configuration.get(Log.LEVEL).toString());
             DatabaseType databaseType = DatabaseTypeUtils.createDatabaseType(url);
             if (configuration.has(USERNAME) && configuration.has(PASSWORD)) {
                 connectionSource = new JdbcPooledConnectionSource(url, configuration.get(USERNAME), configuration.get(PASSWORD), databaseType);
@@ -29,7 +31,7 @@ public class JdbcPersistence implements Persistence {
                 connectionSource = new JdbcPooledConnectionSource(url, databaseType);
             }
         } else {
-            log.warn("Persistence not initialized due to lacking configuration");
+            log.warning("Persistence not initialized due to lacking configuration");
         }
     }
 

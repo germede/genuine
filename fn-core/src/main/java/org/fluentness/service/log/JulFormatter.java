@@ -6,7 +6,6 @@ import java.util.TimeZone;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-import static org.fluentness.service.log.AnsiColor.RED;
 import static org.fluentness.service.log.AnsiColor.RESET;
 
 public class JulFormatter extends Formatter {
@@ -19,18 +18,20 @@ public class JulFormatter extends Formatter {
 
     @Override
     public String format(LogRecord logRecord) {
-        LogLevel logLevel = JulLog.toLogLevel(logRecord.getLevel());
+        LogLevel logLevel = LogLevel.toLogLevel(logRecord.getLevel());
         builder.setLength(0);
         builder.append(df.format(new Date(logRecord.getMillis())));
-        builder.append(" | ");
         builder.append(logLevel.getAnsiColor().toString());
-        builder.append(logLevel.toString());
+        String level = logLevel.toString();
+        builder.append(new String(new char[8 - level.length()]).replace("\0", " "));
+        builder.append(level);
         builder.append(RESET);
         builder.append(" | ");
-        builder.append(logLevel.equals(LogLevel.FATAL) ? RED : "");
+        builder.append(logLevel.ordinal() > LogLevel.INFO.ordinal() ? logLevel.getAnsiColor() : "");
         builder.append(logRecord.getMessage());
-        builder.append(logLevel.equals(LogLevel.FATAL) ? RESET : "");
+        builder.append(logLevel.ordinal() > LogLevel.INFO.ordinal() ? RESET : "");
         builder.append("\n");
+
         return builder.toString();
     }
 }

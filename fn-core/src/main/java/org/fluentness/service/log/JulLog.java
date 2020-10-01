@@ -17,11 +17,12 @@ public class JulLog implements Log {
     private final Configuration configuration;
     private final JulFormatter formatter = new JulFormatter();
     protected Logger logger;
-    private Level julLevel;
+
+    private final Level julLevel;
 
     public JulLog(Configuration configuration) throws Exception {
         this.configuration = configuration;
-        julLevel = toJulLevel(configuration.get(LEVEL));
+        julLevel = configuration.get(LEVEL).toJulLevel();
 
         logger = Logger.getLogger(this.getClass().getName());
         logger.setUseParentHandlers(false);
@@ -89,25 +90,7 @@ public class JulLog implements Log {
 
     @Override
     public void log(LogLevel level, String message, Object[] parameters) {
-        logger.log(toJulLevel(level), String.format(message, parameters));
-    }
-
-    private Level toJulLevel(LogLevel level) {
-        return level.equals(TRACE) ? Level.ALL :
-            level.equals(DEBUG) ? Level.FINE :
-                level.equals(INFO) ? Level.INFO :
-                    level.equals(WARN) ? Level.WARNING :
-                        level.equals(FATAL) || level.equals(LogLevel.ERROR) ? Level.SEVERE :
-                            Level.OFF;
-    }
-
-    static LogLevel toLogLevel(Level julLevel) {
-        return julLevel.equals(Level.ALL) || julLevel.equals(Level.FINEST) || julLevel.equals(Level.FINER) ? TRACE :
-            julLevel.equals(Level.FINE) ? DEBUG :
-                julLevel.equals(Level.CONFIG) || julLevel.equals(Level.INFO) ? INFO :
-                    julLevel.equals(Level.WARNING) ? WARN :
-                        julLevel.equals(Level.SEVERE) ? ERROR :
-                            INFO;
+        logger.log(level.toJulLevel(), String.format(message, parameters));
     }
 
 }
