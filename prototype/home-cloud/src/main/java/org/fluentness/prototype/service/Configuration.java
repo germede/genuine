@@ -1,13 +1,13 @@
 package org.fluentness.prototype.service;
 
-import org.fluentness.service.configuration.AbstractConfiguration;
+import org.fluentness.service.configuration.BaseConfiguration;
 import org.fluentness.service.dispatcher.Dispatcher;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.log.LogLevel;
 import org.fluentness.service.persistence.Persistence;
 import org.fluentness.service.server.Server;
 
-public class Configuration extends AbstractConfiguration {
+public class Configuration extends BaseConfiguration {
 
     @Override
     protected void configure() {

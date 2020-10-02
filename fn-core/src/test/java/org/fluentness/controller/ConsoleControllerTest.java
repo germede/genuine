@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class ConsoleControllerTest {
 
-    private AbstractConsoleController emptyConsoleController = new AbstractConsoleController() {
+    private ConsoleController emptyConsoleController = new ConsoleController() {
     };
-    private AbstractConsoleController fullConsoleController = new AbstractConsoleController() {
+    private ConsoleController fullConsoleController = new ConsoleController() {
 
         @Action
         public void aPublicAction() {

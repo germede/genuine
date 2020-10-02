@@ -1,6 +1,6 @@
 package org.fluentness.service.memory;
 
-import org.fluentness.service.shader.AbstractShader;
+import org.fluentness.service.shader.BaseShader;
 import org.fluentness.service.shader.Shader;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -54,12 +54,12 @@ public class MemoryImpl implements Memory {
         }
         for (Shader shader : shaders) {
             shader.stop();
-            if (shader instanceof AbstractShader) {
-                AbstractShader abstractShader = (AbstractShader)shader;
-                GL20.glDetachShader(shader.getProgram(), abstractShader.getVertexShader());
-                GL20.glDetachShader(shader.getProgram(), abstractShader.getFragmentShader());
-                GL20.glDeleteShader(abstractShader.getVertexShader());
-                GL20.glDeleteShader(abstractShader.getFragmentShader());
+            if (shader instanceof BaseShader) {
+                BaseShader baseShader = (BaseShader)shader;
+                GL20.glDetachShader(shader.getProgram(), baseShader.getVertexShader());
+                GL20.glDetachShader(shader.getProgram(), baseShader.getFragmentShader());
+                GL20.glDeleteShader(baseShader.getVertexShader());
+                GL20.glDeleteShader(baseShader.getFragmentShader());
             }
             GL20.glDeleteProgram(shader.getProgram());
         }

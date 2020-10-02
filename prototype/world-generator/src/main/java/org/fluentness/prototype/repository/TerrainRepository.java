@@ -1,9 +1,8 @@
 package org.fluentness.prototype.repository;
 
-import org.fluentness.repository.AbstractTerrainRepository;
 import org.fluentness.service.loader.Loader;
 
-public class TerrainRepository extends AbstractTerrainRepository {
+public class TerrainRepository extends org.fluentness.repository.TerrainRepository {
 
     public TerrainRepository(Loader loader) {
         super(loader);

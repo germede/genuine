@@ -2,7 +2,7 @@ package org.fluentness.service.shader;
 
 import org.fluentness.service.memory.Memory;
 
-public class EntityShader extends AbstractShader {
+public class EntityShader extends BaseShader {
 
     public EntityShader(Memory memory) {
         super(memory);

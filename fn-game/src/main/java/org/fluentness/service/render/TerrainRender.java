@@ -8,7 +8,7 @@ import org.fluentness.view.AbstractGameView;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
-public class TerrainRender extends AbstractRender<TerrainShader> {
+public class TerrainRender extends BaseRender<TerrainShader> {
 
     public TerrainRender(Algebra algebra, TerrainShader terrainShader) {
         super(algebra, terrainShader);

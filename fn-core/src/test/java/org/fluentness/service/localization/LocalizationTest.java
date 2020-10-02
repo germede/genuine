@@ -6,7 +6,7 @@ public class LocalizationTest {
 
     private final Setting<String> stringSetting = new Setting<>("defaultValue");
     private final Setting<Integer> integerSetting = new Setting<>();
-    private final Localization localization = new AbstractLocalization() {
+    private final Localization localization = new BaseLocalization() {
 
     };
 

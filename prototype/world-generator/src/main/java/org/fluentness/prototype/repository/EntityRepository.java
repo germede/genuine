@@ -1,12 +1,11 @@
 package org.fluentness.prototype.repository;
 
 import org.fluentness.model.Terrain;
-import org.fluentness.repository.AbstractEntityRepository;
 import org.fluentness.service.loader.Loader;
 
 import java.util.Collections;
 
-public class EntityRepository extends AbstractEntityRepository {
+public class EntityRepository extends org.fluentness.repository.EntityRepository {
 
     public EntityRepository(Loader loader, TerrainRepository terrainRepository) {
         super(loader);

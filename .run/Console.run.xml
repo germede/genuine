@@ -4,7 +4,7 @@
     <module name="home-cloud" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="org.fluentness.prototype.swing.*" />
+        <option name="PATTERN" value="org.fluentness.prototype.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

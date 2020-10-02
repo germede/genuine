@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class EventDispatcher extends AbstractDispatcher {
+public class EventDispatcher extends BaseDispatcher {
 
     private String javaScriptCommands;
     private String javaScriptCommons;

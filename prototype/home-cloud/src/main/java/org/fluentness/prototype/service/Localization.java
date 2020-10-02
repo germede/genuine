@@ -1,9 +1,9 @@
 package org.fluentness.prototype.service;
 
-import org.fluentness.service.localization.AbstractLocalization;
+import org.fluentness.service.localization.BaseLocalization;
 import org.fluentness.service.localization.Translation;
 
-public class Localization extends AbstractLocalization {
+public class Localization extends BaseLocalization {
 
     public static final Translation
         _welcome_message = msg("Welcome", de("Willkommen"), es("Bienvenido")),

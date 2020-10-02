@@ -1,9 +1,9 @@
 package org.fluentness.prototype.view;
 
-import org.fluentness.view.AbstractWebView;
+import org.fluentness.view.WebView;
 import org.fluentness.view.component.Component;
 
-public class CalendarView extends AbstractWebView {
+public class CalendarView extends WebView {
     public CalendarView() {
         super(null);
     }

@@ -1,6 +1,6 @@
 package org.fluentness.prototype.controller;
 
-import org.fluentness.controller.AbstractWebController;
+import org.fluentness.controller.WebController;
 import org.fluentness.prototype.model.Note;
 import org.fluentness.prototype.repository.NoteRepository;
 import org.fluentness.prototype.view.NotesView;
@@ -8,7 +8,7 @@ import org.fluentness.prototype.model.User;
 import org.fluentness.prototype.repository.UserRepository;
 import org.fluentness.view.component.text.HtmlText;
 
-public class NoteController extends AbstractWebController<NotesView> {
+public class NoteController extends WebController<NotesView> {
 
     private final NoteRepository noteRepository;
     private final UserRepository userRepository;

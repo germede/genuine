@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL13;
 import java.util.List;
 import java.util.Map;
 
-public class EntityRender extends AbstractRender<EntityShader> {
+public class EntityRender extends BaseRender<EntityShader> {
 
     public EntityRender(Algebra algebra, EntityShader entityShader) {
         super(algebra, entityShader);

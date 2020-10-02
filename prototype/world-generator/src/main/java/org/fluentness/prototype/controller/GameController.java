@@ -5,13 +5,12 @@ import org.fluentness.model.Terrain;
 import org.fluentness.prototype.repository.PlayerRepository;
 import org.fluentness.prototype.repository.TerrainRepository;
 import org.fluentness.prototype.view.GameView;
-import org.fluentness.controller.AbstractGameController;
 import org.fluentness.service.animator.Animator;
 import org.fluentness.service.display.Display;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class GameController extends AbstractGameController<GameView> {
+public class GameController extends org.fluentness.controller.GameController<GameView> {
 
     private final Animator animator;
     private final Player player;

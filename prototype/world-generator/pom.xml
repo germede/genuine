@@ -15,7 +15,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <mainClass>org.fluentness.prototype.GameApplication</mainClass>
+        <mainClass>org.fluentness.prototype.WorldGenerator</mainClass>
         <lwjgl.version>3.2.3</lwjgl.version>
         <platform>linux</platform>
     </properties>

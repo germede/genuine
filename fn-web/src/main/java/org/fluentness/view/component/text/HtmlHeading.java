@@ -1,6 +1,6 @@
 package org.fluentness.view.component.text;
 
-public class HtmlHeading extends AbstractHtmlText implements Heading {
+public class HtmlHeading extends BaseHtmlText implements Heading {
 
     private final Level level;
 

@@ -6,7 +6,7 @@ import org.fluentness.controller.WebController;
 import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
-import org.fluentness.view.AbstractWebView;
+import org.fluentness.view.WebView;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RouteDispatcher extends AbstractDispatcher {
+public class RouteDispatcher extends BaseDispatcher {
 
     private final Configuration configuration;
 
@@ -54,8 +54,8 @@ public class RouteDispatcher extends AbstractDispatcher {
                 action.invoke(controller);
             if (returned instanceof CharSequence) {
                 respond(response, returned.toString());
-            } else if (returned instanceof AbstractWebView) {
-                respond(response, ((AbstractWebView)returned).getHtml());
+            } else if (returned instanceof WebView) {
+                respond(response, ((WebView)returned).getHtml());
             } else if (returned instanceof Integer) {
                 response.setStatus((Integer) returned);
             }

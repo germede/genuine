@@ -2,7 +2,7 @@ package org.fluentness.service.shader;
 
 import org.fluentness.service.memory.Memory;
 
-public class TerrainShader extends AbstractShader {
+public class TerrainShader extends BaseShader {
 
     public final int blendMap = getUniformLocation("blendMap");
     public final int blackTexture = getUniformLocation("blackTexture");

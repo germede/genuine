@@ -3,7 +3,7 @@ package org.fluentness.view.component.text;
 import org.fluentness.view.component.text.form.Button;
 import org.fluentness.view.event.Handler;
 
-public class HtmlButton extends AbstractHtmlText implements Button {
+public class HtmlButton extends BaseHtmlText implements Button {
 
     private final Type type;
 

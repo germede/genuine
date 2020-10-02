@@ -1,13 +1,13 @@
 package org.fluentness.prototype.controller;
 
-import org.fluentness.controller.action.AbstractWebActionController;
+import org.fluentness.controller.WebController;
 
 import static org.fluentness.prototype.service.Localization.*;
 
-public class WebActionController extends AbstractWebActionController {
+public class WebActionController extends WebController {
 
     public WebActionController() {
-        super("/action");
+        super(null, "/action");
     }
 
     @Action(path = "/")

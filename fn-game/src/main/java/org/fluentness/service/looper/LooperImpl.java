@@ -1,6 +1,6 @@
 package org.fluentness.service.looper;
 
-import org.fluentness.controller.AbstractGameController;
+import org.fluentness.controller.GameController;
 import org.fluentness.service.animator.Animator;
 import org.fluentness.service.display.Display;
 import org.fluentness.service.memory.Memory;
@@ -25,7 +25,7 @@ public class LooperImpl implements Looper {
     }
 
     @Override
-    public void loop(AbstractGameController controller) {
+    public void loop(GameController controller) {
         AbstractGameView view = controller.getGameView();
         display.setTitle(view.getTitle());
         while (!display.shouldClose()) {

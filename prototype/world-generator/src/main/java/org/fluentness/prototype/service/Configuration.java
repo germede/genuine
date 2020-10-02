@@ -1,9 +1,9 @@
 package org.fluentness.prototype.service;
 
-import org.fluentness.service.configuration.AbstractConfiguration;
+import org.fluentness.service.configuration.BaseConfiguration;
 import org.fluentness.service.display.Display;
 
-public class Configuration extends AbstractConfiguration {
+public class Configuration extends BaseConfiguration {
 
 
     @Override

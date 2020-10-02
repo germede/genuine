@@ -1,6 +1,6 @@
 package org.fluentness.prototype.view;
 
-import org.fluentness.view.AbstractWebView;
+import org.fluentness.view.WebView;
 import org.fluentness.view.component.Component;
 import org.fluentness.view.component.text.form.Button;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 import static org.fluentness.view.component.text.Heading.Level.*;
 import static org.fluentness.view.component.text.form.Button.Type.*;
 
-public class IndexView extends AbstractWebView {
+public class IndexView extends WebView {
 
     public Button button1;
 

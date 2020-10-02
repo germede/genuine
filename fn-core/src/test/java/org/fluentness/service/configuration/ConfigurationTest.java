@@ -17,7 +17,7 @@ public class ConfigurationTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void setNullSetting() {
-        new AbstractConfiguration() {
+        new BaseConfiguration() {
             @Override
             protected void configure() {
                 set(null, "test");
