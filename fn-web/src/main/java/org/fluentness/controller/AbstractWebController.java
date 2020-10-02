@@ -1,26 +1,38 @@
-package org.fluentness.controller.view;
+package org.fluentness.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.fluentness.controller.AbstractViewController;
-import org.fluentness.controller.WebController;
 import org.fluentness.view.AbstractWebView;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.event.Clickable;
 import org.fluentness.view.event.Handler;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractWebViewController<W extends AbstractWebView> extends AbstractViewController<W> implements WebController {
+import static org.fluentness.service.server.RequestMethod.GET;
+
+public abstract class AbstractWebController<W extends AbstractWebView> extends AbstractViewController<W>  {
 
     private final String path;
     private final Map<String, JavaScriptEvent> events = new HashMap<>();
 
-    public AbstractWebViewController(W view, String path) {
+    public AbstractWebController(W view, String path) {
         super(view);
         this.path = path;
         AbstractWebView.navigation.addSectionFor(this);
+    }
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Action {
+        String path();
+
+        String method() default GET;
     }
 
     public final Object main(String eventId, HttpServletRequest request) {

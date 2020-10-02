@@ -3,8 +3,8 @@ package org.fluentness.application;
 import jakarta.servlet.http.HttpServletRequest;
 import org.fluentness.controller.WebController;
 import org.fluentness.controller.action.AbstractWebActionController;
-import org.fluentness.controller.view.AbstractWebViewController;
-import org.fluentness.controller.view.JavaScriptEvent;
+import org.fluentness.controller.AbstractWebController;
+import org.fluentness.controller.JavaScriptEvent;
 import org.fluentness.service.dispatcher.EventDispatcher;
 import org.fluentness.service.dispatcher.ResourceDispatcher;
 import org.fluentness.service.dispatcher.RouteDispatcher;
@@ -35,27 +35,21 @@ public abstract class AbstractWebApplication implements Application {
 
     @Override
     public final void run(String[] args) throws Exception {
-        for (WebController controller : controllers) {
-            // controller is of type viewController -> execute main method
-            if (controller instanceof AbstractWebViewController) {
-                server.getRouteDispatcher().addRoute(
-                    "GET",
-                    controller.getPath(),
-                    controller.getClass().getMethod("main", String.class, HttpServletRequest.class),
-                    controller
-                );
-                // add events listeners to javascript
-                for (JavaScriptEvent event : (Iterable<JavaScriptEvent>) ((AbstractWebViewController) controller).getEvents()) {
-                    server.getEventDispatcher().addEventListener(event);
-                }
+        for (AbstractWebController controller : controllers) {
+            server.getRouteDispatcher().addRoute(
+                "GET",
+                controller.getPath(),
+                controller.getClass().getMethod("main", String.class, HttpServletRequest.class),
+                controller
+            );
+            // add events listeners to javascript
+            for (JavaScriptEvent event : (Iterable<JavaScriptEvent>) ((AbstractWebController) controller).getEvents()) {
+                server.getEventDispatcher().addEventListener(event);
             }
-            // controller is of type actionController -> execute main method
-            if (controller instanceof AbstractWebActionController) {
-                Arrays.stream(controller.getActions()).forEach(action -> {
-                    AbstractWebActionController.Action annotation = action.getAnnotation(AbstractWebActionController.Action.class);
-                    server.getRouteDispatcher().addRoute(annotation.method(), controller.getPath() + annotation.path(), action, controller);
-                });
-            }
+            Arrays.stream(controller.getActions()).forEach(action -> {
+                AbstractWebActionController.Action annotation = action.getAnnotation(AbstractWebActionController.Action.class);
+                server.getRouteDispatcher().addRoute(annotation.method(), controller.getPath() + annotation.path(), action, controller);
+            });
         }
         ((HtmlNavigation) AbstractWebView.navigation).setBrand(this.getClass().getSimpleName());
         server.start();

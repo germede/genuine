@@ -1,6 +1,6 @@
 package org.fluentness.view.component;
 
-import org.fluentness.controller.view.JavaScriptCommand;
+import org.fluentness.controller.JavaScriptCommand;
 
 import java.util.LinkedList;
 import java.util.List;

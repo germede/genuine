@@ -1,10 +1,10 @@
 package org.fluentness.view.component.navigation;
 
-import org.fluentness.controller.view.AbstractWebViewController;
+import org.fluentness.controller.AbstractWebController;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
 
-public class HtmlNavigation extends HtmlContainer implements Navigation<AbstractWebViewController> {
+public class HtmlNavigation extends HtmlContainer implements Navigation<AbstractWebController> {
 
     private final HtmlContainer brand;
     private final HtmlContainer tabs;
@@ -35,7 +35,7 @@ public class HtmlNavigation extends HtmlContainer implements Navigation<Abstract
     }
 
     @Override
-    public void addSectionFor(AbstractWebViewController controller) {
+    public void addSectionFor(AbstractWebController controller) {
         if (! controller.getPath().equals("/")) {
             tabs.withInner(
                 new HtmlContainer("a")

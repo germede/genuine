@@ -14,16 +14,16 @@ import org.fluentness.service.server.Server;
     Configuration.class,
     BasicAuthenticator.class
 })
-public class WebApplication extends AbstractWebApplication {
+public class HomeCloud extends AbstractWebApplication {
 
-    public WebApplication(Server server,
-                          IndexController indexController,
-                          NoteController noteController
+    public HomeCloud(Server server,
+                     IndexController indexController,
+                     NoteController noteController
     ) {
         super(server, indexController, noteController);
     }
 
     public static void main(String[] args) throws InstantiationException {
-        Fluentness.launch(WebApplication.class, args);
+        Fluentness.launch(HomeCloud.class, args);
     }
 }

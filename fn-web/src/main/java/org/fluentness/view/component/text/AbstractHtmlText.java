@@ -1,6 +1,6 @@
 package org.fluentness.view.component.text;
 
-import org.fluentness.controller.view.JavaScriptCommand;
+import org.fluentness.controller.JavaScriptCommand;
 import org.fluentness.view.component.HtmlContainer;
 
 public abstract class AbstractHtmlText extends HtmlContainer implements Text {

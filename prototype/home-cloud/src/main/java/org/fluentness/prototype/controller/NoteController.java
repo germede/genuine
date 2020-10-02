@@ -1,25 +1,25 @@
 package org.fluentness.prototype.controller;
 
-import org.fluentness.controller.view.AbstractWebViewController;
+import org.fluentness.controller.AbstractWebController;
 import org.fluentness.prototype.model.Note;
 import org.fluentness.prototype.repository.NoteRepository;
-import org.fluentness.prototype.view.NoteView;
+import org.fluentness.prototype.view.NotesView;
 import org.fluentness.prototype.model.User;
 import org.fluentness.prototype.repository.UserRepository;
 import org.fluentness.view.component.text.HtmlText;
 
-public class NoteController extends AbstractWebViewController<NoteView> {
+public class NoteController extends AbstractWebController<NotesView> {
 
     private final NoteRepository noteRepository;
     private final UserRepository userRepository;
 
-    public NoteController(NoteView view, NoteRepository noteRepository, UserRepository userRepository) {
+    public NoteController(NotesView view, NoteRepository noteRepository, UserRepository userRepository) {
         super(view, "/notes");
         this.noteRepository = noteRepository;
         this.userRepository = userRepository;
 
         onPageLoad(this::loadNotes);
-        onClick(view.newButton, this::replaceText);
+        onClick(view.newButton, this::newNote);
     }
 
     private void loadNotes() {
@@ -28,7 +28,8 @@ public class NoteController extends AbstractWebViewController<NoteView> {
         );
     }
 
-    private void replaceText() {
+    private void newNote() {
+        
         Note note = new Note();
         note.setTitle("hallo");
         note.setDescription("description");
