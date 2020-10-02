@@ -1,9 +1,8 @@
 package org.fluentness.view;
 
-import org.fluentness.view.component.Component;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
-import org.fluentness.view.component.dialog.HtmlDialog;
+import org.fluentness.view.component.modal.HtmlModal;
 import org.fluentness.view.component.layout.HtmlLinearLayout;
 import org.fluentness.view.component.layout.HtmlTabLayout;
 import org.fluentness.view.component.layout.TabLayout;
@@ -22,9 +21,9 @@ import java.util.Locale;
 public abstract class WebView extends BaseView<
     HtmlButton,
     HtmlComponent,
-    HtmlDialog,
     HtmlHeading,
     HtmlLinearLayout,
+    HtmlModal,
     HtmlNavigation,
     HtmlSeparator,
     HtmlTabLayout,
@@ -92,8 +91,8 @@ public abstract class WebView extends BaseView<
     }
 
     @Override
-    protected HtmlDialog dialog(HtmlComponent... components) {
-        return new HtmlDialog(components);
+    protected HtmlModal modal(HtmlComponent... components) {
+        return new HtmlModal(components);
     }
 
     @Override

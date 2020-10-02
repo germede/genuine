@@ -26,7 +26,7 @@ function execute(command, arguments) {
     switch(command) {
         case 'CHANGE_INNER': getElementByXpath(arguments[0]).innerHTML = arguments[1]; break;
         case 'APPEND_CHILD': getElementByXpath(arguments[0]).innerHTML += arguments[1]; break;
-        case 'SEND_FORM':
+        case 'TOGGLE_CLASS': getElementByXpath(arguments[0]).classList.toggle(arguments[1]); break;
     }
 }
 

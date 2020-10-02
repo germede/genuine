@@ -1,5 +1,7 @@
 package org.fluentness.view.component;
 
+import org.fluentness.controller.JavaScriptCommand;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -58,5 +60,9 @@ public class HtmlComponent implements Component {
                 .append(attribute.getValue() != null ? "=\"" + String.join(" ", attribute.getValue()) + "\"" : "");
         }
         return "<" + tag + attributes + "/>";
+    }
+
+    public void toggleClass(String clazz) {
+        JavaScriptCommand.toggleClass(getXpath(), clazz);
     }
 }

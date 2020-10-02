@@ -7,10 +7,11 @@ public class IndexController extends WebController<IndexView> {
 
     public IndexController(IndexView view) {
         super(view, "/");
-        onClick(view.openDialogButton, this::openDialog);
+        onClick(view.openModalButton, this::openDialog);
     }
 
     private void openDialog() {
+        view.modal.toggleClass("show");
     }
 
 }

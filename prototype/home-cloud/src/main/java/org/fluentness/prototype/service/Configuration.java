@@ -13,7 +13,7 @@ public class Configuration extends BaseConfiguration {
     protected void configure() {
 
         set(Server.PORT, 8000);
-        set(Log.LEVEL, LogLevel.DEBUG);
+        set(Log.LEVEL, LogLevel.INFO);
         set(Dispatcher.SINGLE_PAGE_MODE, false);
         set(Persistence.DRIVER, "mysql");
         set(Persistence.HOST, "localhost");

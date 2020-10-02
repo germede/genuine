@@ -2,7 +2,7 @@ package org.fluentness.prototype.view;
 
 import org.fluentness.view.WebView;
 import org.fluentness.view.component.HtmlComponent;
-import org.fluentness.view.component.dialog.HtmlDialog;
+import org.fluentness.view.component.modal.HtmlModal;
 import org.fluentness.view.component.text.HtmlButton;
 
 import java.util.Date;
@@ -12,8 +12,8 @@ import static org.fluentness.view.component.text.form.Button.Type.*;
 
 public class IndexView extends WebView {
 
-    public HtmlButton openDialogButton;
-    public HtmlDialog dialog;
+    public HtmlButton openModalButton;
+    public HtmlModal modal;
 
     @Override
     protected HtmlComponent structure() {
@@ -21,8 +21,8 @@ public class IndexView extends WebView {
             button("one"),
             button("two"),
             button("three"),
-            openDialogButton = button("open dialog"),
-            dialog = dialog(text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")),
+            openModalButton = button("open modal"),
+            modal = modal(text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")),
             table(
                 header("this", "is", "a", "asdf"),
                 row("this", "is", "a", "row"),

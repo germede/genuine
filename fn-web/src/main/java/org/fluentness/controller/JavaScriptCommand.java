@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public enum JavaScriptCommand {
     CHANGE_INNER,
     APPEND_CHILD,
+    TOGGLE_CLASS,
     ;
 
     private static final String COMMANDS_DELIMITER = "&&&";
@@ -24,6 +25,10 @@ public enum JavaScriptCommand {
 
     public static void appendChild(String xpath, HtmlComponent child) {
         addCommand(APPEND_CHILD, xpath, child);
+    }
+
+    public static void toggleClass(String xpath, String clazz) {
+        addCommand(TOGGLE_CLASS, xpath, clazz);
     }
 
     private static void addCommand(JavaScriptCommand command, Object... parameters) {

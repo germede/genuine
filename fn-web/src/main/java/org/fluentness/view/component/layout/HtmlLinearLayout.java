@@ -10,12 +10,13 @@ public class HtmlLinearLayout extends HtmlContainer implements LinearLayout {
 
     public HtmlLinearLayout(HtmlComponent[] components) {
         super("div");
-        withAttribute("class", "row");
-        for (Component component : components) {
-            HtmlComponent htmlComponent = (HtmlComponent) component;
-            htmlComponent.withAttribute("class", "col-12");
-            withInner(htmlComponent);
-        }
+
+        withInner(components);
+//        for (Component component : components) {
+//            HtmlComponent htmlComponent = (HtmlComponent) component;
+//            htmlComponent.withAttribute("class", "col-12");
+//            withInner(htmlComponent);
+//        }
         this.orientation = VERTICAL;
     }
 

@@ -1,7 +1,7 @@
 package org.fluentness.view;
 
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.dialog.Dialog;
+import org.fluentness.view.component.modal.Modal;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.misc.Separator;
@@ -18,9 +18,9 @@ import java.util.function.Function;
 public abstract class BaseView<
     B extends Button,
     C extends Component,
-    D extends Dialog,
     H extends Heading,
     LL extends LinearLayout,
+    M extends Modal,
     N extends Navigation,
     S extends Separator,
     TL extends TabLayout,
@@ -45,8 +45,6 @@ public abstract class BaseView<
 
     protected abstract B button(Button.Type type, CharSequence text);
 
-    protected abstract D dialog(C... components);
-
     public static <T, C extends Component> C[] forEach(Iterable<T> iterable, Function<T, C> function) {
         List<C> result = new LinkedList<>();
         for (T t : iterable) {
@@ -66,6 +64,8 @@ public abstract class BaseView<
     protected abstract H heading(H.Level level, CharSequence text);
 
     protected abstract LL linearLayout(C... components);
+
+    protected abstract M modal(C... components);
 
     protected abstract N navigation();
 

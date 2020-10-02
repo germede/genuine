@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 
 public class EventDispatcher extends BaseDispatcher {
 
-    private String javaScriptCommands;
-    private String javaScriptCommons;
+    private final String javaScriptCommands;
+    private final String javaScriptCommons;
     private String javaScriptEvents;
 
     public EventDispatcher(Authenticator[] authenticators, Log log) throws URISyntaxException, IOException {
