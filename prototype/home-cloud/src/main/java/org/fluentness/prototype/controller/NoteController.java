@@ -2,10 +2,10 @@ package org.fluentness.prototype.controller;
 
 import org.fluentness.controller.WebController;
 import org.fluentness.prototype.model.Note;
-import org.fluentness.prototype.repository.NoteRepository;
-import org.fluentness.prototype.view.NotesView;
 import org.fluentness.prototype.model.User;
+import org.fluentness.prototype.repository.NoteRepository;
 import org.fluentness.prototype.repository.UserRepository;
+import org.fluentness.prototype.view.NotesView;
 import org.fluentness.view.component.text.HtmlText;
 
 public class NoteController extends WebController<NotesView> {
@@ -28,8 +28,8 @@ public class NoteController extends WebController<NotesView> {
         );
     }
 
-    private void newNote() {
-        
+    @Action(path = "/new")
+    public void newNote(String title, String description) {
         Note note = new Note();
         note.setTitle("hallo");
         note.setDescription("description");
@@ -41,6 +41,10 @@ public class NoteController extends WebController<NotesView> {
         noteRepository.insert(note);
 
         view.noteList.appendChild(new HtmlText(note.getTitle()));
-//        view.newButton.setText("HA!");
+    }
+
+    private void newNote() {
+        view.newButton.setText("HA!");
+//        view.newDialog.show();
     }
 }

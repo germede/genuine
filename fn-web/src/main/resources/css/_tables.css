@@ -1,0 +1,24 @@
+table {
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-align: left;
+}
+
+table.striped tr:nth-of-type(2n) {
+  background-color: var(--color-secondary);
+}
+
+thead {
+  border-bottom: 2px solid var(--color-disabled);
+}
+
+td, th {
+  vertical-align: middle;
+  padding: 1.2rem 0.4rem;
+}
+
+tfoot {
+  border-top: 2px solid var(--color-disabled);
+}

@@ -1,6 +1,9 @@
-@import "_root.css";
-@import "_base.css";
-@import "_grid.css";
-@import "_form.css";
-@import "_menu.css";
-@import "_util.css";
+@import "_basics.css";
+@import "_buttons.css";
+@import "_forms.css";
+@import "_grids.css";
+@import "_menus.css";
+@import "_modifiers.css";
+@import "_tables.css";
+@import "_tabs.css";
+@import "_texts.css";

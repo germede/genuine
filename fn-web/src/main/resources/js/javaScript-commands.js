@@ -22,15 +22,15 @@ function handle(response) {
     }
 }
 
-function getElementByXpath(xpath) {
-  console.log(xpath);
-  return document.evaluate(decodeURI(xpath), document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-}
-
 function execute(command, arguments) {
     switch(command) {
         case 'CHANGE_INNER': getElementByXpath(arguments[0]).innerHTML = arguments[1]; break;
         case 'APPEND_CHILD': getElementByXpath(arguments[0]).innerHTML += arguments[1]; break;
+        case 'SEND_FORM':
     }
 }
 
+function getElementByXpath(xpath) {
+  console.log(xpath);
+  return document.evaluate(decodeURI(xpath), document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+}

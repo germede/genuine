@@ -1,0 +1,97 @@
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    padding: 1rem 2.5rem;
+    background-color: var(--color-disabled);
+    border-radius: 4px;
+    border: 1px solid var(--color-transparent);
+    font-size: var(--font-size);
+    line-height: 1;
+    text-align: center;
+    transition: opacity 0.2s ease;
+    text-decoration: none;
+    transform: scale(1);
+    display: inline-block;
+    cursor: pointer;
+}
+
+button + button {
+    margin-left: 1rem;
+}
+
+button:hover,
+[type="button"]:hover,
+[type="reset"]:hover,
+[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+button:active,
+[type="button"]:active,
+[type="reset"]:active,
+[type="submit"]:active{
+    transform: scale(0.98);
+}
+
+input:disabled,
+button:disabled,
+input:disabled:hover,
+button:disabled:hover {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+button.primary {
+    color: var(--color-light);
+    background-color: var(--color-primary);
+}
+
+button.secondary {
+    background-color: var(--color-secondary);
+}
+
+button.success {
+    background-color: var(--color-success);
+}
+
+button.warning {
+    background-color: var(--color-warning);
+}
+
+button.danger {
+    color: var(--color-light);
+    background-color: var(--color-danger);
+}
+
+button.light {
+    background-color: var(--color-light);
+}
+
+button.dark {
+    color: var(--color-light);
+    background-color: var(--color-dark);
+}
+
+button.transparent {
+    background-color: var(--color-transparent);
+}
+
+button.disabled {
+    color: var(--font-color);
+    background-color: var(--color-disabled);
+}
+
+button.icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+button.icon > img {
+    margin-left: 2px;
+}
+
+button.icon-only {
+    padding: 1rem;
+}
+

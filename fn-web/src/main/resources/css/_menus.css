@@ -1,4 +1,3 @@
-/*NAVIGATION*/
 nav:not(.tabs) {
     display: flex;
     min-height: 5rem;
@@ -39,7 +38,6 @@ nav img {
     max-height: 3rem;
 }
 
-/*BURGER-MENU*/
 nav .burger {
     margin: 1rem 0 1rem auto;
     padding-top: 2px;
@@ -103,62 +101,4 @@ nav #burger:checked ~ .tabs > a {
     nav .burger {
         display: flex;
     }
-}
-
-/*TABS*/
-.tab-layout > figure {
-    display: block;
-}
-
-.tab-layout > input, .tab-layout figure > div {
-    display: none;
-}
-
-#tab1:checked ~ figure > .tab1,
-#tab2:checked ~ figure > .tab2,
-#tab3:checked ~ figure > .tab3,
-#tab4:checked ~ figure > .tab4,
-#tab5:checked ~ figure > .tab5,
-#tab6:checked ~ figure > .tab6,
-#tab7:checked ~ figure > .tab7,
-#tab8:checked ~ figure > .tab8,
-#tab9:checked ~ figure > .tab9,
-#tab10:checked ~ figure > .tab10,
-#tab11:checked ~ figure > .tab11,
-#tab12:checked ~ figure > .tab12 {
-    display: block;
-}
-
-#tab1:checked ~ .tabs > label[for="tab1"],
-#tab2:checked ~ .tabs > label[for="tab2"],
-#tab3:checked ~ .tabs > label[for="tab3"],
-#tab4:checked ~ .tabs > label[for="tab4"],
-#tab5:checked ~ .tabs > label[for="tab5"],
-#tab6:checked ~ .tabs > label[for="tab6"],
-#tab7:checked ~ .tabs > label[for="tab7"],
-#tab8:checked ~ .tabs > label[for="tab8"],
-#tab9:checked ~ .tabs > label[for="tab9"],
-#tab10:checked ~ .tabs > label[for="tab10"],
-#tab11:checked ~ .tabs > label[for="tab11"],
-#tab12:checked ~ .tabs > label[for="tab12"] {
-    opacity: 1;
-    border-bottom: 2px solid var(--color-primary);
-}
-
-.tabs {
-    display: flex;
-    align-items: baseline;
-}
-
-.tabs > label {
-    cursor: pointer;
-    flex: 1 1 auto;
-    text-decoration: none;
-    padding: 1rem 2rem;
-    border-bottom: 2px solid var(--font-color);
-    text-align: center;
-}
-
-.tabs > label:hover {
-    border-bottom: 2px solid var(--color-disabled);
 }
