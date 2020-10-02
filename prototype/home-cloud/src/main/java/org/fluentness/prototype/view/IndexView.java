@@ -1,8 +1,9 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.WebView;
-import org.fluentness.view.component.Component;
-import org.fluentness.view.component.text.form.Button;
+import org.fluentness.view.component.HtmlComponent;
+import org.fluentness.view.component.dialog.HtmlDialog;
+import org.fluentness.view.component.text.HtmlButton;
 
 import java.util.Date;
 
@@ -11,19 +12,17 @@ import static org.fluentness.view.component.text.form.Button.Type.*;
 
 public class IndexView extends WebView {
 
-    public Button button1;
-
-    public IndexView() {
-        super("Index");
-    }
-
+    public HtmlButton openDialogButton;
+    public HtmlDialog dialog;
 
     @Override
-    protected Component structure() {
+    protected HtmlComponent structure() {
         return linearLayout(
-            button1 = button("one"),
+            button("one"),
             button("two"),
             button("three"),
+            openDialogButton = button("open dialog"),
+            dialog = dialog(text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")),
             table(
                 header("this", "is", "a", "asdf"),
                 row("this", "is", "a", "row"),
@@ -45,7 +44,7 @@ public class IndexView extends WebView {
             ),
             separator(),
             linearLayout(
-                heading(H1, "Texts"),
+                heading("Texts"),
                 text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.")
             ),
             separator(),

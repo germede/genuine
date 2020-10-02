@@ -1,7 +1,7 @@
 package org.fluentness.prototype.view;
 
 import org.fluentness.view.WebView;
-import org.fluentness.view.component.Component;
+import org.fluentness.view.component.HtmlComponent;
 
 public class CalendarView extends WebView {
     public CalendarView() {
@@ -9,7 +9,7 @@ public class CalendarView extends WebView {
     }
 
     @Override
-    protected Component structure() {
+    protected HtmlComponent structure() {
         return null;
     }
 

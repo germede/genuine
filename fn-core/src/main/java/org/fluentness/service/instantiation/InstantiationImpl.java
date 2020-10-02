@@ -70,7 +70,7 @@ public class InstantiationImpl implements Instantiation {
         return Arrays.stream(aClass.getConstructors())
             .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
             .findFirst()
-            .orElseThrow(() -> new InstantiationException("%s should have at least one public constructor", aClass.getSimpleName()));
+            .orElseThrow(() -> new InstantiationException("%s is not instantiable", aClass.getSimpleName()));
     }
 
     private <T> Object[] getParameters(Constructor<T> constructor) throws InstantiationException {
