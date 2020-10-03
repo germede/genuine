@@ -1,6 +1,5 @@
 package org.fluentness.application;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.fluentness.controller.WebController;
 import org.fluentness.service.dispatcher.ResourceDispatcher;
 import org.fluentness.service.dispatcher.RouteDispatcher;
@@ -31,17 +30,13 @@ public abstract class WebApplication implements Application {
     @Override
     public final void run(String[] args) throws Exception {
         for (WebController controller : controllers) {
-            server.getRouteDispatcher().addRoute(
-                "GET",
-                controller.getPath(),
-                controller.getClass().getMethod("main", String.class, HttpServletRequest.class),
-                controller
-            );
+            RouteDispatcher dispatcher = server.getRouteDispatcher();
+            dispatcher.addRoute("GET", controller.getPath(), controller.getClass().getMethod("mainAction", String.class), controller);
             Arrays.stream(controller.getActions())
                 .filter(method -> method.isAnnotationPresent(WebController.Action.class))
                 .forEach(action -> {
                     WebController.Action annotation = action.getAnnotation(WebController.Action.class);
-                    server.getRouteDispatcher().addRoute(annotation.method(), controller.getPath() + annotation.path(), action, controller);
+                    dispatcher.addRoute(annotation.method(), controller.getPath() + annotation.path(), action, controller);
                 });
         }
         ((HtmlNavigation) WebView.navigation).setBrand(this.getClass().getSimpleName());

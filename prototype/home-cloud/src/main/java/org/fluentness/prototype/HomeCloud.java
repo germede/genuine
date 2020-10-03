@@ -4,7 +4,7 @@ import org.fluentness.Fluentness;
 import org.fluentness.application.WebApplication;
 import org.fluentness.application.Application;
 import org.fluentness.prototype.controller.IndexController;
-import org.fluentness.prototype.controller.NoteController;
+import org.fluentness.prototype.controller.NotesController;
 import org.fluentness.prototype.service.Authenticator;
 import org.fluentness.prototype.service.Configuration;
 import org.fluentness.service.instantiation.InstantiationException;
@@ -18,9 +18,9 @@ public class HomeCloud extends WebApplication {
 
     public HomeCloud(Server server,
                      IndexController indexController,
-                     NoteController noteController
+                     NotesController notesController
     ) {
-        super(server, indexController, noteController);
+        super(server, indexController, notesController);
     }
 
     public static void main(String[] args) throws InstantiationException {

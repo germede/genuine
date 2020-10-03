@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +48,7 @@ public class RouteDispatcher extends BaseDispatcher {
             WebController controller = controllers.get(path);
 
             action.setAccessible(true);
-            Object[] args = prepareArgs(action, request);
+            Object[] args = prepareArgs(action, request, response);
             Object returned = action.getParameterCount() > 0 ?
                 action.invoke(controller, args) :
                 action.invoke(controller);
@@ -67,7 +66,7 @@ public class RouteDispatcher extends BaseDispatcher {
         }
     }
 
-    private static Object[] prepareArgs(Method action, HttpServletRequest request) {
+    private static Object[] prepareArgs(Method action, HttpServletRequest request, HttpServletResponse response) {
         Parameter[] parameters = action.getParameters();
         Object[] result = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
@@ -77,16 +76,12 @@ public class RouteDispatcher extends BaseDispatcher {
 
             if (HttpServletRequest.class.isAssignableFrom(type)) {
                 result[i] = request;
-            } else if (type.equals(String.class)) {
+            } else if (HttpServletResponse.class.isAssignableFrom(type)) {
+                result[i] = response;
+            } else if (parameter.isAnnotationPresent(WebController.RequestParameter.class)) {
                 result[i] = request.getParameter(name);
-            } else if (int.class.isAssignableFrom(type)) {
-                result[i] = Integer.parseInt(request.getParameter(name));
-            } else if (float.class.isAssignableFrom(type)) {
-                result[i] = Float.parseFloat(request.getParameter(name));
-            } else if (boolean.class.isAssignableFrom(type)) {
-                result[i] = Boolean.parseBoolean(request.getParameter(name));
-            } else if (Date.class.isAssignableFrom(type)) {
-                result[i] = Date.parse(request.getParameter(name));
+            } else if (parameter.isAnnotationPresent(WebController.SessionAttribute.class)) {
+                result[i] = request.getSession().getAttribute(name);
             }
         }
         return result;

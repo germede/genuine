@@ -17,7 +17,7 @@ public abstract class BaseAuthenticator implements Authenticator {
                 Base64.getDecoder().decode(authorizationHeader.substring(5).trim()),
                 StandardCharsets.UTF_8
             ).split(":", 2);
-            if (authorize(credentials[0], credentials[1])) {
+            if (authorize(request, credentials[0], credentials[1])) {
                 return true;
             }
         }
@@ -26,7 +26,7 @@ public abstract class BaseAuthenticator implements Authenticator {
         return false;
     }
 
-    protected abstract boolean authorize(String username, String password);
+    protected abstract boolean authorize(HttpServletRequest request, String username, String password);
 
 
 }

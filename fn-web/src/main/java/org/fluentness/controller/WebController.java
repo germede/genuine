@@ -1,6 +1,5 @@
 package org.fluentness.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.fluentness.view.WebView;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.event.Handler;
@@ -25,15 +24,30 @@ public abstract class WebController<W extends WebView> extends ViewController<W>
         WebView.navigation.addSectionFor(this);
     }
 
+    public String getPath() {
+        return path;
+    }
+
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Action {
-        String path();
 
+        String path();
         String method() default GET;
+
+    }
+    @Target(ElementType.PARAMETER)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface RequestParameter {
+
+    }
+    @Target(ElementType.PARAMETER)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface SessionAttribute {
+
     }
 
-    public final Object main(String eventId, HttpServletRequest request) {
+    public final Object mainAction(@RequestParameter String eventId) {
         // dynamic ajax request
         if (eventId != null) {
             if (events.containsKey(eventId)) events.get(eventId).handle();
@@ -42,10 +56,6 @@ public abstract class WebController<W extends WebView> extends ViewController<W>
         }
         // first static request
         return view;
-    }
-
-    public String getPath() {
-        return path;
     }
 
     protected void onPageLoad() {

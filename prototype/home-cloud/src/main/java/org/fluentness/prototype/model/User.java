@@ -17,9 +17,8 @@ public class User implements Model {
     @Column
     private String password;
 
-    public long getId() {
-        return id;
-    }
+    @Column
+    private boolean useDarkMode;
 
     public String getUsername() {
         return username;
@@ -29,7 +28,19 @@ public class User implements Model {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isUseDarkMode() {
+        return useDarkMode;
+    }
+
+    public void setUseDarkMode(boolean useDarkMode) {
+        this.useDarkMode = useDarkMode;
     }
 }

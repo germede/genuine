@@ -20,6 +20,15 @@ public class Note implements Model {
     @ManyToOne
     private User user;
 
+    public Note() {
+    }
+
+    public Note(String title, String description, User user) {
+        this.title = title;
+        this.description = description;
+        this.user = user;
+    }
+
     public long getId() {
         return id;
     }

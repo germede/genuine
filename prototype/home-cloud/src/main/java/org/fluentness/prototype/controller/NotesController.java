@@ -9,12 +9,12 @@ import org.fluentness.prototype.view.NotesView;
 
 import static org.fluentness.service.server.RequestMethod.POST;
 
-public class NoteController extends WebController<NotesView> {
+public class NotesController extends WebController<NotesView> {
 
     private final NoteRepository noteRepository;
     private final UserRepository userRepository;
 
-    public NoteController(NotesView view, NoteRepository noteRepository, UserRepository userRepository) {
+    public NotesController(NotesView view, NoteRepository noteRepository, UserRepository userRepository) {
         super(view, "/notes");
         this.noteRepository = noteRepository;
         this.userRepository = userRepository;
@@ -29,15 +29,13 @@ public class NoteController extends WebController<NotesView> {
     }
 
     @Action(method = POST, path = "/new")
-    public void newNote(String title, String description) {
-        Note note = new Note();
-        note.setTitle(title);
-        note.setDescription(description);
-        User user = new User();
-        user.setUsername("test");
-        user.setPassword("pass");
-        note.setUser(user);
-        userRepository.insert(user);
+    public void newNote(
+        @SessionAttribute String username,
+        @RequestParameter String title,
+        @RequestParameter String description
+    ) {
+        User user = userRepository.selectByField("username", username).get(0);
+        Note note = new Note(title, description, user);
         noteRepository.insert(note);
 
         view.newModal.hide();
