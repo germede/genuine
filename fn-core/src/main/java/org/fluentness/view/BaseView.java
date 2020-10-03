@@ -28,11 +28,7 @@ public abstract class BaseView<
     T extends Text
     > implements View {
 
-    protected final CharSequence title;
-
-    public BaseView(CharSequence title) {
-        this.title = title;
-    }
+    protected CharSequence title;
 
     @Override
     public final CharSequence getTitle() {

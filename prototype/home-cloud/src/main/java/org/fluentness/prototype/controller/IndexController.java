@@ -11,7 +11,7 @@ public class IndexController extends WebController<IndexView> {
     }
 
     private void openDialog() {
-        view.modal.toggleClass("show");
+        view.modal.show();
     }
 
 }

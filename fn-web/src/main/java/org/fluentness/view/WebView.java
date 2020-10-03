@@ -31,37 +31,28 @@ public abstract class WebView extends BaseView<
     HtmlText
     > {
 
-    private final HtmlContainer html;
+    public final HtmlContainer html;
     private String renderedHtml;
 
     public static final Navigation navigation = new HtmlNavigation();
 
     public WebView() {
-        this("");
-    }
-
-    public WebView(CharSequence title) {
-        super(title);
+        HtmlComponent structure = structure();
         this.html = new HtmlContainer("html").withAttribute("lang", Locale.getDefault().getLanguage())
             .withInner(new HtmlContainer("head")
                 .withInner(new HtmlContainer("title").withInner(this.title))
-                .withInner(new HtmlComponent("link")
-                    .withAttribute("rel", "stylesheet")
-                    .withAttribute("type", "text/css")
-                    .withAttribute("href", "/resources/css/main.css")
-                )
-                .withInner()
-                .withInner(new HtmlContainer("script").withAttribute("src", "/javaScript"))
+                .withInner(new HtmlComponent("link").withAttribute("rel", "stylesheet").withAttribute("type", "text/css").withAttribute("href", "/resources/css/main.css"))
+                .withInner(new HtmlContainer("script").withAttribute("src", "/resources/js/main.js"))
             )
             .withInner(new HtmlContainer("body")
                 .withInner((HtmlComponent) navigation)
                 .withInner(new HtmlContainer("div").withAttribute("class", "container")
-                    .withInner((HtmlComponent) structure())
+                    .withInner(structure)
                 )
             );
     }
 
-    public String getHtml() {
+    public String getRenderedHtml() {
         if (renderedHtml == null) {
             renderedHtml = "<!DOCTYPE html>" + html.toString();
         }

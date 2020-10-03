@@ -15,4 +15,13 @@ public class HtmlModal extends HtmlContainer implements Modal {
         );
     }
 
+    @Override
+    public void show() {
+        toggleClass("show");
+    }
+
+    @Override
+    public void hide() {
+        toggleClass("hide");
+    }
 }

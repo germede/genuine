@@ -1,9 +1,8 @@
 package org.fluentness.view.component.text.form;
 
-import org.fluentness.view.event.Clickable;
 import org.fluentness.view.component.text.Text;
 
-public interface Button extends Text, Clickable {
+public interface Button extends Text {
 
     enum Type {
         PRIMARY,

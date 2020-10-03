@@ -1,9 +1,7 @@
 package org.fluentness.application;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.fluentness.controller.JavaScriptEvent;
 import org.fluentness.controller.WebController;
-import org.fluentness.service.dispatcher.EventDispatcher;
 import org.fluentness.service.dispatcher.ResourceDispatcher;
 import org.fluentness.service.dispatcher.RouteDispatcher;
 import org.fluentness.service.mail.SocketMail;
@@ -17,7 +15,6 @@ import java.util.Arrays;
 @Application.Services({
     RouteDispatcher.class,
     ResourceDispatcher.class,
-    EventDispatcher.class,
     TomcatServer.class,
     SocketMail.class,
 })
@@ -40,9 +37,6 @@ public abstract class WebApplication implements Application {
                 controller.getClass().getMethod("main", String.class, HttpServletRequest.class),
                 controller
             );
-            for (JavaScriptEvent event : (Iterable<JavaScriptEvent>) controller.getEvents()) {
-                server.getEventDispatcher().addEventListener(event);
-            }
             Arrays.stream(controller.getActions())
                 .filter(method -> method.isAnnotationPresent(WebController.Action.class))
                 .forEach(action -> {

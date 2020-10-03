@@ -55,7 +55,7 @@ public class RouteDispatcher extends BaseDispatcher {
             if (returned instanceof CharSequence) {
                 respond(response, returned.toString());
             } else if (returned instanceof WebView) {
-                respond(response, ((WebView)returned).getHtml());
+                respond(response, ((WebView)returned).getRenderedHtml());
             } else if (returned instanceof Integer) {
                 response.setStatus((Integer) returned);
             }

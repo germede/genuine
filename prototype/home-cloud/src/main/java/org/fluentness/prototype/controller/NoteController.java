@@ -17,12 +17,12 @@ public class NoteController extends WebController<NotesView> {
         super(view, "/notes");
         this.noteRepository = noteRepository;
         this.userRepository = userRepository;
-
-        onPageLoad(this::loadNotes);
         onClick(view.newButton, this::newNote);
     }
 
-    private void loadNotes() {
+
+    @Override
+    protected void onPageLoad() {
         noteRepository.selectAll().forEach(
             note -> view.noteList.appendChild(new HtmlText(note.getTitle()))
         );
@@ -44,7 +44,6 @@ public class NoteController extends WebController<NotesView> {
     }
 
     private void newNote() {
-        view.newButton.setText("HA!");
-//        view.newDialog.show();
+        view.newModal.show();
     }
 }

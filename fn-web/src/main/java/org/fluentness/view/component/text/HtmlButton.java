@@ -21,8 +21,4 @@ public class HtmlButton extends BaseHtmlText implements Button {
         return type;
     }
 
-    @Override
-    public void onClick(Handler handler) {
-
-    }
 }

@@ -4,9 +4,6 @@ import org.fluentness.view.WebView;
 import org.fluentness.view.component.HtmlComponent;
 
 public class CalendarView extends WebView {
-    public CalendarView() {
-        super(null);
-    }
 
     @Override
     protected HtmlComponent structure() {
