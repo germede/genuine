@@ -5,6 +5,7 @@ import org.fluentness.controller.Controller;
 import org.fluentness.model.Model;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
+import org.fluentness.service.Services;
 import org.fluentness.view.View;
 
 import java.lang.reflect.*;
@@ -39,8 +40,8 @@ public class InstantiationImpl implements Instantiation {
         applicationHierarchy.add(applicationClass.getSuperclass());
         applicationHierarchy.add(applicationClass);
 
-        applicationHierarchy.stream().filter(clazz -> clazz.isAnnotationPresent(Application.Services.class)).forEach(clazz -> {
-            for (Class<? extends Service> service : clazz.getAnnotation(Application.Services.class).value()) {
+        applicationHierarchy.stream().filter(clazz -> clazz.isAnnotationPresent(Services.class)).forEach(clazz -> {
+            for (Class<? extends Service> service : clazz.getAnnotation(Services.class).value()) {
                 Class key = Service.getServiceInterface(service);
                 if (!services.containsKey(key)) services.put(key, new LinkedList<>());
                 List<Class> implementations = services.get(key);

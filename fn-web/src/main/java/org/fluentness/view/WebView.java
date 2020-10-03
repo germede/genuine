@@ -1,5 +1,6 @@
 package org.fluentness.view;
 
+import org.fluentness.service.localization.BaseLocalization;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
 import org.fluentness.view.component.button.HtmlButton;
@@ -123,4 +124,10 @@ public abstract class WebView extends BaseView<
         return new HtmlText(text);
     }
 
+    protected HtmlComponent themeSwitch() {
+        return new HtmlContainer("theme-switch-container").withInner(
+            new HtmlContainer("label").withAttribute("class", "theme-switch").withAttribute("for", "theme-switch").withInner(BaseLocalization._dark_mode),
+            new HtmlContainer("input").withAttribute("type", "checkbox").withAttribute("id", "theme-switch")
+        );
+    }
 }

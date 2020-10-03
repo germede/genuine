@@ -92,7 +92,7 @@ public class AndroidNavigation extends ViewGroup implements Navigation<MobileCon
     }
 
     @Override
-    public void addSectionFor(MobileController controller) {
+    public void addItem(MobileController controller) {
         android.widget.Button button = new android.widget.Button(MobileApplication.context);
         button.setText(controller.getView().getTitle());
         button.setOnClickListener(

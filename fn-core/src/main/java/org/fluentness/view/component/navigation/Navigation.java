@@ -9,6 +9,6 @@ public interface Navigation<C extends Controller> extends Component {
 
     void close();
 
-    void addSectionFor(C controller);
+    void addItem(C controller);
 
 }

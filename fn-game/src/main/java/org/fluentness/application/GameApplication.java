@@ -1,6 +1,7 @@
 package org.fluentness.application;
 
 import org.fluentness.controller.GameController;
+import org.fluentness.service.Services;
 import org.fluentness.service.algebra.AlgebraImpl;
 import org.fluentness.service.animator.AnimatorImpl;
 import org.fluentness.service.display.GlfwDisplay;
@@ -15,7 +16,7 @@ import org.fluentness.service.render.TerrainRender;
 import org.fluentness.service.shader.EntityShader;
 import org.fluentness.service.shader.TerrainShader;
 
-@Application.Services({
+@Services({
     LoaderImpl.class,
     MeshParser.class,
     TextureParser.class,

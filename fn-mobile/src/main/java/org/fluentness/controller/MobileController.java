@@ -9,7 +9,7 @@ public abstract class MobileController<M extends MobileView> extends ViewControl
 
     public MobileController(M view) {
         super(view);
-        MobileView.navigation.addSectionFor(this);
+        MobileView.navigation.addItem(this);
     }
 
     protected void onClick(Clickable clickable, Handler handler) {

@@ -1,5 +1,3 @@
-@import "_variables_dark.css";
-
 @import "_basics.css";
 @import "_buttons.css";
 @import "_forms.css";
@@ -10,3 +8,31 @@
 @import "_tables.css";
 @import "_tabs.css";
 @import "_texts.css";
+
+:root {
+    --color-primary: #0080ff;
+    --color-secondary: #dddddd;
+    --color-success: #00ff00;
+    --color-warning: #ffff00;
+    --color-danger: #ff0000;
+    --color-light: #333333;
+    --color-medium: #999999;
+    --color-dark: #ffffff;
+    --color-transparent: rgba(0, 0, 0, 0);
+    --color-disabled: #AAAAAA;
+    --font-family-sans: "Helvetica Neue", sans-serif;
+    --font-family-mono: monaco, "Consolas", "Lucida Console", monospace;
+    --font-size: 1.6rem;
+    --font-color: #eeeeee;
+    --grid-gutter: 2rem;
+    --sm-breakpoint: 600px;
+    --md-breakpoint: 900px;
+    --lg-breakpoint: 1200px;
+}
+
+[data-theme="dark"] {
+    --color-light: #ffffff;
+    --color-medium: #999999;
+    --color-dark: #333333;
+    --font-color: #333333;
+}

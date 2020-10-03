@@ -2,15 +2,15 @@ package org.fluentness.prototype;
 
 import org.fluentness.Fluentness;
 import org.fluentness.application.WebApplication;
-import org.fluentness.application.Application;
 import org.fluentness.prototype.controller.IndexController;
 import org.fluentness.prototype.controller.NotesController;
 import org.fluentness.prototype.service.Authenticator;
 import org.fluentness.prototype.service.Configuration;
+import org.fluentness.service.Services;
 import org.fluentness.service.instantiation.InstantiationException;
 import org.fluentness.service.server.Server;
 
-@Application.Services({
+@Services({
     Configuration.class,
     Authenticator.class
 })

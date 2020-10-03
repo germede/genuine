@@ -48,6 +48,21 @@ function forEach(query, apply) {
         apply(element);
     }
 }
+window.addEventListener('DOMContentLoaded', function() {
+    const toggleSwitch = document.querySelector('input[type="checkbox"]#theme-switch');
+    if (toggleSwitch) {
+      toggleSwitch.addEventListener('change', function (e) {
+          let dataTheme = e.target.checked ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', dataTheme);
+          localStorage.setItem('theme', dataTheme);
+      });
+    }
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      if (currentTheme === 'dark') toggleSwitch.checked = true;
+    }
+}, true);
 
 window.onload = function () {
     forEach('form', function(form) {

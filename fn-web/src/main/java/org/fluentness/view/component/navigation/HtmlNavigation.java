@@ -35,8 +35,8 @@ public class HtmlNavigation extends HtmlContainer implements Navigation<WebContr
     }
 
     @Override
-    public void addSectionFor(WebController controller) {
-        if (! controller.getPath().equals("/")) {
+    public void addItem(WebController controller) {
+        if (!controller.getPath().equals("/")) {
             tabs.withInner(
                 new HtmlContainer("a")
                     .withAttribute("href", controller.getPath())

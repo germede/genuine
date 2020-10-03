@@ -1,10 +1,11 @@
 package org.fluentness.application;
 
 import org.fluentness.controller.MobileController;
+import org.fluentness.service.Services;
 import org.fluentness.service.log.AndroidLog;
 import org.fluentness.view.FluentnessActivity;
 
-@Application.Services({
+@Services({
     AndroidLog.class,
 })
 public abstract class MobileApplication implements Application {

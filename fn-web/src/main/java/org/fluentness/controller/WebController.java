@@ -21,7 +21,8 @@ public abstract class WebController<W extends WebView> extends ViewController<W>
     public WebController(W view, String path) {
         super(view);
         this.path = path;
-        WebView.navigation.addSectionFor(this);
+        WebView.navigation.addItem(this);
+
     }
 
     public String getPath() {

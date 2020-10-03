@@ -1,6 +1,7 @@
 package org.fluentness.application;
 
 import org.fluentness.controller.WebController;
+import org.fluentness.service.Services;
 import org.fluentness.service.dispatcher.ResourceDispatcher;
 import org.fluentness.service.dispatcher.RouteDispatcher;
 import org.fluentness.service.mail.SocketMail;
@@ -11,7 +12,7 @@ import org.fluentness.view.component.navigation.HtmlNavigation;
 
 import java.util.Arrays;
 
-@Application.Services({
+@Services({
     RouteDispatcher.class,
     ResourceDispatcher.class,
     TomcatServer.class,
