@@ -30,6 +30,10 @@ public abstract class CrudRepository<M extends Model> implements Repository<M> {
         return null;
     }
 
+    public M selectFirst(String field, Object value) {
+        return selectByField(field,value).get(0);
+    }
+
     public List<M> selectByField(String field, Object value) {
         try {
             log.debug("Selecting %s by field %s equals '%s'", dao.getDataClass().getSimpleName(), field, value);

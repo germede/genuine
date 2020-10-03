@@ -34,7 +34,7 @@ public class NotesController extends WebController<NotesView> {
         @RequestParameter String title,
         @RequestParameter String description
     ) {
-        User user = userRepository.selectByField("username", username).get(0);
+        User user = userRepository.selectFirst("username", username);
         Note note = new Note(title, description, user);
         noteRepository.insert(note);
 

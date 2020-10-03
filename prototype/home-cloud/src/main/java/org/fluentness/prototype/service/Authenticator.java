@@ -28,7 +28,13 @@ public class Authenticator extends BaseAuthenticator {
         } catch (SQLException | IOException e) {
             log.error(e);
         }
-        if (result) request.getSession().setAttribute("username", username);
+        if (result) {
+            setSessionAttributes(request, username);
+        }
         return result;
+    }
+
+    private void setSessionAttributes(HttpServletRequest request, String username) {
+        request.getSession().setAttribute("username", username);
     }
 }
