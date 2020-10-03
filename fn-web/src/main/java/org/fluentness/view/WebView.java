@@ -2,25 +2,30 @@ package org.fluentness.view;
 
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.HtmlContainer;
-import org.fluentness.view.component.modal.HtmlModal;
+import org.fluentness.view.component.button.HtmlButton;
+import org.fluentness.view.component.form.Field;
+import org.fluentness.view.component.form.HtmlField;
+import org.fluentness.view.component.form.HtmlForm;
 import org.fluentness.view.component.layout.HtmlLinearLayout;
 import org.fluentness.view.component.layout.HtmlTabLayout;
 import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.misc.HtmlSeparator;
+import org.fluentness.view.component.modal.HtmlModal;
 import org.fluentness.view.component.navigation.HtmlNavigation;
 import org.fluentness.view.component.navigation.Navigation;
 import org.fluentness.view.component.table.HtmlTable;
+import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.text.Heading;
-import org.fluentness.view.component.text.HtmlButton;
 import org.fluentness.view.component.text.HtmlHeading;
 import org.fluentness.view.component.text.HtmlText;
-import org.fluentness.view.component.text.form.Button;
 
 import java.util.Locale;
 
 public abstract class WebView extends BaseView<
     HtmlButton,
     HtmlComponent,
+    HtmlField,
+    HtmlForm,
     HtmlHeading,
     HtmlLinearLayout,
     HtmlModal,
@@ -59,36 +64,19 @@ public abstract class WebView extends BaseView<
         return renderedHtml;
     }
 
-
-    @Override
-    protected HtmlLinearLayout linearLayout(HtmlComponent... components) {
-        return new HtmlLinearLayout(components);
-    }
-
-    @Override
-    protected HtmlTabLayout tabLayout(TabLayout.Tab... tabs) {
-        return new HtmlTabLayout(tabs);
-    }
-
-
-    @Override
-    protected HtmlSeparator separator() {
-        return new HtmlSeparator();
-    }
-
-    @Override
-    protected HtmlNavigation navigation() {
-        return new HtmlNavigation();
-    }
-
-    @Override
-    protected HtmlModal modal(HtmlComponent... components) {
-        return new HtmlModal(components);
-    }
-
     @Override
     protected HtmlButton button(Button.Type type, CharSequence text) {
         return new HtmlButton(type, text);
+    }
+
+    @Override
+    protected HtmlForm form(HtmlComponent... components) {
+        return new HtmlForm(components);
+    }
+
+    @Override
+    protected HtmlField field(String name, Field.Type type, CharSequence label) {
+        return new HtmlField(name, type, label);
     }
 
     @Override
@@ -97,14 +85,38 @@ public abstract class WebView extends BaseView<
     }
 
     @Override
-    protected HtmlText text(CharSequence text) {
-        return new HtmlText(text);
+    protected HtmlLinearLayout linearLayout(HtmlComponent... components) {
+        return new HtmlLinearLayout(components);
     }
 
+    @Override
+    protected HtmlModal modal(HtmlComponent... components) {
+        return new HtmlModal(components);
+    }
+
+    @Override
+    protected HtmlNavigation navigation() {
+        return new HtmlNavigation();
+    }
+
+    @Override
+    protected HtmlSeparator separator() {
+        return new HtmlSeparator();
+    }
+
+    @Override
+    protected HtmlTabLayout tabLayout(TabLayout.Tab... tabs) {
+        return new HtmlTabLayout(tabs);
+    }
 
     @Override
     protected HtmlTable table(CharSequence[] header, Object[]... rows) {
         return new HtmlTable(header, rows);
+    }
+
+    @Override
+    protected HtmlText text(CharSequence text) {
+        return new HtmlText(text);
     }
 
 }

@@ -1,6 +1,8 @@
-package org.fluentness.view.component.text.form;
+package org.fluentness.view.component.form;
 
-public interface TextField {
+import org.fluentness.view.component.Component;
+
+public interface Field extends Component {
 
     enum Type {
         TEXT,
@@ -11,7 +13,5 @@ public interface TextField {
         NUMBER,
         DISABLED,
     }
-
-    Type getType();
 
 }

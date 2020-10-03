@@ -1,15 +1,17 @@
 package org.fluentness.view;
 
 import org.fluentness.view.component.Component;
-import org.fluentness.view.component.modal.Modal;
+import org.fluentness.view.component.form.Field;
+import org.fluentness.view.component.form.Form;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.misc.Separator;
+import org.fluentness.view.component.modal.Modal;
 import org.fluentness.view.component.navigation.Navigation;
 import org.fluentness.view.component.table.Table;
+import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.text.Heading;
 import org.fluentness.view.component.text.Text;
-import org.fluentness.view.component.text.form.Button;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.function.Function;
 public abstract class BaseView<
     B extends Button,
     C extends Component,
+    Fi extends Field,
+    Fo extends Form,
     H extends Heading,
     LL extends LinearLayout,
     M extends Modal,
@@ -48,6 +52,22 @@ public abstract class BaseView<
         }
         return (C[]) result.toArray(new Component[0]);
     }
+
+    protected final Fi field(String name) {
+        return field(name, Field.Type.TEXT, name);
+    }
+
+    protected final Fi field(String name, Field.Type type) {
+        return field(name, type, name);
+    }
+
+    protected final Fi field(String name, CharSequence label) {
+        return field(name, Field.Type.TEXT, label);
+    }
+
+    protected abstract Fi field(String name, Field.Type type, CharSequence label);
+
+    protected abstract Fo form(C... components);
 
     protected final CharSequence[] header(CharSequence... columns) {
         return columns;

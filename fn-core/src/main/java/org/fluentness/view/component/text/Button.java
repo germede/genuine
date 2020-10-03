@@ -1,6 +1,4 @@
-package org.fluentness.view.component.text.form;
-
-import org.fluentness.view.component.text.Text;
+package org.fluentness.view.component.text;
 
 public interface Button extends Text {
 

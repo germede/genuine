@@ -1,4 +1,4 @@
-package org.fluentness.view.component.text.form;
+package org.fluentness.view.component.form;
 
 public interface SelectField {
 

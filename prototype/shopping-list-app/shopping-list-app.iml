@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="FacetManager">
-    <facet type="android" name="Android">
-      <configuration>
-        <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/target/generated-sources/r" />
-        <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/target/generated-sources/aidl" />
-        <option name="CUSTOM_APK_RESOURCE_FOLDER" value="/target/generated-sources/combined-resources/res" />
-        <option name="APK_PATH" value="/target/shopping-list-app.apk" />
-        <option name="RUN_PROCESS_RESOURCES_MAVEN_TASK" value="false" />
-        <option name="COMPILE_CUSTOM_GENERATED_SOURCES" value="false" />
-        <includeAssetsFromLibraries>true</includeAssetsFromLibraries>
-        <resOverlayFolders>
-          <path>/res-overlay</path>
-        </resOverlayFolders>
-      </configuration>
-    </facet>
-  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />

@@ -4,9 +4,10 @@ import org.fluentness.view.WebView;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.layout.HtmlLinearLayout;
 import org.fluentness.view.component.modal.HtmlModal;
-import org.fluentness.view.component.text.HtmlButton;
+import org.fluentness.view.component.button.HtmlButton;
+import org.fluentness.view.component.text.Heading;
 
-import static org.fluentness.prototype.service.Localization._notes;
+import static org.fluentness.prototype.service.Localization.*;
 import static org.fluentness.service.localization.BaseLocalization._create;
 
 public class NotesView extends WebView {
@@ -20,7 +21,13 @@ public class NotesView extends WebView {
         title = _notes;
         return linearLayout(
             newButton = button(_create),
-            newModal = modal(text("hello")),
+            newModal = modal(
+                heading(Heading.Level.H6, _create),
+                form(
+                    field("title", _note_title),
+                    field("description", _note_description)
+                )
+            ),
             noteList = linearLayout()
         );
     }

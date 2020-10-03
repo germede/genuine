@@ -8,7 +8,7 @@ import org.fluentness.view.component.layout.TabLayout;
 import org.fluentness.view.component.misc.Separator;
 import org.fluentness.view.component.table.SwingTable;
 import org.fluentness.view.component.table.Table;
-import org.fluentness.view.component.text.form.Button;
+import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.text.SwingButton;
 
 import javax.swing.*;

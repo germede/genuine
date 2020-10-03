@@ -1,7 +1,7 @@
-package org.fluentness.view.component.text;
+package org.fluentness.view.component.button;
 
-import org.fluentness.view.component.text.form.Button;
-import org.fluentness.view.event.Handler;
+import org.fluentness.view.component.text.BaseHtmlText;
+import org.fluentness.view.component.text.Button;
 
 public class HtmlButton extends BaseHtmlText implements Button {
 

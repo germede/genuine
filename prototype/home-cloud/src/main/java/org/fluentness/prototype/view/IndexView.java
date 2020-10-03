@@ -3,12 +3,12 @@ package org.fluentness.prototype.view;
 import org.fluentness.view.WebView;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.component.modal.HtmlModal;
-import org.fluentness.view.component.text.HtmlButton;
+import org.fluentness.view.component.button.HtmlButton;
 
 import java.util.Date;
 
 import static org.fluentness.view.component.text.Heading.Level.*;
-import static org.fluentness.view.component.text.form.Button.Type.*;
+import static org.fluentness.view.component.text.Button.Type.*;
 
 public class IndexView extends WebView {
 
