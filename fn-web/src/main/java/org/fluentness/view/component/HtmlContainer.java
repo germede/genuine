@@ -28,9 +28,7 @@ public class HtmlContainer extends HtmlComponent {
     }
 
     public HtmlContainer withInner(HtmlComponent... inner) {
-        for (HtmlComponent htmlComponent : inner) {
-            withInner(htmlComponent);
-        }
+        for (HtmlComponent htmlComponent : inner) withInner(htmlComponent);
         return this;
     }
 
@@ -56,7 +54,11 @@ public class HtmlContainer extends HtmlComponent {
             "</" + tag + ">";
     }
 
-    public void append(HtmlComponent child) {
+    public void append(CharSequence child) {
         JavaScriptCommand.appendChild(getXpath(), child);
+    }
+
+    public void append(HtmlComponent child) {
+        JavaScriptCommand.appendChild(getXpath(), child.toString());
     }
 }

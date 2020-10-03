@@ -1,7 +1,5 @@
 package org.fluentness.controller;
 
-import org.fluentness.view.component.HtmlComponent;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +21,7 @@ public enum JavaScriptCommand {
         addCommand(CHANGE_INNER, xpath, inner);
     }
 
-    public static void appendChild(String xpath, HtmlComponent child) {
+    public static void appendChild(String xpath, CharSequence child) {
         addCommand(APPEND_CHILD, xpath, child);
     }
 
@@ -32,6 +30,7 @@ public enum JavaScriptCommand {
     }
 
     private static void addCommand(JavaScriptCommand command, Object... parameters) {
+        if (commands.get() == null) clear();
         commands.get().add(
             command.name() + COMMAND_DELIMITER + Arrays.stream(parameters).map(String::valueOf).collect(Collectors.joining(PARAMETER_DELIMITER))
         );
@@ -42,8 +41,11 @@ public enum JavaScriptCommand {
         commands.set(new LinkedList<>());
     }
 
-    static String getCommands() {
-        return String.join(COMMANDS_DELIMITER, commands.get());
+    public static String getCommands() {
+        if (commands.get() == null) clear();
+        String join = String.join(COMMANDS_DELIMITER, commands.get());
+        clear();
+        return join;
     }
 
 }

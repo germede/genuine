@@ -61,11 +61,11 @@ public abstract class BaseView<
         return field(name, type, name);
     }
 
-    protected final Fi field(String name, CharSequence label) {
-        return field(name, Field.Type.TEXT, label);
+    protected final Fi field(String name, CharSequence placeholder) {
+        return field(name, Field.Type.TEXT, placeholder);
     }
 
-    protected abstract Fi field(String name, Field.Type type, CharSequence label);
+    protected abstract Fi field(String name, Field.Type type, CharSequence placeholder);
 
     protected abstract Fo form(C... components);
 
@@ -92,6 +92,10 @@ public abstract class BaseView<
     protected abstract S separator();
 
     protected abstract C structure();
+
+    protected final Fi submit() {
+        return field(null, Field.Type.SUBMIT, null);
+    }
 
     protected static <C> TabLayout.Tab<C> tab(CharSequence name, C content) {
         return new TabLayout.Tab<>(name, content);

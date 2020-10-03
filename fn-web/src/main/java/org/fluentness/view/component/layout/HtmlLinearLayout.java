@@ -34,4 +34,5 @@ public class HtmlLinearLayout extends HtmlContainer implements LinearLayout {
     public void appendChild(Component child) {
         super.append((HtmlComponent) child);
     }
+
 }

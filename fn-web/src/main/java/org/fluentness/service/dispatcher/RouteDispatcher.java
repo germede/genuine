@@ -2,6 +2,7 @@ package org.fluentness.service.dispatcher;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.fluentness.controller.JavaScriptCommand;
 import org.fluentness.controller.WebController;
 import org.fluentness.service.authenticator.Authenticator;
 import org.fluentness.service.configuration.Configuration;
@@ -58,6 +59,8 @@ public class RouteDispatcher extends BaseDispatcher {
                 respond(response, ((WebView)returned).getRenderedHtml());
             } else if (returned instanceof Integer) {
                 response.setStatus((Integer) returned);
+            } else {
+                respond(response, JavaScriptCommand.getCommands());
             }
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);

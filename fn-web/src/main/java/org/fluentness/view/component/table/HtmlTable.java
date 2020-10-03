@@ -51,7 +51,12 @@ public class HtmlTable extends HtmlContainer implements Table {
 
     @Override
     public void addRow(Object... values) {
-
+        HtmlContainer tr = new HtmlContainer("tr");
+        for (Object value : values) {
+            tr.withInner(new HtmlContainer("td").withInner(value.toString()));
+        }
+        tr.setParent(tbody);
+        tbody.append(tr);
     }
 
     @Override

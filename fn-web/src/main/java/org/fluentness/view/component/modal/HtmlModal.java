@@ -22,6 +22,6 @@ public class HtmlModal extends HtmlContainer implements Modal {
 
     @Override
     public void hide() {
-        toggleClass("hide");
+        toggleClass("show");
     }
 }

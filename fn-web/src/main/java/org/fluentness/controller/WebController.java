@@ -36,10 +36,9 @@ public abstract class WebController<W extends WebView> extends ViewController<W>
     public final Object main(String eventId, HttpServletRequest request) {
         // dynamic ajax request
         if (eventId != null) {
-            JavaScriptCommand.clear();
             if (events.containsKey(eventId)) events.get(eventId).handle();
             else if (eventId.equals("pageload")) onPageLoad();
-            return JavaScriptCommand.getCommands();
+            return null;
         }
         // first static request
         return view;

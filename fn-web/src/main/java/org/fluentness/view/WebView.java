@@ -74,9 +74,13 @@ public abstract class WebView extends BaseView<
         return new HtmlForm(components);
     }
 
+    protected HtmlForm form(String action, HtmlComponent... components) {
+        return (HtmlForm) new HtmlForm(components).withAttribute("action", action);
+    }
+
     @Override
-    protected HtmlField field(String name, Field.Type type, CharSequence label) {
-        return new HtmlField(name, type, label);
+    protected HtmlField field(String name, Field.Type type, CharSequence placeholder) {
+        return new HtmlField(name, type, placeholder);
     }
 
     @Override

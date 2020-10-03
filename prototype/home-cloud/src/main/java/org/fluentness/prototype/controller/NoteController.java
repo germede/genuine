@@ -6,7 +6,8 @@ import org.fluentness.prototype.model.User;
 import org.fluentness.prototype.repository.NoteRepository;
 import org.fluentness.prototype.repository.UserRepository;
 import org.fluentness.prototype.view.NotesView;
-import org.fluentness.view.component.text.HtmlText;
+
+import static org.fluentness.service.server.RequestMethod.POST;
 
 public class NoteController extends WebController<NotesView> {
 
@@ -17,22 +18,21 @@ public class NoteController extends WebController<NotesView> {
         super(view, "/notes");
         this.noteRepository = noteRepository;
         this.userRepository = userRepository;
+
         onClick(view.newButton, this::newNote);
     }
 
 
     @Override
     protected void onPageLoad() {
-        noteRepository.selectAll().forEach(
-            note -> view.noteList.appendChild(new HtmlText(note.getTitle()))
-        );
+        noteRepository.selectAll().forEach(note -> view.notes.addRow(note.getTitle(), note.getDescription()));
     }
 
-    @Action(path = "/new")
+    @Action(method = POST, path = "/new")
     public void newNote(String title, String description) {
         Note note = new Note();
-        note.setTitle("hallo");
-        note.setDescription("description");
+        note.setTitle(title);
+        note.setDescription(description);
         User user = new User();
         user.setUsername("test");
         user.setPassword("pass");
@@ -40,7 +40,8 @@ public class NoteController extends WebController<NotesView> {
         userRepository.insert(user);
         noteRepository.insert(note);
 
-        view.noteList.appendChild(new HtmlText(note.getTitle()));
+        view.newModal.hide();
+        view.notes.addRow(note.getTitle(), note.getDescription());
     }
 
     private void newNote() {

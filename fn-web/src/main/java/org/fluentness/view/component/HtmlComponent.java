@@ -9,9 +9,9 @@ import java.util.Set;
 
 public class HtmlComponent implements Component {
 
-    private static int ID_SEQUENCE = 0;
+    private static long ID_SEQUENCE = 0;
 
-    protected int id = ++ID_SEQUENCE;
+    protected long id = ++ID_SEQUENCE;
     protected final String tag;
     protected HtmlComponent parent;
 
@@ -21,7 +21,7 @@ public class HtmlComponent implements Component {
         this.tag = tag;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

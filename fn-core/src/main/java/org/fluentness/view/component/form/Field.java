@@ -12,6 +12,7 @@ public interface Field extends Component {
         PHONE,
         NUMBER,
         DISABLED,
+        SUBMIT,
     }
 
 }
