@@ -52,6 +52,10 @@ public class HtmlComponent implements Component {
         return this;
     }
 
+    public HtmlComponent withAttribute(String key) {
+        return withAttribute(key, null);
+    }
+
     @Override
     public String toString() {
         StringBuilder attributes = new StringBuilder();

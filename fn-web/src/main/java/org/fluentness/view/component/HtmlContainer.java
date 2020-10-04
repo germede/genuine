@@ -43,6 +43,11 @@ public class HtmlContainer extends HtmlComponent {
     }
 
     @Override
+    public HtmlContainer withAttribute(String key) {
+        return (HtmlContainer) super.withAttribute(key);
+    }
+
+    @Override
     public String toString() {
         StringBuilder attributes = new StringBuilder();
         for (Map.Entry<String, Set<CharSequence>> attribute : this.attributes.entrySet()) {

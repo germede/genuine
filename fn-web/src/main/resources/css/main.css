@@ -2,9 +2,9 @@
 @import "_buttons.css";
 @import "_forms.css";
 @import "_grids.css";
-@import "_menus.css";
 @import "_modals.css";
 @import "_modifiers.css";
+@import "_navs.css";
 @import "_tables.css";
 @import "_tabs.css";
 @import "_texts.css";
@@ -15,17 +15,23 @@
     --color-success: #00ff00;
     --color-warning: #ffff00;
     --color-danger: #ff0000;
-    --color-light: #ffffff;
-    --color-medium: #999999;
+
+    --color-lighter: #eeeeee;
+    --color-light: #dddddd;
+    --color-medium: #888888;
     --color-dark: #333333;
+    --color-darker: #222222;
+
     --color-white: #ffffff;
     --color-black: #000000;
     --color-transparent: rgba(0, 0, 0, 0);
     --color-disabled: #AAAAAA;
+
     --font-family-sans: "Helvetica Neue", sans-serif;
     --font-family-mono: monaco, "Consolas", "Lucida Console", monospace;
     --font-size: 1.6rem;
-    --font-color: #333333;
+    --font-color: #222222;
+
     --grid-gutter: 2rem;
     --sm-breakpoint: 600px;
     --md-breakpoint: 900px;
@@ -33,8 +39,11 @@
 }
 
 [data-theme="dark"] {
+    --color-lighter: #222222;
     --color-light: #333333;
-    --color-medium: #999999;
-    --color-dark: #ffffff;
-    --font-color: #eeeeee;
+
+    --color-dark: #dddddd;
+    --color-darker: #eeeeee;
+
+    --font-color: #dddddd;
 }

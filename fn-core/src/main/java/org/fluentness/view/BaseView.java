@@ -54,7 +54,7 @@ public abstract class BaseView<
     }
 
     protected final Fi field(String name) {
-        return field(name, Field.Type.TEXT, name);
+        return field(name, Field.Type.TEXT);
     }
 
     protected final Fi field(String name, Field.Type type) {
@@ -65,7 +65,11 @@ public abstract class BaseView<
         return field(name, Field.Type.TEXT, placeholder);
     }
 
-    protected abstract Fi field(String name, Field.Type type, CharSequence placeholder);
+    protected final Fi field(String name, Field.Type type, CharSequence placeholder) {
+        return field(name, type, placeholder, true);
+    }
+
+    protected abstract Fi field(String name, Field.Type type, CharSequence placeholder, boolean required);
 
     protected abstract Fo form(C... components);
 

@@ -14,5 +14,4 @@ public interface Field extends Component {
         DISABLED,
         SUBMIT,
     }
-
 }

@@ -80,8 +80,8 @@ public abstract class WebView extends BaseView<
     }
 
     @Override
-    protected HtmlField field(String name, Field.Type type, CharSequence placeholder) {
-        return new HtmlField(name, type, placeholder);
+    protected HtmlField field(String name, Field.Type type, CharSequence placeholder, boolean required) {
+        return new HtmlField(name, type, placeholder, required);
     }
 
     @Override

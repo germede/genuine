@@ -1,4 +1,5 @@
 nav:not(.tabs) {
+    background-color: var(--color-light);
     display: flex;
     min-height: 5rem;
     align-items: stretch;
