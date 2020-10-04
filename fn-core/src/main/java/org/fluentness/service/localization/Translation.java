@@ -8,7 +8,7 @@ public class Translation implements CharSequence {
 
     private static final String DEFAULT = "default";
 
-    private Map<String, String> translations = new HashMap<>();
+    private final Map<String, String> translations = new HashMap<>();
 
     Translation(String defaultTranslation, Map.Entry<String, String>[] translations) {
         this.translations.put(DEFAULT, defaultTranslation);
@@ -36,10 +36,4 @@ public class Translation implements CharSequence {
     public String toString() {
         return translations.getOrDefault(Locale.getDefault().getLanguage(), translations.get(DEFAULT));
     }
-
-    private Translation add(String language, String translation) {
-        translations.put(language,translation);
-        return this;
-    }
-
 }

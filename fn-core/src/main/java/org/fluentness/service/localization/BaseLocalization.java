@@ -5,7 +5,6 @@ import java.util.Map;
 
 public abstract class BaseLocalization implements Localization {
 
-    // todo maybe another way of declaring translations
     public static final Translation
         _submit = msg("Submit", de("Absenden"), es("Enviar")),
         _search = msg("Search", de("Suchen"), es("Buscar")),

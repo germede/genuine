@@ -22,19 +22,16 @@ public class Authenticator extends BaseAuthenticator {
 
     @Override
     protected boolean authorize(HttpServletRequest request, String username, String password) {
-        boolean result = false;
-        try (DatabaseConnection connection = persistence.getConnectionSource().getReadOnlyConnection("authentication")){
-            result = connection.queryForLong("SELECT * FROM user WHERE username = '" + username + "'") > 0;
+        boolean authorize = false;
+        try (DatabaseConnection connection = persistence.getConnectionSource().getReadOnlyConnection("authentication")) {
+            authorize = connection.queryForLong(
+                "SELECT * FROM user WHERE username = '" + username + "' AND password = '" + password + "'"
+            ) > 0;
         } catch (SQLException | IOException e) {
             log.error(e);
         }
-        if (result) {
-            setSessionAttributes(request, username);
-        }
-        return result;
+        if (authorize) request.getSession().setAttribute("username", username);
+        return authorize;
     }
 
-    private void setSessionAttributes(HttpServletRequest request, String username) {
-        request.getSession().setAttribute("username", username);
-    }
 }
