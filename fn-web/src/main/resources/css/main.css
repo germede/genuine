@@ -16,8 +16,8 @@
     --color-warning: #ffff00;
     --color-danger: #ff0000;
 
-    --color-lighter: #eeeeee;
-    --color-light: #dddddd;
+    --color-lighter: #ffffff;
+    --color-light: #f6f6f6;
     --color-medium: #888888;
     --color-dark: #333333;
     --color-darker: #222222;
@@ -42,8 +42,8 @@
     --color-lighter: #222222;
     --color-light: #333333;
 
-    --color-dark: #dddddd;
-    --color-darker: #eeeeee;
+    --color-dark: #eeeeee;
+    --color-darker: #f6f6f6;
 
-    --font-color: #dddddd;
+    --font-color: #eeeeee;
 }
