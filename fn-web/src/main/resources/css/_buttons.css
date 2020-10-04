@@ -60,7 +60,7 @@ button.warning {
 }
 
 button.danger {
-    color: var(--color-light);
+    color: var(--color-white);
     background-color: var(--color-danger);
 }
 
