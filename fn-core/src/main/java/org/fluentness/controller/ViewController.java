@@ -1,6 +1,8 @@
 package org.fluentness.controller;
 
 import org.fluentness.view.View;
+import org.fluentness.view.component.Component;
+import org.fluentness.view.event.Handler;
 
 public abstract class ViewController<V extends View> implements Controller {
 
@@ -13,4 +15,6 @@ public abstract class ViewController<V extends View> implements Controller {
     public final V getView() {
         return view;
     }
+
+    protected abstract void onClick(Component component, Handler handler);
 }

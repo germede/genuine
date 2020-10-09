@@ -2,12 +2,17 @@ package org.fluentness.prototype.view;
 
 import org.fluentness.view.MobileView;
 import org.fluentness.view.component.Component;
+import org.fluentness.view.component.form.Field;
+import org.fluentness.view.component.form.Form;
 import org.fluentness.view.component.layout.LinearLayout;
 import org.fluentness.view.component.misc.Separator;
+import org.fluentness.view.component.modal.Modal;
 import org.fluentness.view.component.navigation.Navigation;
+import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.text.Heading;
 import org.fluentness.view.component.text.Text;
-import org.fluentness.view.component.text.Button;
+
+import static org.fluentness.service.localization.BaseLocalization._cancel;
 
 public class ShoppingListView extends MobileView {
 
@@ -22,8 +27,7 @@ public class ShoppingListView extends MobileView {
     @Override
     protected Component structure() {
         return root = linearLayout(
-//            button1 = button(_cancel),
-//            button(_welcome_message),
+            button1 = button(_cancel),
             tabLayout(
                 tab("First tab", button("button in tab 1")),
                 tab("Second tab", button("button in tab 2")),
@@ -49,7 +53,22 @@ public class ShoppingListView extends MobileView {
     }
 
     @Override
+    protected Field field(String name, Field.Type type, CharSequence placeholder, boolean required) {
+        return null;
+    }
+
+    @Override
+    protected Form form(Component[] components) {
+        return null;
+    }
+
+    @Override
     protected Heading heading(Heading.Level level, CharSequence text) {
+        return null;
+    }
+
+    @Override
+    protected Modal modal(Component[] components) {
         return null;
     }
 

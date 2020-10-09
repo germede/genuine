@@ -15,7 +15,6 @@ public abstract class MobileView extends BaseView {
     private final View androidView;
 
     public MobileView(String title) {
-        super(title);
         androidView = (View) structure();
     }
 

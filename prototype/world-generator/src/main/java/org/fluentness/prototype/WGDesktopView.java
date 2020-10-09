@@ -2,7 +2,10 @@ package org.fluentness.prototype;
 
 import org.fluentness.view.DesktopView;
 import org.fluentness.view.component.Component;
+import org.fluentness.view.component.form.Field;
+import org.fluentness.view.component.form.Form;
 import org.fluentness.view.component.layout.LinearLayout;
+import org.fluentness.view.component.modal.Modal;
 import org.fluentness.view.component.navigation.Navigation;
 import org.fluentness.view.component.table.Table;
 import org.fluentness.view.component.text.Heading;
@@ -53,7 +56,22 @@ public class WGDesktopView extends DesktopView {
     }
 
     @Override
+    protected Field field(String name, Field.Type type, CharSequence placeholder, boolean required) {
+        return null;
+    }
+
+    @Override
+    protected Form form(Component[] components) {
+        return null;
+    }
+
+    @Override
     protected Heading heading(Heading.Level level, CharSequence text) {
+        return null;
+    }
+
+    @Override
+    protected Modal modal(Component[] components) {
         return null;
     }
 

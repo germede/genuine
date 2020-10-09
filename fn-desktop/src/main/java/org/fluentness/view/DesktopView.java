@@ -24,7 +24,6 @@ public abstract class DesktopView extends BaseView {
     }
 
     public DesktopView(CharSequence title, String lookAndFeelClassName) {
-        super(title);
         try {
             UIManager.setLookAndFeel(lookAndFeelClassName);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {

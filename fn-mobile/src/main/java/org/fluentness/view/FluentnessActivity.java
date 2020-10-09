@@ -33,7 +33,7 @@ public class FluentnessActivity extends Activity {
             main.invoke(null, args);
 
             // init first controller view
-            MobileApplication application = (MobileApplication) MobileApplication.application;
+            MobileApplication application = MobileApplication.application;
             MobileView view = (MobileView) application.getControllers()[0].getView();
             View androidView = view.getAndroidView();
             setContentView(androidView);

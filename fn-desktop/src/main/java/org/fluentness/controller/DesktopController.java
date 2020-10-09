@@ -1,7 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.view.DesktopView;
-import org.fluentness.view.event.Clickable;
+import org.fluentness.view.component.Component;
 import org.fluentness.view.event.Handler;
 
 import javax.swing.*;
@@ -12,9 +12,10 @@ public abstract class DesktopController<D extends DesktopView> extends ViewContr
         super(view);
     }
 
-    protected void onClick(Clickable clickable, Handler handler) {
-        if (clickable instanceof JButton) {
-            ((JButton) clickable).addActionListener(button -> handler.handle());
+    @Override
+    protected void onClick(Component component, Handler handler) {
+        if (component instanceof AbstractButton) {
+            ((AbstractButton) component).addActionListener(button -> handler.handle());
         }
     }
 }

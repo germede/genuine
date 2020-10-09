@@ -55,7 +55,7 @@ public class RouteDispatcher extends BaseDispatcher {
             if (returned instanceof CharSequence) {
                 respond(response, returned.toString());
             } else if (returned instanceof WebView) {
-                respond(response, ((WebView)returned).getRenderedHtml());
+                respond(response, render(((WebView)returned)));
             } else if (returned instanceof Integer) {
                 response.setStatus((Integer) returned);
             } else {
@@ -85,6 +85,11 @@ public class RouteDispatcher extends BaseDispatcher {
             }
         }
         return result;
+    }
+
+    private String render(WebView returned) {
+
+        return null;
     }
 
     private void respond(HttpServletResponse response, String render) throws IOException {

@@ -2,7 +2,7 @@ package org.fluentness.controller;
 
 import android.view.View;
 import org.fluentness.view.MobileView;
-import org.fluentness.view.event.Clickable;
+import org.fluentness.view.component.Component;
 import org.fluentness.view.event.Handler;
 
 public abstract class MobileController<M extends MobileView> extends ViewController<M> {
@@ -12,11 +12,8 @@ public abstract class MobileController<M extends MobileView> extends ViewControl
         MobileView.navigation.addItem(this);
     }
 
-    protected void onClick(Clickable clickable, Handler handler) {
-
-        if( clickable instanceof View) {
-            ((View) clickable).setOnClickListener(view -> handler.handle());
-        }
-
+    @Override
+    protected void onClick(Component component, Handler handler) {
+        ((View) component).setOnClickListener(view -> handler.handle());
     }
 }

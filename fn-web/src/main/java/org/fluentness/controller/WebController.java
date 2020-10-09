@@ -1,6 +1,7 @@
 package org.fluentness.controller;
 
 import org.fluentness.view.WebView;
+import org.fluentness.view.component.Component;
 import org.fluentness.view.component.HtmlComponent;
 import org.fluentness.view.event.Handler;
 
@@ -63,9 +64,11 @@ public abstract class WebController<W extends WebView> extends ViewController<W>
 
     }
 
-    protected final void onClick(HtmlComponent component, Handler handler) {
-        String eventId = component.getId() + "click";
-        component.withAttribute("onclick", "send('" + eventId + "');");
+    @Override
+    protected final void onClick(Component component, Handler handler) {
+        HtmlComponent htmlComponent = (HtmlComponent) component;
+        String eventId = htmlComponent.getId() + "click";
+        htmlComponent.withAttribute("onclick", "send('" + eventId + "');");
         events.put(eventId, handler);
     }
 
