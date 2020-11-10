@@ -6,28 +6,27 @@ import org.fluentness.service.authenticator.BaseAuthenticator;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.persistence.Persistence;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class Authenticator extends BaseAuthenticator {
 
 
     private final Log log;
-    private final Persistence persistence;
+    private final DatabaseConnection connection;
 
-    public Authenticator(Log log, Persistence persistence) {
+    public Authenticator(Log log, Persistence persistence) throws SQLException {
         this.log = log;
-        this.persistence = persistence;
+        connection = persistence.getConnectionSource().getReadOnlyConnection("authentication");
     }
 
     @Override
     protected boolean authorize(HttpServletRequest request, String username, String password) {
         boolean authorize = false;
-        try (DatabaseConnection connection = persistence.getConnectionSource().getReadOnlyConnection("authentication")) {
+        try {
             authorize = connection.queryForLong(
                 "SELECT * FROM user WHERE username = '" + username + "' AND password = '" + password + "'"
             ) > 0;
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             log.error(e);
         }
         if (authorize) request.getSession().setAttribute("username", username);
