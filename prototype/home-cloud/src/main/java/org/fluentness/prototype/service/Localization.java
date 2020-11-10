@@ -5,6 +5,7 @@ import org.fluentness.service.localization.Translation;
 
 public class Localization extends BaseLocalization {
 
+    // todo use properties files instead
     public static final Translation
         _welcome_message = msg("Welcome", de("Willkommen"), es("Bienvenido")),
         _login = msg("Log in", de("Anmelden"), es("Entrar")),
