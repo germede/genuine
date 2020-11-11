@@ -13,19 +13,4 @@
 
     <packaging>jar</packaging>
 
-    <dependencies>
-        <!--todo implement own persistence methods using jdbc and avoiding including external libraries-->
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-        </dependency>
-    </dependencies>
 </project>

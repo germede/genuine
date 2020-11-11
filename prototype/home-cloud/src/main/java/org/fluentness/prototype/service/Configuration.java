@@ -12,7 +12,7 @@ public class Configuration extends BaseConfiguration {
     @Override
     protected void configure() {
         set(ResourceDispatcher.INLINE_RESOURCES, false);
-        set(Log.LEVEL, LogLevel.INFO);
+        set(Log.LEVEL, LogLevel.DEBUG);
         set(Dispatcher.SINGLE_PAGE_MODE, false);
         set(Persistence.DRIVER, "mysql");
         set(Persistence.HOST, "localhost");
