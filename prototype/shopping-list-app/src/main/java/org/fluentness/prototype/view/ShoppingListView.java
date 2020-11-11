@@ -12,7 +12,7 @@ import org.fluentness.view.component.text.Button;
 import org.fluentness.view.component.text.Heading;
 import org.fluentness.view.component.text.Text;
 
-import static org.fluentness.service.localization.BaseLocalization._cancel;
+import static org.fluentness.service.translator.BaseTranslator._cancel;
 
 public class ShoppingListView extends MobileView {
 

@@ -1,4 +1,4 @@
-package org.fluentness.service.instantiation;
+package org.fluentness.service.injector;
 
 import org.fluentness.application.Application;
 import org.fluentness.controller.Controller;
@@ -11,7 +11,7 @@ import org.fluentness.view.View;
 import java.lang.reflect.*;
 import java.util.*;
 
-public class InstantiationImpl implements Instantiation {
+public class InjectorImpl implements Injector {
 
     private final Class<?>[] injectionPriority = new Class[]{
         Model.class,
@@ -25,12 +25,12 @@ public class InstantiationImpl implements Instantiation {
     private final Map<Class, Object> instances = new HashMap<>();
 
     @Override
-    public Application instantiate(Class<? extends Application> applicationClass) throws InstantiationException {
+    public Application inject(Class<? extends Application> applicationClass) throws InjectorException {
         try {
             getServices(applicationClass);
             return instanceOf(applicationClass);
         } catch (Throwable cause) {
-            throw new InstantiationException(cause);
+            throw new InjectorException(cause);
         }
     }
 
@@ -51,7 +51,7 @@ public class InstantiationImpl implements Instantiation {
         });
     }
 
-    private <T> T instanceOf(Class<T> aClass) throws InstantiationException {
+    private <T> T instanceOf(Class<T> aClass) throws InjectorException {
         Constructor constructor = getConstructor(aClass);
         try {
             T instance;
@@ -63,18 +63,18 @@ public class InstantiationImpl implements Instantiation {
             }
             return instance;
         } catch (IllegalAccessException | InvocationTargetException | java.lang.InstantiationException e) {
-            throw new InstantiationException(e);
+            throw new InjectorException(e);
         }
     }
 
-    private Constructor getConstructor(Class aClass) throws InstantiationException {
+    private Constructor getConstructor(Class aClass) throws InjectorException {
         return Arrays.stream(aClass.getConstructors())
             .filter(constructor -> Modifier.isPublic(constructor.getModifiers()))
             .findFirst()
-            .orElseThrow(() -> new InstantiationException("%s is not instantiable", aClass.getSimpleName()));
+            .orElseThrow(() -> new InjectorException("%s is not instantiable", aClass.getSimpleName()));
     }
 
-    private <T> Object[] getParameters(Constructor<T> constructor) throws InstantiationException {
+    private <T> Object[] getParameters(Constructor<T> constructor) throws InjectorException {
         Parameter[] parameters = constructor.getParameters();
         Object[] result = new Object[parameters.length];
         for (int i = 0; i < parameters.length; i++) {
@@ -107,14 +107,14 @@ public class InstantiationImpl implements Instantiation {
         return result;
     }
 
-    private void validateDependency(Class<?> dependant, Class<?> dependency) throws InstantiationException {
+    private void validateDependency(Class<?> dependant, Class<?> dependency) throws InjectorException {
         int dependantPriority = -1, dependencyPriority = -1;
         for (int i = 0; i < injectionPriority.length; i++) {
             if (injectionPriority[i].isAssignableFrom(dependant)) dependantPriority = i;
             if (injectionPriority[i].isAssignableFrom(dependency)) dependencyPriority = i;
         }
         if (dependantPriority < dependencyPriority) {
-            throw new InstantiationException("A %s cannot depend on a %s", dependant.getSimpleName(), dependency.getSimpleName());
+            throw new InjectorException("A %s cannot depend on a %s", dependant.getSimpleName(), dependency.getSimpleName());
         }
     }
 }

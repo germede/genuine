@@ -3,7 +3,7 @@ package org.fluentness.prototype;
 import org.fluentness.application.GameApplication;
 import org.fluentness.Fluentness;
 import org.fluentness.service.Services;
-import org.fluentness.service.instantiation.InstantiationException;
+import org.fluentness.service.injector.InjectorException;
 import org.fluentness.prototype.controller.GameController;
 import org.fluentness.prototype.service.Configuration;
 import org.fluentness.service.looper.Looper;
@@ -15,7 +15,7 @@ public class WorldGenerator extends GameApplication {
         super(looper, controller);
     }
 
-    public static void main(String[] args) throws InstantiationException {
+    public static void main(String[] args) throws InjectorException {
         Fluentness.launch(WorldGenerator.class, args);
     }
 }

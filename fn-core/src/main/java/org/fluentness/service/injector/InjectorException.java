@@ -1,6 +1,6 @@
-package org.fluentness.service.instantiation;
+package org.fluentness.service.injector;
 
-public class InstantiationException extends java.lang.Exception {
+public class InjectorException extends java.lang.Exception {
 
     private String message;
     private Throwable cause;
@@ -20,11 +20,11 @@ public class InstantiationException extends java.lang.Exception {
         return cause != null ? cause : super.getCause();
     }
 
-    InstantiationException(Throwable cause) {
+    InjectorException(Throwable cause) {
         this.cause = cause;
     }
 
-    InstantiationException(String messageToFormat, Object... parameters) {
+    InjectorException(String messageToFormat, Object... parameters) {
         this.message = String.format(messageToFormat, parameters);
     }
 }

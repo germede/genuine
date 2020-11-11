@@ -2,7 +2,7 @@ package org.fluentness.prototype.controller;
 
 import org.fluentness.controller.WebController;
 
-import static org.fluentness.prototype.service.Localization.*;
+import static org.fluentness.prototype.service.Translator.*;
 
 public class WebActionController extends WebController {
 

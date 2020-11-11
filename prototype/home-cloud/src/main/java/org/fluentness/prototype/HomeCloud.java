@@ -7,7 +7,7 @@ import org.fluentness.prototype.controller.NotesController;
 import org.fluentness.prototype.service.Authenticator;
 import org.fluentness.prototype.service.Configuration;
 import org.fluentness.service.Services;
-import org.fluentness.service.instantiation.InstantiationException;
+import org.fluentness.service.injector.InjectorException;
 import org.fluentness.service.server.Server;
 
 @Services({
@@ -23,7 +23,7 @@ public class HomeCloud extends WebApplication {
         super(server, indexController, notesController);
     }
 
-    public static void main(String[] args) throws InstantiationException {
+    public static void main(String[] args) throws InjectorException {
         Fluentness.launch(HomeCloud.class, args);
     }
 }

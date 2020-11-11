@@ -7,8 +7,8 @@ import org.fluentness.view.component.modal.HtmlModal;
 import org.fluentness.view.component.table.HtmlTable;
 import org.fluentness.view.component.text.Heading;
 
-import static org.fluentness.prototype.service.Localization.*;
-import static org.fluentness.service.localization.BaseLocalization._create;
+import static org.fluentness.prototype.service.Translator.*;
+import static org.fluentness.service.translator.BaseTranslator._create;
 
 public class NotesView extends WebView {
 

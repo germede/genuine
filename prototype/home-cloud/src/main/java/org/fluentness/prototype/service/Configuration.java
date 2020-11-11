@@ -6,14 +6,11 @@ import org.fluentness.service.dispatcher.ResourceDispatcher;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.log.LogLevel;
 import org.fluentness.service.persistence.Persistence;
-import org.fluentness.service.server.Server;
 
 public class Configuration extends BaseConfiguration {
 
     @Override
     protected void configure() {
-
-        set(Server.PORT, 8000);
         set(ResourceDispatcher.INLINE_RESOURCES, false);
         set(Log.LEVEL, LogLevel.INFO);
         set(Dispatcher.SINGLE_PAGE_MODE, false);

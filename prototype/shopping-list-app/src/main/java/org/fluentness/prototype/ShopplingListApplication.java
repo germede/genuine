@@ -3,7 +3,7 @@ package org.fluentness.prototype;
 import org.fluentness.application.MobileApplication;
 import org.fluentness.Fluentness;
 import org.fluentness.prototype.controller.ShoppingListController;
-import org.fluentness.service.instantiation.InstantiationException;
+import org.fluentness.service.injector.InjectorException;
 
 public class ShopplingListApplication extends MobileApplication {
 
@@ -11,7 +11,7 @@ public class ShopplingListApplication extends MobileApplication {
         super(controller);
     }
 
-    public static void main(String[] args) throws InstantiationException {
+    public static void main(String[] args) throws InjectorException {
         Fluentness.launch(ShopplingListApplication.class, args);
     }
 }
