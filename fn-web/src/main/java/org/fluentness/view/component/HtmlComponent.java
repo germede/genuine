@@ -1,11 +1,13 @@
 package org.fluentness.view.component;
 
 import org.fluentness.controller.JavaScriptCommand;
+import org.fluentness.service.translator.Translator;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class HtmlComponent implements Component {
 
@@ -15,7 +17,7 @@ public class HtmlComponent implements Component {
     protected final String tag;
     protected HtmlComponent parent;
 
-    protected final Map<String, Set<CharSequence>> attributes = new HashMap<>();
+    protected final Map<String, Set<String>> attributes = new HashMap<>();
 
     public HtmlComponent(String tag) {
         this.tag = tag;
@@ -59,9 +61,11 @@ public class HtmlComponent implements Component {
     @Override
     public String toString() {
         StringBuilder attributes = new StringBuilder();
-        for (Map.Entry<String, Set<CharSequence>> attribute : this.attributes.entrySet()) {
-            attributes.append(' ').append(attribute.getKey())
-                .append(attribute.getValue() != null ? "=\"" + String.join(" ", attribute.getValue()) + "\"" : "");
+        for (Map.Entry<String, Set<String>> attribute : this.attributes.entrySet()) {
+            attributes.append(' ').append(attribute.getKey()).append(attribute.getValue() != null ?
+                "=\"" + attribute.getValue().stream().map(Translator::translate).collect(Collectors.joining(" ")) + "\""
+                : ""
+            );
         }
         return "<" + tag + attributes + "/>";
     }

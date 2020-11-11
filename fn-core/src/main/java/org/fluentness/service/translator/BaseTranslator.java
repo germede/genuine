@@ -2,19 +2,7 @@ package org.fluentness.service.translator;
 
 public abstract class BaseTranslator implements Translator {
 
-    @Override
-    public String translate(String message, String language) {
-        String contains = DELIMITER + language + DELIMITER;
-        if (message.contains(contains)) {
-            int beginIndex = message.indexOf(contains) + contains.length();
-            int endIndex = message.indexOf(DELIMITER, beginIndex);
-            return message.substring(beginIndex, endIndex);
-        } else if (message.indexOf(DELIMITER) > -1) {
-            return message.substring(0, message.indexOf(DELIMITER));
-        }
-        return message;
-    }
-
+    // default translations
     public static final String
         _submit = "Submit" + de("Absenden") + es("Enviar"),
         _search = "Search" + de("Suchen") + es("Buscar"),
@@ -28,8 +16,6 @@ public abstract class BaseTranslator implements Translator {
         _dark_mode = "Dark mode" + de("Dunkelmodus") + es("Modo oscuro"),
         _previous = "Previous" + de("Vorheriger") + es("Anterior"),
         _next = "Next" + de("Nächster") + es("Siguiente");
-
-    private static final char DELIMITER = '\007';
 
     private static String translation(String language, String translation) {
         return DELIMITER + language + DELIMITER + translation + DELIMITER;

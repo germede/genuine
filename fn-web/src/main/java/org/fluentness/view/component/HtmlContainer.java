@@ -1,11 +1,10 @@
 package org.fluentness.view.component;
 
 import org.fluentness.controller.JavaScriptCommand;
+import org.fluentness.service.translator.Translator;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class HtmlContainer extends HtmlComponent {
@@ -49,14 +48,11 @@ public class HtmlContainer extends HtmlComponent {
 
     @Override
     public String toString() {
-        StringBuilder attributes = new StringBuilder();
-        for (Map.Entry<String, Set<CharSequence>> attribute : this.attributes.entrySet()) {
-            attributes.append(' ').append(attribute.getKey())
-                .append(attribute.getValue() != null ? "=\"" + String.join(" ", attribute.getValue()) + "\"" : "");
-        }
-        return "<" + tag + attributes + ">" +
-            innerHtml.stream().map(HtmlComponent::toString).collect(Collectors.joining()) + inner +
-            "</" + tag + ">";
+        return super.toString().replace("/>", ">" +
+            innerHtml.stream().map(HtmlComponent::toString).map(Translator::translate).collect(Collectors.joining()) +
+            Translator.translate(inner.toString()) +
+            "</" + tag + ">"
+        );
     }
 
     public void append(CharSequence child) {
