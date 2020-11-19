@@ -32,8 +32,7 @@ public class ShoppingListView extends MobileView {
                 tab("First tab", button("button in tab 1")),
                 tab("Second tab", button("button in tab 2")),
                 tab("Third tab", button("button in tab 3"))
-            ),
-            navigation()
+            )
         );
     }
 
@@ -44,11 +43,6 @@ public class ShoppingListView extends MobileView {
 
     @Override
     protected Navigation navigation() {
-        return null;
-    }
-
-    @Override
-    protected Button button(Button.Type type, CharSequence text) {
         return null;
     }
 

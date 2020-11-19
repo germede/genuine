@@ -4,13 +4,13 @@ import org.fluentness.MobileApplication;
 import org.fluentness.prototype.controller.ShoppingListController;
 import org.fluentness.service.injector.ConstructorInjector;
 
-public class ShopplingListApplication extends MobileApplication {
+public class ShoppingListApplication extends MobileApplication {
 
-    public ShopplingListApplication(ShoppingListController controller) {
+    public ShoppingListApplication(ShoppingListController controller) {
         super(controller);
     }
 
     public static void main(String[] args) throws Exception {
-        new ConstructorInjector().inject(ShopplingListApplication.class).run(args);
+        new ConstructorInjector().inject(ShoppingListApplication.class).run(args);
     }
 }

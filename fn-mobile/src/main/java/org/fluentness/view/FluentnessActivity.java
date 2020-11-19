@@ -29,7 +29,7 @@ public class FluentnessActivity extends Activity {
             Class<? extends Application> applicationClass = (Class<? extends Application>) Class.forName(applicationClassName);
             Method main = applicationClass.getMethod("main", String[].class);
             final Object[] args = new Object[1];
-            args[0] = new String[] {};
+            args[0] = new String[]{};
             main.invoke(null, args);
 
             // init first controller view
@@ -38,7 +38,7 @@ public class FluentnessActivity extends Activity {
             View androidView = view.getAndroidView();
             setContentView(androidView);
         } catch (ClassNotFoundException | IllegalAccessException | NameNotFoundException | NoSuchMethodException | InvocationTargetException e) {
-            Log.e(this.getClass().getSimpleName(), "Exception", e);
+            Log.e(this.getClass().getSimpleName(), e.toString(), e);
         }
     }
 }

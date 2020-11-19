@@ -15,7 +15,7 @@
     <packaging>apk</packaging>
 
     <properties>
-        <mainClass>org.fluentness.prototype.ShopplingListApplication</mainClass>
+        <mainClass>org.fluentness.prototype.ShoppingListApplication</mainClass>
     </properties>
 
     <dependencies>
@@ -40,7 +40,7 @@
                     <dexMultiDex>true</dexMultiDex>
                     <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
                     <sdk>
-                        <!--Only works with API level 28-->
+                        <!--Play store only accepts with API level >= 28-->
                         <platform>28</platform>
                         <!--Replace with your own path or export ANDROID_HOME-->
                         <path>/home/germede/Android/Sdk</path>

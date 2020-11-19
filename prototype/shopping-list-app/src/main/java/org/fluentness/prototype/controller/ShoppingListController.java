@@ -12,6 +12,6 @@ public class ShoppingListController extends MobileController<ShoppingListView> {
     }
 
     private void changeText() {
-//        view.button1.setText(_login);
+//\        view.button1.setText(_login);
     }
 }

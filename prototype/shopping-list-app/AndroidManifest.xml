@@ -5,7 +5,7 @@
 
     <application android:label="Test">
         <activity android:label="MyFancyApp" android:name="org.fluentness.view.FluentnessActivity">
-            <meta-data android:name="applicationClassName" android:value="org.fluentness.prototype.Mobile"/>
+            <meta-data android:name="applicationClassName" android:value="org.fluentness.prototype.ShoppingListApplication"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
