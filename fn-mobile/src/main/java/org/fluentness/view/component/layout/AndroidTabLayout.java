@@ -6,7 +6,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
-import org.fluentness.application.MobileApplication;
+import org.fluentness.MobileApplication;
 
 public class AndroidTabLayout extends LinearLayout implements TabLayout {
 

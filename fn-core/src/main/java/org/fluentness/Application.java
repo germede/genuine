@@ -1,4 +1,4 @@
-package org.fluentness.application;
+package org.fluentness;
 
 import org.fluentness.service.Services;
 import org.fluentness.service.configuration.ConfigurationImpl;

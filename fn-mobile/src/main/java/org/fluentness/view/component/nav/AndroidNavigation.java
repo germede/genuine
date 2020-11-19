@@ -10,7 +10,7 @@ import android.view.*;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import org.fluentness.application.MobileApplication;
+import org.fluentness.MobileApplication;
 import org.fluentness.controller.MobileController;
 import org.fluentness.view.component.navigation.Navigation;
 

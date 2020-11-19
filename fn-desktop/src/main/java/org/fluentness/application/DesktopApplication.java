@@ -1,5 +1,6 @@
 package org.fluentness.application;
 
+import org.fluentness.Application;
 import org.fluentness.controller.DesktopController;
 import org.fluentness.view.DesktopView;
 

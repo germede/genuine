@@ -1,4 +1,4 @@
-package org.fluentness.application;
+package org.fluentness;
 
 import org.fluentness.controller.MobileController;
 import org.fluentness.service.Services;

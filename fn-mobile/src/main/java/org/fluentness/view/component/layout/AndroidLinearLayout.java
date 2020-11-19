@@ -1,7 +1,7 @@
 package org.fluentness.view.component.layout;
 
 import android.view.View;
-import org.fluentness.application.MobileApplication;
+import org.fluentness.MobileApplication;
 import org.fluentness.view.component.Component;
 
 public class AndroidLinearLayout extends android.widget.LinearLayout implements LinearLayout {

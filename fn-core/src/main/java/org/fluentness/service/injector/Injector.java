@@ -1,6 +1,6 @@
 package org.fluentness.service.injector;
 
-import org.fluentness.application.Application;
+import org.fluentness.Application;
 import org.fluentness.service.Service;
 
 public interface Injector extends Service {

@@ -55,7 +55,7 @@ public class RouteDispatcher extends BaseDispatcher {
             if (returned instanceof CharSequence) {
                 respond(response, returned.toString());
             } else if (returned instanceof WebView) {
-                respond(response, ((WebView)returned).getRenderedHtml());
+                respond(response, ((WebView) returned).getRenderedHtml());
             } else if (returned instanceof Integer) {
                 response.setStatus((Integer) returned);
             } else {
@@ -79,9 +79,11 @@ public class RouteDispatcher extends BaseDispatcher {
             } else if (HttpServletResponse.class.isAssignableFrom(type)) {
                 result[i] = response;
             } else if (parameter.isAnnotationPresent(WebController.RequestParameter.class)) {
-                result[i] = request.getParameter(name);
+                WebController.RequestParameter requestParameter = parameter.getAnnotation(WebController.RequestParameter.class);
+                result[i] = request.getParameter(!requestParameter.name().isEmpty() ? requestParameter.name() : name);
             } else if (parameter.isAnnotationPresent(WebController.SessionAttribute.class)) {
-                result[i] = request.getSession().getAttribute(name);
+                WebController.SessionAttribute sessionAttribute = parameter.getAnnotation(WebController.SessionAttribute.class);
+                result[i] = request.getSession().getAttribute(!sessionAttribute.name().isEmpty() ? sessionAttribute.name() : name);
             }
         }
         return result;

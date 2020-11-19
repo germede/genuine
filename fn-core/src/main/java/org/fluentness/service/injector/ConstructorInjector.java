@@ -1,6 +1,6 @@
 package org.fluentness.service.injector;
 
-import org.fluentness.application.Application;
+import org.fluentness.Application;
 import org.fluentness.controller.Controller;
 import org.fluentness.model.Model;
 import org.fluentness.repository.Repository;
@@ -11,7 +11,7 @@ import org.fluentness.view.View;
 import java.lang.reflect.*;
 import java.util.*;
 
-public class InjectorImpl implements Injector {
+public class ConstructorInjector implements Injector {
 
     private final Class<?>[] injectionPriority = new Class[]{
         Model.class,

@@ -1,7 +1,7 @@
 package org.fluentness.view.component.text;
 
 
-import org.fluentness.application.MobileApplication;
+import org.fluentness.MobileApplication;
 
 public class AndroidButton extends android.widget.Button implements Button {
 

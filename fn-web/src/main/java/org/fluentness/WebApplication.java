@@ -1,4 +1,4 @@
-package org.fluentness.application;
+package org.fluentness;
 
 import org.fluentness.controller.WebController;
 import org.fluentness.service.Services;
@@ -37,7 +37,7 @@ public abstract class WebApplication implements Application {
                 .filter(method -> method.isAnnotationPresent(WebController.Action.class))
                 .forEach(action -> {
                     WebController.Action annotation = action.getAnnotation(WebController.Action.class);
-                    dispatcher.addRoute(annotation.method(), controller.getPath() + annotation.path(), action, controller);
+                    dispatcher.addRoute(annotation.method(), controller.getPath() + (!annotation.path().isEmpty() ? annotation.path() : action.getName()), action, controller);
                 });
         }
         ((HtmlNavigation) WebView.navigation).setBrand(this.getClass().getSimpleName());

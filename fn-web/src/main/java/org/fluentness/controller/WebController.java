@@ -34,18 +34,20 @@ public abstract class WebController<W extends WebView> extends ViewController<W>
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Action {
 
-        String path();
+        String path() default "";
         String method() default GET;
 
     }
     @Target(ElementType.PARAMETER)
     @Retention(RetentionPolicy.RUNTIME)
     public @interface RequestParameter {
+        String name() default "";
 
     }
     @Target(ElementType.PARAMETER)
     @Retention(RetentionPolicy.RUNTIME)
     public @interface SessionAttribute {
+        String name() default "";
 
     }
 

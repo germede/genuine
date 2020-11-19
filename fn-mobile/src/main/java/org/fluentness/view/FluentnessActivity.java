@@ -6,8 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import org.fluentness.application.MobileApplication;
-import org.fluentness.application.Application;
+import org.fluentness.MobileApplication;
+import org.fluentness.Application;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

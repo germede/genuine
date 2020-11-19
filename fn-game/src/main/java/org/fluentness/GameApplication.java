@@ -1,4 +1,4 @@
-package org.fluentness.application;
+package org.fluentness;
 
 import org.fluentness.controller.GameController;
 import org.fluentness.service.Services;
