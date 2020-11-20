@@ -1,14 +1,16 @@
 package org.fluentness;
 
 import org.fluentness.controller.MobileController;
-import org.fluentness.service.Services;
+import org.fluentness.service.injector.DefaultImplementations;
 import org.fluentness.service.log.AndroidLog;
+import org.fluentness.service.log.Log;
 import org.fluentness.view.FluentnessActivity;
 
-@Services({
-    AndroidLog.class,
-})
 public abstract class MobileApplication implements Application {
+
+    static {
+        DefaultImplementations.set(Log.class, AndroidLog.class);
+    }
 
     public static MobileApplication application;
     public static FluentnessActivity context;

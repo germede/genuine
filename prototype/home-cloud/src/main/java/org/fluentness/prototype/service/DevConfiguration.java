@@ -7,7 +7,7 @@ import org.fluentness.service.log.Log;
 import org.fluentness.service.log.LogLevel;
 import org.fluentness.service.persistence.Persistence;
 
-public class Configuration extends BaseConfiguration {
+public class DevConfiguration extends BaseConfiguration {
 
     @Override
     protected void configure() {

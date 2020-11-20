@@ -8,7 +8,6 @@ import org.lwjgl.opengl.GL20;
 
 import java.nio.FloatBuffer;
 
-@Service.MultiService
 public interface Shader extends Service {
 
     FloatBuffer MATRIX_4F_BUFFER = BufferUtils.createFloatBuffer(16);

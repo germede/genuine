@@ -1,9 +1,7 @@
 package org.fluentness.prototype;
 
 import org.fluentness.application.DesktopApplication;
-import org.fluentness.service.injector.ConstructorInjector;
 
-//@Application.Services(Configuration.class)
 public class WGDesktopApplication extends DesktopApplication {
 
     public WGDesktopApplication(WGDesktopController controller) {
@@ -11,6 +9,10 @@ public class WGDesktopApplication extends DesktopApplication {
     }
 
     public static void main(String[] args) throws Exception {
-        new ConstructorInjector().inject(WGDesktopApplication.class).run(args);
+        new WGDesktopApplication(
+            new WGDesktopController(
+                new WGDesktopView()
+            )
+        ).run(args);
     }
 }

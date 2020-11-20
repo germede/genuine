@@ -4,7 +4,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.dispatcher.Dispatcher;
+import org.fluentness.service.dispatcher.ResourceDispatcher;
 import org.fluentness.service.dispatcher.RouteDispatcher;
 import org.fluentness.service.log.Log;
 
@@ -13,24 +13,24 @@ import java.io.File;
 public class TomcatServer implements Server {
 
     private final Log log;
-    private RouteDispatcher routeDispatcher;
+    private final RouteDispatcher routeDispatcher;
 
     private final Tomcat tomcat;
 
-    public TomcatServer(Configuration configuration, Log log, Dispatcher[] dispatchers) {
+    public TomcatServer(Configuration configuration, Log log, RouteDispatcher routeDispatcher, ResourceDispatcher resourceDispatcher) {
         this.log = log;
+        this.routeDispatcher = routeDispatcher;
 
         tomcat = new Tomcat();
         tomcat.setPort(configuration.get(PORT));
         tomcat.getHost().setAppBase(".");
 
         Context context = tomcat.addContext(configuration.get(CONTEXT), new File(".").getAbsolutePath());
-        for (Dispatcher dispatcher : dispatchers) {
-            if (dispatcher instanceof RouteDispatcher) this.routeDispatcher = (RouteDispatcher) dispatcher;
+        Tomcat.addServlet(context, routeDispatcher.getClass().getName(), routeDispatcher);
+        Tomcat.addServlet(context, resourceDispatcher.getClass().getName(), resourceDispatcher);
 
-            Tomcat.addServlet(context, dispatcher.getClass().getName(), dispatcher);
-            context.addServletMappingDecoded(dispatcher.getUrlPattern(), dispatcher.getClass().getName());
-        }
+        context.addServletMappingDecoded(routeDispatcher.getUrlPattern(), routeDispatcher.getClass().getName());
+        context.addServletMappingDecoded(resourceDispatcher.getUrlPattern(), resourceDispatcher.getClass().getName());
 
     }
 

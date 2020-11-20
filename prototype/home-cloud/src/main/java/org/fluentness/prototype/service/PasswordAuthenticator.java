@@ -5,11 +5,11 @@ import org.fluentness.prototype.model.User;
 import org.fluentness.service.authenticator.BaseAuthenticator;
 import org.fluentness.service.persistence.Persistence;
 
-public class Authenticator extends BaseAuthenticator {
+public class PasswordAuthenticator extends BaseAuthenticator {
 
     private final Persistence persistence;
 
-    public Authenticator(Persistence persistence) {
+    public PasswordAuthenticator(Persistence persistence) {
         this.persistence = persistence;
     }
 

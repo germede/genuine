@@ -3,16 +3,14 @@ package org.fluentness.prototype;
 import org.fluentness.WebApplication;
 import org.fluentness.prototype.controller.IndexController;
 import org.fluentness.prototype.controller.NotesController;
-import org.fluentness.prototype.service.Authenticator;
-import org.fluentness.prototype.service.Configuration;
-import org.fluentness.service.Services;
+import org.fluentness.prototype.service.DevConfiguration;
+import org.fluentness.prototype.service.PasswordAuthenticator;
+import org.fluentness.service.authenticator.Authenticator;
+import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.injector.ConstructorInjector;
+import org.fluentness.service.injector.DefaultImplementations;
 import org.fluentness.service.server.Server;
 
-@Services({
-    Configuration.class,
-    Authenticator.class
-})
 public class HomeCloud extends WebApplication {
 
     public HomeCloud(Server server,
@@ -23,6 +21,9 @@ public class HomeCloud extends WebApplication {
     }
 
     public static void main(String[] args) throws Exception {
+        DefaultImplementations.set(Configuration.class, DevConfiguration.class);
+        DefaultImplementations.set(Authenticator.class, PasswordAuthenticator.class);
+
         new ConstructorInjector().inject(HomeCloud.class).run(args);
     }
 }

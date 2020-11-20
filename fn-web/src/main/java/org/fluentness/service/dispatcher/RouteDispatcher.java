@@ -23,8 +23,8 @@ public class RouteDispatcher extends BaseDispatcher {
     protected final Map<String, Method> routes = new HashMap<>();
     protected final Map<String, WebController> controllers = new HashMap<>();
 
-    public RouteDispatcher(Authenticator[] authenticators, Log log, Configuration configuration) {
-        super(authenticators, log);
+    public RouteDispatcher(Authenticator authenticator, Log log, Configuration configuration) {
+        super(authenticator, log);
         this.configuration = configuration;
     }
 

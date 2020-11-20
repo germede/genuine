@@ -10,25 +10,18 @@ import java.io.IOException;
 
 public abstract class BaseDispatcher extends HttpServlet implements Dispatcher {
 
-    protected final Authenticator[] authenticators;
+    protected final Authenticator authenticator;
     protected final Log log;
 
-    public BaseDispatcher(Authenticator[] authenticators, Log log) {
-        this.authenticators = authenticators;
+    public BaseDispatcher(Authenticator authenticator, Log log) {
+        this.authenticator = authenticator;
         this.log = log;
     }
 
     @Override
     protected final void service(HttpServletRequest request, final HttpServletResponse response) throws IOException {
         try {
-            boolean isAuthorized = true;
-            for (Authenticator authenticator : authenticators) {
-                if (!authenticator.authorize(request, response)) {
-                    isAuthorized = false;
-                    break;
-                }
-            }
-            if (isAuthorized) {
+            if (authenticator.authorize(request, response)) {
                 dispatch(request, response);
             }
         } catch (Throwable cause) {

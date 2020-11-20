@@ -1,36 +1,30 @@
 package org.fluentness;
 
 import org.fluentness.controller.GameController;
-import org.fluentness.service.Services;
+import org.fluentness.service.algebra.Algebra;
 import org.fluentness.service.algebra.AlgebraImpl;
+import org.fluentness.service.animator.Animator;
 import org.fluentness.service.animator.AnimatorImpl;
+import org.fluentness.service.display.Display;
 import org.fluentness.service.display.GlfwDisplay;
+import org.fluentness.service.injector.DefaultImplementations;
+import org.fluentness.service.loader.Loader;
 import org.fluentness.service.loader.LoaderImpl;
 import org.fluentness.service.looper.Looper;
 import org.fluentness.service.looper.LooperImpl;
+import org.fluentness.service.memory.Memory;
 import org.fluentness.service.memory.MemoryImpl;
-import org.fluentness.service.parser.MeshParser;
-import org.fluentness.service.parser.TextureParser;
-import org.fluentness.service.render.EntityRender;
-import org.fluentness.service.render.TerrainRender;
-import org.fluentness.service.shader.EntityShader;
-import org.fluentness.service.shader.TerrainShader;
 
-@Services({
-    LoaderImpl.class,
-    MeshParser.class,
-    TextureParser.class,
-    EntityRender.class,
-    TerrainRender.class,
-    EntityShader.class,
-    TerrainShader.class,
-    GlfwDisplay.class,
-    AlgebraImpl.class,
-    AnimatorImpl.class,
-    MemoryImpl.class,
-    LooperImpl.class,
-})
 public abstract class GameApplication implements Application {
+
+    static {
+        DefaultImplementations.set(Loader.class, LoaderImpl.class);
+        DefaultImplementations.set(Display.class, GlfwDisplay.class);
+        DefaultImplementations.set(Algebra.class, AlgebraImpl.class);
+        DefaultImplementations.set(Animator.class, AnimatorImpl.class);
+        DefaultImplementations.set(Memory.class, MemoryImpl.class);
+        DefaultImplementations.set(Looper.class, LooperImpl.class);
+    }
 
     private final Looper looper;
     private final GameController controller;

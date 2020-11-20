@@ -1,9 +1,9 @@
 package org.fluentness;
 
 import org.fluentness.controller.WebController;
-import org.fluentness.service.Services;
-import org.fluentness.service.dispatcher.ResourceDispatcher;
 import org.fluentness.service.dispatcher.RouteDispatcher;
+import org.fluentness.service.injector.DefaultImplementations;
+import org.fluentness.service.mail.Mail;
 import org.fluentness.service.mail.SocketMail;
 import org.fluentness.service.server.Server;
 import org.fluentness.service.server.TomcatServer;
@@ -12,13 +12,12 @@ import org.fluentness.view.component.navigation.HtmlNavigation;
 
 import java.util.Arrays;
 
-@Services({
-    RouteDispatcher.class,
-    ResourceDispatcher.class,
-    TomcatServer.class,
-    SocketMail.class,
-})
 public abstract class WebApplication implements Application {
+
+    static {
+        DefaultImplementations.set(Server.class, TomcatServer.class);
+        DefaultImplementations.set(Mail.class, SocketMail.class);
+    }
 
     private final Server server;
     private final WebController[] controllers;

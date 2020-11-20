@@ -19,8 +19,8 @@ public class ResourceDispatcher extends BaseDispatcher {
     public static final Setting<Boolean> INLINE_RESOURCES = new Setting<>(true);
     private final boolean inlineResources;
 
-    public ResourceDispatcher(Authenticator[] authenticators, Log log, Configuration configuration) {
-        super(authenticators, log);
+    public ResourceDispatcher(Authenticator authenticator, Log log, Configuration configuration) {
+        super(authenticator, log);
         inlineResources = configuration.get(INLINE_RESOURCES);
     }
 
