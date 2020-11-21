@@ -1,9 +1,9 @@
 package org.fluentness.prototype.view;
 
-import org.fluentness.model.Background;
-import org.fluentness.model.Camera;
-import org.fluentness.model.Fog;
-import org.fluentness.model.Light;
+import org.fluentness.model.environment.Background;
+import org.fluentness.model.environment.Camera;
+import org.fluentness.model.environment.Fog;
+import org.fluentness.model.environment.Light;
 import org.fluentness.view.AbstractGameView;
 
 public class GameView extends AbstractGameView {

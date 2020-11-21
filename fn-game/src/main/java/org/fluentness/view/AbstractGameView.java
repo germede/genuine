@@ -1,6 +1,7 @@
 package org.fluentness.view;
 
 import org.fluentness.model.*;
+import org.fluentness.model.environment.*;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;

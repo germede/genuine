@@ -1,5 +1,6 @@
-package org.fluentness.model;
+package org.fluentness.model.environment;
 
+import org.fluentness.model.PersistableModel;
 import org.fluentness.model.mesh.Mesh;
 import org.fluentness.model.texture.Texture;
 

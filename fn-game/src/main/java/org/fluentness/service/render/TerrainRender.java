@@ -1,6 +1,6 @@
 package org.fluentness.service.render;
 
-import org.fluentness.model.Terrain;
+import org.fluentness.model.environment.Terrain;
 import org.fluentness.service.algebra.Algebra;
 import org.fluentness.model.texture.Texture;
 import org.fluentness.service.shader.TerrainShader;

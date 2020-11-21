@@ -1,6 +1,6 @@
 package org.fluentness.prototype.repository;
 
-import org.fluentness.model.Terrain;
+import org.fluentness.model.environment.Terrain;
 import org.fluentness.service.loader.Loader;
 
 import java.util.Collections;

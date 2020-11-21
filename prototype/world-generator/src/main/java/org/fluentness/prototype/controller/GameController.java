@@ -1,7 +1,7 @@
 package org.fluentness.prototype.controller;
 
 import org.fluentness.model.Player;
-import org.fluentness.model.Terrain;
+import org.fluentness.model.environment.Terrain;
 import org.fluentness.prototype.repository.EntityRepository;
 import org.fluentness.prototype.repository.PlayerRepository;
 import org.fluentness.prototype.repository.TerrainRepository;

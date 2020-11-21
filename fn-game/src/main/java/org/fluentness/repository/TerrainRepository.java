@@ -1,6 +1,6 @@
 package org.fluentness.repository;
 
-import org.fluentness.model.Terrain;
+import org.fluentness.model.environment.Terrain;
 import org.fluentness.model.algebra.Vector3f;
 import org.fluentness.service.loader.Loader;
 import org.fluentness.model.texture.Texture;

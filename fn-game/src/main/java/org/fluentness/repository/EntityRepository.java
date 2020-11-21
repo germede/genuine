@@ -1,7 +1,7 @@
 package org.fluentness.repository;
 
 import org.fluentness.model.Entity;
-import org.fluentness.model.Terrain;
+import org.fluentness.model.environment.Terrain;
 import org.fluentness.model.mesh.Mesh;
 import org.fluentness.model.texture.Texture;
 import org.fluentness.service.loader.Loader;

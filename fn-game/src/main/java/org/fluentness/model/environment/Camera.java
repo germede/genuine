@@ -1,4 +1,6 @@
-package org.fluentness.model;
+package org.fluentness.model.environment;
+
+import org.fluentness.model.Entity;
 
 public class Camera {
 

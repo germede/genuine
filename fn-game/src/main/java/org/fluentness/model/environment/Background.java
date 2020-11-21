@@ -1,4 +1,4 @@
-package org.fluentness.model;
+package org.fluentness.model.environment;
 
 public class Background {
 
