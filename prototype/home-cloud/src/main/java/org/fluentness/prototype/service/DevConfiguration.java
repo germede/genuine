@@ -1,13 +1,13 @@
 package org.fluentness.prototype.service;
 
-import org.fluentness.service.configuration.BaseConfiguration;
+import org.fluentness.service.configuration.MapConfiguration;
 import org.fluentness.service.dispatcher.Dispatcher;
 import org.fluentness.service.dispatcher.ResourceDispatcher;
 import org.fluentness.service.log.Log;
 import org.fluentness.service.log.LogLevel;
 import org.fluentness.service.persistence.Persistence;
 
-public class DevConfiguration extends BaseConfiguration {
+public class DevConfiguration extends MapConfiguration {
 
     @Override
     protected void configure() {

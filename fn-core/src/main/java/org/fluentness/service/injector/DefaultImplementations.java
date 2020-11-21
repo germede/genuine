@@ -1,10 +1,10 @@
 package org.fluentness.service.injector;
 
 import org.fluentness.service.configuration.Configuration;
-import org.fluentness.service.configuration.ConfigurationImpl;
+import org.fluentness.service.configuration.DefaultConfiguration;
 import org.fluentness.service.log.JulLog;
 import org.fluentness.service.log.Log;
-import org.fluentness.service.persistence.JdbcPersistence;
+import org.fluentness.service.persistence.FilePersistence;
 import org.fluentness.service.persistence.Persistence;
 
 import java.util.HashMap;
@@ -15,8 +15,8 @@ import java.util.Map;
 public final class DefaultImplementations {
     private static final Map<Class, Class> DEFAULT_IMPLEMENTATIONS = new HashMap<>();
     static {
-        set(Persistence.class, JdbcPersistence.class);
-        set(Configuration.class, ConfigurationImpl.class);
+        set(Persistence.class, FilePersistence.class);
+        set(Configuration.class, DefaultConfiguration.class);
         set(Log.class, JulLog.class);
     }
 

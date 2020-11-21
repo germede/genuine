@@ -1,6 +1,6 @@
 package org.fluentness.service.configuration;
 
-public class ConfigurationImpl extends BaseConfiguration {
+public class DefaultConfiguration extends MapConfiguration {
 
     @Override
     protected void configure() {

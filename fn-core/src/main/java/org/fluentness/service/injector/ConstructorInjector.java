@@ -2,7 +2,7 @@ package org.fluentness.service.injector;
 
 import org.fluentness.Application;
 import org.fluentness.controller.Controller;
-import org.fluentness.model.Model;
+import org.fluentness.model.PersistableModel;
 import org.fluentness.repository.Repository;
 import org.fluentness.service.Service;
 import org.fluentness.view.View;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class ConstructorInjector implements Injector {
 
     private final Class<?>[] injectionPriority =
-        new Class[]{Model.class, Service.class, Repository.class, View.class, Controller.class, Application.class};
+        new Class[]{PersistableModel.class, Service.class, Repository.class, View.class, Controller.class, Application.class};
     private final Map<Class, Object> instances = new HashMap<>();
 
     @Override

@@ -1,29 +1,53 @@
 package org.fluentness.view;
 
-import org.fluentness.model.Entity;
-import org.fluentness.model.Terrain;
-import org.fluentness.model.Background;
-import org.fluentness.model.Camera;
-import org.fluentness.model.Fog;
-import org.fluentness.model.Light;
+import org.fluentness.model.*;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11C.GL_FALSE;
+
 public abstract class AbstractGameView implements View {
 
-    protected final CharSequence title;
-    public final Background background = background();
-    public final Camera camera = camera();
-    public final Light light = light();
-    public final Fog fog = fog();
+    private final CharSequence title;
+
+    public Background background = new Background(0, 0, 0);
+    public Camera camera = new Camera(0, 10, -10);
+    public Light light = new Light(0, 10, 0);
+    public Fog fog = new Fog(0, 0);
     public final List<Terrain> terrains = new LinkedList<>();
     public final Map<String, List<Entity>> entities = new HashMap<>();
 
-    public AbstractGameView(CharSequence title) {
+    private long lastTime = System.currentTimeMillis();
+    private int fps;
+
+    private final long window;
+    // strong references avoiding garbage collector to delete them
+    private final GLFWErrorCallback errorCallback;
+
+    private float delta;
+    private float totalDelta;
+
+    public AbstractGameView(CharSequence title, int width, int height, boolean fullscreen) {
         this.title = title;
+
+        glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
+
+        glfwInit();
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        window = glfwCreateWindow(width, height, title, fullscreen ? glfwGetPrimaryMonitor() : 0, 0);
+        glfwMakeContextCurrent(window);
+        GL.createCapabilities();
+        glfwShowWindow(window);
     }
 
     @Override
@@ -31,15 +55,7 @@ public abstract class AbstractGameView implements View {
         return title;
     }
 
-    public Map<String, List<Entity>> getEntities() {
-        return entities;
-    }
-
-    public List<Terrain> getTerrains() {
-        return terrains;
-    }
-
-    protected void addEntity(Entity entity) {
+    public void addEntity(Entity entity) {
         String key = entity.mesh.getId() + "-" + entity.texture.getId();
         if (!this.entities.containsKey(key)) {
             this.entities.put(key, new LinkedList<>());
@@ -47,16 +63,44 @@ public abstract class AbstractGameView implements View {
         this.entities.get(key).add(entity);
     }
 
-    protected void addTerrain(Terrain terrain) {
-        terrains.add(terrain);
+    public int getFps() {
+        return fps;
     }
 
-    protected abstract Background background();
+    public float getDelta() {
+        return delta;
+    }
 
-    protected abstract Camera camera();
+    public long getWindowId() {
+        return window;
+    }
 
-    protected abstract Light light();
+    public void clear(float r, float g, float b) {
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GL11.glClearColor(r, g, b, 1);
+    }
 
-    protected abstract Fog fog();
+    public void update() {
+        long currentTime = System.currentTimeMillis();
+        delta = (currentTime - lastTime) / 1000f;
+        totalDelta += delta;
+        fps = (int) (1 / delta);
+        lastTime = currentTime;
+        if (totalDelta > 1) {
+            totalDelta = 0;
+        }
+
+        glfwPollEvents();
+        glfwSwapBuffers(window);
+    }
+
+    public boolean shouldClose() {
+        return glfwWindowShouldClose(window);
+    }
+
+    public void close() {
+        glfwDestroyWindow(window);
+    }
 
 }

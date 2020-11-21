@@ -1,7 +1,7 @@
 package org.fluentness.model;
 
-import org.fluentness.service.loader.Mesh;
-import org.fluentness.service.loader.Texture;
+import org.fluentness.model.mesh.Mesh;
+import org.fluentness.model.texture.Texture;
 
 public class Player extends Entity {
 

@@ -1,8 +1,8 @@
 package org.fluentness.prototype.model;
 
-import org.fluentness.model.Model;
+import org.fluentness.model.PersistableModel;
 
-public class User implements Model {
+public class User implements PersistableModel {
 
     private long id;
     private String username;

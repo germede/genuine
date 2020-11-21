@@ -1,4 +1,4 @@
-package org.fluentness.service.animator;
+package org.fluentness.model.animation;
 
 public class Animation {
 

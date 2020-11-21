@@ -1,4 +1,4 @@
-package org.fluentness.service.algebra;
+package org.fluentness.model.algebra;
 
 import java.nio.FloatBuffer;
 

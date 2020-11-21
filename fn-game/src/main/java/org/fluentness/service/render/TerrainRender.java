@@ -2,7 +2,7 @@ package org.fluentness.service.render;
 
 import org.fluentness.model.Terrain;
 import org.fluentness.service.algebra.Algebra;
-import org.fluentness.service.loader.Texture;
+import org.fluentness.model.texture.Texture;
 import org.fluentness.service.shader.TerrainShader;
 import org.fluentness.view.AbstractGameView;
 import org.lwjgl.opengl.GL11;
@@ -26,7 +26,7 @@ public class TerrainRender extends BaseRender<TerrainShader> {
     @Override
     public void render(AbstractGameView view) {
         shader.start();
-        for (Terrain terrain : view.getTerrains()) {
+        for (Terrain terrain : view.terrains) {
             bind(terrain.mesh.getId(),view);
             bindTextures(terrain.repeatTextures, terrain.textures);
             renderTerrain(terrain);

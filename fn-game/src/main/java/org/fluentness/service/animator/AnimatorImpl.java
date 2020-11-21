@@ -1,5 +1,9 @@
 package org.fluentness.service.animator;
 
+import org.fluentness.model.animation.Animation;
+import org.fluentness.model.animation.AnimationFunction;
+import org.fluentness.model.animation.AnimationStep;
+
 import java.util.LinkedList;
 import java.util.List;
 

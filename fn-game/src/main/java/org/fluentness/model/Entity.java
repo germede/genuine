@@ -1,9 +1,9 @@
 package org.fluentness.model;
 
-import org.fluentness.service.loader.Mesh;
-import org.fluentness.service.loader.Texture;
+import org.fluentness.model.mesh.Mesh;
+import org.fluentness.model.texture.Texture;
 
-public class Entity implements Model {
+public class Entity implements PersistableModel {
 
     public Mesh mesh;
     public Texture texture;

@@ -2,8 +2,8 @@ package org.fluentness.repository;
 
 import org.fluentness.model.Entity;
 import org.fluentness.model.Terrain;
-import org.fluentness.service.loader.Mesh;
-import org.fluentness.service.loader.Texture;
+import org.fluentness.model.mesh.Mesh;
+import org.fluentness.model.texture.Texture;
 import org.fluentness.service.loader.Loader;
 
 import java.util.LinkedList;

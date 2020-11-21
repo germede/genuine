@@ -1,5 +1,7 @@
 package org.fluentness.service.animator;
 
+import org.fluentness.model.animation.AnimationFunction;
+import org.fluentness.model.animation.AnimationStep;
 import org.fluentness.service.Service;
 
 public interface Animator extends Service {

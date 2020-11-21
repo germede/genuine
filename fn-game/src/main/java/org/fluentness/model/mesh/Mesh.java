@@ -1,4 +1,4 @@
-package org.fluentness.service.loader;
+package org.fluentness.model.mesh;
 
 public class Mesh {
 

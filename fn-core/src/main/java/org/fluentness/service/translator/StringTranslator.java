@@ -1,6 +1,6 @@
 package org.fluentness.service.translator;
 
-public abstract class BaseTranslator implements Translator {
+public abstract class StringTranslator implements Translator {
 
     // default translations
     public static final String

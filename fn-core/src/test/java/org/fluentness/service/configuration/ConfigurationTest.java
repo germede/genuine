@@ -7,7 +7,7 @@ public class ConfigurationTest {
 
     private final Setting<String> stringSetting = new Setting<>("defaultValue");
     private final Setting<Integer> integerSetting = new Setting<>();
-    private final Configuration configuration = new ConfigurationImpl() {
+    private final Configuration configuration = new DefaultConfiguration() {
         @Override
         protected void configure() {
             set(stringSetting, "anotherValue");
@@ -17,7 +17,7 @@ public class ConfigurationTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void setNullSetting() {
-        new BaseConfiguration() {
+        new MapConfiguration() {
             @Override
             protected void configure() {
                 set(null, "test");

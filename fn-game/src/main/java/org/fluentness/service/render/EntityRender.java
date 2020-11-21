@@ -2,7 +2,7 @@ package org.fluentness.service.render;
 
 import org.fluentness.model.Entity;
 import org.fluentness.service.algebra.Algebra;
-import org.fluentness.service.loader.Texture;
+import org.fluentness.model.texture.Texture;
 import org.fluentness.service.shader.EntityShader;
 import org.fluentness.view.AbstractGameView;
 import org.lwjgl.opengl.GL11;
@@ -20,7 +20,7 @@ public class EntityRender extends BaseRender<EntityShader> {
     @Override
     public void render(AbstractGameView view) {
         shader.start();
-        Map<String, List<Entity>> entities = view.getEntities();
+        Map<String, List<Entity>> entities = view.entities;
         for (String key : entities.keySet()) {
             Entity entity1 = entities.get(key).get(0);
             bind(entity1.mesh.getId(), view);

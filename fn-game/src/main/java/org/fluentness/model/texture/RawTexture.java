@@ -1,6 +1,4 @@
-package org.fluentness.service.parser;
-
-import org.fluentness.model.Model;
+package org.fluentness.model.texture;
 
 public class RawTexture {
 

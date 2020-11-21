@@ -1,6 +1,6 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.model.Model;
+import org.fluentness.model.PersistableModel;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.configuration.Setting;
 import org.fluentness.service.log.Log;
@@ -34,7 +34,7 @@ public class FilePersistence implements Persistence {
     }
 
     @Override
-    public <M extends Model> M retrieve(Class<M> modelClass, long id) {
+    public <M extends PersistableModel> M retrieve(Class<M> modelClass, long id) {
         try {
             FileInputStream fileIn = new FileInputStream(getFile(modelClass, id));
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -49,7 +49,7 @@ public class FilePersistence implements Persistence {
     }
 
     @Override
-    public <M extends Model> List<M> retrieve(Class<M> modelClass, String... conditions) {
+    public <M extends PersistableModel> List<M> retrieve(Class<M> modelClass, String... conditions) {
         // todo implement conditions
         File[] records = new File(getFileDirectory(modelClass)).listFiles();
         return Arrays.stream(records != null ? records : new File[0])
@@ -58,17 +58,17 @@ public class FilePersistence implements Persistence {
     }
 
     @Override
-    public int persist(Model model) {
+    public int persist(PersistableModel persistableModel) {
         try {
-            Field idField = model.getClass().getField(Model.ID_NAME);
-            long id = (long) idField.get(model);
+            Field idField = persistableModel.getClass().getField(PersistableModel.ID_FIELD_NAME);
+            long id = (long) idField.get(persistableModel);
             if (id == 0) {
                 idField.setAccessible(true);
-                idField.set(model,getNewID(model));
+                idField.set(persistableModel,getNewID(persistableModel));
             }
-            FileOutputStream fileOut = new FileOutputStream(getFile(model.getClass(), id));
+            FileOutputStream fileOut = new FileOutputStream(getFile(persistableModel.getClass(), id));
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(model);
+            out.writeObject(persistableModel);
             out.close();
             fileOut.close();
             return 1;
@@ -80,33 +80,33 @@ public class FilePersistence implements Persistence {
 
 
     @Override
-    public <M extends Model> int remove(Class<M> modelClass, long id) {
+    public <M extends PersistableModel> int remove(Class<M> modelClass, long id) {
         return getFile(modelClass,id).delete() ? 1 : 0;
     }
 
 
     @Override
-    public int remove(Model model) {
+    public int remove(PersistableModel persistableModel) {
         try {
-            return remove(model.getClass(), (Long) model.getClass().getField(Model.ID_NAME).get(model));
+            return remove(persistableModel.getClass(), (Long) persistableModel.getClass().getField(PersistableModel.ID_FIELD_NAME).get(persistableModel));
         } catch (IllegalAccessException | NoSuchFieldException e) {
             log.error(e);
         }
         return 0;
     }
 
-    private long getNewID(Model model) {
+    private long getNewID(PersistableModel persistableModel) {
         try {
             // search for an unused id
-            String[] list = new File(getFileDirectory(model.getClass())).list();
+            String[] list = new File(getFileDirectory(persistableModel.getClass())).list();
             long id;
             if (list != null) {
                 id = list.length;
-                while (getFile(model.getClass(), id).exists()) {
+                while (getFile(persistableModel.getClass(), id).exists()) {
                     id++;
                 }
             } else {
-                Files.createDirectory(Paths.get(getFileDirectory(model.getClass())));
+                Files.createDirectory(Paths.get(getFileDirectory(persistableModel.getClass())));
                 id = 1;
             }
             return id;
@@ -116,11 +116,11 @@ public class FilePersistence implements Persistence {
         return 0;
     }
 
-    private File getFile(Class<? extends Model> modelClass, long id) {
+    private File getFile(Class<? extends PersistableModel> modelClass, long id) {
         return new File(getFileDirectory(modelClass), "/" + id);
     }
 
-    private <M extends Model> String getFileDirectory(Class<M> modelClass) {
+    private <M extends PersistableModel> String getFileDirectory(Class<M> modelClass) {
         return dataDirectory + "/" + getPersistenceNameFor(modelClass);
     }
 }

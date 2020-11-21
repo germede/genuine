@@ -1,4 +1,4 @@
-package org.fluentness.service.animator;
+package org.fluentness.model.animation;
 
 @FunctionalInterface
 public interface AnimationStep {

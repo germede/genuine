@@ -1,6 +1,6 @@
 package org.fluentness.service.persistence;
 
-import org.fluentness.model.Model;
+import org.fluentness.model.PersistableModel;
 import org.fluentness.service.Service;
 import org.fluentness.service.configuration.Setting;
 
@@ -17,17 +17,17 @@ public interface Persistence extends Service {
     Setting<String> USERNAME = new Setting<>();
     Setting<String> PASSWORD = new Setting<>();
 
-    <M extends Model> M retrieve(Class<M> modelClass, long id);
+    <M extends PersistableModel> M retrieve(Class<M> modelClass, long id);
 
-    <M extends Model> List<M> retrieve(Class<M> modelClass, String... conditions);
+    <M extends PersistableModel> List<M> retrieve(Class<M> modelClass, String... conditions);
 
-    int persist(Model model);
+    int persist(PersistableModel persistableModel);
 
-    <M extends Model> int remove(Class<M> modelClass, long id);
+    <M extends PersistableModel> int remove(Class<M> modelClass, long id);
 
-    int remove(Model model);
+    int remove(PersistableModel persistableModel);
 
-    default String getPersistenceNameFor(Class<? extends Model> modelClass) {
+    default String getPersistenceNameFor(Class<? extends PersistableModel> modelClass) {
         return modelClass.getSimpleName().toLowerCase();
     }
 

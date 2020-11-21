@@ -1,8 +1,8 @@
 package org.fluentness.prototype.service;
 
-import org.fluentness.service.translator.BaseTranslator;
+import org.fluentness.service.translator.StringTranslator;
 
-public class Translator extends BaseTranslator {
+public class Translator extends StringTranslator {
 
     public static final String
         _welcome_message = "Welcome" + de("Willkommen") + es("Bienvenido"),

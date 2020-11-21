@@ -1,8 +1,8 @@
 package org.fluentness.prototype.model;
 
-import org.fluentness.model.Model;
+import org.fluentness.model.PersistableModel;
 
-public class Note implements Model {
+public class Note implements PersistableModel {
 
     private long id;
     private String title;

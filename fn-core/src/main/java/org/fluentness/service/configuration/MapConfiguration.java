@@ -3,11 +3,11 @@ package org.fluentness.service.configuration;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BaseConfiguration implements Configuration {
+public abstract class MapConfiguration implements Configuration {
 
     private final Map<Setting, Object> settings = new HashMap<>();
 
-    public BaseConfiguration() {
+    public MapConfiguration() {
         configure();
     }
 
@@ -21,7 +21,7 @@ public abstract class BaseConfiguration implements Configuration {
         return settings.containsKey(setting) ? (T) settings.get(setting) : setting.getFallback();
     }
 
-    protected final <T> BaseConfiguration set(Setting<T> setting, T value) {
+    protected final <T> MapConfiguration set(Setting<T> setting, T value) {
         if (setting == null) {
             throw new IllegalArgumentException("Passed setting should not be null");
         }

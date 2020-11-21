@@ -2,11 +2,11 @@ package org.fluentness.prototype.controller;
 
 import org.fluentness.model.Player;
 import org.fluentness.model.Terrain;
+import org.fluentness.prototype.repository.EntityRepository;
 import org.fluentness.prototype.repository.PlayerRepository;
 import org.fluentness.prototype.repository.TerrainRepository;
 import org.fluentness.prototype.view.GameView;
 import org.fluentness.service.animator.Animator;
-import org.fluentness.service.display.Display;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -16,14 +16,18 @@ public class GameController extends org.fluentness.controller.GameController<Gam
     private final Player player;
     private final Terrain terrain;
 
-    public GameController(GameView gameView, Display display, Animator animator, PlayerRepository playerRepository, TerrainRepository terrainRepository) {
-        super(gameView, display);
+    public GameController(GameView gameView, Animator animator, PlayerRepository playerRepository, EntityRepository entityRepository, TerrainRepository terrainRepository) {
+        super(gameView);
         this.animator = animator;
         this.player = playerRepository.selectAll().get(0);
         this.terrain = terrainRepository.selectAll().get(0);
 
-        glfwSetKeyCallback(display.getWindowId(), this::keyListener);
-        glfwSetScrollCallback(display.getWindowId(), this::scrollListener);
+        gameView.terrains.add(terrain);
+        gameView.addEntity(player);
+        entityRepository.selectAll().forEach(gameView::addEntity);
+
+        glfwSetKeyCallback(gameView.getWindowId(), this::keyListener);
+        glfwSetScrollCallback(gameView.getWindowId(), this::scrollListener);
     }
 
     private double lastCursorPositionX, lastCursorPositionY;
@@ -31,7 +35,7 @@ public class GameController extends org.fluentness.controller.GameController<Gam
     @Override
     public void loop() {
         player.floor = terrain.getHeightAt(player.x, player.z);
-        player.control(display.getDelta(),
+        player.control(gameView.getDelta(),
             isKeyPressed(GLFW_KEY_W) ? 200 : isKeyPressed(GLFW_KEY_S) ? -200 : 0,
             isKeyPressed(GLFW_KEY_D) ? 200 : isKeyPressed(GLFW_KEY_A) ? -200 : 0,
             isKeyPressed(GLFW_KEY_SPACE) ? 200 : 0
