@@ -30,7 +30,7 @@ public class GameController extends org.fluentness.controller.GameController<Gam
 
     @Override
     public void loop() {
-        player.floor = terrain.getHeightAt(player.translation.x, player.translation.z);
+        player.floor = terrain.getHeightAt(player.x, player.z);
         player.control(display.getDelta(),
             isKeyPressed(GLFW_KEY_W) ? 200 : isKeyPressed(GLFW_KEY_S) ? -200 : 0,
             isKeyPressed(GLFW_KEY_D) ? 200 : isKeyPressed(GLFW_KEY_A) ? -200 : 0,
@@ -75,16 +75,16 @@ public class GameController extends org.fluentness.controller.GameController<Gam
         int z = 100;
         switch (key) {
             case GLFW_KEY_UP:
-                gameView.light.translation.z -= z;
+                gameView.light.z -= z;
                 break;
             case GLFW_KEY_DOWN:
-                gameView.light.translation.z += z;
+                gameView.light.z += z;
                 break;
             case GLFW_KEY_RIGHT:
-                gameView.light.translation.x += z;
+                gameView.light.x += z;
                 break;
             case GLFW_KEY_LEFT:
-                gameView.light.translation.x -= z;
+                gameView.light.x -= z;
                 break;
         }
     }

@@ -1,8 +1,6 @@
-package org.fluentness.view.environment.fog;
+package org.fluentness.model;
 
-import org.fluentness.view.environment.Environment;
-
-public class Fog implements Environment {
+public class Fog {
 
     public float density;
     public float gradient;

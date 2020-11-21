@@ -91,13 +91,13 @@ public class AlgebraImpl implements Algebra {
     }
 
     @Override
-    public Matrix4f transformationMatrix(Vector3f translation, Vector3f rotation, float scale) {
+    public Matrix4f transformationMatrix(float x, float y, float z,  float pitch, float yaw, float roll, float scale) {
         Matrix4f matrix4f = new Matrix4f();
 
-        matrix4f = matrix4f.multiply(translationMatrix(translation.x, translation.y, translation.z));
-        matrix4f = matrix4f.multiply(rotationMatrix(rotation.x, 1, 0, 0));
-        matrix4f = matrix4f.multiply(rotationMatrix(rotation.y, 0, 1, 0));
-        matrix4f = matrix4f.multiply(rotationMatrix(rotation.z, 0, 0, 1));
+        matrix4f = matrix4f.multiply(translationMatrix(x, y, z));
+        matrix4f = matrix4f.multiply(rotationMatrix(pitch, 1, 0, 0));
+        matrix4f = matrix4f.multiply(rotationMatrix(yaw, 0, 1, 0));
+        matrix4f = matrix4f.multiply(rotationMatrix(roll, 0, 0, 1));
         matrix4f = matrix4f.multiply(scaleMatrix(scale, scale, scale));
 
         return matrix4f;
@@ -120,13 +120,13 @@ public class AlgebraImpl implements Algebra {
     }
 
     @Override
-    public Matrix4f viewMatrix(Vector3f translation, Vector3f rotation) {
+    public Matrix4f viewMatrix(float x, float y, float z,  float pitch, float yaw, float roll) {
         Matrix4f matrix4f = new Matrix4f();
 
-        matrix4f = matrix4f.multiply(rotationMatrix(rotation.x, 1, 0, 0));
-        matrix4f = matrix4f.multiply(rotationMatrix(rotation.y, 0, 1, 0));
-        matrix4f = matrix4f.multiply(rotationMatrix(rotation.z, 0, 0, 1));
-        matrix4f = matrix4f.multiply(translationMatrix(-translation.x, -translation.y, -translation.z));
+        matrix4f = matrix4f.multiply(rotationMatrix(pitch, 1, 0, 0));
+        matrix4f = matrix4f.multiply(rotationMatrix(yaw, 0, 1, 0));
+        matrix4f = matrix4f.multiply(rotationMatrix(roll, 0, 0, 1));
+        matrix4f = matrix4f.multiply(translationMatrix(-x, -y, -z));
 
         return matrix4f;
     }

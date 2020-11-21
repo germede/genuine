@@ -1,7 +1,6 @@
 package org.fluentness.service.display;
 
 import org.fluentness.service.Service;
-import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.configuration.Setting;
 
 public interface Display extends Service {
@@ -20,7 +19,7 @@ public interface Display extends Service {
 
     long getWindowId();
 
-    void clear(Vector3f background);
+    void clear(float r, float g, float b);
 
     void update();
 

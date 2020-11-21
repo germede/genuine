@@ -24,14 +24,19 @@ public abstract class BaseRender<S extends BaseShader> implements Render {
         GL20.glEnableVertexAttribArray(2);
 
         // todo optimize projectionMatrix, doesn't need to be always generated
-        shader.set(shader.projectionMatrix, algebra.projectionMatrix(view.camera.fov, view.camera.aspect, view.camera.near, view.camera.far));
-        shader.set(shader.viewMatrix, algebra.viewMatrix(view.camera.translation, view.camera.rotation));
-        shader.set(shader.lightPosition, view.light.translation);
-        shader.set(shader.lightColour, view.light.colour);
+        shader.set(shader.projectionMatrix, algebra.projectionMatrix(
+            view.camera.fov, view.camera.aspect, view.camera.near, view.camera.far
+        ));
+        shader.set(shader.viewMatrix, algebra.viewMatrix(
+            view.camera.x, view.camera.y, view.camera.z,
+            view.camera.pitch, view.camera.yaw, view.camera.roll)
+        );
+        shader.set(shader.lightPosition, view.light.x, view.light.y, view.light.z);
+        shader.set(shader.lightColour, view.light.r, view.light.g, view.light.b);
         shader.set(shader.ambientLight, view.light.ambientLight);
         shader.set(shader.fogDensity, view.fog.density);
         shader.set(shader.fogGradient, view.fog.gradient);
-        shader.set(shader.skyColour, view.background.colour);
+        shader.set(shader.skyColour, view.background.r, view.background.g, view.background.b);
 
     }
 

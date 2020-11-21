@@ -14,10 +14,10 @@ public interface Algebra extends Service {
 
     Matrix4f frustumMatrix(float left, float right, float bottom, float top, float near, float far);
 
-    Matrix4f transformationMatrix(Vector3f translation, Vector3f rotation, float scale);
+    Matrix4f transformationMatrix(float x, float y, float z, float pitch, float yaw, float roll, float scale);
 
     Matrix4f projectionMatrix(float fov, float aspect, float near, float far);
 
-    Matrix4f viewMatrix(Vector3f translation, Vector3f rotation);
+    Matrix4f viewMatrix(float x, float y, float z, float pitch, float yaw, float roll);
 
 }

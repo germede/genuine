@@ -29,7 +29,7 @@ public class LooperImpl implements Looper {
         AbstractGameView view = controller.getGameView();
         display.setTitle(view.getTitle());
         while (!display.shouldClose()) {
-            display.clear(view.background.colour);
+            display.clear(view.background.r, view.background.g, view.background.b);
             terrainRender.render(view);
             entityRender.render(view);
             controller.loop();

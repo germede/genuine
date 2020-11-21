@@ -2,11 +2,10 @@ package org.fluentness.repository;
 
 import org.fluentness.model.Terrain;
 import org.fluentness.service.algebra.Vector3f;
+import org.fluentness.service.loader.Loader;
+import org.fluentness.service.loader.Texture;
 import org.fluentness.service.parser.RawMesh;
 import org.fluentness.service.parser.RawTexture;
-import org.fluentness.service.loader.Texture;
-import org.fluentness.service.loader.Loader;
-import org.fluentness.service.parser.TextureParser;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,9 +37,10 @@ public abstract class TerrainRepository implements Repository<Terrain> {
         for (int i = 0; i < texturePaths.length; i++) {
             textures[i] = loader.loadTexture(texturePaths[i]);
         }
-        Terrain terrain = new Terrain(size, heights, loader.loadShape(rawMesh), textures);
-        terrain.translation = new Vector3f(gridX * size - size / 2, 0, gridZ * size - size / 2);
-        return terrain;
+        return new Terrain(
+            gridX * size - size / 2, 0, gridZ * size - size / 2,
+            size, heights,
+            loader.loadShape(rawMesh), textures);
     }
 
     private RawMesh generateMesh(float size, float maxHeight, RawTexture heightMap) {
@@ -85,6 +85,14 @@ public abstract class TerrainRepository implements Repository<Terrain> {
         return new RawMesh(vertices, textures, normals, indices);
     }
 
+    private Vector3f calculateNormal(int x, int z, RawTexture heightMap, float maxHeight) {
+        float heightLeft = calculateHeight(x - 1, z, heightMap, maxHeight);
+        float heightRight = calculateHeight(x + 1, z, heightMap, maxHeight);
+        float heightDown = calculateHeight(x, z - 1, heightMap, maxHeight);
+        float heightUp = calculateHeight(x, z + 1, heightMap, maxHeight);
+        return new Vector3f(heightLeft - heightRight, 2f, heightDown - heightUp).normalize();
+    }
+
     private float calculateHeight(int x, int z, RawTexture heightMap, float maxHeight) {
         if (heightMap == null || x < 0 || x >= heightMap.getHeight() || z < 0 || z >= heightMap.getHeight()) {
             return 0;
@@ -94,14 +102,6 @@ public abstract class TerrainRepository implements Repository<Terrain> {
         height /= MAX_COLOUR / 2f;
         height *= maxHeight;
         return height;
-    }
-
-    private Vector3f calculateNormal(int x, int z, RawTexture heightMap, float maxHeight) {
-        float heightLeft = calculateHeight(x - 1, z, heightMap, maxHeight);
-        float heightRight = calculateHeight(x + 1, z, heightMap, maxHeight);
-        float heightDown = calculateHeight(x, z - 1, heightMap, maxHeight);
-        float heightUp = calculateHeight(x, z + 1, heightMap, maxHeight);
-        return new Vector3f(heightLeft - heightRight, 2f, heightDown - heightUp).normalize();
     }
 
 }

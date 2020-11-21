@@ -48,7 +48,11 @@ public class EntityRender extends BaseRender<EntityShader> {
     }
 
     private void renderEntity(Entity entity) {
-        shader.set(shader.transformationMatrix, algebra.transformationMatrix(entity.translation, entity.rotation, entity.scale));
+        shader.set(shader.transformationMatrix, algebra.transformationMatrix(
+            entity.x, entity.y, entity.z,
+            entity.pitch, entity.yaw, entity.roll,
+            entity.scale
+        ));
         shader.set(shader.shineDamper, entity.shineDamper);
         shader.set(shader.reflectivity, entity.reflectivity);
 

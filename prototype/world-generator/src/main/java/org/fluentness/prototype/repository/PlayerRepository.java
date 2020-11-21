@@ -7,7 +7,7 @@ public class PlayerRepository extends org.fluentness.repository.PlayerRepository
 
     public PlayerRepository(Loader loader) {
         Player player = new Player(loader.loadShape("dragon.obj"), loader.loadTexture("white.png"));
-        player.rotation.y = 180;
+        player.yaw = 180;
         players.add(player);
     }
 

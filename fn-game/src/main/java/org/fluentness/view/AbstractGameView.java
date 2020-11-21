@@ -2,10 +2,10 @@ package org.fluentness.view;
 
 import org.fluentness.model.Entity;
 import org.fluentness.model.Terrain;
-import org.fluentness.view.environment.background.Background;
-import org.fluentness.view.environment.camera.Camera;
-import org.fluentness.view.environment.fog.Fog;
-import org.fluentness.view.environment.light.Light;
+import org.fluentness.model.Background;
+import org.fluentness.model.Camera;
+import org.fluentness.model.Fog;
+import org.fluentness.model.Light;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -28,10 +28,10 @@ public abstract class EntityRepository implements Repository<Entity> {
             entities[i] = new Entity(mesh, texture);
             int x = random.nextInt(max - min) + min;
             int z = random.nextInt(max - min) + min;
-            entities[i].translation.x = x;
-            entities[i].translation.z = z;
-            entities[i].translation.y = 0;
-            entities[i].rotation.y = random.nextFloat() * 180f;
+            entities[i].x = x;
+            entities[i].z = z;
+            entities[i].y = 0;
+            entities[i].yaw = random.nextFloat() * 180f;
             entities[i].scale = random.nextFloat() * 10;
         }
         return entities;
@@ -47,10 +47,10 @@ public abstract class EntityRepository implements Repository<Entity> {
             entities[i] = new Entity(mesh, texture);
             int x = random.nextInt(max - min) + min;
             int z = random.nextInt(max - min) + min;
-            entities[i].translation.x = x;
-            entities[i].translation.z = z;
-            entities[i].translation.y = terrain.getHeightAt(x, z);
-            entities[i].rotation.y = random.nextFloat() * 180f;
+            entities[i].x = x;
+            entities[i].z = z;
+            entities[i].y = terrain.getHeightAt(x, z);
+            entities[i].yaw = random.nextFloat() * 180f;
             entities[i].scale = random.nextFloat() * 10;
         }
         return entities;

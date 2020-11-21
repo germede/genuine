@@ -2,15 +2,14 @@ package org.fluentness.model;
 
 import org.fluentness.service.loader.Mesh;
 import org.fluentness.service.loader.Texture;
-import org.fluentness.service.algebra.Vector3f;
 
 public class Terrain implements Model {
 
     public final Mesh mesh;
     public final Texture[] textures;
 
-    public Vector3f translation;
-    public Vector3f rotation = new Vector3f(0, 0, 0);
+    public float x, y, z;
+    public float pitch = 0, yaw = 0, roll = 0;
     public float scale = 1;
 
     public float repeatTextures = 40;
@@ -21,7 +20,10 @@ public class Terrain implements Model {
     public float shineDamper = 1;
     public float reflectivity = 0.5f;
 
-    public Terrain(float size, float[][] heights, Mesh mesh, Texture... textures) {
+    public Terrain(float x, float y, float z, float size, float[][] heights, Mesh mesh, Texture... textures) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
         this.size = size;
         this.heights = heights;
         this.mesh = mesh;
@@ -29,8 +31,8 @@ public class Terrain implements Model {
     }
 
     public float getHeightAt(float sceneX, float sceneZ) {
-        float terrainX = sceneX - translation.x;
-        float terrainZ = sceneZ - translation.z;
+        float terrainX = sceneX - x;
+        float terrainZ = sceneZ - z;
         float meshSquareSize = size / ((float) heights.length - 1);
         int squareX = (int) Math.floor(terrainX / meshSquareSize);
         int squareZ = (int) Math.floor(terrainZ / meshSquareSize);

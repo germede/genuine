@@ -4,10 +4,10 @@ import org.fluentness.prototype.repository.EntityRepository;
 import org.fluentness.prototype.repository.PlayerRepository;
 import org.fluentness.prototype.repository.TerrainRepository;
 import org.fluentness.view.AbstractGameView;
-import org.fluentness.view.environment.background.Background;
-import org.fluentness.view.environment.camera.Camera;
-import org.fluentness.view.environment.fog.Fog;
-import org.fluentness.view.environment.light.Light;
+import org.fluentness.model.Background;
+import org.fluentness.model.Camera;
+import org.fluentness.model.Fog;
+import org.fluentness.model.Light;
 
 public class GameView extends AbstractGameView {
 

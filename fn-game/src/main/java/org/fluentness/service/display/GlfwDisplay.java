@@ -1,6 +1,5 @@
 package org.fluentness.service.display;
 
-import org.fluentness.service.algebra.Vector3f;
 import org.fluentness.service.configuration.Configuration;
 import org.fluentness.service.log.Log;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -73,10 +72,10 @@ public class GlfwDisplay implements Display {
     }
 
     @Override
-    public void clear(Vector3f background) {
+    public void clear(float r, float g, float b) {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(background.x, background.y, background.z, 1);
+        GL11.glClearColor(r, g, b, 1);
     }
 
     @Override
