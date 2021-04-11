@@ -1,5 +1,3 @@
-#**THIS PROJECT IS NO LONGER MAINTAINED**
-
 ![Fluentness logo](fn-core/src/main/resources/img/logo.png?raw=true "Fluentness logo")
 
 The project in a nutshell:
