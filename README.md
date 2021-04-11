@@ -1,3 +1,5 @@
+#**THIS PROJECT IS NO LONGER MAINTAINED**
+
 ![Fluentness logo](fn-core/src/main/resources/img/logo.png?raw=true "Fluentness logo")
 
 The project in a nutshell:
@@ -64,4 +66,4 @@ This project relies on the following open-source technologies:
 
 ## Copyright
 This project is licensed under the terms of the EUPL (1.2 or later).  
-Copyright © 2020 Gerardo Medina.  
+Copyright © 2019-2020 geremde.  
