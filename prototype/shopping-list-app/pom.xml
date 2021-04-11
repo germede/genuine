@@ -12,7 +12,8 @@
 
     <artifactId>shopping-list-app</artifactId>
 
-    <packaging>apk</packaging>
+    <packaging>jar</packaging>
+<!--    <packaging>apk</packaging>-->
 
     <properties>
         <mainClass>org.fluentness.prototype.ShoppingListApplication</mainClass>
@@ -26,29 +27,29 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.simpligility.maven.plugins</groupId>
-                <artifactId>android-maven-plugin</artifactId>
-                <version>4.6.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <!--Older version of this plugin used dex android "compiler" by default, which is
-                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8-->
-                    <dexCompiler>d8</dexCompiler>
-                    <dexMultiDex>true</dexMultiDex>
-                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
-                    <sdk>
-                        <!--Play store only accepts with API level >= 28-->
-                        <platform>28</platform>
-                        <!--Replace with your own path or export ANDROID_HOME-->
-                        <path>/home/germede/Android/Sdk</path>
-                    </sdk>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>com.simpligility.maven.plugins</groupId>-->
+<!--                <artifactId>android-maven-plugin</artifactId>-->
+<!--                <version>4.6.0</version>-->
+<!--                <extensions>true</extensions>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash;Older version of this plugin used dex android "compiler" by default, which is-->
+<!--                    incompatible with Java 8 (lambdas, default methods in interfaces). Now it uses d8&ndash;&gt;-->
+<!--                    <dexCompiler>d8</dexCompiler>-->
+<!--                    <dexMultiDex>true</dexMultiDex>-->
+<!--                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>-->
+<!--                    <sdk>-->
+<!--                        &lt;!&ndash;Play store only accepts with API level >= 28&ndash;&gt;-->
+<!--                        <platform>28</platform>-->
+<!--                        &lt;!&ndash;Replace with your own path or export ANDROID_HOME&ndash;&gt;-->
+<!--                        <path>/home/germede/Android/Sdk</path>-->
+<!--                    </sdk>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 </project>
 
 
